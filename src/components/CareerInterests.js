@@ -1,0 +1,99 @@
+import React from 'react';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+
+//const businessOptions = ['gilad','jason','antoine']
+const businessList = [{key:'BD',label:'Business development'},{key:'CRM',label:'Client relationship management'}]
+const marketingList = [{key:'CW',label:'Copy writing'},{key:'DM',label:'Digital marketing'}]
+const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User experience'},{key:'UI',label:'User interface'}]
+const ITList = [{key:'SDEV',label:'Software development'},{key:'WEB',label:'Web&App'},{key:'DA',label:'Data Analytics'}]
+const lists = [{label:'Business',items: businessList},{label:'marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
+
+const styles = theme => ({
+  root: {
+    
+  },  
+  group: {
+    marginTop:30,
+   
+  },
+  groupHeader:{
+    fontSize:'18px',
+    color:'#000',
+    marginBottom:10
+  },
+  checkBox:{
+    marginBottom:-10,
+    fontSize:'15px',
+  }
+ 
+});
+
+
+class CareerInterests extends React.Component {
+  state = {
+   selectedCount : 0
+  };
+  
+  handleChange = name => event => {
+ 
+    if(event.target.checked){
+        this.setState({ selectedCount: this.state.selectedCount +1 });
+    }else{
+        this.setState({ selectedCount: this.state.selectedCount -1 });
+    }
+    this.setState({ [name]: event.target.checked });
+   
+  };
+
+  renderCheckBox(item){
+    return(
+    <FormControlLabel key={item.key}
+            control={
+              <Checkbox
+                disabled = {this.state.selectedCount>2 && !this.state[item.key]}
+                checked={this.state[item.key]}
+                onChange={this.handleChange(item.key)}
+                value={item.label}
+              />
+            }
+            label={item.label}
+          />
+    )
+  }
+  renderCheckBoxGroup(label,options){
+    const { classes } = this.props;
+      return(
+        
+    <FormControl className={classes.group} key={label} component="fieldset">
+    <FormLabel className={classes.groupHeader} component="legend">{label}</FormLabel>
+    <FormGroup>
+    {options.map(option => this.renderCheckBox(option))}
+    </FormGroup>
+  </FormControl>)
+  }
+  render() {
+    const { classes } = this.props;
+    return (
+        <div className={classes.root}>
+         <Typography variant="title" color="primary">
+         Career Interests - {3-this.state.selectedCount} remaining
+        </Typography>
+        
+            {lists.map(list => this.renderCheckBoxGroup(list.label,list.items))}
+       
+     </div>
+    );
+  }
+}
+CareerInterests.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(CareerInterests);
