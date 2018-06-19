@@ -6,6 +6,8 @@ import ResumeBuilderView from './Views/ResumeBuilderView'
 
 import IntroductionView from './Views/IntroductionView';
 import { Theme } from './Theme';
+import MultiLineTextField from './components/MultiLineTextField';
+import LogoInCard from './components/LogoInCard';
 
 
 class App extends Component {
@@ -14,7 +16,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={Theme}>
       <div className="App">
-        <IntroductionView/>
+       <AuthView/>
       </div>
       </MuiThemeProvider>
     );

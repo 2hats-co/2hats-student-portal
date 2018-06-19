@@ -5,6 +5,7 @@ export const Theme = createMuiTheme({
       
       title:{
         fontSize: '20px',
+        textAlign: 'left'
       },
       headline:{
         fontSize: '40px',
