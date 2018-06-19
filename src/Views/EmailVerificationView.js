@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LogoOnCard from '../components/LogoOnCard';
 import HappyMan from '../assets/images/graphics/Intro3.png'
-import { Grid, Button, Typography } from '@material-ui/core';
+import { Grid, Button, Typography, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText, Slide, TextField } from '@material-ui/core';
 
-
+function Transition(props) {
+    return <Slide direction="up" {...props} />;
+}
 const styles = theme => ({
     grid: {
         height: 590
@@ -20,7 +22,11 @@ const styles = theme => ({
     },
     image: {
         width: 200,
-    }
+    },
+    textField: {
+        //marginTop:-12,
+        width: '100%'
+      },
 
 });
 const body = ['To ensure you can successfully receive our feedback, we have sent a verification email to your provided email address. ',
@@ -28,10 +34,85 @@ const body = ['To ensure you can successfully receive our feedback, we have sent
     'If you have not received such email from 2hats, you can request another verification email or modify your email address. ',
 ]
 class EmailVerificationView extends React.Component {
+    state = {
+        modifyDialog: false,
+        resendDialog: false,
+    };
+    handleChangeEmail = () => {
+        this.setState({
+            modifyDialog: true,
 
+        });
+    }
+    handleSendVerificationEmail = () => {
+        this.setState({
+            resendDialog: true
+        });
+    }
+    handleClose = () => {
+        this.setState({
+            modifyDialog: false,
+            resendDialog: false
+        });
+    };
     render() {
         const { classes } = this.props;
-
+        const modifyEmailDialog = (<Dialog
+            open={this.state.modifyDialog}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+        >
+            <DialogTitle id="alert-dialog-slide-title">
+            <Typography variant='title' color='primary'>
+                Modify email
+                </Typography>
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                Please enter the correct email address below. 
+              </DialogContentText>
+                <TextField
+                    id="email"
+                    label="Email Address"
+                    placeholder="Email Address"
+                    className={classes.textField}
+                    margin="normal"
+                    color="primary"
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                    OKAY
+              </Button>
+            </DialogActions>
+        </Dialog>)
+        const resendVerifiactionEmailDialog = (<Dialog
+            open={this.state.resendDialog}
+            TransitionComponent={Transition}
+            keepMounted
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-slide-title"
+            aria-describedby="alert-dialog-slide-description"
+        >
+            <DialogTitle id="alert-dialog-slide-title">
+            <Typography variant='title' color='primary'>
+                Resend email
+            </Typography>
+            </DialogTitle>
+            <DialogContent>
+                <DialogContentText id="alert-dialog-slide-description">
+                    We have just resent the verification email. Please check your inbox and follow the instruction in the email.
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                    OKAY
+              </Button>
+            </DialogActions>
+        </Dialog>)
         return (
             <LogoOnCard>
                 <Grid container
@@ -48,10 +129,6 @@ class EmailVerificationView extends React.Component {
                     {body.map((p) => <Typography variant="body">
                         {p}
                     </Typography>)}
-
-
-
-
                     <Grid container
                         direction="row"
                         className={classes.footerButtons}
@@ -60,17 +137,23 @@ class EmailVerificationView extends React.Component {
                         <Button variant="outlined"
                             className={classes.button}
                             color="primary"
+                            onClick={this.handleChangeEmail}
                         >
                             Modify email
                 </Button>
                         <Button
                             className={classes.button}
-                            variant="contained" color="primary">
+                            variant="contained"
+                            color="primary"
+                            onClick={this.handleSendVerificationEmail}>
                             Resend Email
                 </Button>
                     </Grid>
                 </Grid>
+                {resendVerifiactionEmailDialog}
+                {modifyEmailDialog}
             </LogoOnCard>
+
         )
     }
 
