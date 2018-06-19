@@ -8,6 +8,8 @@ import IntroductionView from './Views/IntroductionView';
 import { Theme } from './Theme';
 import MultiLineTextField from './components/MultiLineTextField';
 import LogoInCard from './components/LogoInCard';
+import UploadResumeView from './Views/UploadResumeView';
+import EmailVerificationView from './Views/EmailVerificationView';
 
 
 class App extends Component {
@@ -16,7 +18,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={Theme}>
       <div className="App">
-       <AuthView/>
+       <EmailVerificationView/>
       </div>
       </MuiThemeProvider>
     );

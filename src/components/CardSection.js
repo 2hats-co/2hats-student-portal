@@ -57,7 +57,7 @@ function CardSection(props) {
 
       {button&& <Button className={classes.button} variant="contained" color="primary">
               {button.label}
-            </Button>}
+        </Button>}
             
     </div>
   );

@@ -27,22 +27,19 @@ const styles = theme => ({
     //marginTop:-12,
     width: '40%'
   },
-
   grid: {
     height: 400
   },
   button: {
 
   },
-  socialButton:{
+  socialButton: {
     width: 315,
-    height:40,
-    color:'#fff',
-    
+    height: 40,
+    color: '#fff',
   },
-
-  socialIcon:{
-    marginLeft:-60,
+  socialIcon: {
+    marginLeft: -60,
     marginRight: 50
   }
 });
@@ -52,16 +49,18 @@ class AuthView extends React.Component {
 
   render() {
     const { classes } = this.props;
-    let socialButton = (provider,method) => (<Button style={provider==='google'?{backgroundColor:'#E05449'}:{backgroundColor:'#0077B5'}} className={classes.socialButton}>
-      <div className={classes.socialIcon} >
-       <img src={provider==='google'?GoogleIcon:LinkedinIcon}/>
-       </div> sign {method} with {provider}
+    let socialButton = (provider, method) => (
+      <Button style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
+        <div className={classes.socialIcon} >
+          <img src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
+        </div> sign {method} with {provider}
+      </Button>)
+
+    let linkButton = (label, link) => (<Button href={link} color='primary' className={classes.button}>
+      {label}
     </Button>)
-   
-    let linkButton = (label,link) => (<Button href={link} color='primary' className={classes.button}>
-    {label}
-  </Button>)
-    const emailField = (<TextField
+    const emailField = (
+    <TextField
       id="email"
       label="Email Address"
       placeholder="Email Address"
@@ -70,14 +69,14 @@ class AuthView extends React.Component {
       color="primary"
     />)
 
-    const passwordField = (<TextField
+    const passwordField = (
+    <TextField
       id="password"
       label="Password"
       placeholder="Password"
       className={classes.textField}
       margin="normal"
       type='password'
-
     />)
     const nameFields = (<Grid
       justify='space-between'
@@ -103,18 +102,18 @@ class AuthView extends React.Component {
     const orLabel = (<Typography variant="button" gutterBottom>
       OR
     </Typography>)
-    const signInRow = ( 
-    <Grid container
-      alignItems='center'
-      justify='space-between'
-      direction='row'
-    >
-    {linkButton('Forgot Password?','#')}
-    <Button variant="contained" color="primary" className={classes.button}>
-      Sign In
+    const signInRow = (
+      <Grid container
+        alignItems='center'
+        justify='space-between'
+        direction='row'
+      >
+        {linkButton('Forgot Password?', '#')}
+        <Button variant="contained" color="primary" className={classes.button}>
+          Sign In
     </Button>
-  </Grid>
-  )
+      </Grid>
+    )
     const signUpButton = (<Button variant="contained" color="primary" className={classes.button}>
       Sign Up
 </Button>)
@@ -145,13 +144,13 @@ class AuthView extends React.Component {
           </Typography>
         </Grid>
         <Grid item xs={2} >
-        {linkButton(linkLabel,link)}
+          {linkButton(linkLabel, link)}
         </Grid>
       </Grid>)
     return (
-     
+
       <LogoInCard>
-         
+
         <Grid
           container
           spacing={16}
@@ -160,8 +159,8 @@ class AuthView extends React.Component {
           direction='column'
           justify='center'
         >
-        {socialButton('google','in')}
-        {socialButton('linkedin','up')}
+          {socialButton('google', 'in')}
+          {socialButton('linkedin', 'up')}
           {resetPasswordText}
           {emailField}
           {signInRow}
