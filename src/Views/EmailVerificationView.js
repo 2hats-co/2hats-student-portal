@@ -14,11 +14,9 @@ const styles = theme => ({
     },
     footerButtons: {
         width: 440,
-
     },
     button: {
         width: 200,
-
     },
     image: {
         width: 200,
@@ -125,7 +123,7 @@ class EmailVerificationView extends React.Component {
                         Your submission is received!
                       </Typography>
 
-                    <img className={classes.image} src={HappyMan} />
+                    <img alt='congrats!' className={classes.image} src={HappyMan} />
                     {body.map((p) => <Typography variant="body">
                         {p}
                     </Typography>)}

@@ -36,7 +36,7 @@ function LogoOnCard(props) {
   return (
     <div className={classes.root}>
       <div className={classes.logo}>
-        <img src={DarkLogo}/>
+        <img alt='dark2hatsLogo' src={DarkLogo}/>
       </div>
       <Paper className={classes.paper} style={{width:width}} elevation={15}>
       <div className={classes.content}>{props.children}

@@ -52,7 +52,7 @@ class AuthView extends React.Component {
     let socialButton = (provider, method) => (
       <Button style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
         <div className={classes.socialIcon} >
-          <img src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
+          <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
         </div> sign {method} with {provider}
       </Button>)
 
