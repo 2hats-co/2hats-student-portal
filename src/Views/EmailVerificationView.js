@@ -85,7 +85,7 @@ class EmailVerificationView extends React.Component {
             </DialogContent>
             <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
-                    OKAY
+                    Modify
               </Button>
             </DialogActions>
         </Dialog>)
@@ -109,7 +109,7 @@ class EmailVerificationView extends React.Component {
             </DialogContent>
             <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
-                    OKAY
+                    Okay
               </Button>
             </DialogActions>
         </Dialog>)
