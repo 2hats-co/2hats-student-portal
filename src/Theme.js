@@ -23,10 +23,7 @@ export const Theme = createMuiTheme({
         border: '1px solid #979797',
         textTransform: 'capitalize',
         '&:hover': {backgroundColor:WHITE}
-      },
-     
-    
-      
+      },  
     },
   },
   typography: {
@@ -40,7 +37,8 @@ export const Theme = createMuiTheme({
       fontFamily:primaryFontFamily,
       fontWeight: 'bold',
       fontSize: '20px',
-      textAlign: 'left'
+      textAlign: 'left',
+      textTransform: 'capitalize',
     },
     
     subheading: {
@@ -61,8 +59,9 @@ export const Theme = createMuiTheme({
       fontSize: '10px',
       fontWeight: 'regular',
       fontFamily:primaryFontFamily,
-      color: BLACK,
-      letterSpacing: '0.05px'
+      color: '#9B9B9B',
+      letterSpacing: '0.05px',
+      lineHeight: '12px',
     }, Button: {
       fontFamily:primaryFontFamily,
       fontWeight: 'bold',
