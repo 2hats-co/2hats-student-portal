@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LogoOnCard from '../components/LogoOnCard';
-import HappyMan from '../assets/images/graphics/Intro3.png'
+import OpenMail from '../assets/images/graphics/EmailVerification.png'
 import { Grid, Button, Typography, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText, Slide, TextField } from '@material-ui/core';
 
 function Transition(props) {
@@ -123,7 +123,7 @@ class EmailVerificationView extends React.Component {
                         Your submission is received!
                       </Typography>
 
-                    <img alt='congrats!' className={classes.image} src={HappyMan} />
+                    <img alt='email graphic' className={classes.image} src={OpenMail} />
                     {body.map((p) => <Typography variant="body">
                         {p}
                     </Typography>)}
