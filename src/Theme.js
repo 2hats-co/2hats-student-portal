@@ -20,6 +20,7 @@ export const Theme = createMuiTheme({
         color: primaryColor,
         backgroundColor:WHITE,
         borderRadius:'20px',
+        border: '1px solid #979797',
         textTransform: 'capitalize',
         '&:hover': {backgroundColor:WHITE}
       },
@@ -63,16 +64,14 @@ export const Theme = createMuiTheme({
       color: BLACK,
       letterSpacing: '0.05px'
     }, Button: {
-
       fontFamily:primaryFontFamily,
+      fontWeight: 'bold',
       fontSize: '15px',
       letterSpacing: '0.1px',
       textAlign: 'center'
     },
     fontFamily: [
-      '"Helvetica Neue"',
-      'Helvetica',
-
+      primaryFontFamily,
     ].join(','),
   },
   palette: {

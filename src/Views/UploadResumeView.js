@@ -5,7 +5,7 @@ import LogoOnCard from '../components/LogoOnCard';
 
 import { Grid, Button,Typography } from '@material-ui/core';
 import CareerInterests from '../components/CareerInterests';
-
+import DocumentLoader from '../components/DocumentLoader';
 
 const styles = theme => ({
     root: {
@@ -13,11 +13,9 @@ const styles = theme => ({
     },
     footerButtons: {
         width: 440,
-
     },
     button: {
         width: 200,
-        
     }
 
 });
@@ -40,7 +38,7 @@ class UploadResumeView extends React.Component {
                 </Button>
                 <Button
                     className={classes.button}
-                    variant="contained" color="primary">
+                    variant="flat" color="primary">
                     {nextLabel}
                 </Button>
             </Grid>)
@@ -58,10 +56,10 @@ class UploadResumeView extends React.Component {
                 <Grid container
                 direction="column"
                 justify='space-between'
+                alignItems='center'
             >
-            {careerInterestsHeader}
-            <CareerInterests/>
-               
+            {uploadResumeHeader}
+                <DocumentLoader/>
                 {footerButtons('Confirm interests')}
             </Grid>
             </LogoOnCard>
