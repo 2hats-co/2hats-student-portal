@@ -1,15 +1,42 @@
 
 import { createMuiTheme } from '@material-ui/core/styles';
+export const PRIMARYCOLOR = '#F15A29'
+const primaryFontFamily = "Helvetica Neue"
+const WHITE = '#fff'
+const BLACK = '#000'
+const primaryColor = PRIMARYCOLOR
 export const Theme = createMuiTheme({
+  overrides: {
+    MuiButton: { // Name of the component ⚛️ / style sheet
+      flat: { // Name of the rule
+        color: WHITE,
+        backgroundColor:primaryColor,
+        borderRadius:'20px',
+        textTransform: 'capitalize',
+        '&:hover': {backgroundColor:primaryColor},
+        '&:disabled': {opacity: 0.4,color:WHITE},
+      },
+      outlined: { // Name of the rule
+        color: primaryColor,
+        backgroundColor:WHITE,
+        borderRadius:'20px',
+        textTransform: 'capitalize',
+        '&:hover': {backgroundColor:WHITE}
+      },
+     
+    
+      
+    },
+  },
   typography: {
     headline: {
       fontSize: '30px',
-      fontFamily: "Helvetica Neue",
+      fontFamily: primaryFontFamily,
       fontWeight: 'bold',
       textAlign: 'center'
     },
     title: {
-      fontFamily: "Helvetica Neue",
+      fontFamily:primaryFontFamily,
       fontWeight: 'bold',
       fontSize: '20px',
       textAlign: 'left'
@@ -17,7 +44,7 @@ export const Theme = createMuiTheme({
     
     subheading: {
    
-      fontFamily: 'Helvetica Neue',
+      fontFamily:primaryFontFamily,
       fontWeight: 'medium',
       fontSize: '16px',
       letterSpacing: '0.08px'
@@ -25,19 +52,19 @@ export const Theme = createMuiTheme({
     body1: {
       fontSize: '12px',
       fontWeight: 'Regular',
-      fontFamily: 'Helvetica Neue',
+      fontFamily:primaryFontFamily,
       letterSpacing: '0.06px'
 
     },
     caption: {
       fontSize: '10px',
       fontWeight: 'regular',
-      fontFamily: 'Helvetica Neue',
-      color: '#000',
+      fontFamily:primaryFontFamily,
+      color: BLACK,
       letterSpacing: '0.05px'
     }, Button: {
 
-      fontFamily: 'Helvetica Neue',
+      fontFamily:primaryFontFamily,
       fontSize: '15px',
       letterSpacing: '0.1px',
       textAlign: 'center'
@@ -50,16 +77,17 @@ export const Theme = createMuiTheme({
   },
   palette: {
     primary: {
-      light: '#FF5B40',//
-      main: '#FF5B40',// button
-      dark: '#FF5B40',//textfield label
-      contrastText: '#fff',//button text
+      light: primaryColor,//
+      main: primaryColor,// button
+      dark: primaryColor,//textfield label
+      contrastText: WHITE,//button text
     },
     secondary: {
+      //TODO , purple?
       light: '#ff7961',
       main: '#f44336',
       dark: '#ba000d',
-      contrastText: '#000',
+      contrastText: BLACK,
     },
   },
 });

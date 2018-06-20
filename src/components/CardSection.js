@@ -9,56 +9,52 @@ import Grid from '@material-ui/core/Grid'
 
 const styles = theme => ({
   root: theme.mixins.gutters({
-    width:350,
+    width: 350,
     height: 550,
-    
+
   }),
-  button:{
-      marginTop: 20,
-     marginLeft: 80,
-     display: 'inline-block',
-     width: 200
+  button: {
+    marginTop: 20,
+    marginLeft: 80,
+    display: 'inline-block',
+    width: 200
   }
 });
 
 function CardSection(props) {
-  const { classes, step, title, image, description,button } = props;
+  const { classes, step, title, image, description, button } = props;
   return (
     <div>
-    <Grid container 
-    className={classes.root}
-    spacing={0}
-            alignItems='center'
-            direction='column'
-            justify='space-between'
-    >
-     <Grid container 
-  
-    spacing={0}
-            alignItems='center'
-            direction='column'
-            justify='flex-start'
-    >
-    {step&&<Typography variant="display1" color="primary">
-          Step {step}
-        </Typography>}
-        <Typography variant="display1" >
-          {title}
-        </Typography>
-    </Grid>
-        <img src={image} alt={title}/> 
+      <Grid container
+        className={classes.root}
+        spacing={0}
+        alignItems='center'
+        direction='column'
+        justify='space-between'
+      >
+        <Grid container
 
+          spacing={0}
+          alignItems='center'
+          direction='column'
+          justify='flex-start'
+        >
+          {step && <Typography variant="display1" color="primary">
+            Step {step}
+          </Typography>}
+          <Typography variant="display1" >
+            {title}
+          </Typography>
+        </Grid>
+        <img src={image} alt={title} />
         <Typography variant="body1">
           {description}
         </Typography>
-
-        
       </Grid>
+      {button && <Button className={classes.button} variant="contained" color="primary">
+        {button.label}
+      </Button>}
 
-      {button&& <Button className={classes.button} variant="contained" color="primary">
-              {button.label}
-        </Button>}
-            
     </div>
   );
 }
