@@ -11,19 +11,17 @@ const styles = theme => ({
      width:250,
   }),
   inputField: theme.mixins.gutters({
-      marginTop:10,
+      marginTop:0,
       paddingLeft:'0 !important',
     width:'100%'
  }),
 });
-
 function PhoneNumber(props) {
   const { classes } = props;
     const InputField = (   <TextField
         className={classes.inputField}
         id="phoneNumber"
         placeholder="e.g. 0400 000 000"
-        
         margin="normal"
         color="primary"
       />)
@@ -34,14 +32,12 @@ function PhoneNumber(props) {
     <InputWrapper 
   title='mobile number'
   hint='Your mobile number is required so that we can contact you for a phone interview.'
-  
   >
     {InputField}
   </InputWrapper>
   </div> 
   );
 }
-
 PhoneNumber.propTypes = {
   classes: PropTypes.object.isRequired,
 };

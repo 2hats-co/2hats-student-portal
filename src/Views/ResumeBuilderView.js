@@ -6,27 +6,29 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+import Grid from '@material-ui/core/Grid';
 import CareerInterests from '../components/CareerInterests'
 import LogoOnCard from '../components/LogoOnCard'
 import { TextField } from '@material-ui/core';
 import InputWrapper from '../components/InputWrapper'
 import PhoneNumber from '../components/PhoneNumber';
 import DropDown from '../components/DropDown';
+import MultiLineTextField from '../components/MultiLineTextField';
+import AutoCompleteField from '../components/AutoCompleteField';
 const styles = theme => ({
   root: {
     width: '90%',
     margin: 'auto',
   },
-  backButton: {
-    marginRight: theme.spacing.unit,
-  },
-
   stepContainer:{
     
   },
-  inputField:{
-    width: '100%'
+  footerContainer:{
+    alignSelf: 'flex-end',
+    width: 320
+  },
+  footerButton:{
+    width : 140
   }
 
 });
@@ -35,11 +37,27 @@ const styles = theme => ({
 function getSteps() {
   return ['Career Interests', 'Bio & Relevant Skills', 'Tertiary Education','Practical Experience','Other Information'];
 }
-
+const otherInfo = (<Grid
+  container
+  direction='row'
+  justify='space-between'
+  style={{height:200}}>
+    <DropDown/>
+    <PhoneNumber/>
+  </Grid>)
+  const bioSection = (<Grid
+    container
+    direction='row'
+    justify='space-between'
+    style={{height:200}}>
+      <MultiLineTextField/>
+      <AutoCompleteField title='skills' 
+      hint='Please address your chosen skill(s) in your tertiary education and practical experience. '/>
+    </Grid>)
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return <DropDown/>;
+    return (bioSection)
     case 1:
       return 'Bio & Relevant Skills';
     case 2:
@@ -107,32 +125,41 @@ class ResumeBulderView extends React.Component {
                 You can submit your resume for our review now.
               </Typography>
               <Button  variant="outlined"
-              color="primary"
+             
                   disabled={activeStep === 0}
                   onClick={this.handleBack}
                   className={classes.backButton}
                 >
                   Back
                 </Button>
-                <Button variant="contained" color="primary">
+                <Button variant="flat">
                   Submit resume
                 </Button>
             </div>
           ) : (
             <div className={classes.stepContainer}>
               {getStepContent(activeStep)}
-              <div>
-                <Button  variant="outlined"
+              <Grid 
+              className={classes.footerContainer}
+              container
+              direction='row'
+              justify='space-between'
+              >
+                <Button 
+                 className={classes.footerButton}
+                variant="outlined"
                   disabled={activeStep === 0}
                   onClick={this.handleBack}
-                 // className={classes.backButton}
+                
                 >
                   Back
                 </Button>
-                <Button variant="flat" color="primary" onClick={this.handleNext}>
+                <Button 
+                 className={classes.footerButton}
+                variant="flat" onClick={this.handleNext}>
                   Next
                 </Button>
-              </div>
+              </Grid>
             </div>
           )}
         </div>

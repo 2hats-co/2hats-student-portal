@@ -9,7 +9,6 @@ import DocumentLoader from '../components/DocumentLoader';
 
 const styles = theme => ({
     root: {
-
     },
     footerButtons: {
         width: 440,
@@ -17,11 +16,10 @@ const styles = theme => ({
     button: {
         width: 200,
     }
-
 });
 
-class UploadResumeView extends React.Component {
 
+class UploadResumeView extends React.Component {
     render() {
         const { classes } = this.props;
         let footerButtons = (nextLabel) => (

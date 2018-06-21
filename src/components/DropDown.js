@@ -1,4 +1,4 @@
-// props: title? label? options! helperLabel! hint!
+// props: title? label? options! helperLabel! hint! value!, onChange binder!
 
 
 import React from 'react';
@@ -11,7 +11,7 @@ const styles = theme => ({
      width:250,
   }),
   inputField: theme.mixins.gutters({
-      marginTop:10,
+      marginTop:0,
       paddingLeft:'0 !important',
     width:'100%'
  }),

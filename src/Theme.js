@@ -7,6 +7,7 @@ const BLACK = '#000'
 const primaryColor = PRIMARYCOLOR
 export const Theme = createMuiTheme({
   overrides: {
+    
     MuiButton: { // Name of the component ⚛️ / style sheet
       flat: { // Name of the rule
         color: WHITE,
@@ -17,7 +18,7 @@ export const Theme = createMuiTheme({
         '&:disabled': {opacity: 0.4,color:WHITE},
       },
       outlined: { // Name of the rule
-        color: primaryColor,
+        color: primaryColor+'!important',
         backgroundColor:WHITE,
         borderRadius:'20px',
         border: '1px solid #979797',
