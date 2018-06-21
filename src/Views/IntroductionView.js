@@ -19,13 +19,14 @@ const styles = theme => ({
    
     },
     sections:{
-       marginTop:50,
+       marginTop:30,
     }
   
   });
 
 
 const IntroSections = [
+
     {title:'Get Reviewed',
     image:intro1,
     description:'We will provide you a set of tailored and practical feedback based on your resume submission.',
@@ -58,7 +59,7 @@ class IntroductionView extends React.Component {
     const { classes } = this.props;
     return (
     <LogoOnCard 
-    width={'880px'}
+    width={'680px'}
     >
     <div className={classes.root}> 
     <Typography variant="headline" color="primary">

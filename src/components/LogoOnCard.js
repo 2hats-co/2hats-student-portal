@@ -7,10 +7,10 @@ import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
 const styles = theme => ({
   root: theme.mixins.gutters({
- 
+
   }),
   logo: theme.mixins.gutters({
-    paddingTop:50,        
+    paddingTop:32,        
     paddingBottom:30,        
     width:242,
     height:84,
@@ -23,6 +23,7 @@ const styles = theme => ({
     padding: 30,
   }),
   content:theme.mixins.gutters({
+    padding:'0 !important',
     margin: '0px auto',
     float: 'none',
     display: 'table',
