@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -9,6 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import LogoInCard from '../components/LogoInCard';
 import GoogleIcon from '../assets/images/social/google.svg'
 import LinkedinIcon from '../assets/images/social/linkedin.svg'
+import StyledLink from '../components/StyledLink';
 const styles = theme => ({
   root: theme.mixins.gutters({
     paddingTop: 16,
@@ -34,13 +34,14 @@ const styles = theme => ({
 
   },
   socialButton: {
-    width: 315,
+    margin:5,
+    width: 250,
     height: 40,
     color: '#fff',
   },
   socialIcon: {
-    marginLeft: -60,
-    marginRight: 50
+ 
+    marginRight: 17
   }
 });
 
@@ -56,9 +57,9 @@ class AuthView extends React.Component {
         </div> sign {method} with {provider}
       </Button>)
 
-    let linkButton = (label, link) => (<Button href={link} color='primary' className={classes.button}>
+    let linkButton = (label, link) => (<StyledLink>
       {label}
-    </Button>)
+    </StyledLink>)
     const emailField = (
     <TextField
       id="email"
@@ -109,12 +110,12 @@ class AuthView extends React.Component {
         direction='row'
       >
         {linkButton('Forgot Password?', '#')}
-        <Button variant="contained" color="primary" className={classes.button}>
+        <Button variant='flat'className={classes.button}>
           Sign In
     </Button>
       </Grid>
     )
-    const signUpButton = (<Button variant="contained" color="primary" className={classes.button}>
+    const signUpButton = (<Button variant="flat" className={classes.button}>
       Sign Up
 </Button>)
     const resetPasswordText = (<Grid
@@ -128,7 +129,7 @@ class AuthView extends React.Component {
         Please enter your email address to receive the instruction for resetting password.
 </Typography>
     </Grid>)
-    let resetPasswordButton = (isDisable) => (<Button variant="contained" disabled={isDisable} color="primary" className={classes.button}>
+    let resetPasswordButton = (isDisable) => (<Button variant="flat" disabled={isDisable} color="primary" className={classes.button}>
 
       Reset Password
   </Button>)
@@ -165,8 +166,13 @@ class AuthView extends React.Component {
           {emailField}
           {signInRow}
           {resetPasswordButton(true)}
-          {footerLink('Already have an account?', '#', 'Sign In')}
-          {footerLink('Don’t have an account?', '#', 'SignUp')}
+          {signUpButton}
+          {signInRow}
+
+          {footerLink('Already have an account?', '#4', 'Sign In')}
+          {
+            //footerLink('Don’t have an account?', '#', 'SignUp')
+          }
 
         </Grid>
       </LogoInCard>

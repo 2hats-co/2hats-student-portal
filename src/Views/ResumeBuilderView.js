@@ -9,7 +9,9 @@ import Typography from '@material-ui/core/Typography';
 
 import CareerInterests from '../components/CareerInterests'
 import LogoOnCard from '../components/LogoOnCard'
-
+import { TextField } from '@material-ui/core';
+import InputWrapper from '../components/InputWrapper'
+import PhoneNumber from '../components/PhoneNumber';
 const styles = theme => ({
   root: {
     width: '90%',
@@ -21,8 +23,13 @@ const styles = theme => ({
 
   stepContainer:{
     
+  },
+  inputField:{
+    width: '100%'
   }
+
 });
+
 
 function getSteps() {
   return ['Career Interests', 'Bio & Relevant Skills', 'Tertiary Education','Practical Experience','Other Information'];
@@ -31,7 +38,7 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return <CareerInterests/>;
+      return <PhoneNumber/>;
     case 1:
       return 'Bio & Relevant Skills';
     case 2:
@@ -74,7 +81,7 @@ class ResumeBulderView extends React.Component {
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
-
+   
     return (
       <div>
         <LogoOnCard>
@@ -112,17 +119,16 @@ class ResumeBulderView extends React.Component {
             </div>
           ) : (
             <div className={classes.stepContainer}>
-              <Typography>{getStepContent(activeStep)}</Typography>
+              {getStepContent(activeStep)}
               <div>
                 <Button  variant="outlined"
-                color="primary"
                   disabled={activeStep === 0}
                   onClick={this.handleBack}
-                  className={classes.backButton}
+                 // className={classes.backButton}
                 >
                   Back
                 </Button>
-                <Button variant="contained" color="primary" onClick={this.handleNext}>
+                <Button variant="flat" color="primary" onClick={this.handleNext}>
                   Next
                 </Button>
               </div>

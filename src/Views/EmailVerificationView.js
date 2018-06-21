@@ -25,7 +25,6 @@ const styles = theme => ({
         //marginTop:-12,
         width: '100%'
       },
-
 });
 const body = ['To ensure you can successfully receive our feedback, we have sent a verification email to your provided email address. ',
     'Please click on the link in the email to verify your email address. You will be directed to our dashboard once your email is verified. ',
