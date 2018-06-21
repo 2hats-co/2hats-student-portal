@@ -12,6 +12,7 @@ import LogoOnCard from '../components/LogoOnCard'
 import { TextField } from '@material-ui/core';
 import InputWrapper from '../components/InputWrapper'
 import PhoneNumber from '../components/PhoneNumber';
+import DropDown from '../components/DropDown';
 const styles = theme => ({
   root: {
     width: '90%',
@@ -38,7 +39,7 @@ function getSteps() {
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-      return <PhoneNumber/>;
+      return <DropDown/>;
     case 1:
       return 'Bio & Relevant Skills';
     case 2:
