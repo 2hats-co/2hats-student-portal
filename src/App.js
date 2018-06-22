@@ -18,7 +18,9 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={Theme}>
       <div className="App">
-       <EmailVerificationView/>
+       
+       <AuthView/>
+   
       </div>
       </MuiThemeProvider>
     );

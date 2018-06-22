@@ -15,7 +15,7 @@ const styles = theme => ({
 class AutoCompleteField extends React.Component {  
     
     render() {
-        const { classes,title,hint} = this.props;
+        const { classes,title,hint,list} = this.props;
         return (
          <InputWrapper title={title} hint={hint}>
             <TextField/>
@@ -24,8 +24,11 @@ class AutoCompleteField extends React.Component {
         );
     } 
 }
+
 AutoCompleteField.propTypes = {
     classes: PropTypes.object.isRequired,
+    title: PropTypes.string,  
+    hint: PropTypes.string,  
+    list: PropTypes.arrayOf(PropTypes.string).isRequired,  
 };
-
 export default withStyles(styles)(AutoCompleteField);

@@ -9,6 +9,8 @@ import { Typography, Button, Grid } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Dropzone from 'react-dropzone'
 
+
+
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
@@ -63,7 +65,9 @@ class DocumentLoader extends React.Component {
     } 
 }
 DocumentLoader.propTypes = {
+    url: PropTypes.string,
     classes: PropTypes.object.isRequired,
 };
+
 
 export default withStyles(styles)(DocumentLoader);

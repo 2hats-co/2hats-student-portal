@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
+
 const styles = theme => ({
   root: theme.mixins.gutters({
 
@@ -32,14 +33,14 @@ const styles = theme => ({
 });
 
 function LogoOnCard(props) {
-  const { classes,width } = props;
+  const { classes,width,height } = props;
   document.body.style.backgroundColor = "#EDEDED";
   return (
     <div className={classes.root}>
       <div className={classes.logo}>
         <img alt='dark2hatsLogo' src={DarkLogo}/>
       </div>
-      <Paper className={classes.paper} style={{width:width}} elevation={15}>
+      <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
       <div className={classes.content}>{props.children}
       </div>
       </Paper>
@@ -49,6 +50,7 @@ function LogoOnCard(props) {
 
 LogoOnCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired
 };
-
 export default withStyles(styles)(LogoOnCard);

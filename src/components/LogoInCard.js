@@ -8,6 +8,10 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
+
+
+
+
 const styles = theme => ({
   root: theme.mixins.gutters({
     marginTop:40
@@ -49,9 +53,14 @@ function LogoInCard(props) {
     </div>
   );
 }
-
 LogoInCard.propTypes = {
   classes: PropTypes.object.isRequired,
+  width: PropTypes.number.isRequired,
+  hieght: PropTypes.number.isRequired,
+};
+LogoInCard.defaultProps = {
+  width: 350,
+  height: 500
 };
 
 export default withStyles(styles)(LogoInCard);

@@ -3,21 +3,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography, Grid } from '@material-ui/core'
+import { Typography, Grid } from '@material-ui/core';
+
+
+
 const styles = theme => ({
   root: theme.mixins.gutters({
     width: '100%',
     padding:0
-  
   }),
   footer: theme.mixins.gutters({
     width: '100%',
   }),
-
 });
 
 function InputWrapper(props) {
-  const { classes, title, hint,characterCounter, children } = props;
+  const { classes, title, hint,characterCounter, child } = props;
   const header = ( <Typography variant='title' color='primary'>
   {title}
 </Typography>)
@@ -52,15 +53,18 @@ function InputWrapper(props) {
    className={classes.root}
    >
      {header}
-     {children}
+     {child}
      {footer}
    
       
   </div>
   );
 }
-
 InputWrapper.propTypes = {
+  title: PropTypes.string,
+  hint: PropTypes.string,
+  characterCounter: PropTypes.string,
+  child: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
 };
 

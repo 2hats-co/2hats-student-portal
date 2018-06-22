@@ -140,7 +140,7 @@ class EmailVerificationView extends React.Component {
                 </Button>
                         <Button
                             className={classes.button}
-                            variant="contained"
+                            variant="outlined"
                             color="primary"
                             onClick={this.handleSendVerificationEmail}>
                             Resend Email

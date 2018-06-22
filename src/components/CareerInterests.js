@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-//const businessOptions = ['gilad','jason','antoine']
+
 const businessList = [{key:'BD',label:'Business development'},{key:'CRM',label:'Client relationship management'}]
 const marketingList = [{key:'CW',label:'Copy writing'},{key:'DM',label:'Digital marketing'}]
 const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User experience'},{key:'UI',label:'User interface'}]
@@ -17,7 +17,6 @@ const lists = [{label:'Business',items: businessList},{label:'marketing',items:m
 
 const styles = theme => ({
   root: {
-    
   },  
   group: {
     marginTop:30,
@@ -32,26 +31,19 @@ const styles = theme => ({
     marginBottom:-10,
     fontSize:'15px',
   }
- 
 });
-
-
 class CareerInterests extends React.Component {
   state = {
    selectedCount : 0
   };
-  
   handleChange = name => event => {
- 
     if(event.target.checked){
         this.setState({ selectedCount: this.state.selectedCount +1 });
     }else{
         this.setState({ selectedCount: this.state.selectedCount -1 });
     }
     this.setState({ [name]: event.target.checked });
-   
   };
-
   renderCheckBox(item){
     return(
     <FormControlLabel key={item.key}
@@ -69,8 +61,7 @@ class CareerInterests extends React.Component {
   }
   renderCheckBoxGroup(label,options){
     const { classes } = this.props;
-      return(
-        
+      return(  
     <FormControl className={classes.group} key={label} component="fieldset">
     <FormLabel className={classes.groupHeader} component="legend">{label}</FormLabel>
     <FormGroup>
@@ -84,16 +75,15 @@ class CareerInterests extends React.Component {
         <div className={classes.root}>
          <Typography variant="title" color="primary">
          Career Interests - {3-this.state.selectedCount} remaining
-        </Typography>
-        
-            {lists.map(list => this.renderCheckBoxGroup(list.label,list.items))}
-       
+        </Typography>  
+            {lists.map(list => this.renderCheckBoxGroup(list.label,list.items))}    
      </div>
     );
   }
 }
+
 CareerInterests.propTypes = {
   classes: PropTypes.object.isRequired,
+  changeHandler: PropTypes.func.isRequired
 };
-
 export default withStyles(styles)(CareerInterests);

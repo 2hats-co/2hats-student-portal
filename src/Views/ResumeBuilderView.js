@@ -15,6 +15,7 @@ import PhoneNumber from '../components/PhoneNumber';
 import DropDown from '../components/DropDown';
 import MultiLineTextField from '../components/MultiLineTextField';
 import AutoCompleteField from '../components/AutoCompleteField';
+import DialogForm from '../components/DailogForm'
 const styles = theme => ({
   root: {
     width: '90%',
@@ -32,7 +33,6 @@ const styles = theme => ({
   }
 
 });
-
 
 function getSteps() {
   return ['Career Interests', 'Bio & Relevant Skills', 'Tertiary Education','Practical Experience','Other Information'];
@@ -57,7 +57,7 @@ const otherInfo = (<Grid
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-    return (bioSection)
+    return <DialogForm title='Add Practical Experience'/>
     case 1:
       return 'Bio & Relevant Skills';
     case 2:

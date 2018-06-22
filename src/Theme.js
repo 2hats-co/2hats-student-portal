@@ -1,5 +1,6 @@
 
 import { createMuiTheme } from '@material-ui/core/styles';
+import { inherits } from 'util';
 export const PRIMARYCOLOR = '#F15A29'
 const primaryFontFamily = "Helvetica Neue"
 const WHITE = '#fff'
@@ -7,8 +8,15 @@ const BLACK = '#000'
 const primaryColor = PRIMARYCOLOR
 export const Theme = createMuiTheme({
   overrides: {
+    MuiDialogTitle:{
     
+      root:{
+        color:PRIMARYCOLOR+'!important',
+      }
+
+    },
     MuiButton: { // Name of the component ⚛️ / style sheet
+
       flat: { // Name of the rule
         color: WHITE,
         backgroundColor:primaryColor,
@@ -24,7 +32,16 @@ export const Theme = createMuiTheme({
         border: '1px solid #979797',
         textTransform: 'capitalize',
         '&:hover': {backgroundColor:WHITE}
-      },  
+      },
+      text: { // Name of the rule
+        color: BLACK,
+        backgroundColor:WHITE+'!important',
+        borderRadius:'2px',// should this be rounded
+        width:80,
+        height:36,
+       // '&:hover': {backgroundColor:WHITE},
+      
+      },    
     },
   },
   typography: {
@@ -39,6 +56,7 @@ export const Theme = createMuiTheme({
       fontWeight: 'bold',
       fontSize: '20px',
       textAlign: 'left',
+      color:inherits,
       textTransform: 'capitalize',
     },
     
