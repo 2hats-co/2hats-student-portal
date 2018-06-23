@@ -51,7 +51,7 @@ class AuthView extends React.Component {
   render() {
     const { classes } = this.props;
     let socialButton = (provider, method) => (
-      <Button style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
+      <Button variant='flat' style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
         <div className={classes.socialIcon} >
           <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
         </div> sign {method} with {provider}
@@ -64,7 +64,7 @@ class AuthView extends React.Component {
     <TextField
       id="email"
       label="Email Address"
-      placeholder="Email Address"
+   //   placeholder="Email Address"
       className={classes.textField}
       margin="normal"
       color="primary"
@@ -74,11 +74,20 @@ class AuthView extends React.Component {
     <TextField
       id="password"
       label="Password"
-      placeholder="Password"
+   //   placeholder="Password"
       className={classes.textField}
       margin="normal"
       type='password'
     />)
+    const confirmPasswordField = (
+      <TextField
+        id="confirmPassword"
+        label="Confirm Password"
+      //  placeholder="Confirm Password"
+        className={classes.textField}
+        margin="normal"
+        type='password'
+      />)
     const nameFields = (<Grid
       justify='space-between'
       direction='row'
@@ -86,7 +95,7 @@ class AuthView extends React.Component {
       <TextField
         id="firstName"
         label="First Name"
-        placeholder="First Name"
+     //   placeholder="First Name"
         className={classes.nameTextField}
         margin="normal"
         color="primary"
@@ -94,7 +103,7 @@ class AuthView extends React.Component {
       <TextField
         id="lastName"
         label="Last Name"
-        placeholder="Last Name"
+       // placeholder="Last Name"
         className={classes.nameTextField}
         margin="normal"
         color="primary"
@@ -129,8 +138,10 @@ class AuthView extends React.Component {
         Please enter your email address to receive the instruction for resetting password.
 </Typography>
     </Grid>)
-    let resetPasswordButton = (isDisable) => (<Button variant="flat" disabled={isDisable} color="primary" className={classes.button}>
-
+    let resetPasswordButton = (isDisable) => (<Button 
+    variant="flat" 
+    disabled={isDisable} 
+    className={classes.button}>
       Reset Password
   </Button>)
     let footerLink = (label, link, linkLabel) => (
@@ -148,7 +159,10 @@ class AuthView extends React.Component {
           {linkButton(linkLabel, link)}
         </Grid>
       </Grid>)
-    return (
+      const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', '#', 'Sign Up')]
+      const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', '#', 'Sign In')]
+      const resetView = [resetPasswordText,emailField,resetPasswordButton(false)]
+      return (
 
       <LogoInCard>
 
@@ -160,19 +174,7 @@ class AuthView extends React.Component {
           direction='column'
           justify='center'
         >
-          {socialButton('google', 'in')}
-          {socialButton('linkedin', 'up')}
-          {resetPasswordText}
-          {emailField}
-          {signInRow}
-          {resetPasswordButton(true)}
-          {signUpButton}
-          {signInRow}
-
-          {footerLink('Already have an account?', '#4', 'Sign In')}
-          {
-            //footerLink('Don’t have an account?', '#', 'SignUp')
-          }
+          {resetView.map(x=>x)}
 
         </Grid>
       </LogoInCard>
