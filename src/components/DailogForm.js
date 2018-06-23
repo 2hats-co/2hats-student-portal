@@ -8,9 +8,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DropDown from './DropDown';
 import PropTypes from 'prop-types';
 
-
-
-
 export default class DialogForm extends React.Component {
   state = {
     open: true,

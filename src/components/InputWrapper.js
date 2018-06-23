@@ -55,11 +55,10 @@ function InputWrapper(props) {
      {header}
      {child}
      {footer}
-   
-      
   </div>
   );
 }
+
 InputWrapper.propTypes = {
   title: PropTypes.string,
   hint: PropTypes.string,

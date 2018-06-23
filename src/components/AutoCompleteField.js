@@ -11,7 +11,6 @@ const styles = theme => ({
     },
 });
 
-
 class AutoCompleteField extends React.Component {  
     
     render() {
@@ -20,7 +19,6 @@ class AutoCompleteField extends React.Component {
          <InputWrapper title={title} hint={hint}>
             <TextField/>
          </InputWrapper>
-
         );
     } 
 }

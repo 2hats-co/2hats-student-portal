@@ -68,6 +68,4 @@ DocumentLoader.propTypes = {
     url: PropTypes.string,
     classes: PropTypes.object.isRequired,
 };
-
-
 export default withStyles(styles)(DocumentLoader);

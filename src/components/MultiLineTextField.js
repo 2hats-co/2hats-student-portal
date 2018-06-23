@@ -3,16 +3,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import InputWrapper from './InputWrapper';
 
-MultiLineTextField.propTypes = {
-  title: PropTypes.string,
-  hint: PropTypes.string,
-  default:PropTypes.string, 
-  placeHolder: PropTypes.string,
-  numberOfLines: PropTypes.number,
-  characterLimit: PropTypes.number,
-  classes: PropTypes.object.isRequired,
-};
-
 const styles = theme => ({
     root: theme.mixins.gutters({
       marginTop:'10px',
@@ -31,7 +21,6 @@ const styles = theme => ({
       lineHeight: '14px',
       letterSpacing: '0.06px'
         }),
-    
   });
 function MultiLineTextField(props) {
     const { classes,title} = props;
@@ -45,6 +34,14 @@ Hard-working student (80 WAM) with 3 months experience of UI design internship. 
       </InputWrapper>
     )
 }
-
+MultiLineTextField.propTypes = {
+  title: PropTypes.string,
+  hint: PropTypes.string,
+  default:PropTypes.string, 
+  placeHolder: PropTypes.string,
+  numberOfLines: PropTypes.number,
+  characterLimit: PropTypes.number,
+  classes: PropTypes.object.isRequired,
+};
 
 export default withStyles(styles)(MultiLineTextField);
