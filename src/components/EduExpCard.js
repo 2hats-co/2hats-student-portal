@@ -6,11 +6,14 @@ import { Typography, Card, Grid ,IconButton} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit'
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
+  root:{
     width: 400,
     paddingTop: 30,
     paddingBottom: 20,
-  })
+    paddingLeft:40,
+    paddingRight:40,
+  }
+
 });
 function EduExpCard(props) {
   const { classes, title, label, description, startDate, endDate } = props;
@@ -35,6 +38,15 @@ function EduExpCard(props) {
   );
 }
 
+{/* <EduExpCard
+       title='Bachelor of Commerce - Accounting'
+       label = 'University of New South Wales'
+       startDate= 'Feb 2016'
+       endDate= 'Dec 2017'
+        description ={`- 85+ WAM
+        - Winner of FMAA Management Consulting Case Competition
+        - President of AIESEC UNSW`}
+       /> */}
 EduExpCard.propTypes = {
   title: PropTypes.string.isRequired,
   label: PropTypes.string,

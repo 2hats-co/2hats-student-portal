@@ -10,15 +10,13 @@ import GoogleIcon from '../assets/images/social/google.svg'
 import LinkedinIcon from '../assets/images/social/linkedin.svg'
 import StyledLink from '../components/StyledLink';
 const styles = theme => ({
-  root: theme.mixins.gutters({
-    paddingTop: 16,
-    paddingBottom: 16,
-    margin: 'auto',
+  root: {
     //position: 'fixed',
-    marginTop: theme.spacing.unit * 10,
     //width: 300,
+    paddingLeft:26,
+    paddingRight:26,
     height: 500
-  }),
+  },
   textField: {
     //marginTop:-12,
     width: '100%'
@@ -159,23 +157,22 @@ class AuthView extends React.Component {
           {linkButton(linkLabel, link)}
         </Grid>
       </Grid>)
+      
       const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', '#', 'Sign Up')]
       const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', '#', 'Sign In')]
       const resetView = [resetPasswordText,emailField,resetPasswordButton(false)]
       return (
 
       <LogoInCard>
-
         <Grid
           container
           spacing={16}
-          className={classes.grid}
+          className={classes.root}
           alignItems='center'
           direction='column'
           justify='center'
         >
-          {resetView.map(x=>x)}
-
+          {signUpView.map(x=>x)}
         </Grid>
       </LogoInCard>
 
