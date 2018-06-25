@@ -4,10 +4,16 @@ import { inherits } from 'util';
 export const PRIMARYCOLOR = '#F15A29'
 const primaryFontFamily = "Helvetica Neue"
 const WHITE = '#fff'
-const BLACK = '#000'
+export const BLACK = '#2c2c2c'
 const primaryColor = PRIMARYCOLOR
 export const Theme = createMuiTheme({
   overrides: {
+    MuiInput:{
+      root:{
+      fontSize:'12px'
+      }
+    },
+
     MuiDialogTitle:{
     
       root:{
