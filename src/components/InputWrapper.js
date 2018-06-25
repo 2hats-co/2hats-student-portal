@@ -12,6 +12,9 @@ const styles = theme => ({
     width: '100%',
   },
   footer:{
+    width: 400,
+  },
+  child:{
     width: '100%',
   },
   characterCount:{
@@ -25,7 +28,7 @@ function InputWrapper(props) {
   {title}
 </Typography>)
   const footer = (<Grid
-   // className={classes.footer}
+   className={classes.footer}
        container
        direction='row'
        alignItems='flex-start'

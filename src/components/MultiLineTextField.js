@@ -9,7 +9,7 @@ const styles = theme => ({
       marginTop:'10px',
       padding:'11px !important',
       height:'94px',
-     width: '400px',
+     width: '380px !important',
       backgroundColor:'#EDEDED',
       border: '1px solid #fff',
       outline: 'none',

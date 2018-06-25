@@ -19,6 +19,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 
 const styles = theme => ({
+  root:{
+    width:'100%'
+  },
   textField:{
       width:'100%'
   },
@@ -29,9 +32,6 @@ const styles = theme => ({
     pointerEvents: "none"
   },chip: {
     margin: 4
-  },
-  pop:{
-    width:375,
   }
 });
 
@@ -100,14 +100,15 @@ class AutoCompleteField extends React.Component {
                 <Popper
                   placement="bottom-start"
                   eventsEnabled={showList}
-                  classesName ={classes.pop}
-                 // className={classNames({ [classes.popperClose]: !showList })}
+                  //
+                 className={classNames({ [classes.popperClose]: !showList })}
                 >
                   <ClickAwayListener onClickAway={this.handleClose}>
                     <Grow
                       in={showList}
                       id="menu-list-grow"
-                      style={{ transformOrigin: "0 0 0" }}
+                    
+                      style={{ transformOrigin: "0 0 0", width:390}}
                     >
                       <Paper>
                         <MenuList role="menu">
