@@ -8,13 +8,15 @@ import { Typography, Grid } from '@material-ui/core';
 
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
+  root:{
     width: '100%',
-    padding:0
-  }),
-  footer: theme.mixins.gutters({
+  },
+  footer:{
     width: '100%',
-  }),
+  },
+  characterCount:{
+    textAlign:'right'
+  }
 });
 
 function InputWrapper(props) {
@@ -27,7 +29,7 @@ function InputWrapper(props) {
        container
        direction='row'
        alignItems='flex-start'
-       spacing={8}
+       
        justify='space-between'
       >
        <Grid
@@ -42,7 +44,7 @@ function InputWrapper(props) {
          item
          xs={characterCounter? 2:1}
        >
-         <Typography variant='caption'>
+         <Typography className={classes.characterCount} variant='caption'>
            {characterCounter}
          </Typography>
        </Grid>

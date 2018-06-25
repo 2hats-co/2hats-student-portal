@@ -16,6 +16,7 @@ import DropDown from '../components/DropDown';
 import MultiLineTextField from '../components/MultiLineTextField';
 import AutoCompleteField from '../components/AutoCompleteField';
 import DialogForm from '../components/DailogForm'
+import SkillsInput from '../components/SkillsInput';
 const styles = theme => ({
   root: {
     width: '90%',
@@ -49,15 +50,23 @@ const otherInfo = (<Grid
     container
     direction='row'
     justify='space-between'
-    style={{height:200}}>
-      <MultiLineTextField/>
-      <AutoCompleteField title='skills' 
-      hint='Please address your chosen skill(s) in your tertiary education and practical experience. '/>
+    style={{height:275,width:400}}>
+     <MultiLineTextField
+        title='Personal Bio'
+        hint= 'This bio should focus on your key achievement and what value you can bring to the position-providing companies.'
+        placeholder='For example: 
+        Hard-working student (80 WAM) with 3 months experience of UI design internship. I have more than 1-year of experience in using the Adobe creative suite tools, such as Adobe Photoshop and Adobe XD and would like to further utilise such skills in my future position.
+        '
+        characterLimit ={400}
+        />
+      
+      
+      <SkillsInput/>
     </Grid>)
 function getStepContent(stepIndex) {
   switch (stepIndex) {
     case 0:
-    return <DialogForm title='Add Practical Experience'/>
+    return bioSection
     case 1:
       return 'Bio & Relevant Skills';
     case 2:
