@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Grid from '@material-ui/core/Grid';
 import DropDown from './DropDown';
 import PropTypes from 'prop-types';
 import MultiLineTextField from './MultiLineTextField';
@@ -16,13 +17,17 @@ const styles = theme => ({
     width: 330
 
   },
+  grid:{
+    height:380,
+    widthMax: 250+'!important'
+  }
 });
 
 class DialogForm extends React.Component {
   state = {
     open: true,
   };
-
+  
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -32,7 +37,8 @@ class DialogForm extends React.Component {
   };
 
   render() {
-      const {title,fields} = this.props
+    console.log(this.state)
+      const {title,fields,classes} = this.props
 
       let textField = (id,label) => ( <TextField
        // autoFocus
@@ -42,11 +48,11 @@ class DialogForm extends React.Component {
         type="text"
         fullWidth
       />)
-      let datePicker = (<TextField
-        id="date"
-        label="Birthday"
+      let datePicker =(label) => (<TextField
+        id={label}
+        label={label}
         type="date"
-        defaultValue="2017-05-24"
+       // defaultValue="2017-05-29"
         fullWidth
         InputLabelProps={{
           shrink: true,
@@ -54,6 +60,7 @@ class DialogForm extends React.Component {
       />)
       let discription = (
       <MultiLineTextField
+        characterLimit= {200}
         label='Description'
         placeholder={`E.g.:
         - Re-created 3hats' key product page, which resulted in 50% more page visits
@@ -62,7 +69,7 @@ class DialogForm extends React.Component {
       />)
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Open form dialog</Button>
+        <Button onClick={this.handleClickOpen}>+</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -70,11 +77,19 @@ class DialogForm extends React.Component {
         >
           <DialogTitle id="form-dialog-title">{title}</DialogTitle>
           <DialogContent>
+            <Grid
+            container
+            className={classes.grid}
+            direction='column'
+            justify='space-between'
+            > 
             {textField('position','Position/Job Title')}
             {textField('organisation','Organisation')}
-            <DropDown options={['aaa','bbb','ccc']} value={'ddd'} changeHandler={(v)=>{console.log(v)}}/>
-            {datePicker}
+            <DropDown label='Type of Experience' options={['volunteering','contractor','casual','part-time','full-time']} value={'ddd'} changeHandler={(v)=>{console.log(v)}}/>
+            {datePicker('start date')}
+            {datePicker('end/expected end date')}
             {discription}
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Button variant="text"  onClick={this.handleClose}>

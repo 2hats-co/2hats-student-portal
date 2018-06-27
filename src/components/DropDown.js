@@ -1,32 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {FormControl,Select,MenuItem} from '@material-ui/core'
+import {FormControl,Select,MenuItem, FormLabel,Typography} from '@material-ui/core'
 import InputWrapper from './InputWrapper'
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
-     width:250,
-     padding:0,
-  }),
-  inputField: theme.mixins.gutters({
-      marginTop:0,
-      paddingLeft:'0 !important',
+  root: {
+   ///      width:'100%',
+   //  paddingTop:10,
+  },
+  inputField: {
     width:'100%'
- }),
-  placeHolderItem:theme.mixins.gutters({
+ },
+  placeHolderItem:{
     height:0
-}),
+},
 });
 
 function DropDown(props) {
-  const {classes,options,value,changeHandler,title,hint} = props;
+  const {classes,options,value,changeHandler,title,hint,label} = props;
     const InputField = ( 
         <FormControl className = {classes.inputField}>
+          {label&& <Typography variant='caption'>{label}</Typography>}
         <Select  
        value={value}
        onChange={changeHandler}
           name="age"
+       
      //   displayEmpty
      //  className={classes.selectEmpty}
         >
@@ -48,8 +48,6 @@ function DropDown(props) {
   hint={hint}
   child={InputField}
     />
- 
-  
   </div> 
   );
 }
