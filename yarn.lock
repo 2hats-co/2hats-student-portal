@@ -5274,7 +5274,7 @@ pluralize@^7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/pluralize/-/pluralize-7.0.0.tgz#298b89df8b93b0221dbf421ad2b1b1ea23fc6777"
 
-popper.js@^1.14.1:
+popper.js@^1.10.1, popper.js@^1.14.1:
   version "1.14.3"
   resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.3.tgz#1438f98d046acf7b4d78cd502bf418ac64d4f095"
 
@@ -5848,6 +5848,14 @@ react-number-format@^3.4.1:
   dependencies:
     babel-runtime "^6.26.0"
     prop-types "^15.6.0"
+
+react-popper@0.6:
+  version "0.6.7"
+  resolved "https://registry.yarnpkg.com/react-popper/-/react-popper-0.6.7.tgz#4cfbfc0b1023a3c9871a19bf16e1150046e27c62"
+  dependencies:
+    is-equal-shallow "^0.1.3"
+    popper.js "^1.10.1"
+    prop-types "^15.5.10"
 
 react-popper@^1.0.0:
   version "1.0.0"

@@ -9,6 +9,7 @@
     "react-dom": "^16.4.0",
     "react-dropzone": "^4.2.11",
     "react-number-format": "^3.4.1",
+    "react-popper": "0.6",
     "react-redux-firebase": "^2.1.5",
     "react-scripts": "1.1.4",
     "redux-firestore": "^0.5.6"
