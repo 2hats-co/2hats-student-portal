@@ -8,9 +8,9 @@ import HeaderBar from './HeaderBar'
 const styles = theme => ({
   root:{
     margin:15,
-    width: 400,
+    width: 390,
     paddingTop: 30,
-    paddingBottom: 20,
+    paddingBottom: 30,
     paddingLeft:40,
     paddingRight:40,
   },
