@@ -4,21 +4,32 @@ import { withStyles } from "@material-ui/core/styles";
 import InputWrapper from "./InputWrapper";
 import { Typography, Card, Grid ,IconButton} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit'
-
+import HeaderBar from './HeaderBar'
 const styles = theme => ({
   root:{
+    margin:15,
     width: 400,
     paddingTop: 30,
     paddingBottom: 20,
     paddingLeft:40,
     paddingRight:40,
+  },
+  header:{
+    marginTop:20,
+    marginLeft:15,
+    marginBottom:-35
   }
 
 });
 function EduExpCard(props) {
+  // check if index === 0, include header
+  
   const { classes, title, label, description, startDate, endDate } = props;
   return (
-    <Card className={classes.root}>
+    <div>
+ 
+    <Card elevation={2} className={classes.root}>
+  
       <Grid container direction="column" alignItems="flex-start" spacing={16}>
       <Grid container direction="row" alignItems="center" justify="space-between">
       <Typography variant='subheading'>{title}</Typography>
@@ -35,6 +46,7 @@ function EduExpCard(props) {
         <Typography variant="body1">{description}</Typography>
       </Grid>
     </Card>
+    </div>
   );
 }
 
