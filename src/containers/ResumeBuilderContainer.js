@@ -66,17 +66,35 @@ const otherInfo = (<Grid
       <SkillsInput/>
     </Grid>)
     
-  const experience = (<div><HeaderBar/>
-    <EduExpCard
-    title='Bachelor of Commerce - Accounting'
-    label = 'University of New South Wales'
-    startDate= 'Feb 2016'
-    endDate= 'Dec 2017'
-     description ={`- 85+ WAM
-     - Winner of FMAA Management Consulting Case Competition
-     - President of AIESEC UNSW`}
-    />
-    </div>)
+
+      const experience = (<Grid container 
+        direction='column' 
+       alignItems='center'>
+       <HeaderBar title='Practical Experience'/>
+       <EduExpCard
+       title='Bachelor of Commerce - Accounting'
+       label = 'University of New South Wales'
+       startDate= 'Feb 2016'
+       endDate= 'Dec 2017'
+        description ={`- 85+ WAM
+        - Winner of FMAA Management Consulting Case Competition
+        - President of AIESEC UNSW`}
+       />
+       </Grid>)
+     const education = (<Grid container 
+      direction='column' 
+     alignItems='center'>
+     <HeaderBar title='Education'/>
+     <EduExpCard
+     title='Bachelor of Commerce - Accounting'
+     label = 'University of New South Wales'
+     startDate= 'Feb 2016'
+     endDate= 'Dec 2017'
+      description ={`- 85+ WAM
+      - Winner of FMAA Management Consulting Case Competition
+      - President of AIESEC UNSW`}
+     />
+     </Grid>)
    
   
 function getStepContent(stepIndex) {
@@ -86,9 +104,9 @@ function getStepContent(stepIndex) {
     case 1:
       return bioSection;
     case 2:
-      return experience;
+      return <SectionWrapper child={experience} width={400} height={350}/>;
     case 3:
-      return experience;
+      return <SectionWrapper child={education} width={400} height={350}/>;
     case 4:
       return(<SectionWrapper child={otherInfo} width={250} height={200}/>) ;
     default:
@@ -162,12 +180,11 @@ class ResumeBulderContainer extends React.Component {
                 </Button>
             </div>
           ) : (
-     
               <Grid
               container
               direction='column'
               justify='space-between'
-              style={{height:350}}
+              style={{height:400}}
               >
               <Grid item>
               {getStepContent(activeStep)}
