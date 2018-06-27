@@ -3,7 +3,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { inherits } from 'util';
 export const PRIMARYCOLOR = '#F15A29'
 const primaryFontFamily = "Helvetica Neue"
-const WHITE = '#fff'
+export const WHITE = '#fff'
 export const BLACK = '#2c2c2c'
 const primaryColor = PRIMARYCOLOR
 export const Theme = createMuiTheme({
@@ -13,7 +13,11 @@ export const Theme = createMuiTheme({
       fontSize:'12px'
       }
     },
-
+    MuiAppBar:{
+      root:{
+        borderRadius:35
+      }
+    },
     MuiDialogTitle:{
     
       root:{
