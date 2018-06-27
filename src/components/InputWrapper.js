@@ -12,7 +12,7 @@ const styles = theme => ({
     width: '100%',
   },
   footer:{
-    width: 400,
+   // width: 400,
   },
   child:{
     width: '100%',

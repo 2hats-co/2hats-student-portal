@@ -7,42 +7,35 @@ import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
 
 const styles = theme => ({
-  root: theme.mixins.gutters({
 
-  }),
-  logo: theme.mixins.gutters({
+  logo:{
     paddingTop:32,        
     paddingBottom:30,        
     width:242,
     height:84,
     margin: 'auto',
-    }),
-  paper:theme.mixins.gutters({
+    },
+  paper:{
     maxWidth:1200,
     margin: 'auto',
     minHeight: 474,
     padding: 30,
-  }),
-  content:theme.mixins.gutters({
-    padding:'0 !important',
-    margin: '0px auto',
-    float: 'none',
-    display: 'table',
-   
-  }),
+  },
+  
 });
 
 function LogoOnCard(props) {
   const { classes,width,height } = props;
   document.body.style.backgroundColor = "#EDEDED";
+  const logo = (<img alt='dark2hatsLogo' src={DarkLogo}/>)
   return (
     <div className={classes.root}>
       <div className={classes.logo}>
-        <img alt='dark2hatsLogo' src={DarkLogo}/>
+     {logo}
       </div>
       <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
-      <div className={classes.content}>{props.children}
-      </div>
+      {props.children}
+      
       </Paper>
     </div>
   );
