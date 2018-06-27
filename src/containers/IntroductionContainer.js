@@ -53,7 +53,7 @@ const submission = [
         }]
 
 
-class IntroductionView extends React.Component {
+class IntroductionContainer extends React.Component {
 
   render(){
     const { classes } = this.props;
@@ -74,8 +74,8 @@ class IntroductionView extends React.Component {
   }
 }
 
-IntroductionView.propTypes = {
+IntroductionContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(IntroductionView);
+export default withStyles(styles)(IntroductionContainer);

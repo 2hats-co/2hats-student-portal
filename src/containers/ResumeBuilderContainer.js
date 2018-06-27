@@ -17,14 +17,16 @@ import MultiLineTextField from '../components/MultiLineTextField';
 import AutoCompleteField from '../components/AutoCompleteField';
 import DialogForm from '../components/DailogForm'
 import SkillsInput from '../components/SkillsInput';
+import HeaderBar from '../components/HeaderBar';
+import EduExpCard from '../components/EduExpCard';
+import SectionWrapper from '../components/SectionWrapper'
+
 const styles = theme => ({
   root: {
     width: '90%',
     margin: 'auto',
   },
-  stepContainer:{
-    
-  },
+  
   footerContainer:{
     alignSelf: 'flex-end',
     width: 320
@@ -38,12 +40,14 @@ const styles = theme => ({
 function getSteps() {
   return ['Career Interests', 'Bio & Relevant Skills', 'Tertiary Education','Practical Experience','Other Information'];
 }
+
+
 const otherInfo = (<Grid
   container
   direction='row'
   justify='space-between'
   style={{height:200}}>
-    <DropDown/>
+    <DropDown title='Residency Status' options={['Permanent resident','Student visa']} hint='Your residence status is required so that we can know whether you have any work restriction.'/>
     <PhoneNumber/>
   </Grid>)
   const bioSection = (<Grid
@@ -59,28 +63,40 @@ const otherInfo = (<Grid
         '
         characterLimit ={400}
         />
-      
-      
       <SkillsInput/>
     </Grid>)
+    
+  const experience = (<div><HeaderBar/>
+    <EduExpCard
+    title='Bachelor of Commerce - Accounting'
+    label = 'University of New South Wales'
+    startDate= 'Feb 2016'
+    endDate= 'Dec 2017'
+     description ={`- 85+ WAM
+     - Winner of FMAA Management Consulting Case Competition
+     - President of AIESEC UNSW`}
+    />
+    </div>)
+   
+  
 function getStepContent(stepIndex) {
   switch (stepIndex) {
-    case 0:
-    return bioSection
+    case 0: 
+  return (<SectionWrapper child={<CareerInterests/>} width={750} height={150}/>);
     case 1:
-      return 'Bio & Relevant Skills';
+      return bioSection;
     case 2:
-      return 'Tertiary Education';
+      return experience;
     case 3:
-      return 'Practical Experience';
+      return experience;
     case 4:
-      return 'Other Information';
+      return(<SectionWrapper child={otherInfo} width={250} height={200}/>) ;
     default:
       return 'Uknown stepIndex';
   }
 }
 
-class ResumeBulderView extends React.Component {
+class ResumeBulderContainer extends React.Component {
   state = {
     activeStep: 0,
   };
@@ -112,7 +128,7 @@ class ResumeBulderView extends React.Component {
    
     return (
       <div>
-        <LogoOnCard>
+        <LogoOnCard width={850}>
       <div className={classes.root}>
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map(label => {
@@ -146,8 +162,17 @@ class ResumeBulderView extends React.Component {
                 </Button>
             </div>
           ) : (
-            <div className={classes.stepContainer}>
+     
+              <Grid
+              container
+              direction='column'
+              justify='space-between'
+              style={{height:350}}
+              >
+              <Grid item>
               {getStepContent(activeStep)}
+              </Grid>
+              <Grid item>
               <Grid 
               className={classes.footerContainer}
               container
@@ -169,7 +194,9 @@ class ResumeBulderView extends React.Component {
                   Next
                 </Button>
               </Grid>
-            </div>
+              </Grid>
+              </Grid>
+           
           )}
         </div>
       </div>
@@ -179,8 +206,8 @@ class ResumeBulderView extends React.Component {
   }
 }
 
-ResumeBulderView.propTypes = {
+ResumeBulderContainer.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(ResumeBulderView);
+export default withStyles(styles)(ResumeBulderContainer);

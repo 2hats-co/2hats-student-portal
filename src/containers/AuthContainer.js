@@ -44,7 +44,9 @@ const styles = theme => ({
 });
 
 
-class AuthView extends React.Component {
+class AuthContainer extends React.Component {
+
+
 
   render() {
     const { classes } = this.props;
@@ -172,7 +174,7 @@ class AuthView extends React.Component {
           direction='column'
           justify='center'
         >
-          {signUpView.map(x=>x)}
+          {signInView.map(x=>x)}
         </Grid>
       </LogoInCard>
 
@@ -180,8 +182,8 @@ class AuthView extends React.Component {
   }
 }
 
-AuthView.propTypes = {
+AuthContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AuthView);
+export default withStyles(styles)(AuthContainer);

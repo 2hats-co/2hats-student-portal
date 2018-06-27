@@ -6,7 +6,6 @@ import LogoOnCard from '../components/LogoOnCard';
 import { Grid, Button,Typography } from '@material-ui/core';
 import CareerInterests from '../components/CareerInterests';
 import DocumentLoader from '../components/DocumentLoader';
-
 const styles = theme => ({
     root: {  
     },
@@ -18,8 +17,7 @@ const styles = theme => ({
     }
 });
 
-
-class UploadResumeView extends React.Component {
+class UploadResumeContainer extends React.Component {
     render() {
         const { classes } = this.props;
         let footerButtons = (nextLabel) => (
@@ -67,7 +65,7 @@ class UploadResumeView extends React.Component {
 
 }
 
-UploadResumeView.propTypes = {
+UploadResumeContainer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(UploadResumeView);
+export default withStyles(styles)(UploadResumeContainer);
