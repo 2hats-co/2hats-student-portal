@@ -5,11 +5,13 @@ import InputWrapper from './InputWrapper';
 import { Typography, Input } from '@material-ui/core';
 import {BLACK} from '../Theme'
 const styles = theme => ({
-    root: theme.mixins.gutters({
+    root: {
       marginTop:'10px',
       padding:'11px !important',
-      height:'94px',
+     height:'80px',
+    // width:'100%',
      width: '380px !important',
+    
       backgroundColor:'#EDEDED',
       border: '1px solid #fff',
       outline: 'none',
@@ -21,7 +23,7 @@ const styles = theme => ({
       fontSize: '12px',
       lineHeight: '14px',
       letterSpacing: '0.06px'
-        }),
+        },
   });
 
 
