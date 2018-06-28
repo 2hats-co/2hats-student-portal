@@ -36,11 +36,12 @@ export const Theme = createMuiTheme({
         '&:disabled': {opacity: 0.4,color:WHITE},
       },
       outlined: { // Name of the rule
-        color: primaryColor+'!important',
+        color: BLACK+'!important',
         backgroundColor:WHITE,
         borderRadius:'20px',
         border: '1px solid #979797',
         textTransform: 'capitalize',
+     
         '&:hover': {backgroundColor:WHITE}
       },
       text: { // Name of the rule
@@ -73,13 +74,13 @@ export const Theme = createMuiTheme({
     subheading: {
    
       fontFamily:primaryFontFamily,
-      fontWeight: 'medium',
+      fontWeight: 500,
       fontSize: '16px',
       letterSpacing: '0.08px'
     },
     body1: {
       fontSize: '12px',
-      fontWeight: 'Regular',
+      fontWeight: 300,
       fontFamily:primaryFontFamily,
       letterSpacing: '0.06px'
 
