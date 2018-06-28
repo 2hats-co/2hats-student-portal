@@ -17,7 +17,7 @@ function SectionWrapper(props) {
  
      
   return (
-   <div style= {{margin:0,width:width,height:height}}>
+   <div style= {{margin:0,marginTop:10,width:width,height:height}}>
      {child}
   </div>
   );
