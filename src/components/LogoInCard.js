@@ -8,45 +8,42 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
-
-
-
-
+import {PRIMARYCOLOR} from '../Theme'
 const styles = theme => ({
-  root: theme.mixins.gutters({
+  root:{
     marginTop:40
-  }),
-  logo: theme.mixins.gutters({
-    paddingTop:50,        
-    paddingBottom:30,        
-    width:242,
-    height:84,
-    margin: 'auto',
-    }),
-  paper:theme.mixins.gutters({
+  },
+  logo:{
+    paddingTop:40,        
+    marginBottom:30, 
+    marginLeft:75,
+    width:200,
+    height:69,
+  
+    },
+    paper:{
+    marginTop:145,
     maxWidth:475,
     margin: 'auto',
-    minHeight: 500,
-    padding: 30,
-  }),
-  content:theme.mixins.gutters({
-    margin: '0px auto',
-    float: 'none',
-    display: 'table',
-   
-  }),
+    }
 });
 
 function LogoInCard(props) {
-  const { classes,width } = props;
-  document.body.style.backgroundColor = "#FFF";
+  const { classes,width,height } = props;
+  document.body.style.backgroundColor = "#FA5E4E";
+  document.body.style.backgroundImage= "url(https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94)"
+  document.body.style.backgroundRepeat= "no-repeat";
+  document.body.style.backgroundSize= "cover";
+  document.body.style.backgroundPosition= "center center";
+  
+
   return (
     <div className={classes.root}>
       
-      <Paper className={classes.paper} style={{width:width}} elevation={15}>
-      <div className={classes.logo}>
-        <img alt='dark2hatsLogo' src={DarkLogo}/>
-      </div>
+      <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
+    
+        <img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>
+     
       {props.children}
       
       </Paper>
