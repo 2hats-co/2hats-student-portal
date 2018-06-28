@@ -13,6 +13,17 @@ export const Theme = createMuiTheme({
       fontSize:'12px'
       }
     },
+    MuiFormLabel:{
+      root:{
+        height:30
+      }
+    },
+    MuiFormControlLabel:{
+      root:{
+        height:35
+      }
+    },
+    
     MuiAppBar:{
       root:{
         borderRadius:35

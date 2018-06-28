@@ -28,7 +28,7 @@ const styles = theme => ({
   },
   
   footerContainer:{
-    alignSelf: 'flex-end',
+  
     width: 320
   },
   footerButton:{
@@ -65,26 +65,24 @@ const otherInfo = (<Grid
         />
       <SkillsInput/>
     </Grid>)
-    
 
       const experience = (<Grid container 
         direction='column' 
        alignItems='center'>
        <HeaderBar title='Practical Experience'/>
        <EduExpCard
-       title='Bachelor of Commerce - Accounting'
-       label = 'University of New South Wales'
-       startDate= 'Feb 2016'
-       endDate= 'Dec 2017'
-        description ={`- 85+ WAM
-        - Winner of FMAA Management Consulting Case Competition
-        - President of AIESEC UNSW`}
+       title='UI Design Intern'
+       label = '3hats Inc. / Employment'
+       startDate= 'May 2018'
+       endDate= 'Present'
+        description ={`- Re-created 3hats' key product page, which resulted in 50% more page visits
+        - Created the wireframes and prototypes of a new feature`}
        />
        </Grid>)
      const education = (<Grid container 
       direction='column' 
      alignItems='center'>
-     <HeaderBar title='Education'/>
+     <HeaderBar title='Tertiary Education'/>
      <EduExpCard
      title='Bachelor of Commerce - Accounting'
      label = 'University of New South Wales'
@@ -97,28 +95,28 @@ const otherInfo = (<Grid
      </Grid>)
    
   
-function getStepContent(stepIndex) {
-  switch (stepIndex) {
-    case 0: 
-  return (<SectionWrapper child={<CareerInterests/>} width={750} height={150}/>);
-    case 1:
-      return bioSection;
-    case 2:
-      return <SectionWrapper child={experience} width={400} height={350}/>;
-    case 3:
-      return <SectionWrapper child={education} width={400} height={350}/>;
-    case 4:
-      return(<SectionWrapper child={otherInfo} width={250} height={200}/>) ;
-    default:
-      return 'Uknown stepIndex';
+   function getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0: //this.setState({height:390})
+    return (<SectionWrapper child={<CareerInterests/>} width={750} height={150}/>);
+      case 1: //this.setState({height:590})
+        return <SectionWrapper child={bioSection} width={400} height={350}/> ;
+      case 2://this.setState({height:590})
+        return <SectionWrapper child={experience} width={400} height={350}/>;
+      case 3: //this.setState({height:440})
+        return <SectionWrapper child={education} width={400} height={350}/>;
+      case 4: //this.setState({height:330})
+        return(<SectionWrapper child={otherInfo} width={250} height={200}/>) ;
+      default:
+        return 'Uknown stepIndex';
+    }
   }
-}
-
 class ResumeBulderContainer extends React.Component {
   state = {
     activeStep: 0,
+    height:390
   };
-
+  
   handleNext = () => {
     const { activeStep } = this.state;
     this.setState({
@@ -143,10 +141,21 @@ class ResumeBulderContainer extends React.Component {
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
-   
+    const congratulations = (<Grid container direction='row' justify='spacing-between' style={{height:100}}>
+  <Typography variant="title" color="primary" component="h3">
+  Congratulations!
+  </Typography>
+    <Typography variant='body'>
+    You have filled all mandatory fields to build your resume using our guided processes.
+    </Typography>
+
+    <Typography variant='body'>
+    You can submit your resume for our review now.
+    </Typography>
+  </Grid>)
     return (
       <div>
-        <LogoOnCard width={850}>
+        <LogoOnCard width={850} height={this.state.height}>
       <div className={classes.root}>
         <Stepper activeStep={activeStep} alternativeLabel>
           {steps.map(label => {
@@ -158,27 +167,29 @@ class ResumeBulderContainer extends React.Component {
           })}
         </Stepper>
         <div>
-          {this.state.activeStep === steps.length ? (
-            <div>
-                <Typography variant="headline" color="primary" component="h3">
-          Congratulations!
-        </Typography>
-              <Typography className={classes.instructions}>
-              You have filled all mandatory fields to build your resume using our guided processes.
-                You can submit your resume for our review now.
-              </Typography>
-              <Button  variant="outlined"
-             
+          {this.state.activeStep === steps.length ? (<div>
+            <SectionWrapper child={congratulations} width={750} height={150}/>
+            <Grid 
+              className={classes.footerContainer}
+              container
+              direction='row'
+              justify='space-between'
+              >
+                <Button 
+                 className={classes.footerButton}
+                variant="outlined"
                   disabled={activeStep === 0}
                   onClick={this.handleBack}
-                  className={classes.backButton}
+                
                 >
                   Back
                 </Button>
-                <Button variant="flat">
+                <Button 
+                 className={classes.footerButton}
+                variant="flat" onClick={this.handleNext}>
                   Submit resume
                 </Button>
-            </div>
+              </Grid></div>
           ) : (
               <Grid
               container
@@ -212,8 +223,7 @@ class ResumeBulderContainer extends React.Component {
                 </Button>
               </Grid>
               </Grid>
-              </Grid>
-           
+              </Grid>       
           )}
         </div>
       </div>

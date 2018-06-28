@@ -18,23 +18,27 @@ const styles = theme => ({
   root: {
   },  
   group: {
-    marginTop:30,
+    marginTop:20,
    
   },
   groupHeader:{
-    fontSize:'18px',
+    fontSize:'16px',
     color:'#000',
-    marginBottom:10
+  //  marginBottom:5
   },
   checkBox:{
-    marginBottom:-10,
-    fontSize:'15px',
+    height:15,
+    fontSize:'12px',
   }
 });
 class CareerInterests extends React.Component {
   state = {
    selectedCount : 0
   };
+  componentWillUnmount(){
+ // maybe update here
+
+  }
   handleChange = name => event => {
     if(event.target.checked){
         this.setState({ selectedCount: this.state.selectedCount +1 });
@@ -44,10 +48,12 @@ class CareerInterests extends React.Component {
     this.setState({ [name]: event.target.checked });
   };
   renderCheckBox(item){
+    const { classes } = this.props;
     return(
     <FormControlLabel key={item.key}
             control={
               <Checkbox
+                classesName={classes.checkBox}
                 disabled = {this.state.selectedCount>2 && !this.state[item.key]}
                 checked={this.state[item.key]}
                 onChange={this.handleChange(item.key)}
@@ -69,6 +75,7 @@ class CareerInterests extends React.Component {
   </FormControl>)
   }
   render() {
+
     const { classes } = this.props;
     return (
         <div className={classes.root}>
