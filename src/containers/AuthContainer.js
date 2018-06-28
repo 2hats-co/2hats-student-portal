@@ -18,8 +18,9 @@ const styles = theme => ({
     height: 500
   },
   textField: {
-    //marginTop:-12,
-    width: '100%'
+    marginTop:5,
+    width: '100%',
+    marginBottom:30
   },
   nameTextField: {
     //marginTop:-12,
@@ -28,8 +29,9 @@ const styles = theme => ({
   grid: {
     height: 400
   },
-  button: {
-
+  
+  resetButton: {
+    width:100
   },
   socialButton: {
     margin:5,
@@ -45,8 +47,6 @@ const styles = theme => ({
 
 
 class AuthContainer extends React.Component {
-
-
 
   render() {
     const { classes } = this.props;
@@ -131,19 +131,29 @@ class AuthContainer extends React.Component {
       container
       alignItems='left'
     >
-      <Typography variant="title" color="primary">
+      <Typography variant="subheading" color="primary">
         Reset Password
 </Typography>
       <Typography variant="body">
         Please enter your email address to receive the instruction for resetting password.
 </Typography>
     </Grid>)
-    let resetPasswordButton = (isDisable) => (<Button 
+    let resetPasswordButton = (isDisable) => (<Grid container direction='row' justify='space-between' style={{width:230}}>
+      <Button  variant="outlined"
+     //onClick={this.handleBack}
+     className={classes.resetButton}
+
+      >
+    Back
+  </Button> 
+  <Button 
     variant="flat" 
     disabled={isDisable} 
-    className={classes.button}>
-      Reset Password
-  </Button>)
+    className={classes.resetButton}
+    >
+      reset
+  </Button>
+  </Grid>)
     let footerLink = (label, link, linkLabel) => (
       <Grid container
         alignItems='center'
@@ -165,16 +175,15 @@ class AuthContainer extends React.Component {
       const resetView = [resetPasswordText,emailField,resetPasswordButton(false)]
       return (
 
-      <LogoInCard>
+      <LogoInCard width={350} height={360}>
         <Grid
           container
-          spacing={16}
           className={classes.root}
           alignItems='center'
           direction='column'
-          justify='center'
+          justify='flex-start'
         >
-          {signInView.map(x=>x)}
+          {resetView.map(x=>x)}
         </Grid>
       </LogoInCard>
 

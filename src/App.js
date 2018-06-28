@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 
-import AuthView from './containers/AuthContainer'
+import AuthContainer from './containers/AuthContainer'
 import ResumeBuilderContainer from './containers/ResumeBuilderContainer'
 import UploadResumeContainer from './containers/UploadResumeContainer';
 import IntroductionContainer from './containers/IntroductionContainer';
