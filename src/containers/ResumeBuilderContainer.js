@@ -20,11 +20,20 @@ import SkillsInput from '../components/SkillsInput';
 import HeaderBar from '../components/HeaderBar';
 import EduExpCard from '../components/EduExpCard';
 import SectionWrapper from '../components/SectionWrapper'
-
+import Tween from 'rc-tween-one';
 const styles = theme => ({
   root: {
-    width: '90%',
-    margin: 'auto',
+   
+   height:1000
+  },
+  container:{
+    width: '100%',
+    // margin: 'auto',
+    padding:50,
+  },
+  stepper:{
+    width:750,
+    padding:0
   },
   
   footerContainer:{
@@ -98,23 +107,22 @@ const otherInfo = (<Grid
    function getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0: //this.setState({height:390})
-    return (<SectionWrapper child={<CareerInterests/>} width={750} height={150}/>);
+    return (<SectionWrapper child={<CareerInterests/>} width={750} height={220}/>);
       case 1: //this.setState({height:590})
-        return <SectionWrapper child={bioSection} width={400} height={350}/> ;
+        return <SectionWrapper child={bioSection} width={400} height={420}/> ;
       case 2://this.setState({height:590})
-        return <SectionWrapper child={experience} width={400} height={350}/>;
+        return <SectionWrapper child={experience} width={400} height={420}/>;
       case 3: //this.setState({height:440})
-        return <SectionWrapper child={education} width={400} height={350}/>;
+        return <SectionWrapper child={education} width={400} height={420}/>;
       case 4: //this.setState({height:330})
-        return(<SectionWrapper child={otherInfo} width={250} height={200}/>) ;
+        return(<SectionWrapper child={otherInfo} width={250} height={270}/>) ;
       default:
         return 'Uknown stepIndex';
     }
   }
-class ResumeBulderContainer extends React.Component {
+class ResumeBuilderContainer extends React.Component {
   state = {
     activeStep: 0,
-    height:390
   };
   
   handleNext = () => {
@@ -122,6 +130,7 @@ class ResumeBulderContainer extends React.Component {
     this.setState({
       activeStep: activeStep + 1,
     });
+
   };
 
   handleBack = () => {
@@ -154,10 +163,13 @@ class ResumeBulderContainer extends React.Component {
     </Typography>
   </Grid>)
     return (
-      <div>
-        <LogoOnCard width={850} height={this.state.height}>
       <div className={classes.root}>
-        <Stepper activeStep={activeStep} alternativeLabel>
+       
+        <LogoOnCard width={850} 
+        height={this.state.height}
+        >
+      <div className={classes.container}>
+        <Stepper className={classes.stepper} activeStep={activeStep} alternativeLabel>
           {steps.map(label => {
             return (
               <Step key={label}>
@@ -167,9 +179,13 @@ class ResumeBulderContainer extends React.Component {
           })}
         </Stepper>
         <div>
-          {this.state.activeStep === steps.length ? (<div>
-            <SectionWrapper child={congratulations} width={750} height={150}/>
-            <Grid 
+          {this.state.activeStep === steps.length ? (
+            <SectionWrapper child={(<Grid
+              container
+              direction='column'
+              justify='space-between'
+              style={{height:150}}
+            >{congratulations}<Grid 
               className={classes.footerContainer}
               container
               direction='row'
@@ -180,7 +196,6 @@ class ResumeBulderContainer extends React.Component {
                 variant="outlined"
                   disabled={activeStep === 0}
                   onClick={this.handleBack}
-                
                 >
                   Back
                 </Button>
@@ -189,13 +204,14 @@ class ResumeBulderContainer extends React.Component {
                 variant="flat" onClick={this.handleNext}>
                   Submit resume
                 </Button>
-              </Grid></div>
+            </Grid></Grid>)} width={750} height={150}/>
+            
           ) : (
               <Grid
               container
               direction='column'
               justify='space-between'
-              style={{height:400}}
+              //style={{height:400}}
               >
               <Grid item>
               {getStepContent(activeStep)}
@@ -228,13 +244,14 @@ class ResumeBulderContainer extends React.Component {
         </div>
       </div>
       </LogoOnCard>
+   
       </div>
     );
   }
 }
 
-ResumeBulderContainer.propTypes = {
+ResumeBuilderContainer.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(ResumeBulderContainer);
+export default withStyles(styles)(ResumeBuilderContainer);

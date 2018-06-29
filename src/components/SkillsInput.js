@@ -5,6 +5,7 @@ import AutoCompleteField from './AutoCompleteField';
 import Chip from '@material-ui/core/Chip'
 const styles = theme => ({
     root: {
+        paddingTop:25,
      width:400
     },chip: {
         margin: 4
@@ -38,9 +39,9 @@ class SkillsInput extends React.Component {
     render() {
         const {classes} = this.props;
         return (
-            <div>
+            <div className={classes.root}>
          <AutoCompleteField
-         className={classes.root}
+         
         title = 'Skills'
         hint = 'Please address your chosen skill(s) in your tertiary education and practical experience. '
         placeholder = 'Choose relevant skills and/or choose your own, e.g. Excel VBA'

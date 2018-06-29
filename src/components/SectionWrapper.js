@@ -4,12 +4,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Grid } from '@material-ui/core';
-
+import Tween from 'rc-tween-one';
 
 
 const styles = theme => ({
 
- 
+
 });
 
 function SectionWrapper(props) {
@@ -17,9 +17,15 @@ function SectionWrapper(props) {
  
      
   return (
-   <div style= {{margin:0,marginTop:10,width:width,height:height}}>
+    <Tween
+      animation={{ height:height}}
+    //  onChange={this.bbb}
+     // style={{ opacity: 1, height: 100, display: 'inline-block' }}
+    >
+   <div style= {{margin:0,marginTop:30,width:width}}>
      {child}
   </div>
+  </Tween>
   );
 }
 

@@ -18,7 +18,7 @@ const styles = theme => ({
     borderRadius:35,
     backgroundColor: PRIMARYCOLOR,
     color:WHITE,
-    marginBottom:-40,
+    marginBottom:-25,
     zIndex:10
   },
   add:{

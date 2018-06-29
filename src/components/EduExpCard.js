@@ -7,7 +7,10 @@ import EditIcon from '@material-ui/icons/Edit'
 import HeaderBar from './HeaderBar'
 const styles = theme => ({
   root:{
-    margin:15,
+  
+  },
+  card:{
+    
     width: 390,
     paddingTop: 30,
     paddingBottom: 30,
@@ -26,9 +29,9 @@ function EduExpCard(props) {
   
   const { classes, title, label, description, startDate, endDate } = props;
   return (
-    <div>
+    <div className={classes.root}>
  
-    <Card elevation={2} className={classes.root}>
+    <Card elevation={2} className={classes.card}>
   
       <Grid container direction="column" alignItems="flex-start" spacing={16}>
       <Grid container direction="row" alignItems="center" justify="space-between">

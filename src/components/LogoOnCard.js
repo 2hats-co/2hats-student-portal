@@ -6,11 +6,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png';
 import BW from '../assets/background/BW.svg'
+
 const styles = theme => ({
 
   logo:{
     paddingTop:32,        
-    marginBottom:30,        
+   marginBottom:45,        
     width:200,
     height:69,
     margin: 'auto',
@@ -18,8 +19,6 @@ const styles = theme => ({
   paper:{
     maxWidth:1200,
     margin: 'auto',
-    minHeight: 474,
-    padding: 30,
   },
   
   
@@ -40,11 +39,13 @@ function LogoOnCard(props) {
     <div className={classes.logo}>
      {logo}
      </div>
-   
-      <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
+     
+      <Paper className={classes.paper} style={{width:width}} elevation={15}>
       {props.children}
       </Paper>
+      
     </div>
+   
   );
 }
 
