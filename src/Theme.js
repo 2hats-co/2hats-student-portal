@@ -5,9 +5,24 @@ export const PRIMARYCOLOR = '#F15A29'
 const primaryFontFamily = "Helvetica Neue"
 export const WHITE = '#fff'
 export const BLACK = '#2c2c2c'
+export const GREY = '#EDEDED'
 const primaryColor = PRIMARYCOLOR
 export const Theme = createMuiTheme({
   overrides: {
+    MuiStepLabel:{
+    
+        color:BLACK,
+        fontWeight:500,
+    },
+    MuiStepIcon:{
+      root:{
+        color:GREY,
+      },
+    },
+    
+    MuiStepper:{
+  
+    },
     MuiInput:{
       root:{
       fontSize:'12px'
