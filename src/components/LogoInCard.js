@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
-import {PRIMARYCOLOR} from '../Theme'
 const styles = theme => ({
   root:{
     marginTop:40

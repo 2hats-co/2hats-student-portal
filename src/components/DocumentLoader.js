@@ -9,8 +9,6 @@ import { Typography, Button, Grid } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Dropzone from 'react-dropzone'
 
-
-
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
@@ -29,8 +27,12 @@ const styles = theme => ({
 
 
 class DocumentLoader extends React.Component {
+    state={
+ 
+    }
     onDrop(files) {
-       console.log(files)
+       this.setState({previewURL:files[0].preview})
+       console.log(files[0].preview)
       }
     
     render() {
@@ -46,7 +48,7 @@ class DocumentLoader extends React.Component {
             direction='column'
             justify='space-around'
             alignItems='center'
-            >
+            > 
             <CloudUploadIcon style={{ fontSize: 66 }}/>
             <Typography variant='subheading'>
             Drag and drop your resume

@@ -24,7 +24,7 @@ import Tween from 'rc-tween-one';
 const styles = theme => ({
   root: {
    
-   height:1000
+   height:800
   },
   container:{
     width: '100%',

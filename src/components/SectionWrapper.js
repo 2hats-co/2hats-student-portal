@@ -14,8 +14,6 @@ const styles = theme => ({
 
 function SectionWrapper(props) {
   const { classes, width,height, child } = props;
- 
-     
   return (
     <Tween
       animation={{ height:height}}

@@ -8,8 +8,8 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const businessList = [{key:'BD',label:'Business development'},{key:'CRM',label:'Client relationship management'}]
-const marketingList = [{key:'CW',label:'Copy writing'},{key:'DM',label:'Digital marketing'}]
+const businessList = [{key:'BD',label:'Business development'},{key:'CRM',label:'Client relationship management'},{key:'LG',label:'Lead Generation'}]
+const marketingList = [{key:'CW',label:'Copy writing'},{key:'DM',label:'Digital marketing'},{key:'SEO',label:'SEO'}]
 const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User experience'},{key:'UI',label:'User interface'}]
 const ITList = [{key:'SDEV',label:'Software development'},{key:'WEB',label:'Web&App'},{key:'DA',label:'Data Analytics'}]
 const lists = [{label:'Business',items: businessList},{label:'marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]

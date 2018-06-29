@@ -15,7 +15,6 @@ const styles = theme => ({
   root: {
     height: 550,
     width: 330
-
   },
   grid:{
     height:380,

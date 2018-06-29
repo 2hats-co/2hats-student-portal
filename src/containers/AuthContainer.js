@@ -39,6 +39,7 @@ const styles = theme => ({
     height: 40,
     color: '#fff',
   },
+  
   socialIcon: {
  
     marginRight: 17
@@ -142,7 +143,6 @@ class AuthContainer extends React.Component {
       <Button  variant="outlined"
      //onClick={this.handleBack}
      className={classes.resetButton}
-
       >
     Back
   </Button> 
@@ -183,7 +183,7 @@ class AuthContainer extends React.Component {
           direction='column'
           justify='flex-start'
         >
-          {resetView.map(x=>x)}
+          {signUpView.map(x=>x)}
         </Grid>
       </LogoInCard>
 
