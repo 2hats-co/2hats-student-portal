@@ -41,7 +41,11 @@ class PhoneNumber extends React.Component {
   state = {
     number: '',
   };
-
+  componentDidUpdate(prevProps, prevState){
+    if(prevState !== this.state){
+    this.props.changeHandler('phoneNumber',this.state.number)
+    }
+}
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -77,6 +81,7 @@ class PhoneNumber extends React.Component {
 }
 PhoneNumber.propTypes = {
   classes: PropTypes.object.isRequired,
+  changeHandler: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(PhoneNumber);

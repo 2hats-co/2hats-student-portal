@@ -18,13 +18,13 @@ const styles = theme => ({
 });
 
 function DropDown(props) {
-  const {classes,options,value,changeHandler,title,hint,label} = props;
+  const {classes,options,value,changeHandler,name,title,hint,label} = props;
     const InputField = ( 
         <FormControl className = {classes.inputField}>
           {label&& <Typography variant='caption'>{label}</Typography>}
         <Select  
        value={value}
-       onChange={changeHandler}
+       onChange={()=>{changeHandler(name,'value')}}
           name="age"
        
      //   displayEmpty
@@ -51,7 +51,7 @@ function DropDown(props) {
   </div> 
   );
 }
-DropDown.propTypes = {
+DropDown.propTypes = {name: PropTypes.string.isRequired,
   title: PropTypes.string,
   helperLabel: PropTypes.string,
   hint: PropTypes.string,

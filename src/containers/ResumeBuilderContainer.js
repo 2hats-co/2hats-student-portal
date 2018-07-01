@@ -47,29 +47,7 @@ function getSteps() {
 }
 
 
-const otherInfo = (<Grid
-  container
-  direction='row'
-  justify='space-between'
-  style={{height:200}}>
-    <DropDown title='Residency Status' options={['Permanent resident','Student visa']} hint='Your residence status is required so that we can know whether you have any work restriction.'/>
-    <PhoneNumber/>
-  </Grid>)
-  const bioSection = (<Grid
-    container
-    direction='row'
-    justify='space-between'
-    style={{height:275,width:400}}>
-     <MultiLineTextField
-        title='Personal Bio'
-        hint= 'This bio should focus on your key achievement and what value you can bring to the position-providing companies.'
-        placeholder='For example: 
-        Hard-working student (80 WAM) with 3 months experience of UI design internship. I have more than 1-year of experience in using the Adobe creative suite tools, such as Adobe Photoshop and Adobe XD and would like to further utilise such skills in my future position.
-        '
-        characterLimit ={400}
-        />
-      <SkillsInput/>
-    </Grid>)
+
 
       const experience = (<Grid container 
         direction='column' 
@@ -98,14 +76,14 @@ const otherInfo = (<Grid
       - President of AIESEC UNSW`}
      />
      </Grid>)
-     
+
   const INITIAL_STATE = {
     activeStep: 0,
     interests:[],
     bio:'',
     skills:[],  
-    Residency:'',
-    PhoneNumber:'',
+    residency:' ',
+    phoneNumber:0,
     email: '',
     error: null,
   };
@@ -115,17 +93,49 @@ class ResumeBuilderContainer extends React.Component {
     super(props);
     this.state = { ...INITIAL_STATE };
   }
-
+  bioSection = (<Grid
+    container
+    direction='row'
+    justify='space-between'
+    style={{height:275,width:400}}>
+     <MultiLineTextField
+        title='Personal Bio'
+        hint= 'This bio should focus on your key achievement and what value you can bring to the position-providing companies.'
+        placeholder='For example: 
+        Hard-working student (80 WAM) with 3 months experience of UI design internship. I have more than 1-year of experience in using the Adobe creative suite tools, such as Adobe Photoshop and Adobe XD and would like to further utilise such skills in my future position.
+        '
+        characterLimit ={400}
+        changeHandler={this.handleChange.bind(this)}
+        />
+      <SkillsInput changeHandler={this.handleChange.bind(this)} />
+    </Grid>)
+    otherInfo = (<Grid
+      container
+      direction='row'
+      justify='space-between'
+      style={{height:200}}>
+        <DropDown title='Residency Status' name='residency' value={'res'} changeHandler={this.handleChange.bind(this)} options={['Permanent resident','Student visa']} hint='Your residence status is required so that we can know whether you have any work restriction.'/>
+        <PhoneNumber changeHandler={this.handleChange.bind(this)}/>
+      </Grid>)
   disableNext(){
-    const {activeStep,interests,skills}= this.state
+    const {activeStep,interests,skills,bio,residency,phoneNumber}= this.state
     let disabled = true
-    console.log(activeStep,interests.length)
+    console.log(activeStep,phoneNumber.length)
 
     switch (activeStep) {
       case 0:
       disabled = (interests.length===0)
         break;
-        case 1:
+        case 1:disabled = (skills.length===0 || bio.length===0)
+      
+          break;
+          case 2:disabled =false
+      
+          break;
+          case 3:disabled =false
+      
+          break;
+          case 4:disabled = (phoneNumber.length!==10)
       
           break;
       default:
@@ -137,18 +147,19 @@ class ResumeBuilderContainer extends React.Component {
   handleChange(name,value){
     this.setState({[name]:value})
   }
+  
    getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0: //this.setState({height:390})
     return (<SectionWrapper child={<CareerInterests changeHandler={this.handleChange.bind(this)} />} width={750} height={220}/>);
       case 1: //this.setState({height:590})
-        return <SectionWrapper child={bioSection} width={400} height={420}/> ;
+        return <SectionWrapper child={this.bioSection} width={400} height={420}/> ;
       case 2://this.setState({height:590})
         return <SectionWrapper child={experience} width={400} height={420}/>;
       case 3: //this.setState({height:440})
         return <SectionWrapper child={education} width={400} height={420}/>;
       case 4: //this.setState({height:330})
-        return(<SectionWrapper child={otherInfo} width={250} height={270}/>) ;
+        return(<SectionWrapper child={this.otherInfo} width={250} height={270}/>) ;
       default:
         return 'Uknown stepIndex';
     }

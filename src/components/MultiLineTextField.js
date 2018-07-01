@@ -45,6 +45,11 @@ class MultiLineTextField extends React.Component {
       this.setState({InputValue:this.props.placeholder})
     }
   }
+  componentDidUpdate(prevProps, prevState){
+    if(prevState !== this.state){
+    this.props.changeHandler('bio',this.state.InputValue)
+    }
+}
   handleChange(event){
     const value = event.target.value
     const newLength = value.length
@@ -55,13 +60,16 @@ class MultiLineTextField extends React.Component {
         {characterCountValue:`${newLength}/${maxLength}`,
         InputValue:value
       })
+ 
     }else{ 
       this.setState(
         {characterCountValue:`${newLength}/${maxLength}`,
         InputValue:value.substring(0, maxLength)
       })
       event.target.value = value.substring(0, maxLength)
+ 
     }
+
   }
   handleFocus(event){
    
@@ -101,6 +109,7 @@ MultiLineTextField.propTypes = {
   numberOfLines: PropTypes.number,
   characterLimit: PropTypes.number,
   classes: PropTypes.object.isRequired,
+  changeHandler: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(MultiLineTextField);

@@ -35,10 +35,13 @@ class CareerInterests extends React.Component {
   state = {
    selectedCount : 0
   };
-  componentWillUnmount(){
- // maybe update here
-
+  componentDidUpdate(prevProps, prevState){
+    if(prevState !== this.state){
+    const stateCopy =Object.entries(this.state)
+    const interests = stateCopy.filter(x=> x[1]===true ).map(x=> x[0])
+    this.props.changeHandler('interests',interests)
   }
+}
   handleChange = name => event => {
     if(event.target.checked){
         this.setState({ selectedCount: this.state.selectedCount +1 });
@@ -46,19 +49,6 @@ class CareerInterests extends React.Component {
         this.setState({ selectedCount: this.state.selectedCount -1 });
     }
     this.setState({ [name]: event.target.checked });
-     
-    let stateCopy =Object.entries(this.state)
-    let interests = stateCopy.filter(x=> x[1]===true ).map(x=> x[0])
-    
-  
-    if(interests.includes(name)){
-      interests = interests.filter(interest => interest ===name)
-    }else{
-      interests.push(name)
-    }
-    this.props.changeHandler('interests',interests)
-   
-    
   };
   renderCheckBox(item){
     const { classes } = this.props;

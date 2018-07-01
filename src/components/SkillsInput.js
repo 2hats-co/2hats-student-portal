@@ -16,6 +16,13 @@ class SkillsInput extends React.Component {
     state = {
         selectedList: []
       };
+
+
+      componentDidUpdate(prevProps, prevState){
+        if(prevState !== this.state){
+        this.props.changeHandler('skills',this.state.selectedList)
+        }
+    }
     handleDelete = val => {
         let newSelectedList = this.state.selectedList;
         var index = newSelectedList.indexOf(val);
@@ -65,6 +72,6 @@ class SkillsInput extends React.Component {
 
 SkillsInput.propTypes = {
     classes: PropTypes.object.isRequired,
-  
+    changeHandler: PropTypes.func.isRequired
 };
 export default withStyles(styles)(SkillsInput);
