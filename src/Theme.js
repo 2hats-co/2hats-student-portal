@@ -65,7 +65,7 @@ export const Theme = createMuiTheme({
         color: BLACK+'!important',
         backgroundColor:WHITE,
         borderRadius:'20px',
-        border: '1px solid #979797',
+        border: `1px solid ${BLACK}`,
         textTransform: 'capitalize',
      
         '&:hover': {backgroundColor:WHITE}

@@ -7,6 +7,7 @@ import {PRIMARYCOLOR} from '../Theme'
 // 1. We define the styles.
 const styles = theme => ({
   root: {
+    fontSize:'12px',
     color: PRIMARYCOLOR,
     textDecoration: 'inherit',
     '&:hover': {

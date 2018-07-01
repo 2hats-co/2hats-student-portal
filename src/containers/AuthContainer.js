@@ -17,23 +17,24 @@ const styles = theme => ({
   root: {
     //position: 'fixed',
     //width: 300,
-    paddingLeft:26,
-    paddingRight:26,
+    paddingLeft:50,
+    paddingRight:50,
     height: 500
   },
   textField: {
-    marginTop:5,
+    marginTop:0,
     width: '100%',
-    marginBottom:30
+    marginBottom:5
   },
   nameTextField: {
     //marginTop:-12,
-    width: '40%'
+    width: '46%'
   },
-  grid: {
-    height: 400
+  button:{
+    marginTop: 25,
+    marginBottom: 25,
+    width:120
   },
-  
   resetButton: {
     width:100
   },
@@ -47,17 +48,27 @@ const styles = theme => ({
   socialIcon: {
  
     marginRight: 17
+  },
+  or:{
+    marginTop:15
+  },
+  footerLink:{
+    display:'inline',
+    marginRight:5
   }
 });
 const INITIAL_STATE = {
   email: '',
   error: null,
-  view:'reset'
+  view:'signin'
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
+  /// used for error snacks
   [propertyName]: value,
 });
+
+
 class AuthContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -74,6 +85,7 @@ class AuthContainer extends React.Component {
       });
   }
   handleChange = name => event => {
+    /// used to update state on textfield change
     this.setState({
       [name]: event.target.value,
     });
@@ -123,8 +135,10 @@ class AuthContainer extends React.Component {
         type='password'
       />)
     const nameFields = (<Grid
+    container
       justify='space-between'
       direction='row'
+      style={{width:"100%", marginTop:-20}}
     >
       <TextField
         id="firstName"
@@ -143,7 +157,7 @@ class AuthContainer extends React.Component {
         color="primary"
       />
     </Grid>)
-    const orLabel = (<Typography variant="button" gutterBottom>
+    const orLabel = (<Typography className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
     const signInRow = (
@@ -158,7 +172,7 @@ class AuthContainer extends React.Component {
     </Button>
       </Grid>
     )
-    const signUpButton = (<Button variant="flat" className={classes.button}>
+    const signUpButton = (<Button variant="flat" isDisable className={classes.button}>
       Sign Up
 </Button>)
     const resetPasswordText = (<Grid
@@ -189,40 +203,39 @@ class AuthContainer extends React.Component {
   </Button>
   </Grid>)
     let footerLink = (label, link, linkLabel) => (
-      <Grid container
-        alignItems='center'
-        justify='center'
-        direction='row'
-      >
-        <Grid item xs={6}>
-          <Typography variant="body1">
+     <div >
+          <Typography className={classes.footerLink} variant="body1">
             {label}
           </Typography>
-        </Grid>
-        <Grid item xs={2} >
+       
           {linkButton(linkLabel, link)}
-        </Grid>
-      </Grid>)
+          </div>
+       )
       const {email,error,view} = this.state
       const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', '#', 'Sign Up')]
       const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', 'signin', 'Sign In')]
       const resetView = [resetPasswordText,emailField,resetPasswordButton(!validateEmail(email))]
       let loadedView
+      let cardHeight = 610
+
       switch (view) {
         case 'signup':
           loadedView = signUpView
+          cardHeight = 610
           break;
           case 'signin':
           loadedView = signInView
+          cardHeight = 510
           break; case 'reset':
           loadedView = resetView
+          cardHeight = 360
           break;
         default:
           break;
       }
       return (
 
-      <LogoInCard width={350} height={360}>
+      <LogoInCard width={350} height={cardHeight}>
         <Grid
           container
           className={classes.root}
