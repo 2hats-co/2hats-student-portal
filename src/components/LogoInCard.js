@@ -52,7 +52,7 @@ function LogoInCard(props) {
 LogoInCard.propTypes = {
   classes: PropTypes.object.isRequired,
   width: PropTypes.number.isRequired,
-  hieght: PropTypes.number.isRequired,
+  height: PropTypes.number.isRequired,
 };
 LogoInCard.defaultProps = {
   width: 350,

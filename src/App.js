@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-
+import withAuthentication from './components/Session/withAuthentication';
 import AuthContainer from './containers/AuthContainer'
 import ResumeBuilderContainer from './containers/ResumeBuilderContainer'
 import UploadResumeContainer from './containers/UploadResumeContainer';
@@ -20,4 +20,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withAuthentication(App);

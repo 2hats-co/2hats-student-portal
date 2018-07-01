@@ -6,5 +6,8 @@ firestore.collection('users').doc(id).set({
     firstName,
     lastName,
     email,
+    //TODO
+    // add createdTimeStamp
+    // cap first char of name
   });
 
