@@ -38,7 +38,7 @@ function CardSection(props) {
           {title}
         </Typography>
         <img src={image} alt={title} />
-        <Typography style={{ width: 240 }} variant="body1">
+        <Typography style={{ width: 245 }} variant="body1">
           {description}
         </Typography>
       </Grid>

@@ -82,6 +82,13 @@ export const Theme = createMuiTheme({
     },
   },
   typography: {
+    display1: {
+      fontSize: '30px',
+      fontFamily: primaryFontFamily,
+      color:BLACK,
+      fontWeight: 'bold',
+      textAlign: 'center'
+    },
     headline: {
       fontSize: '30px',
       fontFamily: primaryFontFamily,

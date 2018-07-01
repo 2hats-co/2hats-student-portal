@@ -13,10 +13,11 @@ import intro3 from '../assets/images/graphics/Intro3.png'
 import BuildResume from '../assets/images/graphics/BuildResume.png'
 import UploadResume from '../assets/images/graphics/UploadResume.png'
 
+import SectionWrapper from '../components/SectionWrapper'
 
 const styles = theme => ({
     root: {
-   
+      paddingTop:40,
     },
     sections:{
        marginTop:30,
@@ -25,8 +26,10 @@ const styles = theme => ({
   });
 
 
-const IntroSections = [
-
+const intro = 
+  { heading: 'Application Process',
+  width:900,
+  sections:[
     {title:'Get Reviewed',
     image:intro1,
     description:'We will provide you a set of tailored and practical feedback based on your resume submission.',
@@ -38,9 +41,10 @@ const IntroSections = [
      {title:'Get Offer',
      image:intro3,
      description:'Once you are qualified, we will match you with a paid placement in your chosen career interest(s). '
-    }]
-const submission = [
+    }]}
+const submission = 
         { heading: 'Resume Submission',
+        width:680,
         sections:[{title:'Upload Resume',
         image:UploadResume,
         description:'If you have a resume already created, you can upload it directly to our platform for review.',
@@ -50,25 +54,28 @@ const submission = [
          description: 'If you don’t have a resume created, we will help you build a professional resume through a 5-step process.',
           button:{label: `Build a resume`}
         }]
-        }]
+        }
 
 
 class IntroductionContainer extends React.Component {
 
   render(){
     const { classes } = this.props;
+
+    
+    const submissionView = (<div className={classes.root}><Typography variant="display1">
+    {submission.heading}
+ </Typography>
+<div className={classes.sections} >
+    <CardSections width={submission.width} sections={submission.sections} hasDivider/>
+ </div></div>)
     return (
     <LogoOnCard 
-    width={'680px'}
+    width={680}
+
     >
-    <div className={classes.root}> 
-    <Typography variant="headline" color="primary">
-        {submission[0].heading}
-     </Typography>
-    <div className={classes.sections} >
-        <CardSections sections={submission[0].sections} hasDivider/>
-     </div>
-     </div>
+    <SectionWrapper height={550}
+      child = {submissionView}/> 
      </LogoOnCard>
     );
   }

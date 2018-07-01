@@ -14,7 +14,7 @@ function divderlocations(nSections) {
     return positions
 }
 function CardSections(props) {
-    const { hasSteps, sections, hasDivider } = props
+    const { hasSteps, sections, hasDivider,width } = props
     const divider = <div style={{ boxSizing: "border-box", height: '400px', width: '1px', border: '0.5px solid #979797' }} />
     let items = sections.map((section, index) => {
         return <CardSection
@@ -36,7 +36,7 @@ function CardSections(props) {
             direction='row'
             justify='space-around'
             // spacing={16}
-            style={{ width: 680, height: 400 }}
+            style={{ margin:'auto', width: width-50, height: 400 }}
         >
             {items}
 
@@ -44,6 +44,7 @@ function CardSections(props) {
     )
 }
 CardSections.propTypes = {
+    width: PropTypes.number.isRequired,
     hasDivider: PropTypes.bool,
     hasSteps: PropTypes.bool,
     sections: PropTypes.arrayOf(PropTypes.shape({
