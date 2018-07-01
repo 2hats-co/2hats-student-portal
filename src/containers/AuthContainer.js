@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+//import { withRouter } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import LogoInCard from '../components/LogoInCard';
+
 import GoogleIcon from '../assets/images/social/google.svg'
 import LinkedinIcon from '../assets/images/social/linkedin.svg'
 import StyledLink from '../components/StyledLink';
+import {validateEmail} from '../utilities/validators'
+import { auth } from '../firebase';
 const styles = theme => ({
   root: {
     //position: 'fixed',
@@ -45,10 +49,38 @@ const styles = theme => ({
     marginRight: 17
   }
 });
+const INITIAL_STATE = {
+  email: '',
+  error: null,
+  view:'reset'
+};
 
-
+const updateByPropertyName = (propertyName, value) => () => ({
+  [propertyName]: value,
+});
 class AuthContainer extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.state = { ...INITIAL_STATE };
+  }
+  handleResetPassword (email){
+    auth.doPasswordReset(email)
+      .then(() => {
+        this.setState(() => ({ ...INITIAL_STATE }));
+      })
+      .catch(error => {
+        this.setState(updateByPropertyName('error', error));
+      });
+  }
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value,
+    });
+  };
+  componentWillMount(){
+    //TODO check url , set state.view
+  }
   render() {
     const { classes } = this.props;
     let socialButton = (provider, method) => (
@@ -58,14 +90,15 @@ class AuthContainer extends React.Component {
         </div> sign {method} with {provider}
       </Button>)
 
-    let linkButton = (label, link) => (<StyledLink>
+    let linkButton = (label, link) => (<StyledLink href={link}>
       {label}
     </StyledLink>)
     const emailField = (
     <TextField
       id="email"
       label="Email Address"
-   //   placeholder="Email Address"
+      onChange={this.handleChange('email')}
+      value={email}
       className={classes.textField}
       margin="normal"
       color="primary"
@@ -120,7 +153,7 @@ class AuthContainer extends React.Component {
         direction='row'
       >
         {linkButton('Forgot Password?', '#')}
-        <Button variant='flat'className={classes.button}>
+        <Button variant='flat' className={classes.button}>
           Sign In
     </Button>
       </Grid>
@@ -150,6 +183,7 @@ class AuthContainer extends React.Component {
     variant="flat" 
     disabled={isDisable} 
     className={classes.resetButton}
+   onClick={()=>{this.handleResetPassword(email)}}
     >
       reset
   </Button>
@@ -169,10 +203,23 @@ class AuthContainer extends React.Component {
           {linkButton(linkLabel, link)}
         </Grid>
       </Grid>)
-      
+      const {email,error,view} = this.state
       const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', '#', 'Sign Up')]
-      const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', '#', 'Sign In')]
-      const resetView = [resetPasswordText,emailField,resetPasswordButton(false)]
+      const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', 'signin', 'Sign In')]
+      const resetView = [resetPasswordText,emailField,resetPasswordButton(!validateEmail(email))]
+      let loadedView
+      switch (view) {
+        case 'signup':
+          loadedView = signUpView
+          break;
+          case 'signin':
+          loadedView = signInView
+          break; case 'reset':
+          loadedView = resetView
+          break;
+        default:
+          break;
+      }
       return (
 
       <LogoInCard width={350} height={360}>
@@ -183,7 +230,7 @@ class AuthContainer extends React.Component {
           direction='column'
           justify='flex-start'
         >
-          {signUpView.map(x=>x)}
+          {loadedView.map(x=>x)}
         </Grid>
       </LogoInCard>
 
@@ -195,4 +242,7 @@ AuthContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AuthContainer);
+export default 
+//withRouter(
+  withStyles(styles)(AuthContainer)
+//);
