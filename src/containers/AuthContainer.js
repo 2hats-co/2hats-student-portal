@@ -64,7 +64,7 @@ const INITIAL_STATE = {
   confirmPassword:'',
   email: '',
   error: null,
-  view:'signup'
+  view:'signin'
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -78,6 +78,18 @@ class AuthContainer extends React.Component {
     super(props);
 
     this.state = { ...INITIAL_STATE };
+  }
+  handleSignin(){
+    const {email,password} = this.state;
+   // const {history} = this.props;
+    auth.doSignInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState(() => ({ ...INITIAL_STATE }));
+        //history.push(routes.dashboard);
+      })
+      .catch(error => {
+        this.setState(updateByPropertyName('error', error));
+      });
   }
   handleSignup(){
     const {firstName,lastName,email,password} = this.state
@@ -120,18 +132,19 @@ class AuthContainer extends React.Component {
     const { classes } = this.props;
     const {firstName,lastName,password,confirmPassword,email,error,view} = this.state
     let socialButton = (provider, method) => (
-      <Button variant='flat' style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
+      <Button key={`${provider}${method}`} variant='flat' style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
         <div className={classes.socialIcon} >
           <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
         </div> sign {method} with {provider}
       </Button>)
 
-    let linkButton = (label, link) => (<StyledLink href={link}>
+    let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
     </StyledLink>)
     const emailField = (
     <TextField
       id="email"
+      key="email"
       label="Email Address"
       onChange={this.handleChange('email')}
       value={email}
@@ -143,6 +156,7 @@ class AuthContainer extends React.Component {
     const passwordField = (
     <TextField
       id="password"
+      key="password"
       label="Password"
       value={password}
       onChange={this.handleChange('password')}
@@ -154,6 +168,7 @@ class AuthContainer extends React.Component {
     const confirmPasswordField = (
       <TextField
         id="confirmPassword"
+        key="confirmPassword"
         label="Confirm Password"
         value={confirmPassword}
         onChange={this.handleChange('confirmPassword')}
@@ -164,6 +179,7 @@ class AuthContainer extends React.Component {
         type='password'
       />)
     const nameFields = (<Grid
+    key="nameFields"
     container
       justify='space-between'
       direction='row'
@@ -191,25 +207,27 @@ class AuthContainer extends React.Component {
         color="primary"
       />
     </Grid>)
-    const orLabel = (<Typography className={classes.or} variant="subheading" gutterBottom>
+    const orLabel = (<Typography key="or" className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
     const signInRow = (
       <Grid container
+        key='signInRow'
         alignItems='center'
         justify='space-between'
         direction='row'
       >
         {linkButton('Forgot Password?', '#')}
-        <Button variant='flat' className={classes.button}>
+        <Button variant='flat' onClick={this.handleSignin.bind(this)} className={classes.button}>
           Sign In
     </Button>
       </Grid>
     )
-    const signUpButton = (<Button variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password!=confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
+    const signUpButton = (<Button key='signupbutton' variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password!=confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
       Sign Up
 </Button>)
     const resetPasswordText = (<Grid
+      key='resetPasswordText'
       container
       alignItems='left'
     >
@@ -237,7 +255,7 @@ class AuthContainer extends React.Component {
   </Button>
   </Grid>)
     let footerLink = (label, link, linkLabel) => (
-     <div >
+     <div key={`${label+link}`} >
           <Typography className={classes.footerLink} variant="body1">
             {label}
           </Typography>
