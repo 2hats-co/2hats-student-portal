@@ -46,6 +46,19 @@ class CareerInterests extends React.Component {
         this.setState({ selectedCount: this.state.selectedCount -1 });
     }
     this.setState({ [name]: event.target.checked });
+     
+    let stateCopy =Object.entries(this.state)
+    let interests = stateCopy.filter(x=> x[1]===true ).map(x=> x[0])
+    
+  
+    if(interests.includes(name)){
+      interests = interests.filter(interest => interest ===name)
+    }else{
+      interests.push(name)
+    }
+    this.props.changeHandler('interests',interests)
+   
+    
   };
   renderCheckBox(item){
     const { classes } = this.props;
@@ -75,8 +88,10 @@ class CareerInterests extends React.Component {
   </FormControl>)
   }
   render() {
-
-    const { classes } = this.props;
+  
+    
+    const { classes} = this.props;
+   
     return (
         <div className={classes.root}>
          <Typography variant="title" color="primary">

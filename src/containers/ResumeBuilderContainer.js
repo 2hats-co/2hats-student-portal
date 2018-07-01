@@ -9,18 +9,14 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import CareerInterests from '../components/CareerInterests'
 import LogoOnCard from '../components/LogoOnCard'
-import { TextField } from '@material-ui/core';
-import InputWrapper from '../components/InputWrapper'
 import PhoneNumber from '../components/PhoneNumber';
 import DropDown from '../components/DropDown';
 import MultiLineTextField from '../components/MultiLineTextField';
-import AutoCompleteField from '../components/AutoCompleteField';
-import DialogForm from '../components/DailogForm'
 import SkillsInput from '../components/SkillsInput';
 import HeaderBar from '../components/HeaderBar';
 import EduExpCard from '../components/EduExpCard';
 import SectionWrapper from '../components/SectionWrapper'
-import Tween from 'rc-tween-one';
+
 const styles = theme => ({
   root: {
    
@@ -102,12 +98,49 @@ const otherInfo = (<Grid
       - President of AIESEC UNSW`}
      />
      </Grid>)
-   
+     
+  const INITIAL_STATE = {
+    activeStep: 0,
+    interests:[],
+    bio:'',
+    skills:[],  
+    Residency:'',
+    PhoneNumber:'',
+    email: '',
+    error: null,
+  };
   
-   function getStepContent(stepIndex) {
+class ResumeBuilderContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { ...INITIAL_STATE };
+  }
+
+  disableNext(){
+    const {activeStep,interests,skills}= this.state
+    let disabled = true
+    console.log(activeStep,interests.length)
+
+    switch (activeStep) {
+      case 0:
+      disabled = (interests.length===0)
+        break;
+        case 1:
+      
+          break;
+      default:
+      break;
+    }
+    return disabled
+ 
+  }
+  handleChange(name,value){
+    this.setState({[name]:value})
+  }
+   getStepContent(stepIndex) {
     switch (stepIndex) {
       case 0: //this.setState({height:390})
-    return (<SectionWrapper child={<CareerInterests/>} width={750} height={220}/>);
+    return (<SectionWrapper child={<CareerInterests changeHandler={this.handleChange.bind(this)} />} width={750} height={220}/>);
       case 1: //this.setState({height:590})
         return <SectionWrapper child={bioSection} width={400} height={420}/> ;
       case 2://this.setState({height:590})
@@ -120,11 +153,6 @@ const otherInfo = (<Grid
         return 'Uknown stepIndex';
     }
   }
-class ResumeBuilderContainer extends React.Component {
-  state = {
-    activeStep: 0,
-  };
-  
   handleNext = () => {
     const { activeStep } = this.state;
     this.setState({
@@ -145,8 +173,10 @@ class ResumeBuilderContainer extends React.Component {
       activeStep: 0,
     });
   };
+  
 
   render() {
+    console.log(this.state)
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
@@ -214,7 +244,7 @@ class ResumeBuilderContainer extends React.Component {
               //style={{height:400}}
               >
               <Grid item>
-              {getStepContent(activeStep)}
+              {this.getStepContent(activeStep)}
               </Grid>
               <Grid item>
               <Grid 
@@ -233,7 +263,7 @@ class ResumeBuilderContainer extends React.Component {
                   Back
                 </Button>
                 <Button 
-                 className={classes.footerButton}
+                 className={classes.footerButton} disabled={this.disableNext.bind(this)()}
                 variant="flat" onClick={this.handleNext}>
                   Next
                 </Button>
