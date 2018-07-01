@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <MuiThemeProvider theme={Theme}>
       <div className="App">
-      <ResumeBuilderContainer/>
+      <AuthContainer/>
       </div>
       </MuiThemeProvider>
     );

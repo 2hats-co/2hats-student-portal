@@ -106,7 +106,7 @@ export const Theme = createMuiTheme({
     },
     body1: {
       fontSize: '12px',
-      fontWeight: 300,
+      fontWeight: 500,
       fontFamily:primaryFontFamily,
       letterSpacing: '0.06px'
 

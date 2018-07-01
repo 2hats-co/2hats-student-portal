@@ -11,8 +11,8 @@ import LogoInCard from '../components/LogoInCard';
 import GoogleIcon from '../assets/images/social/google.svg'
 import LinkedinIcon from '../assets/images/social/linkedin.svg'
 import StyledLink from '../components/StyledLink';
-import {validateEmail} from '../utilities/validators'
-import { auth } from '../firebase';
+import {validateEmail,validatePassword,validateName} from '../utilities/validators'
+import { auth, firestore} from '../firebase';
 const styles = theme => ({
   root: {
     //position: 'fixed',
@@ -58,9 +58,13 @@ const styles = theme => ({
   }
 });
 const INITIAL_STATE = {
+  firstName:'',
+  lastName:'',  
+  password:'',
+  confirmPassword:'',
   email: '',
   error: null,
-  view:'signin'
+  view:'signup'
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -74,6 +78,25 @@ class AuthContainer extends React.Component {
     super(props);
 
     this.state = { ...INITIAL_STATE };
+  }
+  handleSignup(){
+    const {firstName,lastName,email,password} = this.state
+    auth.doCreateUserWithEmailAndPassword(email, password)
+      .then(authUser => {
+        // Create a user in your own accessible Firebase Database too
+        firestore.doCreateUser(authUser.user.uid, firstName,lastName, email)
+          .then(() => {
+            this.setState(() => ({ ...INITIAL_STATE }));
+           // history.push(routes.onboard);
+          })
+          .catch(error => {
+            this.setState(updateByPropertyName('error', error));
+          });
+
+      })
+      .catch(error => {
+        this.setState(updateByPropertyName('error', error));
+      });
   }
   handleResetPassword (email){
     auth.doPasswordReset(email)
@@ -95,6 +118,7 @@ class AuthContainer extends React.Component {
   }
   render() {
     const { classes } = this.props;
+    const {firstName,lastName,password,confirmPassword,email,error,view} = this.state
     let socialButton = (provider, method) => (
       <Button variant='flat' style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
         <div className={classes.socialIcon} >
@@ -120,6 +144,8 @@ class AuthContainer extends React.Component {
     <TextField
       id="password"
       label="Password"
+      value={password}
+      onChange={this.handleChange('password')}
    //   placeholder="Password"
       className={classes.textField}
       margin="normal"
@@ -129,6 +155,9 @@ class AuthContainer extends React.Component {
       <TextField
         id="confirmPassword"
         label="Confirm Password"
+        value={confirmPassword}
+        onChange={this.handleChange('confirmPassword')}
+
       //  placeholder="Confirm Password"
         className={classes.textField}
         margin="normal"
@@ -143,6 +172,9 @@ class AuthContainer extends React.Component {
       <TextField
         id="firstName"
         label="First Name"
+        value={firstName}
+        onChange={this.handleChange('firstName')}
+        
      //   placeholder="First Name"
         className={classes.nameTextField}
         margin="normal"
@@ -151,6 +183,8 @@ class AuthContainer extends React.Component {
       <TextField
         id="lastName"
         label="Last Name"
+        value={lastName}
+        onChange={this.handleChange('lastName')}
        // placeholder="Last Name"
         className={classes.nameTextField}
         margin="normal"
@@ -172,7 +206,7 @@ class AuthContainer extends React.Component {
     </Button>
       </Grid>
     )
-    const signUpButton = (<Button variant="flat" isDisable className={classes.button}>
+    const signUpButton = (<Button variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password!=confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
       Sign Up
 </Button>)
     const resetPasswordText = (<Grid
@@ -211,7 +245,7 @@ class AuthContainer extends React.Component {
           {linkButton(linkLabel, link)}
           </div>
        )
-      const {email,error,view} = this.state
+   
       const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', '#', 'Sign Up')]
       const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', 'signin', 'Sign In')]
       const resetView = [resetPasswordText,emailField,resetPasswordButton(!validateEmail(email))]
