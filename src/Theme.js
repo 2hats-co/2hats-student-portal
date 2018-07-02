@@ -97,7 +97,7 @@ export const Theme = createMuiTheme({
     },
     title: {
       fontFamily:primaryFontFamily,
-      fontWeight: 'bold',
+      fontWeight: 400,
       fontSize: '20px',
       textAlign: 'left',
       color:inherits,
