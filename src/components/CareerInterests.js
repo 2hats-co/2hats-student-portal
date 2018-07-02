@@ -42,6 +42,16 @@ class CareerInterests extends React.Component {
     this.props.changeHandler('interests',interests)
   }
 }
+componentWillMount(){
+  console.log(preSelectedList)
+  const {preSelectedList} = this.props
+  if(preSelectedList){
+  preSelectedList.forEach(skill => {
+    this.setState({[skill]:true})
+  });
+  this.setState({selectedCount:preSelectedList.length})
+}
+}
   handleChange = name => event => {
     if(event.target.checked){
         this.setState({ selectedCount: this.state.selectedCount +1 });
