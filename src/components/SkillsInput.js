@@ -17,7 +17,18 @@ class SkillsInput extends React.Component {
         selectedList: []
       };
 
+      componentWillMount(){
+ 
+        const {preSelectedList} = this.props
+        if(preSelectedList){
+            this.setState({selectedList:preSelectedList})
 
+      //  preSelectedList.forEach(skill => {
+      //    this.setState({selectedList:true})
+       // });
+        
+      }
+      }
       componentDidUpdate(prevProps, prevState){
         if(prevState !== this.state){
         this.props.changeHandler('skills',this.state.selectedList)

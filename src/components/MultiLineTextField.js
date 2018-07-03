@@ -8,7 +8,7 @@ const styles = theme => ({
     root: {
       marginTop:'10px',
       padding:'11px !important',
-     height:'80px',
+     height:'90px',
     // width:'100%',
      width: '380px !important',
     
@@ -32,7 +32,7 @@ class MultiLineTextField extends React.Component {
 
    state = { 
     characterCountValue: '',
-    InputValue:''
+    inputValue:''
     };
 
   
@@ -41,13 +41,15 @@ class MultiLineTextField extends React.Component {
     if(this.props.characterLimit){
       this.setState({characterCountValue:`0/${this.props.characterLimit}`})
     }
-    if(this.props.placeholder){
-      this.setState({InputValue:this.props.placeholder})
+    if(this.props.placeholder &&this.props.value==='' ){
+      this.setState({inputValue:this.props.placeholder})
+    }else{
+      this.setState({inputValue:this.props.value})      
     }
   }
   componentDidUpdate(prevProps, prevState){
     if(prevState !== this.state){
-    this.props.changeHandler('bio',this.state.InputValue)
+    this.props.changeHandler('bio',this.state.inputValue)
     }
 }
   handleChange(event){
@@ -58,13 +60,13 @@ class MultiLineTextField extends React.Component {
     if(newLength<maxLength-1){
       this.setState(
         {characterCountValue:`${newLength}/${maxLength}`,
-        InputValue:value
+        inputValue:value
       })
  
     }else{ 
       this.setState(
         {characterCountValue:`${newLength}/${maxLength}`,
-        InputValue:value.substring(0, maxLength)
+        inputValue:value.substring(0, maxLength)
       })
       event.target.value = value.substring(0, maxLength)
  
@@ -74,7 +76,7 @@ class MultiLineTextField extends React.Component {
   handleFocus(event){
    
     if(this.props.placeholder === event.target.value){
-      this.setState({InputValue:''})
+      this.setState({inputValue:''})
       event.target.value = ''
     }
     
@@ -91,8 +93,8 @@ class MultiLineTextField extends React.Component {
       child={(<textarea
       onChange={this.handleChange.bind(this)}
       onFocus={this.handleFocus.bind(this)}
-      className={classes.root}rows="4" cols="50">
-      {this.state.InputValue} 
+      className={classes.root}rows="4" cols="50"
+      value={this.state.inputValue}>
       </textarea>)}
       
       />

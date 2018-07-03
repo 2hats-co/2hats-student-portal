@@ -41,6 +41,13 @@ class PhoneNumber extends React.Component {
   state = {
     number: '',
   };
+  componentWillMount(){
+    const {value}= this.props
+    if(value){
+      this.setState({number:value})
+    }
+
+  }
   componentDidUpdate(prevProps, prevState){
     if(prevState !== this.state){
     this.props.changeHandler('phoneNumber',this.state.number)

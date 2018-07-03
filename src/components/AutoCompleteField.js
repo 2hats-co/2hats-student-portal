@@ -8,13 +8,11 @@ import { TextField } from "@material-ui/core";
 import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
 
-import Button from "@material-ui/core/Button";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Collapse from "@material-ui/core/Collapse";
+
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
-import Chip from "@material-ui/core/Chip";
-import Portal from "@material-ui/core/Portal";
+
 import MenuItem from "@material-ui/core/MenuItem";
 import MenuList from "@material-ui/core/MenuList";
 
