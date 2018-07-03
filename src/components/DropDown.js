@@ -24,11 +24,9 @@ function DropDown(props) {
           {label&& <Typography variant='caption'>{label}</Typography>}
         <Select  
        value={value}
-       onChange={()=>{changeHandler(name,'value')}}
-          name="age"
-       
-     //   displayEmpty
-     //  className={classes.selectEmpty}
+       onChange={(e)=>{console.log(e)
+         changeHandler(name,e.target.value)
+        }}
         >
           <MenuItem className={classes.placeHolderItem}
           value="select option" disabled>

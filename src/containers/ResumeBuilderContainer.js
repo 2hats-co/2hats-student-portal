@@ -13,10 +13,9 @@ import PhoneNumber from "../components/PhoneNumber";
 import DropDown from "../components/DropDown";
 import MultiLineTextField from "../components/MultiLineTextField";
 import SkillsInput from "../components/SkillsInput";
-import HeaderBar from "../components/HeaderBar";
-import EduExpCard from "../components/EduExpCard";
 import SectionWrapper from "../components/SectionWrapper";
-
+import {getPrompts} from '../constants/resumeBuilderPrompts'
+import EducationContainer from "../components/EduExp/EducationContainer";
 const styles = theme => ({
   root: {
     height: 800
@@ -48,51 +47,30 @@ function getSteps() {
     "Other Information"
   ];
 }
-const experience = (
-  <Grid container direction="column" alignItems="center">
-    <HeaderBar title="Practical Experience" />
-    <EduExpCard
-      title="UI Design Intern"
-      label="3hats Inc. / Employment"
-      startDate="May 2018"
-      endDate="Present"
-      description={`- Re-created 3hats' key product page, which resulted in 50% more page visits
-        - Created the wireframes and prototypes of a new feature`}
-    />
-  </Grid>
-);
-const education = (
-  <Grid container direction="column" alignItems="center">
-    <HeaderBar title="Tertiary Education" />
-    <EduExpCard
-      title="Bachelor of Commerce - Accounting"
-      label="University of New South Wales"
-      startDate="Feb 2016"
-      endDate="Dec 2017"
-      description={`- 85+ WAM
-      - Winner of FMAA Management Consulting Case Competition
-      - President of AIESEC UNSW`}
-    />
-  </Grid>
-);
-
 const INITIAL_STATE = {
-  activeStep: 0,
+  //activeStep: 0,
+  activeStep: 2,
   interests: [],
   bio: "",
   skills: [],
-  residency: " ",
-  phoneNumber: 0,
+  residency: "",
+  phoneNumber: "",
   email: "",
+  industry: "IT",
+  education: [{degree:"Bachelor of Commerce - Accounting",university:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
+  - Winner of FMAA Management Consulting Case Competition
+  - President of AIESEC UNSW`}],
+  experience: [{title:"Bachelor of Commerce - Accounting",company:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
+  - Winner of FMAA Management Consulting Case Competition
+  - President of AIESEC UNSW`}],
   error: null
 };
-
 class ResumeBuilderContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
   }
-  bioSection = (
+  bioSection = () => (
     <Grid
       container
       direction="row"
@@ -102,17 +80,17 @@ class ResumeBuilderContainer extends React.Component {
       <MultiLineTextField
         title="Personal Bio"
         hint="This bio should focus on your key achievement and what value you can bring to the position-providing companies."
-        placeholder="For example: 
-        Hard-working student (80 WAM) with 3 months experience of UI design internship. I have more than 1-year of experience in using the Adobe creative suite tools, such as Adobe Photoshop and Adobe XD and would like to further utilise such skills in my future position.
-        "
+        placeholder={` For example: ${getPrompts(this.state.industry).bio}`}
+        value={this.state.bio}
         characterLimit={400}
         changeHandler={this.handleChange.bind(this)}
       />
-      <SkillsInput preSelectedList={this.state.skills} 
+      <SkillsInput 
+      preSelectedList={this.state.skills} 
       changeHandler={this.handleChange.bind(this)} />
     </Grid>
   );
-  otherInfo = (
+  otherInfo = () =>(
     <Grid
       container
       direction="row"
@@ -122,12 +100,12 @@ class ResumeBuilderContainer extends React.Component {
       <DropDown
         title="Residency Status"
         name="residency"
-        value={"res"}
+        value={this.state.residency}
         changeHandler={this.handleChange.bind(this)}
         options={["Permanent resident", "Student visa"]}
         hint="Your residence status is required so that we can know whether you have any work restriction."
       />
-      <PhoneNumber changeHandler={this.handleChange.bind(this)} />
+      <PhoneNumber value={this.state.phoneNumber} changeHandler={this.handleChange.bind(this)} />
     </Grid>
   );
   disableNext() {
@@ -139,29 +117,14 @@ class ResumeBuilderContainer extends React.Component {
       residency,
       phoneNumber
     } = this.state;
-    let disabled = true;
-    console.log(activeStep, phoneNumber.length);
-
     switch (activeStep) {
-      case 0:
-        disabled = interests.length === 0;
-        break;
-      case 1:
-        disabled = skills.length === 0 || bio.length === 0;
-        break;
-      case 2:
-        disabled = false;
-        break;
-      case 3:
-        disabled = false;
-        break;
-      case 4:
-        disabled = phoneNumber.length !== 10;
-        break;
-      default:
-        break;
+      case 0:return interests.length === 0;
+      case 1:return skills.length === 0 || bio.length === 0;
+      case 2:return false;
+      case 3:return false;
+      case 4:return phoneNumber.length !== 10;
+      default:return false;
     }
-    return disabled;
   }
   handleChange(name, value) {
     this.setState({ [name]: value });
@@ -178,20 +141,15 @@ class ResumeBuilderContainer extends React.Component {
             height={220}
           />
         );
-      case 1: //this.setState({height:590})
-        return (
-          <SectionWrapper child={this.bioSection} width={400} height={420} />
-        );
-      case 2: //this.setState({height:590})
-        return <SectionWrapper child={experience} width={400} height={420} />;
-      case 3: //this.setState({height:440})
-        return <SectionWrapper child={education} width={400} height={420} />;
-      case 4: //this.setState({height:330})
-        return (
-          <SectionWrapper child={this.otherInfo} width={250} height={270} />
-        );
-      default:
-        return "Uknown stepIndex";
+      case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
+      case 2: return <SectionWrapper child={
+        <EducationContainer items ={this.state.education}/>
+      } width={400} height={420} />;
+      case 3: return  <SectionWrapper child={
+        <EducationContainer/>
+      } width={400} height={420} />;
+      case 4: return <SectionWrapper child={this.otherInfo()} width={250} height={270} />
+      default: return "Uknown stepIndex";
     }
   }
   handleNext = () => {
@@ -207,7 +165,6 @@ class ResumeBuilderContainer extends React.Component {
       activeStep: activeStep - 1
     });
   };
-
   handleReset = () => {
     this.setState({
       activeStep: 0
@@ -232,7 +189,6 @@ class ResumeBuilderContainer extends React.Component {
           You have filled all mandatory fields to build your resume using our
           guided processes.
         </Typography>
-
         <Typography variant="body">
           You can submit your resume for our review now.
         </Typography>
@@ -298,7 +254,6 @@ class ResumeBuilderContainer extends React.Component {
                   container
                   direction="column"
                   justify="space-between"
-                  //style={{height:400}}
                 >
                   <Grid item>{this.getStepContent(activeStep)}</Grid>
                   <Grid item>
