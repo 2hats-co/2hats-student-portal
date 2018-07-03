@@ -12,14 +12,13 @@ const businessList = [{key:'BD',label:'Business development'},{key:'CRM',label:'
 const marketingList = [{key:'CW',label:'Copy writing'},{key:'DM',label:'Digital marketing'},{key:'SEO',label:'SEO'}]
 const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User experience'},{key:'UI',label:'User interface'}]
 const ITList = [{key:'SDEV',label:'Software development'},{key:'WEB',label:'Web&App'},{key:'DA',label:'Data Analytics'}]
-const lists = [{label:'Business',items: businessList},{label:'marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
+const lists = [{label:'Business',items: businessList},{label:'Marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
 
 const styles = theme => ({
   root: {
   },  
   group: {
     marginTop:20,
-   
   },
   groupHeader:{
     fontSize:'16px',
@@ -40,10 +39,18 @@ class CareerInterests extends React.Component {
     const stateCopy =Object.entries(this.state)
     const interests = stateCopy.filter(x=> x[1]===true ).map(x=> x[0])
     this.props.changeHandler('interests',interests)
+    lists.forEach((industry)=>{
+      industry.items.forEach((v)=>{
+        if(v.key===interests[0]){
+          this.props.changeHandler('industry',industry.label)
+        }
+        
+      })
+    })
   }
 }
 componentWillMount(){
-  console.log(preSelectedList)
+ 
   const {preSelectedList} = this.props
   if(preSelectedList){
   preSelectedList.forEach(skill => {
