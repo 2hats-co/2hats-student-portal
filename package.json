@@ -6,6 +6,7 @@
     "@material-ui/core": "^1.2.2",
     "@material-ui/icons": "^1.1.0",
     "firebase": "^5.2.0",
+    "lodash": "^4.17.10",
     "rc-tween-one": "^2.0.11",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",

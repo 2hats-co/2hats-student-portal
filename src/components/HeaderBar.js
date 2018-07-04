@@ -38,8 +38,7 @@ function HeaderBar(props) {
           <Typography variant="title" color="inherit">
             {title}
           </Typography> 
-
-          <IconButton className={classes.add} onClick={handler} color="inherit" aria-label="add">
+          <IconButton className={classes.add} onClick={()=>{handler()}} color="inherit" aria-label="add">
             <AddIcon style={{ fontSize: 36 }} />
           </IconButton>
           </Grid>

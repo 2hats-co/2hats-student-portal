@@ -41,17 +41,23 @@ function completed(field){
    }else return true
  }else return true
 }
-function filledFields(k,v){
-  console.log(k,v)
-  //return {[field]:field.fieldValue}
-}
 class DialogForm extends React.Component {
   state = {
     aaa:''
 
   };
-  componentDidUpdate(){
-    console.log(this.state)
+  
+  componentDidUpdate(prevProps, prevState){
+    console.log('new props',this.props)
+    console.log('state',this.state)
+    const {fields} = this.props
+    
+    if (prevProps.data !== this.props.data) {
+      fields.forEach((field)=>{
+        this.setState({[field.name]:{value:'',isRequired:field.isRequired}})})
+      console.log('new props',this.props)
+    } 
+    
   }
   handleClickOpen = () => {
    // this.setState({ open: true });
@@ -66,9 +72,10 @@ class DialogForm extends React.Component {
     this.setState({ open: false });
   };
   handleChange = (name,value) =>{
-    const isRequired = this.state[name].isRequired
+    console.log(name,this.state)
+    //const isRequired = this.state[name].isRequired
     
-    this.setState({[name]:{value:value,isRequired:isRequired}})
+   //this.setState({[name]:{value:value,isRequired:isRequired}})
   }
   isDisabled(){
   const completedRequired = _.map(this.state,completed)
@@ -85,13 +92,12 @@ class DialogForm extends React.Component {
     return (
       <div>
         <Dialog 
-          
           className={classes.root}
           open={isOpen}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-           <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{title}</DialogTitle>
+        <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{title}</DialogTitle>
           <DialogContent className={classes.content}>
             <Grid
             container
@@ -100,7 +106,6 @@ class DialogForm extends React.Component {
             justify='flex-start'
             > 
             {fields.map((field)=>{
-              
               switch (field.type) {
                 case INPUTS.textField:return <TextField
                 key= {field.name}
@@ -115,7 +120,7 @@ class DialogForm extends React.Component {
                case INPUTS.dropDown:return  <DropDown label={field.label} 
                key= {field.name} 
                options={field.options} 
-                value={this.state.university.value||field.value} 
+                value={field.value} 
                 name={field.name}
                 changeHandler={this.handleChange.bind(this)}
                 //changeHandler={(v)=>{console.log(v)}}
@@ -139,6 +144,7 @@ class DialogForm extends React.Component {
             name={field.name}
             placeholder={field.placeholder}
             hint={field.hint}
+            value={field.value}
             changeHandler={this.handleChange.bind(this)}
             value=''
           />

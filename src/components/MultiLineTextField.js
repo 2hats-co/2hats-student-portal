@@ -9,9 +9,8 @@ const styles = theme => ({
       marginTop:'10px',
       padding:'11px !important',
      height:'90px',
-    // width:'100%',
-     width: '380px !important',
-    
+    width:'94%',
+    // width: '380px',
       backgroundColor:'#EDEDED',
       border: '1px solid #fff',
       outline: 'none',
@@ -29,14 +28,10 @@ const styles = theme => ({
 
 
 class MultiLineTextField extends React.Component {
-
    state = { 
     characterCountValue: '',
     inputValue:''
     };
-
-  
-
   componentWillMount(){
     if(this.props.characterLimit){
       this.setState({characterCountValue:`0/${this.props.characterLimit}`})
@@ -49,7 +44,7 @@ class MultiLineTextField extends React.Component {
   }
   componentDidUpdate(prevProps, prevState){
     if(prevState !== this.state){
-    this.props.changeHandler('bio',this.state.inputValue)
+    this.props.changeHandler(this.props.name,this.state.inputValue)
     }
 }
   handleChange(event){
@@ -85,7 +80,7 @@ class MultiLineTextField extends React.Component {
     const { classes,title,label,hint,numberOfLines} = this.props;
     return(
       <div>
-      {label&& <Typography variant='caption'>{label}</Typography>}
+      {label&& <Typography style={{marginLeft:1}}variant='caption'>{label}</Typography>}
       <InputWrapper
       title={title}
       hint={hint}
@@ -94,6 +89,7 @@ class MultiLineTextField extends React.Component {
       onChange={this.handleChange.bind(this)}
       onFocus={this.handleFocus.bind(this)}
       className={classes.root}rows="4" cols="50"
+     // style={{widthMax:200 +'!important'}}
       value={this.state.inputValue}>
       </textarea>)}
       

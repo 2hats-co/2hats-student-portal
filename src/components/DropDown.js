@@ -16,7 +16,6 @@ const styles = theme => ({
     height:0
 },
 });
-
 function DropDown(props) {
   const {classes,options,value,changeHandler,name,title,hint,label} = props;
     const InputField = ( 
@@ -54,7 +53,7 @@ DropDown.propTypes = {name: PropTypes.string.isRequired,
   helperLabel: PropTypes.string,
   hint: PropTypes.string,
   label: PropTypes.string,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   changeHandler: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.string).isRequired, 
   classes: PropTypes.object.isRequired,

@@ -23,7 +23,7 @@ const styles = theme => ({
 function EduExpCard(props) {
   // check if index === 0, include header
   
-  const { classes, title, label, description, startDate, endDate } = props;
+  const { classes, title, label, description, startDate, endDate,editHandler } = props;
   return (
     <div className={classes.root}>
  
@@ -32,7 +32,7 @@ function EduExpCard(props) {
       <Grid container direction="column" alignItems="flex-start" spacing={16}>
       <Grid container direction="row" alignItems="center" justify="space-between">
       <Typography variant='subheading'>{title}</Typography>
-      <IconButton className={classes.button} aria-label="Delete">
+      <IconButton className={classes.button} onClick={()=>{editHandler()}} aria-label="Edit">
         <EditIcon />
       </IconButton>
       </Grid>
@@ -59,6 +59,7 @@ function EduExpCard(props) {
         - President of AIESEC UNSW`}
        /> */}
 EduExpCard.propTypes = {
+  editHandler: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   label: PropTypes.string,
   default: PropTypes.string,

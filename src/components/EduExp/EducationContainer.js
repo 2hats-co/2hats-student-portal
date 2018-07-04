@@ -5,8 +5,10 @@ import HeaderBar from '../HeaderBar'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import DialogForm from './DailogForm'
-import { INPUTS } from "../../constants/enums";
-import { getPrompts } from "../../constants/resumeBuilderPrompts";
+
+import { EDU,getFormFields } from "../../constants/dialogFormFields";
+import * as _ from 'lodash'
+
 
 const styles = theme => ({
     root: {
@@ -16,51 +18,64 @@ const styles = theme => ({
     
     }
   });
-const eduEmptyFields = [{type:INPUTS.textField,name:'degree',label:'Degree',placeholder:'e.g. Bachelor of Commerce',isRequired:true},
-{type:INPUTS.textField,name:'major',label:'Major (optional)',placeholder:'e.g. Accounting & Finance',isRequired:false},
-{type:INPUTS.dropDown,name:'university',label:'University',options:['USYD','UNSW','UTS'],isRequired:true},
-{type:INPUTS.datePicker,name:'startDate',label:'Start',isRequired:true},
-{type:INPUTS.datePicker,name:'endDate',label:'End/Expected End',isRequired:true},
-{type:INPUTS.multiLine,name:'description',label:'Discription(Optional)',placeholder:`E.g.:
-- Re-created 3hats' key product page, which resulted in 50% more page visits
-- Created the wireframes and prototypes of a new feature`,hint:'This description should focus on your key achievement in this job/position.',isRequired:false}
-]
+
 
 class EducationContainer extends React.Component {
-    state = {
-        dialogOpen:false
+    constructor(props) {
+    super(props);
+    this.state = {
+        dialog:{isOpen:false, fields:getFormFields(this.props.name)}
     }
-    handleOpenDialog(){
-        this.setState({dialogOpen:true})
+    // This binding is necessary to make `this` work in the callback
+    this.handleOpenDialog = this.handleOpenDialog.bind(this);
+    this.handleCloseDialog=this.handleCloseDialog.bind(this);
+  }
+
+  
+    handleOpenDialog(previousEntry){
+        if(previousEntry){
+            this.setState({dialog:{isOpen:true,fields:_.map(getFormFields(this.props.type),(v,k)=>{
+                //previous value to fields
+                return Object.assign(v,{value:previousEntry[v.name]})
+            })}})
+
+        }else{
+            this.setState({dialog:{isOpen:true,fields:getFormFields(this.props.name)}})
+           // this.setState({dialogOpen:true})
+        }
+       
     }
     handleCloseDialog(newItem){
-        this.setState({dialogOpen:false})
+        this.setState({dialog:{isOpen:false,fields:getFormFields(this.props.name)}})
         if(newItem){
         const {changeHandler,items} = this.props 
-        changeHandler('education',items.concat(newItem))
+        changeHandler(this.props.name,items.concat(newItem))
         }
     }
+    header(){
+
+    }
     render(){
-        const {items} = this.props 
+        const {items,name} = this.props 
         return(
             <div>
 <Grid container direction="column" alignItems="center">
-      <HeaderBar title="Tertiary Education" 
-                handler={this.handleOpenDialog.bind(this)}/>
+      <HeaderBar title={name===EDU? "Tertiary Education":"Practical Experience"} 
+                handler={this.handleOpenDialog}/>
       {items&& items.map((item)=>
            <EduExpCard
-           key={item.degree}
-           title={item.degree}
-           label={item.university}
+           key={name===EDU?item.degree:item.title}
+           title={name===EDU?item.degree:item.title}
+           label={name===EDU?item.university:item.company}
            startDate={item.startDate}
            endDate={item.endDate}
            description={item.description}
+           editHandler={()=>{this.handleOpenDialog(item)}}
          />
       )}
-     
-       
+
     </Grid>
-    <DialogForm title={'Add Education'} fields={eduEmptyFields} handler={this.handleCloseDialog.bind(this)} isOpen={this.state.dialogOpen}/>
+    <DialogForm title={'Add Education'} fields={this.state.dialog.fields} handler={this.handleCloseDialog} isOpen={this.state.dialog.isOpen}/>
     </div>
          )}
 
