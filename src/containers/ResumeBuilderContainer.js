@@ -82,6 +82,7 @@ class ResumeBuilderContainer extends React.Component {
         hint="This bio should focus on your key achievement and what value you can bring to the position-providing companies."
         placeholder={` For example: ${getPrompts(this.state.industry).bio}`}
         value={this.state.bio}
+        name='bio'
         characterLimit={400}
         changeHandler={this.handleChange.bind(this)}
       />
@@ -143,7 +144,7 @@ class ResumeBuilderContainer extends React.Component {
         );
       case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
       case 2: return <SectionWrapper child={
-        <EducationContainer items ={this.state.education}/>
+        <EducationContainer changeHandler={this.handleChange.bind(this)} items ={this.state.education}/>
       } width={400} height={420} />;
       case 3: return  <SectionWrapper child={
         <EducationContainer/>

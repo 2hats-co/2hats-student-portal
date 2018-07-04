@@ -1,27 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import InputWrapper from "./InputWrapper";
+
 import { Typography, Card, Grid ,IconButton} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit'
-import HeaderBar from './HeaderBar'
+
 const styles = theme => ({
   root:{
   
   },
-  card:{
-    
+  card:{  
     width: 390,
     paddingTop: 30,
     paddingBottom: 30,
     paddingLeft:40,
     paddingRight:40,
+    marginBottom:20
   },
-  header:{
-    marginTop:20,
-    marginLeft:15,
-    marginBottom:-35
-  }
+ 
 
 });
 function EduExpCard(props) {

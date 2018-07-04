@@ -12,14 +12,15 @@ const styles = theme => ({
     width: '100%',
   },
   footer:{
-   // width: 400,
+    marginTop:4
   },
   child:{
     width: '100%',
   },
   characterCount:{
     textAlign:'right'
-  }
+  },
+
 });
 
 function InputWrapper(props) {

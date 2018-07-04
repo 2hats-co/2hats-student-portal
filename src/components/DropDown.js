@@ -24,7 +24,7 @@ function DropDown(props) {
           {label&& <Typography variant='caption'>{label}</Typography>}
         <Select  
        value={value}
-       onChange={(e)=>{console.log(e)
+       onChange={(e)=>{
          changeHandler(name,e.target.value)
         }}
         >
