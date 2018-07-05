@@ -14,6 +14,8 @@ import BuildResume from '../assets/images/graphics/BuildResume.png'
 import UploadResume from '../assets/images/graphics/UploadResume.png'
 
 import SectionWrapper from '../components/SectionWrapper'
+import * as routes from '../constants/routes'
+import {withRouter} from 'react-router-dom'
 
 const styles = theme => ({
     root: {
@@ -42,37 +44,50 @@ const intro =
      image:intro3,
      description:'Once you are qualified, we will match you with a paid placement in your chosen career interest(s). '
     }]}
-const submission = 
+     
+class IntroductionContainer extends React.Component {
+  constructor(props) {
+    super(props)
+    this.goToUploadResume = this.goToUploadResume.bind(this)
+    this.goToBuildResume = this.goToBuildResume.bind(this)
+  }
+
+  goToBuildResume(){
+    this.props.history.push(routes.BUILD_RESUME)
+  }
+
+  goToUploadResume(){
+    this.props.history.push(routes.UPLOAD_RESUME)
+  }
+
+  render(){
+
+    const { classes } = this.props;
+
+    const submission = 
         { heading: 'Resume Submission',
         width:680,
         sections:[{title:'Upload Resume',
         image:UploadResume,
         description:'If you have a resume already created, you can upload it directly to our platform for review.',
-         button:{label: `Upload your resume`}},
+         button:{label: `Upload your resume`,onClick:this.goToUploadResume}},
          {title:'Build Resume',
          image:BuildResume,
          description: 'If you don’t have a resume created, we will help you build a professional resume through a 5-step process.',
-          button:{label: `Build a resume`}
+          button:{label: `Build a resume`, onClick:this.goToBuildResume}
         }]
         }
-
-
-class IntroductionContainer extends React.Component {
-
-  render(){
-    const { classes } = this.props;
-
-    
     const submissionView = (<div className={classes.root}><Typography variant="display1">
     {submission.heading}
  </Typography>
 <div className={classes.sections} >
     <CardSections width={submission.width} sections={submission.sections} hasDivider/>
  </div></div>)
+
+    
     return (
     <LogoOnCard 
     width={680}
-
     >
     <SectionWrapper height={550}
       child = {submissionView}/> 
@@ -84,5 +99,4 @@ class IntroductionContainer extends React.Component {
 IntroductionContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-
-export default withStyles(styles)(IntroductionContainer);
+export default withRouter(withStyles(styles)(IntroductionContainer))

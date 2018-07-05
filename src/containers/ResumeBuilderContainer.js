@@ -16,6 +16,12 @@ import SkillsInput from "../components/SkillsInput";
 import SectionWrapper from "../components/SectionWrapper";
 import {getPrompts} from '../constants/resumeBuilderPrompts'
 import EducationContainer from "../components/EduExp/EducationContainer";
+
+import { compose } from 'redux';
+import { withHandlers, lifecycle } from 'recompose'
+import { connect } from 'react-redux';
+import  {withFirestore} from '../utilities/withFirestore';
+
 const styles = theme => ({
   root: {
     height: 800
@@ -49,20 +55,18 @@ function getSteps() {
 }
 const INITIAL_STATE = {
   //activeStep: 0,
-  activeStep: 2,
+  activeStep: 0,
+  profile:{
   interests: [],
   bio: "",
   skills: [],
   residency: "",
   phoneNumber: "",
-  email: "",
   industry: "IT",
   education: [{degree:"Bachelor of Commerce - Accounting",university:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
   - Winner of FMAA Management Consulting Case Competition
   - President of AIESEC UNSW`}],
-  experience: [{title:"Bachelor of Commerce - Accounting",company:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
-  - Winner of FMAA Management Consulting Case Competition
-  - President of AIESEC UNSW`}],
+  experience: []},
   error: null
 };
 class ResumeBuilderContainer extends React.Component {
@@ -80,14 +84,14 @@ class ResumeBuilderContainer extends React.Component {
       <MultiLineTextField
         title="Personal Bio"
         hint="This bio should focus on your key achievement and what value you can bring to the position-providing companies."
-        placeholder={` For example: ${getPrompts(this.state.industry).bio}`}
-        value={this.state.bio}
+        placeholder={` For example: ${getPrompts(this.state.profile.industry).bio}`}
+        value={this.state.profile.bio}
         name='bio'
         characterLimit={400}
         changeHandler={this.handleChange.bind(this)}
       />
       <SkillsInput 
-      preSelectedList={this.state.skills} 
+      preSelectedList={this.state.profile.skills} 
       changeHandler={this.handleChange.bind(this)} />
     </Grid>
   );
@@ -101,23 +105,24 @@ class ResumeBuilderContainer extends React.Component {
       <DropDown
         title="Residency Status"
         name="residency"
-        value={this.state.residency}
+        value={this.state.profile.residency}
         changeHandler={this.handleChange.bind(this)}
         options={["Permanent resident", "Student visa"]}
         hint="Your residence status is required so that we can know whether you have any work restriction."
       />
-      <PhoneNumber value={this.state.phoneNumber} changeHandler={this.handleChange.bind(this)} />
+      <PhoneNumber value={this.state.profile.phoneNumber} changeHandler={this.handleChange.bind(this)} />
     </Grid>
   );
   disableNext() {
     const {
       activeStep,
-      interests,
+      profile
+    } = this.state;
+    const{interests,
       skills,
       bio,
       residency,
-      phoneNumber
-    } = this.state;
+      phoneNumber,industry} = this.state.profile
     switch (activeStep) {
       case 0:return interests.length === 0;
       case 1:return skills.length === 0 || bio.length === 0;
@@ -128,15 +133,20 @@ class ResumeBuilderContainer extends React.Component {
     }
   }
   handleChange(name, value) {
-    this.setState({ [name]: value });
+    const newProfile = Object.assign(this.state.profile,{[name]:value})
+    this.setState({ profile: newProfile });
   }
   getStepContent(stepIndex) {
+    const{interests,
+      education,
+      experience,
+     industry} = this.state.profile
     switch (stepIndex) {
       case 0: //this.setState({height:390})
         return (
           <SectionWrapper
             child={
-              <CareerInterests preSelectedList={this.state.interests} changeHandler={this.handleChange.bind(this)} />
+              <CareerInterests preSelectedList={interests} changeHandler={this.handleChange.bind(this)} />
             }
             width={750}
             height={220}
@@ -144,16 +154,18 @@ class ResumeBuilderContainer extends React.Component {
         );
       case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
       case 2: return <SectionWrapper child={
-        <EducationContainer changeHandler={this.handleChange.bind(this)} items ={this.state.education}/>
+        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} items ={education}/>
       } width={400} height={420} />;
       case 3: return  <SectionWrapper child={
-        <EducationContainer/>
+        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} items ={experience}/>        
       } width={400} height={420} />;
       case 4: return <SectionWrapper child={this.otherInfo()} width={250} height={270} />
       default: return "Uknown stepIndex";
     }
   }
   handleNext = () => {
+    this.props.onNext(this.state.profile)
+ //   store.firestore.add({ collection: 'cities' }, { name: 'Some Place' })
     const { activeStep } = this.state;
     this.setState({
       activeStep: activeStep + 1
@@ -240,7 +252,7 @@ class ResumeBuilderContainer extends React.Component {
                         <Button
                           className={classes.footerButton}
                           variant="flat"
-                          onClick={this.handleNext}
+                          onClick={this.props.onSubmit}
                         >
                           Submit resume
                         </Button>
@@ -292,6 +304,47 @@ class ResumeBuilderContainer extends React.Component {
   }
 }
 ResumeBuilderContainer.propTypes = {
-  classes: PropTypes.object
+  classes: PropTypes.object,
+  store: PropTypes.shape({
+    firestore: PropTypes.object
+  })
 };
-export default withStyles(styles)(ResumeBuilderContainer);
+
+
+// Create HOC that loads data and adds it as todos prop
+const enhance = compose(
+  // add redux store (from react context) as a prop
+  withFirestore,
+  // Handler functions as props
+  withHandlers({
+
+    onNext: props => (profile) =>
+      
+        props.firestore.set({ collection: 'profile', doc: 'test' }, {
+        ...profile,
+        updatedAt: props.firestore.FieldValue.serverTimestamp()
+      }
+    ),
+    onSubmit: props => () =>
+      
+        props.firestore.update({ collection: 'profile', doc: 'test' }, {
+        hasSubmit:true,
+        updatedAt: props.firestore.FieldValue.serverTimestamp()
+      }
+    ),
+
+   // console.log(props)
+  }),
+  // Run functionality on component lifecycle
+  lifecycle({
+    // Load data when component mounts
+   
+  }),
+  // Connect todos from redux state to props.todos
+  connect(({ firestore }) => ({ // state.firestore
+  //  profiles: firestore.ordered.profiles, // document data in array
+   // profiles: firestore.data.profiles, // document data by id
+  }))
+)
+
+export default enhance(withStyles(styles)(ResumeBuilderContainer))

@@ -9,11 +9,6 @@ export const GREY = '#EDEDED'
 const primaryColor = PRIMARYCOLOR
 export const Theme = createMuiTheme({
   overrides: {
-    MuiStepLabel:{
-    
-        color:BLACK,
-        fontWeight:500,
-    },
     MuiStepIcon:{
       root:{
         color:GREY,
@@ -51,7 +46,7 @@ export const Theme = createMuiTheme({
       }
 
     },
-    MuiButton: { // Name of the component ⚛️ / style sheet
+    MuiButton: { 
 
       flat: { // Name of the rule
         color: WHITE,
@@ -82,6 +77,13 @@ export const Theme = createMuiTheme({
     },
   },
   typography: {
+    display2: {
+      fontSize: '48px',
+      fontFamily: primaryFontFamily,
+      color:'#000',
+      fontWeight: 'bold',
+      textAlign: 'left'
+    },
     display1: {
       fontSize: '30px',
       fontFamily: primaryFontFamily,

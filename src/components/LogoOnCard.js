@@ -40,7 +40,7 @@ function LogoOnCard(props) {
      {logo}
      </div>
      
-      <Paper className={classes.paper} style={{width:width}} elevation={15}>
+      <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
       {props.children}
       </Paper>
       
@@ -52,6 +52,6 @@ function LogoOnCard(props) {
 LogoOnCard.propTypes = {
   classes: PropTypes.object.isRequired,
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired
+  height: PropTypes.number
 };
 export default withStyles(styles)(LogoOnCard);

@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import LogoOnCard from '../components/LogoOnCard';
-
 import { Grid, Button,Typography } from '@material-ui/core';
 import CareerInterests from '../components/CareerInterests';
 import DocumentLoader from '../components/DocumentLoader';
 import SectionWrapper from '../components/SectionWrapper';
+import {INTRODUCTION} from '../constants/routes'
+import {withRouter} from 'react-router-dom'
 const styles = theme => ({
     root: {  
         padding:40
@@ -25,26 +26,40 @@ const INITIAL_STATE = {
     view:'interests',//[upload,interests]
     interests:[]
 }
-
 class UploadResumeContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = { ...INITIAL_STATE };
-      }
-
+        this.goToIntroduction = this.goToIntroduction.bind(this)
+        this.handleBack = this.handleBack.bind(this)
+    }
+    goToIntroduction(){
+        this.props.history.push(INTRODUCTION)
+    }
     disableHandler(){
-        const {view,fileName} = this.state;
+        const {view,fileName,interests} = this.state;
         switch (view) {
-            case 'interests': return true
+            case 'interests': return interests.length===0
             case 'upload': return fileName === ''
-            default:
-                break;
+            default: break;
         }
       }
       handleChange(name, value) {
         this.setState({ [name]: value });
       }
-    
+
+    handleBack(){
+        const {view} = this.state
+        switch (view) {
+            case 'interests':
+            console.log('tet')
+             this.setState({view:'upload'})
+            break;
+            case 'upload': this.goToIntroduction()
+            break;
+            default: break;
+        }
+    }
     render() {
         const { classes } = this.props;
         const {view} = this.state;
@@ -57,6 +72,7 @@ class UploadResumeContainer extends React.Component {
                 <Button variant="outlined"
                     className={classes.button}
                     color="primary"
+                    onClick={this.handleBack}
                 >
                     Back
                 </Button>
@@ -96,8 +112,6 @@ class UploadResumeContainer extends React.Component {
             width={750}
             height={220}
           />: <DocumentLoader/>}
-             
-
                 {footerButtons( view==='interests' ? 'Confirm interests':'Confirm Upload')}
             </Grid>
             </LogoOnCard>
@@ -108,4 +122,4 @@ class UploadResumeContainer extends React.Component {
 UploadResumeContainer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(UploadResumeContainer);
+export default withRouter(withStyles(styles)(UploadResumeContainer));

@@ -42,7 +42,7 @@ function CardSection(props) {
           {description}
         </Typography>
       </Grid>
-      {button && <Button className={classes.button} variant='flat' color="primary">
+      {button && <Button className={classes.button} onClick={button.onClick} variant='flat' color="primary">
         {button.label}
       </Button>}
     </div>

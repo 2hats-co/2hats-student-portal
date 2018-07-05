@@ -64,7 +64,7 @@ const INITIAL_STATE = {
   confirmPassword:'',
   email: '',
   error: null,
-  view:'signin'
+  view:'signup'
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -73,11 +73,14 @@ const updateByPropertyName = (propertyName, value) => () => ({
 });
 
 
-class AuthContainer extends React.Component {
+class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = { ...INITIAL_STATE };
+  }
+  handleGoogleAuth(){
+    auth.doAuthWithGoogle()
   }
   handleSignin(){
     const {email,password} = this.state;
@@ -126,13 +129,17 @@ class AuthContainer extends React.Component {
     });
   };
   componentWillMount(){
+    this.setState({view:this.props.view})
     //TODO check url , set state.view
   }
   render() {
     const { classes } = this.props;
     const {firstName,lastName,password,confirmPassword,email,error,view} = this.state
     let socialButton = (provider, method) => (
-      <Button key={`${provider}${method}`} variant='flat' style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} className={classes.socialButton}>
+      <Button key={`${provider}${method}`} variant='flat' 
+      style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} 
+      onClick={this.handleGoogleAuth}
+      className={classes.socialButton}>
         <div className={classes.socialIcon} >
           <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
         </div> sign {method} with {provider}
@@ -303,11 +310,11 @@ class AuthContainer extends React.Component {
   }
 }
 
-AuthContainer.propTypes = {
+AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
 export default 
 //withRouter(
-  withStyles(styles)(AuthContainer)
+  withStyles(styles)(AuthenticationContainer)
 //);
