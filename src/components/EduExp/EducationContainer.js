@@ -24,7 +24,7 @@ class EducationContainer extends React.Component {
     constructor(props) {
     super(props);
     this.state = {
-        dialog:{isOpen:false, fields:getFormFields(this.props.name)}
+        dialog:{isOpen:false, fields:getFormFields(this.props.name,this.props.industry)}
     }
     // This binding is necessary to make `this` work in the callback
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
@@ -34,23 +34,37 @@ class EducationContainer extends React.Component {
   
     handleOpenDialog(previousEntry){
         if(previousEntry){
-            this.setState({dialog:{isOpen:true,fields:_.map(getFormFields(this.props.type),(v,k)=>{
+            this.setState({dialog:{isOpen:true,fields:_.map(getFormFields(this.props.name,this.props.industry),(v,k)=>{
                 //previous value to fields
                 return Object.assign(v,{value:previousEntry[v.name]})
             })}})
 
         }else{
-            this.setState({dialog:{isOpen:true,fields:getFormFields(this.props.name)}})
+            this.setState({dialog:{isOpen:true,fields:getFormFields(this.props.name,this.props.industry)}})
            // this.setState({dialogOpen:true})
         }
        
     }
     handleCloseDialog(newItem){
-        this.setState({dialog:{isOpen:false,fields:getFormFields(this.props.name)}})
+        this.setState({dialog:{isOpen:false,fields:getFormFields(this.props.name,this.props.industry)}})
         if(newItem){
-        const {changeHandler,items} = this.props 
-        changeHandler(this.props.name,items.concat(newItem))
+        const {changeHandler,items,name} = this.props 
+        changeHandler(name,items.concat(newItem))
         }
+    }
+    handleDelete(item){
+        const {changeHandler,items,name} = this.props 
+        const index = items.indexOf(item)
+        console.log(index+1)
+        if(items.length === 1){
+            console.log('just one')
+          //  changeHandler(name,[])
+        }
+        if (index > -1) {
+            const newItems =items.splice(index, 1)
+            console.log(newItems)
+           // changeHandler(name,items.splice(index, 1))
+          }
     }
     header(){
 
@@ -71,11 +85,15 @@ class EducationContainer extends React.Component {
            endDate={item.endDate}
            description={item.description}
            editHandler={()=>{this.handleOpenDialog(item)}}
+           deleteHandler={()=>{this.handleDelete(item)}}
          />
       )}
 
     </Grid>
-    <DialogForm title={'Add Education'} fields={this.state.dialog.fields} handler={this.handleCloseDialog} isOpen={this.state.dialog.isOpen}/>
+    <DialogForm title={'Add Education'} 
+    fields={this.state.dialog.fields}
+    handler={this.handleCloseDialog} 
+    isOpen={this.state.dialog.isOpen}/>
     </div>
          )}
 

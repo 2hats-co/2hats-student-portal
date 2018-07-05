@@ -4,6 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 
 import { Typography, Card, Grid ,IconButton} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 
 const styles = theme => ({
   root:{
@@ -23,7 +24,7 @@ const styles = theme => ({
 function EduExpCard(props) {
   // check if index === 0, include header
   
-  const { classes, title, label, description, startDate, endDate,editHandler } = props;
+  const { classes, title, label, description, startDate, endDate,editHandler,deleteHandler} = props;
   return (
     <div className={classes.root}>
  
@@ -32,9 +33,14 @@ function EduExpCard(props) {
       <Grid container direction="column" alignItems="flex-start" spacing={16}>
       <Grid container direction="row" alignItems="center" justify="space-between">
       <Typography variant='subheading'>{title}</Typography>
+      <Grid item>
       <IconButton className={classes.button} onClick={()=>{editHandler()}} aria-label="Edit">
         <EditIcon />
       </IconButton>
+      <IconButton className={classes.button} onClick={()=>{deleteHandler()}} aria-label="Delete">
+        <DeleteIcon />
+      </IconButton>
+      </Grid>
       </Grid>
         <Grid container direction="row" alignItems="flex-start" justify="space-between">
           <Typography variant="body1">{label}</Typography>
