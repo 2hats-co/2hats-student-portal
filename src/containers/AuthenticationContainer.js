@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-//import { withRouter } from 'react-router-dom';
+//material ui
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import LogoInCard from '../components/LogoInCard';
-
 import GoogleIcon from '../assets/images/social/google.svg'
 import LinkedinIcon from '../assets/images/social/linkedin.svg'
+
 import StyledLink from '../components/StyledLink';
 import {validateEmail,validatePassword,validateName} from '../utilities/validators'
 import { auth, firestore} from '../firebase';
+//routing
+import * as routes from '../constants/routes'
+import { withRouter } from "react-router-dom";
+
 const styles = theme => ({
   root: {
     //position: 'fixed',
@@ -78,6 +82,14 @@ class AuthenticationContainer extends React.Component {
     super(props);
 
     this.state = { ...INITIAL_STATE };
+    this.goToIntroduction = this.goToIntroduction.bind(this);
+    this.goToSignIn = this.goToSignIn.bind(this);
+  }
+  goToSignIn(){
+    this.props.history.push(routes.SIGN_IN)
+  }
+  goToIntroduction() {
+    this.props.history.push(routes.INTRODUCTION);
   }
   handleGoogleAuth(){
     auth.doAuthWithGoogle()
@@ -224,7 +236,7 @@ class AuthenticationContainer extends React.Component {
         justify='space-between'
         direction='row'
       >
-        {linkButton('Forgot Password?', '#')}
+        {linkButton('Forgot Password?', routes.PASSWORD_FORGET)}
         <Button variant='flat' onClick={this.handleSignin.bind(this)} className={classes.button}>
           Sign In
     </Button>
@@ -247,7 +259,7 @@ class AuthenticationContainer extends React.Component {
     </Grid>)
     let resetPasswordButton = (isDisable) => (<Grid container direction='row' justify='space-between' style={{width:230}}>
       <Button  variant="outlined"
-     //onClick={this.handleBack}
+     onClick={this.goToSignIn}
      className={classes.resetButton}
       >
     Back
@@ -271,8 +283,8 @@ class AuthenticationContainer extends React.Component {
           </div>
        )
    
-      const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', '#', 'Sign Up')]
-      const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', 'signin', 'Sign In')]
+      const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', routes.SIGN_UP, 'Sign Up')]
+      const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
       const resetView = [resetPasswordText,emailField,resetPasswordButton(!validateEmail(email))]
       let loadedView
       let cardHeight = 610
@@ -315,6 +327,6 @@ AuthenticationContainer.propTypes = {
 };
 
 export default 
-//withRouter(
+withRouter(
   withStyles(styles)(AuthenticationContainer)
-//);
+);
