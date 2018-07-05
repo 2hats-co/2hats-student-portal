@@ -1,12 +1,60 @@
-import { createStore,applyMiddleware } from 'redux';
-import {createLogger} from 'redux-logger'
-import rootReducer from '../reducers';
-const logger = createLogger();
+import { applyMiddleware, createStore, compose } from 'redux'
+import { reduxFirestore } from 'redux-firestore'
+import firebase from 'firebase/app'
+import 'firebase/database'
+import 'firebase/auth'
+import 'firebase/firestore'
+import logger from 'redux-logger'
+// import { persistStore, persistReducer } from 'redux-persist';
+//import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+//import storage from 'redux-persist/lib/storage';
 
-const store = createStore(
-    rootReducer,// this the current state
-    undefined,// this is the intial state
-    applyMiddleware(logger)
-);
+import { productionConfig,developmentConfig } from '../config/firebase'
 
-export default store;
+import rootReducer from '../reducers'
+
+if (process.env.NODE_ENV === 'production') {
+    firebase.initializeApp(productionConfig)
+} else {
+    firebase.initializeApp(developmentConfig)
+}
+
+export function configureStore(initialState, history) {
+  	const enhancers = []
+
+	
+  	// Provide timestamp settings to silence warning about deprecation
+  	firebase.firestore().settings({ timestampsInSnapshots: true })
+
+      
+  	// Dev tools store enhancer
+  	const devToolsExtension = window.devToolsExtension;
+  	if (typeof devToolsExtension === 'function') {
+    	enhancers.push(devToolsExtension());
+  	}
+
+	const createStoreWithMiddleware = compose(
+		// Add redux firestore store enhancer
+		reduxFirestore(firebase),
+		applyMiddleware(logger),
+		...enhancers
+	)(createStore)
+
+	// Store root redux into persisted storage.
+	// const persistConfig = {
+	// 	key: 'root',
+	// 	storage,
+	// 	stateReconciler: autoMergeLevel2
+	// };
+
+	//const pReducer = persistReducer(persistConfig, rootReducer);
+
+	//const store = createStoreWithMiddleware(pReducer);
+
+	//const persistor = persistStore(store);
+
+	const store = createStoreWithMiddleware(rootReducer);
+
+  	return store;
+}
+export const auth = firebase.auth();
