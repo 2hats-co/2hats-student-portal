@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+//material
 import { withStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -7,6 +8,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+//child components
 import CareerInterests from "../components/CareerInterests";
 import LogoOnCard from "../components/LogoOnCard";
 import PhoneNumber from "../components/PhoneNumber";
@@ -16,11 +18,15 @@ import SkillsInput from "../components/SkillsInput";
 import SectionWrapper from "../components/SectionWrapper";
 import {getPrompts} from '../constants/resumeBuilderPrompts'
 import EducationContainer from "../components/EduExp/EducationContainer";
-
+//Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
+//routing
+import {INTRODUCTION} from '../constants/routes'
+import {withRouter} from 'react-router-dom'
+import { COLLECTIONS } from "../constants/firestore";
 
 const styles = theme => ({
   root: {
@@ -63,9 +69,7 @@ const INITIAL_STATE = {
   residency: "",
   phoneNumber: "",
   industry: "IT",
-  education: [{degree:"Bachelor of Commerce - Accounting",university:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
-  - Winner of FMAA Management Consulting Case Competition
-  - President of AIESEC UNSW`}],
+  education: [],
   experience: []},
   error: null
 };
@@ -73,7 +77,11 @@ class ResumeBuilderContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.goToIntroduction = this.goToIntroduction.bind(this)
   }
+  goToIntroduction(){
+    this.props.history.push(INTRODUCTION)
+}
   bioSection = () => (
     <Grid
       container
@@ -122,7 +130,7 @@ class ResumeBuilderContainer extends React.Component {
       skills,
       bio,
       residency,
-      phoneNumber,industry} = this.state.profile
+      phoneNumber} = profile
     switch (activeStep) {
       case 0:return interests.length === 0;
       case 1:return skills.length === 0 || bio.length === 0;
@@ -164,19 +172,22 @@ class ResumeBuilderContainer extends React.Component {
     }
   }
   handleNext = () => {
-    this.props.onNext(this.state.profile)
- //   store.firestore.add({ collection: 'cities' }, { name: 'Some Place' })
+    this.props.onNext(this.state.profile)//update fire store
     const { activeStep } = this.state;
     this.setState({
       activeStep: activeStep + 1
     });
   };
-
   handleBack = () => {
     const { activeStep } = this.state;
-    this.setState({
-      activeStep: activeStep - 1
-    });
+    if(activeStep === 0){
+     this.goToIntroduction()
+
+    }else{
+      this.setState({
+        activeStep: activeStep - 1
+      });
+    }
   };
   handleReset = () => {
     this.setState({
@@ -279,7 +290,7 @@ class ResumeBuilderContainer extends React.Component {
                       <Button
                         className={classes.footerButton}
                         variant="outlined"
-                        disabled={activeStep === 0}
+                       
                         onClick={this.handleBack}
                       >
                         Back
@@ -310,24 +321,21 @@ ResumeBuilderContainer.propTypes = {
   })
 };
 
-
-// Create HOC that loads data and adds it as todos prop
 const enhance = compose(
   // add redux store (from react context) as a prop
   withFirestore,
   // Handler functions as props
   withHandlers({
-
+    
     onNext: props => (profile) =>
       
-        props.firestore.set({ collection: 'profile', doc: 'test' }, {
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: 'test' }, {
         ...profile,
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),
     onSubmit: props => () =>
-      
-        props.firestore.update({ collection: 'profile', doc: 'test' }, {
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: 'test' }, {
         hasSubmit:true,
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
@@ -341,10 +349,14 @@ const enhance = compose(
    
   }),
   // Connect todos from redux state to props.todos
-  connect(({ firestore }) => ({ // state.firestore
-  //  profiles: firestore.ordered.profiles, // document data in array
-   // profiles: firestore.data.profiles, // document data by id
+  connect(({ firestore }) => ({ 
+    // state.firestore
+    //  profiles: firestore.ordered.profiles, // document data in array
+    // profiles: firestore.data.profiles, // document data by id
   }))
 )
-
-export default enhance(withStyles(styles)(ResumeBuilderContainer))
+export default enhance(
+  withRouter(
+    withStyles(styles)(ResumeBuilderContainer)
+  )
+)

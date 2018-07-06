@@ -4,13 +4,15 @@ import { withStyles } from '@material-ui/core/styles';
 import LogoOnCard from '../components/LogoOnCard';
 import OpenMail from '../assets/images/graphics/EmailVerification.png'
 import { Grid, Button, Typography, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText, Slide, TextField } from '@material-ui/core';
+import SectionWrapper from '../components/SectionWrapper';
+import { validateEmail } from '../utilities/validators';
 
 function Transition(props) {
     return <Slide direction="up" {...props} />;
 }
 const styles = theme => ({
     grid: {
-        height: 590
+        height: 460
     },
     footerButtons: {
         width: 440,
@@ -26,6 +28,7 @@ const styles = theme => ({
         width: '100%'
       },
 });
+
 const body = ['To ensure you can successfully receive our feedback, we have sent a verification email to your provided email address. ',
     'Please click on the link in the email to verify your email address. You will be directed to our dashboard once your email is verified. ',
     'If you have not received such email from 2hats, you can request another verification email or modify your email address. ',
@@ -38,7 +41,6 @@ class EmailVerificationContainer extends React.Component {
     handleChangeEmail = () => {
         this.setState({
             modifyDialog: true,
-
         });
     }
     handleSendVerificationEmail = () => {
@@ -52,6 +54,11 @@ class EmailVerificationContainer extends React.Component {
             resendDialog: false
         });
     };
+    handleChange = name => event => {
+        this.setState({
+          [name]: event.target.value,
+        });
+      };
     render() {
         const { classes } = this.props;
         const modifyEmailDialog = (<Dialog
@@ -75,13 +82,14 @@ class EmailVerificationContainer extends React.Component {
                     id="email"
                     label="Email Address"
                     placeholder="Email Address"
+                    onChange={this.handleChange('email')}
                     className={classes.textField}
                     margin="normal"
                     color="primary"
                 />
             </DialogContent>
             <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
+                <Button onClick={this.handleClose} disabled={!validateEmail(this.state.email)} color="primary">
                     Modify
               </Button>
             </DialogActions>
@@ -111,19 +119,19 @@ class EmailVerificationContainer extends React.Component {
             </DialogActions>
         </Dialog>)
         return (
-            <LogoOnCard>
-                <Grid container
+            <LogoOnCard width={560}>
+                <SectionWrapper SectionWrapper height={600} child={(<Grid container
                     className={classes.grid}
                     direction="column"
                     justify='space-between'
                     alignItems='center'
                 >
-                    <Typography variant="headline" color="primary">
+                    <Typography variant="display1">
                         Your submission is received!
                       </Typography>
 
                     <img alt='email graphic' className={classes.image} src={OpenMail} />
-                    {body.map((p) => <Typography variant="body">
+                    {body.map((p) => <Typography key={p} variant="body1">
                         {p}
                     </Typography>)}
                     <Grid container
@@ -140,13 +148,14 @@ class EmailVerificationContainer extends React.Component {
                 </Button>
                         <Button
                             className={classes.button}
-                            variant="outlined"
+                            variant="flat"
                             color="primary"
                             onClick={this.handleSendVerificationEmail}>
                             Resend Email
                 </Button>
                     </Grid>
-                </Grid>
+                </Grid>)}/>
+                
                 {resendVerifiactionEmailDialog}
                 {modifyEmailDialog}
             </LogoOnCard>
@@ -156,7 +165,6 @@ class EmailVerificationContainer extends React.Component {
 
 
 }
-
 EmailVerificationContainer.propTypes = {
     classes: PropTypes.object.isRequired,
 };

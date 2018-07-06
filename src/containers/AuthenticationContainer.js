@@ -12,7 +12,15 @@ import LinkedinIcon from '../assets/images/social/linkedin.svg'
 
 import StyledLink from '../components/StyledLink';
 import {validateEmail,validatePassword,validateName} from '../utilities/validators'
-import { auth, firestore} from '../firebase';
+
+//Redux
+import { compose } from 'redux';
+import { withHandlers, lifecycle } from 'recompose'
+import { connect } from 'react-redux';
+import  {withFirestore} from '../utilities/withFirestore';
+import { auth} from '../firebase';
+import { COLLECTIONS } from '../constants/firestore';
+
 //routing
 import * as routes from '../constants/routes'
 import { withRouter } from "react-router-dom";
@@ -68,7 +76,8 @@ const INITIAL_STATE = {
   confirmPassword:'',
   email: '',
   error: null,
-  view:'signup'
+  view:'signup',
+  isLoading:false
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -92,13 +101,18 @@ class AuthenticationContainer extends React.Component {
     this.props.history.push(routes.INTRODUCTION);
   }
   handleGoogleAuth(){
-    auth.doAuthWithGoogle()
+    
+  }
+
+  handleLoadingIndicator(isLoading){
+    this.setState({isLoading:isLoading})
   }
   handleSignin(){
     const {email,password} = this.state;
    // const {history} = this.props;
     auth.doSignInWithEmailAndPassword(email, password)
-      .then(() => {
+      .then(authUser => {
+        this.props.onSignIn(authUser.user.uid)
         this.setState(() => ({ ...INITIAL_STATE }));
         //history.push(routes.dashboard);
       })
@@ -110,15 +124,23 @@ class AuthenticationContainer extends React.Component {
     const {firstName,lastName,email,password} = this.state
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
+
+        this.props.createUser(authUser.user.uid,{firstName,lastName, email})
+        this.props.createProfile(authUser.user.uid)
+
+        this.setState(() => ({ ...INITIAL_STATE }));
+        this.goToIntroduction()
+        //TODO: use redux-firestore for creating new user
+
         // Create a user in your own accessible Firebase Database too
-        firestore.doCreateUser(authUser.user.uid, firstName,lastName, email)
-          .then(() => {
-            this.setState(() => ({ ...INITIAL_STATE }));
-           // history.push(routes.onboard);
-          })
-          .catch(error => {
-            this.setState(updateByPropertyName('error', error));
-          });
+        // firestore.doCreateUser(authUser.user.uid, firstName,lastName, email)
+        //   .then(() => {
+        //     this.setState(() => ({ ...INITIAL_STATE }));
+        //    // history.push(routes.onboard);
+        //   })
+        //   .catch(error => {
+        //     this.setState(updateByPropertyName('error', error));
+        //   });
 
       })
       .catch(error => {
@@ -324,9 +346,56 @@ class AuthenticationContainer extends React.Component {
 
 AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
+  store: PropTypes.shape({
+    firestore: PropTypes.object
+  })
 };
 
-export default 
-withRouter(
-  withStyles(styles)(AuthenticationContainer)
-);
+const enhance = compose(
+  // add redux store (from react context) as a prop
+  withFirestore,
+  // Handler functions as props
+  withHandlers({
+
+    createUser: props => (uid, user) =>
+      
+        props.firestore.set({ collection: COLLECTIONS.users, doc: uid }, {
+        ...user,
+        createdAt: props.firestore.FieldValue.serverTimestamp()
+      }
+      
+    ),
+    createProfile: props => (uid) =>
+      
+        props.firestore.set({ collection: COLLECTIONS.profiles, doc: uid }, {
+        hasSubmit:false,
+        createdAt: props.firestore.FieldValue.serverTimestamp()
+      }
+      
+    ),
+    onSignIn: props => (uid) =>
+      
+        props.firestore.update({ collection: COLLECTIONS.users, doc: uid }, {
+        lastSignInAt: props.firestore.FieldValue.serverTimestamp()
+      }
+    ),
+
+   // console.log(props)
+  }),
+  // Run functionality on component lifecycle
+  lifecycle({
+    // Load data when component mounts
+   
+  }),
+  // Connect todos from redux state to props.todos
+  connect(({ firestore }) => ({ // state.firestore
+  //  profiles: firestore.ordered.profiles, // document data in array
+   // profiles: firestore.data.profiles, // document data by id
+  }))
+)
+export default enhance(
+  withRouter(
+    withStyles(styles)(AuthenticationContainer)
+  )
+)
+

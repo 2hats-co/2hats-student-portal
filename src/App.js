@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-} from 'react-router-dom';
+// material UI
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import { Theme } from './Theme';
+// containers
 import withAuthentication from './components/Session/withAuthentication';
 import AuthenticationContainer from './containers/AuthenticationContainer'
 import ResumeBuilderContainer from './containers/ResumeBuilderContainer'
 import UploadResumeContainer from './containers/UploadResumeContainer';
 import IntroductionContainer from './containers/IntroductionContainer';
 import EmailVerificationContainer from './containers/EmailVerificationContainer';
-import { Theme } from './Theme';
 import DashboardContainer from './containers/DashboardContainer';
+//routing
+import {
+  BrowserRouter as Router,
+  Route,
+} from 'react-router-dom';
 import * as routes from './constants/routes';
 
 class App extends Component {
@@ -28,7 +31,7 @@ class App extends Component {
       <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer />} />
       <Route exact path={routes.BUILD_RESUME} component={() => <ResumeBuilderContainer />} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <UploadResumeContainer />} />
-
+      <Route exact path={'/emailVerification'} component={() => <EmailVerificationContainer/>} />      
     </div>
   </Router>
  
