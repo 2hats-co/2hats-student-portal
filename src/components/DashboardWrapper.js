@@ -2,7 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { Typography } from '@material-ui/core';
+import { Typography,Button} from '@material-ui/core';
+import { auth} from '../firebase';
 
 
 
@@ -10,8 +11,6 @@ const styles = theme => ({
   root:{
     width: '100%',
   },
- 
-
 });
 
 function DashboardWrapper(props) {
@@ -23,6 +22,9 @@ function DashboardWrapper(props) {
    <div className={classes.root}>
     <Typography variant='display2'>{header}</Typography>
     {props.children}
+    <Button onClick={
+      auth.doSignOut
+    } >Log Out</Button>
   </div>
   );
 }
