@@ -3,7 +3,7 @@ export const developmentConfig = {
     authDomain: "dev2hats.firebaseapp.com",
     databaseURL: "https://dev2hats.firebaseio.com",
     projectId: "dev2hats",
-    storageBucket: "",
+    storageBucket: "dev2hats.appspot.com",
     messagingSenderId: "983671595153"
   };
 
