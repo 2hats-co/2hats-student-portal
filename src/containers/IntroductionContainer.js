@@ -16,6 +16,7 @@ import UploadResume from '../assets/images/graphics/UploadResume.png'
 import SectionWrapper from '../components/SectionWrapper'
 import * as routes from '../constants/routes'
 import {withRouter} from 'react-router-dom'
+import { INTRODUCTION_CONTAINER } from '../constants/views';
 
 const styles = theme => ({
     root: {
@@ -28,7 +29,34 @@ const styles = theme => ({
   });
 
 
-const intro = 
+     
+class IntroductionContainer extends React.Component {
+  state = {
+    view: INTRODUCTION_CONTAINER.process
+  }
+  constructor(props) {
+    super(props)
+    this.goToResumeOptions = this.goToResumeOptions.bind(this)
+    this.goToUploadResume = this.goToUploadResume.bind(this)
+    this.goToBuildResume = this.goToBuildResume.bind(this)
+    
+  }
+
+  goToBuildResume(){
+    this.props.history.push(routes.BUILD_RESUME)
+  }
+
+  goToUploadResume(){
+    this.props.history.push(routes.UPLOAD_RESUME)
+  }
+  goToResumeOptions(){
+    this.setState({view: INTRODUCTION_CONTAINER.resumeOptions})
+  }
+
+  render(){
+
+    const { classes } = this.props;
+    const process = 
   { heading: 'Application Process',
   width:900,
   sections:[
@@ -39,31 +67,11 @@ const intro =
     {title:'Get Assessed',
     image:intro2,
     description:'We will assess your capability through a set of interviews & assessments and provide you actionable feedback for improvement. ',
-     button:{label: `Let's start`}},
+     button:{label: `Let's start`, onClick:this.goToResumeOptions}},
      {title:'Get Offer',
      image:intro3,
      description:'Once you are qualified, we will match you with a paid placement in your chosen career interest(s). '
     }]}
-     
-class IntroductionContainer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.goToUploadResume = this.goToUploadResume.bind(this)
-    this.goToBuildResume = this.goToBuildResume.bind(this)
-  }
-
-  goToBuildResume(){
-    this.props.history.push(routes.BUILD_RESUME)
-  }
-
-  goToUploadResume(){
-    this.props.history.push(routes.UPLOAD_RESUME)
-  }
-
-  render(){
-
-    const { classes } = this.props;
-
     const submission = 
         { heading: 'Resume Submission',
         width:680,
@@ -77,20 +85,28 @@ class IntroductionContainer extends React.Component {
           button:{label: `Build a resume`, onClick:this.goToBuildResume}
         }]
         }
-    const submissionView = (<div className={classes.root}><Typography variant="display1">
+  const submissionView = (<div className={classes.root}><Typography variant="display1">
     {submission.heading}
  </Typography>
 <div className={classes.sections} >
     <CardSections width={submission.width} sections={submission.sections} hasDivider/>
- </div></div>)
-
-    
+ </div></div>
+ 
+)
+     const processView = (<div className={classes.root}><Typography variant="display1">
+     {process.heading}
+  </Typography>
+ <div className={classes.sections} >
+     <CardSections width={process.width} sections={process.sections}/>
+  </div></div>)
+        
     return (
     <LogoOnCard 
-    width={680}
+    width={this.state.view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
     >
-    <SectionWrapper height={550}
-      child = {submissionView}/> 
+    <SectionWrapper 
+      height = {550}
+      child = {this.state.view === INTRODUCTION_CONTAINER.process? processView:submissionView }/> 
      </LogoOnCard>
     );
   }
@@ -99,4 +115,7 @@ class IntroductionContainer extends React.Component {
 IntroductionContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
-export default withRouter(withStyles(styles)(IntroductionContainer))
+
+export default withRouter(
+  withStyles(styles)(IntroductionContainer)
+)

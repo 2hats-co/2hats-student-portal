@@ -24,6 +24,7 @@ import { COLLECTIONS } from '../constants/firestore';
 //routing
 import * as routes from '../constants/routes'
 import { withRouter } from "react-router-dom";
+import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 const styles = theme => ({
   root: {
@@ -92,6 +93,7 @@ class AuthenticationContainer extends React.Component {
 
     this.state = { ...INITIAL_STATE };
     this.goToIntroduction = this.goToIntroduction.bind(this);
+    this.goToDashboard = this.goToDashboard.bind(this);
     this.goToSignIn = this.goToSignIn.bind(this);
   }
   goToSignIn(){
@@ -99,6 +101,9 @@ class AuthenticationContainer extends React.Component {
   }
   goToIntroduction() {
     this.props.history.push(routes.INTRODUCTION);
+  }
+  goToDashboard() {
+    this.props.history.push(routes.DASHBOARD);
   }
   handleGoogleAuth(){
     
@@ -114,6 +119,7 @@ class AuthenticationContainer extends React.Component {
       .then(authUser => {
         this.props.onSignIn(authUser.user.uid)
         this.setState(() => ({ ...INITIAL_STATE }));
+        this.goToIntroduction()
         //history.push(routes.dashboard);
       })
       .catch(error => {
@@ -308,18 +314,18 @@ class AuthenticationContainer extends React.Component {
       const signInView = [socialButton('google', 'in'),socialButton('linkedin', 'in'),orLabel,emailField,passwordField,signInRow,footerLink('Don’t have an account?', routes.SIGN_UP, 'Sign Up')]
       const signUpView = [socialButton('google', 'up'),socialButton('linkedin', 'up'),orLabel,nameFields,emailField,passwordField,confirmPasswordField,signUpButton,footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
       const resetView = [resetPasswordText,emailField,resetPasswordButton(!validateEmail(email))]
-      let loadedView
+      let loadedView = signUpView
       let cardHeight = 610
 
       switch (view) {
-        case 'signup':
+        case AUTHENTICATION_CONTAINER.signUp:
           loadedView = signUpView
           cardHeight = 610
           break;
-          case 'signin':
+          case AUTHENTICATION_CONTAINER.signIn:
           loadedView = signInView
           cardHeight = 510
-          break; case 'reset':
+          break; case AUTHENTICATION_CONTAINER.resetPassword:
           loadedView = resetView
           cardHeight = 360
           break;

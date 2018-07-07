@@ -8,5 +8,5 @@ export function validatePassword(password){
 
 export function validateName(name){
     //check for numbers and special characters
-    return name.length > 2
+    return name.length > 1
 }

@@ -6,6 +6,10 @@ import { auth,
 export const doCreateUserWithEmailAndPassword = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 
+// Sign In
+export const doSignInWithEmailAndPassword = (email, password) =>
+  auth.signInWithEmailAndPassword(email, password);
+
 // Sign In/up with google
 // export const doAuthWithGoogle  = () =>
 //    auth.signInWithPopup(googleProvider);
