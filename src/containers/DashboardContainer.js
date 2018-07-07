@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import DashboardWrapper from '../components/DashboardWrapper';
 import { Typography } from '@material-ui/core';
+import { compose } from 'recompose';
+import withAuthorisation from '../utilities/Session/withAuthorisation'
 
 class DashboardContainer extends Component{
     
@@ -15,4 +17,7 @@ class DashboardContainer extends Component{
     }
 
 }
-export default DashboardContainer
+
+const authCondition = (authUser) => !!authUser;
+
+export default compose(withAuthorisation(authCondition)(DashboardContainer))

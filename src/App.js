@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Theme } from './Theme';
 // containers
-import withAuthentication from './components/Session/withAuthentication';
+import withAuthentication from './utilities/Session/withAuthentication';
 import AuthenticationContainer from './containers/AuthenticationContainer'
 import ResumeBuilderContainer from './containers/ResumeBuilderContainer'
 import UploadResumeContainer from './containers/UploadResumeContainer';
@@ -16,22 +16,27 @@ import {
   Route,
 } from 'react-router-dom';
 import * as routes from './constants/routes';
+import {AUTHENTICATION_CONTAINER} from './constants/views'
+
+
+
 
 class App extends Component {
   render() {
+  
     return (
       <MuiThemeProvider theme={Theme}>
 
        <Router>
     <div className="app"> 
-      <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer view='signup' />} />
-      <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer view='signin' />} />
-      <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer view='reset' />} />
+      <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer view={AUTHENTICATION_CONTAINER.signUp}/>} />
+      <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer view={AUTHENTICATION_CONTAINER.signIn}/>} />
+      <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer/>} />
       <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer />} />
-      <Route exact path={routes.BUILD_RESUME} component={() => <ResumeBuilderContainer />} />
-      <Route exact path={routes.UPLOAD_RESUME} component={() => <UploadResumeContainer />} />
-      <Route exact path={'/emailVerification'} component={() => <EmailVerificationContainer/>} />      
+      <Route exact path={routes.BUILD_RESUME} component={() => <ResumeBuilderContainer/>} />
+      <Route exact path={routes.UPLOAD_RESUME} component={() => <UploadResumeContainer/>} />
+      <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} />      
     </div>
   </Router>
  
@@ -40,7 +45,4 @@ class App extends Component {
   }
 }
 
-export default 
-withAuthentication(
-  App
-);
+export default withAuthentication(App);
