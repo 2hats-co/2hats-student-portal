@@ -8,7 +8,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Dropzone from 'react-dropzone'
-
+import {storage} from '../store'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import classNames from "classnames";
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
@@ -21,22 +23,67 @@ const styles = theme => ({
     grid:{
         height:190,
         marginTop:80
-    }
+    },
+    wrapper: {
+        margin: theme.spacing.unit,
+        position: 'relative',
+      },
+      buttonSuccess: {
+        //backgroundColor: green[500],
+        '&:hover': {
+        //  backgroundColor: green[700],
+        },
+      },
+     
+      buttonProgress: {
+   //     color: green[500],
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: -12,
+        marginLeft: -12,
+      },
     
 });
 
 
 class DocumentLoader extends React.Component {
-    state={
- 
+    constructor(props) {
+        super(props);
+        // Don't call this.setState() here!
+        this.state = {  fileName:'',
+        isUploading:false };
+        this.handleLoader = this.handleLoader.bind(this)
+        this.handleDelete = this.handleDelete.bind(this)
+        this.onDrop = this.onDrop.bind(this)
+
     }
+    handleDelete(){
+        const ref = storage.child(`resumes/${this.state.fileName}`)
+        ref.delete().then(this.props.changeHandler('url',''))
+    }
+    handleLoader(snapShot){
+        this.props.changeHandler('url',snapShot.metadata.fullPath)
+        console.log(snapShot)
+        this.setState({isUploading:false})
+    }
+    
     onDrop(files) {
-       this.setState({previewURL:files[0].preview})
-       console.log(files[0].preview)
+      if(this.state.fileName!=''){
+        this.handleDelete()
+      }
+       console.log(files[0])
+        this.setState({isUploading:true,fileName:files[0].name})
+        const documentRef = storage.child(`resumes/${files[0].name}`)
+        documentRef.put(files[0]).then(this.handleLoader);
       }
     
     render() {
         const { classes } = this.props;
+        const {isUploading,fileName} = this.state; 
+        const buttonClassname = classNames({
+            [classes.buttonSuccess]: true,
+          });
         return (
            
             <Dropzone className={classes.root}
@@ -56,18 +103,28 @@ class DocumentLoader extends React.Component {
             <Typography variant='subheading'>
             OR
             </Typography>
-            <Button variant='flat' color='primary'>
-                Browse Files
-            </Button>
+            <div className={classes.wrapper}>
+          <Button
+            variant="flat"
+            color="primary"
+            className={buttonClassname}
+            disabled={isUploading}
+            onClick={() =>{fileName!=''? null: this.handleDelete}}
+          >
+          {fileName!=''? `${fileName}`:'Browser Files'}
+          
+
+          </Button>
+         {isUploading && <CircularProgress size={24} className={classes.buttonProgress}/>}
+        </div>
             </Grid>
-           
             </Dropzone>
-           
         );
     } 
 }
 DocumentLoader.propTypes = {
     url: PropTypes.string,
     classes: PropTypes.object.isRequired,
+    changeHandler: PropTypes.func.isRequired
 };
 export default withStyles(styles)(DocumentLoader);

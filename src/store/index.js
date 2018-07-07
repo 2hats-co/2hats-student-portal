@@ -4,6 +4,7 @@ import firebase from 'firebase/app'
 import 'firebase/database'
 import 'firebase/auth'
 import 'firebase/firestore'
+import 'firebase/storage'
 import logger from 'redux-logger'
 // import { persistStore, persistReducer } from 'redux-persist';
 //import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
@@ -58,3 +59,4 @@ export function configureStore(initialState, history) {
   	return store;
 }
 export const auth = firebase.auth();
+export const storage = firebase.storage().ref();
