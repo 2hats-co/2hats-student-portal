@@ -30,7 +30,7 @@ const INITIAL_STATE = {
   fileName: "",
   view: "upload", //[upload,interests]
   interests: [],
-  pdfUrl:"http://ajflkjlf.com"
+  url:''
 };
 class UploadResumeContainer extends React.Component {
   constructor(props) {
@@ -49,18 +49,19 @@ class UploadResumeContainer extends React.Component {
     this.props.history.push(EMAIL_VERIFICATION);
   }
   disableHandler() {
-    const { view, fileName, interests } = this.state;
+    const { view, fileName, interests,url } = this.state;
     switch (view) {
       case "interests":
         return interests.length === 0;
       case "upload":
-        return false
+      return url===''
         //fileName === "";
       default:
         break;
     }
   }
   handleChange(name, value) {
+    console.log(name,value)
     this.setState({ [name]: value });
   }
 
@@ -79,10 +80,10 @@ class UploadResumeContainer extends React.Component {
     }
   }
   handleNext() {
-    const { view,pdfUrl} = this.state;
+    const { view,url} = this.state;
     switch (view) {
         case "interests":
-        this.props.onSubmit(pdfUrl)
+        this.props.onSubmit(url)
         this.goToEmailVerification()
           break;
         case "upload":
@@ -157,7 +158,7 @@ class UploadResumeContainer extends React.Component {
               height={220}
             />
           ) : (
-            <DocumentLoader />
+            <DocumentLoader changeHandler={this.handleChange.bind(this)}/>
           )}
           {footerButtons(
             view === "interests" ? "Confirm interests" : "Confirm Upload"
@@ -181,9 +182,10 @@ const enhance = compose(
   // Handler functions as props
   withHandlers({
     onSubmit: props => (url) =>
-      props.firestore.set(
-        { collection: "submitions", doc: "test" },
+      props.firestore.add(
+        { collection: "submitions"},
         {
+          UID:props.uid,
           url: url,
           type: "pdf",
           updatedAt: props.firestore.FieldValue.serverTimestamp()

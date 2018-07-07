@@ -328,14 +328,14 @@ const enhance = compose(
   withHandlers({
     
     onNext: props => (profile) =>
-      
-        props.firestore.update({ collection: COLLECTIONS.profiles, doc: 'test' }, {
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
         ...profile,
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),
+
     onSubmit: props => () =>
-        props.firestore.update({ collection: COLLECTIONS.profiles, doc: 'test' }, {
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
         hasSubmit:true,
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
