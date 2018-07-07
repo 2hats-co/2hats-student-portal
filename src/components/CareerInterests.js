@@ -73,7 +73,7 @@ componentWillMount(){
     <FormControlLabel key={item.key}
             control={
               <Checkbox
-                classesName={classes.checkBox}
+                className={classes.checkBox}
                 disabled = {this.state.selectedCount>2 && !this.state[item.key]}
                 checked={this.state[item.key]}
                 onChange={this.handleChange(item.key)}
