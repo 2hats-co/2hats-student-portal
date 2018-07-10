@@ -15,7 +15,7 @@ function divderlocations(nSections) {
 }
 function CardSections(props) {
     const { hasSteps, sections, hasDivider,width } = props
-    const divider = <div style={{ boxSizing: "border-box", height: '400px', width: '1px', border: '0.5px solid #979797' }} />
+    const divider= (key) => <div key={key} style={{ boxSizing: "border-box", height: '400px', width: '1px', border: '0.5px solid #979797' }} />
     let items = sections.map((section, index) => {
         return <CardSection
             key={section.title}
@@ -28,7 +28,7 @@ function CardSections(props) {
     })
     if (hasDivider) {
         const dividersIndexes = divderlocations(sections.length)
-        dividersIndexes.forEach((i) => items.splice(i, 0, divider))
+        dividersIndexes.forEach((i) => items.splice(i, 0, divider(`divder${i}`)))
     }
     return (
 
@@ -52,8 +52,8 @@ CardSections.propTypes = {
         image: PropTypes.any.isRequired,
         description: PropTypes.string.isRequired,
         button: PropTypes.shape({ 
-            label: PropTypes.string.isRequired, 
-            action: PropTypes.func.isRequired 
+            label: PropTypes.string, 
+            action: PropTypes.func 
         })
     })
     ).isRequired,
