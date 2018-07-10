@@ -35,44 +35,62 @@ const styles = theme => ({
 });
 
 function completed(field){
- if(field.isRequired){
-   if(field.value===''){  
-     return false
-   }else return true
- }else return true
+ if(field){
+  if(field.isRequired){
+    if(field.value===''){  
+      return false
+    }else return true
+  }else return true
+ }
+ 
 }
-class DialogForm extends React.Component {
-  state = {
-    aaa:''
+const initialState = {
+  aaa:'',
+  type:null,
+  degree:null,
+  major:null,
+  company:null,
+  university:null,
+  title:null
+};
 
-  };
-  
+class DialogForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = initialState;
+}
+ 
   componentDidUpdate(prevProps, prevState){
   
     const {fields,key} = this.props
   
-    if (prevProps.data !== this.props.data) {
-  
+    if (prevProps !== this.props) {
+      this.state = initialState;
+    this.setState(initialState);
       fields.forEach((field)=>{
         this.setState({[field.name]:{value:'',isRequired:field.isRequired}})})
 
     } 
     
   }
-  handleClickOpen = () => {
-   // this.setState({ open: true });
-  };
+  
   componentWillMount(){
     const {fields} = this.props
+
    fields.forEach((field)=>{
    this.setState({[field.name]:{value:field.value||'',isRequired:field.isRequired}})})
 
   }
+  
+  
   handleAdd = () =>{
-      this.props.handler( _.omit(_.reduce(this.state,(r,v, k)=>{
-        let newObject = {[k]:v.value}
-        return {...r,...newObject}
-       }),['isRequired','value']))
+      let stateCopy = Object.assign(this.state,{})
+      Object.keys(stateCopy).forEach((key) => (stateCopy[key] == null) && delete stateCopy[key]);
+      const newItem =  _.reduce(stateCopy,(r,v, k)=>{
+          let newObject = {[k]:v.value}
+          return {...r,...newObject}
+       })
+      this.props.handler(_.omit(newItem,['isRequired','value']))
 }
   handleClose = () => {
     this.setState({ open: false });
@@ -84,6 +102,7 @@ class DialogForm extends React.Component {
    this.setState({[name]:{value:value,isRequired:isRequired}})
   }
   isDisabled(){
+    console.log('disable',this.state)
   const completedRequired = _.map(this.state,completed)
     return !completedRequired
     .reduce(function(a,b)
@@ -119,7 +138,7 @@ class DialogForm extends React.Component {
                  margin="dense"
                   placeholder={field.placeholder}
                  label={field.label}
-                 value={this.state[field.name].value}
+                 value={this.state[field.name]&& this.state[field.name].value||''}
                  onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
                  type="text"
                  fullWidth
@@ -127,7 +146,7 @@ class DialogForm extends React.Component {
                case INPUTS.dropDown:return  <DropDown label={field.label} 
                key= {field.name} 
                options={field.options} 
-               value={this.state[field.name].value}
+               value={this.state[field.name]&& this.state[field.name].value||''}
                 name={field.name}
                 changeHandler={this.handleChange.bind(this)}
 
@@ -137,7 +156,7 @@ class DialogForm extends React.Component {
               id={field.name}
               label={field.label}
               type="date"
-              value={this.state[field.name].value}
+              value={this.state[field.name]&& this.state[field.name].value||''}
                 onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
                 fullWidth
                 InputLabelProps={{
@@ -151,7 +170,7 @@ class DialogForm extends React.Component {
             name={field.name}
             placeholder={field.placeholder}
             hint={field.hint}
-            value={this.state[field.name].value}
+            value={this.state[field.name]&& this.state[field.name].value||''}
             changeHandler={this.handleChange.bind(this)}
     
           />

@@ -5,7 +5,7 @@ import HeaderBar from "../HeaderBar";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import DialogForm from "./DailogForm";
-
+import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
 import * as _ from "lodash";
 
@@ -32,6 +32,10 @@ class EducationContainer extends React.Component {
     this.handleNewItem = this.handleNewItem.bind(this);
     this.handleEditDialog = this.handleEditDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
+    this.handleDeleteDialog = this.handleDeleteDialog.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleCancelDelete = this.handleCancelDelete.bind(this);
+    
   }
   componentDidMount() {
     this.setState({
@@ -41,15 +45,22 @@ class EducationContainer extends React.Component {
       }
     });
   }
-  componentWillUnmount() {}
+  handleDeleteDialog(key,item){
+    console.log(key,item)
+    this.setState({deleteDialog:{key:key,heading:'test',subheading:'tstttset'}})
+  }
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps.data !== this.props.data) {
+    console.log('test11',prevProps,this.props,'state',prevState,this.state)
+    
+    if (prevProps.name !== this.props.name) {
+      console.log('test22',getFormFields(this.props.name, this.props.industry))
       this.setState({
         dialog: {
           isOpen: false,
           fields: getFormFields(this.props.name, this.props.industry)
         }
-      });
+      }); 
+     
     }
   }
 
@@ -86,28 +97,40 @@ class EducationContainer extends React.Component {
     });
   }
   handleDelete(key) {
+    this.handleCancelDelete()
     this.props.onDelete(key, this.props.name);
   }
-  header() {}
+  handleCancelDelete() {
+    this.setState({deleteDialog:null})
+  }
+  handleFormTitle(){
+    if(this.state.dialog.key){
+      return this.props.name === EDU ? "Edit Education" : "Edit Practical Experience"
+    }else{
+      return this.props.name === EDU ? "Add Education" : "Add Practical Experience"
+    }
+  }
+
   render() {
     let items;
     const { name } = this.props;
+    console.log()
     if (this.props.profile) {
       items = _.map(Object.values(this.props.profile)[0][name], (item, key) => {
         if (item) {
           return (
             <EduExpCard
               key={key}
-              title={name === EDU ? item.degree : item.title}
-              label={name === EDU ? item.university : item.company}
+              title={name === EDU ? (item.major?(item.degree+' - '+item.major):item.degree) : item.title}
+              label={name === EDU ? item.university : (item.company+' / '+item.type) }
               startDate={item.startDate}
               endDate={item.endDate}
               description={item.description}
               editHandler={() => {
-                this.handleEditDialog(key, item);
+                this.handleEditDialog(key,item);
               }}
               deleteHandler={() => {
-                this.handleDelete(key);
+                this.handleDeleteDialog(key,item);
               }}
             />
           );
@@ -124,12 +147,24 @@ class EducationContainer extends React.Component {
           {items && items}
         </Grid>
         <DialogForm
-          title={"Add Education"}
+          title={this.handleFormTitle()}
           key={this.state.dialog.key}
           fields={this.state.dialog.fields}
           handler={this.handleCloseDialog}
           isOpen={this.state.dialog.isOpen}
         />
+        {this.state.deleteDialog &&<DeleteDialog 
+        name={name} 
+        heading={this.state.deleteDialog.heading} 
+        subheading={this.state.deleteDialog.subheading}
+        deleteHandler={() => {
+          this.handleDelete(this.state.deleteDialog.key)
+        }}
+        cancelHandler={() => {
+          this.handleCancelDelete()
+        }}
+
+        />}
       </div>
     );
   }
@@ -138,8 +173,6 @@ class EducationContainer extends React.Component {
 EducationContainer.protoTypes = {
   classes: PropTypes.object.isRequired,
   changeHandler: PropTypes.func.isRequired
-  // education:PropTypes.any,
-  //  experience:PropTypes.any
 };
 
 const enhance = compose(
@@ -178,28 +211,38 @@ const enhance = compose(
         collection: `profiles/${props.uid}/${subCollection}`,
         doc: itemKey
       })
-    // onUpdate
   }),
   // Run functionality on component lifecycle
   lifecycle({
     // Load data when component mounts
     componentWillMount() {
-      const { name } = this.props;
-      const listenerSettings = {
+      const eduListenerSettings = {
         collection: "profiles",
         doc: this.props.uid,
-        subcollections: [{ collection: name }]
+        subcollections: [{ collection: 'education' }]
       };
-      this.props.loadData(listenerSettings);
+      const expListenerSettings = {
+        collection: "profiles",
+        doc: this.props.uid,
+        subcollections: [{ collection: 'experience' }]
+      };
+      this.props.loadData(eduListenerSettings);
+      this.props.loadData(expListenerSettings);
     },
     componentWillUnmount() {
-      const { name } = this.props;
-      const listenerSettings = {
+    
+      const eduListenerSettings = {
         collection: "profiles",
         doc: this.props.uid,
-        subcollections: [{ collection: name }]
+        subcollections: [{ collection: 'education' }]
       };
-      this.props.firestore.unsetListener(listenerSettings);
+      const expListenerSettings = {
+        collection: "profiles",
+        doc: this.props.uid,
+        subcollections: [{ collection: 'experience' }]
+      };
+      this.props.firestore.unsetListener(eduListenerSettings);
+      this.props.firestore.unsetListener(expListenerSettings);
     }
   }),
   // Connect todos from redux state to props.todos

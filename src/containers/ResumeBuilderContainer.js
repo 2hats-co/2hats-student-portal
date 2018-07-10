@@ -290,14 +290,13 @@ class ResumeBuilderContainer extends React.Component {
                       <Button
                         className={classes.footerButton}
                         variant="outlined"
-                       
                         onClick={this.handleBack}
                       >
                         Back
                       </Button>
                       <Button
                         className={classes.footerButton}
-                        disabled={this.disableNext.bind(this)()}
+                      //  disabled={this.disableNext.bind(this)()}
                         variant="flat"
                         onClick={this.handleNext}
                       >
