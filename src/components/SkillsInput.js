@@ -8,6 +8,7 @@ const styles = theme => ({
         paddingTop:25,
      width:400
     },chip: {
+        marginTop: 10,
         margin: 4
       },
 });

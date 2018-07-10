@@ -25,3 +25,7 @@ export function getFormFields(type,industry){
     }
 
 }
+
+// {degree:"Bachelor of Commerce - Accounting",university:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
+//   - Winner of FMAA Management Consulting Case Competition
+//   - President of AIESEC UNSW`}

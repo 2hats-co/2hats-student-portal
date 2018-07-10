@@ -48,11 +48,11 @@ class DialogForm extends React.Component {
   };
   
   componentDidUpdate(prevProps, prevState){
-    console.log('new props',this.props)
-    console.log('state',this.state)
-    const {fields} = this.props
-    
+  
+    const {fields,key} = this.props
+  
     if (prevProps.data !== this.props.data) {
+      console.log('editing key',key)
       fields.forEach((field)=>{
         this.setState({[field.name]:{value:'',isRequired:field.isRequired}})})
       console.log('new props',this.props)
@@ -64,10 +64,24 @@ class DialogForm extends React.Component {
   };
   componentWillMount(){
     const {fields} = this.props
-    fields.forEach((field)=>{
-     this.setState({[field.name]:{value:'',isRequired:field.isRequired}})})
+    console.log(fields)
+
+   fields.forEach((field)=>{
+   this.setState({[field.name]:{value:field.value||'',isRequired:field.isRequired}})})
 
   }
+  handleAdd = () =>{
+    if(!this.props.key){
+      this.props.handler( _.omit(_.reduce(this.state,(r,v, k)=>{
+        let newObject = {[k]:v.value}
+        return {...r,...newObject}
+       }),['isRequired','value']))
+    }else{
+      console.log('key',this.props.key)
+    }
+   
+
+}
   handleClose = () => {
     this.setState({ open: false });
   };
@@ -82,7 +96,8 @@ class DialogForm extends React.Component {
     return !completedRequired
     .reduce(function(a,b)
     {if(a=== false || b===false)
-      {return false}else{return true};
+      {return false}
+      else{return true};
     });
   }
 
@@ -112,7 +127,7 @@ class DialogForm extends React.Component {
                  margin="dense"
                   placeholder={field.placeholder}
                  label={field.label}
-                 value={field.value}
+                 value={this.state[field.name].value}
                  onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
                  type="text"
                  fullWidth
@@ -120,7 +135,7 @@ class DialogForm extends React.Component {
                case INPUTS.dropDown:return  <DropDown label={field.label} 
                key= {field.name} 
                options={field.options} 
-                value={field.value} 
+               value={this.state[field.name].value}
                 name={field.name}
                 changeHandler={this.handleChange.bind(this)}
                 //changeHandler={(v)=>{console.log(v)}}
@@ -130,6 +145,7 @@ class DialogForm extends React.Component {
               id={field.name}
               label={field.label}
               type="date"
+              value={this.state[field.name].value}
              // defaultValue="2017-05-29"
                 onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
                 fullWidth
@@ -144,9 +160,9 @@ class DialogForm extends React.Component {
             name={field.name}
             placeholder={field.placeholder}
             hint={field.hint}
-            value={field.value}
+            value={this.state[field.name].value}
             changeHandler={this.handleChange.bind(this)}
-            value=''
+    
           />
                 default:break;
               }
@@ -158,15 +174,7 @@ class DialogForm extends React.Component {
             <Button variant="text"  onClick={()=>{handler()}}>
               Cancel
             </Button>
-            <Button variant="text" disabled={this.isDisabled()} onClick={()=>{
-             handler( _.omit(_.reduce(this.state,(r,v, k)=>{
-               let newObject = {[k]:v.value}
-               return {...r,...newObject}
-              }),['isRequired','value']))
-  //             handler({degree:"Bachelor of Commerce - Accounting",university:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
-  // - Winner of FMAA Management Consulting Case Competition
-  // - President of AIESEC UNSW`})
-  }} >
+            <Button variant="text" disabled={this.isDisabled()} onClick={this.handleAdd} >
               Add 
             </Button>
           </DialogActions>

@@ -6,8 +6,7 @@ import InputWrapper from './InputWrapper'
 
 const styles = theme => ({
   root: {
-   ///      width:'100%',
-   //  paddingTop:10,
+    
   },
   inputField: {
     width:'100%'

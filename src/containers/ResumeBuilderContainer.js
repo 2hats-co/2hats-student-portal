@@ -350,9 +350,7 @@ const enhance = compose(
   }),
   // Connect todos from redux state to props.todos
   connect(({ firestore }) => ({ 
-    // state.firestore
-    //  profiles: firestore.ordered.profiles, // document data in array
-    // profiles: firestore.data.profiles, // document data by id
+     profile: firestore.data.profiles, // document data by id
   }))
 )
 export default enhance(

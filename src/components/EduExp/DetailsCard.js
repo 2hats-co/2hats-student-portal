@@ -24,9 +24,9 @@ const styles = theme => ({
 function EduExpCard(props) {
   // check if index === 0, include header
   
-  const { classes, title, label, description, startDate, endDate,editHandler,deleteHandler} = props;
+  const { classes, title, key, label, description, startDate, endDate,editHandler,deleteHandler} = props;
   return (
-    <div className={classes.root}>
+    <div key ={key} className={classes.root}>
  
     <Card elevation={2} className={classes.card}>
   

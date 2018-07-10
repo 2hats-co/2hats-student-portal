@@ -22,7 +22,7 @@ const styles = theme => ({
 function CardSection(props) {
   const { classes, step, title, image, description, button } = props;
   return (
-    <div>
+    <div key={title}>
       {step && <Typography variant="display1" color="primary">
         Step {step}
       </Typography>}
@@ -56,8 +56,8 @@ CardSection.propTypes = {
   image: PropTypes.any.isRequired,
   description: PropTypes.string.isRequired,
   button: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    action: PropTypes.func.isRequired
+    label: PropTypes.string,
+    action: PropTypes.func
   })
 };
 export default withStyles(styles)(CardSection);
