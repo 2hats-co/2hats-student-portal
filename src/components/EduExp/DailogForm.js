@@ -52,10 +52,10 @@ class DialogForm extends React.Component {
     const {fields,key} = this.props
   
     if (prevProps.data !== this.props.data) {
-      console.log('editing key',key)
+  
       fields.forEach((field)=>{
         this.setState({[field.name]:{value:'',isRequired:field.isRequired}})})
-      console.log('new props',this.props)
+
     } 
     
   }
@@ -64,23 +64,15 @@ class DialogForm extends React.Component {
   };
   componentWillMount(){
     const {fields} = this.props
-    console.log(fields)
-
    fields.forEach((field)=>{
    this.setState({[field.name]:{value:field.value||'',isRequired:field.isRequired}})})
 
   }
   handleAdd = () =>{
-    if(!this.props.key){
       this.props.handler( _.omit(_.reduce(this.state,(r,v, k)=>{
         let newObject = {[k]:v.value}
         return {...r,...newObject}
        }),['isRequired','value']))
-    }else{
-      console.log('key',this.props.key)
-    }
-   
-
 }
   handleClose = () => {
     this.setState({ open: false });
@@ -102,7 +94,7 @@ class DialogForm extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+  
       const {title,fields,classes,handler,isOpen} = this.props
     return (
       <div>
@@ -138,7 +130,7 @@ class DialogForm extends React.Component {
                value={this.state[field.name].value}
                 name={field.name}
                 changeHandler={this.handleChange.bind(this)}
-                //changeHandler={(v)=>{console.log(v)}}
+
                 />
               case INPUTS.datePicker:return <TextField
               key= {field.name}
@@ -146,7 +138,6 @@ class DialogForm extends React.Component {
               label={field.label}
               type="date"
               value={this.state[field.name].value}
-             // defaultValue="2017-05-29"
                 onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
                 fullWidth
                 InputLabelProps={{

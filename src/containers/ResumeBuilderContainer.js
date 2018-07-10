@@ -60,7 +60,7 @@ function getSteps() {
   ];
 }
 const INITIAL_STATE = {
-  //activeStep: 0,
+
   activeStep: 0,
   profile:{
   interests: [],

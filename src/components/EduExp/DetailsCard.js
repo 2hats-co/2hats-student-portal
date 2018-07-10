@@ -18,8 +18,6 @@ const styles = theme => ({
     paddingRight:40,
     marginBottom:20
   },
- 
-
 });
 function EduExpCard(props) {
   // check if index === 0, include header
