@@ -106,9 +106,14 @@ class AuthenticationContainer extends React.Component {
     this.props.history.push(routes.DASHBOARD);
   }
   handleGoogleAuth(){
+       
     
+    //this.props.history.push(routes.INTRODUCTION);
   }
+  handleLinkedInAuth(){
 
+    //this.props.history.push(routes.INTRODUCTION);
+  }
   handleLoadingIndicator(isLoading){
     this.setState({isLoading:isLoading})
   }
@@ -178,7 +183,7 @@ class AuthenticationContainer extends React.Component {
     let socialButton = (provider, method) => (
       <Button key={`${provider}${method}`} variant='flat' 
       style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }} 
-      onClick={this.handleGoogleAuth}
+      onClick={provider === 'google' ? this.handleGoogleAuth: this.handleLinkedInAuth}
       className={classes.socialButton}>
         <div className={classes.socialIcon} >
           <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
