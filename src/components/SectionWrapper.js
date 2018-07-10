@@ -29,7 +29,7 @@ function SectionWrapper(props) {
 
 SectionWrapper.propTypes = {
   height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
   child: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
 };

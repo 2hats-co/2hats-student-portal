@@ -114,9 +114,11 @@ class EducationContainer extends React.Component {
   render() {
     let items;
     const { name } = this.props;
-    console.log()
-    if (this.props.profile) {
-      items = _.map(Object.values(this.props.profile)[0][name], (item, key) => {
+   
+    if (this.props[name]) {
+    
+      items = _.map(this.props[name], (item, key) => {
+     
         if (item) {
           return (
             <EduExpCard
@@ -219,12 +221,14 @@ const enhance = compose(
       const eduListenerSettings = {
         collection: "profiles",
         doc: this.props.uid,
-        subcollections: [{ collection: 'education' }]
+        subcollections: [{ collection: 'education' }],
+        storeAs:'education'
       };
       const expListenerSettings = {
         collection: "profiles",
         doc: this.props.uid,
-        subcollections: [{ collection: 'experience' }]
+        subcollections: [{ collection: 'experience' }],
+        storeAs:'experience'
       };
       this.props.loadData(eduListenerSettings);
       this.props.loadData(expListenerSettings);
@@ -234,12 +238,14 @@ const enhance = compose(
       const eduListenerSettings = {
         collection: "profiles",
         doc: this.props.uid,
-        subcollections: [{ collection: 'education' }]
+        subcollections: [{ collection: 'education' }],
+        storeAs:'education'
       };
       const expListenerSettings = {
         collection: "profiles",
         doc: this.props.uid,
-        subcollections: [{ collection: 'experience' }]
+        subcollections: [{ collection: 'experience' }],
+        storeAs:'experience'
       };
       this.props.firestore.unsetListener(eduListenerSettings);
       this.props.firestore.unsetListener(expListenerSettings);
@@ -248,8 +254,9 @@ const enhance = compose(
   // Connect todos from redux state to props.todos
   connect(({ firestore }) => ({
     // state.firestore
+    education: firestore.data.education,// document data by id
+    experience: firestore.data.experience // document data by id
 
-    profile: firestore.data.profiles // document data by id
     // document data by id
   }))
 );
