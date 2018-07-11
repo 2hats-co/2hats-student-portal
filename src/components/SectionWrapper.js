@@ -16,7 +16,7 @@ function SectionWrapper(props) {
   const { classes, width,height, child } = props;
   return (
     <Tween
-      animation={{ height:height}}
+      animation={{ minHeight:height}}
     //  onChange={this.bbb}
      // style={{ opacity: 1, height: 100, display: 'inline-block' }}
     >
@@ -29,7 +29,7 @@ function SectionWrapper(props) {
 
 SectionWrapper.propTypes = {
   height: PropTypes.number.isRequired,
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
   child: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
 };

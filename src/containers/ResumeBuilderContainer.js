@@ -28,6 +28,7 @@ import {INTRODUCTION} from '../constants/routes'
 import {withRouter} from 'react-router-dom'
 import { COLLECTIONS } from "../constants/firestore";
 
+import * as _ from "lodash";
 const styles = theme => ({
   root: {
     height: 800
@@ -60,7 +61,7 @@ function getSteps() {
   ];
 }
 const INITIAL_STATE = {
-  //activeStep: 0,
+  fireStoreLoaded:false,
   activeStep: 0,
   profile:{
   interests: [],
@@ -78,6 +79,16 @@ class ResumeBuilderContainer extends React.Component {
     super(props);
     this.state = { ...INITIAL_STATE };
     this.goToIntroduction = this.goToIntroduction.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if(prevProps.profile !== this.props.profile && !this.state.fireStoreLoaded){
+      console.log(Object.values(this.props.profile))
+     _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
+
+      this.handleChange(key,value)
+     })
+    }
   }
   goToIntroduction(){
     this.props.history.push(INTRODUCTION)
@@ -195,7 +206,7 @@ class ResumeBuilderContainer extends React.Component {
     });
   };
   render() {
-    console.log(this.state);
+    console.log(this.state)
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
@@ -290,14 +301,13 @@ class ResumeBuilderContainer extends React.Component {
                       <Button
                         className={classes.footerButton}
                         variant="outlined"
-                       
                         onClick={this.handleBack}
                       >
                         Back
                       </Button>
                       <Button
                         className={classes.footerButton}
-                        disabled={this.disableNext.bind(this)()}
+                      //  disabled={this.disableNext.bind(this)()}
                         variant="flat"
                         onClick={this.handleNext}
                       >
@@ -326,7 +336,9 @@ const enhance = compose(
   withFirestore,
   // Handler functions as props
   withHandlers({
-    
+    loadData: props => listenerSettings =>
+      props.firestore.setListener(listenerSettings),
+
     onNext: props => (profile) =>
         props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
         ...profile,
@@ -340,13 +352,25 @@ const enhance = compose(
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),
-
-   // console.log(props)
   }),
   // Run functionality on component lifecycle
   lifecycle({
     // Load data when component mounts
-   
+    componentWillMount() {
+      const listenerSettings = {
+        collection: "profiles",
+        doc: this.props.uid,
+      };
+      this.props.loadData(listenerSettings);
+  
+    },
+    componentWillUnmount() {
+      const listenerSettings = {
+        collection: "profiles",
+        doc: this.props.uid,
+      };
+      this.props.firestore.unsetListener(listenerSettings);
+    }
   }),
   // Connect todos from redux state to props.todos
   connect(({ firestore }) => ({ 

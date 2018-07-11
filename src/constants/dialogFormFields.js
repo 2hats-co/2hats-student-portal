@@ -10,8 +10,10 @@ const eduEmptyFields = (industry) => [
 {type:INPUTS.multiLine,name:'description',label:'Discription(Optional)',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:false}
 ]
 const expEmptyFields = (industry) => [
-    {type:INPUTS.dropDown,name:'type',label:'Type of Experince',options:['USYD','UNSW','UTS'],isRequired:true},
-    {type:INPUTS.textField,name:'organisation',label:'Organisation',isRequired:true},
+   
+    {type:INPUTS.textField,name:'title',label:'Position/Job Title',isRequired:true},
+    {type:INPUTS.textField,name:'company',label:'Organisation',isRequired:true},
+    {type:INPUTS.dropDown,name:'type',label:'Type of Experince',options:['Extra Curricular','Employment','Project'],isRequired:true},
     {type:INPUTS.datePicker,name:'startDate',label:'Start',isRequired:true},
     {type:INPUTS.datePicker,name:'endDate',label:'End/Expected End',isRequired:true},
     {type:INPUTS.multiLine,name:'description',label:'Discription',placeholder:getPrompts(industry).exp,isRequired:true}
