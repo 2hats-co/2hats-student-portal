@@ -139,24 +139,31 @@ class AuthenticationContainer extends React.Component {
 
   handleLinkedInAuth = () => {
     this.setState({ isLoading: true })
-    //const { fields } = this.props
     const fields = ":(id,email-address,headline,summary,first-name,last-name,num-connections,picture-urls::(original))";
     window.IN.API.Raw(`/people/~${fields}`).result(async r => {
       this.setState({ isLoading: false })
-      //this.props.callBack(r)
       console.log('linked in response -->', r);
-      //const payload = await r.json();
-      // firebaseFunctions.callRemoteMethod('linkedinAuth', r, async (response) => {
-      //   console.log(response);
-      //   if (response.code) {
-      //     console.log('something wrong --->', response.code);
-      //   }
-
-      // })
       firebaseFunctions.callRemoteMethodOnFirestore('linkedinAuth', r, async (response) => {
         console.log('resp coming->',response);
         if (response.code) {
-          console.log('something wrong --->', response.code);
+          console.log(response.code);
+        }
+        if (response.customToken) {
+          try {
+            console.log('authenticating ...');
+            const signInWithCustomToken = auth.doSignInWithCustomToken(response.customToken);
+            console.log('Linkedin sign in !', signInWithCustomToken);
+            if(response.returnedUser == false){
+               // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
+               this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+            } else {
+              // todo: means this is an existing user, go to profile page directly
+              this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+            }
+            
+          } catch (error) {
+              console.log('Linkdin auth error', error);
+          }
         }
 
       })
