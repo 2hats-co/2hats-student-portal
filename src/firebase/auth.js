@@ -1,5 +1,5 @@
 import { auth,
- // googleProvider
+   googleProvider
  } from '../store';
 
 // Sign Up
@@ -13,8 +13,8 @@ export const doSignInWithEmailAndPassword = (email, password) =>
 export const doSignInWithCustomToken = (token) =>
  auth.signInWithCustomToken(token);
 // Sign In/up with google
-// export const doAuthWithGoogle  = () =>
-//    auth.signInWithPopup(googleProvider);
+export const doAuthWithGoogle  = () =>
+   auth.signInWithPopup(googleProvider);
 // export const doAuthWithGoogle = () => dispatch => {
 //     auth
 //       .signInWithPopup(googleProvider)

@@ -102,6 +102,7 @@ class AuthenticationContainer extends React.Component {
     this.goToDashboard = this.goToDashboard.bind(this);
     this.goToSignIn = this.goToSignIn.bind(this);
     this.handleLinkedInAuth = this.handleLinkedInAuth.bind(this);
+    this.handleGoogleAuth = this.handleGoogleAuth.bind(this);
   }
   goToSignIn() {
     this.props.history.push(routes.SIGN_IN)
@@ -115,10 +116,22 @@ class AuthenticationContainer extends React.Component {
 
   // ? begin of different ways of authentication, jack
 
-  handleGoogleAuth() {
-
-
-    //this.props.history.push(routes.INTRODUCTION);
+   handleGoogleAuth = async () => {
+    try {
+      let authWithGoogle = await auth.doAuthWithGoogle();
+      console.log('authWithGoogle successfully ...', authWithGoogle);
+      if (authWithGoogle.additionalUserInfo.isNewUser) {
+        // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
+        this.props.history.push(routes.INTRODUCTION); 
+        //console.log('go new user page');
+      } else {
+        // todo: means this is an existing user, go to profile page directly
+        this.props.history.push(routes.INTRODUCTION); 
+        //console.log('go returned user page')
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   initializeLinkedin = clientId => {
@@ -138,31 +151,32 @@ class AuthenticationContainer extends React.Component {
   }
 
   handleLinkedInAuth = () => {
+    //!important, please add an indicator to cover the screen, because the linkedin auth will take longer time than google does.
     this.setState({ isLoading: true })
     const fields = ":(id,email-address,headline,summary,first-name,last-name,num-connections,picture-urls::(original))";
     window.IN.API.Raw(`/people/~${fields}`).result(async r => {
       this.setState({ isLoading: false })
       console.log('linked in response -->', r);
       firebaseFunctions.callRemoteMethodOnFirestore('linkedinAuth', r, async (response) => {
-        console.log('resp coming->',response);
+        console.log('resp coming->', response);
         if (response.code) {
           console.log(response.code);
         }
         if (response.customToken) {
           try {
             console.log('authenticating ...');
-            const signInWithCustomToken = auth.doSignInWithCustomToken(response.customToken);
-            console.log('Linkedin sign in !', signInWithCustomToken);
-            if(response.returnedUser == false){
-               // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
-               this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+            const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
+            console.log('authWithLinkedin successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
+            if (response.returnedUser == false) {
+              // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
+              this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
             } else {
               // todo: means this is an existing user, go to profile page directly
               this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
             }
-            
+
           } catch (error) {
-              console.log('Linkdin auth error', error);
+            console.log('Linkdin auth error', error);
           }
         }
 
