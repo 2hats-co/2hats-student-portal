@@ -140,14 +140,21 @@ class AuthenticationContainer extends React.Component {
   handleLinkedInAuth = () => {
     this.setState({ isLoading: true })
     //const { fields } = this.props
-    const fields = ":(id,first-name, last-name, headline, email-address, summary, num-connections,picture-url)";
+    const fields = ":(id,email-address,headline,summary,first-name,last-name,num-connections,picture-urls::(original))";
     window.IN.API.Raw(`/people/~${fields}`).result(async r => {
       this.setState({ isLoading: false })
       //this.props.callBack(r)
       console.log('linked in response -->', r);
-      const payload = await r.json();
-      firebaseFunctions.callRemoteMethod('linkedinAuth', payload, async (response) => {
-        console.log(response);
+      //const payload = await r.json();
+      // firebaseFunctions.callRemoteMethod('linkedinAuth', r, async (response) => {
+      //   console.log(response);
+      //   if (response.code) {
+      //     console.log('something wrong --->', response.code);
+      //   }
+
+      // })
+      firebaseFunctions.callRemoteMethodOnFirestore('linkedinAuth', r, async (response) => {
+        console.log('resp coming->',response);
         if (response.code) {
           console.log('something wrong --->', response.code);
         }
@@ -158,7 +165,7 @@ class AuthenticationContainer extends React.Component {
   }
 
   authorize = e => {
-    window.IN.User.authorize(this.callBack, '')
+    window.IN.User.authorize(this.handleLinkedInAuth, '')
   }
 
   // ? end of different of authentication, jack
