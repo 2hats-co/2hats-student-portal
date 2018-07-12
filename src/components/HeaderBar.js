@@ -6,7 +6,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton';
-import {PRIMARYCOLOR,WHITE} from '../Theme'
+import {PRIMARY_COLOR,WHITE} from '../Theme'
 import { Grid } from '@material-ui/core';
 const styles = theme => ({
   header: {
@@ -16,7 +16,7 @@ const styles = theme => ({
     width:390,
     height:45,
     borderRadius:35,
-    backgroundColor: PRIMARYCOLOR,
+    backgroundColor: PRIMARY_COLOR,
     color:WHITE,
     marginBottom:-25,
     zIndex:10

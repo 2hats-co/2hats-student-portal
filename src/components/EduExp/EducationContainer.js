@@ -40,7 +40,7 @@ class EducationContainer extends React.Component {
   componentDidMount() {
     this.setState({
       dialog: {
-        isOpen: false,
+        isOpen: true,
         fields: getFormFields(this.props.name, this.props.industry)
       }
     });

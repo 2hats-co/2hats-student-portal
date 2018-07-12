@@ -62,7 +62,7 @@ function getSteps() {
 }
 const INITIAL_STATE = {
   fireStoreLoaded:false,
-  activeStep: 0,
+  activeStep: 2,
   profile:{
   interests: [],
   bio: "",
@@ -83,9 +83,8 @@ class ResumeBuilderContainer extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile && !this.state.fireStoreLoaded){
-      console.log(Object.values(this.props.profile))
-     _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
 
+     _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
       this.handleChange(key,value)
      })
     }

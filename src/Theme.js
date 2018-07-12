@@ -1,12 +1,12 @@
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { inherits } from 'util';
-export const PRIMARYCOLOR = '#F15A29'
+export const PRIMARY_COLOR = '#F15A29'
 const primaryFontFamily = "Helvetica Neue"
 export const WHITE = '#fff'
 export const BLACK = '#2c2c2c'
 export const GREY = '#EDEDED'
-const primaryColor = PRIMARYCOLOR
+const primaryColor = PRIMARY_COLOR
 export const Theme = createMuiTheme({
   overrides: {
     MuiStepIcon:{
@@ -42,7 +42,7 @@ export const Theme = createMuiTheme({
     MuiDialogTitle:{
     
       root:{
-        color:PRIMARYCOLOR+'!important',
+        color:primaryColor+'!important',
       }
 
     },
