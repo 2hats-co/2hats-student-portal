@@ -60,3 +60,4 @@ export function configureStore(initialState, history) {
 }
 export const auth = firebase.auth();
 export const storage = firebase.storage().ref();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
