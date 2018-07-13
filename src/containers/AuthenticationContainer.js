@@ -28,7 +28,7 @@ import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 //authentication
 //import LinkedinSDK from 'react-linkedin-sdk';
-import GoogleLogin from './GoogleLogin.js';
+import GoogleLogin from '../utilities/GoogleLogin.js';
 
 //firebase remote functions
 import { firebaseFunctions } from '../firebase';

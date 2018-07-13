@@ -87,7 +87,7 @@ class GoogleLogin extends Component {
   }
   signIn(e) {
     if (e) {
-      e.preventDefault() // to prevent submit if used within form
+      e.preventDefault() // Ke: to prevent submit if used within form
     }
     if (!this.state.disabled) {
       const auth2 = window.gapi.auth2.getAuthInstance()
@@ -132,7 +132,7 @@ class GoogleLogin extends Component {
       return render({ onClick: this.signIn })
     }
 
-    const initialStyle = {
+    const initialStyle = { // ke: not using this button anymore
       display: 'inline-block',
       background: '#d14836',
       color: '#fff',
@@ -222,7 +222,7 @@ GoogleLogin.defaultProps = {
     opacity: 0.6
   },
   onRequest: () => {},
-  jsSrc: 'https://apis.google.com/js/client:platform.js'
+  jsSrc: 'https://apis.google.com/js/client:platform.js' // ke, dont change the api endpoint url
 }
 
 export default GoogleLogin
