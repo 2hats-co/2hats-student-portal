@@ -222,7 +222,7 @@ class AuthenticationContainer extends React.Component {
         try {
           console.log('authenticating ...');
           const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
-          console.log('authWithLinkedin successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
+          console.log('authWithGoogle successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
           if (response.returnedUser == false) {
             // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
             this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
@@ -232,7 +232,7 @@ class AuthenticationContainer extends React.Component {
           }
 
         } catch (error) {
-          console.log('Linkdin auth error', error);
+          console.log('Google auth error', error);
         }
       }
 
