@@ -11,7 +11,11 @@ import GoogleIcon from '../assets/images/social/google.svg'
 import LinkedinIcon from '../assets/images/social/linkedin.svg'
 
 import StyledLink from '../components/StyledLink';
-import { validateEmail, validatePassword, validateName } from '../utilities/validators'
+import { validateEmail, validatePassword, validateName } from '../utilities/validators';
+import LinearIndeterminate from '../components/LinearProgress.js';
+import CircularIndeterminate from '../components/CircularProgress.js';
+import CircularDeterminate from '../components/CircularProgressDeterminate.js';
+import CircularStatic from '../components/circularProgressStatic.js';
 
 //Redux
 import { compose } from 'redux';
@@ -27,7 +31,6 @@ import { withRouter } from "react-router-dom";
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 //authentication
-//import LinkedinSDK from 'react-linkedin-sdk';
 import GoogleLogin from '../utilities/GoogleLogin.js';
 
 //firebase remote functions
@@ -85,7 +88,8 @@ const INITIAL_STATE = {
   email: '',
   error: null,
   view: 'signup',
-  isLoading: false
+  isLoading: false,
+  progress: 10
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -104,6 +108,8 @@ class AuthenticationContainer extends React.Component {
     this.goToSignIn = this.goToSignIn.bind(this);
     this.handleLinkedInAuth = this.handleLinkedInAuth.bind(this);
     this.handleGoogleAuth = this.handleGoogleAuth.bind(this);
+    this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
+    this.handleProgress = this.handleProgress.bind(this);
   }
   goToSignIn() {
     this.props.history.push(routes.SIGN_IN)
@@ -151,61 +157,10 @@ class AuthenticationContainer extends React.Component {
     })(document, 'script', 'linkedin-jssdk')
   }
 
-  // initializeGoogle = clientId => {
-  //   ; ((d, s, id, cb) => {
-  //     const element = d.getElementsByTagName(s)[0]
-  //     const fjs = element
-  //     let js = element
-  //     js = d.createElement(s)
-  //     js.id = id
-  //     js.src = 'https://apis.google.com/js/client:platform.js'
-  //     if (fjs && fjs.parentNode) {
-  //       fjs.parentNode.insertBefore(js, fjs)
-  //     } else {
-  //       d.head.appendChild(js)
-  //     }
-  //     js.onload = cb
-  //   })(document, 'script', 'google-login', () => {
-  //     const params = {
-  //       client_id: clientId,
-  //       cookie_policy: 'single_host_origin',
-  //       login_hint: loginHint,
-  //       hosted_domain: hostedDomain,
-  //       fetch_basic_profile: fetchBasicProfile,
-  //       discoveryDocs,
-  //       ux_mode: uxMode,
-  //       redirect_uri: redirectUri,
-  //       scope,
-  //       access_type: accessType
-  //     }
-
-  //     if (responseType === 'code') {
-  //       params.access_type = 'offline'
-  //     }
-
-  //     window.gapi.load('auth2', () => {
-  //       //this.enableButton()
-  //       if (!window.gapi.auth2.getAuthInstance()) {
-  //         window.gapi.auth2.init(params).then(
-  //           res => {
-  //             if (isSignedIn && res.isSignedIn.get()) {
-  //               this.handleSigninSuccess(res.currentUser.get())
-  //             }
-  //           },
-  //           err => onFailure(err)
-  //         )
-  //       }
-  //       if (autoLoad) {
-  //         this.signIn()
-  //       }
-  //     })
-
-  //   })
-  // }
-
   handleGoogleAuth = (response) => {
+    this.handleLoadingIndicator(true);
+    this.handleProgress(30);
     console.log('google response -->', response);
-    //const { googleEmail, familyName, givenName, googleId, photo } = request;
     let data = {
       googleId: response.googleId,
       googleEmail: response.profileObj.email,
@@ -215,7 +170,9 @@ class AuthenticationContainer extends React.Component {
     };
     firebaseFunctions.callRemoteMethodOnFirestore('googleAuth', data, async (response) => {
       console.log('resp coming->', response);
+      this.handleProgress(60);
       if (response.code) {
+        this.handleLoadingIndicator(false);
         console.log(response.code);
       }
       if (response.customToken) {
@@ -223,15 +180,29 @@ class AuthenticationContainer extends React.Component {
           console.log('authenticating ...');
           const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
           console.log('authWithGoogle successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
+          this.handleProgress(80);
           if (response.returnedUser == false) {
             // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
-            this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+            this.handleProgress(90);
+            setTimeout(() => {
+              this.handleLoadingIndicator(false);
+              this.props.history.push(routes.INTRODUCTION);
+            }, 1000)
+            //this.handleLoadingIndicator(false);
+            //this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
           } else {
             // todo: means this is an existing user, go to profile page directly
-            this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+            this.handleProgress(90);
+            setTimeout(() => {
+              this.handleLoadingIndicator(false);
+              this.props.history.push(routes.INTRODUCTION);
+            }, 1000)
+            //this.handleLoadingIndicator(false);
+            //this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
           }
 
         } catch (error) {
+          this.handleLoadingIndicator(false);
           console.log('Google auth error', error);
         }
       }
@@ -241,14 +212,17 @@ class AuthenticationContainer extends React.Component {
 
   handleLinkedInAuth = () => {
     //!important, please add an indicator to cover the screen, because the linkedin auth will take longer time than google does.
-    this.setState({ isLoading: true })
+    this.handleLoadingIndicator(true);
+    this.handleProgress(20);
     const fields = ":(id,email-address,headline,summary,first-name,last-name,num-connections,picture-urls::(original))";
     window.IN.API.Raw(`/people/~${fields}`).result(async r => {
-      this.setState({ isLoading: false })
       console.log('linked in response -->', r);
+      this.handleProgress(40);
       firebaseFunctions.callRemoteMethodOnFirestore('linkedinAuth', r, async (response) => {
         console.log('resp coming->', response);
+        this.handleProgress(60);
         if (response.code) {
+          this.handleLoadingIndicator(false);
           console.log(response.code);
         }
         if (response.customToken) {
@@ -256,15 +230,29 @@ class AuthenticationContainer extends React.Component {
             console.log('authenticating ...');
             const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
             console.log('authWithLinkedin successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
+            this.handleProgress(80);
             if (response.returnedUser == false) {
               // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
-              this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+              this.handleProgress(90);
+              setTimeout(() => {
+                this.handleLoadingIndicator(false);
+                this.props.history.push(routes.INTRODUCTION);
+              }, 1000)
+
+              // Note: for demo purpose, introduction page will be displayed
             } else {
               // todo: means this is an existing user, go to profile page directly
-              this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+              this.handleProgress(90);
+              setTimeout(() => {
+                this.handleLoadingIndicator(false);
+                this.props.history.push(routes.INTRODUCTION);
+              }, 1000)
+              //this.handleLoadingIndicator(false);
+              //this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
             }
 
           } catch (error) {
+            this.handleLoadingIndicator(false);
             console.log('Linkdin auth error', error);
           }
         }
@@ -283,6 +271,9 @@ class AuthenticationContainer extends React.Component {
 
   handleLoadingIndicator(isLoading) {
     this.setState({ isLoading: isLoading })
+  }
+  handleProgress(progress) {
+    this.setState({ progress: progress })
   }
   handleSignin() {
     const { email, password } = this.state;
@@ -352,7 +343,7 @@ class AuthenticationContainer extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    const { firstName, lastName, password, confirmPassword, email, error, view } = this.state
+    const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress } = this.state
     // const responseGoogle = (response) => {
     //   console.log(response);
     // }
@@ -542,7 +533,7 @@ class AuthenticationContainer extends React.Component {
 
     return (
 
-      <LogoInCard width={350} height={cardHeight}>
+      <LogoInCard width={350} height={isLoading ? 300 : cardHeight}>
         <Grid
           container
           className={classes.root}
@@ -550,23 +541,8 @@ class AuthenticationContainer extends React.Component {
           direction='column'
           justify='flex-start'
         >
-          {loadedView.map(x => x)}
-          {/* <GoogleLogin
-            clientId="983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com"
-            buttonText="Login"
-            onSuccess={this.responseGoogle}
-            onFailure={this.responseGoogle}
-            render={renderProps => (
-              <Button key='googleup' variant='flat'
-                style={{ backgroundColor: '#E05449' }}
-                onClick={renderProps.onClick}
-                className={classes.socialButton}>
-                <div className={classes.socialIcon} >
-                  <img alt='google' src={GoogleIcon} />
-                </div> sign up with google
-              </Button>
-            )}
-          /> */}
+          {isLoading ?
+            <CircularStatic completed={progress} /> : loadedView.map(x => x)}
         </Grid>
       </LogoInCard>
 
