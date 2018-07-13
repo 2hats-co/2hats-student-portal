@@ -27,7 +27,8 @@ import { withRouter } from "react-router-dom";
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 //authentication
-import LinkedinSDK from 'react-linkedin-sdk';
+//import LinkedinSDK from 'react-linkedin-sdk';
+import GoogleLogin from '../utilities/GoogleLogin.js';
 
 //firebase remote functions
 import { firebaseFunctions } from '../firebase';
@@ -116,22 +117,22 @@ class AuthenticationContainer extends React.Component {
 
   // ? begin of different ways of authentication, jack
 
-   handleGoogleAuth = async () => {
-    try {
-      let authWithGoogle = await auth.doAuthWithGoogle();
-      console.log('authWithGoogle successfully ...', authWithGoogle);
-      if (authWithGoogle.additionalUserInfo.isNewUser) {
-        // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
-        this.props.history.push(routes.INTRODUCTION); 
-        //console.log('go new user page');
-      } else {
-        // todo: means this is an existing user, go to profile page directly
-        this.props.history.push(routes.INTRODUCTION); 
-        //console.log('go returned user page')
-      }
-    } catch (error) {
-      console.log(error);
-    }
+  handleGoogleAuth = async () => {
+    // try {
+    //   let authWithGoogle = await auth.doAuthWithGoogle();
+    //   console.log('authWithGoogle successfully ...', authWithGoogle);
+    //   if (authWithGoogle.additionalUserInfo.isNewUser) {
+    //     // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
+    //     this.props.history.push(routes.INTRODUCTION); 
+    //     //console.log('go new user page');
+    //   } else {
+    //     // todo: means this is an existing user, go to profile page directly
+    //     this.props.history.push(routes.INTRODUCTION); 
+    //     //console.log('go returned user page')
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   initializeLinkedin = clientId => {
@@ -148,6 +149,94 @@ class AuthenticationContainer extends React.Component {
       js.text = `api_key: ${clientId}`
       ljs.parentNode.insertBefore(js, ljs)
     })(document, 'script', 'linkedin-jssdk')
+  }
+
+  // initializeGoogle = clientId => {
+  //   ; ((d, s, id, cb) => {
+  //     const element = d.getElementsByTagName(s)[0]
+  //     const fjs = element
+  //     let js = element
+  //     js = d.createElement(s)
+  //     js.id = id
+  //     js.src = 'https://apis.google.com/js/client:platform.js'
+  //     if (fjs && fjs.parentNode) {
+  //       fjs.parentNode.insertBefore(js, fjs)
+  //     } else {
+  //       d.head.appendChild(js)
+  //     }
+  //     js.onload = cb
+  //   })(document, 'script', 'google-login', () => {
+  //     const params = {
+  //       client_id: clientId,
+  //       cookie_policy: 'single_host_origin',
+  //       login_hint: loginHint,
+  //       hosted_domain: hostedDomain,
+  //       fetch_basic_profile: fetchBasicProfile,
+  //       discoveryDocs,
+  //       ux_mode: uxMode,
+  //       redirect_uri: redirectUri,
+  //       scope,
+  //       access_type: accessType
+  //     }
+
+  //     if (responseType === 'code') {
+  //       params.access_type = 'offline'
+  //     }
+
+  //     window.gapi.load('auth2', () => {
+  //       //this.enableButton()
+  //       if (!window.gapi.auth2.getAuthInstance()) {
+  //         window.gapi.auth2.init(params).then(
+  //           res => {
+  //             if (isSignedIn && res.isSignedIn.get()) {
+  //               this.handleSigninSuccess(res.currentUser.get())
+  //             }
+  //           },
+  //           err => onFailure(err)
+  //         )
+  //       }
+  //       if (autoLoad) {
+  //         this.signIn()
+  //       }
+  //     })
+
+  //   })
+  // }
+
+  handleGoogleAuth = (response) => {
+    console.log('google response -->', response);
+    //const { googleEmail, familyName, givenName, googleId, photo } = request;
+    let data = {
+      googleId: response.googleId,
+      googleEmail: response.profileObj.email,
+      familyName: response.profileObj.familyName,
+      givenName: response.profileObj.givenName,
+      photo: response.profileObj.imageUrl,
+    };
+    firebaseFunctions.callRemoteMethodOnFirestore('googleAuth', data, async (response) => {
+      console.log('resp coming->', response);
+      if (response.code) {
+        console.log(response.code);
+      }
+      if (response.customToken) {
+        try {
+          console.log('authenticating ...');
+          const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
+          console.log('authWithGoogle successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
+          if (response.returnedUser == false) {
+            // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
+            this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+          } else {
+            // todo: means this is an existing user, go to profile page directly
+            this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+          }
+
+        } catch (error) {
+          console.log('Google auth error', error);
+        }
+      }
+
+    })
   }
 
   handleLinkedInAuth = () => {
@@ -257,20 +346,48 @@ class AuthenticationContainer extends React.Component {
   }
   componentDidMount() {
     const LinkedinCID = '86gj7a83u3ne8b'; // CID should be hidden somewhere else, I put here only for development purpose
+    const GoogleCID = '983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com';
     this.initializeLinkedin(LinkedinCID);
+    //this.initializeGoogle(GoogleCID);
   }
   render() {
     const { classes } = this.props;
     const { firstName, lastName, password, confirmPassword, email, error, view } = this.state
+    // const responseGoogle = (response) => {
+    //   console.log(response);
+    // }
     let socialButton = (provider, method) => (
-      <Button key={`${provider}${method}`} variant='flat'
-        style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }}
-        onClick={provider === 'google' ? this.handleGoogleAuth : this.authorize}
-        className={classes.socialButton}>
-        <div className={classes.socialIcon} >
-          <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
-        </div> sign {method} with {provider}
-      </Button>)
+      provider === 'google' ?
+        <GoogleLogin
+          key={`${provider}${method}`}
+          clientId="983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com"
+          buttonText="Login"
+          onSuccess={this.handleGoogleAuth}
+          onFailure={this.handleGoogleAuth}
+          render={renderProps => (
+            <Button variant='flat'
+              style={{ backgroundColor: '#E05449' }}
+              onClick={renderProps.onClick}
+              className={classes.socialButton}>
+              <div className={classes.socialIcon} >
+                <img alt={provider} src={GoogleIcon} />
+              </div> sign {method} with {provider}
+            </Button>
+          )}
+        />
+
+        :
+        <Button key={`${provider}${method}`} variant='flat'
+          style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }}
+          onClick={provider === 'google' ? this.handleGoogleAuth : this.authorize}
+          className={classes.socialButton}>
+          <div className={classes.socialIcon} >
+            <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
+          </div> sign {method} with {provider}
+        </Button>
+
+    )
+
 
     let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
@@ -398,17 +515,7 @@ class AuthenticationContainer extends React.Component {
       </div>
     )
 
-    let linkedin = () => (
-      <LinkedinSDK
-        clientId="86gj7a83u3ne8b"
-        callBack={this.handleLinkedInAuth}
-        fields=":(id,num-connections,picture-url)"
-        className={'className'}
-        textButton={'Login with Linkedin'}
-        buttonType={'button'}
-      //icon={<Icon />}
-      />
-    )
+
 
     const signInView = [socialButton('google', 'in'), socialButton('linkedin', 'in'), orLabel, emailField, passwordField, signInRow, footerLink('Don’t have an account?', routes.SIGN_UP, 'Sign Up')]
     const signUpView = [socialButton('google', 'up'), socialButton('linkedin', 'up'), orLabel, nameFields, emailField, passwordField, confirmPasswordField, signUpButton, footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
@@ -444,6 +551,22 @@ class AuthenticationContainer extends React.Component {
           justify='flex-start'
         >
           {loadedView.map(x => x)}
+          {/* <GoogleLogin
+            clientId="983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com"
+            buttonText="Login"
+            onSuccess={this.responseGoogle}
+            onFailure={this.responseGoogle}
+            render={renderProps => (
+              <Button key='googleup' variant='flat'
+                style={{ backgroundColor: '#E05449' }}
+                onClick={renderProps.onClick}
+                className={classes.socialButton}>
+                <div className={classes.socialIcon} >
+                  <img alt='google' src={GoogleIcon} />
+                </div> sign up with google
+              </Button>
+            )}
+          /> */}
         </Grid>
       </LogoInCard>
 
