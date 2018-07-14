@@ -30,7 +30,7 @@ const styles = theme => ({
     paddingLeft:40,
     paddingRight:40,
     width:330,
-    height:416
+    height:516
   }
 
 });
@@ -59,6 +59,7 @@ class DialogForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = initialState;
+    this.handleChange = this.handleChange.bind(this)
 }
  
   componentDidUpdate(prevProps, prevState){
@@ -146,9 +147,10 @@ class DialogForm extends React.Component {
                />
                case INPUTS.monthPicker:return <MonthPicker
                 key= {field.name}
+                name= {field.name}
                  label={field.label}
                  value={this.state[field.name]&& this.state[field.name].value||''}
-                 onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
+                 changeHandler={this.handleChange}
                  toggle={field.toggle}
                  fullWidth
                />
