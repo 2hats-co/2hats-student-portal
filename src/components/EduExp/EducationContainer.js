@@ -17,7 +17,7 @@ import { withFirestore } from "../../utilities/withFirestore";
 
 const styles = theme => ({
   root: {
-    width:470
+  
   },
   grid: {}
 });
@@ -48,14 +48,10 @@ class EducationContainer extends React.Component {
     });
   }
   handleDeleteDialog(key,item){
-    console.log(key,item)
     this.setState({deleteDialog:{key:key,heading:item.degree||item.title,subheading:item.university||item.company}})
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('test11',prevProps,this.props,'state',prevState,this.state)
-    
     if (prevProps.name !== this.props.name) {
-      console.log('test22',getFormFields(this.props.name, this.props.industry))
       this.setState({
         dialog: {
           isOpen: false,
@@ -118,7 +114,7 @@ class EducationContainer extends React.Component {
     const { name,classes } = this.props;
    
     if (this.props[name]) {
-    
+     console.log(name,this.props[name])
       items = _.map(this.props[name], (item, key) => {
      
         if (item) {
@@ -143,7 +139,7 @@ class EducationContainer extends React.Component {
     }
     return (
       <div>
-        <Grid style={{marginLeft:20,width:this.props.width}} container direction="column" alignItems="center">
+        <Grid style={{width:this.props.width}} container direction="column" alignItems="center">
           <HeaderBar
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
@@ -167,7 +163,6 @@ class EducationContainer extends React.Component {
         cancelHandler={() => {
           this.handleCancelDelete()
         }}
-
         />}
       </div>
     );

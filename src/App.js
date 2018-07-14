@@ -17,6 +17,7 @@ import {
 } from 'react-router-dom';
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
+import ProfileContainer from './containers/ProfileContainer';
 
 
 
@@ -33,6 +34,7 @@ class App extends Component {
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer view={AUTHENTICATION_CONTAINER.signIn}/>} />
       <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer/>} />
+      <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
       <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer />} />
       <Route exact path={routes.BUILD_RESUME} component={() => <ResumeBuilderContainer/>} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <UploadResumeContainer/>} />

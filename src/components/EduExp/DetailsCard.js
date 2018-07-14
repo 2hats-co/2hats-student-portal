@@ -16,7 +16,7 @@ const styles = theme => ({
     paddingBottom: 30,
     paddingLeft:40,
     paddingRight:40,
-    marginBottom:20
+    marginBottom:10
   },
 });
 function EduExpCard(props) {

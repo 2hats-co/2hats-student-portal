@@ -34,11 +34,7 @@ export const Theme = createMuiTheme({
       }
     },
     
-    MuiAppBar:{
-      root:{
-        borderRadius:35
-      }
-    },
+  
     MuiDialogTitle:{
     
       root:{
@@ -89,12 +85,12 @@ export const Theme = createMuiTheme({
       fontFamily: primaryFontFamily,
       color:BLACK,
       fontWeight: 'bold',
-      textAlign: 'center'
+      textAlign: 'left'
     },
     headline: {
-      fontSize: '30px',
+      fontSize: '24px',
       fontFamily: primaryFontFamily,
-      fontWeight: 'bold',
+      fontWeight: 'medium',
       textAlign: 'center'
     },
     title: {
