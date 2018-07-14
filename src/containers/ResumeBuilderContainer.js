@@ -62,7 +62,7 @@ function getSteps() {
 }
 const INITIAL_STATE = {
   fireStoreLoaded:false,
-  activeStep: 2,
+  activeStep: 0,
   profile:{
   interests: [],
   bio: "",
@@ -109,6 +109,7 @@ class ResumeBuilderContainer extends React.Component {
         changeHandler={this.handleChange.bind(this)}
       />
       <SkillsInput 
+      interestKeys = {this.state.profile.interests}
       preSelectedList={this.state.profile.skills} 
       changeHandler={this.handleChange.bind(this)} />
     </Grid>

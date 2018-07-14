@@ -27,6 +27,13 @@ Member of the 2hats University Graphic Design Society`,
 exp:`Designed logos, promotional materials and icons for 2hats’ website and social media posts
 Liaised with team members from the marketing team to deliver aesthetically-pleasing, eye-catching designs that convey 2hats’ fun, youthful brand image`}
 
+
+const businessList = [{key:'B2B',label:'B2B Sales'},{key:'RM',label:'Relationship Management'},{key:'LG',label:'Lead Generation'}]
+const marketingList = [{key:'CW',label:'Content Writing'},{key:'SMM',label:'Social Media Marketing'},{key:'SEO',label:'SEO'}]
+const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User Experience'},{key:'UI',label:'User Interface'}]
+const ITList = [{key:'APP',label:'App/Web Development'},{key:'DEV',label:'Software Development'},{key:'DA',label:'Data Analytics'}]
+export const CAREER_INTERESTS = [{label:'Business',items: businessList},{label:'Marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
+
 export function getPrompts(field){
     switch (field) {
         case 'Marketing':return marketing
@@ -37,4 +44,31 @@ export function getPrompts(field){
             break;
     }
   
+}
+
+const SKILLS ={
+    B2B:['Salesforce','CRM System','HubSpot'],
+    LG:['Salesforce','CRM System','HubSpot'],
+    RM:['Zoho','System','Excel'],
+    CW:['Wordpress','Word'],
+    SMM:['Facebook AD','Google Analytics/Adword','SEO','MailChimp','Canva'],
+    SEO:['SEMrush','SE Ranking'],
+    GI:['Adobe Photoshop','Adobe Illustrator','Adobe InDesign'],
+    UI:['Sketch','Adobe XD','Adobe Photoshop','Adobe Illustrator','Framer'],
+    UX:['Sketch','Adobe XD','Balsamiq','InVision','Framer'],
+    APP:['JavaScript','HTML/CSS','JQuery','React','Node.JS','Swift','Flutter'],
+    DEV:['Java','Python','C','C++','C#','SQL'],
+    DA:['Python','SQL','R','Excel','Matlab']
+}
+
+export function getSkills(interests){
+    if(!interests) return [];
+    let suggestedSkills = []
+    interests.forEach(interest => {
+        SKILLS[interest].forEach(skill => {
+            if(!suggestedSkills.includes(skill)){
+                suggestedSkills.push(skill)
+            }
+    });})
+    return suggestedSkills
 }
