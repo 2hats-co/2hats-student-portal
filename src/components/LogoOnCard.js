@@ -7,8 +7,10 @@ import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png';
 import BW from '../assets/background/BW.svg'
 
-const styles = theme => ({
 
+import { compose } from 'recompose';
+import withAuthorisation from '../utilities/Session/withAuthorisation'
+const styles = theme => ({
   logo:{
     paddingTop:32,        
    marginBottom:45,        
@@ -20,7 +22,6 @@ const styles = theme => ({
     maxWidth:1200,
     margin: 'auto',
   },
-  
   
 });
 
@@ -51,7 +52,14 @@ function LogoOnCard(props) {
 
 LogoOnCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number
+  width: PropTypes.number,
+  height: PropTypes.number,
+  children: PropTypes.any
 };
-export default withStyles(styles)(LogoOnCard);
+
+
+const authCondition = (authUser) => !!authUser;
+//export default withStyles(styles)(LogoOnCard);
+export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))
+
+//export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))

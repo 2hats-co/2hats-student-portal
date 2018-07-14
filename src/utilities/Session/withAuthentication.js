@@ -17,6 +17,7 @@ const withAuthentication = (Component) => {
 
     render() {
       return (
+        
         <Component />
       );
     }
