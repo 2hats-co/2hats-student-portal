@@ -1,24 +1,24 @@
 import React from "react";
 
-import moment from 'moment'
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+
 import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
+
 import IconButton from '@material-ui/core/IconButton'
 import BackIcon from '@material-ui/icons/ArrowBack'
 import NextIcon from '@material-ui/icons/ArrowForward'
 import DownIcon from '@material-ui/icons/ArrowDropDown'
+
 import {PRIMARY_COLOR} from '../Theme'
-import zIndex from "../../node_modules/@material-ui/core/styles/zIndex";
+
 
 const monthLabels = [['Jan','Feb','Mar','Apr'],['May','Jun','Jul','Aug'],['Sep','Oct','Nov','Dec']]
 const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
 function monthName(n){return(monthNames[n-1])} 
-//function monthName(n){return('test')} 
+
 const styles = theme => ({
     root: {
         height: 42,
@@ -88,14 +88,10 @@ const styles = theme => ({
         this.handleSelectMonth = this.handleSelectMonth.bind(this)
     }
     componentDidUpdate(prevProps, prevState) {
-        // only update chart if the data has changed
-
         if (prevState !== this.state) {
-          //  console.log(this.props.name,`${this.state.month}/${this.state.year}`)
           this.props.changeHandler(this.props.name,this.handleValue())
         }
       }
-      
     handleOpen(){
 
     }
