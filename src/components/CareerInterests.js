@@ -8,10 +8,10 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const businessList = [{key:'BD',label:'Business development'},{key:'CRM',label:'Client relationship management'},{key:'LG',label:'Lead Generation'}]
-const marketingList = [{key:'CW',label:'Copy writing'},{key:'DM',label:'Digital marketing'},{key:'SEO',label:'SEO'}]
-const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User experience'},{key:'UI',label:'User interface'}]
-const ITList = [{key:'SDEV',label:'Software development'},{key:'WEB',label:'Web&App'},{key:'DA',label:'Data Analytics'}]
+const businessList = [{key:'B2B',label:'B2B Sales'},{key:'RM',label:'Relationship Management'},{key:'LG',label:'Lead Generation'}]
+const marketingList = [{key:'CW',label:'Content Writing'},{key:'SMM',label:'Social Media Marketing'},{key:'SEO',label:'SEO'}]
+const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User Experience'},{key:'UI',label:'User Interface'}]
+const ITList = [{key:'APP',label:'App/Web Development'},{key:'SDEV',label:'Software Development'},{key:'DA',label:'Data Analytics'}]
 const lists = [{label:'Business',items: businessList},{label:'Marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
 
 const styles = theme => ({
