@@ -173,10 +173,10 @@ class ResumeBuilderContainer extends React.Component {
         );
       case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
       case 2: return <SectionWrapper child={
-        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} items ={education}/>
+        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} items ={education} width={470}/>
       } width={400} height={420} />;
       case 3: return  <SectionWrapper child={
-        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} items ={experience}/>        
+        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} items ={experience} width={470}/>        
       } width={400} height={420} />;
       case 4: return <SectionWrapper child={this.otherInfo()} width={250} height={270} />
       default: return "Uknown stepIndex";

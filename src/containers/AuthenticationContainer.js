@@ -12,11 +12,11 @@ import LinkedinIcon from '../assets/images/social/linkedin.svg'
 
 import StyledLink from '../components/StyledLink';
 import { validateEmail, validatePassword, validateName } from '../utilities/validators';
+//loading indecators
 import LinearIndeterminate from '../components/LinearProgress.js';
 import CircularIndeterminate from '../components/CircularProgress.js';
 import CircularDeterminate from '../components/CircularProgressDeterminate.js';
 import CircularStatic from '../components/circularProgressStatic.js';
-
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -24,7 +24,6 @@ import { connect } from 'react-redux';
 import { withFirestore } from '../utilities/withFirestore';
 import { auth } from '../firebase';
 import { COLLECTIONS } from '../constants/firestore';
-
 //routing
 import * as routes from '../constants/routes'
 import { withRouter } from "react-router-dom";

@@ -1,34 +1,6 @@
 import Firebase from 'firebase';
 window.firebase = Firebase;
-// export function callRemoteMethod(methodName, request, callback) {
-//     const db = Firebase.app().database();
-//     const uid = Firebase.auth().getUid();
-//     if (!request.uid && uid) {
-//         request.uid = uid;
-//     }
-//     request = getSimpleObj(request)
-//     console.log(methodName, "request", request)
-//     return db.ref(`remoteMethod/request/${methodName}`).push(request).then((snapshot) => {
-//         const key = snapshot.key;
-//         var tt = setTimeout(() => {
-//             db.ref(`remoteMethod/response/${methodName}/${key}`).off();
-//             callback({ error: 'Timeout, please try again' });
-//         }, 30000);
-//         return db.ref(`remoteMethod/response/${methodName}/${key}`).on('value', (snap) => {
-//             let response = snap.val();
-//             console.log(methodName, "response", response)
-//             if (response) {
-//                 clearTimeout(tt);
-//                 callback(response);
-//                 let promises = [];
-//                 promises.push(db.ref(`remoteMethod/response/${methodName}/${key}`).off());
-//                 promises.push(db.ref(`remoteMethod/response/${methodName}/${key}`).remove());
-//                 promises.push(db.ref(`remoteMethod/request/${methodName}/${key}`).remove());
-//                 return Promise.all(promises);
-//             }
-//         });
-//     });
-// }
+
 
 export function callRemoteMethodOnFirestore(methodName, request, callback) {
     const db = Firebase.firestore();
