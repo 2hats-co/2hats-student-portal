@@ -13,7 +13,7 @@ const styles = theme => ({
     paddingTop:25,
     paddingLeft:30,
     paddingRight:30,
-    width:390,
+    width:'82%',
     height:45,
     borderRadius:35,
     backgroundColor: PRIMARY_COLOR,

@@ -8,10 +8,10 @@ import DeleteIcon from '@material-ui/icons/Delete'
 
 const styles = theme => ({
   root:{
-  
+  width:'100%'
   },
   card:{  
-    width: 390,
+    width: '85%',
     paddingTop: 30,
     paddingBottom: 30,
     paddingLeft:40,

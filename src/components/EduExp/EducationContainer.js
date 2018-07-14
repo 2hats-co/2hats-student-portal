@@ -16,7 +16,9 @@ import { connect } from "react-redux";
 import { withFirestore } from "../../utilities/withFirestore";
 
 const styles = theme => ({
-  root: {},
+  root: {
+    width:470
+  },
   grid: {}
 });
 
@@ -40,14 +42,14 @@ class EducationContainer extends React.Component {
   componentDidMount() {
     this.setState({
       dialog: {
-        isOpen: true,
+        isOpen: false,
         fields: getFormFields(this.props.name, this.props.industry)
       }
     });
   }
   handleDeleteDialog(key,item){
     console.log(key,item)
-    this.setState({deleteDialog:{key:key,heading:'test',subheading:'tstttset'}})
+    this.setState({deleteDialog:{key:key,heading:item.degree||item.title,subheading:item.university||item.company}})
   }
   componentDidUpdate(prevProps, prevState) {
     console.log('test11',prevProps,this.props,'state',prevState,this.state)
@@ -113,7 +115,7 @@ class EducationContainer extends React.Component {
 
   render() {
     let items;
-    const { name } = this.props;
+    const { name,classes } = this.props;
    
     if (this.props[name]) {
     
@@ -141,7 +143,7 @@ class EducationContainer extends React.Component {
     }
     return (
       <div>
-        <Grid style={{marginLeft:40}} container direction="column" alignItems="center">
+        <Grid style={{marginLeft:20,width:this.props.width}} container direction="column" alignItems="center">
           <HeaderBar
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
@@ -176,6 +178,9 @@ EducationContainer.protoTypes = {
   classes: PropTypes.object.isRequired,
   changeHandler: PropTypes.func.isRequired
 };
+EducationContainer.defaultProps ={
+  width:470
+}
 
 const enhance = compose(
   // add redux store (from react context) as a prop
@@ -260,5 +265,6 @@ const enhance = compose(
     // document data by id
   }))
 );
+
 
 export default enhance(withStyles(styles)(EducationContainer));
