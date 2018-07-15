@@ -65,8 +65,7 @@ class SkillsInput extends React.Component {
         list = {marketingList.filter(x=> !this.state.selectedList.includes(x))}
         onComplete = {this.addNewSkill.bind(this)}
         />
-        <SuggestedSkills onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>
-        {this.state.selectedList.map(x => (
+         {this.state.selectedList.map(x => (
             <Chip
               key={x}
               label={x}
@@ -76,6 +75,8 @@ class SkillsInput extends React.Component {
               }}
             />
           ))}
+        <SuggestedSkills onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>
+       
            </div>
         );
     } 
