@@ -37,6 +37,10 @@ class App extends Component {
       <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
       <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer />} />
       <Route exact path={routes.BUILD_RESUME} component={() => <ResumeBuilderContainer/>} />
+      <Route exact path={routes.BUILD_RESUME_BIO} component={() => <ResumeBuilderContainer activeStep={1}/>} />
+      <Route exact path={routes.BUILD_RESUME_EDU} component={() => <ResumeBuilderContainer activeStep={2}/>} />
+      <Route exact path={routes.BUILD_RESUME_EXP} component={() => <ResumeBuilderContainer activeStep={3}/>} />
+      <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <ResumeBuilderContainer activeStep={4}/>} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <UploadResumeContainer/>} />
       <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} />      
     </div>

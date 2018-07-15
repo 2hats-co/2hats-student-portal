@@ -81,6 +81,9 @@ class ResumeBuilderContainer extends React.Component {
     this.goToIntroduction = this.goToIntroduction.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
+  componentWillMount(){
+    this.setState({activeStep:this.props.activeStep || 0})
+  }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile && !this.state.fireStoreLoaded){
 
@@ -362,7 +365,6 @@ const enhance = compose(
         doc: this.props.uid,
       };
       this.props.loadData(listenerSettings);
-  
     },
     componentWillUnmount() {
       const listenerSettings = {
