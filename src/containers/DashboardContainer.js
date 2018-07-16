@@ -5,6 +5,7 @@ import { Typography } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import ApplicationTimeLine from '../components/DashboardComponents/ApplicationTimeLine'
+import ApplicationProgress from '../components/DashboardComponents/ApplicationProgress'
 import FeedbackHistory from '../components/DashboardComponents/FeedbackHistory'
 import UpcomingEvents from '../components/DashboardComponents/UpcomingEvents'
 const styles = theme => ({

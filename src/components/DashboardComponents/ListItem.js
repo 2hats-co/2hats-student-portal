@@ -37,7 +37,7 @@ function ListItem(props){
     <Typography variant='title'>
         Event Name
     </Typography>
-    <Typography variant='body'>
+    <Typography variant='body1'>
          event location
     </Typography>
     </Grid>
