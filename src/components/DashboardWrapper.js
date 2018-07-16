@@ -1,14 +1,11 @@
 
-import React from 'react';
+import React,{Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import NavigationButton from './NavigationButton'
 import { compose } from 'recompose';
 import withAuthorisation from '../utilities/Session/withAuthorisation'
@@ -20,6 +17,9 @@ import JobIcon from '@material-ui/icons/Work'
 
 import { Button} from '@material-ui/core';
 import { auth} from '../firebase';
+
+import {withRouter} from 'react-router-dom'
+import * as routes from '../constants/routes'
 
 import DarkLogo from '../assets/images/Logo/DarkText.png'
 const drawerWidth = 240;
@@ -56,9 +56,26 @@ const styles = theme => ({
   toolbar: theme.mixins.toolbar,
 });
 
-function DashboardWrapper(props) {
-  const { classes } = props;
+class DashboardWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+  
+    this.goTo = this.goTo.bind(this)
+ 
 
+  }
+  componentWillMount(){
+   
+  }
+
+  goTo(route){
+    this.props.history.push(route)
+  }
+ 
+
+  render(){
+  const { classes } = this.props;
+   const pathName = this.props.history.location.pathname
   return (
     <div className={classes.root}>
       <AppBar position="absolute" className={classes.appBar}><Grid container direction='row' justify='space-between'> 
@@ -76,21 +93,18 @@ function DashboardWrapper(props) {
         }}
       >
         <div className={classes.toolbar} />
-        <NavigationButton name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>}/>
-        <NavigationButton name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>}/>
-        <NavigationButton name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>}/>
-        {/*
-         <List>{mailFolderListItems}</List>
-        <Divider />
-        <List>{otherMailFolderListItems}</List>
-         */}
+        <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
+        <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
+        <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
+        
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {props.children}
+        {this.props.children}
       </main>
     </div>
   );
+}
 }
 
 DashboardWrapper.propTypes = {
@@ -99,17 +113,5 @@ DashboardWrapper.propTypes = {
 
 const authCondition = (authUser) => !!authUser;
 
-export default compose(withAuthorisation(authCondition)(withStyles(styles)(DashboardWrapper)))
+export default withRouter(compose(withAuthorisation(authCondition)(withStyles(styles)(DashboardWrapper))))
 
-
-
-
-
-//   return (
-//    <div className={classes.root}>
-//     <Typography variant='display2'>{header}</Typography>
-//    
-//    
-//   </div>
-//   );
-// }
