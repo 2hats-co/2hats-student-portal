@@ -9,3 +9,8 @@ export const INTRODUCTION_CONTAINER = {
     process:'process',
     resumeOptions:'resumeOptions'
 }
+export const UPLOAD_RESUME_CONTAINER = {
+    upload:'upload',
+    interests:'interests',
+    info:'info'
+}

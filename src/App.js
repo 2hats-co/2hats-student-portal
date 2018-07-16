@@ -10,6 +10,10 @@ import UploadResumeContainer from './containers/UploadResumeContainer';
 import IntroductionContainer from './containers/IntroductionContainer';
 import EmailVerificationContainer from './containers/EmailVerificationContainer';
 import DashboardContainer from './containers/DashboardContainer';
+import JobBoardContainer from './containers/JobBoardContainer';
+import ProfileContainer from './containers/ProfileContainer';
+
+
 //routing
 import {
   BrowserRouter as Router,
@@ -17,7 +21,6 @@ import {
 } from 'react-router-dom';
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
-import ProfileContainer from './containers/ProfileContainer';
 
 
 
@@ -35,6 +38,7 @@ class App extends Component {
       <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer/>} />
       <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
+      <Route exact path={routes.JOB_BOARD} component={() => <JobBoardContainer/>} />
       <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer />} />
       <Route exact path={routes.BUILD_RESUME} component={() => <ResumeBuilderContainer/>} />
       <Route exact path={routes.BUILD_RESUME_BIO} component={() => <ResumeBuilderContainer activeStep={1}/>} />
