@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AutoCompleteField from './AutoCompleteField';
 import Chip from '@material-ui/core/Chip'
+import SuggestedSkills from './SuggestedSkills';
 const styles = theme => ({
     root: {
         paddingTop:25,
@@ -23,10 +24,6 @@ class SkillsInput extends React.Component {
         const {preSelectedList} = this.props
         if(preSelectedList){
             this.setState({selectedList:preSelectedList})
-
-      //  preSelectedList.forEach(skill => {
-      //    this.setState({selectedList:true})
-       // });
         
       }
       }
@@ -56,7 +53,8 @@ class SkillsInput extends React.Component {
         this.setState({ selectedList:newSelectedList});
         }
     render() {
-        const {classes} = this.props;
+        const {classes,interestKeys} = this.props;
+        console.log('input',interestKeys)
         return (
             <div className={classes.root}>
          <AutoCompleteField
@@ -67,7 +65,7 @@ class SkillsInput extends React.Component {
         list = {marketingList.filter(x=> !this.state.selectedList.includes(x))}
         onComplete = {this.addNewSkill.bind(this)}
         />
-        {this.state.selectedList.map(x => (
+         {this.state.selectedList.map(x => (
             <Chip
               key={x}
               label={x}
@@ -77,6 +75,8 @@ class SkillsInput extends React.Component {
               }}
             />
           ))}
+        <SuggestedSkills onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>
+       
            </div>
         );
     } 
@@ -84,6 +84,7 @@ class SkillsInput extends React.Component {
 
 SkillsInput.propTypes = {
     classes: PropTypes.object.isRequired,
-    changeHandler: PropTypes.func.isRequired
+    changeHandler: PropTypes.func.isRequired,
+    interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 export default withStyles(styles)(SkillsInput);

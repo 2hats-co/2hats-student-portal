@@ -8,11 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-const businessList = [{key:'BD',label:'Business development'},{key:'CRM',label:'Client relationship management'},{key:'LG',label:'Lead Generation'}]
-const marketingList = [{key:'CW',label:'Copy writing'},{key:'DM',label:'Digital marketing'},{key:'SEO',label:'SEO'}]
-const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User experience'},{key:'UI',label:'User interface'}]
-const ITList = [{key:'SDEV',label:'Software development'},{key:'WEB',label:'Web&App'},{key:'DA',label:'Data Analytics'}]
-const lists = [{label:'Business',items: businessList},{label:'Marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
+import {CAREER_INTERESTS} from '../constants/resumeBuilderPrompts'
 
 const styles = theme => ({
   root: {
@@ -39,7 +35,7 @@ class CareerInterests extends React.Component {
     const stateCopy =Object.entries(this.state)
     const interests = stateCopy.filter(x=> x[1]===true ).map(x=> x[0])
     this.props.changeHandler('interests',interests)
-    lists.forEach((industry)=>{
+    CAREER_INTERESTS.forEach((industry)=>{
       industry.items.forEach((v)=>{
         if(v.key===interests[0]){
           this.props.changeHandler('industry',industry.label)
@@ -104,7 +100,7 @@ componentWillMount(){
          <Typography variant="title" color="primary">
          Career Interests - {3-this.state.selectedCount} remaining
         </Typography>  
-            {lists.map(list => this.renderCheckBoxGroup(list.label,list.items))}    
+            {CAREER_INTERESTS.map(list => this.renderCheckBoxGroup(list.label,list.items))}    
      </div>
     );
   }

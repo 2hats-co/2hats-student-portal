@@ -81,11 +81,13 @@ class ResumeBuilderContainer extends React.Component {
     this.goToIntroduction = this.goToIntroduction.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
+  componentWillMount(){
+    this.setState({activeStep:this.props.activeStep || 0})
+  }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile && !this.state.fireStoreLoaded){
-      console.log(Object.values(this.props.profile))
-     _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
 
+     _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
       this.handleChange(key,value)
      })
     }
@@ -110,6 +112,7 @@ class ResumeBuilderContainer extends React.Component {
         changeHandler={this.handleChange.bind(this)}
       />
       <SkillsInput 
+      interestKeys = {this.state.profile.interests}
       preSelectedList={this.state.profile.skills} 
       changeHandler={this.handleChange.bind(this)} />
     </Grid>
@@ -173,10 +176,10 @@ class ResumeBuilderContainer extends React.Component {
         );
       case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
       case 2: return <SectionWrapper child={
-        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} items ={education}/>
+        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} items ={education} width={470}/>
       } width={400} height={420} />;
       case 3: return  <SectionWrapper child={
-        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} items ={experience}/>        
+        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} items ={experience} width={470}/>        
       } width={400} height={420} />;
       case 4: return <SectionWrapper child={this.otherInfo()} width={250} height={270} />
       default: return "Uknown stepIndex";
@@ -362,7 +365,6 @@ const enhance = compose(
         doc: this.props.uid,
       };
       this.props.loadData(listenerSettings);
-  
     },
     componentWillUnmount() {
       const listenerSettings = {

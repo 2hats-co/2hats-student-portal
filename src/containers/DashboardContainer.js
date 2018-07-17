@@ -1,23 +1,32 @@
 import React, { Component } from 'react';
 import DashboardWrapper from '../components/DashboardWrapper';
 import { Typography } from '@material-ui/core';
-import { compose } from 'recompose';
-import withAuthorisation from '../utilities/Session/withAuthorisation'
 
+import { withStyles } from '@material-ui/core/styles';
+
+import ApplicationTimeLine from '../components/DashboardComponents/ApplicationTimeLine'
+import ApplicationProgress from '../components/DashboardComponents/ApplicationProgress'
+import FeedbackHistory from '../components/DashboardComponents/FeedbackHistory'
+import UpcomingEvents from '../components/DashboardComponents/UpcomingEvents'
+const styles = theme => ({
+    root: {
+     
+    }
+});
 class DashboardContainer extends Component{
     
     render(){
+        const {classes} = this.props
+       
         return(
             <DashboardWrapper header='Dashboard'>
-            <Typography variant='display1'>
-            Application Timeline
-            </Typography>
+            <ApplicationTimeLine/>
+           <FeedbackHistory/>
+           <UpcomingEvents/>
             </DashboardWrapper>
         )
     }
 
 }
 
-const authCondition = (authUser) => !!authUser;
-
-export default compose(withAuthorisation(authCondition)(DashboardContainer))
+export default withStyles(styles)(DashboardContainer);

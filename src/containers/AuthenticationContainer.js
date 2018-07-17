@@ -12,11 +12,11 @@ import LinkedinIcon from '../assets/images/social/linkedin.svg'
 
 import StyledLink from '../components/StyledLink';
 import { validateEmail, validatePassword, validateName } from '../utilities/validators';
+//loading indecators
 import LinearIndeterminate from '../components/LinearProgress.js';
 import CircularIndeterminate from '../components/CircularProgress.js';
 import CircularDeterminate from '../components/CircularProgressDeterminate.js';
 import CircularStatic from '../components/circularProgressStatic.js';
-
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -24,7 +24,6 @@ import { connect } from 'react-redux';
 import { withFirestore } from '../utilities/withFirestore';
 import { auth } from '../firebase';
 import { COLLECTIONS } from '../constants/firestore';
-
 //routing
 import * as routes from '../constants/routes'
 import { withRouter } from "react-router-dom";
@@ -38,8 +37,6 @@ import { firebaseFunctions } from '../firebase';
 
 const styles = theme => ({
   root: {
-    //position: 'fixed',
-    //width: 300,
     paddingLeft: 50,
     paddingRight: 50,
     height: 500
@@ -93,7 +90,7 @@ const INITIAL_STATE = {
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
-  /// used for error snacks
+  /// used for error snackbar
   [propertyName]: value,
 });
 
@@ -101,7 +98,6 @@ const updateByPropertyName = (propertyName, value) => () => ({
 class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = { ...INITIAL_STATE };
     this.goToIntroduction = this.goToIntroduction.bind(this);
     this.goToDashboard = this.goToDashboard.bind(this);
@@ -277,13 +273,12 @@ class AuthenticationContainer extends React.Component {
   }
   handleSignin() {
     const { email, password } = this.state;
-    // const {history} = this.props;
+  
     auth.doSignInWithEmailAndPassword(email, password)
       .then(authUser => {
         this.props.onSignIn(authUser.user.uid)
         this.setState(() => ({ ...INITIAL_STATE }));
         this.goToIntroduction()
-        //history.push(routes.dashboard);
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error));
@@ -299,18 +294,6 @@ class AuthenticationContainer extends React.Component {
 
         this.setState(() => ({ ...INITIAL_STATE }));
         this.goToIntroduction()
-        //TODO: use redux-firestore for creating new user
-
-        // Create a user in your own accessible Firebase Database too
-        // firestore.doCreateUser(authUser.user.uid, firstName,lastName, email)
-        //   .then(() => {
-        //     this.setState(() => ({ ...INITIAL_STATE }));
-        //    // history.push(routes.onboard);
-        //   })
-        //   .catch(error => {
-        //     this.setState(updateByPropertyName('error', error));
-        //   });
-
       })
       .catch(error => {
         this.setState(updateByPropertyName('error', error));
@@ -333,7 +316,6 @@ class AuthenticationContainer extends React.Component {
   };
   componentWillMount() {
     this.setState({ view: this.props.view })
-    //TODO check url , set state.view
   }
   componentDidMount() {
     const LinkedinCID = '86gj7a83u3ne8b'; // CID should be hidden somewhere else, I put here only for development purpose
