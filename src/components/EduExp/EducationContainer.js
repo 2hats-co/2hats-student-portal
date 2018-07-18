@@ -3,7 +3,7 @@ import React from "react";
 import EduExpCard from "./DetailsCard";
 import HeaderBar from "../HeaderBar";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+
 import DialogForm from "./DailogForm";
 import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
@@ -11,17 +11,10 @@ import * as _ from "lodash";
 
 //Redux
 import { compose } from "redux";
-import { withHandlers, lifecycle } from "recompose";
+import { withHandlers } from "recompose";
 import { connect } from "react-redux";
 import { withFirestore } from "../../utilities/withFirestore";
-import { COLLECTIONS } from "../../constants/firestore";
 
-const styles = theme => ({
-  root: {
-  
-  },
-  grid: {}
-});
 
 class EducationContainer extends React.Component {
   constructor(props) {
@@ -112,7 +105,7 @@ class EducationContainer extends React.Component {
 
   render() {
     let items;
-    const { name,classes } = this.props;
+    const { name } = this.props;
    
     if (this.props[name]) {
 
@@ -225,4 +218,4 @@ const enhance = compose(
 );
 
 
-export default enhance(withStyles(styles)(EducationContainer));
+export default enhance(EducationContainer);

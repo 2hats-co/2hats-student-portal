@@ -9,14 +9,13 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 //child components
-import CareerInterests from "../components/CareerInterests";
+import CareerInterests from "../components/InputFields/CareerInterests";
 import LogoOnCard from "../components/LogoOnCard";
-import PhoneNumber from "../components/PhoneNumber";
-import DropDown from "../components/DropDown";
-import MultiLineTextField from "../components/MultiLineTextField";
-import SkillsInput from "../components/SkillsInput";
+import PhoneNumber from "../components/InputFields/PhoneNumber";
+import DropDown from "../components/InputFields/DropDown";
+import PersonalBio from "../components/InputFields/PersonalBio";
+import Skills from "../components/InputFields/Skills";
 import SectionWrapper from "../components/SectionWrapper";
-import {getPrompts} from '../constants/resumeBuilderPrompts'
 import EducationContainer from "../components/EduExp/EducationContainer";
 //Redux
 import { compose } from 'redux';
@@ -101,16 +100,12 @@ class ResumeBuilderContainer extends React.Component {
       justify="space-between"
       style={{ height: 275, width: 400 }}
     >
-      <MultiLineTextField
-        title="Personal Bio"
-        hint="This bio should focus on your key achievement and what value you can bring to the position-providing companies."
-        placeholder={` For example: ${getPrompts(this.state.profile.industry).bio}`}
-        value={this.state.profile.bio}
-        name='bio'
-        characterLimit={400}
+      <PersonalBio
+        industry={this.state.profile.industry}
+        bio={this.state.profile.bio}
         changeHandler={this.handleChange.bind(this)}
       />
-      <SkillsInput 
+      <Skills 
       interestKeys = {this.state.profile.interests}
       preSelectedList={this.state.profile.skills} 
       changeHandler={this.handleChange.bind(this)} />

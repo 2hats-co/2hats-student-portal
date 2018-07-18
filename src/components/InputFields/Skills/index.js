@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import AutoCompleteField from './AutoCompleteField';
+import AutoCompleteField from '../AutoCompleteField';
 import Chip from '@material-ui/core/Chip'
 import SuggestedSkills from './SuggestedSkills';
 const styles = theme => ({
@@ -14,7 +14,7 @@ const styles = theme => ({
       },
 });
 const marketingList = ['Copy Writing','Wordpress','Word','Facebook AD','Google Analytics/Adword','SEO','MailChimp','Canva']
-class SkillsInput extends React.Component {  
+class Skills extends React.Component {  
     state = {
         selectedList: []
       };
@@ -54,7 +54,6 @@ class SkillsInput extends React.Component {
         }
     render() {
         const {classes,interestKeys} = this.props;
-        console.log('input',interestKeys)
         return (
             <div className={classes.root}>
          <AutoCompleteField
@@ -82,9 +81,9 @@ class SkillsInput extends React.Component {
     } 
 }
 
-SkillsInput.propTypes = {
+Skills.propTypes = {
     classes: PropTypes.object.isRequired,
     changeHandler: PropTypes.func.isRequired,
     interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired
 };
-export default withStyles(styles)(SkillsInput);
+export default withStyles(styles)(Skills);

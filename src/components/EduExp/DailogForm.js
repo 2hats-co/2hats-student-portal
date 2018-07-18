@@ -6,10 +6,10 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
-import DropDown from '../DropDown';
-import MonthPicker from '../MonthPicker';
+import DropDown from '../InputFields/DropDown';
+import MonthPicker from '../InputFields/MonthPicker';
 import PropTypes from 'prop-types';
-import MultiLineTextField from '../MultiLineTextField';
+import MultiLineTextField from '../InputFields/MultiLineTextField';
 import { withStyles } from '@material-ui/core/styles';
 import { INPUTS } from '../../constants/enums';
 import * as _ from 'lodash'
@@ -104,7 +104,6 @@ class DialogForm extends React.Component {
    this.setState({[name]:{value:value,isRequired:isRequired}})
   }
   isDisabled(){
-    console.log('disable',this.state)
   const completedRequired = _.map(this.state,completed)
     return !completedRequired
     .reduce(function(a,b)

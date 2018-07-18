@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import {CAREER_INTERESTS} from '../constants/resumeBuilderPrompts'
+import {CAREER_INTERESTS} from '../../constants/resumeBuilderPrompts'
 
 const styles = theme => ({
   root: {

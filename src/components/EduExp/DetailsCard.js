@@ -32,10 +32,10 @@ function EduExpCard(props) {
       <Grid container direction="row" alignItems="center" justify="space-between">
       <Typography variant='subheading'>{title}</Typography>
       <Grid item>
-      <IconButton className={classes.button} onClick={()=>{editHandler()}} aria-label="Edit">
+      <IconButton onClick={()=>{editHandler()}} aria-label="Edit">
         <EditIcon />
       </IconButton>
-      <IconButton className={classes.button} onClick={()=>{deleteHandler()}} aria-label="Delete">
+      <IconButton onClick={()=>{deleteHandler()}} aria-label="Delete">
         <DeleteIcon />
       </IconButton>
       </Grid>

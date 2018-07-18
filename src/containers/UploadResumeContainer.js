@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import LogoOnCard from "../components/LogoOnCard";
 import { Grid, Button, Typography } from "@material-ui/core";
-import CareerInterests from "../components/CareerInterests";
-import DocumentLoader from "../components/DocumentLoader";
+import CareerInterests from "../components/InputFields/CareerInterests";
+import ResumeLoader from "../components/InputFields/ResumeLoader";
 import SectionWrapper from "../components/SectionWrapper";
 //redux
 import { compose } from "redux";
@@ -158,7 +158,7 @@ class UploadResumeContainer extends React.Component {
               height={220}
             />
           ) : (
-            <DocumentLoader changeHandler={this.handleChange.bind(this)}/>
+            <ResumeLoader changeHandler={this.handleChange.bind(this)}/>
           )}
           {footerButtons(
             view === "interests" ? "Confirm interests" : "Confirm Upload"
