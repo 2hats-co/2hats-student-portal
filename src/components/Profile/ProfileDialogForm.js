@@ -12,8 +12,7 @@ import Skills from '../InputFields/Skills';
 import PersonalBio from '../InputFields/PersonalBio';
 //Redux
 import { compose } from 'redux';
-import { withHandlers, lifecycle } from 'recompose'
-import { connect } from 'react-redux';
+import { withHandlers } from 'recompose'
 import  {withFirestore} from '../../utilities/withFirestore';
 import { COLLECTIONS } from "../../constants/firestore";
 

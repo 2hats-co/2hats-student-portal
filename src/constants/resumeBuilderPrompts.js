@@ -61,6 +61,9 @@ const SKILLS ={
     DA:['Python','SQL','R','Excel','Matlab']
 }
 
+export const ALL_SKILLS = Object.values(SKILLS).reduce((r,x)=>{
+    return r.concat(x)
+})
 export function getSkills(interests){
     if(!interests) return [];
     let suggestedSkills = []

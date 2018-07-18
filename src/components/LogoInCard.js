@@ -1,13 +1,10 @@
-//wrapper card with 2hats logo inside the card
-// props: width! hieght! children
-
-//
-
 import React, { Children } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
+import {setBackground} from '../utilities/styling'
+
 const styles = theme => ({
   root:{
     marginTop:40
@@ -29,13 +26,7 @@ const styles = theme => ({
 
 function LogoInCard(props) {
   const { classes,width,height } = props;
-  document.body.style.backgroundColor = "#FA5E4E";
-  document.body.style.backgroundImage= "url(https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94)"
-  document.body.style.backgroundRepeat= "no-repeat";
-  document.body.style.backgroundSize= "cover";
-  document.body.style.backgroundPosition= "center center";
-  
-
+  setBackground("#FA5E4E",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94')
   return (
     <div className={classes.root}>
       

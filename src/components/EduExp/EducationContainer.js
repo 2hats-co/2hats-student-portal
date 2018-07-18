@@ -211,8 +211,8 @@ const enhance = compose(
 
   connect(({ firestore }) => ({
 
-    education: firestore.data.education,// document data by id
-    experience: firestore.data.experience // document data by id
+    education: firestore.data.education,//education document data by id
+    experience: firestore.data.experience //experience document data by id
 
   }))
 );

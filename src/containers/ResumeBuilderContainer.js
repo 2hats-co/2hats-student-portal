@@ -154,7 +154,6 @@ class ResumeBuilderContainer extends React.Component {
   getStepContent(stepIndex,profile) { 
     const{interests,
      industry} = profile
-     console.log('interests',interests,industry)
     switch (stepIndex) {
       case 0: 
         return (
@@ -201,7 +200,6 @@ class ResumeBuilderContainer extends React.Component {
     });
   };
   render() {
-    console.log('state',this.state)
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;

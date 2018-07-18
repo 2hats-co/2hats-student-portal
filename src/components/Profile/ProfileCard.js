@@ -70,7 +70,6 @@ function ProfileCard(props) {
       />)})}</div>)}
     return (
       <div className={classes.root}>
-   
       <div className={classes.avatar}><PersonIcon style={{paddingTop:15,fontSize:120}}/></div>
      <Card className={classes.card}> 
        <CardContent>  
@@ -84,19 +83,12 @@ function ProfileCard(props) {
         <EditIcon />
       </IconButton> </Grid>
          </Grid>
-         <Typography variant='body1'>
            {bio}
-         </Typography>
-         
          {interests}
-         
          {skills}
-
        </CardContent>
      </Card>
-    
    </div>
-   
   );
 }
 

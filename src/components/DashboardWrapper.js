@@ -13,10 +13,9 @@ import withAuthorisation from '../utilities/Session/withAuthorisation'
 import PersonIcon from '@material-ui/icons/Person'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import JobIcon from '@material-ui/icons/Work'
-//import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 import { Button} from '@material-ui/core';
-import { auth} from '../firebase';
+import {auth} from '../firebase';
 
 import {withRouter} from 'react-router-dom'
 import * as routes from '../constants/routes'
@@ -35,8 +34,6 @@ const styles = theme => ({
   },logo:{
     height: 53,	
     width: 145,
-
-  
     },
   appBar: {
     backgroundColor: '#F4F4F4',
@@ -113,5 +110,9 @@ DashboardWrapper.propTypes = {
 
 const authCondition = (authUser) => !!authUser;
 
-export default withRouter(compose(withAuthorisation(authCondition)(withStyles(styles)(DashboardWrapper))))
+export default withRouter(
+  compose(
+    withAuthorisation(authCondition)(withStyles(styles)(DashboardWrapper))
+  )
+)
 

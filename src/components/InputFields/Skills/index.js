@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AutoCompleteField from '../AutoCompleteField';
 import Chip from '@material-ui/core/Chip'
 import SuggestedSkills from './SuggestedSkills';
+import {ALL_SKILLS} from '../../../constants/resumeBuilderPrompts'
 const styles = theme => ({
     root: {
         paddingTop:25,
@@ -13,18 +14,14 @@ const styles = theme => ({
         margin: 4
       },
 });
-const marketingList = ['Copy Writing','Wordpress','Word','Facebook AD','Google Analytics/Adword','SEO','MailChimp','Canva']
 class Skills extends React.Component {  
     state = {
         selectedList: []
       };
-
       componentWillMount(){
- 
         const {preSelectedList} = this.props
         if(preSelectedList){
-            this.setState({selectedList:preSelectedList})
-        
+            this.setState({selectedList:preSelectedList}) 
       }
       }
       componentDidUpdate(prevProps, prevState){
@@ -57,11 +54,10 @@ class Skills extends React.Component {
         return (
             <div className={classes.root}>
          <AutoCompleteField
-         
         title = 'Skills'
         hint = 'Please address your chosen skill(s) in your tertiary education and practical experience. '
         placeholder = 'Choose relevant skills and/or choose your own, e.g. Excel VBA'
-        list = {marketingList.filter(x=> !this.state.selectedList.includes(x))}
+        list = {ALL_SKILLS.filter(x=> !this.state.selectedList.includes(x))}
         onComplete = {this.addNewSkill.bind(this)}
         />
          {this.state.selectedList.map(x => (
@@ -75,12 +71,10 @@ class Skills extends React.Component {
             />
           ))}
         <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>
-       
            </div>
         );
     } 
 }
-
 Skills.propTypes = {
     classes: PropTypes.object.isRequired,
     changeHandler: PropTypes.func.isRequired,

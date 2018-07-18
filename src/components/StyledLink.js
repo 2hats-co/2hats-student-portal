@@ -46,5 +46,4 @@ StyledLink.propTypes = {
   variant: PropTypes.oneOf(['primary']),
 };
 
-// 2. We inject the styles.
 export default withStyles(styles)(StyledLink);

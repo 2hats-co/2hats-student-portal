@@ -1,20 +1,18 @@
-// title? hint? list!
 import React from "react";
 import PropTypes from "prop-types";
+
 import { withStyles } from "@material-ui/core/styles";
 import InputWrapper from "./InputWrapper";
 import { TextField } from "@material-ui/core";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
 
 import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
-
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
 
 const styles = theme => ({
   root:{

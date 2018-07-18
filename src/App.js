@@ -12,8 +12,7 @@ import EmailVerificationContainer from './containers/EmailVerificationContainer'
 import DashboardContainer from './containers/DashboardContainer';
 import JobBoardContainer from './containers/JobBoardContainer';
 import ProfileContainer from './containers/ProfileContainer';
-
-
+ 
 //routing
 import {
   BrowserRouter as Router,
@@ -21,9 +20,6 @@ import {
 } from 'react-router-dom';
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
-
-
-
 
 class App extends Component {
   render() {

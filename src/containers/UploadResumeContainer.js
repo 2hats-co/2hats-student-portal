@@ -8,8 +8,7 @@ import ResumeLoader from "../components/InputFields/ResumeLoader";
 import SectionWrapper from "../components/SectionWrapper";
 //redux
 import { compose } from "redux";
-import { withHandlers, lifecycle } from "recompose";
-import { connect } from "react-redux";
+import { withHandlers } from "recompose";
 import { withFirestore } from "../utilities/withFirestore";
 //routing
 import { INTRODUCTION, EMAIL_VERIFICATION } from "../constants/routes";
@@ -61,7 +60,6 @@ class UploadResumeContainer extends React.Component {
     }
   }
   handleChange(name, value) {
-    console.log(name,value)
     this.setState({ [name]: value });
   }
 
@@ -191,19 +189,8 @@ const enhance = compose(
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
       )
+  }),
 
-    // console.log(props)
-  }),
-  // Run functionality on component lifecycle
-  lifecycle({
-    // Load data when component mounts
-  }),
-  // Connect todos from redux state to props.todos
-  connect(({ firestore }) => ({
-    // state.firestore
-    //  profiles: firestore.ordered.profiles, // document data in array
-    // profiles: firestore.data.profiles, // document data by id
-  }))
 );
 
 export default enhance(withRouter(withStyles(styles)(UploadResumeContainer)));

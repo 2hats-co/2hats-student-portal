@@ -118,25 +118,6 @@ class AuthenticationContainer extends React.Component {
   }
 
   // ? begin of different ways of authentication, jack
-
-  handleGoogleAuth = async () => {
-    // try {
-    //   let authWithGoogle = await auth.doAuthWithGoogle();
-    //   console.log('authWithGoogle successfully ...', authWithGoogle);
-    //   if (authWithGoogle.additionalUserInfo.isNewUser) {
-    //     // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
-    //     this.props.history.push(routes.INTRODUCTION); 
-    //     //console.log('go new user page');
-    //   } else {
-    //     // todo: means this is an existing user, go to profile page directly
-    //     this.props.history.push(routes.INTRODUCTION); 
-    //     //console.log('go returned user page')
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
-  }
-
   initializeLinkedin = clientId => {
     ; ((d, s, id) => {
       const element = d.getElementsByTagName(s)[0]
@@ -264,7 +245,6 @@ class AuthenticationContainer extends React.Component {
 
   // ? end of different of authentication, jack
 
-
   handleLoadingIndicator(isLoading) {
     this.setState({ isLoading: isLoading })
   }
@@ -288,10 +268,8 @@ class AuthenticationContainer extends React.Component {
     const { firstName, lastName, email, password } = this.state
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
-
         this.props.createUser(authUser.user.uid, { firstName, lastName, email })
         this.props.createProfile(authUser.user.uid)
-
         this.setState(() => ({ ...INITIAL_STATE }));
         this.goToIntroduction()
       })
@@ -326,9 +304,6 @@ class AuthenticationContainer extends React.Component {
   render() {
     const { classes } = this.props;
     const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress } = this.state
-    // const responseGoogle = (response) => {
-    //   console.log(response);
-    // }
     let socialButton = (provider, method) => (
       provider === 'google' ?
         <GoogleLogin
@@ -487,15 +462,11 @@ class AuthenticationContainer extends React.Component {
         {linkButton(linkLabel, link)}
       </div>
     )
-
-
-
     const signInView = [socialButton('google', 'in'), socialButton('linkedin', 'in'), orLabel, emailField, passwordField, signInRow, footerLink('Don’t have an account?', routes.SIGN_UP, 'Sign Up')]
     const signUpView = [socialButton('google', 'up'), socialButton('linkedin', 'up'), orLabel, nameFields, emailField, passwordField, confirmPasswordField, signUpButton, footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
     const resetView = [resetPasswordText, emailField, resetPasswordButton(!validateEmail(email))]
     let loadedView = signUpView
     let cardHeight = 610
-
     switch (view) {
       case AUTHENTICATION_CONTAINER.signUp:
         loadedView = signUpView
@@ -511,10 +482,7 @@ class AuthenticationContainer extends React.Component {
       default:
         break;
     }
-
-
     return (
-
       <LogoInCard width={350} height={isLoading ? 300 : cardHeight}>
         <Grid
           container
@@ -527,7 +495,6 @@ class AuthenticationContainer extends React.Component {
             <CircularStatic completed={progress} /> : loadedView.map(x => x)}
         </Grid>
       </LogoInCard>
-
     );
   }
 }
@@ -567,14 +534,8 @@ const enhance = compose(
         lastSignInAt: props.firestore.FieldValue.serverTimestamp()
       }
       ),
-
-    // console.log(props)
   }),
-  // Connect todos from redux state to props.todos
-  connect(({ firestore }) => ({ // state.firestore
-    //  profiles: firestore.ordered.profiles, // document data in array
-    // profiles: firestore.data.profiles, // document data by id
-  }))
+ 
 )
 export default enhance(
   withRouter(

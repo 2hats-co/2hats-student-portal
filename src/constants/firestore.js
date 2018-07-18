@@ -1,5 +1,3 @@
-
-
 export const COLLECTIONS = {
     users:'users',
     candidates:'candidates',
