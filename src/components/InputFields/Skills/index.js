@@ -74,7 +74,7 @@ class Skills extends React.Component {
               }}
             />
           ))}
-        <SuggestedSkills onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>
+        <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>
        
            </div>
         );
@@ -84,6 +84,7 @@ class Skills extends React.Component {
 Skills.propTypes = {
     classes: PropTypes.object.isRequired,
     changeHandler: PropTypes.func.isRequired,
-    interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired
+    interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+    preSelectedList: PropTypes.arrayOf(PropTypes.string)
 };
 export default withStyles(styles)(Skills);
