@@ -6,18 +6,34 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DashboardWrapper from '../components/DashboardWrapper';
+import { withStyles } from '@material-ui/core/styles';
 
+import {withRouter} from 'react-router-dom'
+import * as routes from '../constants/routes'
+
+const styles = theme => ({
+    root: {
+    margin:'auto',
+     width:330,
+     height:285,
+    },
+    button:{
+        width:150
+    }
+  });
 class JobBoardContainer extends React.Component {
 
  
   handleClose = () => {
- //   this.setState({ open: false });
+    this.props.history.push(routes.DASHBOARD)
   };
 
   render() {
+      const {classes} = this.props
     return (
       <DashboardWrapper>
         <Dialog
+      //  className={classes.root}
           open={true}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
@@ -35,7 +51,7 @@ In the meantime, you can check our dashboard for resume feedback and any upcomin
           </DialogContent>
           <DialogActions>
            
-            <Button onClick={this.handleClose} color="primary" autoFocus>
+            <Button className={classes.button} onClick={this.handleClose} color="primary" autoFocus>
             Go to Dashboard
             </Button>
           </DialogActions>
@@ -45,4 +61,4 @@ In the meantime, you can check our dashboard for resume feedback and any upcomin
   }
 }
 
-export default JobBoardContainer;
+export default withRouter(withStyles(styles)(JobBoardContainer))
