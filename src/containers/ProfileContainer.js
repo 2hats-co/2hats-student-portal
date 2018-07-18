@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
 import DashboardWrapper from '../components/DashboardWrapper';
-import { Typography, Grid } from '@material-ui/core';
+import {Grid } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
 import EducationContainer from '../components/EduExp/EducationContainer';
-import ProfileCard from '../components/DashboardComponents/ProfileCard';
+import ProfileCard from '../components/Profile/ProfileCard';
 import PropTypes from "prop-types";
 import CircularProgress from '@material-ui/core/CircularProgress'
 //Redux
@@ -15,6 +12,7 @@ import { withHandlers, lifecycle } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
+import ProfileDialogForm from '../components/Profile/ProfileDialogForm';
 
 const styles = theme => ({
     root: {
@@ -33,8 +31,7 @@ class ProfileContainer extends Component{
         if (profile&& user){
           const userData = Object.values(user)[0]
           const profileData = Object.values(profile)[0]
-          console.log('profile',profileData)
-            view = (<Grid
+            view = (<div><Grid
                 container
                 spacing={16}
                 className={classes.root}
@@ -47,14 +44,17 @@ class ProfileContainer extends Component{
               name={`${userData.firstName} ${userData.lastName}`}
               interestsList={profileData.interests}
               />
-                <EducationContainer industry={'IT'} name='education' width={650}/> 
-                <EducationContainer industry={'IT'} name='experience' width={650}/>
-                </Grid>)
+                <EducationContainer industry={profileData.industry} name='education' width={650}/> 
+                <EducationContainer industry={profileData.industry} name='experience' width={650}/>
+                </Grid>
+                <ProfileDialogForm profile={profileData}/>
+                </div>)
         }
         return(
            
             <DashboardWrapper header='Dashboard'>
                 {view}
+                
             </DashboardWrapper>
         )
     }
@@ -118,7 +118,5 @@ ProfileContainer.propTypes = {
     }))
   )
   export default enhance(
-  
       withStyles(styles)(ProfileContainer)
-    
   )
