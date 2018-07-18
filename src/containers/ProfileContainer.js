@@ -6,9 +6,16 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import EducationContainer from '../components/EduExp/EducationContainer';
-import ProfileCard from '../components/ProfileCard';
+import ProfileCard from '../components/DashboardComponents/ProfileCard';
 import PropTypes from "prop-types";
-import { height } from 'window-size';
+import CircularProgress from '@material-ui/core/CircularProgress'
+//Redux
+import { compose } from 'redux';
+import { withHandlers, lifecycle } from 'recompose'
+import { connect } from 'react-redux';
+import  {withFirestore} from '../utilities/withFirestore';
+import { COLLECTIONS,LISTENER } from "../constants/firestore";
+
 const styles = theme => ({
     root: {
      width:'100%',
@@ -18,25 +25,37 @@ const styles = theme => ({
 class ProfileContainer extends Component{
     
     render(){
-        const {classes} = this.props
-        const steps =['Resume Submission','Online Interview','Assessment Centre','Job Placement']
+        const {classes, profile,user} = this.props
+       
+        const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
+       
+        let view = loading
+        if (profile&& user){
+          const userData = Object.values(user)[0]
+          const profileData = Object.values(profile)[0]
+          console.log('profile',profileData)
+            view = (<Grid
+                container
+                spacing={16}
+                className={classes.root}
+                alignItems='center'
+                direction='column'
+              >
+              <ProfileCard 
+              skillsList={profileData.skills}
+              bio={profileData.bio}
+              name={`${userData.firstName} ${userData.lastName}`}
+              interestsList={profileData.interests}
+              />
+                <EducationContainer industry={'IT'} name='education' width={650}/> 
+                <EducationContainer industry={'IT'} name='experience' width={650}/>
+                </Grid>)
+        }
         return(
            
             <DashboardWrapper header='Dashboard'>
-            <Grid
-            container
-            spacing={16}
-            className={classes.root}
-            alignItems='center'
-            direction='column'
-          >
-          <ProfileCard/>
-            <EducationContainer industry={'IT'} name='education' width={650}/> 
-            <EducationContainer industry={'IT'} name='experience' width={650}/>
-            </Grid>
+                {view}
             </DashboardWrapper>
-            
-
         )
     }
 
@@ -44,4 +63,62 @@ class ProfileContainer extends Component{
 ProfileContainer.propTypes = {
     classes: PropTypes.object
   };
-export default withStyles(styles)(ProfileContainer);
+  const enhance = compose(
+    // add redux store (from react context) as a prop
+    withFirestore,
+    // Handler functions as props
+    withHandlers({
+      loadData: props => listenerSettings =>
+        props.firestore.setListener(listenerSettings),
+  
+      onNext: props => (profile) =>
+          props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+          ...profile,
+          updatedAt: props.firestore.FieldValue.serverTimestamp()
+        }
+      ),
+  
+      onSubmit: props => () =>
+          props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+          hasSubmit:true,
+          updatedAt: props.firestore.FieldValue.serverTimestamp()
+        }
+      ),
+    }),
+    // Run functionality on component lifecycle
+    lifecycle({
+      // Load data when component mounts
+      componentWillMount() {
+        const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+        const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
+        const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
+          this.props.loadData(eduListenerSettings);
+          this.props.loadData(expListenerSettings);
+        this.props.loadData(profileListenerSettings);
+        const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
+        this.props.loadData(usersListenerSettings);
+      },
+      componentWillUnmount() {
+        const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+        const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
+        const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
+        this.props.firestore.unsetListener(profileListenerSettings);
+        this.props.firestore.unsetListener(eduListenerSettings);
+        this.props.firestore.unsetListener(expListenerSettings);
+        const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
+        this.props.firestore.unsetListener(usersListenerSettings);
+      }
+    }),
+    // Connect todos from redux state to props.todos
+    connect(({ firestore }) => ({
+        education: firestore.data.education,// document data by id
+        experience: firestore.data.experience, // document data by id
+       profile: firestore.data.profiles, // document data by id
+       user: firestore.data.users, // document data by id
+    }))
+  )
+  export default enhance(
+  
+      withStyles(styles)(ProfileContainer)
+    
+  )
