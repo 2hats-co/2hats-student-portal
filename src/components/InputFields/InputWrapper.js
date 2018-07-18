@@ -1,11 +1,7 @@
-//props: title?, child/childern, hint?, characterCounter?
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Grid } from '@material-ui/core';
-
-
 
 const styles = theme => ({
   root:{
@@ -33,7 +29,6 @@ function InputWrapper(props) {
        container
        direction='row'
        alignItems='flex-start'
-       
        justify='space-between'
       >
        <Grid

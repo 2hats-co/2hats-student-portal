@@ -1,6 +1,4 @@
-import { auth,
- 
- } from '../store';
+import {auth} from '../store';
 
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
