@@ -570,11 +570,6 @@ const enhance = compose(
 
     // console.log(props)
   }),
-  // Run functionality on component lifecycle
-  lifecycle({
-    // Load data when component mounts
-
-  }),
   // Connect todos from redux state to props.todos
   connect(({ firestore }) => ({ // state.firestore
     //  profiles: firestore.ordered.profiles, // document data in array
