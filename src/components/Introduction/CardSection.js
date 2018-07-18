@@ -17,15 +17,14 @@ const styles = theme => ({
     width: 200,
     marginLeft: 20
   }
+
 });
 
 function CardSection(props) {
   const { classes, step, title, image, description, button } = props;
   return (
     <div key={title}>
-      {step && <Typography variant="display1" color="primary">
-        Step {step}
-      </Typography>}
+      
       <Grid
         container
         className={classes.root}
@@ -34,6 +33,9 @@ function CardSection(props) {
         direction='column'
         justify='space-between'
       >
+        {step && <Typography variant="title">
+        Step {step}
+      </Typography>}
         <Typography variant="title" >
           {title}
         </Typography>
