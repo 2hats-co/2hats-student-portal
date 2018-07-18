@@ -4,10 +4,10 @@ import { Typography } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 
-import ApplicationTimeLine from '../components/DashboardComponents/ApplicationTimeLine'
-import ApplicationProgress from '../components/DashboardComponents/ApplicationProgress'
-import FeedbackHistory from '../components/DashboardComponents/FeedbackHistory'
-import UpcomingEvents from '../components/DashboardComponents/UpcomingEvents'
+import ApplicationTimeLine from '../components/Dashboard/ApplicationTimeLine'
+import ApplicationProgress from '../components/Dashboard/ApplicationProgress'
+import FeedbackHistory from '../components/Dashboard/FeedbackHistory'
+import UpcomingEvents from '../components/Dashboard/UpcomingEvents'
 const styles = theme => ({
     root: {
      
