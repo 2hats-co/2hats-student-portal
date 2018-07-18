@@ -14,6 +14,7 @@ import { compose } from "redux";
 import { withHandlers, lifecycle } from "recompose";
 import { connect } from "react-redux";
 import { withFirestore } from "../../utilities/withFirestore";
+import { COLLECTIONS } from "../../constants/firestore";
 
 const styles = theme => ({
   root: {
@@ -114,7 +115,7 @@ class EducationContainer extends React.Component {
     const { name,classes } = this.props;
    
     if (this.props[name]) {
-     console.log(name,this.props[name])
+
       items = _.map(this.props[name], (item, key) => {
      
         if (item) {
@@ -214,50 +215,12 @@ const enhance = compose(
         doc: itemKey
       })
   }),
-  // Run functionality on component lifecycle
-  lifecycle({
-    // Load data when component mounts
-    componentWillMount() {
-      const eduListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'education' }],
-        storeAs:'education'
-      };
-      const expListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'experience' }],
-        storeAs:'experience'
-      };
-      this.props.loadData(eduListenerSettings);
-      this.props.loadData(expListenerSettings);
-    },
-    componentWillUnmount() {
-    
-      const eduListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'education' }],
-        storeAs:'education'
-      };
-      const expListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'experience' }],
-        storeAs:'experience'
-      };
-      this.props.firestore.unsetListener(eduListenerSettings);
-      this.props.firestore.unsetListener(expListenerSettings);
-    }
-  }),
-  // Connect todos from redux state to props.todos
+
   connect(({ firestore }) => ({
-    // state.firestore
+
     education: firestore.data.education,// document data by id
     experience: firestore.data.experience // document data by id
 
-    // document data by id
   }))
 );
 

@@ -26,7 +26,7 @@ import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {INTRODUCTION} from '../constants/routes'
 import {withRouter} from 'react-router-dom'
-import { COLLECTIONS } from "../constants/firestore";
+import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
 import * as _ from "lodash";
 const styles = theme => ({
@@ -61,7 +61,7 @@ function getSteps() {
   ];
 }
 const INITIAL_STATE = {
-  fireStoreLoaded:false,
+
   activeStep: 0,
   profile:{
   interests: [],
@@ -85,8 +85,7 @@ class ResumeBuilderContainer extends React.Component {
     this.setState({activeStep:this.props.activeStep || 0})
   }
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.profile !== this.props.profile && !this.state.fireStoreLoaded){
-
+    if(prevProps.profile !== this.props.profile){
      _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
       this.handleChange(key,value)
      })
@@ -159,12 +158,11 @@ class ResumeBuilderContainer extends React.Component {
     this.setState({ profile: newProfile });
   }
   getStepContent(stepIndex) {
+   
     const{interests,
-      education,
-      experience,
      industry} = this.state.profile
     switch (stepIndex) {
-      case 0: //this.setState({height:390})
+      case 0: 
         return (
           <SectionWrapper
             child={
@@ -176,10 +174,10 @@ class ResumeBuilderContainer extends React.Component {
         );
       case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
       case 2: return <SectionWrapper child={
-        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} items ={education} width={470}/>
+        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} width={470}/>
       } width={400} height={420} />;
       case 3: return  <SectionWrapper child={
-        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} items ={experience} width={470}/>        
+        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
       } width={400} height={420} />;
       case 4: return <SectionWrapper child={this.otherInfo()} width={250} height={270} />
       default: return "Uknown stepIndex";
@@ -233,7 +231,7 @@ class ResumeBuilderContainer extends React.Component {
       </Grid>
     );
     return (
-      <div className={classes.root}>
+    
         <LogoOnCard width={850} height={this.state.height}>
           <div className={classes.container}>
             <Stepper
@@ -323,7 +321,7 @@ class ResumeBuilderContainer extends React.Component {
             </div>
           </div>
         </LogoOnCard>
-      </div>
+      
     );
   }
 }
@@ -360,18 +358,20 @@ const enhance = compose(
   lifecycle({
     // Load data when component mounts
     componentWillMount() {
-      const listenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-      };
-      this.props.loadData(listenerSettings);
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
+      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
+        this.props.loadData(eduListenerSettings);
+        this.props.loadData(expListenerSettings);
+      this.props.loadData(profileListenerSettings);
     },
     componentWillUnmount() {
-      const listenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-      };
-      this.props.firestore.unsetListener(listenerSettings);
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
+      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
+      this.props.firestore.unsetListener(profileListenerSettings);
+      this.props.firestore.unsetListener(eduListenerSettings);
+      this.props.firestore.unsetListener(expListenerSettings);
     }
   }),
   // Connect todos from redux state to props.todos

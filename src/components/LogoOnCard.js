@@ -59,7 +59,5 @@ LogoOnCard.propTypes = {
 
 
 const authCondition = (authUser) => !!authUser;
-//export default withStyles(styles)(LogoOnCard);
-export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))
 
-//export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))
+export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))
