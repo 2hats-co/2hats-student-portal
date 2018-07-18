@@ -24,8 +24,8 @@ const styles = theme => ({
 });
 
 function InputWrapper(props) {
-  const { classes, title, hint,characterCounter, child } = props;
-  const header = ( <Typography variant='title' color='primary'>
+  const { classes, title, hint,characterCounter, child,headerColor } = props;
+  const header = ( <Typography variant='title' color={headerColor}>
   {title}
 </Typography>)
   const footer = (<Grid
@@ -72,5 +72,8 @@ InputWrapper.propTypes = {
   child: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,
 };
+InputWrapper.defaultProps ={
+  headerColor: 'primary'
+}
 
 export default withStyles(styles)(InputWrapper);

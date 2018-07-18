@@ -67,7 +67,7 @@ class ResumeLoader extends React.Component {
     }
     
     onDrop(files) {
-      if(this.state.fileName!=''){
+      if(this.state.fileName!==''){
         this.handleDelete()
       }
  
@@ -107,9 +107,9 @@ class ResumeLoader extends React.Component {
             color="primary"
             className={buttonClassname}
             disabled={isUploading}
-            onClick={() =>{fileName!=''? null: this.handleDelete}}
+            onClick={() =>{fileName!==''? null: this.handleDelete}}
           >
-          {fileName!=''? `${fileName}`:'Browser Files'}
+          {fileName!==''? `${fileName}`:'Browser Files'}
           
 
           </Button>

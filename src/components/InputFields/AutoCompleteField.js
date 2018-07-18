@@ -42,7 +42,7 @@ class AutoCompleteField extends React.Component {
   };
   handleClose = val => {
     this.setState({ showList: false });
-    if (typeof val != "string") return;
+    if (typeof val !== "string") return;
    
     this.props.onComplete(val);
     this.setState({ skillValue:''});
@@ -134,12 +134,7 @@ class AutoCompleteField extends React.Component {
     );
   }
 }
-{
-  /* <InputWrapper title={title} hint={hint}
-         child ={ <TextField 
-            onChange={this.handleChange('skill')}
-         /> */
-}
+
 AutoCompleteField.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string,

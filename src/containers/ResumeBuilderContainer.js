@@ -41,7 +41,6 @@ const styles = theme => ({
     width: 750,
     padding: 0
   },
-
   footerContainer: {
     width: 320
   },
@@ -152,10 +151,10 @@ class ResumeBuilderContainer extends React.Component {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
   }
-  getStepContent(stepIndex) {
-   
+  getStepContent(stepIndex,profile) { 
     const{interests,
-     industry} = this.state.profile
+     industry} = profile
+     console.log('interests',interests,industry)
     switch (stepIndex) {
       case 0: 
         return (
@@ -202,7 +201,7 @@ class ResumeBuilderContainer extends React.Component {
     });
   };
   render() {
-    console.log(this.state)
+    console.log('state',this.state)
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
@@ -286,7 +285,7 @@ class ResumeBuilderContainer extends React.Component {
                   direction="column"
                   justify="space-between"
                 >
-                  <Grid item>{this.getStepContent(activeStep)}</Grid>
+                  <Grid item>{this.getStepContent(activeStep,this.state.profile)}</Grid>
                   <Grid item>
                     <Grid
                       className={classes.footerContainer}

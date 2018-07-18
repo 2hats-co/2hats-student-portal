@@ -62,9 +62,9 @@ class DialogForm extends React.Component {
     this.handleChange = this.handleChange.bind(this)
 }
  
-  componentDidUpdate(prevProps, prevState){
+  componentDidUpdate(prevProps){
   
-    const {fields,key} = this.props
+    const {fields} = this.props
   
     if (prevProps !== this.props) {
       this.state = initialState;
@@ -139,7 +139,7 @@ class DialogForm extends React.Component {
                  margin="dense"
                   placeholder={field.placeholder}
                  label={field.label}
-                 value={this.state[field.name]&& this.state[field.name].value||''}
+                 value={this.state[field.name]&& this.state[field.name].value}
                  onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
                  type="text"
                  fullWidth
@@ -148,7 +148,7 @@ class DialogForm extends React.Component {
                 key= {field.name}
                 name= {field.name}
                  label={field.label}
-                 value={this.state[field.name]&& this.state[field.name].value||''}
+                 value={this.state[field.name]&& this.state[field.name].value}
                  changeHandler={this.handleChange}
                  toggle={field.toggle}
                  fullWidth
@@ -156,7 +156,7 @@ class DialogForm extends React.Component {
                case INPUTS.dropDown:return  <DropDown label={field.label} 
                key= {field.name} 
                options={field.options} 
-               value={this.state[field.name]&& this.state[field.name].value||''}
+               value={this.state[field.name]&& this.state[field.name].value}
                 name={field.name}
                 changeHandler={this.handleChange.bind(this)}
 
@@ -166,7 +166,7 @@ class DialogForm extends React.Component {
               id={field.name}
               label={field.label}
               type="date"
-              value={this.state[field.name]&& this.state[field.name].value||''}
+              value={this.state[field.name]&& this.state[field.name].value}
                 onChange={(event)=>{this.handleChange(field.name,event.target.value)}}
                 fullWidth
                 InputLabelProps={{
@@ -180,7 +180,7 @@ class DialogForm extends React.Component {
             name={field.name}
             placeholder={field.placeholder}
             hint={field.hint}
-            value={this.state[field.name]&& this.state[field.name].value||''}
+            value={this.state[field.name]&& this.state[field.name].value}
             changeHandler={this.handleChange.bind(this)}
     
           />
@@ -204,7 +204,6 @@ class DialogForm extends React.Component {
   }
 }
 DialogForm.protoTypes = {
-  
   classes: PropTypes.object.isRequired,
   isOpen:PropTypes.boolean,
     title: PropTypes.string.isRequired,
