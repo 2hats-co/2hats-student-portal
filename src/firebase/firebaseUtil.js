@@ -13,33 +13,52 @@ export function callRemoteMethodOnFirestore(methodName, request, callback) {
     return db.collection('remoteMethod').doc('request').collection(methodName).add(request).then((snapshot) => {
         console.log('request successfully added ...', snapshot);
         const key = snapshot.id;
-        const receiveResponse = Promise.race([
-            db.collection('remoteMethod').doc('response').collection(methodName).doc(key).onSnapshot(querySnapshot => {
-                if(querySnapshot.data() === undefined){
-                    console.log('querySnapshot loading ...');
-                } else {
-                    console.log('querySnapshot received ...', querySnapshot.data());
-                    callback(querySnapshot.data());
-                    let promises = [];
-                    promises.push(db.collection('remoteMethod').doc('request').collection(methodName).doc(key).delete());
-                    promises.push(db.collection('remoteMethod').doc('response').collection(methodName).doc(key).delete());
-                    return Promise.all(promises);    
-                }
-            }, err => {
-                throw new Error('Still waiting for fetching data ...');
-            }),
-            new Promise(function (resolve, reject){
-                setTimeout(() => reject (new Error('Timeout, please try again')), 30000)
-            })
-        ]);
+        var tt = setTimeout(() => {
+            //db.ref(`remoteMethod/response/${methodName}/${key}`).off();
+            callback({ code: 'Timeout, please try again' });
+        }, 25000);
+        db.collection('remoteMethod').doc('response').collection(methodName).doc(key).onSnapshot(querySnapshot => {
+            if (querySnapshot.data() === undefined) {
+                console.log('querySnapshot loading ...');
+            } else {
+                console.log('querySnapshot received ...', querySnapshot.data());
+                callback(querySnapshot.data());
+                clearTimeout(tt);
+                let promises = [];
+                promises.push(db.collection('remoteMethod').doc('request').collection(methodName).doc(key).delete());
+                promises.push(db.collection('remoteMethod').doc('response').collection(methodName).doc(key).delete());
+                return Promise.all(promises);
+            }
+        })
+        // const receiveResponse = Promise.race([
+        //     // first 
+        //     db.collection('remoteMethod').doc('response').collection(methodName).doc(key).onSnapshot(querySnapshot => {
+        //         if (querySnapshot.data() === undefined) {
+        //             console.log('querySnapshot loading ...');
+        //         } else {
+        //             console.log('querySnapshot received ...', querySnapshot.data());
+        //             callback(querySnapshot.data());
+        //             let promises = [];
+        //             promises.push(db.collection('remoteMethod').doc('request').collection(methodName).doc(key).delete());
+        //             promises.push(db.collection('remoteMethod').doc('response').collection(methodName).doc(key).delete());
+        //             return Promise.all(promises);
+        //         }
+        //     }),
+        //     // new Promise(function (resolve, reject) {
+        //     //     setTimeout(resolve, 2000, 'Timeout, please try again 1');
+        //     // }),
+        //     // second
+        //     new Promise(function (resolve, reject) {
+        //         setTimeout(() => reject(new Error('Timeout, please try again 2')), 2000)
+        //     })
+        // ]);
 
-        receiveResponse.then((doc) => {           
-        }).catch(e => {
-            console.log('error ...',e)
-        }).finally(() => {
-            console.log('fetching data starting ...')
-        });
-     });
+        // receiveResponse.then((doc) => {
+        //     console.log('finishing fetching data ...', doc);
+        // }).catch((e) => {
+        //     console.log('error ...', e)
+        // })
+    });
 }
 
 function cleanNull(obj) {
