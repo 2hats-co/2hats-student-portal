@@ -13,10 +13,11 @@ import LinkedinIcon from '../assets/images/social/linkedin.svg'
 import StyledLink from '../components/StyledLink';
 import { validateEmail, validatePassword, validateName } from '../utilities/validators';
 //loading indecators
-import LinearIndeterminate from '../components/LinearProgress.js';
-import CircularIndeterminate from '../components/CircularProgress.js';
-import CircularDeterminate from '../components/CircularProgressDeterminate.js';
+//import LinearIndeterminate from '../components/LinearProgress.js';
+//import CircularIndeterminate from '../components/CircularProgress.js';
+//import CircularDeterminate from '../components/CircularProgressDeterminate.js';
 import CircularStatic from '../components/circularProgressStatic.js';
+import CustomizedSnackbars from '../components/snackBars.js';
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -86,7 +87,11 @@ const INITIAL_STATE = {
   error: null,
   view: 'signup',
   isLoading: false,
-  progress: 10
+  progress: 10,
+  showSnackBar: false,
+  snackBarVariant: '',
+  snackBarMessage: '',
+  timeStamp: ''
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
@@ -106,6 +111,7 @@ class AuthenticationContainer extends React.Component {
     this.handleGoogleAuth = this.handleGoogleAuth.bind(this);
     this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
+    this.handleSnackBar = this.handleSnackBar.bind(this);
   }
   goToSignIn() {
     this.props.history.push(routes.SIGN_IN)
@@ -118,6 +124,11 @@ class AuthenticationContainer extends React.Component {
   }
 
   // ? begin of different ways of authentication, jack
+
+  handleGoogleAuthFail = (error) => {
+    console.log('google auth fail', error)
+  }
+
   initializeLinkedin = clientId => {
     ; ((d, s, id) => {
       const element = d.getElementsByTagName(s)[0]
@@ -151,12 +162,20 @@ class AuthenticationContainer extends React.Component {
       if (response.code) {
         this.handleLoadingIndicator(false);
         console.log(response.code);
+        this.handleSnackBar(true, 'warning', response.code);
+      }
+      if (response.crossAuth) {
+        console.log(response.crossAuth);
+        this.handleSnackBar(true, 'success', 'authenticating with Linkedin instead...');
       }
       if (response.customToken) {
         try {
           console.log('authenticating ...');
           const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
           console.log('authWithGoogle successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
+          if (!response.crossAuth) {
+            this.handleSnackBar(true, 'success', 'Google authenticating successfully !');
+          }
           this.handleProgress(80);
           if (response.returnedUser == false) {
             // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
@@ -201,12 +220,20 @@ class AuthenticationContainer extends React.Component {
         if (response.code) {
           this.handleLoadingIndicator(false);
           console.log(response.code);
+          this.handleSnackBar(true, 'warning', response.code);
+        }
+        if (response.crossAuth) {
+          console.log(response.crossAuth);
+          this.handleSnackBar(true, 'success', 'authenticating with Google instead...');
         }
         if (response.customToken) {
           try {
             console.log('authenticating ...');
             const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
             console.log('authWithLinkedin successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
+            if (!response.crossAuth) {
+              this.handleSnackBar(true, 'success', 'Linkedin authenticating successfully !');
+            }
             this.handleProgress(80);
             if (response.returnedUser == false) {
               // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
@@ -245,6 +272,24 @@ class AuthenticationContainer extends React.Component {
 
   // ? end of different of authentication, jack
 
+  handleSnackBar = (showSnackBar, snackBarVariant, snackBarMessage) => {
+    this.setState({
+      showSnackBar,
+      snackBarVariant,
+      snackBarMessage,
+    }, () => {
+      if (snackBarVariant != 'success') {
+        setTimeout(() => {
+          this.setState({
+            showSnackBar: false
+          }, () => {
+            console.log('snackBar reset!')
+          })
+        }, 3000)
+      }
+
+    })
+  }
   handleLoadingIndicator(isLoading) {
     this.setState({ isLoading: isLoading })
   }
@@ -252,28 +297,47 @@ class AuthenticationContainer extends React.Component {
     this.setState({ progress: progress })
   }
   handleSignin() {
+    this.handleLoadingIndicator(true);
+    this.handleProgress(30);
     const { email, password } = this.state;
-  
     auth.doSignInWithEmailAndPassword(email, password)
       .then(authUser => {
+        this.handleProgress(60);
         this.props.onSignIn(authUser.user.uid)
-        this.setState(() => ({ ...INITIAL_STATE }));
-        this.goToIntroduction()
+        this.setState(() => ({ ...INITIAL_STATE, isLoading: true }));
+        this.handleProgress(90);
+        this.handleSnackBar(true, 'success', 'Sign in successfully !');
+        setTimeout(() => {
+          this.goToIntroduction()
+        }, 1800)
       })
       .catch(error => {
+        console.log('error', error);
+        this.handleSnackBar(true, 'error', error.message);
+        this.handleLoadingIndicator(false);
         this.setState(updateByPropertyName('error', error));
       });
   }
   handleSignup() {
+    this.handleLoadingIndicator(true);
+    this.handleProgress(30);
     const { firstName, lastName, email, password } = this.state
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
+        this.handleProgress(60);
         this.props.createUser(authUser.user.uid, { firstName, lastName, email })
         this.props.createProfile(authUser.user.uid)
-        this.setState(() => ({ ...INITIAL_STATE }));
-        this.goToIntroduction()
+        this.setState(() => ({ ...INITIAL_STATE, isLoading: true }));
+        this.handleProgress(90);
+        this.handleSnackBar(true, 'success', 'Sign up successfully !');
+        setTimeout(() => {
+          this.goToIntroduction()
+        }, 1800)
       })
       .catch(error => {
+        console.log('error', error);
+        this.handleSnackBar(true, 'error', error.message);
+        this.handleLoadingIndicator(false);
         this.setState(updateByPropertyName('error', error));
       });
   }
@@ -303,7 +367,7 @@ class AuthenticationContainer extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress } = this.state
+    const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress, showSnackBar, snackBarVariant, snackBarMessage } = this.state
     let socialButton = (provider, method) => (
       provider === 'google' ?
         <GoogleLogin
@@ -311,7 +375,7 @@ class AuthenticationContainer extends React.Component {
           clientId="983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com"
           buttonText="Login"
           onSuccess={this.handleGoogleAuth}
-          onFailure={this.handleGoogleAuth}
+          onFailure={this.handleGoogleAuthFail}
           render={renderProps => (
             <Button variant='flat'
               style={{ backgroundColor: '#E05449' }}
@@ -491,9 +555,16 @@ class AuthenticationContainer extends React.Component {
           direction='column'
           justify='flex-start'
         >
-          {isLoading ?
-            <CircularStatic completed={progress} /> : loadedView.map(x => x)}
+          {
+            isLoading ?
+              <div><CircularStatic completed={progress} /><Typography>Loading, please wait</Typography></div> : loadedView.map(x => x)
+          }
         </Grid>
+        {
+          showSnackBar &&
+          <CustomizedSnackbars showSnackBar={showSnackBar} variant={snackBarVariant} message={snackBarMessage} />
+        }
+
       </LogoInCard>
     );
   }
@@ -535,7 +606,7 @@ const enhance = compose(
       }
       ),
   }),
- 
+
 )
 export default enhance(
   withRouter(
