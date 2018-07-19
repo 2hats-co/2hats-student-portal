@@ -5,20 +5,16 @@ import { withStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 //child components
-
 import LogoOnCard from "../components/LogoOnCard";
 import SectionWrapper from "../components/SectionWrapper";
-
 //form sections
 import CareerInterests from "../components/InputFields/CareerInterests";
 import EducationContainer from "../components/EduExp/EducationContainer";
-import OtherInfo from '../components/SubmissionSections/OtherInfo';
-import BioAndSkills from '../components/SubmissionSections/BioAndSkills';
-import Completed from '../components/SubmissionSections/Completed';
-
+import OtherInfo from '../components/SignUp/OtherInfo';
+import BioAndSkills from '../components/SignUp/BioAndSkills';
+import Completed from '../components/SignUp/Completed';
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -29,7 +25,11 @@ import {INTRODUCTION} from '../constants/routes'
 import {withRouter} from 'react-router-dom'
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
+
 import * as _ from "lodash";
+import StepController from "../components/SignUp/StepController";
+
+import {PROCESS_TYPES,STEP_LABELS} from '../constants/signUpProcess'
 const styles = theme => ({
   root: {
     height: 800
@@ -50,19 +50,10 @@ const styles = theme => ({
   }
 });
 
-function getSteps() {
-  return [
-    "Career Interests",
-    "Bio & Relevant Skills",
-    "Tertiary Education",
-    "Practical Experience",
-    "Other Information"
-  ];
-}
 const INITIAL_STATE = {
-  process:'build',//['build','upload']
   activeStep: 0,
   profile:{
+  process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   bio: "",
   skills: [],
@@ -79,6 +70,7 @@ class ResumeBuilderContainer extends React.Component {
     this.state = { ...INITIAL_STATE };
     this.goToIntroduction = this.goToIntroduction.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleNext = this.handleNext.bind(this)
   }
   componentWillMount(){
     this.setState({activeStep:this.props.activeStep || 0})
@@ -93,25 +85,7 @@ class ResumeBuilderContainer extends React.Component {
   goToIntroduction(){
     this.props.history.push(INTRODUCTION)
 } 
-  disableNext() {
-    const {
-      activeStep,
-      profile
-    } = this.state;
-    const{interests,
-      skills,
-      bio,
-      workingRights,
-      phoneNumber} = profile
-    switch (activeStep) {
-      case 0:return interests.length === 0;
-      case 1:return skills.length === 0 || bio.length === 0;
-      case 2:return false;
-      case 3:return false;
-      case 4:return phoneNumber.length !== 10;
-      default:return false;
-    }
-  }
+
   handleChange(name, value) {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
@@ -130,12 +104,14 @@ class ResumeBuilderContainer extends React.Component {
             height={220}
           />
         );
-      case 1: return <SectionWrapper child={ <BioAndSkills 
+      case 1: return <SectionWrapper child={ 
+      <BioAndSkills 
         industry={this.state.profile.industry}
        bio={this.state.profile.bio}
         interests={this.state.profile.interests}
          skills={this.state.profile.skills} 
-         changeHandler={this.handleChange}/>} width={400} height={420} />
+         changeHandler={this.handleChange}/>
+        } width={400} height={420} />
       case 2: return <SectionWrapper child={
         <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} width={470}/>
       } width={400} height={420} />;
@@ -171,9 +147,11 @@ class ResumeBuilderContainer extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    const steps = getSteps();
+    const steps = STEP_LABELS[(this.state.profile.process)];
     const { activeStep } = this.state;
-    
+    const stepController = (
+      <StepController currentStep={STEP_LABELS[(this.state.profile.process)][this.state.activeStep]} profile={this.state.profile}/>
+    )
     return (
     
         <LogoOnCard width={850} height={this.state.height}>
@@ -202,28 +180,7 @@ class ResumeBuilderContainer extends React.Component {
                       style={{ height: 150 }}
                     >
                       <Completed/>
-                      <Grid
-                        className={classes.footerContainer}
-                        container
-                        direction="row"
-                        justify="space-between"
-                      >
-                        <Button
-                          className={classes.footerButton}
-                          variant="outlined"
-                          disabled={activeStep === 0}
-                          onClick={this.handleBack}
-                        >
-                          Back
-                        </Button>
-                        <Button
-                          className={classes.footerButton}
-                          variant="flat"
-                          onClick={this.props.onSubmit}
-                        >
-                          Submit resume
-                        </Button>
-                      </Grid>
+                      {stepController}
                     </Grid>
                   }
                   width={750}
@@ -237,28 +194,7 @@ class ResumeBuilderContainer extends React.Component {
                 >
                   <Grid item>{this.getStepContent(activeStep,this.state.profile)}</Grid>
                   <Grid item>
-                    <Grid
-                      className={classes.footerContainer}
-                      container
-                      direction="row"
-                      justify="space-between"
-                    >
-                      <Button
-                        className={classes.footerButton}
-                        variant="outlined"
-                        onClick={this.handleBack}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        className={classes.footerButton}
-                      //disabled={this.disableNext.bind(this)()}
-                        variant="flat"
-                        onClick={this.handleNext}
-                      >
-                        Next
-                      </Button>
-                    </Grid>
+                  {stepController}
                   </Grid>
                 </Grid>
               )}
@@ -275,7 +211,6 @@ ResumeBuilderContainer.propTypes = {
     firestore: PropTypes.object
   })
 };
-
 const enhance = compose(
   // add redux store (from react context) as a prop
   withFirestore,
