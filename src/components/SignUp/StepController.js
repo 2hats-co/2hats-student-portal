@@ -23,8 +23,8 @@ function disableNext(currentStep,profile){
     switch (currentStep) {
       case ALL_STEPS.interests:return interests.length === 0;
       case ALL_STEPS.bio:return skills.length === 0 || bio.length === 0;
-      case ALL_STEPS.edu:return false;
-      case ALL_STEPS.exp:return false;
+      case ALL_STEPS.education:return false;
+      case ALL_STEPS.experience:return false;
       case ALL_STEPS.other:return phoneNumber.length !== 10 || workingRights.length === 0;
       default:return false;
     }

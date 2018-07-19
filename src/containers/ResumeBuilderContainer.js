@@ -29,7 +29,7 @@ import { COLLECTIONS, LISTENER } from "../constants/firestore";
 import * as _ from "lodash";
 import StepController from "../components/SignUp/StepController";
 
-import {PROCESS_TYPES,STEP_LABELS} from '../constants/signUpProcess'
+import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
 const styles = theme => ({
   root: {
     height: 800
@@ -71,6 +71,7 @@ class ResumeBuilderContainer extends React.Component {
     this.goToIntroduction = this.goToIntroduction.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleNext = this.handleNext.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
     this.setState({activeStep:this.props.activeStep || 0})
@@ -90,11 +91,11 @@ class ResumeBuilderContainer extends React.Component {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
   }
-  getStepContent(stepIndex,profile) { 
+  getStepContent(currentStep,profile) { 
     const{interests,
      industry} = profile
-    switch (stepIndex) {
-      case 0: 
+    switch (currentStep) {
+      case ALL_STEPS.interests: 
         return (
           <SectionWrapper
             child={
@@ -104,7 +105,7 @@ class ResumeBuilderContainer extends React.Component {
             height={220}
           />
         );
-      case 1: return <SectionWrapper child={ 
+      case ALL_STEPS.bio: return <SectionWrapper child={ 
       <BioAndSkills 
         industry={this.state.profile.industry}
        bio={this.state.profile.bio}
@@ -112,14 +113,17 @@ class ResumeBuilderContainer extends React.Component {
          skills={this.state.profile.skills} 
          changeHandler={this.handleChange}/>
         } width={400} height={420} />
-      case 2: return <SectionWrapper child={
+      case ALL_STEPS.education: return <SectionWrapper child={
         <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} width={470}/>
       } width={400} height={420} />;
-      case 3: return  <SectionWrapper child={
+      case ALL_STEPS.experience: return  <SectionWrapper child={
         <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
       } width={400} height={420} />;
-      case 4: return <SectionWrapper child={<OtherInfo phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
+      case ALL_STEPS.other: return <SectionWrapper child={<OtherInfo phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
+      //case ALL_STEPS.upload:
+      //case ALL_STEPS.profile:
       default: return "Uknown stepIndex";
+
     }
   }
   handleNext = () => {
@@ -149,11 +153,14 @@ class ResumeBuilderContainer extends React.Component {
     const { classes } = this.props;
     const steps = STEP_LABELS[(this.state.profile.process)];
     const { activeStep } = this.state;
+    const currentStep = STEP_LABELS[(this.state.profile.process)][this.state.activeStep]
     const stepController = (
-      <StepController currentStep={STEP_LABELS[(this.state.profile.process)][this.state.activeStep]} profile={this.state.profile}/>
+      <StepController currentStep={currentStep} 
+      profile={this.state.profile} 
+      nextHandler={this.handleNext}
+      backHandler={this.handleBack}/>
     )
     return (
-    
         <LogoOnCard width={850} height={this.state.height}>
           <div className={classes.container}>
             <Stepper
@@ -192,7 +199,7 @@ class ResumeBuilderContainer extends React.Component {
                   direction="column"
                   justify="space-between"
                 >
-                  <Grid item>{this.getStepContent(activeStep,this.state.profile)}</Grid>
+                  <Grid item>{this.getStepContent(currentStep,this.state.profile)}</Grid>
                   <Grid item>
                   {stepController}
                   </Grid>
