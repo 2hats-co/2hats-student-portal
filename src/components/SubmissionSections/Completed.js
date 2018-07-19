@@ -1,5 +1,7 @@
 
 import React from "react";
+import PropTypes from "prop-types";
+
 import Grid from '@material-ui/core/Grid'
 import Typography from "@material-ui/core/Typography";
 function Completed(props){
@@ -24,5 +26,7 @@ function Completed(props){
       </Grid>
     )
 }
-    
+Completed.propTypes = {
+    process: PropTypes.string.isRequired,
+  };
 export default Completed
