@@ -5,17 +5,22 @@ import PropTypes from "prop-types";
 import Grid from '@material-ui/core/Grid'
 import PhoneNumber from "../InputFields/PhoneNumber";
 import WorkingRights from "../InputFields/WorkingRights";
+import AvailableDays from "../InputFields/AvailableDays";
 
 function otherInfo(props){
-    const {workingRights,phoneNumber,changeHandler} = props
+    const {workingRights,availableDays,phoneNumber,changeHandler} = props
     return(
         <Grid
       container
       direction="row"
       justify="space-between"
-      style={{ height: 200 }}
+      style={{ height: 300 }}
     >
+
       <WorkingRights value={workingRights} changeHandler={changeHandler}/>
+      {
+        <AvailableDays value={availableDays} changeHandler={changeHandler}/>
+      }
       <PhoneNumber value={phoneNumber} changeHandler={changeHandler} />
     </Grid>
     )

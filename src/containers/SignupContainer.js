@@ -61,6 +61,7 @@ const INITIAL_STATE = {
   currentUniversity:"",
   skills: [],
   workingRights: "",
+  availableDays:"",
   phoneNumber: "",
   industry: "IT",
   education: [],
@@ -123,7 +124,7 @@ class ResumeBuilderContainer extends React.Component {
       case ALL_STEPS.experience: return  <SectionWrapper child={
         <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
       } width={400} height={420} />;
-      case ALL_STEPS.other: return <SectionWrapper child={<OtherInfo phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
+      case ALL_STEPS.other: return <SectionWrapper child={<OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
       case ALL_STEPS.profileDetails:return <SectionWrapper child={ 
         <ProfileDetails 
           industry={this.state.profile.industry}

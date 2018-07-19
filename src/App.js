@@ -5,8 +5,7 @@ import { Theme } from './Theme';
 // containers
 import withAuthentication from './utilities/Session/withAuthentication';
 import AuthenticationContainer from './containers/AuthenticationContainer'
-import ResumeBuilderContainer from './containers/ResumeBuilderContainer'
-import UploadResumeContainer from './containers/UploadResumeContainer';
+import SignupContainer from './containers/SignupContainer'
 import IntroductionContainer from './containers/IntroductionContainer';
 import EmailVerificationContainer from './containers/EmailVerificationContainer';
 import DashboardContainer from './containers/DashboardContainer';
@@ -20,7 +19,7 @@ import {
 } from 'react-router-dom';
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
-
+import {ALL_STEPS} from './constants/signUpProcess'
 class App extends Component {
   render() {
   
@@ -36,12 +35,12 @@ class App extends Component {
       <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
       <Route exact path={routes.JOB_BOARD} component={() => <JobBoardContainer/>} />
       <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer />} />
-      <Route exact path={routes.BUILD_RESUME} component={() => <ResumeBuilderContainer/>} />
-      <Route exact path={routes.BUILD_RESUME_BIO} component={() => <ResumeBuilderContainer activeStep={1}/>} />
-      <Route exact path={routes.BUILD_RESUME_EDU} component={() => <ResumeBuilderContainer activeStep={2}/>} />
-      <Route exact path={routes.BUILD_RESUME_EXP} component={() => <ResumeBuilderContainer activeStep={3}/>} />
-      <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <ResumeBuilderContainer activeStep={4}/>} />
-      <Route exact path={routes.UPLOAD_RESUME} component={() => <UploadResumeContainer/>} />
+      <Route exact path={routes.BUILD_RESUME} component={() => <SignupContainer/>} />
+      <Route exact path={routes.BUILD_RESUME_BIO} component={() => <SignupContainer currentStep={ALL_STEPS.bio}/>} />
+      <Route exact path={routes.BUILD_RESUME_EDU} component={() => <SignupContainer currentStep={ALL_STEPS.education}/>} />
+      <Route exact path={routes.BUILD_RESUME_EXP} component={() => <SignupContainer currentStep={ALL_STEPS.experience}/>} />
+      <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other}/>} />
+      <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer/>} />
       <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} />      
     </div>
   </Router>
