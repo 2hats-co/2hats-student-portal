@@ -6,7 +6,6 @@ import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 //child components
 
@@ -16,8 +15,9 @@ import SectionWrapper from "../components/SectionWrapper";
 //form sections
 import CareerInterests from "../components/InputFields/CareerInterests";
 import EducationContainer from "../components/EduExp/EducationContainer";
-import OtherInfo from '../components/SubmissionSections/OtherInfo'
-import BioAndSkills from '../components/SubmissionSections/BioAndSkills'
+import OtherInfo from '../components/SubmissionSections/OtherInfo';
+import BioAndSkills from '../components/SubmissionSections/BioAndSkills';
+import Completed from '../components/SubmissionSections/Completed';
 
 //Redux
 import { compose } from 'redux';
@@ -36,7 +36,6 @@ const styles = theme => ({
   },
   container: {
     width: "100%",
-    // margin: 'auto',
     padding: 50
   },
   stepper: {
@@ -93,8 +92,7 @@ class ResumeBuilderContainer extends React.Component {
   }
   goToIntroduction(){
     this.props.history.push(INTRODUCTION)
-}
-  
+} 
   disableNext() {
     const {
       activeStep,
@@ -175,25 +173,7 @@ class ResumeBuilderContainer extends React.Component {
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
-    const congratulations = (
-      <Grid
-        container
-        direction="row"
-        justify="spacing-between"
-        style={{ height: 100 }}
-      >
-        <Typography variant="title" color="primary" component="h3">
-          Congratulations!
-        </Typography>
-        <Typography variant="body">
-          You have filled all mandatory fields to build your resume using our
-          guided processes.
-        </Typography>
-        <Typography variant="body">
-          You can submit your resume for our review now.
-        </Typography>
-      </Grid>
-    );
+    
     return (
     
         <LogoOnCard width={850} height={this.state.height}>
@@ -221,7 +201,7 @@ class ResumeBuilderContainer extends React.Component {
                       justify="space-between"
                       style={{ height: 150 }}
                     >
-                      {congratulations}
+                      <Completed/>
                       <Grid
                         className={classes.footerContainer}
                         container
