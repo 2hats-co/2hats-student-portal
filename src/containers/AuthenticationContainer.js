@@ -13,15 +13,11 @@ import LinkedinIcon from '../assets/images/social/linkedin.svg'
 import StyledLink from '../components/StyledLink';
 import { validateEmail, validatePassword, validateName } from '../utilities/validators';
 //loading indecators
-//import LinearIndeterminate from '../components/LinearProgress.js';
-//import CircularIndeterminate from '../components/CircularProgress.js';
-//import CircularDeterminate from '../components/CircularProgressDeterminate.js';
 import CircularStatic from '../components/circularProgressStatic.js';
 import CustomizedSnackbars from '../components/snackBars.js';
 //Redux
 import { compose } from 'redux';
-import { withHandlers, lifecycle } from 'recompose'
-import { connect } from 'react-redux';
+import { withHandlers } from 'recompose'
 import { withFirestore } from '../utilities/withFirestore';
 import { auth } from '../firebase';
 import { COLLECTIONS } from '../constants/firestore';
@@ -32,10 +28,10 @@ import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 //authentication
 import GoogleLogin from '../utilities/GoogleLogin.js';
-
 //firebase remote functions
 import { firebaseFunctions } from '../firebase';
 
+import Name from '../components/InputFields/Name'
 const styles = theme => ({
   root: {
     paddingLeft: 50,
@@ -112,6 +108,7 @@ class AuthenticationContainer extends React.Component {
     this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
+
   }
   goToSignIn() {
     this.props.history.push(routes.SIGN_IN)
@@ -177,15 +174,14 @@ class AuthenticationContainer extends React.Component {
             this.handleSnackBar(true, 'success', 'Google authenticating successfully !');
           }
           this.handleProgress(80);
-          if (response.returnedUser == false) {
+          if (response.returnedUser === false) {
             // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
             this.handleProgress(90);
             setTimeout(() => {
               this.handleLoadingIndicator(false);
               this.props.history.push(routes.INTRODUCTION);
             }, 1000)
-            //this.handleLoadingIndicator(false);
-            //this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+           
           } else {
             // todo: means this is an existing user, go to profile page directly
             this.handleProgress(90);
@@ -193,8 +189,7 @@ class AuthenticationContainer extends React.Component {
               this.handleLoadingIndicator(false);
               this.props.history.push(routes.INTRODUCTION);
             }, 1000)
-            //this.handleLoadingIndicator(false);
-            //this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
+         
           }
 
         } catch (error) {
@@ -235,7 +230,7 @@ class AuthenticationContainer extends React.Component {
               this.handleSnackBar(true, 'success', 'Linkedin authenticating successfully !');
             }
             this.handleProgress(80);
-            if (response.returnedUser == false) {
+            if (response.returnedUser === false) {
               // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
               this.handleProgress(90);
               setTimeout(() => {
@@ -251,8 +246,6 @@ class AuthenticationContainer extends React.Component {
                 this.handleLoadingIndicator(false);
                 this.props.history.push(routes.INTRODUCTION);
               }, 1000)
-              //this.handleLoadingIndicator(false);
-              //this.props.history.push(routes.INTRODUCTION); // Note: for demo purpose, introduction page will be displayed
             }
 
           } catch (error) {
@@ -278,7 +271,7 @@ class AuthenticationContainer extends React.Component {
       snackBarVariant,
       snackBarMessage,
     }, () => {
-      if (snackBarVariant != 'success') {
+      if (snackBarVariant !== 'success') {
         setTimeout(() => {
           this.setState({
             showSnackBar: false
@@ -361,18 +354,17 @@ class AuthenticationContainer extends React.Component {
   }
   componentDidMount() {
     const LinkedinCID = '86gj7a83u3ne8b'; // CID should be hidden somewhere else, I put here only for development purpose
-    const GoogleCID = '983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com';
     this.initializeLinkedin(LinkedinCID);
-    //this.initializeGoogle(GoogleCID);
   }
   render() {
     const { classes } = this.props;
+    const GoogleCID = '983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com';
     const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress, showSnackBar, snackBarVariant, snackBarMessage } = this.state
     let socialButton = (provider, method) => (
       provider === 'google' ?
         <GoogleLogin
           key={`${provider}${method}`}
-          clientId="983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com"
+          clientId={GoogleCID}
           buttonText="Login"
           onSuccess={this.handleGoogleAuth}
           onFailure={this.handleGoogleAuthFail}
@@ -441,35 +433,7 @@ class AuthenticationContainer extends React.Component {
         margin="normal"
         type='password'
       />)
-    const nameFields = (<Grid
-      key="nameFields"
-      container
-      justify='space-between'
-      direction='row'
-      style={{ width: "100%", marginTop: -20 }}
-    >
-      <TextField
-        id="firstName"
-        label="First Name"
-        value={firstName}
-        onChange={this.handleChange('firstName')}
-
-        //   placeholder="First Name"
-        className={classes.nameTextField}
-        margin="normal"
-        color="primary"
-      />
-      <TextField
-        id="lastName"
-        label="Last Name"
-        value={lastName}
-        onChange={this.handleChange('lastName')}
-        // placeholder="Last Name"
-        className={classes.nameTextField}
-        margin="normal"
-        color="primary"
-      />
-    </Grid>)
+    const nameFields = (<Name firstName={firstName} lastName={lastName} changeHandler={this.handleChange.bind(this)}/>)
     const orLabel = (<Typography key="or" className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
@@ -486,7 +450,7 @@ class AuthenticationContainer extends React.Component {
     </Button>
       </Grid>
     )
-    const signUpButton = (<Button key='signupbutton' variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password != confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
+    const signUpButton = (<Button key='signupbutton' variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password !== confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
       Sign Up
 </Button>)
     const resetPasswordText = (<Grid
