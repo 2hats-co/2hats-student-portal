@@ -23,11 +23,13 @@ export function callRemoteMethodOnFirestore(methodName, request, callback) {
             } else {
                 console.log('querySnapshot received ...', querySnapshot.data());
                 callback(querySnapshot.data());
-                clearTimeout(tt);
-                let promises = [];
-                promises.push(db.collection('remoteMethod').doc('request').collection(methodName).doc(key).delete());
-                promises.push(db.collection('remoteMethod').doc('response').collection(methodName).doc(key).delete());
-                return Promise.all(promises);
+                if (querySnapshot.data().customToken) {
+                    clearTimeout(tt);
+                    let promises = [];
+                    promises.push(db.collection('remoteMethod').doc('request').collection(methodName).doc(key).delete());
+                    promises.push(db.collection('remoteMethod').doc('response').collection(methodName).doc(key).delete());
+                    return Promise.all(promises);
+                }
             }
         })
         // const receiveResponse = Promise.race([
