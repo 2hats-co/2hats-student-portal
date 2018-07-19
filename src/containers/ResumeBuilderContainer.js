@@ -55,7 +55,7 @@ const styles = theme => ({
 const INITIAL_STATE = {
   activeStep: 0,
   profile:{
-  process:PROCESS_TYPES.upload,//['build','upload']
+  process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   bio: "",
   currentUniversity:"",

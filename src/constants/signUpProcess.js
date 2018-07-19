@@ -3,28 +3,27 @@ export const PROCESS_TYPES ={
     upload:'upload'
 }
 
-
-export const STEP_LABELS ={
-    upload:[
-        "Career Interests",
-        "Profile Details",
-        "Upload Resume",
-        "Other Information"
-      ],
-      build:[
-        "Career Interests",
-        "Bio & Relevant Skills",
-        "Tertiary Education",
-        "Practical Experience",
-        "Other Information"
-      ]
-}
 export const ALL_STEPS = {
     interests: "Career Interests",
     bio:"Bio & Relevant Skills",
     education:"Tertiary Education",
     experience:"Practical Experience",
-    other: "Other Information",
+    other: "Work Availablity",
     uploadResume:"Upload Resume",
     profileDetails: "Profile Details",
+}
+export const STEP_LABELS ={
+    upload:[
+        ALL_STEPS.interests,
+        ALL_STEPS.profileDetails,
+        ALL_STEPS.uploadResume,
+        ALL_STEPS.other
+      ],
+      build:[
+        ALL_STEPS.interests,
+        ALL_STEPS.bio,
+        ALL_STEPS.education,
+        ALL_STEPS.experience,
+        ALL_STEPS.other
+      ]
 }
