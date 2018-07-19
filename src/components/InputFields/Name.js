@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 
 
-function PersonalBio(props){
+function Name(props){
     const {changeHandler,firstName,lastName} = props
     return(
         <Grid
@@ -35,5 +35,5 @@ function PersonalBio(props){
     )
 
 }
-export default PersonalBio
+export default Name
 

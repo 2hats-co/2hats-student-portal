@@ -32,20 +32,14 @@ import GoogleLogin from '../utilities/GoogleLogin.js';
 import { firebaseFunctions } from '../firebase';
 
 import Name from '../components/InputFields/Name'
+import Password from '../components/InputFields/Password'
+import Email from '../components/InputFields/Email'
+import ConfirmPassword from '../components/InputFields/ConfirmPassword'
 const styles = theme => ({
   root: {
     paddingLeft: 50,
     paddingRight: 50,
     height: 500
-  },
-  textField: {
-    marginTop: 0,
-    width: '100%',
-    marginBottom: 5
-  },
-  nameTextField: {
-    //marginTop:-12,
-    width: '46%'
   },
   button: {
     marginTop: 25,
@@ -108,6 +102,7 @@ class AuthenticationContainer extends React.Component {
     this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
+    this.handleChange = this.handleChange.bind(this)
 
   }
   goToSignIn() {
@@ -121,7 +116,6 @@ class AuthenticationContainer extends React.Component {
   }
 
   // ? begin of different ways of authentication, jack
-
   handleGoogleAuthFail = (error) => {
     console.log('google auth fail', error)
   }
@@ -391,49 +385,13 @@ class AuthenticationContainer extends React.Component {
         </Button>
 
     )
-
-
     let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
     </StyledLink>)
-    const emailField = (
-      <TextField
-        id="email"
-        key="email"
-        label="Email Address"
-        onChange={this.handleChange('email')}
-        value={email}
-        className={classes.textField}
-        margin="normal"
-        color="primary"
-      />)
-
-    const passwordField = (
-      <TextField
-        id="password"
-        key="password"
-        label="Password"
-        value={password}
-        onChange={this.handleChange('password')}
-        //   placeholder="Password"
-        className={classes.textField}
-        margin="normal"
-        type='password'
-      />)
-    const confirmPasswordField = (
-      <TextField
-        id="confirmPassword"
-        key="confirmPassword"
-        label="Confirm Password"
-        value={confirmPassword}
-        onChange={this.handleChange('confirmPassword')}
-
-        //  placeholder="Confirm Password"
-        className={classes.textField}
-        margin="normal"
-        type='password'
-      />)
-    const nameFields = (<Name firstName={firstName} lastName={lastName} changeHandler={this.handleChange.bind(this)}/>)
+    const emailField = (<Email value={email} changeHandler={this.handleChange}/>)
+    const passwordField = (<Password value={password} changeHandler={this.handleChange}/>)
+    const confirmPasswordField =(<ConfirmPassword value={confirmPassword} changeHandler={this.handleChange}/>)
+    const nameFields = (<Name firstName={firstName} lastName={lastName} changeHandler={this.handleChange}/>)
     const orLabel = (<Typography key="or" className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
