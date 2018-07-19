@@ -53,7 +53,7 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  activeStep: 2,
+  activeStep: 0,
   profile:{
   process:PROCESS_TYPES.upload,//['build','upload']
   interests: [],

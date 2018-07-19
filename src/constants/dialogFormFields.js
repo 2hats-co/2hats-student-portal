@@ -1,7 +1,7 @@
 import { INPUTS } from "./enums";
 import {getPrompts} from './resumeBuilderPrompts'
 
-const universities= (city)=> {
+export const UNIVERSITIES= (city)=> {
     switch (city) {
         case 'sydney':
             return ['Australian Catholic University','Macquarie University','University of New South Wales','University of Sydney','University of Technology Sydney','Western Sydney University']
@@ -14,7 +14,7 @@ export const EDU = 'education'
 const eduEmptyFields = (industry) => [
     {type:INPUTS.textField,name:'degree',label:'Degree',placeholder:'e.g. Bachelor of Commerce',isRequired:true},
 {type:INPUTS.textField,name:'major',label:'Major (optional)',placeholder:'e.g. Accounting & Finance',isRequired:false},
-{type:INPUTS.dropDown,name:'university',label:'University',options:universities('sydney'),isRequired:true},
+{type:INPUTS.dropDown,name:'university',label:'University',options:UNIVERSITIES('sydney'),isRequired:true},
 {type:INPUTS.monthPicker,name:'startDate',label:'Start',isRequired:true},
 {type:INPUTS.monthPicker,name:'endDate',label:'End/Expected End',isRequired:true},
 {type:INPUTS.multiLine,name:'description',label:'Discription(Optional)',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:false}
