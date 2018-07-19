@@ -10,11 +10,15 @@ import Grid from "@material-ui/core/Grid";
 import LogoOnCard from "../components/LogoOnCard";
 import SectionWrapper from "../components/SectionWrapper";
 //form sections
+import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
 import CareerInterests from "../components/InputFields/CareerInterests";
 import EducationContainer from "../components/EduExp/EducationContainer";
 import OtherInfo from '../components/SignUp/OtherInfo';
 import BioAndSkills from '../components/SignUp/BioAndSkills';
 import Completed from '../components/SignUp/Completed';
+import ProfileDetails from "../components/SignUp/ProfileDetails";
+import UploadResume from "../components/SignUp/UploadResume";
+
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -25,12 +29,9 @@ import {INTRODUCTION} from '../constants/routes'
 import {withRouter} from 'react-router-dom'
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
-
 import * as _ from "lodash";
 import StepController from "../components/SignUp/StepController";
 
-import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
-import ProfileDetails from "../components/SignUp/ProfileDetails";
 const styles = theme => ({
   root: {
     height: 800
@@ -52,7 +53,7 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  activeStep: 0,
+  activeStep: 2,
   profile:{
   process:PROCESS_TYPES.upload,//['build','upload']
   interests: [],
@@ -63,6 +64,7 @@ const INITIAL_STATE = {
   phoneNumber: "",
   industry: "IT",
   education: [],
+  resumeFile:{name:'',fullPath:''},
   experience: []},
   error: null
 };
@@ -76,7 +78,7 @@ class ResumeBuilderContainer extends React.Component {
     this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
-    this.setState({activeStep:this.props.activeStep || 0})
+   // this.setState({activeStep:this.props.activeStep || 0})
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
@@ -130,7 +132,14 @@ class ResumeBuilderContainer extends React.Component {
            skills={this.state.profile.skills} 
            changeHandler={this.handleChange}/>
           } width={400} height={420} />;
-      default: return "Uknown stepIndex";
+      case ALL_STEPS.uploadResume:return <SectionWrapper child={ 
+        <UploadResume 
+        resumeFile={this.state.profile.resumeFile}
+         bio={this.state.profile.bio}
+         industry={this.state.profile.industry}
+           changeHandler={this.handleChange}/>
+          } width={400} height={420} />;
+      default: return "Uknown step";
 
     }
   }
