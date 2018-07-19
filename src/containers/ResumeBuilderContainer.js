@@ -5,19 +5,20 @@ import { withStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 //child components
-import CareerInterests from "../components/InputFields/CareerInterests";
 import LogoOnCard from "../components/LogoOnCard";
-import PhoneNumber from "../components/InputFields/PhoneNumber";
-import DropDown from "../components/InputFields/DropDown";
-import PersonalBio from "../components/InputFields/PersonalBio";
-import Skills from "../components/InputFields/Skills";
 import SectionWrapper from "../components/SectionWrapper";
+//form sections
+import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
+import CareerInterests from "../components/InputFields/CareerInterests";
 import EducationContainer from "../components/EduExp/EducationContainer";
-import OtherInfo from '../components/SubmissionSections/OtherInfo'
+import OtherInfo from '../components/SignUp/OtherInfo';
+import BioAndSkills from '../components/SignUp/BioAndSkills';
+import Completed from '../components/SignUp/Completed';
+import ProfileDetails from "../components/SignUp/ProfileDetails";
+import UploadResume from "../components/SignUp/UploadResume";
+
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -29,13 +30,14 @@ import {withRouter} from 'react-router-dom'
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
 import * as _ from "lodash";
+import StepController from "../components/SignUp/StepController";
+
 const styles = theme => ({
   root: {
     height: 800
   },
   container: {
     width: "100%",
-    // margin: 'auto',
     padding: 50
   },
   stepper: {
@@ -50,26 +52,19 @@ const styles = theme => ({
   }
 });
 
-function getSteps() {
-  return [
-    "Career Interests",
-    "Bio & Relevant Skills",
-    "Tertiary Education",
-    "Practical Experience",
-    "Other Information"
-  ];
-}
 const INITIAL_STATE = {
-  process:'build',//['build','upload']
   activeStep: 0,
   profile:{
+  process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   bio: "",
+  currentUniversity:"",
   skills: [],
   workingRights: "",
   phoneNumber: "",
   industry: "IT",
   education: [],
+  resumeFile:{name:'',fullPath:''},
   experience: []},
   error: null
 };
@@ -79,9 +74,11 @@ class ResumeBuilderContainer extends React.Component {
     this.state = { ...INITIAL_STATE };
     this.goToIntroduction = this.goToIntroduction.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.handleNext = this.handleNext.bind(this)
+    this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
-    this.setState({activeStep:this.props.activeStep || 0})
+   // this.setState({activeStep:this.props.activeStep || 0})
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
@@ -92,54 +89,17 @@ class ResumeBuilderContainer extends React.Component {
   }
   goToIntroduction(){
     this.props.history.push(INTRODUCTION)
-}
-  bioSection = () => (
-    <Grid
-      container
-      direction="row"
-      justify="space-between"
-      style={{ height: 275, width: 400 }}
-    >
-      <PersonalBio
-        industry={this.state.profile.industry}
-        bio={this.state.profile.bio}
-        changeHandler={this.handleChange.bind(this)}
-      />
-      <Skills 
-      interestKeys = {this.state.profile.interests}
-      preSelectedList={this.state.profile.skills} 
-      changeHandler={this.handleChange.bind(this)} />
-    </Grid>
-  );
-  
-  disableNext() {
-    const {
-      activeStep,
-      profile
-    } = this.state;
-    const{interests,
-      skills,
-      bio,
-      workingRights,
-      phoneNumber} = profile
-    switch (activeStep) {
-      case 0:return interests.length === 0;
-      case 1:return skills.length === 0 || bio.length === 0;
-      case 2:return false;
-      case 3:return false;
-      case 4:return phoneNumber.length !== 10;
-      default:return false;
-    }
-  }
+} 
+
   handleChange(name, value) {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
   }
-  getStepContent(stepIndex,profile) { 
+  getStepContent(currentStep,profile) { 
     const{interests,
      industry} = profile
-    switch (stepIndex) {
-      case 0: 
+    switch (currentStep) {
+      case ALL_STEPS.interests: 
         return (
           <SectionWrapper
             child={
@@ -149,15 +109,38 @@ class ResumeBuilderContainer extends React.Component {
             height={220}
           />
         );
-      case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
-      case 2: return <SectionWrapper child={
+      case ALL_STEPS.bio: return <SectionWrapper child={ 
+      <BioAndSkills 
+        industry={this.state.profile.industry}
+       bio={this.state.profile.bio}
+        interests={this.state.profile.interests}
+         skills={this.state.profile.skills} 
+         changeHandler={this.handleChange}/>
+        } width={400} height={420} />
+      case ALL_STEPS.education: return <SectionWrapper child={
         <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} width={470}/>
       } width={400} height={420} />;
-      case 3: return  <SectionWrapper child={
+      case ALL_STEPS.experience: return  <SectionWrapper child={
         <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
       } width={400} height={420} />;
-      case 4: return <SectionWrapper child={<OtherInfo phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
-      default: return "Uknown stepIndex";
+      case ALL_STEPS.other: return <SectionWrapper child={<OtherInfo phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
+      case ALL_STEPS.profileDetails:return <SectionWrapper child={ 
+        <ProfileDetails 
+          industry={this.state.profile.industry}
+          currentUniversity={this.state.profile.currentUniversity}
+          interests={this.state.profile.interests}
+           skills={this.state.profile.skills} 
+           changeHandler={this.handleChange}/>
+          } width={400} height={420} />;
+      case ALL_STEPS.uploadResume:return <SectionWrapper child={ 
+        <UploadResume 
+        resumeFile={this.state.profile.resumeFile}
+         bio={this.state.profile.bio}
+         industry={this.state.profile.industry}
+           changeHandler={this.handleChange}/>
+          } width={400} height={420} />;
+      default: return "Uknown step";
+
     }
   }
   handleNext = () => {
@@ -185,29 +168,17 @@ class ResumeBuilderContainer extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    const steps = getSteps();
+    const steps = STEP_LABELS[(this.state.profile.process)];
     const { activeStep } = this.state;
-    const congratulations = (
-      <Grid
-        container
-        direction="row"
-        justify="spacing-between"
-        style={{ height: 100 }}
-      >
-        <Typography variant="title" color="primary" component="h3">
-          Congratulations!
-        </Typography>
-        <Typography variant="body">
-          You have filled all mandatory fields to build your resume using our
-          guided processes.
-        </Typography>
-        <Typography variant="body">
-          You can submit your resume for our review now.
-        </Typography>
-      </Grid>
-    );
+    const currentStep = STEP_LABELS[(this.state.profile.process)][this.state.activeStep]
+    console.log('currentStep',currentStep)
+    const stepController = (
+      <StepController currentStep={currentStep} 
+      profile={this.state.profile} 
+      nextHandler={this.handleNext}
+      backHandler={this.handleBack}/>
+    )
     return (
-    
         <LogoOnCard width={850} height={this.state.height}>
           <div className={classes.container}>
             <Stepper
@@ -233,29 +204,8 @@ class ResumeBuilderContainer extends React.Component {
                       justify="space-between"
                       style={{ height: 150 }}
                     >
-                      {congratulations}
-                      <Grid
-                        className={classes.footerContainer}
-                        container
-                        direction="row"
-                        justify="space-between"
-                      >
-                        <Button
-                          className={classes.footerButton}
-                          variant="outlined"
-                          disabled={activeStep === 0}
-                          onClick={this.handleBack}
-                        >
-                          Back
-                        </Button>
-                        <Button
-                          className={classes.footerButton}
-                          variant="flat"
-                          onClick={this.props.onSubmit}
-                        >
-                          Submit resume
-                        </Button>
-                      </Grid>
+                      <Completed/>
+                      {stepController}
                     </Grid>
                   }
                   width={750}
@@ -267,30 +217,9 @@ class ResumeBuilderContainer extends React.Component {
                   direction="column"
                   justify="space-between"
                 >
-                  <Grid item>{this.getStepContent(activeStep,this.state.profile)}</Grid>
+                  <Grid item>{this.getStepContent(currentStep,this.state.profile)}</Grid>
                   <Grid item>
-                    <Grid
-                      className={classes.footerContainer}
-                      container
-                      direction="row"
-                      justify="space-between"
-                    >
-                      <Button
-                        className={classes.footerButton}
-                        variant="outlined"
-                        onClick={this.handleBack}
-                      >
-                        Back
-                      </Button>
-                      <Button
-                        className={classes.footerButton}
-                      //disabled={this.disableNext.bind(this)()}
-                        variant="flat"
-                        onClick={this.handleNext}
-                      >
-                        Next
-                      </Button>
-                    </Grid>
+                  {stepController}
                   </Grid>
                 </Grid>
               )}
@@ -307,7 +236,6 @@ ResumeBuilderContainer.propTypes = {
     firestore: PropTypes.object
   })
 };
-
 const enhance = compose(
   // add redux store (from react context) as a prop
   withFirestore,
