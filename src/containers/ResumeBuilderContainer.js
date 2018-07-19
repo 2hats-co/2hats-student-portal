@@ -9,14 +9,13 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 //child components
-import CareerInterests from "../components/CareerInterests";
+import CareerInterests from "../components/InputFields/CareerInterests";
 import LogoOnCard from "../components/LogoOnCard";
-import PhoneNumber from "../components/PhoneNumber";
-import DropDown from "../components/DropDown";
-import MultiLineTextField from "../components/MultiLineTextField";
-import SkillsInput from "../components/SkillsInput";
+import PhoneNumber from "../components/InputFields/PhoneNumber";
+import DropDown from "../components/InputFields/DropDown";
+import PersonalBio from "../components/InputFields/PersonalBio";
+import Skills from "../components/InputFields/Skills";
 import SectionWrapper from "../components/SectionWrapper";
-import {getPrompts} from '../constants/resumeBuilderPrompts'
 import EducationContainer from "../components/EduExp/EducationContainer";
 //Redux
 import { compose } from 'redux';
@@ -26,7 +25,7 @@ import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {INTRODUCTION} from '../constants/routes'
 import {withRouter} from 'react-router-dom'
-import { COLLECTIONS } from "../constants/firestore";
+import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
 import * as _ from "lodash";
 const styles = theme => ({
@@ -42,7 +41,6 @@ const styles = theme => ({
     width: 750,
     padding: 0
   },
-
   footerContainer: {
     width: 320
   },
@@ -61,7 +59,7 @@ function getSteps() {
   ];
 }
 const INITIAL_STATE = {
-  fireStoreLoaded:false,
+
   activeStep: 0,
   profile:{
   interests: [],
@@ -85,8 +83,7 @@ class ResumeBuilderContainer extends React.Component {
     this.setState({activeStep:this.props.activeStep || 0})
   }
   componentDidUpdate(prevProps, prevState) {
-    if(prevProps.profile !== this.props.profile && !this.state.fireStoreLoaded){
-
+    if(prevProps.profile !== this.props.profile){
      _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
       this.handleChange(key,value)
      })
@@ -102,16 +99,12 @@ class ResumeBuilderContainer extends React.Component {
       justify="space-between"
       style={{ height: 275, width: 400 }}
     >
-      <MultiLineTextField
-        title="Personal Bio"
-        hint="This bio should focus on your key achievement and what value you can bring to the position-providing companies."
-        placeholder={` For example: ${getPrompts(this.state.profile.industry).bio}`}
-        value={this.state.profile.bio}
-        name='bio'
-        characterLimit={400}
+      <PersonalBio
+        industry={this.state.profile.industry}
+        bio={this.state.profile.bio}
         changeHandler={this.handleChange.bind(this)}
       />
-      <SkillsInput 
+      <Skills 
       interestKeys = {this.state.profile.interests}
       preSelectedList={this.state.profile.skills} 
       changeHandler={this.handleChange.bind(this)} />
@@ -158,13 +151,11 @@ class ResumeBuilderContainer extends React.Component {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
   }
-  getStepContent(stepIndex) {
+  getStepContent(stepIndex,profile) { 
     const{interests,
-      education,
-      experience,
-     industry} = this.state.profile
+     industry} = profile
     switch (stepIndex) {
-      case 0: //this.setState({height:390})
+      case 0: 
         return (
           <SectionWrapper
             child={
@@ -176,10 +167,10 @@ class ResumeBuilderContainer extends React.Component {
         );
       case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
       case 2: return <SectionWrapper child={
-        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} items ={education} width={470}/>
+        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} width={470}/>
       } width={400} height={420} />;
       case 3: return  <SectionWrapper child={
-        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} items ={experience} width={470}/>        
+        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
       } width={400} height={420} />;
       case 4: return <SectionWrapper child={this.otherInfo()} width={250} height={270} />
       default: return "Uknown stepIndex";
@@ -209,7 +200,6 @@ class ResumeBuilderContainer extends React.Component {
     });
   };
   render() {
-    console.log(this.state)
     const { classes } = this.props;
     const steps = getSteps();
     const { activeStep } = this.state;
@@ -233,7 +223,7 @@ class ResumeBuilderContainer extends React.Component {
       </Grid>
     );
     return (
-      <div className={classes.root}>
+    
         <LogoOnCard width={850} height={this.state.height}>
           <div className={classes.container}>
             <Stepper
@@ -293,7 +283,7 @@ class ResumeBuilderContainer extends React.Component {
                   direction="column"
                   justify="space-between"
                 >
-                  <Grid item>{this.getStepContent(activeStep)}</Grid>
+                  <Grid item>{this.getStepContent(activeStep,this.state.profile)}</Grid>
                   <Grid item>
                     <Grid
                       className={classes.footerContainer}
@@ -323,7 +313,7 @@ class ResumeBuilderContainer extends React.Component {
             </div>
           </div>
         </LogoOnCard>
-      </div>
+      
     );
   }
 }
@@ -360,18 +350,20 @@ const enhance = compose(
   lifecycle({
     // Load data when component mounts
     componentWillMount() {
-      const listenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-      };
-      this.props.loadData(listenerSettings);
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
+      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
+        this.props.loadData(eduListenerSettings);
+        this.props.loadData(expListenerSettings);
+      this.props.loadData(profileListenerSettings);
     },
     componentWillUnmount() {
-      const listenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-      };
-      this.props.firestore.unsetListener(listenerSettings);
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
+      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
+      this.props.firestore.unsetListener(profileListenerSettings);
+      this.props.firestore.unsetListener(eduListenerSettings);
+      this.props.firestore.unsetListener(expListenerSettings);
     }
   }),
   // Connect todos from redux state to props.todos

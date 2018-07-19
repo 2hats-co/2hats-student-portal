@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png';
-import BW from '../assets/background/BW.svg'
-
+import {setBackground} from '../utilities/styling'
 
 import { compose } from 'recompose';
 import withAuthorisation from '../utilities/Session/withAuthorisation'
@@ -27,26 +26,17 @@ const styles = theme => ({
 
 function LogoOnCard(props) {
   const { classes,width,height } = props;
-  document.body.style.backgroundColor = "#E1E1E1";
-  document.body.style.backgroundImage= "url(https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad)"
-  document.body.style.backgroundRepeat= "no-repeat";
-  document.body.style.backgroundSize= "cover";
-  document.body.style.backgroundPosition= "center center";
-
+  setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad')
   const logo = (<img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>)
   return (
-
     <div className={classes.root}>
-    <div className={classes.logo}>
-     {logo}
+     <div className={classes.logo}>
+      {logo}
      </div>
-     
       <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
       {props.children}
       </Paper>
-      
     </div>
-   
   );
 }
 
@@ -59,7 +49,5 @@ LogoOnCard.propTypes = {
 
 
 const authCondition = (authUser) => !!authUser;
-//export default withStyles(styles)(LogoOnCard);
-export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))
 
-//export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))
+export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))

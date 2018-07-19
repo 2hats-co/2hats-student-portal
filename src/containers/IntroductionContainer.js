@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 
+import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+
 import LogoOnCard from '../components/LogoOnCard';
-import CardSections from '../components/CardSections';
+import CardSections from '../components/Introduction/CardSections';
 
 import intro1 from '../assets/images/graphics/Intro1.png'
 import intro2 from '../assets/images/graphics/Intro2.png'
@@ -24,8 +25,9 @@ const styles = theme => ({
     },
     sections:{
        marginTop:30,
+    },header:{
+      textAlign:'center'
     }
-  
   });
 
 
@@ -62,30 +64,30 @@ class IntroductionContainer extends React.Component {
   sections:[
     {title:'Get Reviewed',
     image:intro1,
-    description:'We will provide you a set of tailored and practical feedback based on your resume submission.',
+    description:'2hats Professionals will you a set of tailored and practical feedback based on your resume.',
     },
     {title:'Get Assessed',
     image:intro2,
-    description:'We will assess your capability through a set of interviews & assessments and provide you actionable feedback for improvement. ',
+    description:'We will assess your capability through interviews & assessments and provide you actionable feedback for improvement.  ',
      button:{label: `Let's start`, onClick:this.goToResumeOptions}},
      {title:'Get Offer',
      image:intro3,
-     description:'Once you are qualified, we will match you with a paid placement in your chosen career interest(s). '
+     description:'Once you are qualified, we will match you with a paid placement in your chosen career interests.'
     }]}
     const submission = 
         { heading: 'Resume Submission',
         width:680,
         sections:[{title:'Upload Resume',
         image:UploadResume,
-        description:'If you have a resume already created, you can upload it directly to our platform for review.',
-         button:{label: `Upload your resume`,onClick:this.goToUploadResume}},
+        description:'If you have a resume already created, you can upload it directly to our platform to submit it for review instantly',
+         button:{label: `Upload`,onClick:this.goToUploadResume}},
          {title:'Build Resume',
          image:BuildResume,
-         description: 'If you don’t have a resume created, we will help you build a professional resume through a 5-step process.',
-          button:{label: `Build a resume`, onClick:this.goToBuildResume}
+         description: `If you don't have a resume, we will help you build a professional resume through our quick and easy 5-Step process!`,
+          button:{label: `Build`, onClick:this.goToBuildResume}
         }]
         }
-  const submissionView = (<div className={classes.root}><Typography variant="display1">
+  const submissionView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
     {submission.heading}
  </Typography>
 <div className={classes.sections} >
@@ -93,11 +95,11 @@ class IntroductionContainer extends React.Component {
  </div></div>
  
 )
-     const processView = (<div className={classes.root}><Typography variant="display1">
+     const processView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
      {process.heading}
   </Typography>
  <div className={classes.sections} >
-     <CardSections width={process.width} sections={process.sections}/>
+     <CardSections hasSteps width={process.width} sections={process.sections}/>
   </div></div>)
         
     return (

@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import {CAREER_INTERESTS} from '../constants/resumeBuilderPrompts'
+import {CAREER_INTERESTS} from '../../constants/resumeBuilderPrompts'
 
 const styles = theme => ({
   root: {
@@ -91,10 +91,7 @@ componentWillMount(){
   </FormControl>)
   }
   render() {
-  
-    
     const { classes} = this.props;
-   
     return (
         <div className={classes.root}>
          <Typography variant="title" color="primary">
@@ -108,6 +105,7 @@ componentWillMount(){
 
 CareerInterests.propTypes = {
   classes: PropTypes.object.isRequired,
-  changeHandler: PropTypes.func.isRequired
+  changeHandler: PropTypes.func.isRequired,
+  preSelectedList: PropTypes.arrayOf(PropTypes.string)
 };
 export default withStyles(styles)(CareerInterests);

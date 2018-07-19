@@ -3,13 +3,12 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import LogoOnCard from "../components/LogoOnCard";
 import { Grid, Button, Typography } from "@material-ui/core";
-import CareerInterests from "../components/CareerInterests";
-import DocumentLoader from "../components/DocumentLoader";
+import CareerInterests from "../components/InputFields/CareerInterests";
+import ResumeLoader from "../components/InputFields/ResumeLoader";
 import SectionWrapper from "../components/SectionWrapper";
 //redux
 import { compose } from "redux";
-import { withHandlers, lifecycle } from "recompose";
-import { connect } from "react-redux";
+import { withHandlers } from "recompose";
 import { withFirestore } from "../utilities/withFirestore";
 //routing
 import { INTRODUCTION, EMAIL_VERIFICATION } from "../constants/routes";
@@ -61,7 +60,6 @@ class UploadResumeContainer extends React.Component {
     }
   }
   handleChange(name, value) {
-    console.log(name,value)
     this.setState({ [name]: value });
   }
 
@@ -158,7 +156,7 @@ class UploadResumeContainer extends React.Component {
               height={220}
             />
           ) : (
-            <DocumentLoader changeHandler={this.handleChange.bind(this)}/>
+            <ResumeLoader changeHandler={this.handleChange.bind(this)}/>
           )}
           {footerButtons(
             view === "interests" ? "Confirm interests" : "Confirm Upload"
@@ -191,19 +189,8 @@ const enhance = compose(
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
       )
+  }),
 
-    // console.log(props)
-  }),
-  // Run functionality on component lifecycle
-  lifecycle({
-    // Load data when component mounts
-  }),
-  // Connect todos from redux state to props.todos
-  connect(({ firestore }) => ({
-    // state.firestore
-    //  profiles: firestore.ordered.profiles, // document data in array
-    // profiles: firestore.data.profiles, // document data by id
-  }))
 );
 
 export default enhance(withRouter(withStyles(styles)(UploadResumeContainer)));

@@ -1,10 +1,20 @@
 import { INPUTS } from "./enums";
 import {getPrompts} from './resumeBuilderPrompts'
+
+const universities= (city)=> {
+    switch (city) {
+        case 'sydney':
+            return ['Australian Catholic University','Macquarie University','University of New South Wales','University of Sydney','University of Technology Sydney','Western Sydney University']
+        default:
+            break;
+    }
+}
+
 export const EDU = 'education'
 const eduEmptyFields = (industry) => [
     {type:INPUTS.textField,name:'degree',label:'Degree',placeholder:'e.g. Bachelor of Commerce',isRequired:true},
 {type:INPUTS.textField,name:'major',label:'Major (optional)',placeholder:'e.g. Accounting & Finance',isRequired:false},
-{type:INPUTS.dropDown,name:'university',label:'University',options:['USYD','UNSW','UTS'],isRequired:true},
+{type:INPUTS.dropDown,name:'university',label:'University',options:universities('sydney'),isRequired:true},
 {type:INPUTS.monthPicker,name:'startDate',label:'Start',isRequired:true},
 {type:INPUTS.monthPicker,name:'endDate',label:'End/Expected End',isRequired:true},
 {type:INPUTS.multiLine,name:'description',label:'Discription(Optional)',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:false}
@@ -25,9 +35,4 @@ export function getFormFields(type,industry){
     }else{
         return expEmptyFields(industry)
     }
-
 }
-
-// {degree:"Bachelor of Commerce - Accounting",university:"University of New South Wales",startDate:"Feb 2016",endDate:"Dec 2017",description:`- 85+ WAM
-//   - Winner of FMAA Management Consulting Case Competition
-//   - President of AIESEC UNSW`}

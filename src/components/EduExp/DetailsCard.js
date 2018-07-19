@@ -32,10 +32,10 @@ function EduExpCard(props) {
       <Grid container direction="row" alignItems="center" justify="space-between">
       <Typography variant='subheading'>{title}</Typography>
       <Grid item>
-      <IconButton className={classes.button} onClick={()=>{editHandler()}} aria-label="Edit">
+      <IconButton onClick={()=>{editHandler()}} aria-label="Edit">
         <EditIcon />
       </IconButton>
-      <IconButton className={classes.button} onClick={()=>{deleteHandler()}} aria-label="Delete">
+      <IconButton onClick={()=>{deleteHandler()}} aria-label="Delete">
         <DeleteIcon />
       </IconButton>
       </Grid>
@@ -53,15 +53,6 @@ function EduExpCard(props) {
   );
 }
 
-{/* <EduExpCard
-       title='Bachelor of Commerce - Accounting'
-       label = 'University of New South Wales'
-       startDate= 'Feb 2016'
-       endDate= 'Dec 2017'
-        description ={`- 85+ WAM
-        - Winner of FMAA Management Consulting Case Competition
-        - President of AIESEC UNSW`}
-       /> */}
 EduExpCard.propTypes = {
   editHandler: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,

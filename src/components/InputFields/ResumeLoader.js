@@ -8,7 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Dropzone from 'react-dropzone'
-import {storage} from '../store'
+import {storage} from '../../store'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from "classnames";
 const styles = theme => ({
@@ -46,7 +46,7 @@ const styles = theme => ({
 });
 
 
-class DocumentLoader extends React.Component {
+class ResumeLoader extends React.Component {
     constructor(props) {
         super(props);
         // Don't call this.setState() here!
@@ -63,15 +63,14 @@ class DocumentLoader extends React.Component {
     }
     handleLoader(snapShot){
         this.props.changeHandler('url',snapShot.metadata.fullPath)
-        console.log(snapShot)
         this.setState({isUploading:false})
     }
     
     onDrop(files) {
-      if(this.state.fileName!=''){
+      if(this.state.fileName!==''){
         this.handleDelete()
       }
-       console.log(files[0])
+ 
         this.setState({isUploading:true,fileName:files[0].name})
         const documentRef = storage.child(`resumes/${files[0].name}`)
         documentRef.put(files[0]).then(this.handleLoader);
@@ -108,9 +107,9 @@ class DocumentLoader extends React.Component {
             color="primary"
             className={buttonClassname}
             disabled={isUploading}
-            onClick={() =>{fileName!=''? null: this.handleDelete}}
+            onClick={() =>{fileName!==''? null: this.handleDelete}}
           >
-          {fileName!=''? `${fileName}`:'Browser Files'}
+          {fileName!==''? `${fileName}`:'Browser Files'}
           
 
           </Button>
@@ -121,9 +120,9 @@ class DocumentLoader extends React.Component {
         );
     } 
 }
-DocumentLoader.propTypes = {
+ResumeLoader.propTypes = {
     url: PropTypes.string,
     classes: PropTypes.object.isRequired,
     changeHandler: PropTypes.func.isRequired
 };
-export default withStyles(styles)(DocumentLoader);
+export default withStyles(styles)(ResumeLoader);

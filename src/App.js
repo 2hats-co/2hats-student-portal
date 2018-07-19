@@ -12,8 +12,7 @@ import EmailVerificationContainer from './containers/EmailVerificationContainer'
 import DashboardContainer from './containers/DashboardContainer';
 import JobBoardContainer from './containers/JobBoardContainer';
 import ProfileContainer from './containers/ProfileContainer';
-
-
+ 
 //routing
 import {
   BrowserRouter as Router,
@@ -21,9 +20,6 @@ import {
 } from 'react-router-dom';
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
-
-
-
 
 class App extends Component {
   render() {
@@ -33,9 +29,9 @@ class App extends Component {
 
        <Router>
     <div className="app"> 
-      <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer view={AUTHENTICATION_CONTAINER.signUp}/>} />
-      <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer view={AUTHENTICATION_CONTAINER.signIn}/>} />
-      <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
+      <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signUp}/>} />
+      <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signIn}/>} />
+      <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer/>} />
       <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
       <Route exact path={routes.JOB_BOARD} component={() => <JobBoardContainer/>} />

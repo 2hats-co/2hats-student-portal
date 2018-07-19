@@ -41,19 +41,6 @@ export function configureStore(initialState, history) {
 		...enhancers
 	)(createStore)
 
-	// Store root redux into persisted storage.
-	// const persistConfig = {
-	// 	key: 'root',
-	// 	storage,
-	// 	stateReconciler: autoMergeLevel2
-	// };
-
-	//const pReducer = persistReducer(persistConfig, rootReducer);
-
-	//const store = createStoreWithMiddleware(pReducer);
-
-	//const persistor = persistStore(store);
-
 	const store = createStoreWithMiddleware(rootReducer);
 
   	return store;

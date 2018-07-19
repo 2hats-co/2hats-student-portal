@@ -1,20 +1,18 @@
-// title? hint? list!
 import React from "react";
 import PropTypes from "prop-types";
+
 import { withStyles } from "@material-ui/core/styles";
 import InputWrapper from "./InputWrapper";
 import { TextField } from "@material-ui/core";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
 
 import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
-
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
 
 const styles = theme => ({
   root:{
@@ -42,7 +40,7 @@ class AutoCompleteField extends React.Component {
   };
   handleClose = val => {
     this.setState({ showList: false });
-    if (typeof val != "string") return;
+    if (typeof val !== "string") return;
    
     this.props.onComplete(val);
     this.setState({ skillValue:''});
@@ -134,12 +132,7 @@ class AutoCompleteField extends React.Component {
     );
   }
 }
-{
-  /* <InputWrapper title={title} hint={hint}
-         child ={ <TextField 
-            onChange={this.handleChange('skill')}
-         /> */
-}
+
 AutoCompleteField.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string,

@@ -3,7 +3,7 @@ import React from "react";
 import EduExpCard from "./DetailsCard";
 import HeaderBar from "../HeaderBar";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+
 import DialogForm from "./DailogForm";
 import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
@@ -11,16 +11,10 @@ import * as _ from "lodash";
 
 //Redux
 import { compose } from "redux";
-import { withHandlers, lifecycle } from "recompose";
+import { withHandlers } from "recompose";
 import { connect } from "react-redux";
 import { withFirestore } from "../../utilities/withFirestore";
 
-const styles = theme => ({
-  root: {
-  
-  },
-  grid: {}
-});
 
 class EducationContainer extends React.Component {
   constructor(props) {
@@ -111,10 +105,10 @@ class EducationContainer extends React.Component {
 
   render() {
     let items;
-    const { name,classes } = this.props;
+    const { name } = this.props;
    
     if (this.props[name]) {
-     console.log(name,this.props[name])
+
       items = _.map(this.props[name], (item, key) => {
      
         if (item) {
@@ -214,52 +208,14 @@ const enhance = compose(
         doc: itemKey
       })
   }),
-  // Run functionality on component lifecycle
-  lifecycle({
-    // Load data when component mounts
-    componentWillMount() {
-      const eduListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'education' }],
-        storeAs:'education'
-      };
-      const expListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'experience' }],
-        storeAs:'experience'
-      };
-      this.props.loadData(eduListenerSettings);
-      this.props.loadData(expListenerSettings);
-    },
-    componentWillUnmount() {
-    
-      const eduListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'education' }],
-        storeAs:'education'
-      };
-      const expListenerSettings = {
-        collection: "profiles",
-        doc: this.props.uid,
-        subcollections: [{ collection: 'experience' }],
-        storeAs:'experience'
-      };
-      this.props.firestore.unsetListener(eduListenerSettings);
-      this.props.firestore.unsetListener(expListenerSettings);
-    }
-  }),
-  // Connect todos from redux state to props.todos
-  connect(({ firestore }) => ({
-    // state.firestore
-    education: firestore.data.education,// document data by id
-    experience: firestore.data.experience // document data by id
 
-    // document data by id
+  connect(({ firestore }) => ({
+
+    education: firestore.data.education,//education document data by id
+    experience: firestore.data.experience //experience document data by id
+
   }))
 );
 
 
-export default enhance(withStyles(styles)(EducationContainer));
+export default enhance(EducationContainer);

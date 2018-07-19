@@ -22,20 +22,16 @@ const styles = theme => ({
         marginTop:10, 
         opacity:0.6 
     },
-
-    seletected:{
-        
-    },
     button:{
         width:'90%',
         backgroundColor:'#2C2C2C!important',
        color:'#fff'
     },label:{
+        textWeight:500,
         textAlign:'left',
         color:'#fff',
         width:130
     }
-
   });
 function NavigationButton(props){
     const {classes,name,route,icon,isSelected} = props

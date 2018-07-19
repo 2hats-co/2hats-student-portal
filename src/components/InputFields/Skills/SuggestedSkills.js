@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip'
 import Typography from '@material-ui/core/Typography'
-import {getSkills} from '../constants/resumeBuilderPrompts'
+import {getSkills} from '../../../constants/resumeBuilderPrompts'
 import AddIcon from '@material-ui/icons/AddCircle';
 
 const styles = theme => ({
@@ -16,9 +16,9 @@ const styles = theme => ({
 class SuggestedSkills extends React.Component { 
     state = {suggestedSkills:[]}
     componentWillMount(){
-        const {interestKeys} = this.props
-        this.setState({suggestedSkills:getSkills(interestKeys)})
-
+        const {interestKeys,preSelectedList} = this.props
+        const skills = getSkills(interestKeys).filter(x=>!preSelectedList.includes(x))
+        this.setState({suggestedSkills:skills})
     }
     handleAdd(skill){
         this.setState({suggestedSkills:this.state.suggestedSkills.filter(x=> x !== skill)})
@@ -49,10 +49,12 @@ class SuggestedSkills extends React.Component {
     }
 
 }
+
 SuggestedSkills.propTypes = {
     classes: PropTypes.object.isRequired,
     interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
-    onAdd: PropTypes.func.isRequired
+    onAdd: PropTypes.func.isRequired,
+    preSelectedList: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default withStyles(styles)(SuggestedSkills);
