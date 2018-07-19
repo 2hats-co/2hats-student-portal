@@ -9,15 +9,16 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 //child components
-import CareerInterests from "../components/InputFields/CareerInterests";
+
 import LogoOnCard from "../components/LogoOnCard";
-import PhoneNumber from "../components/InputFields/PhoneNumber";
-import DropDown from "../components/InputFields/DropDown";
-import PersonalBio from "../components/InputFields/PersonalBio";
-import Skills from "../components/InputFields/Skills";
 import SectionWrapper from "../components/SectionWrapper";
+
+//form sections
+import CareerInterests from "../components/InputFields/CareerInterests";
 import EducationContainer from "../components/EduExp/EducationContainer";
 import OtherInfo from '../components/SubmissionSections/OtherInfo'
+import BioAndSkills from '../components/SubmissionSections/BioAndSkills'
+
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -93,24 +94,6 @@ class ResumeBuilderContainer extends React.Component {
   goToIntroduction(){
     this.props.history.push(INTRODUCTION)
 }
-  bioSection = () => (
-    <Grid
-      container
-      direction="row"
-      justify="space-between"
-      style={{ height: 275, width: 400 }}
-    >
-      <PersonalBio
-        industry={this.state.profile.industry}
-        bio={this.state.profile.bio}
-        changeHandler={this.handleChange.bind(this)}
-      />
-      <Skills 
-      interestKeys = {this.state.profile.interests}
-      preSelectedList={this.state.profile.skills} 
-      changeHandler={this.handleChange.bind(this)} />
-    </Grid>
-  );
   
   disableNext() {
     const {
@@ -149,7 +132,12 @@ class ResumeBuilderContainer extends React.Component {
             height={220}
           />
         );
-      case 1: return <SectionWrapper child={this.bioSection()} width={400} height={420} />
+      case 1: return <SectionWrapper child={ <BioAndSkills 
+        industry={this.state.profile.industry}
+       bio={this.state.profile.bio}
+        interests={this.state.profile.interests}
+         skills={this.state.profile.skills} 
+         changeHandler={this.handleChange}/>} width={400} height={420} />
       case 2: return <SectionWrapper child={
         <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} width={470}/>
       } width={400} height={420} />;
