@@ -1,8 +1,4 @@
-// handles uploads .docx, .pdf
-
-// props: URL? 
 import React from 'react'
-
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
@@ -14,15 +10,14 @@ import classNames from "classnames";
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
-        height: '334px',
-        width: '583px',
+        height: 200,
+        width: 400,
         border: '3px dashed #979797',
-        borderRadius: '3px',
-        margin:28
+        borderRadius: 5,
+       
     },
     grid:{
-        height:190,
-        marginTop:80
+        height:200,
     },
     wrapper: {
         margin: theme.spacing.unit,
@@ -45,40 +40,38 @@ const styles = theme => ({
     
 });
 
-
 class ResumeLoader extends React.Component {
     constructor(props) {
         super(props);
-        // Don't call this.setState() here!
-        this.state = {  fileName:'',
-        isUploading:false };
+        this.state = {isUploading:false };
         this.handleLoader = this.handleLoader.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.onDrop = this.onDrop.bind(this)
-
     }
+
     handleDelete(){
-        const ref = storage.child(`resumes/${this.state.fileName}`)
-        ref.delete().then(this.props.changeHandler('url',''))
+        const ref = storage.child(this.props.resumeFile.fullPath)
+        ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
     }
     handleLoader(snapShot){
-        this.props.changeHandler('url',snapShot.metadata.fullPath)
+        console.log(snapShot)
+        this.props.changeHandler('resumeFile',{name:this.props.resumeFile.name,fullPath:snapShot.metadata.fullPath})
         this.setState({isUploading:false})
     }
     
     onDrop(files) {
-      if(this.state.fileName!==''){
+        console.log(files[0])
+      if(this.props.resumeFile.name!==''){
         this.handleDelete()
       }
- 
-        this.setState({isUploading:true,fileName:files[0].name})
+        this.setState({isUploading:true})
+        this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:''})
         const documentRef = storage.child(`resumes/${files[0].name}`)
         documentRef.put(files[0]).then(this.handleLoader);
       }
-    
     render() {
-        const { classes } = this.props;
-        const {isUploading,fileName} = this.state; 
+        const {classes,resumeFile } = this.props;
+        const {isUploading} = this.state; 
         const buttonClassname = classNames({
             [classes.buttonSuccess]: true,
           });
@@ -107,11 +100,10 @@ class ResumeLoader extends React.Component {
             color="primary"
             className={buttonClassname}
             disabled={isUploading}
-            onClick={() =>{fileName!==''? null: this.handleDelete}}
+            onClick={() =>{resumeFile.name!==''? null: this.handleDelete}}
           >
-          {fileName!==''? `${fileName}`:'Browser Files'}
+          {resumeFile.name!==''? `${resumeFile.name}`:'Browser Files'}
           
-
           </Button>
          {isUploading && <CircularProgress size={24} className={classes.buttonProgress}/>}
         </div>
@@ -120,9 +112,13 @@ class ResumeLoader extends React.Component {
         );
     } 
 }
+
 ResumeLoader.propTypes = {
-    url: PropTypes.string,
     classes: PropTypes.object.isRequired,
-    changeHandler: PropTypes.func.isRequired
+    changeHandler: PropTypes.func.isRequired,
+    resumeFile: PropTypes.shape({
+        name: PropTypes.string,
+        fullPath: PropTypes.string
+      }),
 };
 export default withStyles(styles)(ResumeLoader);
