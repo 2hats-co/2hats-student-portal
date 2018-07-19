@@ -1,4 +1,3 @@
-import Grid from "@material-ui/core/Grid";
 import React from "react";
 import EduExpCard from "./DetailsCard";
 import HeaderBar from "../HeaderBar";
@@ -8,6 +7,9 @@ import DialogForm from "./DailogForm";
 import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
 import * as _ from "lodash";
+
+import Grid from "@material-ui/core/Grid";
+import Card from "@material-ui/core/Card";
 
 //Redux
 import { compose } from "redux";
@@ -138,7 +140,7 @@ class EducationContainer extends React.Component {
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
           />
-          {items && items}
+          {items? items:<Card style={{width:470,height:70}}/>}
         </Grid>
         <DialogForm
           title={this.handleFormTitle()}
