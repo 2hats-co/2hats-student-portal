@@ -30,6 +30,7 @@ import * as _ from "lodash";
 import StepController from "../components/SignUp/StepController";
 
 import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
+import ProfileDetails from "../components/SignUp/ProfileDetails";
 const styles = theme => ({
   root: {
     height: 800
@@ -53,9 +54,10 @@ const styles = theme => ({
 const INITIAL_STATE = {
   activeStep: 0,
   profile:{
-  process:PROCESS_TYPES.build,//['build','upload']
+  process:PROCESS_TYPES.upload,//['build','upload']
   interests: [],
   bio: "",
+  currentUniversity:"",
   skills: [],
   workingRights: "",
   phoneNumber: "",
@@ -120,8 +122,14 @@ class ResumeBuilderContainer extends React.Component {
         <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
       } width={400} height={420} />;
       case ALL_STEPS.other: return <SectionWrapper child={<OtherInfo phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
-      //case ALL_STEPS.upload:
-      //case ALL_STEPS.profile:
+      case ALL_STEPS.profileDetails:return <SectionWrapper child={ 
+        <ProfileDetails 
+          industry={this.state.profile.industry}
+          currentUniversity={this.state.profile.currentUniversity}
+          interests={this.state.profile.interests}
+           skills={this.state.profile.skills} 
+           changeHandler={this.handleChange}/>
+          } width={400} height={420} />;
       default: return "Uknown stepIndex";
 
     }
@@ -154,6 +162,7 @@ class ResumeBuilderContainer extends React.Component {
     const steps = STEP_LABELS[(this.state.profile.process)];
     const { activeStep } = this.state;
     const currentStep = STEP_LABELS[(this.state.profile.process)][this.state.activeStep]
+    console.log('currentStep',currentStep)
     const stepController = (
       <StepController currentStep={currentStep} 
       profile={this.state.profile} 

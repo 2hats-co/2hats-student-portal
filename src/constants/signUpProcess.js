@@ -25,6 +25,6 @@ export const ALL_STEPS = {
     education:"Tertiary Education",
     experience:"Practical Experience",
     other: "Other Information",
-    upload:"Upload Resume",
-    profile: "Profile Details",
+    uploadResume:"Upload Resume",
+    profileDetails: "Profile Details",
 }

@@ -12,7 +12,7 @@ function BioAndSkills(props){
         container
         direction="row"
         justify="space-between"
-        style={{ height: 275, width: 400 }}
+        style={{width: 400 }}
       >
         <PersonalBio
           industry={industry}
