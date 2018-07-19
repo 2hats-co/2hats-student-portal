@@ -17,6 +17,7 @@ import PersonalBio from "../components/InputFields/PersonalBio";
 import Skills from "../components/InputFields/Skills";
 import SectionWrapper from "../components/SectionWrapper";
 import EducationContainer from "../components/EduExp/EducationContainer";
+import OtherInfo from '../components/SubmissionSections/OtherInfo'
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -59,13 +60,13 @@ function getSteps() {
   ];
 }
 const INITIAL_STATE = {
-
+  process:'build',//['build','upload']
   activeStep: 0,
   profile:{
   interests: [],
   bio: "",
   skills: [],
-  residency: "",
+  workingRights: "",
   phoneNumber: "",
   industry: "IT",
   education: [],
@@ -110,24 +111,7 @@ class ResumeBuilderContainer extends React.Component {
       changeHandler={this.handleChange.bind(this)} />
     </Grid>
   );
-  otherInfo = () =>(
-    <Grid
-      container
-      direction="row"
-      justify="space-between"
-      style={{ height: 200 }}
-    >
-      <DropDown
-        title="Residency Status"
-        name="residency"
-        value={this.state.profile.residency}
-        changeHandler={this.handleChange.bind(this)}
-        options={["Permanent resident", "Student visa"]}
-        hint="Your residence status is required so that we can know whether you have any work restriction."
-      />
-      <PhoneNumber value={this.state.profile.phoneNumber} changeHandler={this.handleChange.bind(this)} />
-    </Grid>
-  );
+  
   disableNext() {
     const {
       activeStep,
@@ -136,7 +120,7 @@ class ResumeBuilderContainer extends React.Component {
     const{interests,
       skills,
       bio,
-      residency,
+      workingRights,
       phoneNumber} = profile
     switch (activeStep) {
       case 0:return interests.length === 0;
@@ -172,7 +156,7 @@ class ResumeBuilderContainer extends React.Component {
       case 3: return  <SectionWrapper child={
         <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
       } width={400} height={420} />;
-      case 4: return <SectionWrapper child={this.otherInfo()} width={250} height={270} />
+      case 4: return <SectionWrapper child={<OtherInfo phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
       default: return "Uknown stepIndex";
     }
   }
@@ -300,7 +284,7 @@ class ResumeBuilderContainer extends React.Component {
                       </Button>
                       <Button
                         className={classes.footerButton}
-                      //  disabled={this.disableNext.bind(this)()}
+                      //disabled={this.disableNext.bind(this)()}
                         variant="flat"
                         onClick={this.handleNext}
                       >
