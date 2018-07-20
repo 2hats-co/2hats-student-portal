@@ -16,11 +16,11 @@ function otherInfo(props){
       justify="space-between"
       style={{ height: 300 }}
     >
-
-      <WorkingRights value={workingRights} changeHandler={changeHandler}/>
-      {
+       {
         <AvailableDays value={availableDays} changeHandler={changeHandler}/>
       }
+      <WorkingRights value={workingRights} changeHandler={changeHandler}/>
+     
       <PhoneNumber value={phoneNumber} changeHandler={changeHandler} />
     </Grid>
     )

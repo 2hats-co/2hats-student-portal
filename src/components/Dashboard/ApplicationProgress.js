@@ -4,12 +4,14 @@ import { withStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button"
 import { Grid } from '../../../node_modules/@material-ui/core';
+
+
 const styles = theme => ({
     root: {
      width:500
     },
   });
-function FeedbackHistory(props){
+function ApplicationProgress(props){
     const {classes} = props
    
     return(<div className={classes.root}>
@@ -39,4 +41,4 @@ function FeedbackHistory(props){
    </div>)
 }
 
-export default withStyles(styles)(FeedbackHistory);
+export default withStyles(styles)(ApplicationProgress);

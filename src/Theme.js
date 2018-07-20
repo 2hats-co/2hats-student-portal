@@ -117,7 +117,7 @@ export const Theme = createMuiTheme({
 
     },
     caption: {
-      fontSize: '10px',
+      fontSize: '11px',
       fontWeight: 'regular',
       fontFamily:primaryFontFamily,
       color: '#9B9B9B',

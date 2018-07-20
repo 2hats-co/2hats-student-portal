@@ -17,8 +17,18 @@ import UploadResume from '../assets/images/graphics/UploadResume.png'
 import SectionWrapper from '../components/SectionWrapper'
 import * as routes from '../constants/routes'
 import {withRouter} from 'react-router-dom'
+
+//Redux
+import { compose } from 'redux';
+import { withHandlers, lifecycle } from 'recompose'
+import { connect } from 'react-redux';
+import  {withFirestore} from '../utilities/withFirestore';
+//routing
+
 import { INTRODUCTION_CONTAINER } from '../constants/views';
 
+import { COLLECTIONS, LISTENER } from "../constants/firestore";
+import { PROCESS_TYPES } from '../constants/signUpProcess';
 const styles = theme => ({
     root: {
       paddingTop:40,
@@ -45,10 +55,12 @@ class IntroductionContainer extends React.Component {
   }
 
   goToBuildResume(){
+    this.props.setProccess(PROCESS_TYPES.build)
     this.props.history.push(routes.BUILD_RESUME)
   }
 
   goToUploadResume(){
+    this.props.setProccess(PROCESS_TYPES.upload)
     this.props.history.push(routes.UPLOAD_RESUME)
   }
   goToResumeOptions(){
@@ -114,10 +126,45 @@ class IntroductionContainer extends React.Component {
   }
 }
 
+
 IntroductionContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withRouter(
-  withStyles(styles)(IntroductionContainer)
+const enhance = compose(
+  // add redux store (from react context) as a prop
+  withFirestore,
+  // Handler functions as props
+  withHandlers({
+    loadData: props => listenerSettings =>
+      props.firestore.setListener(listenerSettings),
+
+    setProccess: props => (process) =>
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+          process:process,
+        updatedAt: props.firestore.FieldValue.serverTimestamp()
+      }
+    ),
+  }),
+  // Run functionality on component lifecycle
+  lifecycle({
+    // Load data when component mounts
+    componentWillMount() {
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
+      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
+        this.props.loadData(eduListenerSettings);
+        this.props.loadData(expListenerSettings);
+      this.props.loadData(profileListenerSettings);
+    },
+  }),
+  // Connect todos from redux state to props.todos
+  connect(({ firestore }) => ({ 
+     profile: firestore.data.profiles, // document data by id
+  }))
+)
+export default enhance(
+  withRouter(
+    withStyles(styles)(IntroductionContainer)
+  )
 )

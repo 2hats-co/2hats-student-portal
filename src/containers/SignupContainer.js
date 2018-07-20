@@ -80,6 +80,8 @@ class ResumeBuilderContainer extends React.Component {
   }
   componentWillMount(){
    // this.setState({activeStep:this.props.activeStep || 0})
+    
+
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
@@ -260,25 +262,7 @@ const enhance = compose(
     ),
   }),
   // Run functionality on component lifecycle
-  lifecycle({
-    // Load data when component mounts
-    componentWillMount() {
-      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
-      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
-        this.props.loadData(eduListenerSettings);
-        this.props.loadData(expListenerSettings);
-      this.props.loadData(profileListenerSettings);
-    },
-    componentWillUnmount() {
-      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
-      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
-      this.props.firestore.unsetListener(profileListenerSettings);
-      this.props.firestore.unsetListener(eduListenerSettings);
-      this.props.firestore.unsetListener(expListenerSettings);
-    }
-  }),
+ 
   // Connect todos from redux state to props.todos
   connect(({ firestore }) => ({ 
      profile: firestore.data.profiles, // document data by id

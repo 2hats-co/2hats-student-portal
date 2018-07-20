@@ -8,8 +8,8 @@ function AvailableDays(props){
         name="availableDays"
         value={value}
         changeHandler={changeHandler}
-        options={["1 Day","2 Days","3 Days","4 Days","5 Days"]}
-       // options={["1 Day","1.5 Days","2 Days","2.5 Days","3 Days","3.5 Days","4 Days","4.5 Days","5 Days"]}
+       // options={["1 Day","2 Days","3 Days","4 Days","5 Days"]}
+        options={["1 Day","1½ Days","2 Days","2½ Days","3 Days","3½ Days","4 Days","4½ Days","5 Days"]}
         hint="How many days are you available to work per week"
       />
     )
