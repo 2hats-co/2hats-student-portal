@@ -50,7 +50,7 @@ class Skills extends React.Component {
         this.setState({ selectedList:newSelectedList});
         }
     render() {
-        const {classes,interestKeys} = this.props;
+        const {classes,interestKeys,hideSuggestions} = this.props;
         return (
             <div className={classes.root}>
          <AutoCompleteField
@@ -70,7 +70,7 @@ class Skills extends React.Component {
               }}
             />
           ))}
-        <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>
+       {!hideSuggestions&& <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>}
            </div>
         );
     } 
