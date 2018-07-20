@@ -364,6 +364,7 @@ class AuthenticationContainer extends React.Component {
           onFailure={this.handleGoogleAuthFail}
           render={renderProps => (
             <Button variant='flat'
+              key={`${provider}${method}1`}
               style={{ backgroundColor: '#E05449' }}
               onClick={renderProps.onClick}
               className={classes.socialButton}>
@@ -388,10 +389,10 @@ class AuthenticationContainer extends React.Component {
     let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
     </StyledLink>)
-    const emailField = (<Email value={email} changeHandler={this.handleChange}/>)
-    const passwordField = (<Password value={password} changeHandler={this.handleChange}/>)
-    const confirmPasswordField =(<ConfirmPassword value={confirmPassword} changeHandler={this.handleChange}/>)
-    const nameFields = (<Name firstName={firstName} lastName={lastName} changeHandler={this.handleChange}/>)
+    const emailField = (<Email key="emailField" value={email} changeHandler={this.handleChange}/>)
+    const passwordField = (<Password key="passwordField" value={password} changeHandler={this.handleChange}/>)
+    const confirmPasswordField =(<ConfirmPassword key="confirmPasswordField" value={confirmPassword} changeHandler={this.handleChange}/>)
+    const nameFields = (<Name key="nameField" firstName={firstName} lastName={lastName} changeHandler={this.handleChange}/>)
     const orLabel = (<Typography key="or" className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
