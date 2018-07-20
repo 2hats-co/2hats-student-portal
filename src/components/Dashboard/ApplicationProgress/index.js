@@ -46,7 +46,7 @@ const styles = theme => ({
   render(){
     const {classes} = this.props
     const currentProcess = PROCESS_TYPES.upload
-    const steps = (<Grid direction='column'> {STEP_LABELS[currentProcess].map(x=><Step label={x} isComplete={false}/>)}</Grid>)
+    const steps = (<Grid container direction='column'> {STEP_LABELS[currentProcess].map(x=><Step key={x} label={x} isComplete={false}/>)}</Grid>)
     const finishButton = (<Button
         className={classes.button}
         variant="flat"
@@ -82,7 +82,9 @@ const styles = theme => ({
     <Grid className={classes.ProgressGrid} container  alignItems='center' direction='row' justify='space-around'>
          
              <ProgressDial percentage={80}/>
+             <Grid item>
               {steps}
+              </Grid>
 
     </Grid>
     <Grid className={classes.buttonsGrid} container direction='row' justify='space-between'>
