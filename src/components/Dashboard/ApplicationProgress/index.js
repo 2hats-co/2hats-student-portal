@@ -6,13 +6,16 @@ import ProgressDial from './ProgressDial'
 import Step from './Step'
 import {PROCESS_TYPES, STEP_LABELS} from '../../../constants/signUpProcess'
 
+import {withRouter} from 'react-router-dom'
+import * as routes from '../../../constants/routes'
+import SwitchDialog from './SwitchDialog'
 const styles = theme => ({
     root: {
      width:530,
      height:300
     },
     ProgressGrid:{
-      width:530,
+      width:500,
       height:200
     },
     buttonsGrid:{
@@ -23,14 +26,36 @@ const styles = theme => ({
         width:230,height:35
     }
   });
-function ApplicationProgress(props){
-    const {classes} = props
+  class ApplicationProgress extends React.Component{
+   constructor(props){
+    super(props);
+     this.state = {
+        switchDialog:false
+     }
+  
+    this.handleRouting = this.handleRouting.bind(this)
+   }
+    handleRouting = (route) => {
+      console.log('route',route)
+      if(route){
+        this.props.history.push(route)
+      }else{
+        this.setState({switchDialog:false})
+      }
+  };
+  render(){
+    const {classes} = this.props
     const currentProcess = PROCESS_TYPES.upload
     const steps = (<Grid direction='column'> {STEP_LABELS[currentProcess].map(x=><Step label={x} isComplete={false}/>)}</Grid>)
     const finishButton = (<Button
         className={classes.button}
         variant="flat"
-      //  onClick={nextHandler}
+      onClick={()=>{
+        let route = routes.BUILD_RESUME
+        if(currentProcess === PROCESS_TYPES.upload){
+          route = routes.UPLOAD_RESUME
+        }
+        this.handleRouting(route)}}
       >
       Finish Application
       </Button>)
@@ -38,7 +63,7 @@ function ApplicationProgress(props){
        const buildButton = (<Button
         className={classes.button}
         variant="outlined"
-        //onClick={backHandler}
+        onClick={()=>{this.setState({switchDialog:true})}}
       >
         Build Resume Instead
       </Button>)
@@ -46,7 +71,7 @@ function ApplicationProgress(props){
       const uploadButton = (<Button
         className={classes.button}
         variant="outlined"
-       // onClick={backHandler}
+        onClick={()=>{this.setState({switchDialog:true})}}
       >
         Upload Resume Instead
       </Button>)
@@ -61,11 +86,12 @@ function ApplicationProgress(props){
 
     </Grid>
     <Grid className={classes.buttonsGrid} container direction='row' justify='space-between'>
-        {currentProcess===PROCESS_TYPES.upload? uploadButton:buildButton}
+        {currentProcess===PROCESS_TYPES.upload?buildButton:uploadButton}
         {finishButton}
     </Grid>
-   
+   <SwitchDialog isOpen={this.state.switchDialog} currentProcess={currentProcess} closeHandler={this.handleRouting}/>
    </div>)
 }
+  }
 
-export default withStyles(styles)(ApplicationProgress);
+export default withRouter(withStyles(styles)(ApplicationProgress))
