@@ -20,15 +20,15 @@ import * as _ from "lodash";
 
 const styles = theme => ({
     root: {
-     padding:20,
+     padding:25,
       margin:20,
-      width:820
+      maxWidth:810
     },
     button:{
         width:150
     },
     content:{
-      width:800,
+      maxWidth:800,
     }
   });
   const INITIAL_STATE = {
@@ -65,7 +65,7 @@ class ProfileDialogForm extends React.Component {
       const {interests,bio,skills,industry} = profile
     return (
         <Dialog
-        maxWidth ={'md'}
+          maxWidth ={'md'}
           open={isOpen}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
@@ -80,7 +80,7 @@ class ProfileDialogForm extends React.Component {
           <div style={{width:400}}><PersonalBio industry={industry||'IT'} bio={bio} changeHandler={this.handleChange}/></div>
            
            
-           <Skills preSelectedList={skills} interestKeys={interests} changeHandler={this.handleChange}/>
+           <Skills hideSuggestions preSelectedList={skills} interestKeys={interests} changeHandler={this.handleChange}/>
 
            </div>
           </DialogContent>
