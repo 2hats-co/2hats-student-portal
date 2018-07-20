@@ -30,7 +30,7 @@ const styles = theme => ({
     paddingLeft:40,
     paddingRight:40,
     width:330,
-    height:516
+    height:420
   }
 
 });
@@ -194,7 +194,8 @@ class DialogForm extends React.Component {
             <Button variant="text"  onClick={()=>{handler()}}>
               Cancel
             </Button>
-            <Button variant="text" disabled={this.isDisabled()} onClick={this.handleAdd} >
+            <Button variant="text" //disabled={this.isDisabled()} 
+            color='inherit' onClick={this.handleAdd} >
               Add 
             </Button>
           </DialogActions>

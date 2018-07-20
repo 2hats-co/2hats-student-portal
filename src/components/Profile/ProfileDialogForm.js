@@ -10,6 +10,7 @@ import { withStyles } from '@material-ui/core/styles';
 import CareerInterests from '../InputFields/CareerInterests'
 import Skills from '../InputFields/Skills';
 import PersonalBio from '../InputFields/PersonalBio';
+import ResumeLoader from '../InputFields/ResumeLoader';
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
@@ -71,7 +72,7 @@ class ProfileDialogForm extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Edit Personal Information"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"Personal Information"}</DialogTitle>
           
           <DialogContent>
             <div className={classes.content}>
@@ -81,7 +82,7 @@ class ProfileDialogForm extends React.Component {
            
            
            <Skills hideSuggestions preSelectedList={skills} interestKeys={interests} changeHandler={this.handleChange}/>
-
+            
            </div>
           </DialogContent>
           <DialogActions>
