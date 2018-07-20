@@ -16,7 +16,6 @@ import UploadResume from '../assets/images/graphics/UploadResume.png'
 
 import SectionWrapper from '../components/SectionWrapper'
 import * as routes from '../constants/routes'
-import {withRouter} from 'react-router-dom'
 
 //Redux
 import { compose } from 'redux';
@@ -24,11 +23,11 @@ import { withHandlers, lifecycle } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
-
+import {withRouter} from 'react-router-dom'
 import { INTRODUCTION_CONTAINER } from '../constants/views';
-
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
 import { PROCESS_TYPES } from '../constants/signUpProcess';
+
 const styles = theme => ({
     root: {
       paddingTop:40,
@@ -158,7 +157,7 @@ const enhance = compose(
       this.props.loadData(profileListenerSettings);
     },
   }),
-  // Connect todos from redux state to props.todos
+  // Connect todos from redux state to props.profile
   connect(({ firestore }) => ({ 
      profile: firestore.data.profiles, // document data by id
   }))

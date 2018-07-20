@@ -6,7 +6,6 @@ export function validateEmail(email) {
 export function validatePassword(password){
     return password.length > 5
 }
-
 export function validateName(name){
     //check for numbers and special characters
     return name.length > 1

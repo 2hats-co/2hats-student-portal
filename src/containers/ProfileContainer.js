@@ -87,7 +87,6 @@ ProfileContainer.propTypes = {
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
       ),
-  
       onSubmit: props => () =>
           props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
           hasSubmit:true,

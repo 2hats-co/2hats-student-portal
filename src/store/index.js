@@ -6,9 +6,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
 import logger from 'redux-logger'
-// import { persistStore, persistReducer } from 'redux-persist';
-//import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
-//import storage from 'redux-persist/lib/storage';
 
 import { productionConfig,developmentConfig } from '../config/firebase'
 
@@ -22,18 +19,13 @@ if (process.env.NODE_ENV === 'production') {
 
 export function configureStore(initialState, history) {
   	const enhancers = []
-
-	
   	// Provide timestamp settings to silence warning about deprecation
   	firebase.firestore().settings({ timestampsInSnapshots: true })
-
-      
   	// Dev tools store enhancer
   	const devToolsExtension = window.devToolsExtension;
   	if (typeof devToolsExtension === 'function') {
     	enhancers.push(devToolsExtension());
   	}
-
 	const createStoreWithMiddleware = compose(
 		// Add redux firestore store enhancer
 		reduxFirestore(firebase),

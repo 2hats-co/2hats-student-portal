@@ -18,7 +18,6 @@ import BioAndSkills from '../components/SignUp/BioAndSkills';
 import Completed from '../components/SignUp/Completed';
 import ProfileDetails from "../components/SignUp/ProfileDetails";
 import UploadResume from "../components/SignUp/UploadResume";
-
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
@@ -80,8 +79,7 @@ class ResumeBuilderContainer extends React.Component {
   }
   componentWillMount(){
    // this.setState({activeStep:this.props.activeStep || 0})
-    
-
+   //TODO chech url
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
@@ -93,7 +91,6 @@ class ResumeBuilderContainer extends React.Component {
   goToIntroduction(){
     this.props.history.push(INTRODUCTION)
 } 
-
   handleChange(name, value) {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
@@ -261,9 +258,8 @@ const enhance = compose(
       }
     ),
   }),
-  // Run functionality on component lifecycle
  
-  // Connect todos from redux state to props.todos
+  // Connect todos from redux state to props.profile
   connect(({ firestore }) => ({ 
      profile: firestore.data.profiles, // document data by id
   }))

@@ -8,7 +8,7 @@ function WorkingRights(props){
         name="workingRights"
         value={value}
         changeHandler={changeHandler}
-        options={["Unrestricted - full working rights in Australia", "Restricted - 40 hours per fortnight"]}
+        list={["Unrestricted - full working rights in Australia", "Restricted - 40 hours per fortnight"]}
         hint="We accept candidates with both restricted and unrestricted working rights. Your answer will not impact your submission."
       />
     )

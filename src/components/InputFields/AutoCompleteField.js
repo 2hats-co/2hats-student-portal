@@ -50,7 +50,6 @@ class AutoCompleteField extends React.Component {
     this.setState({ skillValue:''});
   };
  
-
   handleChange = name => event => {
     const list = this.props.list;
     const value = event.target.value;

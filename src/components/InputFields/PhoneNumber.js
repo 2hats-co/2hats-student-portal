@@ -25,6 +25,7 @@ function NumberFormatCustom(props) {
     <NumberFormat
       {...other}
       ref={inputRef}
+      prefix={''}
       format="#### ### ###"
       onValueChange={values => {
         onChange({

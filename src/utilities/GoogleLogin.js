@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-
 class GoogleLogin extends Component {
   constructor(props) {
     super(props)
@@ -104,9 +103,6 @@ class GoogleLogin extends Component {
     }
   }
   handleSigninSuccess(res) {
-    /*
-      offer renamed response keys to names that match use
-    */
     const basicProfile = res.getBasicProfile()
     const authResponse = res.getAuthResponse()
     res.googleId = basicProfile.getId()

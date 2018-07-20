@@ -84,7 +84,6 @@ class DialogForm extends React.Component {
 
   }
   
-  
   handleAdd = () =>{
       let stateCopy = Object.assign(this.state,{})
       Object.keys(stateCopy).forEach((key) => (stateCopy[key] == null) && delete stateCopy[key]);
@@ -182,7 +181,6 @@ class DialogForm extends React.Component {
             hint={field.hint}
             value={this.state[field.name]&& this.state[field.name].value}
             changeHandler={this.handleChange.bind(this)}
-    
           />
                 default:break;
               }
