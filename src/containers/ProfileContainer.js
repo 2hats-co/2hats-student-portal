@@ -21,12 +21,21 @@ const styles = theme => ({
     }
 });
 class ProfileContainer extends Component{
-    
+    constructor(props){
+      super(props);
+      this.state = {
+        profileEditor:false
+      }
+      this.handleEdit = this.handleEdit.bind(this)
+    }
+    handleEdit(state){
+      this.setState({profileEditor:state})
+    }      
     render(){
         const {classes, profile,user} = this.props
        
         const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
-       
+
         let view = loading
         if (profile&& user){
           const userData = Object.values(user)[0]
@@ -43,11 +52,12 @@ class ProfileContainer extends Component{
               bio={profileData.bio}
               name={`${userData.firstName} ${userData.lastName}`}
               interestsList={profileData.interests}
+              editHandler={()=>{this.handleEdit(true)}}
               />
                 <EducationContainer industry={profileData.industry} name='education' width={650}/> 
                 <EducationContainer industry={profileData.industry} name='experience' width={650}/>
                 </Grid>
-                <ProfileDialogForm profile={profileData}/>
+                <ProfileDialogForm isOpen={this.state.profileEditor} closeHandler={()=>{this.handleEdit(false)}} profile={profileData}/>
                 </div>)
         }
         return(

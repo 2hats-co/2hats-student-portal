@@ -48,7 +48,7 @@ const styles = {
 
 
 function ProfileCard(props) {
-  const { classes,name,bio,interestsList,skillsList} = props;
+  const { classes,name,bio,interestsList,skillsList,editHandler} = props;
 
     let interests = (<div/>)
     if(interestsList){interests=(<div> <Typography variant='subheading'>
@@ -79,7 +79,7 @@ function ProfileCard(props) {
          {name}
          </Typography>
          </Grid>
-         <Grid item> <IconButton onClick={()=>{}} aria-label="Edit">
+         <Grid item> <IconButton onClick={editHandler} aria-label="Edit">
         <EditIcon />
       </IconButton> </Grid>
          </Grid>

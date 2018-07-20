@@ -140,9 +140,9 @@ const enhance = compose(
       props.firestore.setListener(listenerSettings),
 
     setProccess: props => (process) =>
-        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+        props.firestore.set({ collection: COLLECTIONS.profiles, doc: props.uid }, {
           process:process,
-        updatedAt: props.firestore.FieldValue.serverTimestamp()
+        createdAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),
   }),

@@ -22,8 +22,7 @@ const styles = theme => ({
     root: {
      padding:20,
       margin:20,
-      maxWidth:1000+'!important', 
-      width:1000+'!important'
+      width:820
     },
     button:{
         width:150
@@ -51,24 +50,23 @@ class ProfileDialogForm extends React.Component {
   }
   
   handleClose = () => {
-    
+    this.props.closeHandler()    
   };
   handleSave = () => {
     this.props.onSave({interests: this.state.interests,
       bio: this.state.bio,
       skills: this.state.skills})//update fire store
-    this.handleClose()
   };
   handleChange(name, value) {
     this.setState({[name]:value});
   }
   render() {
-      const {classes,profile} = this.props
+      const {classes,profile,isOpen} = this.props
       const {interests,bio,skills,industry} = profile
     return (
         <Dialog
-          open={true}
-          className={classes.root}
+        maxWidth ={'md'}
+          open={isOpen}
           onClose={this.handleClose}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"

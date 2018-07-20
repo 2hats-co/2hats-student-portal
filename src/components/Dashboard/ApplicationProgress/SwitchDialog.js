@@ -21,13 +21,19 @@ const processContent = {
     build:uploadContent
 }
 const styles = theme => ({
-    root: {
+    content: {
     // margin:'auto',
-    //  width:330,
-    //  height:285,
+      width:330,
+      height:180,
+      paddingLeft:40,
+      paddingRight:40
+    },
+
+    title:{
+      paddingLeft:40
     },
     button:{
-        width:150
+        width:70
     }
   });
 
@@ -36,14 +42,14 @@ function SwitchDialog(props) {
       const newProcess = processContent[currentProcess]
     return (
         <Dialog
-         className={classes.root}
+        
           open={isOpen}
           onClose={closeHandler}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{newProcess.title}</DialogTitle>
-          <DialogContent>
+          <DialogTitle className={classes.title} id="alert-dialog-title">{newProcess.title}</DialogTitle>
+          <DialogContent  className={classes.content}>
             <DialogContentText id="alert-dialog-description">
             {newProcess.body}
             </DialogContentText>
