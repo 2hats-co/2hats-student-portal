@@ -16,7 +16,7 @@ const styles = theme => ({
 },
 });
 function DropDown(props) {
-  const {classes,options,value,changeHandler,name,title,hint,label} = props;
+  const {classes,list,value,changeHandler,name,title,hint,label} = props;
     const InputField = ( 
         <FormControl className = {classes.inputField}>
           {label&& <Typography variant='caption'>{label}</Typography>}
@@ -29,7 +29,7 @@ function DropDown(props) {
           <MenuItem className={classes.placeHolderItem}
           value="select option" disabled>
           </MenuItem>
-          {options.map(option=>(
+          {list.map(option=>(
           <MenuItem key={option} value={option}>{option}</MenuItem>)
           )}
         </Select>
@@ -54,7 +54,7 @@ DropDown.propTypes = {name: PropTypes.string.isRequired,
   label: PropTypes.string,
   value: PropTypes.string,
   changeHandler: PropTypes.func.isRequired,
-  options: PropTypes.arrayOf(PropTypes.string).isRequired, 
+  list: PropTypes.arrayOf(PropTypes.string).isRequired, 
   classes: PropTypes.object.isRequired,
 };
 export default withStyles(styles)(DropDown);

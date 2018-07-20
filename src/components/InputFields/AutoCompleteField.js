@@ -16,12 +16,16 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
 const styles = theme => ({
   root:{
-    width:'100%'
+    width:'100%',
+   
   },
   textField:{
       width:'100%'
   },
   paper: {
+  // backgroundColor:'#f00',
+   position: 'absolute',
+    zIndex:10,
     marginRight: theme.spacing.unit * 2
   },
   popperClose: {
@@ -106,7 +110,7 @@ class AutoCompleteField extends React.Component {
                     
                       style={{ transformOrigin: "0 0 0", width:390}}
                     >
-                      <Paper>
+                      <Paper className={classes.paper}>
                         <MenuList role="menu">
                           {filteredList.map(x => (
                             <MenuItem
