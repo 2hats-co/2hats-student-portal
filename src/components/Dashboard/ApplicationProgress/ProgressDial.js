@@ -21,7 +21,6 @@ const styles = theme => ({
   }
 });
 
-
 function ProgressDial(props){
     const { classes,percentage} = props;
     return (

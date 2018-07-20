@@ -12,12 +12,11 @@ const styles = theme => ({
     height: 330,
     padding: 0,
   }),
-  button: {
+  button:{
     marginTop: 35,
     width: 200,
     marginLeft: 20
   }
-
 });
 function CardSection(props) {
   const { classes, step, title, image, description, button } = props;
