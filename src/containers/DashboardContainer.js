@@ -20,7 +20,7 @@ class DashboardContainer extends Component{
        
         return(
             <DashboardWrapper header='Dashboard'>
-            <ApplicationTimeLine/>
+            <ApplicationProgress/>
            <FeedbackHistory/>
            <UpcomingEvents/>
             </DashboardWrapper>
