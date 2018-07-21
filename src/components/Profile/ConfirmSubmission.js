@@ -10,24 +10,21 @@ import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
 const styles = theme => ({
     content: {
-    // margin:'auto',
-      width:330,
-      height:180,
+      width:500,
+      height:120,
       paddingLeft:40,
       paddingRight:40
     },
-
     title:{
       paddingLeft:40
     },
     button:{
-        width:70
+        width:100
     }
   });
 
 function ConfirmSubmission(props) {
-      const {classes,isOpen,currentProcess,closeHandler} = props
-      const newProcess = processContent[currentProcess]
+      const {classes,isOpen,closeHandler} = props
     return (
         <Dialog
         
@@ -41,14 +38,13 @@ function ConfirmSubmission(props) {
             <DialogContentText id="alert-dialog-description">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
             </DialogContentText>
-
           </DialogContent>
           <DialogActions>
           <Button className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>
             Back
             </Button>
-            <Button className={classes.button} onClick={()=>{closeHandler(newProcess.route)}} color="primary" autoFocus>
-            {newProcess.button}
+            <Button className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>
+            Submit
             </Button>
           </DialogActions>
         </Dialog>

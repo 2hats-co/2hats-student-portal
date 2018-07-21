@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DashboardWrapper from '../components/DashboardWrapper';
-import {Grid } from '@material-ui/core';
+import {Grid, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import EducationContainer from '../components/EduExp/EducationContainer';
 import ProfileCard from '../components/Profile/ProfileCard';
@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
 import ProfileDialogForm from '../components/Profile/ProfileDialogForm';
+import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
 
 const styles = theme => ({
     root: {
@@ -24,18 +25,22 @@ class ProfileContainer extends Component{
     constructor(props){
       super(props);
       this.state = {
-        profileEditor:false
+        profileEditorDailog:false,
+        submitionDialog:false 
       }
       this.handleEdit = this.handleEdit.bind(this)
     }
     handleEdit(state){
-      this.setState({profileEditor:state})
-    }      
+      this.setState({profileEditorDailog:state})
+    }
+    handleSubmition(){
+      this.setState({submitionDialog:false})
+    }  
     render(){
         const {classes, profile,user} = this.props
-       
+        const submitButton = (<Button variant='flat' style={{width:200}} onClick={()=>{this.setState({submitionDialog:true})}}>Submit Resume</Button>)
+        const updateButton = (<Button variant='flat' style={{width:200}}>Update Resume</Button>)
         const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
-
         let view = loading
         if (profile&& user){
           const userData = Object.values(user)[0]
@@ -56,15 +61,15 @@ class ProfileContainer extends Component{
               />
                 <EducationContainer industry={profileData.industry} name='education' width={650}/> 
                 <EducationContainer industry={profileData.industry} name='experience' width={650}/>
+                {submitButton}
                 </Grid>
-                <ProfileDialogForm isOpen={this.state.profileEditor} closeHandler={()=>{this.handleEdit(false)}} profile={profileData}/>
+                <ConfirmSubmission isOpen={this.state.submitionDialog}/>
+                <ProfileDialogForm isOpen={this.state.profileEditorDailog} closeHandler={()=>{this.handleEdit(false)}} profile={profileData}/>
                 </div>)
         }
         return(
-           
             <DashboardWrapper header='Dashboard'>
                 {view}
-                
             </DashboardWrapper>
         )
     }
