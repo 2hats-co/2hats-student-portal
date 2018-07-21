@@ -4,8 +4,9 @@ import {auth} from '../store';
 export const doCreateUserWithEmailAndPassword = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 // Sign In
-export const doSignInWithEmailAndPassword = (email, password) =>
-  auth.signInWithEmailAndPassword(email, password);
+export const doSignInWithEmailAndPassword = (email, password,displayName) =>
+  auth.signInWithEmailAndPassword(email, password)
+  
 
 export const doSignInWithCustomToken = (token) =>
  auth.signInWithCustomToken(token);

@@ -72,6 +72,7 @@ const INITIAL_STATE = {
   firstName: '',
   lastName: '',
   password: '',
+  isMounted:true,
   confirmPassword: '',
   email: '',
   error: null,
@@ -103,7 +104,7 @@ class AuthenticationContainer extends React.Component {
     this.handleProgress = this.handleProgress.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
     this.handleChange = this.handleChange.bind(this)
-
+ 
   }
   goToSignIn() {
     this.props.history.push(routes.SIGN_IN)
@@ -174,7 +175,7 @@ class AuthenticationContainer extends React.Component {
             setTimeout(() => {
               this.handleLoadingIndicator(false);
               this.props.history.push(routes.INTRODUCTION);
-            }, 1000)
+            }, 500)
            
           } else {
             // todo: means this is an existing user, go to profile page directly
@@ -182,7 +183,7 @@ class AuthenticationContainer extends React.Component {
             setTimeout(() => {
               this.handleLoadingIndicator(false);
               this.props.history.push(routes.INTRODUCTION);
-            }, 1000)
+            }, 500)
          
           }
 
@@ -230,7 +231,7 @@ class AuthenticationContainer extends React.Component {
               setTimeout(() => {
                 this.handleLoadingIndicator(false);
                 this.props.history.push(routes.INTRODUCTION);
-              }, 1000)
+              }, 500)
 
               // Note: for demo purpose, introduction page will be displayed
             } else {
@@ -239,7 +240,7 @@ class AuthenticationContainer extends React.Component {
               setTimeout(() => {
                 this.handleLoadingIndicator(false);
                 this.props.history.push(routes.INTRODUCTION);
-              }, 1000)
+              }, 500)
             }
 
           } catch (error) {
@@ -296,7 +297,7 @@ class AuthenticationContainer extends React.Component {
         this.handleSnackBar(true, 'success', 'Sign in successfully !');
         setTimeout(() => {
           this.goToIntroduction()
-        }, 1800)
+        }, 500)
       })
       .catch(error => {
         console.log('error', error);
@@ -312,21 +313,21 @@ class AuthenticationContainer extends React.Component {
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         this.handleProgress(60);
-        this.props.createUser(authUser.user.uid, { firstName, lastName, email })
-        this.props.createProfile(authUser.user.uid)
-        this.setState(() => ({ ...INITIAL_STATE, isLoading: true }));
-        this.handleProgress(90);
-        this.handleSnackBar(true, 'success', 'Sign up successfully !');
-        setTimeout(() => {
-          this.goToIntroduction()
-        }, 1800)
-      })
-      .catch(error => {
-        console.log('error', error);
-        this.handleSnackBar(true, 'error', error.message);
-        this.handleLoadingIndicator(false);
-        this.setState(updateByPropertyName('error', error));
-      });
+        authUser.user.updateProfile({
+          displayName: `${firstName} ${lastName}`
+        })}).then(
+          this.handleProgress(90),
+          this.setState({isMounted:false}),
+          setTimeout(() => {
+            this.goToIntroduction()
+          }, 500)
+        ).catch(error => {
+          console.log('error', error);
+          this.handleSnackBar(true, 'error', error.message);
+          this.handleLoadingIndicator(false);
+            this.setState(updateByPropertyName('error', error));
+        });
+    
   }
   handleResetPassword(email) {
     auth.doPasswordReset(email)
@@ -505,25 +506,7 @@ const enhance = compose(
   withFirestore,
   // Handler functions as props
   withHandlers({
-
-    createUser: props => (uid, user) =>
-
-      props.firestore.set({ collection: COLLECTIONS.users, doc: uid }, {
-        ...user,
-        createdAt: props.firestore.FieldValue.serverTimestamp()
-      }
-
-      ),
-    createProfile: props => (uid) =>
-
-      props.firestore.set({ collection: COLLECTIONS.profiles, doc: uid }, {
-        hasSubmit: false,
-        createdAt: props.firestore.FieldValue.serverTimestamp()
-      }
-
-      ),
     onSignIn: props => (uid) =>
-
       props.firestore.update({ collection: COLLECTIONS.users, doc: uid }, {
         lastSignInAt: props.firestore.FieldValue.serverTimestamp()
       }

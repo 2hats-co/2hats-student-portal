@@ -124,7 +124,9 @@ class ResumeBuilderContainer extends Component {
       data = {this.state.profile.experience}      
       width={470}/>        
         </SectionWrapper>;
-      case ALL_STEPS.other: return <SectionWrapper width={250} height={270}> <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
+      case ALL_STEPS.other: return <SectionWrapper width={250} height={270}>
+       <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} 
+       workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
       case ALL_STEPS.profileDetails:return <SectionWrapper width={400} height={420}> <ProfileDetails 
       industry={this.state.profile.industry}
       currentUniversity={this.state.profile.currentUniversity}
@@ -236,6 +238,7 @@ const enhance = compose(
     onNext: props => (profile) =>
         props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
         ...profile,
+
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),
