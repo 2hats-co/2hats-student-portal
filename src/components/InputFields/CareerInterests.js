@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
-import {CAREER_INTERESTS} from '../../constants/resumeBuilderPrompts'
+import {CAREER_INTERESTS,getIndustryFromInterests} from '../../constants/resumeBuilderPrompts'
 
 const styles = theme => ({
   root: {
@@ -32,9 +32,11 @@ class CareerInterests extends React.Component {
     if(event.target.checked){
       const newInterests = this.props.preSelectedList.concat(name)
       this.props.changeHandler('interests',newInterests)
+      this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }else{
       const newInterests = this.props.preSelectedList.filter(x=> x!==name)
     this.props.changeHandler('interests',newInterests)
+    this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }
   };
   renderCheckBox(item){

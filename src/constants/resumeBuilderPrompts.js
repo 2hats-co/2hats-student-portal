@@ -27,7 +27,7 @@ Member of the 2hats University Graphic Design Society`,
 exp:`Designed logos, promotional materials and icons for 2hats’ website and social media posts
 Liaised with team members from the marketing team to deliver aesthetically-pleasing, eye-catching designs that convey 2hats’ fun, youthful brand image`}
 
-
+const INDUSTRIES = ['Business','Marketing','Design','IT']
 const businessList = [{key:'B2B',label:'B2B Sales'},{key:'RM',label:'Relationship Management'},{key:'LG',label:'Lead Generation'}]
 const marketingList = [{key:'CW',label:'Content Writing'},{key:'SMM',label:'Social Media Marketing'},{key:'SEO',label:'SEO'}]
 const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User Experience'},{key:'UI',label:'User Interface'}]
@@ -46,6 +46,29 @@ export function getPrompts(field){
   
 }
 
+export function getIndustryFromInterests(interests){
+    let count={Business:0, Marketing:0,Design:0,IT:0}
+  
+    CAREER_INTERESTS.forEach(industry=>{
+        industry.items.forEach(item=>{
+            interests.forEach(interest=>{
+                if(item.key===interest){
+                    count[industry.label]= count[industry.label]+1
+                }
+            })
+        })
+    })
+    let largestIndex = 0
+    let largestValue = 0
+    let values = Object.values(count)
+    values.forEach((x,k)=>{
+        if (x> largestValue){
+            largestIndex=k;
+            largestValue=x;
+        }
+    })
+    return INDUSTRIES[largestIndex]
+}
 const SKILLS ={
     B2B:['Salesforce','CRM System','HubSpot'],
     LG:['Salesforce','CRM System','HubSpot'],
