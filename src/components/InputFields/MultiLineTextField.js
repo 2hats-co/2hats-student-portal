@@ -85,15 +85,13 @@ class MultiLineTextField extends React.Component {
       title={title}
       hint={hint}
       characterCounter={this.state.characterCountValue}
-      child={(<textarea
+      ><textarea
       onChange={this.handleChange.bind(this)}
       onFocus={this.handleFocus.bind(this)}
       className={classes.root}rows="4" cols="50"
      // style={{widthMax:200 +'!important'}}
       value={this.state.inputValue}>
-      </textarea>)}
-      
-      />
+      </textarea></InputWrapper>
       </div>
 
     )}

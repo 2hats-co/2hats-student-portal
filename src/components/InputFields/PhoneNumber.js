@@ -80,9 +80,9 @@ class PhoneNumber extends React.Component {
     <InputWrapper 
   title='mobile number (Optional)'
   hint='Your mobile number is required so that we can contact you for a phone interview.'
-  child =  {InputField}
-  />
-   
+ 
+  >{InputField}
+  </InputWrapper> 
   </div> 
   );
 }

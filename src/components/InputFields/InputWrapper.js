@@ -20,7 +20,7 @@ const styles = theme => ({
 });
 
 function InputWrapper(props) {
-  const { classes, title, hint,characterCounter, child,headerColor } = props;
+  const { classes, title, hint,characterCounter,headerColor } = props;
   const header = ( <Typography variant='title' color={headerColor}>
   {title}
 </Typography>)
@@ -54,7 +54,7 @@ function InputWrapper(props) {
    className={classes.root}
    >
      {header}
-     {child}
+     {props.children}
      {footer}
   </div>
   );

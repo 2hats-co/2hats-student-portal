@@ -119,12 +119,11 @@ class IntroductionContainer extends React.Component {
     >
     <SectionWrapper 
       height = {550}
-      child = {this.state.view === INTRODUCTION_CONTAINER.process? processView:submissionView }/> 
+     > {this.state.view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
      </LogoOnCard>
     );
   }
 }
-
 
 IntroductionContainer.propTypes = {
   classes: PropTypes.object.isRequired,

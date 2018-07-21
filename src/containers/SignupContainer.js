@@ -8,8 +8,8 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Grid from "@material-ui/core/Grid";
 //child components
 import LogoOnCard from "../components/LogoOnCard";
-import SectionWrapper from "../components/SectionWrapper";
 //form sections
+import SectionWrapper from '../components/SectionWrapper'
 import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
 import CareerInterests from "../components/InputFields/CareerInterests";
 import EducationContainer from "../components/EduExp/EducationContainer";
@@ -101,44 +101,37 @@ class ResumeBuilderContainer extends React.Component {
     switch (currentStep) {
       case ALL_STEPS.interests: 
         return (
-          <SectionWrapper
-            child={
-              <CareerInterests preSelectedList={interests} changeHandler={this.handleChange.bind(this)} />
-            }
-            width={750}
-            height={220}
-          />
+          <SectionWrapper width={750} height={220}>
+              <CareerInterests preSelectedList={interests} changeHandler={this.handleChange} />
+          </SectionWrapper>
+         
         );
-      case ALL_STEPS.bio: return <SectionWrapper child={ 
+      case ALL_STEPS.bio: return <SectionWrapper width={400} height={420}>
       <BioAndSkills 
         industry={this.state.profile.industry}
        bio={this.state.profile.bio}
         interests={this.state.profile.interests}
          skills={this.state.profile.skills} 
-         changeHandler={this.handleChange}/>
-        } width={400} height={420} />
-      case ALL_STEPS.education: return <SectionWrapper child={
-        <EducationContainer industry={industry} name='education' changeHandler={this.handleChange.bind(this)} width={470}/>
-      } width={400} height={420} />;
-      case ALL_STEPS.experience: return  <SectionWrapper child={
-        <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange.bind(this)} width={470}/>        
-      } width={400} height={420} />;
-      case ALL_STEPS.other: return <SectionWrapper child={<OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/>} width={250} height={270} />
-      case ALL_STEPS.profileDetails:return <SectionWrapper child={ 
-        <ProfileDetails 
-          industry={this.state.profile.industry}
-          currentUniversity={this.state.profile.currentUniversity}
-          interests={this.state.profile.interests}
-           skills={this.state.profile.skills} 
-           changeHandler={this.handleChange}/>
-          } width={400} height={420} />;
-      case ALL_STEPS.uploadResume:return <SectionWrapper child={ 
-        <UploadResume 
-        resumeFile={this.state.profile.resumeFile}
-         bio={this.state.profile.bio}
-         industry={this.state.profile.industry}
-           changeHandler={this.handleChange}/>
-          } width={400} height={420} />;
+         changeHandler={this.handleChange}/></SectionWrapper>
+       
+      case ALL_STEPS.education: return <SectionWrapper
+        width={400} height={420}> <EducationContainer industry={industry} name='education' changeHandler={this.handleChange} width={470}/>
+        </SectionWrapper>;
+      case ALL_STEPS.experience: return  <SectionWrapper width={400} height={420} >  
+      <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange} width={470}/>        
+        </SectionWrapper>;
+      case ALL_STEPS.other: return <SectionWrapper width={250} height={270}> <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
+      case ALL_STEPS.profileDetails:return <SectionWrapper width={400} height={420}> <ProfileDetails 
+      industry={this.state.profile.industry}
+      currentUniversity={this.state.profile.currentUniversity}
+      interests={this.state.profile.interests}
+       skills={this.state.profile.skills} 
+       changeHandler={this.handleChange}/></SectionWrapper>;
+      case ALL_STEPS.uploadResume:return <SectionWrapper width={400} height={420}><UploadResume 
+      resumeFile={this.state.profile.resumeFile}
+       bio={this.state.profile.bio}
+       industry={this.state.profile.industry}
+         changeHandler={this.handleChange}/></SectionWrapper>;
       default: return "Uknown step";
 
     }
@@ -197,20 +190,18 @@ class ResumeBuilderContainer extends React.Component {
             <div>
               {this.state.activeStep === steps.length ? (
                 <SectionWrapper
-                  child={
-                    <Grid
-                      container
-                      direction="column"
-                      justify="space-between"
-                      style={{ height: 150 }}
-                    >
-                      <Completed/>
-                      {stepController}
-                    </Grid>
-                  }
+                 
                   width={750}
                   height={150}
-                />
+                > <Grid
+                container
+                direction="column"
+                justify="space-between"
+                style={{ height: 150 }}
+              >
+                <Completed/>
+                {stepController}
+              </Grid></SectionWrapper>
               ) : (
                 <Grid
                   container

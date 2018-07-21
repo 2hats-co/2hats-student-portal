@@ -7,7 +7,7 @@ import PersonalBio from "../InputFields/PersonalBio";
 import Skills from "../InputFields/Skills";
 function BioAndSkills(props){
     const {industry,bio,skills,interests,changeHandler} = props
-    return(
+    return( 
         <Grid
         container
         direction="row"

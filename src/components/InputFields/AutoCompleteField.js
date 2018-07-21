@@ -71,66 +71,63 @@ class AutoCompleteField extends React.Component {
         <InputWrapper
           title={title}
           hint={hint}
-          child={
-            <div className={classes.root}>
-              <Manager>
-                <Target>
-                  <div
-                    ref={node => {
-                      this.target1 = node;
-                    }}
-                  >
-                    <TextField
-                      value={this.state.skillValue}
-                      placeholder={placeholder}
-                      className={classes.textField}
-                      onChange={this.handleChange("skillValue")}
-                      onKeyPress={e => {
-                        if (e.key === "Enter") {
-                          const skill = this.state.skillValue;
-                          if (skill !== "") {
-                            this.handleClose(skill);
-                          }
-                        }
-                      }}
-                    />
-                  </div>
-                </Target>
-                <Popper
-                  placement="bottom-start"
-                  eventsEnabled={showList}
-                  //
-                 className={classNames({ [classes.popperClose]: !showList })}
-                >
-                  <ClickAwayListener onClickAway={this.handleClose}>
-                    <Grow
-                      in={showList}
-                      id="menu-list-grow"
-                    
-                      style={{ transformOrigin: "0 0 0", width:390}}
-                    >
-                      <Paper className={classes.paper}>
-                        <MenuList role="menu">
-                          {filteredList.map(x => (
-                            <MenuItem
-                              key={x}
-                              onClick={() => {
-                                this.handleClose(x);
-                              }}
-                            >
-                              {x}
-                            </MenuItem>
-                          ))}
-                        </MenuList>
-                      </Paper>
-                    </Grow>
-                  </ClickAwayListener>
-                </Popper>
-              </Manager>
+        ><div className={classes.root}>
+        <Manager>
+          <Target>
+            <div
+              ref={node => {
+                this.target1 = node;
+              }}
+            >
+              <TextField
+                value={this.state.skillValue}
+                placeholder={placeholder}
+                className={classes.textField}
+                onChange={this.handleChange("skillValue")}
+                onKeyPress={e => {
+                  if (e.key === "Enter") {
+                    const skill = this.state.skillValue;
+                    if (skill !== "") {
+                      this.handleClose(skill);
+                    }
+                  }
+                }}
+              />
             </div>
-          }
-        />
-        
+          </Target>
+          <Popper
+            placement="bottom-start"
+            eventsEnabled={showList}
+            //
+           className={classNames({ [classes.popperClose]: !showList })}
+          >
+            <ClickAwayListener onClickAway={this.handleClose}>
+              <Grow
+                in={showList}
+                id="menu-list-grow"
+              
+                style={{ transformOrigin: "0 0 0", width:390}}
+              >
+                <Paper className={classes.paper}>
+                  <MenuList role="menu">
+                    {filteredList.map(x => (
+                      <MenuItem
+                        key={x}
+                        onClick={() => {
+                          this.handleClose(x);
+                        }}
+                      >
+                        {x}
+                      </MenuItem>
+                    ))}
+                  </MenuList>
+                </Paper>
+              </Grow>
+            </ClickAwayListener>
+          </Popper>
+        </Manager>
+      </div>
+      </InputWrapper>
      
     );
   }

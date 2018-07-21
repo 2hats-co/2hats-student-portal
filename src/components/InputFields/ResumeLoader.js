@@ -7,6 +7,7 @@ import Dropzone from 'react-dropzone'
 import {storage} from '../../store'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from "classnames";
+import InputWrapper from './InputWrapper'
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
@@ -76,7 +77,8 @@ class ResumeLoader extends React.Component {
             [classes.buttonSuccess]: true,
           });
         return (
-           
+            <InputWrapper
+      title={'Resume Upload'}>
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
             > 
@@ -109,6 +111,7 @@ class ResumeLoader extends React.Component {
         </div>
             </Grid>
             </Dropzone>
+            </InputWrapper>
         );
     } 
 }

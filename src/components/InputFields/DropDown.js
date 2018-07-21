@@ -36,15 +36,11 @@ function DropDown(props) {
       </FormControl>
     )
   return (
-   <div
-  className={classes.root}
-   >
     <InputWrapper 
   title={title}
-  hint={hint}
-  child={InputField}
-    />
-  </div> 
+  hint={hint}>
+    {InputField}
+    </InputWrapper>
   );
 }
 DropDown.propTypes = {name: PropTypes.string.isRequired,
