@@ -52,10 +52,11 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  activeStep: 0,
+  activeStep: 4,
   profile:{
-  process:PROCESS_TYPES.upload,//['build','upload']
+  process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
+  currentStep:ALL_STEPS.interests,
   bio: "",
   currentUniversity:"",
   skills: [],
@@ -68,6 +69,15 @@ const INITIAL_STATE = {
   experience: []},
   error: null
 };
+function AvailableDaysConverter(string){
+  const  days = string
+  console.log('days',days)
+  let  number = parseInt(days)
+    if(days.includes('½')){
+      number = number+0.5
+    }
+   return number
+}
 class ResumeBuilderContainer extends Component {
   constructor(props) {
     super(props);
@@ -143,8 +153,30 @@ class ResumeBuilderContainer extends Component {
     }
   }
   handleNext = () => {
-    this.props.onNext(this.state.profile)//update fire store
+    const {profile} = this.state
     const { activeStep } = this.state;
+    const currentStep = STEP_LABELS[(profile.process)][activeStep]
+    switch (currentStep) {
+      case ALL_STEPS.interests:this.props.onProfileUpdate({interests:profile.interests,industry:profile.industry,completedStep:currentStep})
+      break;
+      case ALL_STEPS.bio:this.props.onProfileUpdate({bio:profile.bio,skills:profile.skills,completedStep:currentStep})
+      break; 
+      case ALL_STEPS.profileDetails:this.props.onProfileUpdate({skills:profile.skills,completedStep:currentStep})
+      this.props.onUserUpdate({currentUniversity:profile.currentUniversity})
+      break; 
+      case ALL_STEPS.education:this.props.onProfileUpdate({education:profile.education,completedStep:currentStep})
+      this.props.onUserUpdate({currentUniversity:profile.education[0].university})//TODO: make it smarter
+      break; 
+      case ALL_STEPS.experience:this.props.onProfileUpdate({experience:profile.experience,completedStep:currentStep})
+      break; 
+      case ALL_STEPS.uploadResume:this.props.onProfileUpdate({resumeFile:profile.resumeFile,bio:profile.bio,completedStep:currentStep})
+      break; 
+      case ALL_STEPS.other:this.props.onProfileUpdate({completedStep:'completed',isComplete:true})
+      this.props.onUserUpdate({phoneNumber:profile.phoneNumber,availableDays:AvailableDaysConverter(profile.availableDays)})
+      break;
+      default:
+        break;
+    }
     this.setState({
       activeStep: activeStep + 1
     });
@@ -235,10 +267,15 @@ const enhance = compose(
   withFirestore,
   // Handler functions as props
   withHandlers({
-    onNext: props => (profile) =>
+    onProfileUpdate: props => (data) =>
         props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-        ...profile,
-
+        ...data,
+        updatedAt: props.firestore.FieldValue.serverTimestamp()
+      }
+    ),
+    onUserUpdate: props => (data) =>
+        props.firestore.update({ collection: COLLECTIONS.users, doc: props.uid }, {
+        ...data,
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),
