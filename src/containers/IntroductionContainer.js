@@ -136,11 +136,28 @@ const enhance = compose(
   withHandlers({
     loadData: props => listenerSettings =>
       props.firestore.setListener(listenerSettings),
+      createUser: props => () =>
 
-    setProccess: props => (process) =>
-        props.firestore.set({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-          process:process,
+      props.firestore.set({ collection: COLLECTIONS.users, doc: props.uid }, {
+        firstName: props.auth.displayName.split(' ')[0],
+        lastName: props.auth.displayName.split(' ')[1],
+        emailVerified: props.auth.emailVerified,
         createdAt: props.firestore.FieldValue.serverTimestamp()
+      }
+
+      ),
+    createProfile: props => () =>
+
+      props.firestore.set({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+
+        hasSubmit: false,
+        createdAt: props.firestore.FieldValue.serverTimestamp()
+      }
+      ),
+    setProccess: props => (process) =>
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+          process:process,
+        startedAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),
   }),
@@ -149,17 +166,11 @@ const enhance = compose(
     // Load data when component mounts
     componentWillMount() {
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-      const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
-      const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
-        this.props.loadData(eduListenerSettings);
-        this.props.loadData(expListenerSettings);
       this.props.loadData(profileListenerSettings);
+      this.props.createUser();
+      this.props.createProfile();
     },
   }),
-  // Connect todos from redux state to props.profile
-  connect(({ firestore }) => ({ 
-     profile: firestore.data.profiles, // document data by id
-  }))
 )
 export default enhance(
   withRouter(

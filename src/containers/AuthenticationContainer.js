@@ -493,7 +493,6 @@ class AuthenticationContainer extends React.Component {
     );
   }
 }
-
 AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
   store: PropTypes.shape({
