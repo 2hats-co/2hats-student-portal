@@ -25,7 +25,7 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {INTRODUCTION} from '../constants/routes'
-import {withRouter} from 'react-router-dom'
+
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
 import * as _ from "lodash";
@@ -72,7 +72,7 @@ class ResumeBuilderContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    this.goToIntroduction = this.goToIntroduction.bind(this)
+
     this.handleChange = this.handleChange.bind(this)
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
@@ -88,9 +88,6 @@ class ResumeBuilderContainer extends Component {
      })
     }
   }
-  goToIntroduction(){
-    this.props.history.push(INTRODUCTION)
-} 
   handleChange(name, value) {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
@@ -152,10 +149,7 @@ class ResumeBuilderContainer extends Component {
   };
   handleBack = () => {
     const { activeStep } = this.state;
-    if(activeStep === 0){
-     this.goToIntroduction()
-
-    }else{
+    if(activeStep !== 0){
       this.setState({
         activeStep: activeStep - 1
       });
@@ -168,13 +162,13 @@ class ResumeBuilderContainer extends Component {
   };
   render() {
     const { classes } = this.props;
-    const steps = STEP_LABELS[(this.state.profile.process)];
-    const { activeStep } = this.state;
-    console.log('state',this.state)
-    const currentStep = STEP_LABELS[(this.state.profile.process)][this.state.activeStep]
+
+    const { activeStep ,profile} = this.state;
+    const steps = STEP_LABELS[(profile.process)];
+    const currentStep = STEP_LABELS[(profile.process)][activeStep]
     const stepController = (
       <StepController currentStep={currentStep} 
-      profile={this.state.profile} 
+      profile={profile} 
       nextHandler={this.handleNext}
       backHandler={this.handleBack}/>
     )
@@ -206,7 +200,7 @@ class ResumeBuilderContainer extends Component {
                 justify="space-between"
                 style={{ height: 200 }}
               >
-                <Completed/>
+                <Completed process={profile.process}/>
                 {stepController}
               </Grid></SectionWrapper>
               ) : (
@@ -215,7 +209,7 @@ class ResumeBuilderContainer extends Component {
                   direction="column"
                   justify="space-between"
                 >
-                  <Grid item>{this.getStepContent(currentStep,this.state.profile)}</Grid>
+                  <Grid item>{this.getStepContent(currentStep,profile)}</Grid>
                   <Grid item>
                   {stepController}
                   </Grid>
@@ -239,19 +233,9 @@ const enhance = compose(
   withFirestore,
   // Handler functions as props
   withHandlers({
-    loadData: props => listenerSettings =>
-      props.firestore.setListener(listenerSettings),
-
     onNext: props => (profile) =>
         props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
         ...profile,
-        updatedAt: props.firestore.FieldValue.serverTimestamp()
-      }
-    ),
-
-    onSubmit: props => () =>
-        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-        hasSubmit:true,
         updatedAt: props.firestore.FieldValue.serverTimestamp()
       }
     ),

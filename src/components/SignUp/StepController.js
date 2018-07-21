@@ -2,9 +2,9 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-
+import {withRouter} from 'react-router-dom'
 import {ALL_STEPS} from '../../constants/signUpProcess'
-
+import * as routes from '../../constants/routes'
 const styles = theme => ({
   root: {
     width: 600
@@ -17,7 +17,24 @@ const styles = theme => ({
   }
 });
 
-function disableNext(currentStep,profile){
+
+class StepController extends React.Component {
+constructor(props){
+  super(props);
+  this.goToPreview = this.goToPreview.bind(this)
+  this.goToIntroduction = this.goToIntroduction.bind(this)
+}
+goToPreview(){
+  this.props.history.push(routes.PROFILE)
+}
+goToIntroduction(){
+  this.props.history.push(routes.INTRODUCTION)
+}
+
+goToLockedDashboard(){
+
+}
+disableNext(currentStep,profile){
     const{interests,
       skills,
       bio,
@@ -35,13 +52,13 @@ function disableNext(currentStep,profile){
     }
   }
 
-function StepController(props){
+render(){
 
- const{classes,profile,currentStep,nextHandler,backHandler} = props
+ const{classes,profile,currentStep,nextHandler,backHandler} = this.props
  console.log(currentStep)
  const nextButton = (<Button
     className={classes.button}
-    disabled={disableNext(currentStep,profile)}
+    disabled={this.disableNext(currentStep,profile)}
     variant="flat"
     onClick={nextHandler}
   >
@@ -52,21 +69,21 @@ function StepController(props){
     className={classes.button}
     style={{width:210}}
     variant="flat"
-    onClick={nextHandler}
+    onClick={this.goToPreview}
   >
   Preview for Submission
   </Button>)
   const backButton = (<Button
     className={classes.button}
     variant="outlined"
-    onClick={backHandler}
+    onClick={currentStep===ALL_STEPS.interests?this.goToIntroduction:backHandler}
   >
     Back
   </Button>)
   const saveButton = (<Button
     className={classes.button}
     variant="outlined"
-    onClick={backHandler}
+ //   onClick={}
   >
     Save for Later
   </Button>)
@@ -85,4 +102,5 @@ function StepController(props){
     </Grid>
  )
 }
-export default  withStyles(styles)(StepController)
+}
+export default  withRouter(withStyles(styles)(StepController))
