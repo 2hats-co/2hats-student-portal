@@ -20,6 +20,12 @@ import {auth} from '../firebase';
 import {withRouter} from 'react-router-dom'
 import * as routes from '../constants/routes'
 
+//Redux
+import { withHandlers, lifecycle } from 'recompose'
+import { connect } from 'react-redux';
+import  {withFirestore} from '../utilities/withFirestore';
+import { COLLECTIONS,LISTENER } from "../constants/firestore";
+
 import DarkLogo from '../assets/images/Logo/DarkText.png'
 const drawerWidth = 240;
 
@@ -108,11 +114,65 @@ DashboardWrapper.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const enhance = compose(
+  // add redux store (from react context) as a prop
+  withFirestore,
+  // Handler functions as props
+  withHandlers({
+    loadData: props => listenerSettings =>
+      props.firestore.setListener(listenerSettings),
+
+    onNext: props => (profile) =>
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+        ...profile,
+        updatedAt: props.firestore.FieldValue.serverTimestamp()
+      }
+    ),
+    onUpdate: props => (name,value) =>
+        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+        [name]:value,
+        updatedAt: props.firestore.FieldValue.serverTimestamp()
+      }
+    ),onSubmit: props => () =>
+    props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+    hasSubmit:true,
+    submittedAt: props.firestore.FieldValue.serverTimestamp()
+  }
+),
+  }),
+  // Run functionality on component lifecycle
+  lifecycle({
+    // Load data when component mounts
+    componentWillMount() {
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      this.props.loadData(profileListenerSettings);
+      const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
+      this.props.loadData(usersListenerSettings);
+    },
+    componentWillUnmount() {
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      this.props.firestore.unsetListener(profileListenerSettings);
+      const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
+      this.props.firestore.unsetListener(usersListenerSettings);
+    }
+  }),
+  // Connect todos from redux state to props.todos
+  connect(({ firestore }) => ({
+      education: firestore.data.education,// document data by id
+      experience: firestore.data.experience, // document data by id
+     profile: firestore.data.profiles, // document data by id
+     user: firestore.data.users, // document data by id
+  }))
+)
+
+
 const authCondition = (authUser) => !!authUser;
 
-export default withRouter(
+export default enhance(
+  withRouter(
   compose(
     withAuthorisation(authCondition)(withStyles(styles)(DashboardWrapper))
   )
+)
 )
 

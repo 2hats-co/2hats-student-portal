@@ -8,10 +8,10 @@ import PropTypes from "prop-types";
 import CircularProgress from '@material-ui/core/CircularProgress'
 //Redux
 import { compose } from 'redux';
-import { withHandlers, lifecycle } from 'recompose'
+import { withHandlers } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
-import { COLLECTIONS,LISTENER } from "../constants/firestore";
+import { COLLECTIONS } from "../constants/firestore";
 
 import { PROCESS_TYPES } from "../constants/signUpProcess";
 import ProfileDialogForm from '../components/Profile/ProfileDialogForm';
@@ -110,31 +110,7 @@ ProfileContainer.propTypes = {
     }
   ),
     }),
-    // Run functionality on component lifecycle
-    lifecycle({
-      // Load data when component mounts
-      componentWillMount() {
-        const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-        const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
-        const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
-          this.props.loadData(eduListenerSettings);
-          this.props.loadData(expListenerSettings);
-        this.props.loadData(profileListenerSettings);
-        const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
-        this.props.loadData(usersListenerSettings);
-      },
-      componentWillUnmount() {
-        const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-        const eduListenerSettings = LISTENER(COLLECTIONS.education,this.props.uid)
-        const expListenerSettings = LISTENER(COLLECTIONS.experience,this.props.uid)
-        this.props.firestore.unsetListener(profileListenerSettings);
-        this.props.firestore.unsetListener(eduListenerSettings);
-        this.props.firestore.unsetListener(expListenerSettings);
-        const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
-        this.props.firestore.unsetListener(usersListenerSettings);
-      }
-    }),
-    // Connect todos from redux state to props.todos
+    // Connect get data from fire stroe
     connect(({ firestore }) => ({
         education: firestore.data.education,// document data by id
         experience: firestore.data.experience, // document data by id
