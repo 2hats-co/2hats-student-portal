@@ -43,9 +43,11 @@ class ProfileContainer extends Component{
         const updateButton = (<Button variant='flat' style={{width:200}}>Update Resume</Button>)
         const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
         let view = loading
+        
         if (profile&& user){
           const userData = Object.values(user)[0]
           const profileData = Object.values(profile)[0]
+          console.log('profileData',profileData)
             view = (<div><Grid
                 container
                 spacing={16}
@@ -60,8 +62,8 @@ class ProfileContainer extends Component{
               interestsList={profileData.interests}
               editHandler={()=>{this.handleEdit(true)}}
               />
-                <EducationContainer industry={profileData.industry} name='education' width={650}/> 
-                <EducationContainer industry={profileData.industry} name='experience' width={650}/>
+                <EducationContainer industry={profileData.industry} name='education' data={profileData.education} width={650} changeHandler={this.props.onUpdate.bind(this)}/> 
+                <EducationContainer industry={profileData.industry} name='experience' data={profileData.experience} width={650} changeHandler={this.props.onUpdate.bind(this)}/>
                 {submitButton}
                 </Grid>
                 <ConfirmSubmission isOpen={this.state.submitionDialog}/>
@@ -93,9 +95,9 @@ ProfileContainer.propTypes = {
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
       ),
-      onSubmit: props => () =>
+      onUpdate: props => (name,value) =>
           props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-          hasSubmit:true,
+          [name]:value,
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
       ),

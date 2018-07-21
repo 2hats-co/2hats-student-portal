@@ -1,4 +1,4 @@
-import React from "react";
+import React,{Component} from "react";
 import PropTypes from "prop-types";
 //material
 import { withStyles } from "@material-ui/core/styles";
@@ -52,7 +52,7 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  activeStep: 2,
+  activeStep: 0,
   profile:{
   process:PROCESS_TYPES.upload,//['build','upload']
   interests: [],
@@ -68,7 +68,7 @@ const INITIAL_STATE = {
   experience: []},
   error: null
 };
-class ResumeBuilderContainer extends React.Component {
+class ResumeBuilderContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
@@ -124,7 +124,7 @@ class ResumeBuilderContainer extends React.Component {
       case ALL_STEPS.experience: return  <SectionWrapper width={400} height={420} >  
       <EducationContainer industry={industry} 
       name='experience' changeHandler={this.handleChange} 
-      data = {this.state.profile.education}      
+      data = {this.state.profile.experience}      
       width={470}/>        
         </SectionWrapper>;
       case ALL_STEPS.other: return <SectionWrapper width={250} height={270}> <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
@@ -263,7 +263,5 @@ const enhance = compose(
   }))
 )
 export default enhance(
-  withRouter(
     withStyles(styles)(ResumeBuilderContainer)
-  )
 )
