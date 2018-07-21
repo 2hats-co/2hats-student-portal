@@ -52,7 +52,7 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  activeStep: 0,
+  activeStep: 4,
   profile:{
   process:PROCESS_TYPES.upload,//['build','upload']
   interests: [],
@@ -197,7 +197,7 @@ class ResumeBuilderContainer extends React.Component {
                 container
                 direction="column"
                 justify="space-between"
-                style={{ height: 170 }}
+                style={{ height: 200 }}
               >
                 <Completed/>
                 {stepController}

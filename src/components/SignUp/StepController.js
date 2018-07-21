@@ -7,9 +7,12 @@ import {ALL_STEPS} from '../../constants/signUpProcess'
 
 const styles = theme => ({
   root: {
-    width: 320
+    width: 600
   },
   button:{
+   marginBottom:20,
+   marginRight:20,
+    height:35,
     width: 140
   }
 });
@@ -18,38 +21,36 @@ function disableNext(currentStep,profile){
     const{interests,
       skills,
       bio,
-      workingRights,
-      phoneNumber} = profile
+      workingRights,currentUniversity,resumeFile,
+      education,experience} = profile
     switch (currentStep) {
       case ALL_STEPS.interests:return interests.length === 0;
       case ALL_STEPS.bio:return skills.length === 0 || bio.length === 0;
-      case ALL_STEPS.education:return false;
-      case ALL_STEPS.experience:return false;
+      case ALL_STEPS.uploadResume:return resumeFile.fullPath.length === 0;
+      case ALL_STEPS.education:return education.length === 0 ;
+      case ALL_STEPS.experience:return experience.length === 0 ;
+      case ALL_STEPS.profileDetails:return currentUniversity.length === 0 ||  skills.length === 0;
       case ALL_STEPS.other:return  workingRights.length === 0 // || phoneNumber.length !== 10;
       default:return false;
     }
   }
 
 function StepController(props){
+
  const{classes,profile,currentStep,nextHandler,backHandler} = props
+ console.log(currentStep)
  const nextButton = (<Button
     className={classes.button}
     disabled={disableNext(currentStep,profile)}
     variant="flat"
     onClick={nextHandler}
   >
-    Next
+   {currentStep===ALL_STEPS.other?'Finish': 'Next'}
   </Button>)
-  const finishButton = (<Button
-    className={classes.button}
-  disabled={disableNext(currentStep,profile)}
-    variant="flat"
-    onClick={nextHandler}
-  >
-  Finish
-  </Button>)
+ 
   const previewButton = (<Button
     className={classes.button}
+    style={{width:210}}
     variant="flat"
     onClick={nextHandler}
   >
@@ -69,16 +70,18 @@ function StepController(props){
   >
     Save for Later
   </Button>)
-  
+
  return(
     <Grid
     className={classes.root}
     container
     direction="row"
-    justify="space-between"
+    justify='flex-start'
   >
     {backButton}
-   {nextButton}
+   {currentStep&&nextButton}
+   {(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton}
+   {!currentStep&&previewButton}
     </Grid>
  )
 }
