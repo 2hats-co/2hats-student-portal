@@ -50,20 +50,19 @@ class ProfileDialogForm extends React.Component {
      })
   }
   
-  handleClose = () => {
-    this.props.closeHandler()    
-  };
+  
   handleSave = () => {
     this.props.onSave({interests: this.state.interests,
       bio: this.state.bio,
       skills: this.state.skills})//update fire store
+      this.props.closeHandler()  
   };
   handleChange(name, value) {
     this.setState({[name]:value});
   }
   render() {
-      const {classes,profile,isOpen} = this.props
-      const {interests,bio,skills,industry} = profile
+      const {classes,isOpen,closeHandler} = this.props
+      const {interests,bio,skills,industry} = this.state
     return (
         <Dialog
           maxWidth ={'md'}
@@ -76,7 +75,6 @@ class ProfileDialogForm extends React.Component {
           
           <DialogContent>
             <div className={classes.content}>
-   
            <CareerInterests preSelectedList={interests} changeHandler={this.handleChange}/>
           <div style={{width:400}}><PersonalBio industry={industry||'IT'} bio={bio} changeHandler={this.handleChange}/></div>
            
@@ -86,7 +84,7 @@ class ProfileDialogForm extends React.Component {
            </div>
           </DialogContent>
           <DialogActions>
-          <Button className={classes.button} onClick={this.handleClose}>
+          <Button className={classes.button} onClick={closeHandler}>
            Cancel
             </Button>
             <Button className={classes.button} onClick={this.handleSave}>

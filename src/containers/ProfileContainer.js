@@ -29,6 +29,7 @@ class ProfileContainer extends Component{
         submitionDialog:false 
       }
       this.handleEdit = this.handleEdit.bind(this)
+      this.handleSubmition = this.handleSubmition.bind(this)
     }
     handleEdit(state){
       this.setState({profileEditorDailog:state})
