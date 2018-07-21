@@ -192,12 +192,12 @@ class ResumeBuilderContainer extends React.Component {
                 <SectionWrapper
                  
                   width={750}
-                  height={150}
+                  height={170}
                 > <Grid
                 container
                 direction="column"
                 justify="space-between"
-                style={{ height: 150 }}
+                style={{ height: 170 }}
               >
                 <Completed/>
                 {stepController}

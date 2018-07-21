@@ -9,8 +9,8 @@ function Completed(props){
     return(
         <Grid
         container
-        direction="row"
-        justify="spacing-between"
+        direction='column'
+        justify='space-around'
         style={{ height: 100 }}
       >
         <Typography variant="title" color="primary" component="h3">
