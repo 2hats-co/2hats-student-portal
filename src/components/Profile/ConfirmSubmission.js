@@ -8,6 +8,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
+import { Typography } from '../../../node_modules/@material-ui/core';
 const styles = theme => ({
     content: {
       width:500,
@@ -35,9 +36,9 @@ function ConfirmSubmission(props) {
         >
           <DialogTitle className={classes.title} id="alert-dialog-title">{'Confirm Resume Submission'}</DialogTitle>
           <DialogContent  className={classes.content}>
-            <DialogContentText id="alert-dialog-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            </DialogContentText>
+            <Typography variant='body1'>
+            Since you won’t be able to submit another resume until receiving the feedback for this one, please make sure you have checked all your inputs in this submission. We are looking forward to reviewing your resume and giving you a tailored feedback and eventually matching you with a job you are interested in!
+            </Typography>
           </DialogContent>
           <DialogActions>
           <Button className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>
