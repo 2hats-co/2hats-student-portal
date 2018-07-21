@@ -89,9 +89,6 @@ ProfileContainer.propTypes = {
     withFirestore,
     // Handler functions as props
     withHandlers({
-      loadData: props => listenerSettings =>
-        props.firestore.setListener(listenerSettings),
-  
       onNext: props => (profile) =>
           props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
           ...profile,
@@ -112,8 +109,6 @@ ProfileContainer.propTypes = {
     }),
     // Connect get data from fire stroe
     connect(({ firestore }) => ({
-        education: firestore.data.education,// document data by id
-        experience: firestore.data.experience, // document data by id
        profile: firestore.data.profiles, // document data by id
        user: firestore.data.users, // document data by id
     }))

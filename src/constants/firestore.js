@@ -2,10 +2,8 @@ export const COLLECTIONS = {
     users:'users',
     candidates:'candidates',
     submissions:'submissions',
-    events:'events',
+    upcomingEvents:'upcomingEvents',
     profiles:'profiles',
-    education:'education',
-    experience:'experience'
 }
 export const LISTENER =(COLLECTION,UID)=>{
     switch (COLLECTION) {
@@ -17,14 +15,8 @@ export const LISTENER =(COLLECTION,UID)=>{
                 collection: COLLECTION,
                     doc: UID,
                   };
-        case COLLECTIONS.education:
-        case COLLECTIONS.experience:
-            return{
-                collection: COLLECTIONS.profiles,
-                     doc: UID,
-                    subcollections: [{ collection: COLLECTION }],
-                    storeAs:COLLECTION
-                        };
+        case COLLECTIONS.upcomingEvents:return{collection:COLLECTION}
+        
         default:
             break;
     }

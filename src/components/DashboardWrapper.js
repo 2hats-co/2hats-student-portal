@@ -103,7 +103,7 @@ class DashboardWrapper extends React.Component {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {this.props.children}
+        {this.props.profile?this.props.children:'loading'}
       </main>
     </div>
   );
@@ -148,18 +148,20 @@ const enhance = compose(
       this.props.loadData(profileListenerSettings);
       const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
       this.props.loadData(usersListenerSettings);
+      const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
+      this.props.loadData(upcomingEventsListenerSettings);
     },
     componentWillUnmount() {
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
       this.props.firestore.unsetListener(profileListenerSettings);
       const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
       this.props.firestore.unsetListener(usersListenerSettings);
+      const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
+      this.props.firestore.unsetListener(upcomingEventsListenerSettings);
     }
   }),
   // Connect todos from redux state to props.todos
   connect(({ firestore }) => ({
-      education: firestore.data.education,// document data by id
-      experience: firestore.data.experience, // document data by id
      profile: firestore.data.profiles, // document data by id
      user: firestore.data.users, // document data by id
   }))
