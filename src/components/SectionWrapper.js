@@ -18,7 +18,7 @@ function SectionWrapper(props) {
 SectionWrapper.propTypes = {
   height: PropTypes.number.isRequired,
   width: PropTypes.number,
-  children: PropTypes.element.isRequired,
+  children: PropTypes.any.isRequired,
 };
 
 export default SectionWrapper;

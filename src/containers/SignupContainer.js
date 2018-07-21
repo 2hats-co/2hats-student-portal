@@ -52,7 +52,7 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  activeStep: 4,
+  activeStep: 2,
   profile:{
   process:PROCESS_TYPES.upload,//['build','upload']
   interests: [],
@@ -115,10 +115,17 @@ class ResumeBuilderContainer extends React.Component {
          changeHandler={this.handleChange}/></SectionWrapper>
        
       case ALL_STEPS.education: return <SectionWrapper
-        width={400} height={420}> <EducationContainer industry={industry} name='education' changeHandler={this.handleChange} width={470}/>
+        width={400} height={420}> 
+        <EducationContainer industry={industry} 
+          name='education' changeHandler={this.handleChange} 
+          data = {this.state.profile.education}
+          width={470}/>
         </SectionWrapper>;
       case ALL_STEPS.experience: return  <SectionWrapper width={400} height={420} >  
-      <EducationContainer industry={industry} name='experience' changeHandler={this.handleChange} width={470}/>        
+      <EducationContainer industry={industry} 
+      name='experience' changeHandler={this.handleChange} 
+      data = {this.state.profile.education}      
+      width={470}/>        
         </SectionWrapper>;
       case ALL_STEPS.other: return <SectionWrapper width={250} height={270}> <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
       case ALL_STEPS.profileDetails:return <SectionWrapper width={400} height={420}> <ProfileDetails 
@@ -163,8 +170,8 @@ class ResumeBuilderContainer extends React.Component {
     const { classes } = this.props;
     const steps = STEP_LABELS[(this.state.profile.process)];
     const { activeStep } = this.state;
+    console.log('state',this.state)
     const currentStep = STEP_LABELS[(this.state.profile.process)][this.state.activeStep]
-    console.log('currentStep',currentStep)
     const stepController = (
       <StepController currentStep={currentStep} 
       profile={this.state.profile} 

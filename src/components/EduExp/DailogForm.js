@@ -154,7 +154,7 @@ class DialogForm extends React.Component {
                />
                case INPUTS.dropDown:return  <DropDown label={field.label} 
                key= {field.name} 
-               options={field.options} 
+               list={field.list} 
                value={this.state[field.name]&& this.state[field.name].value}
                 name={field.name}
                 changeHandler={this.handleChange.bind(this)}

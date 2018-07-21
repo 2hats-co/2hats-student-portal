@@ -30,12 +30,13 @@ const styles = theme => ({
     },
     content:{
       maxWidth:800,
-    }
+    },
   });
   const INITIAL_STATE = {
     interests: [],
     bio: "",
     skills: [],
+    resumeFile:{name:'',fullPath:''},
     error: null
   };
 class ProfileDialogForm extends React.Component {
@@ -49,12 +50,12 @@ class ProfileDialogForm extends React.Component {
       this.handleChange(key,value)
      })
   }
-  
-  
   handleSave = () => {
     this.props.onSave({interests: this.state.interests,
       bio: this.state.bio,
-      skills: this.state.skills})//update fire store
+      skills: this.state.skills,
+      resumeFile:this.state
+      })//update fire store
       this.props.closeHandler()  
   };
   handleChange(name, value) {
@@ -62,7 +63,7 @@ class ProfileDialogForm extends React.Component {
   }
   render() {
       const {classes,isOpen,closeHandler} = this.props
-      const {interests,bio,skills,industry} = this.state
+      const {interests,bio,skills,industry,resumeFile} = this.state
     return (
         <Dialog
           maxWidth ={'md'}
@@ -77,10 +78,8 @@ class ProfileDialogForm extends React.Component {
             <div className={classes.content}>
            <CareerInterests preSelectedList={interests} changeHandler={this.handleChange}/>
           <div style={{width:400}}><PersonalBio industry={industry||'IT'} bio={bio} changeHandler={this.handleChange}/></div>
-           
-           
            <Skills hideSuggestions preSelectedList={skills} interestKeys={interests} changeHandler={this.handleChange}/>
-            
+           <ResumeLoader resumeFile={resumeFile} changeHandler={this.handleChange}/>
            </div>
           </DialogContent>
           <DialogActions>

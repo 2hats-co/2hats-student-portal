@@ -27,10 +27,7 @@ const styles = theme => ({
   }
 });
 class CareerInterests extends React.Component {
-  state = {
-   selectedCount : 0
-  };
-
+ 
   handleChange = name => event => {
     if(event.target.checked){
       const newInterests = this.props.preSelectedList.concat(name)
@@ -42,7 +39,6 @@ class CareerInterests extends React.Component {
   };
   renderCheckBox(item){
     const { classes,preSelectedList } = this.props;
-    console.log('preSelectedList',preSelectedList)
     return(
     <FormControlLabel key={item.key}
             control={

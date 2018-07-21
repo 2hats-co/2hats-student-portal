@@ -45,6 +45,7 @@ class EducationContainer extends React.Component {
   }
   handleDeleteDialog(key,item){
     this.setState({deleteDialog:{key:key,heading:item.degree||item.title,subheading:item.university||item.company}})
+
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.name !== this.props.name) {
@@ -77,10 +78,20 @@ class EducationContainer extends React.Component {
   }
   handleCloseDialog(newItem) {
     if (newItem) {
+    const {name,changeHandler,data,onUpdate}=this.props
+  
       if (this.state.dialog.key) {
-        this.props.onUpdate(this.state.dialog.key, newItem, this.props.name);
+        const key = this.state.dialog.key
+        onUpdate(key, newItem, name);
+        let updatedItem = Object.assign({key},newItem)
+        let newItems = data.filter(x=>x.key !==key).concat(updatedItem)
+        changeHandler(name,newItems)
       } else {
-        this.props.onCreate(newItem, this.props.name);
+         const key = Math.random().toString(36).substring(2)
+        onUpdate(key, newItem, name);
+        let pushedItem = Object.assign({key},newItem)
+        let newItems = data.concat(pushedItem)
+        changeHandler(name,newItems)
       }
     }
     this.setState({
@@ -91,8 +102,11 @@ class EducationContainer extends React.Component {
     });
   }
   handleDelete(key) {
+    const {name,changeHandler,data,onDelete}=this.props
     this.handleCancelDelete()
-    this.props.onDelete(key, this.props.name);
+    onDelete(key,name);
+    changeHandler(name,data.filter(x=>x.key !==key))
+ 
   }
   handleCancelDelete() {
     this.setState({deleteDialog:null})
@@ -104,7 +118,7 @@ class EducationContainer extends React.Component {
       return this.props.name === EDU ? "Add Education" : "Add Practical Experience"
     }
   }
-
+  
   render() {
     let items;
     const { name } = this.props;
@@ -127,6 +141,7 @@ class EducationContainer extends React.Component {
               }}
               deleteHandler={() => {
                 this.handleDeleteDialog(key,item);
+
               }}
             />
           );
@@ -167,7 +182,9 @@ class EducationContainer extends React.Component {
 
 EducationContainer.protoTypes = {
   classes: PropTypes.object.isRequired,
-  changeHandler: PropTypes.func.isRequired
+  changeHandler: PropTypes.func.isRequired,
+  data:PropTypes.array,
+  name:PropTypes.string.isRequired
 };
 EducationContainer.defaultProps ={
   width:470
