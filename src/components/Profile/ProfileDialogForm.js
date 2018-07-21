@@ -16,6 +16,7 @@ import { compose } from 'redux';
 import { withHandlers } from 'recompose'
 import  {withFirestore} from '../../utilities/withFirestore';
 import { COLLECTIONS } from "../../constants/firestore";
+import { PROCESS_TYPES } from "../../constants/signUpProcess";
 
 import * as _ from "lodash";
 
@@ -37,6 +38,7 @@ const styles = theme => ({
     bio: "",
     skills: [],
     resumeFile:{name:'',fullPath:''},
+    process:PROCESS_TYPES.build,
     error: null
   };
 class ProfileDialogForm extends React.Component {
@@ -63,7 +65,7 @@ class ProfileDialogForm extends React.Component {
   }
   render() {
       const {classes,isOpen,closeHandler} = this.props
-      const {interests,bio,skills,industry,resumeFile} = this.state
+      const {process,interests,bio,skills,industry,resumeFile} = this.state
     return (
         <Dialog
           maxWidth ={'md'}
@@ -79,7 +81,7 @@ class ProfileDialogForm extends React.Component {
            <CareerInterests preSelectedList={interests} changeHandler={this.handleChange}/>
           <div style={{width:400}}><PersonalBio industry={industry||'IT'} bio={bio} changeHandler={this.handleChange}/></div>
            <Skills hideSuggestions preSelectedList={skills} interestKeys={interests} changeHandler={this.handleChange}/>
-           <ResumeLoader resumeFile={resumeFile} changeHandler={this.handleChange}/>
+           {process ===PROCESS_TYPES.upload &&<ResumeLoader resumeFile={resumeFile} changeHandler={this.handleChange}/>}
            </div>
           </DialogContent>
           <DialogActions>

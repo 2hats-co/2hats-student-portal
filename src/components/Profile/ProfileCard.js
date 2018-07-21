@@ -48,7 +48,7 @@ const styles = {
 
 
 function ProfileCard(props) {
-  const { classes,name,bio,interestsList,skillsList,editHandler} = props;
+  const { classes,name,bio,resumeFile,interestsList,skillsList,editHandler} = props;
 
     let interests = (<div/>)
     if(interestsList){interests=(<div> <Typography variant='subheading'>
@@ -68,6 +68,15 @@ function ProfileCard(props) {
         label={x}
         className={classes.chip}
       />)})}</div>)}
+      let resume = (<div/>)
+      if(resumeFile){
+        resume= <div>
+          <Typography variant='subheading'>
+    Resume:
+    </Typography>
+          <Chip key={resumeFile.fullPath}
+          label={resumeFile.name} /></div>
+      }
     return (
       <div className={classes.root}>
       <div className={classes.avatar}><PersonIcon style={{paddingTop:15,fontSize:120}}/></div>
@@ -84,6 +93,7 @@ function ProfileCard(props) {
       </IconButton> </Grid>
          </Grid>
            {bio}
+           {resume}
          {interests}
          {skills}
        </CardContent>
@@ -96,6 +106,7 @@ ProfileCard.propTypes = {
   classes: PropTypes.object.isRequired,
   bio:PropTypes.string.isRequired,
   name:PropTypes.string.isRequired,
+  resumeFile:PropTypes.any,
   interestsList:PropTypes.arrayOf(PropTypes.string).isRequired,
   skillsList:PropTypes.arrayOf(PropTypes.string).isRequired,
 };

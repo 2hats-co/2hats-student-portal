@@ -12,6 +12,8 @@ import { withHandlers, lifecycle } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
+
+import { PROCESS_TYPES } from "../constants/signUpProcess";
 import ProfileDialogForm from '../components/Profile/ProfileDialogForm';
 import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
 
@@ -59,12 +61,13 @@ class ProfileContainer extends Component{
               skillsList={profileData.skills}
               bio={profileData.bio}
               name={`${userData.firstName} ${userData.lastName}`}
+            resumeFile={profileData.process === PROCESS_TYPES.upload&& profileData.resumeFile}
               interestsList={profileData.interests}
               editHandler={()=>{this.handleEdit(true)}}
               />
-                <EducationContainer industry={profileData.industry} name='education' data={profileData.education} width={650} changeHandler={this.props.onUpdate.bind(this)}/> 
+                {profileData.process === PROCESS_TYPES.build&&<div><EducationContainer industry={profileData.industry} name='education' data={profileData.education} width={650} changeHandler={this.props.onUpdate.bind(this)}/> 
                 <EducationContainer industry={profileData.industry} name='experience' data={profileData.experience} width={650} changeHandler={this.props.onUpdate.bind(this)}/>
-                {submitButton}
+            </div>}{submitButton}
                 </Grid>
                 <ConfirmSubmission isOpen={this.state.submitionDialog}/>
                 <ProfileDialogForm isOpen={this.state.profileEditorDailog} closeHandler={()=>{this.handleEdit(false)}} profile={profileData}/>
@@ -100,7 +103,12 @@ ProfileContainer.propTypes = {
           [name]:value,
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
-      ),
+      ),onSubmit: props => () =>
+      props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+      hasSubmit:true,
+      submittedAt: props.firestore.FieldValue.serverTimestamp()
+    }
+  ),
     }),
     // Run functionality on component lifecycle
     lifecycle({
