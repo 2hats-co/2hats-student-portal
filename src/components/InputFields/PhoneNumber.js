@@ -60,10 +60,11 @@ class PhoneNumber extends React.Component {
     });
   };
   render(){
-  const { classes } = this.props;
+  const { classes ,hasLabel} = this.props;
   const { number } = this.state;
     const InputField = (
       <TextField
+      label={hasLabel&&'MobileNumber'}
       className={classes.inputField}
       placeholder='e.g. 0400 000 000'
       value={number}
@@ -78,8 +79,8 @@ class PhoneNumber extends React.Component {
   className={classes.root}
    >
     <InputWrapper 
-  title='mobile number (Optional)'
-  hint='Your mobile number is required so that we can contact you for a phone interview.'
+  title={!hasLabel&&'mobile number (Optional)'}
+  hint={!hasLabel&&'Your mobile number is required so that we can contact you for a phone interview.'}
  
   >{InputField}
   </InputWrapper> 
@@ -88,6 +89,7 @@ class PhoneNumber extends React.Component {
 }
 }
 PhoneNumber.propTypes = {
+  hasLabel: PropTypes.bool,
   classes: PropTypes.object.isRequired,
   changeHandler: PropTypes.func.isRequired
 };
