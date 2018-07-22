@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import {withRouter} from 'react-router-dom'
-import {ALL_STEPS} from '../../constants/signUpProcess'
+import {ALL_STEPS,checkComplition} from '../../constants/signUpProcess'
 import * as routes from '../../constants/routes'
 const styles = theme => ({
   root: {
@@ -22,17 +22,13 @@ class StepController extends React.Component {
 constructor(props){
   super(props);
   this.goToPreview = this.goToPreview.bind(this)
-  this.goToIntroduction = this.goToIntroduction.bind(this)
   this.goToLockedDashboard = this.goToLockedDashboard.bind(this)
 }
 goToPreview(){
   this.props.history.push(routes.PROFILE)
 }
-goToIntroduction(){
-  this.props.history.push(routes.INTRODUCTION)
-}
-
 goToLockedDashboard(){
+  this.props.nextHandler()
   this.props.history.push(routes.DASHBOARD)
 }
 disableNext(currentStep,profile){
@@ -54,7 +50,6 @@ disableNext(currentStep,profile){
   }
 
   disableSave(currentStep,profile){
-
       return (currentStep===ALL_STEPS.education && profile.education.length === 0)
   }
 render(){
@@ -62,7 +57,7 @@ render(){
  const{classes,profile,currentStep,nextHandler,backHandler} = this.props
  const nextButton = (<Button
     className={classes.button}
-    disabled={this.disableNext(currentStep,profile)}
+    disabled={checkComplition(currentStep,profile)}
     variant="flat"
     onClick={nextHandler}
   >
@@ -80,7 +75,7 @@ render(){
   const backButton = (<Button
     className={classes.button}
     variant="outlined"
-    onClick={currentStep===ALL_STEPS.interests?this.goToIntroduction:backHandler}
+    onClick={currentStep===ALL_STEPS.interests?this.props.history.goBack:backHandler}
   >
     Back
   </Button>)

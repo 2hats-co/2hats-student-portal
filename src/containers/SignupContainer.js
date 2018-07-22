@@ -20,13 +20,13 @@ import ProfileDetails from "../components/SignUp/ProfileDetails";
 import UploadResume from "../components/SignUp/UploadResume";
 //Redux
 import { compose } from 'redux';
-import { withHandlers, lifecycle } from 'recompose'
+import { withHandlers } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {INTRODUCTION} from '../constants/routes'
 
-import { COLLECTIONS, LISTENER } from "../constants/firestore";
+import { COLLECTIONS } from "../constants/firestore";
 
 import * as _ from "lodash";
 import StepController from "../components/SignUp/StepController";
@@ -52,9 +52,9 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-  activeStep: 3,
+  activeStep: 0,
   profile:{
-  process:PROCESS_TYPES.build,//['build','upload']
+  //process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -88,8 +88,13 @@ class ResumeBuilderContainer extends Component {
     this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
-   // this.setState({activeStep:this.props.activeStep || 0})
-   //TODO chech url
+    
+    if(this.props.profile){
+      _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
+        this.handleChange(key,value)
+       })
+    }
+
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
@@ -161,7 +166,7 @@ class ResumeBuilderContainer extends Component {
       break;
       case ALL_STEPS.bio:this.props.onProfileUpdate({bio:profile.bio,skills:profile.skills,completedStep:currentStep})
       break; 
-      case ALL_STEPS.profileDetails:this.props.onProfileUpdate({skills:profile.skills,completedStep:currentStep})
+      case ALL_STEPS.profileDetails:this.props.onProfileUpdate({skills:profile.skills,currentUniversity:profile.currentUniversity,completedStep:currentStep})
       this.props.onUserUpdate({currentUniversity:profile.currentUniversity})
       break; 
       case ALL_STEPS.education:this.props.onProfileUpdate({education:profile.education,completedStep:currentStep})
