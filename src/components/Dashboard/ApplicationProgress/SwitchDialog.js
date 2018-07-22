@@ -6,6 +6,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 
 import * as routes from '../../../constants/routes'
@@ -24,13 +25,14 @@ const styles = theme => ({
     content: {
     // margin:'auto',
       width:330,
-      height:180,
+      height:80,
       paddingLeft:40,
       paddingRight:40
     },
 
     title:{
-      paddingLeft:40
+      paddingLeft:40,
+      paddingTop:40
     },
     button:{
         width:70
@@ -50,9 +52,9 @@ function SwitchDialog(props) {
         >
           <DialogTitle className={classes.title} id="alert-dialog-title">{newProcess.title}</DialogTitle>
           <DialogContent  className={classes.content}>
-            <DialogContentText id="alert-dialog-description">
+            <Typography variant='body1'>
             {newProcess.body}
-            </DialogContentText>
+            </Typography>
           </DialogContent>
           <DialogActions>
           <Button className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>

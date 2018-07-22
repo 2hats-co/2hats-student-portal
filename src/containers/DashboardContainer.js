@@ -15,7 +15,7 @@ import  {withFirestore} from '../utilities/withFirestore';
 
 const styles = theme => ({
     root: {
-     
+    marginLeft:50
     }
 });
 class DashboardContainer extends Component{
@@ -26,7 +26,7 @@ class DashboardContainer extends Component{
             if(profileData.hasSubmit){
                 return<ApplicationTimeLine/>
             }else{
-               return <ApplicationProgress data={profileData}/>
+               return <div style={{marginBottom:40}}><ApplicationProgress data={profileData}/></div>
             }
         }
 
@@ -37,9 +37,10 @@ class DashboardContainer extends Component{
         const {classes,upcomingEvents,profile} = this.props
         return(
             <DashboardWrapper header='Dashboard'>
-            {this.renderApplicationProcess(profile)}
-           <FeedbackHistory/>
+            <div className={classes.root}>
+            {this.renderApplicationProcess(profile)}      
            <UpcomingEvents data={upcomingEvents}/>
+           </div>
             </DashboardWrapper>
         )
     }

@@ -10,6 +10,9 @@ const styles = theme => ({
     root: {
      width:500,
     },
+    title:{
+      marginBottom:15
+    }
   });
 function getTimeStampData(timestamp){
   const time = new Date(timestamp.seconds*1000)
@@ -32,11 +35,12 @@ function UpcomingEvents(props){
       const link = event.url
      items.push({key,date,month,title,body,link})
     })
-    return(<div className={classes.root}><Typography variant='display1'>
+    return(<div className={classes.root}><Typography className={classes.title} variant='display1'>
      Upcoming Events
     </Typography>
     <Divider/>
-    {items.map(x=> <ListItem key={x.key} title={x.title} date={x.date} month={x.month} body={x.body} link={x.link} actionIcon={<LinkIcon style={{fontSize:38}}/>}/>)}
+    {items.map(x=> (<div key={x.key}><ListItem title={x.title} date={x.date} month={x.month} body={x.body} link={x.link} actionIcon={<LinkIcon style={{fontSize:38}}/>}/><Divider/></div>)
+    )}
   
     
     <Divider/>
