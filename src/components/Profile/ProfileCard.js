@@ -10,8 +10,8 @@ import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
 import EditIcon from '@material-ui/icons/Edit'
-import { Grid } from '../../../node_modules/@material-ui/core';
-
+import Grid from '@material-ui/core/Grid';
+import {getInterestByKey} from '../../constants/resumeBuilderPrompts'
 const styles = {
     root:{
         marginBottom:20
@@ -45,21 +45,17 @@ const styles = {
   
     }
 };
-
-
 function ProfileCard(props) {
   const { classes,name,bio,resumeFile,interestsList,skillsList,editHandler} = props;
-
     let interests = (<div/>)
     if(interestsList){interests=(<div> <Typography variant='subheading'>
     Career Interests:
-    </Typography>{interestsList.map(x=> {return( <Chip
+    </Typography>{interestsList.map(x=> {
+      return( <Chip
         key={x}
-        label={x}
+        label={getInterestByKey(x)[0].label}
         className={classes.chip}
       />)})}</div>)}
-
-
       let skills = (<div/>)
     if(skillsList){skills=(<div> <Typography variant='subheading'>
     Skills:

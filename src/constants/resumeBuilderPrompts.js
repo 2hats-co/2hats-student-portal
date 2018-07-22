@@ -32,7 +32,44 @@ const businessList = [{key:'B2B',label:'B2B Sales'},{key:'RM',label:'Relationshi
 const marketingList = [{key:'CW',label:'Content Writing'},{key:'SMM',label:'Social Media Marketing'},{key:'SEO',label:'SEO'}]
 const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User Experience'},{key:'UI',label:'User Interface'}]
 const ITList = [{key:'APP',label:'App/Web Development'},{key:'DEV',label:'Software Development'},{key:'DA',label:'Data Analytics'}]
+const ALL_INTERESTS = [].concat(marketingList,DesignList).concat(businessList,ITList)
+export function getInterestByKey(key){
+    return ALL_INTERESTS.filter(x => x.key === key)
+}
 export const CAREER_INTERESTS = [{label:'Business',items: businessList},{label:'Marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
+//recursive
+// let count={Business:0, Marketing:0,Design:0,IT:0}
+// function getIndustryFromInterests(interests, count){
+
+//     CAREER_INTERESTS.forEach(industry=>{
+//         industry.items.forEach(item=>{
+//             interests.forEach(interest=>{
+//                 if(item.key===interest){
+//                     console.log(interests,count) 
+//                     count[industry.label]= count[industry.label]+1
+//                     let newInterests = interests.filter(x=> x!==interest)
+//                     if(newInterests.length ===0){
+//                         let largestIndex = 0
+//     let largestValue = 0
+//     let values = Object.values(count)
+//     values.forEach((x,k)=>{
+//         if (x> largestValue){
+//             largestIndex=k;
+//             largestValue=x;
+//         }
+//     })
+//     return INDUSTRIES[largestIndex] 
+//                     }else{
+//                         return (getIndustryFromInterests(newInterests,count))
+
+//                     }
+                   
+//                 }
+//             })
+//         })
+//     })
+//   }
+
 
 export function getPrompts(field){
     switch (field) {
@@ -69,6 +106,7 @@ export function getIndustryFromInterests(interests){
     })
     return INDUSTRIES[largestIndex]
 }
+
 const SKILLS ={
     B2B:['Salesforce','CRM System','HubSpot'],
     LG:['Salesforce','CRM System','HubSpot'],
