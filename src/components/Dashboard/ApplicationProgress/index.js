@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Grid,Button} from '@material-ui/core';
 import ProgressDial from './ProgressDial'
 import Step from './Step'
-import {PROCESS_TYPES, STEP_LABELS} from '../../../constants/signUpProcess'
+import {PROCESS_TYPES, STEP_LABELS, checkComplition} from '../../../constants/signUpProcess'
 
 import {withRouter} from 'react-router-dom'
 import * as routes from '../../../constants/routes'
@@ -43,16 +43,24 @@ const styles = theme => ({
         this.setState({switchDialog:false})
       }
   };
+  completitionPercentage(data){
+    const allSteps = STEP_LABELS[data.process]
+    const completed = allSteps.filter(x =>!checkComplition(x,data))
+    const percentage =  (completed.length/allSteps.length)*100
+    return percentage
+  }
+
   render(){
-    const {classes} = this.props
-    const currentProcess = PROCESS_TYPES.upload
-    const steps = (<Grid container direction='column'> {STEP_LABELS[currentProcess].map(x=><Step key={x} label={x} isComplete={false}/>)}</Grid>)
+    const {classes,data} = this.props
+    const {process} =data
+    console.log(data)
+    const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
     const finishButton = (<Button
         className={classes.button}
         variant="flat"
       onClick={()=>{
         let route = routes.BUILD_RESUME
-        if(currentProcess === PROCESS_TYPES.upload){
+        if(process === PROCESS_TYPES.upload){
           route = routes.UPLOAD_RESUME
         }
         this.handleRouting(route)}}
@@ -81,17 +89,17 @@ const styles = theme => ({
     </Typography>
     <Grid className={classes.ProgressGrid} container  alignItems='center' direction='row' justify='space-around'>
          
-             <ProgressDial percentage={80}/>
+             <ProgressDial percentage={this.completitionPercentage(data)}/>
              <Grid item>
               {steps}
               </Grid>
 
     </Grid>
     <Grid className={classes.buttonsGrid} container direction='row' justify='space-between'>
-        {currentProcess===PROCESS_TYPES.upload?buildButton:uploadButton}
+        {process===PROCESS_TYPES.upload?buildButton:uploadButton}
         {finishButton}
     </Grid>
-   <SwitchDialog isOpen={this.state.switchDialog} currentProcess={currentProcess} closeHandler={this.handleRouting}/>
+   <SwitchDialog isOpen={this.state.switchDialog} currentProcess={process} closeHandler={this.handleRouting}/>
    </div>)
 }
   }

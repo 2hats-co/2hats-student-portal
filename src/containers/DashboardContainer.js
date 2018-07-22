@@ -20,11 +20,24 @@ const styles = theme => ({
 });
 class DashboardContainer extends Component{
     
+    renderApplicationProcess(profile){ 
+        if(profile){
+        const profileData=Object.values(profile)[0]
+            if(profileData.hasSubmit){
+                return<ApplicationTimeLine/>
+            }else{
+               return <ApplicationProgress data={profileData}/>
+            }
+        }
+
+    }
+
+
     render(){
-        const {classes,upcomingEvents} = this.props
+        const {classes,upcomingEvents,profile} = this.props
         return(
             <DashboardWrapper header='Dashboard'>
-            <ApplicationProgress/>
+            {this.renderApplicationProcess(profile)}
            <FeedbackHistory/>
            <UpcomingEvents data={upcomingEvents}/>
             </DashboardWrapper>
@@ -38,6 +51,8 @@ const enhance = compose(
     withFirestore,
     // Connect get data from fire stroe
     connect(({ firestore }) => ({
+        profile: firestore.data.profiles,
+        user: firestore.data.users,
        upcomingEvents: firestore.data.upcomingEvents, // document data by id
     
     }))

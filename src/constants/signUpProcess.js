@@ -3,6 +3,24 @@ export const PROCESS_TYPES ={
     upload:'upload'
 }
 
+export function checkComplition(currentStep,profile){
+    const{interests,
+      skills,
+      bio,
+      workingRights,currentUniversity,resumeFile,
+      education,experience} = profile
+    switch (currentStep) {
+      case ALL_STEPS.interests:return !interests || interests.length === 0;
+      case ALL_STEPS.bio:return !bio|| !skills ||(skills.length === 0 || bio.length === 0);
+      case ALL_STEPS.uploadResume:return !resumeFile || resumeFile.fullPath.length === 0;
+      case ALL_STEPS.education:return !education || education.length === 0 ;
+      case ALL_STEPS.experience:return !experience || experience.length === 0 ;
+      case ALL_STEPS.profileDetails:return !currentUniversity || !skills|| (currentUniversity.length === 0 ||skills.length === 0);
+      case ALL_STEPS.other:return  !workingRights|| workingRights.length === 0 // || phoneNumber.length !== 10;
+      default:return false;
+    }
+  }
+  
 export const ALL_STEPS = {
     interests: "Career Interests",
     bio:"Bio & Relevant Skills",
