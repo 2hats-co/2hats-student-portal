@@ -17,7 +17,7 @@ import {PRIMARY_COLOR} from '../../Theme'
 
 const monthLabels = [['Jan','Feb','Mar','Apr'],['May','Jun','Jul','Aug'],['Sep','Oct','Nov','Dec']]
 const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
-function monthName(n){return(monthNames[n-1])} 
+function getMonthName(n){return(monthNames[n-1])} 
 
 const styles = theme => ({
     root: {
@@ -65,6 +65,7 @@ const styles = theme => ({
 
     },
     calendar:{
+        paddingLeft:5,
         width:250,
         height:140,
         border:'1px solid #9B9B9B',
@@ -80,23 +81,23 @@ const styles = theme => ({
         this.state = {
             year:2018,
             isOpen:false,
-            value:'persent',
-            month:5
+            value:'',
+            toggled:false
         }
         this.handleIncrementYear = this.handleIncrementYear.bind(this)
         this.handleDecrementYear = this.handleDecrementYear.bind(this)
         this.handleSelectMonth = this.handleSelectMonth.bind(this)
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevState !== this.state) {
-          this.props.changeHandler(this.props.name,this.handleValue())
+        if (prevState.value !== this.state.value) {
+          this.props.changeHandler(this.props.name,this.state.value)
         }
       }
     handleOpen(){
 
     }
     handleSelectMonth(n){
-        this.setState({month:n,isOpen:false})
+        this.setState({month:n,isOpen:false,value:`${getMonthName(n)} ${this.state.year}`,toggled:false})
     }
     handleIncrementYear(){
         const newYear = this.state.year +1
@@ -114,17 +115,16 @@ const styles = theme => ({
         this.setState({ [name]: event.target.checked});
       };
     renderMonths(selected){
-        const {classes} = this.props
-        return(<Grid container  className={classes.monthsGrid} direction='column' alignItems='center' justify='space-between'>
+        const {classes,label} = this.props
         
+        return(<Grid container  className={classes.monthsGrid} direction='column' alignItems='center' justify='space-between'>
          {monthLabels.map((season,i) => {
             return(
-            <Grid item>
-            <Grid container style={{width:250}} direction='row' alignItems='center' justify='space-around'>
+            <Grid container key={`${label}-season-${i}`} style={{width:250}} direction='row' alignItems='center' justify='space-around'>
                  {season.map((month,n)=> {
                      const isSelected = (selected===(1+n+i*4))
                      return(
-                        <Grid style={{width:50, textAlign:'center'}} item> 
+                        <Grid key={`${label}-month-${1+n+i*4}`} style={{width:50, textAlign:'center'}} item> 
                         <button onClick={()=>{this.handleSelectMonth(1+n+i*4)}} className={isSelected? classes.selectedMonthButton:classes.monthButton}>
                         <Typography variant='body1' style={isSelected?{color:'#fff'}:{color:'#000'}}>
                            {month}
@@ -134,13 +134,10 @@ const styles = theme => ({
                      )
                  })}
             </Grid>  
-            </Grid>  
             )
         })}
     </Grid>
     )
-        
-        
     }
     renderCalender(){
         const {classes} = this.props
@@ -160,20 +157,27 @@ const styles = theme => ({
             </div>
         )
     }
-    handleValue(){
-        return( this.state.toggled ? this.props.toggle.value:`${monthName(this.state.month)} ${this.state.year}`)
-    }
-    render(){
-        const {classes, label,toggle} = this.props
-        return(<div>
+    renderField(){
+        const {label,classes}=this.props
+        const {isOpen,value} = this.state
+        const captionLabel = (isOpen || value !=='')
+        return( 
+            <Grid container direction='column'>
+            {captionLabel&& <Typography variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
             <Grid  className={classes.root} container direction='row' style={{width:'250px'}} alignItems='center' justify='space-between'>
-            {label} 
-                {this.handleValue()}
+            {!captionLabel&&label} 
+                {value&& value}
                 <IconButton style={{height:42,width:42,marginRight:-10}} onClick={()=>{this.setState({isOpen:!this.state.isOpen})}} className={classes.button} component="span">
                     <DownIcon/>
                 </IconButton>
-           
             </Grid>
+            </Grid>
+        )
+    }
+    render(){
+        const {toggle} = this.props
+        return(<div>
+            {this.renderField()}
             {this.state.isOpen && this.renderCalender()}
             {toggle &&<Grid container direction='row' alignItems='center' justify='space-between'>
             <Typography variant='caption'>
@@ -181,17 +185,23 @@ const styles = theme => ({
             </Typography>
             <Switch
           checked={this.state.toggled}
-          onChange={this.handleChange('toggled')}
+          onChange={()=>{
+                if(this.state.toggled===false){
+                     this.setState({value:toggle.value,toggled:true,month:null})
+                }else{
+                    if(this.state.value===toggle.value){
+                        this.setState({value:'',toggled:false})
+                    }
+                }
+            }
+        }
           value="toggled"
           color="primary"
         />
-            </Grid>}
-           
+            </Grid>}          
             </div>
-        )
-    
+        )  
     }
-
   }
   export default withStyles(styles)(MonthPicker);
   MonthPicker.protoTypes = {
