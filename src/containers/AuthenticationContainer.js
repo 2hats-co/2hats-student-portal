@@ -174,7 +174,7 @@ class AuthenticationContainer extends React.Component {
             this.handleProgress(90);
             setTimeout(() => {
               this.handleLoadingIndicator(false);
-              this.props.history.push(routes.INTRODUCTION);
+              this.goToIntroduction()
             }, 500)
            
           } else {
@@ -182,7 +182,7 @@ class AuthenticationContainer extends React.Component {
             this.handleProgress(90);
             setTimeout(() => {
               this.handleLoadingIndicator(false);
-              this.props.history.push(routes.INTRODUCTION);
+              this.goToDashboard()
             }, 500)
          
           }
@@ -230,7 +230,7 @@ class AuthenticationContainer extends React.Component {
               this.handleProgress(90);
               setTimeout(() => {
                 this.handleLoadingIndicator(false);
-                this.props.history.push(routes.INTRODUCTION);
+                this.goToIntroduction()
               }, 500)
 
               // Note: for demo purpose, introduction page will be displayed
@@ -239,7 +239,7 @@ class AuthenticationContainer extends React.Component {
               this.handleProgress(90);
               setTimeout(() => {
                 this.handleLoadingIndicator(false);
-                this.props.history.push(routes.INTRODUCTION);
+                this.goToDashboard()
               }, 500)
             }
 
