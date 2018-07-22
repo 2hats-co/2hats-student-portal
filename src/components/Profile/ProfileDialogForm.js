@@ -56,7 +56,7 @@ class ProfileDialogForm extends React.Component {
     this.props.onSave({interests: this.state.interests,
       bio: this.state.bio,
       skills: this.state.skills,
-      resumeFile:this.state
+      resumeFile:this.state.resumeFile
       })//update fire store
       this.props.closeHandler()  
   };

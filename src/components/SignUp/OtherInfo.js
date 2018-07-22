@@ -25,6 +25,7 @@ function otherInfo(props){
     </Grid>
     )
 }
+
 otherInfo.propTypes = {
     changeHandler: PropTypes.func.isRequired,
     workingRights: PropTypes.string,
