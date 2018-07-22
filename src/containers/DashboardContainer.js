@@ -8,6 +8,11 @@ import ApplicationTimeLine from '../components/Dashboard/ApplicationTimeLine'
 import ApplicationProgress from '../components/Dashboard/ApplicationProgress'
 import FeedbackHistory from '../components/Dashboard/FeedbackHistory'
 import UpcomingEvents from '../components/Dashboard/UpcomingEvents'
+
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import  {withFirestore} from '../utilities/withFirestore';
+
 const styles = theme => ({
     root: {
      
@@ -16,17 +21,27 @@ const styles = theme => ({
 class DashboardContainer extends Component{
     
     render(){
-        const {classes} = this.props
-       
+        const {classes,upcomingEvents} = this.props
         return(
             <DashboardWrapper header='Dashboard'>
             <ApplicationProgress/>
            <FeedbackHistory/>
-           <UpcomingEvents/>
+           <UpcomingEvents data={upcomingEvents}/>
             </DashboardWrapper>
         )
     }
 
 }
 
-export default withStyles(styles)(DashboardContainer);
+const enhance = compose(
+    // add redux store (from react context) as a prop
+    withFirestore,
+    // Connect get data from fire stroe
+    connect(({ firestore }) => ({
+       upcomingEvents: firestore.data.upcomingEvents, // document data by id
+    
+    }))
+  )
+  export default enhance(
+      withStyles(styles)(DashboardContainer)
+  )
