@@ -21,7 +21,8 @@ import Name from '../InputFields/Name';
 const styles = theme => ({
     content: {
       width:270,
-      height:140,
+      height:150,
+      paddingTop:2,
       paddingLeft:40,
       paddingRight:40
     },
@@ -65,7 +66,12 @@ const styles = theme => ({
         //this.props.closeHandler()
     }
     handleUpdate(){
-
+        this.props.onUserUpdate({
+            firstName:this.state.firstName,
+            lastName:this.state.lastName,
+            phoneNumber:this.state.phoneNumber,
+            workingRights:this.state.workingRights
+        })
     }
     handleChange(name,value){
         console.log(name)
@@ -90,14 +96,14 @@ const styles = theme => ({
                   <DialogTitle className={classes.title} id="alert-dialog-title">{'Confirm Resume Submission'}</DialogTitle>
                   <DialogContent  className={classes.content}>
                     <Name firstName={firstName} lastName={lastName} changeHandler={this.handleChange.bind(this)}/>
-                   <WorkingRights value={workingRights} changeHandler={this.handleChange.bind(this)}/>
-                   <PhoneNumber value={phoneNumber} changeHandler={this.handleChange.bind(this)}/>
+                   <WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange.bind(this)}/>
+                   <PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange.bind(this)}/>
                   </DialogContent>
                   <DialogActions>
                   <Button className={classes.button} onClick={()=>{this.handleCancel()}}>
                     Cancel
                     </Button>
-                    <Button className={classes.button} onClick={()=>{this.handleUpdate()}} disabled={!firstName} autoFocus>
+                    <Button className={classes.button} onClick={()=>{this.handleUpdate()}} disabled={!firstName || !lastName} autoFocus>
                     Update
                     </Button>
                   </DialogActions>
