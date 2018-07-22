@@ -14,8 +14,6 @@ import PersonIcon from '@material-ui/icons/Person'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import JobIcon from '@material-ui/icons/Work'
 
-import { Button} from '@material-ui/core';
-import {auth} from '../firebase';
 
 import {withRouter} from 'react-router-dom'
 import * as routes from '../constants/routes'
@@ -27,6 +25,7 @@ import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
 import DarkLogo from '../assets/images/Logo/DarkText.png'
+import UserActions from './UserActions';
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -81,13 +80,13 @@ class DashboardWrapper extends React.Component {
    const pathName = this.props.history.location.pathname
   return (
     <div className={classes.root}>
-      <AppBar position="absolute" className={classes.appBar}><Grid container direction='row' justify='space-between'> 
+      <AppBar position="absolute" className={classes.appBar}>
+      <Grid container direction='row' justify='space-between'> 
         <Toolbar>
         <img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>
         </Toolbar>
-        <Button onClick={
-      auth.doSignOut
-     } >Log Out</Button></Grid>
+        <UserActions/>
+        </Grid>
       </AppBar>
       <Drawer
         variant="permanent"
