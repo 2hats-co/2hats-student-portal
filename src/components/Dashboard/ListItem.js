@@ -30,7 +30,6 @@ const styles = theme => ({
   });
 function ListItem(props){
     const {classes,actionIcon,month,date,title,body,link} = props
-     console.log(link)
     return(
     <Grid container direction='row' className={classes.root} alignItems='center'>
     <Grid container direction='column'className={classes.date} alignItems='center' justify='center'>

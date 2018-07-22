@@ -17,13 +17,13 @@ function Completed(props){
         justify='space-around'
         style={{ height: 100 }}
       >
-        <Typography variant="title" color="primary" component="h3">
+        <Typography variant="title" color="primary">
           Congratulations!
         </Typography>
-        <Typography variant="body">
+        <Typography variant="body1">
           {completedMessage[process]}
         </Typography>
-        <Typography variant="body">
+        <Typography variant="body1">
           You can submit your resume for our review now.
         </Typography>
       </Grid>

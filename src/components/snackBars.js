@@ -111,7 +111,8 @@ class CustomizedSnackbars extends React.Component {
   };
 
   componentWillReceiveProps(nextProps){
-      console.log('snack activate',nextProps);
+ //TODO remove/replace to componentDidupdate  
+    console.log('snack activate',nextProps);
       console.log('snack open state', this.state.open);
   }
 

@@ -55,13 +55,11 @@ class ResumeLoader extends React.Component {
         ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
     }
     handleLoader(snapShot){
-        console.log(snapShot)
         this.props.changeHandler('resumeFile',{name:this.props.resumeFile.name,fullPath:snapShot.metadata.fullPath})
         this.setState({isUploading:false})
     }
     
     onDrop(files) {
-        console.log(files[0])
       if(this.props.resumeFile.name!==''){
         this.handleDelete()
       }

@@ -36,7 +36,7 @@ const styles = theme => ({
     this.handleRouting = this.handleRouting.bind(this)
    }
     handleRouting = (route) => {
-      console.log('route',route)
+   
       if(route){
         this.props.history.push(route)
       }else{
@@ -53,7 +53,7 @@ const styles = theme => ({
   render(){
     const {classes,data} = this.props
     const {process} =data
-    console.log(data)
+
     const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
     const finishButton = (<Button
         className={classes.button}

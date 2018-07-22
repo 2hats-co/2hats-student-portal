@@ -15,9 +15,10 @@ const styles = theme => ({
   },
   label:{
     position:'absolute',
-    marginLeft: 45,
-    marginTop: 65
- 
+    width:190,
+    paddingTop:65,
+    textAlign:'center',
+    fontSize:47
   }
 });
 
