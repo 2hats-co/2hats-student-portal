@@ -25,10 +25,12 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {INTRODUCTION} from '../constants/routes'
+import {withRouter} from 'react-router-dom'
 
 import { COLLECTIONS } from "../constants/firestore";
 
 import * as _ from "lodash";
+import * as routes from '../constants/routes';
 import StepController from "../components/SignUp/StepController";
 
 const styles = theme => ({
@@ -54,7 +56,7 @@ const styles = theme => ({
 const INITIAL_STATE = {
   activeStep: 0,
   profile:{
-  //process:PROCESS_TYPES.build,//['build','upload']
+  process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -71,7 +73,6 @@ const INITIAL_STATE = {
 };
 function AvailableDaysConverter(string){
   const  days = string
-  console.log('days',days)
   let  number = parseInt(days)
     if(days.includes('½')){
       number = number+0.5
@@ -88,11 +89,17 @@ class ResumeBuilderContainer extends Component {
     this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
-    
+  
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)
        })
+    }
+    if(this.props.history.location.pathname === routes.BUILD_RESUME){
+      this.props.onProfileUpdate({process:PROCESS_TYPES.build})
+    }else if(this.props.history.location.pathname === routes.UPLOAD_RESUME){
+      this.props.onProfileUpdate({process:PROCESS_TYPES.upload})
+
     }
 
   }
@@ -154,7 +161,6 @@ class ResumeBuilderContainer extends Component {
        industry={this.state.profile.industry}
          changeHandler={this.handleChange}/></SectionWrapper>;
       default: return "Uknown step";
-
     }
   }
   handleNext = () => {
@@ -177,7 +183,7 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.uploadResume:this.props.onProfileUpdate({resumeFile:profile.resumeFile,bio:profile.bio,completedStep:currentStep})
       break; 
       case ALL_STEPS.other:this.props.onProfileUpdate({completedStep:'completed',isComplete:true})
-      this.props.onUserUpdate({phoneNumber:profile.phoneNumber,availableDays:AvailableDaysConverter(profile.availableDays)})
+      this.props.onUserUpdate({phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:AvailableDaysConverter(profile.availableDays)})
       break;
       default:
         break;
@@ -292,5 +298,5 @@ const enhance = compose(
   }))
 )
 export default enhance(
-    withStyles(styles)(ResumeBuilderContainer)
+    withRouter(withStyles(styles)(ResumeBuilderContainer))
 )

@@ -54,12 +54,10 @@ class IntroductionContainer extends React.Component {
   }
 
   goToBuildResume(){
-    this.props.setProccess(PROCESS_TYPES.build)
     this.props.history.push(routes.BUILD_RESUME)
   }
 
   goToUploadResume(){
-    this.props.setProccess(PROCESS_TYPES.upload)
     this.props.history.push(routes.UPLOAD_RESUME)
   }
   goToResumeOptions(){
@@ -154,12 +152,7 @@ const enhance = compose(
         createdAt: props.firestore.FieldValue.serverTimestamp()
       }
       ),
-    setProccess: props => (process) =>
-        props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-          process:process,
-        startedAt: props.firestore.FieldValue.serverTimestamp()
-      }
-    ),
+    
   }),
   // Run functionality on component lifecycle
   lifecycle({

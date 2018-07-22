@@ -49,7 +49,6 @@ class ProfileContainer extends Component{
         if (profile&& user){
           const userData = Object.values(user)[0]
           const profileData = Object.values(profile)[0]
-          console.log('profileData',profileData)
             view = (<div><Grid
                 container
                 spacing={16}
