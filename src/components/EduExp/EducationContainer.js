@@ -103,16 +103,10 @@ class EducationContainer extends React.Component {
   handleCancelDelete() {
     this.setState({deleteDialog:null})
   }
-  handleFormTitle(){
-    if(this.state.dialog.key){
-      return this.props.name === EDU ? "Edit Education" : "Edit Practical Experience"
-    }else{
-      return this.props.name === EDU ? "Add Education" : "Add Practical Experience"
-    }
-  }
   
   render() {
     let items;
+    const {dialog} = this.state
     const { name,data} = this.props;
     if(data){
      items=data.map(item=>{
@@ -144,7 +138,8 @@ class EducationContainer extends React.Component {
           {items.length !==0? items:<Card style={{width:'100%',height:70,marginBottom:20}}/>}
         </Grid>
         <DialogForm
-          title={this.handleFormTitle()}
+          activity={dialog.key?'Edit':'Add'}
+          title={name === EDU ? "Tertiary Education" : "Practical Experience"}
           key={this.state.dialog.key}
           fields={this.state.dialog.fields}
           handler={this.handleCloseDialog}
@@ -175,6 +170,5 @@ EducationContainer.protoTypes = {
 EducationContainer.defaultProps ={
   width:470
 }
-
 
 export default EducationContainer;

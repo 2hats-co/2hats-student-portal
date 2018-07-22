@@ -20,8 +20,6 @@ const styles = theme => ({
   },
 });
 function EduExpCard(props) {
-  // check if index === 0, include header
-  
   const { classes, title, key, label, description, startDate, endDate,editHandler,deleteHandler} = props;
   return (
     <div key ={key} className={classes.root}>

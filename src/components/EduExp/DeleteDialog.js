@@ -8,18 +8,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { Typography } from '../../../node_modules/@material-ui/core';
 import { EDU } from '../../constants/dialogFormFields';
 
-class DeleteDialog extends React.Component {
-
-  handleClickOpen = () => {
-   
-  };
-
-  handleClose = () => {
-
-  };
-
-  render() {
-      const {name,heading,subheading,deleteHandler,cancelHandler} = this.props
+function DeleteDialog(props) {
+      const {name,heading,subheading,deleteHandler,cancelHandler} = props
     return (
       <div>
         <Dialog
@@ -52,6 +42,6 @@ class DeleteDialog extends React.Component {
       </div>
     );
   }
-}
+
 
 export default DeleteDialog;

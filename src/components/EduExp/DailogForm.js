@@ -30,7 +30,7 @@ const styles = theme => ({
     paddingLeft:40,
     paddingRight:40,
     width:330,
-    height:420
+
   }
 
 });
@@ -114,7 +114,7 @@ class DialogForm extends React.Component {
 
   render() {
   
-      const {title,fields,classes,handler,isOpen} = this.props
+      const {activity,title,fields,classes,handler,isOpen} = this.props
     return (
       <div>
         <Dialog 
@@ -123,7 +123,7 @@ class DialogForm extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-        <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{title}</DialogTitle>
+        <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{activity} {title}</DialogTitle>
           <DialogContent className={classes.content}>
             <Grid
             container
@@ -192,9 +192,9 @@ class DialogForm extends React.Component {
             <Button variant="text"  onClick={()=>{handler()}}>
               Cancel
             </Button>
-            <Button variant="text" //disabled={this.isDisabled()} 
-            color='inherit' onClick={this.handleAdd} >
-              Add 
+            <Button disabled={this.isDisabled()} 
+            color='inherit' onClick={this.handleAdd} style={{color:'#000'}}>
+              {activity}
             </Button>
           </DialogActions>
         </Dialog>
@@ -205,7 +205,8 @@ class DialogForm extends React.Component {
 DialogForm.protoTypes = {
   classes: PropTypes.object.isRequired,
   isOpen:PropTypes.boolean,
-    title: PropTypes.string.isRequired,
+  activity: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
     fields: PropTypes.arrayOf(PropTypes.shape({
         type:PropTypes.oneOf([INPUTS.textField,INPUTS.datePicker,INPUTS.dropDown,INPUTS.multiLine]).isRequired,
         label:PropTypes.string,
