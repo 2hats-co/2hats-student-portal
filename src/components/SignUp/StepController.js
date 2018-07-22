@@ -23,6 +23,7 @@ constructor(props){
   super(props);
   this.goToPreview = this.goToPreview.bind(this)
   this.goToIntroduction = this.goToIntroduction.bind(this)
+  this.goToLockedDashboard = this.goToLockedDashboard.bind(this)
 }
 goToPreview(){
   this.props.history.push(routes.PROFILE)
@@ -32,7 +33,7 @@ goToIntroduction(){
 }
 
 goToLockedDashboard(){
-
+  this.props.history.push(routes.DASHBOARD)
 }
 disableNext(currentStep,profile){
     const{interests,
@@ -52,10 +53,13 @@ disableNext(currentStep,profile){
     }
   }
 
+  disableSave(currentStep,profile){
+
+      return (currentStep===ALL_STEPS.education && profile.education.length === 0)
+  }
 render(){
 
  const{classes,profile,currentStep,nextHandler,backHandler} = this.props
- console.log(currentStep)
  const nextButton = (<Button
     className={classes.button}
     disabled={this.disableNext(currentStep,profile)}
@@ -83,7 +87,8 @@ render(){
   const saveButton = (<Button
     className={classes.button}
     variant="outlined"
- //   onClick={}
+    disabled={this.disableSave(currentStep,profile)}
+  onClick={this.goToLockedDashboard}
   >
     Save for Later
   </Button>)
