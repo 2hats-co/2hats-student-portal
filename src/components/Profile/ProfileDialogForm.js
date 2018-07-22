@@ -52,6 +52,12 @@ class ProfileDialogForm extends React.Component {
       this.handleChange(key,value)
      })
   }
+  handleCancel=() =>{
+    _.forEach(this.props.profile,(value,key)=>{
+      this.handleChange(key,value)
+     })
+     this.props.closeHandler()
+  }
   handleSave = () => {
     this.props.onSave({interests: this.state.interests,
       bio: this.state.bio,
@@ -64,7 +70,7 @@ class ProfileDialogForm extends React.Component {
     this.setState({[name]:value});
   }
   render() {
-      const {classes,isOpen,closeHandler} = this.props
+      const {classes,isOpen} = this.props
       const {process,interests,bio,skills,industry,resumeFile} = this.state
     return (
         <Dialog
@@ -85,7 +91,7 @@ class ProfileDialogForm extends React.Component {
            </div>
           </DialogContent>
           <DialogActions>
-          <Button className={classes.button} onClick={closeHandler}>
+          <Button className={classes.button} onClick={this.handleCancel}>
            Cancel
             </Button>
             <Button className={classes.button} onClick={this.handleSave}>

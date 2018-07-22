@@ -34,6 +34,10 @@ const styles = {
   pos: {
     marginBottom: 12,
   },
+  bio:{
+    paddingTop:20,
+    paddingBottom:20
+  },
   avatar:{width:150,
     height:150,
     borderRadius:75,
@@ -88,7 +92,7 @@ function ProfileCard(props) {
         <EditIcon />
       </IconButton> </Grid>
          </Grid>
-           {bio}
+          <Typography className={classes.bio} variant='body1'> {bio}</Typography>
            {resume}
          {interests}
          {skills}
