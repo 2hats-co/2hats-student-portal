@@ -134,7 +134,7 @@ class EducationContainer extends React.Component {
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
           />
-          {items.length !==0? items:<Card style={{width:'100%',height:70,marginBottom:20}}/>}
+          {items ? items:<Card style={{width:'100%',height:70,marginBottom:20}}/>}
         </Grid>
         <DialogForm
           activity={dialog.key?'Edit':'Add'}
@@ -152,7 +152,9 @@ class EducationContainer extends React.Component {
           this.handleDelete(this.state.deleteDialog.key)
         }}
         cancelHandler={() => {
+
           this.handleCancelDelete()
+
         }}
         />}
       </div>
