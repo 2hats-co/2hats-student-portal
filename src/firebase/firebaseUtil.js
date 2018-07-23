@@ -62,7 +62,6 @@ export function callRemoteMethodOnFirestore(methodName, request, callback) {
         // })
     });
 }
-
 function cleanNull(obj) {
     for (let k in obj) {
         // console.log(typeof obj[k])
@@ -79,7 +78,6 @@ function cleanNull(obj) {
         }
     }
 }
-
 function getSimpleObj(obj) {
     console.log("getSimpleObj", obj)
     let newObj = JSON.parse(JSON.stringify(obj));

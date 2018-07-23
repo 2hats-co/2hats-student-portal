@@ -15,10 +15,7 @@ import { INPUTS } from '../../constants/enums';
 import * as _ from 'lodash'
 
 const styles = theme => ({
-  
   root:{
- 
-   
   },content:{
     paddingLeft:0,
     paddingRight:0,
@@ -30,9 +27,7 @@ const styles = theme => ({
     paddingLeft:40,
     paddingRight:40,
     width:330,
-
   }
-
 });
 
 function completed(field){

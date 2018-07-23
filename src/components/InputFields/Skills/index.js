@@ -14,10 +14,16 @@ const styles = theme => ({
         margin: 4
       },
 });
-class Skills extends React.Component {  
-    state = {
-        selectedList: []
-      };
+class Skills extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {
+            selectedList: []
+          };
+          this.handleDelete = this.handleDelete.bind(this)
+          this.addNewSkill = this.addNewSkill.bind(this)
+    }  
+    
       componentWillMount(){
         const {preSelectedList} = this.props
         if(preSelectedList){
@@ -58,7 +64,7 @@ class Skills extends React.Component {
         hint = 'Please address your chosen skill(s) in your tertiary education and practical experience. '
         placeholder = 'Choose relevant skills and/or choose your own, e.g. Excel VBA'
         list = {ALL_SKILLS.filter(x=> !this.state.selectedList.includes(x))}
-        onComplete = {this.addNewSkill.bind(this)}
+        onComplete = {this.addNewSkill}
         />
          {this.state.selectedList.map(x => (
             <Chip
@@ -70,7 +76,7 @@ class Skills extends React.Component {
               }}
             />
           ))}
-       {!hideSuggestions&& <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill.bind(this)} interestKeys={interestKeys}/>}
+       {!hideSuggestions&& <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill} interestKeys={interestKeys}/>}
            </div>
         );
     } 
@@ -78,6 +84,7 @@ class Skills extends React.Component {
 Skills.propTypes = {
     classes: PropTypes.object.isRequired,
     changeHandler: PropTypes.func.isRequired,
+    hideSuggestions:PropTypes.bool,
     interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
     preSelectedList: PropTypes.arrayOf(PropTypes.string)
 };

@@ -32,6 +32,6 @@ BioAndSkills.propTypes = {
     industry: PropTypes.string.isRequired,
     bio: PropTypes.string,
     skills: PropTypes.arrayOf(PropTypes.string),
-    interests: PropTypes.arrayOf(PropTypes.string),
+    interests: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 export default BioAndSkills

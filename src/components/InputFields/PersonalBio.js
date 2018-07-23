@@ -7,7 +7,7 @@ function PersonalBio(props){
         <MultiLineTextField
         title="Personal Bio"
         hint="This bio should focus on your key achievement and what value you can bring to the position-providing companies."
-        placeholder={` For example: ${getPrompts(industry).bio}`}
+        placeholder={`For example: ${getPrompts(industry).bio}`}
         value={bio}
         name='bio'
         characterLimit={400}

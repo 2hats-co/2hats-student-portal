@@ -100,7 +100,7 @@ class ResumeLoader extends React.Component {
             color="primary"
             className={buttonClassname}
             disabled={isUploading}
-            onClick={() =>{resumeFile.name!==''? null: this.handleDelete}}
+            onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
           >
           {resumeFile.name!==''? `${resumeFile.name}`:'Browser Files'}
           

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { cidrSubnet } from 'ip';
 
 // Create HOC that gets firestore from react context and passes it as a prop
 // NOTE: Modified version of withFirestore for a simple example. For a full

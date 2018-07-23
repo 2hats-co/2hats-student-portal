@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import InputWrapper from './InputWrapper';
-import { Typography, Input } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
 import {BLACK} from '../../Theme'
 const styles = theme => ({
     root: {
@@ -24,9 +24,6 @@ const styles = theme => ({
       letterSpacing: '0.06px'
         },
   });
-
-
-
 class MultiLineTextField extends React.Component {
    state = { 
     characterCountValue: '',
@@ -36,9 +33,10 @@ class MultiLineTextField extends React.Component {
     if(this.props.characterLimit){
       this.setState({characterCountValue:`0/${this.props.characterLimit}`})
     }
-    if(this.props.placeholder &&this.props.value==='' ){
-      this.setState({inputValue:this.props.placeholder})
-    }else{
+    // if(this.props.placeholder &&this.props.value==='' ){
+    //   this.setState({inputValue:this.props.placeholder})
+    // }
+    else{
       this.setState({inputValue:this.props.value})      
     }
   }
@@ -77,7 +75,7 @@ class MultiLineTextField extends React.Component {
     
   }
   render(){
-    const { classes,title,label,hint,numberOfLines} = this.props;
+    const { classes,title,label,hint,placeholder,numberOfLines} = this.props;
     return(
       <div>
       {label&& <Typography style={{marginLeft:1}}variant='caption'>{label}</Typography>}
@@ -89,6 +87,7 @@ class MultiLineTextField extends React.Component {
       onChange={this.handleChange.bind(this)}
       onFocus={this.handleFocus.bind(this)}
       className={classes.root}rows="4" cols="50"
+      placeholder={placeholder}
      // style={{widthMax:200 +'!important'}}
       value={this.state.inputValue}>
       </textarea></InputWrapper>

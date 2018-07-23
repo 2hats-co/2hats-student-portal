@@ -5,7 +5,6 @@ import ListItem from './ListItem'
 import LinkIcon from '@material-ui/icons/KeyboardArrowRight'
 import Divider from '@material-ui/core/Divider'
 import * as _ from 'lodash'
-import zIndex from '../../../node_modules/@material-ui/core/styles/zIndex';
 const styles = theme => ({
     root: {
      width:500,

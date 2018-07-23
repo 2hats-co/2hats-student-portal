@@ -26,7 +26,6 @@ class EducationContainer extends React.Component {
     this.handleDeleteDialog = this.handleDeleteDialog.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.handleCancelDelete = this.handleCancelDelete.bind(this);
-    
   }
   componentDidMount() {
     this.setState({
