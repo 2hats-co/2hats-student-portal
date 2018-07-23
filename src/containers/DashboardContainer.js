@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import DashboardWrapper from '../components/DashboardWrapper';
-import { Typography } from '@material-ui/core';
 
 import { withStyles } from '@material-ui/core/styles';
 

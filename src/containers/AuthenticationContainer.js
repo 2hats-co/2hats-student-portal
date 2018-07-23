@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 //material ui
-import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -86,7 +85,6 @@ const INITIAL_STATE = {
 };
 
 const updateByPropertyName = (propertyName, value) => () => ({
-  /// used for error snackbar
   [propertyName]: value,
 });
 
@@ -320,7 +318,7 @@ class AuthenticationContainer extends React.Component {
           this.setState({isMounted:false}),
           setTimeout(() => {
             this.goToIntroduction()
-          }, 500)
+          }, 1000)
         ).catch(error => {
           console.log('error', error);
           this.handleSnackBar(true, 'error', error.message);

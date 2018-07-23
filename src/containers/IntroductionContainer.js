@@ -20,13 +20,13 @@ import * as routes from '../constants/routes'
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
-import { connect } from 'react-redux';
+//import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {withRouter} from 'react-router-dom'
 import { INTRODUCTION_CONTAINER } from '../constants/views';
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
-import { PROCESS_TYPES } from '../constants/signUpProcess';
+
 
 const styles = theme => ({
     root: {
@@ -50,14 +50,22 @@ class IntroductionContainer extends React.Component {
     this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
     this.goToBuildResume = this.goToBuildResume.bind(this)
-    
+    this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
-
+  componentDidMount(){
+    console.log(this.props.history)
+  }
+  createFireStoreRecords(){
+    this.props.createUser();
+   this.props.createProfile();
+  }
   goToBuildResume(){
+    this.createFireStoreRecords()
     this.props.history.push(routes.BUILD_RESUME)
   }
 
   goToUploadResume(){
+    this.createFireStoreRecords()
     this.props.history.push(routes.UPLOAD_RESUME)
   }
   goToResumeOptions(){
@@ -145,9 +153,7 @@ const enhance = compose(
 
       ),
     createProfile: props => () =>
-
-      props.firestore.set({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-
+        props.firestore.set({ collection: COLLECTIONS.profiles, doc: props.uid }, {
         hasSubmit: false,
         createdAt: props.firestore.FieldValue.serverTimestamp()
       }
@@ -160,8 +166,7 @@ const enhance = compose(
     componentWillMount() {
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
       this.props.loadData(profileListenerSettings);
-      this.props.createUser();
-      this.props.createProfile();
+
     },
   }),
 )

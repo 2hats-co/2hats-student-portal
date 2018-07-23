@@ -24,9 +24,7 @@ import { withHandlers } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
-import {INTRODUCTION} from '../constants/routes'
 import {withRouter} from 'react-router-dom'
-
 import { COLLECTIONS } from "../constants/firestore";
 
 import * as _ from "lodash";
@@ -53,10 +51,9 @@ const styles = theme => ({
   }
 });
 
-const INITIAL_STATE = {
-  activeStep: 0,
-  profile:{
-  process:PROCESS_TYPES.build,//['build','upload']
+
+let INITIAL_PROFILE = {
+ // process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -68,7 +65,10 @@ const INITIAL_STATE = {
   industry: "IT",
   education: [],
   resumeFile:{name:'',fullPath:''},
-  experience: []},
+  experience: []}
+const INITIAL_STATE = {
+  activeStep: 0,
+  profile:{},
   error: null
 };
 function AvailableDaysConverter(string){
@@ -83,7 +83,6 @@ class ResumeBuilderContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-
     this.handleChange = this.handleChange.bind(this)
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
@@ -96,10 +95,15 @@ class ResumeBuilderContainer extends Component {
        })
     }
     if(this.props.history.location.pathname === routes.BUILD_RESUME){
-      this.props.onProfileUpdate({process:PROCESS_TYPES.build})
+      console.log('rer',PROCESS_TYPES.build)
+      let updatedProfile = Object.assign({process:PROCESS_TYPES.build},INITIAL_PROFILE)
+      this.setState({profile:updatedProfile})
+      this.props.onProfileUpdate({process:PROCESS_TYPES.build,hasSubmit:false})
     }else if(this.props.history.location.pathname === routes.UPLOAD_RESUME){
-      this.props.onProfileUpdate({process:PROCESS_TYPES.upload})
-
+      console.log('rer',PROCESS_TYPES.upload)
+      let updatedProfile = Object.assign({process:PROCESS_TYPES.upload},INITIAL_PROFILE)
+      this.setState({profile:updatedProfile})
+      this.props.onProfileUpdate({process:PROCESS_TYPES.upload,hasSubmit:false})
     }
 
   }
