@@ -8,6 +8,9 @@ import {storage} from '../../store'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from "classnames";
 import InputWrapper from './InputWrapper'
+
+import { connect } from 'react-redux';
+
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
@@ -60,15 +63,22 @@ class ResumeLoader extends React.Component {
     }
     
     onDrop(files) {
+
+        let uid = this.props.authUser.uid
+        if(uid.includes(':')){
+            uid = uid.split(':')[1]
+        }
+        console.log(files[0].type)
       if(this.props.resumeFile.name!==''){
         this.handleDelete()
       }
         this.setState({isUploading:true})
         this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:''})
-        const documentRef = storage.child(`resumes/${files[0].name}`)
+        const documentRef = storage.child(`${uid}/resumes/${files[0].name}`)
         documentRef.put(files[0]).then(this.handleLoader);
       }
     render() {
+        console.log(this.props.authUser.uid)
         const {classes,resumeFile } = this.props;
         const {isUploading} = this.state; 
         const buttonClassname = classNames({
@@ -122,4 +132,11 @@ ResumeLoader.propTypes = {
         fullPath: PropTypes.string
       }),
 };
-export default withStyles(styles)(ResumeLoader);
+
+  function mapStateToProps(state){
+    return{
+      authUser: state.sessionState.authUser
+    }
+  }
+
+export default withStyles(styles)(connect(mapStateToProps)(ResumeLoader));
