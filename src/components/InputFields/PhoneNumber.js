@@ -6,7 +6,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {TextField} from '@material-ui/core'
 import InputWrapper from './InputWrapper'
-import { renderComponent } from 'recompose';
 import NumberFormat from 'react-number-format';
 const styles = theme => ({
   root:{

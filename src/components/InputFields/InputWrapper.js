@@ -61,8 +61,8 @@ function InputWrapper(props) {
 }
 
 InputWrapper.propTypes = {
-  title: PropTypes.string,
-  hint: PropTypes.string,
+  title: PropTypes.string||PropTypes.bool,
+  hint: PropTypes.string||PropTypes.bool,
   characterCounter: PropTypes.string,
   children: PropTypes.element.isRequired,
   classes: PropTypes.object.isRequired,

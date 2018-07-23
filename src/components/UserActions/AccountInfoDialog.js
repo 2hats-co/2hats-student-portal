@@ -6,6 +6,8 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
+import ChangeAdpter from '../InputFields/ChangeAdapter'
+
 import { withStyles } from '@material-ui/core/styles';
 
 //Redux
@@ -63,7 +65,7 @@ const styles = theme => ({
     }
     handleCancel=() =>{
           this.loadData()
-        //this.props.closeHandler()
+        this.props.closeHandler()
     }
     handleUpdate(){
         this.props.onUserUpdate({
@@ -72,6 +74,7 @@ const styles = theme => ({
             phoneNumber:this.state.phoneNumber,
             workingRights:this.state.workingRights
         })
+        this.props.closeHandler()
     }
     handleChange(name,value){
         console.log(name)
@@ -81,7 +84,7 @@ const styles = theme => ({
     }
 
   render() {
-      const {classes,isOpen,user} = this.props
+      const {classes,isOpen} = this.props
  
         if(this.state){
         const {firstName,lastName,phoneNumber,workingRights} = this.state
@@ -95,7 +98,9 @@ const styles = theme => ({
                 >
                   <DialogTitle className={classes.title} id="alert-dialog-title">{'Confirm Resume Submission'}</DialogTitle>
                   <DialogContent  className={classes.content}>
-                    <Name firstName={firstName} lastName={lastName} changeHandler={this.handleChange.bind(this)}/>
+                  <ChangeAdpter changeHandler={this.handleChange.bind(this)}>
+                    <Name firstName={firstName} lastName={lastName}/>
+                    </ChangeAdpter>
                    <WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange.bind(this)}/>
                    <PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange.bind(this)}/>
                   </DialogContent>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import {FormControl,Select,MenuItem, FormLabel,Typography} from '@material-ui/core'
+import {FormControl,Select,MenuItem,Typography} from '@material-ui/core'
 import InputWrapper from './InputWrapper'
 
 const styles = theme => ({

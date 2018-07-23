@@ -5,17 +5,33 @@ import LogoutIcon from '@material-ui/icons/ExitToApp'
 import UpdateIcon from '@material-ui/icons/Update'
 import {auth} from '../../firebase';
 import AccountInfoDailog from './AccountInfoDialog'
+class UserActions extends React.Component {
+    constructor(props){
+        super(props);
+        this.state= {
+            infoDialog:false
+        }
+        this.handleInfoDialog = this.handleInfoDialog.bind(this)
+    }
+    handleInfoDialog(isOpen){
+        this.setState({infoDialog:isOpen})
+    }
+    render(){
+        return(<div>
+            <Button style={{width:200}} onClick={()=>{
+                this.handleInfoDialog(true)}
+                }>  
+                <UpdateIcon/>Update Account Info
+            </Button>
+            <Button style={{width:120}} onClick={
+                auth.doSignOut
+               }>  
 
-function UserActions(props){
-    return(<div>
-        <Button style={{width:200}}>  <UpdateIcon/>Update Account Info</Button>
-        <Button style={{width:120}} onClick={
-            auth.doSignOut
-           }>  
-           
-           <LogoutIcon/> Log Out</Button>
-           <AccountInfoDailog isOpen={false}/>
-           </div>
-    )
+               <LogoutIcon/> Log Out</Button>
+               <AccountInfoDailog isOpen={this.state.infoDialog} closeHandler={this.handleInfoDialog}/>
+               </div>
+        )
+    }
+
 }
 export default UserActions
