@@ -31,14 +31,14 @@ class MultiLineTextField extends React.Component {
     };
   componentWillMount(){
     if(this.props.characterLimit){
-      this.setState({characterCountValue:`0/${this.props.characterLimit}`})
+      this.setState({characterCountValue:`${this.props.value.length|| 0}/${this.props.characterLimit}`})
     }
     // if(this.props.placeholder &&this.props.value==='' ){
     //   this.setState({inputValue:this.props.placeholder})
     // }
-    else{
+   
       this.setState({inputValue:this.props.value})      
-    }
+    
   }
   componentDidUpdate(prevProps, prevState){
     if(prevState !== this.state){
