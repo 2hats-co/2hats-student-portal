@@ -21,6 +21,7 @@ import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
 import {ALL_STEPS} from './constants/signUpProcess'
 class App extends Component {
+ 
   render() {
   
     return (
