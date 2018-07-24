@@ -55,7 +55,7 @@ class ResumeLoader extends React.Component {
 
     handleDelete(){
         const ref = storage.child(this.props.resumeFile.fullPath)
-        ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
+       // ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
     }
     handleLoader(snapShot){
         this.props.changeHandler('resumeFile',{name:this.props.resumeFile.name,fullPath:snapShot.metadata.fullPath})
