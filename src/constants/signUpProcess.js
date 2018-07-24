@@ -20,6 +20,16 @@ export function checkComplition(currentStep,profile){
       default:return false;
     }
   }
+export function isComplete(profile){
+  if(profile){
+      return STEP_LABELS.upload.map(step => {
+        checkComplition(step,profile)
+      }).reduce((r,x)=>{
+        r*x
+      })
+    
+  }else{return false}
+}
   
 export const ALL_STEPS = {
     interests: "Career Interests",

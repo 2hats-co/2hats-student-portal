@@ -12,6 +12,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import EditIcon from '@material-ui/icons/Edit'
 import Grid from '@material-ui/core/Grid';
 import {getInterestByKey} from '../../constants/resumeBuilderPrompts'
+import EditDialog from './EditDialog';
+import CareerInterests from '../InputFields/CareerInterests';
 const styles = {
     root:{
         marginBottom:20
@@ -77,6 +79,7 @@ function ProfileCard(props) {
           <Chip key={resumeFile.fullPath}
           label={resumeFile.name} /></div>
       }
+    
     return (
       <div className={classes.root}>
       <div className={classes.avatar}><PersonIcon style={{paddingTop:15,fontSize:120}}/></div>
@@ -98,6 +101,12 @@ function ProfileCard(props) {
          {skills}
        </CardContent>
      </Card>
+    { 
+    // <EditDialog isOpen={true}>{
+    //    interestsList&&<CareerInterests preSelectedList={interestsList} />
+    //  }
+    // </EditDialog>
+  }
    </div>
   );
 }

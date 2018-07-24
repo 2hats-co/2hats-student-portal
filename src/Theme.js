@@ -33,17 +33,17 @@ export const Theme = createMuiTheme({
         height:35
       }
     },
-    
-  
+    MuiDialog:{
+      root:{
+        overflowY:'visible'
+      }
+    },
     MuiDialogTitle:{
-    
       root:{
         color:primaryColor+'!important',
       }
-
     },
     MuiButton: { 
-
       flat: { // Name of the rule
         color: WHITE,
         backgroundColor:primaryColor,
@@ -57,8 +57,7 @@ export const Theme = createMuiTheme({
         backgroundColor:WHITE,
         borderRadius:'20px',
         border: `1px solid ${BLACK}`,
-        textTransform: 'capitalize',
-     
+        textTransform: 'capitalize',   
         '&:hover': {backgroundColor:WHITE}
       },
       text: { // Name of the rule

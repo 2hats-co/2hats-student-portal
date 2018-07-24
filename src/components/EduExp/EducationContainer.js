@@ -36,7 +36,7 @@ class EducationContainer extends React.Component {
     });
   }
   handleDeleteDialog(key,item){
-    this.setState({deleteDialog:{key:key,heading:item.degree||item.title,subheading:item.university||item.company}})
+    this.setState({deleteDialog:{key:key,heading:item.degree||item.title,subheading:item.university||item.organisation}})
 
   }
   componentDidUpdate(prevProps, prevState) {
@@ -113,7 +113,7 @@ class EducationContainer extends React.Component {
                 <EduExpCard
                   key={item.key}
                   title={name === EDU ? (item.major?(item.degree+' - '+item.major):item.degree) : item.title}
-                  label={name === EDU ? item.university : (item.company+' / '+item.type) }
+                  label={name === EDU ? item.university : (item.organisation+' / '+item.type) }
                   startDate={item.startDate}
                   endDate={item.endDate}
                   description={item.description}
@@ -134,7 +134,7 @@ class EducationContainer extends React.Component {
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
           />
-          {items ? items:<Card style={{width:'100%',height:70,marginBottom:20}}/>}
+          {items ? items:<Card style={{width:'98%',height:70,marginBottom:20}}/>}
         </Grid>
         <DialogForm
           activity={dialog.key?'Edit':'Add'}

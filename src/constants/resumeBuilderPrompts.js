@@ -117,13 +117,19 @@ const SKILLS ={
     GI:['Adobe Photoshop','Adobe Illustrator','Adobe InDesign'],
     UI:['Sketch','Adobe XD','Adobe Photoshop','Adobe Illustrator','Framer'],
     UX:['Sketch','Adobe XD','Balsamiq','InVision','Framer'],
-    APP:['JavaScript','HTML/CSS','JQuery','React','Node.JS','Swift','Flutter'],
+    APP:['JavaScript','HTML/CSS','JQuery','React','Node.JS','Swift'],
     DEV:['Java','Python','C','C++','C#','SQL'],
     DA:['Python','SQL','R','Excel','Matlab']
 }
 
-export const ALL_SKILLS = Object.values(SKILLS).reduce((r,x)=>{
-    return r.concat(x)
+export const ALL_SKILLS = Object.values(SKILLS).reduce((r,interest)=>{
+    let newSkills = []
+    interest.forEach(skill=>{
+        if(!r.includes(skill)){
+            newSkills.push(skill)
+        }
+    })
+    return r.concat(newSkills)
 })
 export function getSkills(interests){
     if(!interests) return [];

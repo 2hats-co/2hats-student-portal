@@ -18,12 +18,12 @@ class UserActions extends React.Component {
     }
     render(){
         return(<div>
-            <Button style={{width:200}} onClick={()=>{
+            <Button style={{width:200,margin:8}} onClick={()=>{
                 this.handleInfoDialog(true)}
                 }>  
                 <UpdateIcon/>Update Account Info
             </Button>
-            <Button style={{width:120}} onClick={
+            <Button style={{width:120,margin:8}} onClick={
                 auth.doSignOut
                }>  
 

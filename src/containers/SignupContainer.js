@@ -50,10 +50,8 @@ const styles = theme => ({
     width: 140
   }
 });
-
-
 let INITIAL_PROFILE = {
- // process:PROCESS_TYPES.build,//['build','upload']
+ process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -88,7 +86,6 @@ class ResumeBuilderContainer extends Component {
     this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
-  
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)
@@ -105,7 +102,6 @@ class ResumeBuilderContainer extends Component {
       this.setState({profile:updatedProfile})
       this.props.onProfileUpdate({process:PROCESS_TYPES.upload,hasSubmit:false})
     }
-
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
@@ -186,7 +182,7 @@ class ResumeBuilderContainer extends Component {
       break; 
       case ALL_STEPS.uploadResume:this.props.onProfileUpdate({resumeFile:profile.resumeFile,bio:profile.bio,completedStep:currentStep})
       break; 
-      case ALL_STEPS.other:this.props.onProfileUpdate({completedStep:'completed',isComplete:true})
+      case ALL_STEPS.other:this.props.onProfileUpdate({completedStep:'completed',isComplete:true,phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:AvailableDaysConverter(profile.availableDays)})
       this.props.onUserUpdate({phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:AvailableDaysConverter(profile.availableDays)})
       break;
       default:

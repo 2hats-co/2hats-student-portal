@@ -27,7 +27,6 @@ function ConfirmSubmission(props) {
       const {classes,isOpen,closeHandler} = props
     return (
         <Dialog
-        
           open={isOpen}
           onClose={closeHandler}
           aria-labelledby="alert-dialog-title"

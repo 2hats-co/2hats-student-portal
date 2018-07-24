@@ -45,11 +45,10 @@ const initialState = {
   type:null,
   degree:null,
   major:null,
-  company:null,
+  organisation:null,
   university:null,
   title:null
 };
-
 class DialogForm extends React.Component {
   constructor(props) {
     super(props)

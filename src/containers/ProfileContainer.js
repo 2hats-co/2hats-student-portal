@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS } from "../constants/firestore";
 
-import { PROCESS_TYPES } from "../constants/signUpProcess";
+import { PROCESS_TYPES, isComplete} from "../constants/signUpProcess";
 import ProfileDialogForm from '../components/Profile/ProfileDialogForm';
 import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
 
@@ -38,11 +38,21 @@ class ProfileContainer extends Component{
     }
     handleSubmition(){
       this.setState({submitionDialog:false})
+      this.props.onSubmit()
     }  
     render(){
         const {classes, profile,user} = this.props
-        const submitButton = (<Button variant='flat' style={{width:200}} onClick={()=>{this.setState({submitionDialog:true})}}>Submit Resume</Button>)
-        const updateButton = (<Button variant='flat' style={{width:200}}>Update Resume</Button>)
+        console.log(profile)
+        const submitButton = (
+        <Button variant='flat' style={{paddingLeft:20,paddingRight:20}} 
+        disabled={!true}
+        onClick={()=>{
+          this.handleSubmition()
+          //this.setState({submitionDialog:true})
+        }}>
+        {true?'Submit Resume':'Complete Profile to submit'}
+        </Button>
+        )
         const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
         let view = loading
         

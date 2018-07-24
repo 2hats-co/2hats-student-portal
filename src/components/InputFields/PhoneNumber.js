@@ -78,9 +78,8 @@ class PhoneNumber extends React.Component {
   className={classes.root}
    >
     <InputWrapper 
-  title={!hasLabel&&'mobile number (Optional)'}
-  hint={!hasLabel&&'Your mobile number is required so that we can contact you for a phone interview.'}
- 
+  title={!hasLabel?'mobile number (Optional)':''}
+  hint={!hasLabel?'Your mobile number is required so that we can contact you for a phone interview.':''}
   >{InputField}
   </InputWrapper> 
   </div> 
