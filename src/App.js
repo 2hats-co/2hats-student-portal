@@ -20,6 +20,7 @@ import {
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
 import {ALL_STEPS} from './constants/signUpProcess'
+import Landing from './components/Landing';
 class App extends Component {
  
   render() {
@@ -43,6 +44,7 @@ class App extends Component {
       <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other}/>} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer/>} />
       <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} />      
+      <Route exact path={'/'} component={() => <Landing/>} />      
     </div>
   </Router>
  

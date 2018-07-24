@@ -22,9 +22,7 @@ export function checkComplition(currentStep,profile){
   }
 export function isComplete(profile){
   if(profile){
-    console.log(profile)
       return STEP_LABELS.upload.map(step => {
-        console.log(step,checkComplition(step,profile))
         return checkComplition(step,profile)
       }).reduce((r,x)=>{
        return r*x

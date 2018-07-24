@@ -49,7 +49,7 @@ class ProfileContainer extends Component{
         let view = loading
         
         if (profile&& user){
-          console.log(profile)
+        
          
 
 

@@ -7,7 +7,6 @@ class ChangeAdaper extends React.Component{
     }
 handleChange = name => event => {
     const value =event.target.value
-        console.log(name,event.target.value)
         if (!value){
         this.props.changeHandler(name,' ')
         }

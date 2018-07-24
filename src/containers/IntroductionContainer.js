@@ -53,7 +53,7 @@ class IntroductionContainer extends React.Component {
     this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
   componentDidMount(){
-    console.log(this.props.history)
+    
   }
   createFireStoreRecords(){
     this.props.createUser();

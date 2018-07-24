@@ -5,10 +5,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { withStyles } from '@material-ui/core/styles';
 
 import ChangeAdpter from '../InputFields/ChangeAdapter'
-
-import { withStyles } from '@material-ui/core/styles';
 
 //Redux
 import { compose } from 'redux';
@@ -77,7 +76,6 @@ const styles = theme => ({
         this.props.closeHandler()
     }
     handleChange(name,value){
-        console.log(name)
         if(value){
             this.setState({[name]:value}) 
         } 

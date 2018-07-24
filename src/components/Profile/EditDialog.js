@@ -79,7 +79,6 @@ const styles = theme => ({
          this.props.closeHandler()  
       };
       handleChange(name, value) {
-        console.log(name,value)
         this.setState({[name]:value})
       }
       render() {

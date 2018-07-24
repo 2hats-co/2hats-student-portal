@@ -58,6 +58,11 @@ class ResumeLoader extends React.Component {
        // ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
     }
     handleLoader(snapShot){
+        storage
+        .child(snapShot.metadata.fullPath)
+        .getDownloadURL()
+        .then(url => console.log(url))
+     
         this.props.changeHandler('resumeFile',{name:this.props.resumeFile.name,fullPath:snapShot.metadata.fullPath})
         this.setState({isUploading:false})
     }
@@ -68,7 +73,7 @@ class ResumeLoader extends React.Component {
         if(uid.includes(':')){
             uid = uid.split(':')[1]
         }
-        console.log(files[0].type)
+       // console.log(files[0].type)
       if(this.props.resumeFile.name!==''){
         this.handleDelete()
       }
@@ -78,7 +83,6 @@ class ResumeLoader extends React.Component {
         documentRef.put(files[0]).then(this.handleLoader);
       }
     render() {
-        console.log(this.props.authUser.uid)
         const {classes,resumeFile } = this.props;
         const {isUploading} = this.state; 
         const buttonClassname = classNames({
