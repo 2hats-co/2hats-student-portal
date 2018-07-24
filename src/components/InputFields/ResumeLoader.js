@@ -61,9 +61,10 @@ class ResumeLoader extends React.Component {
         storage
         .child(snapShot.metadata.fullPath)
         .getDownloadURL()
-        .then(url => console.log(url))
+        .then(url => 
+        this.props.changeHandler('resumeFile',{name:this.props.resumeFile.name,fullPath:snapShot.metadata.fullPath,downloadURL:url})
+    )
      
-        this.props.changeHandler('resumeFile',{name:this.props.resumeFile.name,fullPath:snapShot.metadata.fullPath})
         this.setState({isUploading:false})
     }
     
