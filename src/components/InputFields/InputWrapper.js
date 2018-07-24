@@ -54,8 +54,8 @@ function InputWrapper(props) {
    className={classes.root}
    >
      {header}
-     {props.children}
      {footer}
+     {props.children}
   </div>
   );
 }
