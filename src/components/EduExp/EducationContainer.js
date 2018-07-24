@@ -10,6 +10,7 @@ import * as _ from "lodash";
 
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
+import Typography from "@material-ui/core/Typography";
 
 class EducationContainer extends React.Component {
   constructor(props) {
@@ -134,7 +135,12 @@ class EducationContainer extends React.Component {
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
           />
-          {items ? items:<Card style={{width:'98%',height:70,marginBottom:20}}/>}
+          {items.length !==0 ? items:<Card style={{width:'98%',height:80,marginBottom:20}}>
+          <Typography variant='body1' style={{textAlign:'center',marginTop:40}}>
+          Press ‘+’ to get started
+          </Typography>
+          
+          </Card>}
         </Grid>
         <DialogForm
           activity={dialog.key?'Edit':'Add'}
@@ -152,9 +158,7 @@ class EducationContainer extends React.Component {
           this.handleDelete(this.state.deleteDialog.key)
         }}
         cancelHandler={() => {
-
           this.handleCancelDelete()
-
         }}
         />}
       </div>
