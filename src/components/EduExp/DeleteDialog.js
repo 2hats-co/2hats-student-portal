@@ -13,7 +13,7 @@ function DeleteDialog(props) {
       <div>
         <Dialog
           open={true}
-          onClose={this.handleClose}
+          onClose={cancelHandler}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
