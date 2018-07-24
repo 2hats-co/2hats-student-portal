@@ -22,7 +22,6 @@ const styles = theme => ({
         width:100
     }
   });
-
 function ConfirmSubmission(props) {
       const {classes,isOpen,closeHandler} = props
     return (

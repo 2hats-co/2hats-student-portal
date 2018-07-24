@@ -64,7 +64,16 @@ function ProfileCard(props) {
       />)})}</div>)}
       let skills = (<div/>)
     if(skillsList){skills=(<div> <Typography variant='subheading'>
-    Skills:
+    <Grid container='row' justify='space-between' >
+          <Typography variant='subheading'>
+            Skills:
+          </Typography>
+          <Grid item> 
+             <IconButton onClick={editHandler} aria-label="edit resume">
+               <EditIcon />
+             </IconButton> 
+          </Grid>
+      </Grid>
     </Typography>{skillsList.map(x=> {return( <Chip
         key={x}
         label={x}
@@ -73,11 +82,20 @@ function ProfileCard(props) {
       let resume = (<div/>)
       if(resumeFile){
         resume= <div>
+      <Grid container='row' justify='space-between' >
           <Typography variant='subheading'>
-    Resume:
-    </Typography>
-          <Chip key={resumeFile.fullPath}
-          label={resumeFile.name} /></div>
+            Resume:
+          </Typography>
+          <Grid item> 
+             <IconButton onClick={editHandler} aria-label="edit resume">
+               <EditIcon />
+             </IconButton> 
+          </Grid>
+      </Grid>
+          {resumeFile.name&& <Chip key={resumeFile.fullPath}
+          label={resumeFile.name}/>}
+          
+          </div>
       }
     
     return (
@@ -91,9 +109,11 @@ function ProfileCard(props) {
          {name}
          </Typography>
          </Grid>
-         <Grid item> <IconButton onClick={editHandler} aria-label="Edit">
-        <EditIcon />
-      </IconButton> </Grid>
+           <Grid item> 
+             <IconButton onClick={editHandler} aria-label="Edit">
+               <EditIcon />
+             </IconButton> 
+          </Grid>
          </Grid>
           <Typography className={classes.bio} variant='body1'> {bio}</Typography>
            {resume}

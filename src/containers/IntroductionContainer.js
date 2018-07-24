@@ -148,6 +148,7 @@ const enhance = compose(
         firstName: props.auth.displayName.split(' ')[0],
         lastName: props.auth.displayName.split(' ')[1],
         emailVerified: props.auth.emailVerified,
+        email: props.auth.email,
         createdAt: props.firestore.FieldValue.serverTimestamp()
       }
 
