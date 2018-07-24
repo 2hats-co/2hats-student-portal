@@ -30,8 +30,7 @@ function ConfirmSubmission(props) {
           open={isOpen}
           onClose={closeHandler}
           aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
+          aria-describedby="alert-dialog-description">
           <DialogTitle className={classes.title} id="alert-dialog-title">{'Confirm Resume Submission'}</DialogTitle>
           <DialogContent  className={classes.content}>
             <Typography variant='body1'>

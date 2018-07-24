@@ -32,15 +32,16 @@ const styles = theme => ({
     content:{
       maxWidth:800,
     },
-  });
-  const INITIAL_STATE = {
+});
+
+const INITIAL_STATE = {
     interests: [],
     bio: "",
     skills: [],
     resumeFile:{name:'',fullPath:''},
     process:PROCESS_TYPES.build,
     error: null
-  };
+};
 class ProfileDialogForm extends React.Component {
   constructor(props) {
     super(props);

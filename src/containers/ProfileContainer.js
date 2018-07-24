@@ -42,41 +42,50 @@ class ProfileContainer extends Component{
     }  
     render(){
         const {classes, profile,user} = this.props
-        console.log(profile)
-        const submitButton = (
-        <Button variant='flat' style={{paddingLeft:20,paddingRight:20}} 
-        disabled={!true}
-        onClick={()=>{
-          this.handleSubmition()
-          //this.setState({submitionDialog:true})
-        }}>
-        {true?'Submit Resume':'Complete Profile to submit'}
-        </Button>
-        )
+      
+     
+
         const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
         let view = loading
         
         if (profile&& user){
+          console.log(profile)
+         
+
+
           const userData = Object.values(user)[0]
           const profileData = Object.values(profile)[0]
+          const submitButton = (
+            <Button variant='flat' style={{paddingLeft:20,paddingRight:20}} 
+            disabled={!profileData.isComplete}
+            onClick={()=>{
+              this.handleSubmition()
+              //this.setState({submitionDialog:true})
+            }}>
+            {profileData.isComplete ?'Submit Resume':'Complete Profile to submit'}
+            </Button>
+            )
+            const submittedButton = (<Button disabled={true} variant='flat'>
+              Submission Unavailable - Pending Feedback
+            </Button>)
+
             view = (<div><Grid
                 container
                 spacing={16}
                 className={classes.root}
                 alignItems='center'
-                direction='column'
-              >
+                direction='column'>
               <ProfileCard 
               skillsList={profileData.skills}
               bio={profileData.bio}
               name={`${userData.firstName} ${userData.lastName}`}
             resumeFile={profileData.process === PROCESS_TYPES.upload&& profileData.resumeFile}
               interestsList={profileData.interests}
-              editHandler={()=>{this.handleEdit(true)}}
-              />
-                {profileData.process === PROCESS_TYPES.build&&<div><EducationContainer industry={profileData.industry} name='education' data={profileData.education} width={650} changeHandler={this.props.onUpdate.bind(this)}/> 
+              editHandler={()=>{this.handleEdit(true)}}/>
+                {profileData.process === PROCESS_TYPES.build&&<div>
+                  <EducationContainer industry={profileData.industry} name='education' data={profileData.education} width={650} changeHandler={this.props.onUpdate.bind(this)}/> 
                 <EducationContainer industry={profileData.industry} name='experience' data={profileData.experience} width={650} changeHandler={this.props.onUpdate.bind(this)}/>
-            </div>}{submitButton}
+            </div>}{profileData.hasSubmit?submittedButton:submitButton}
                 </Grid>
                 <ConfirmSubmission isOpen={this.state.submitionDialog}/>
                 <ProfileDialogForm isOpen={this.state.profileEditorDailog} closeHandler={()=>{this.handleEdit(false)}} profile={profileData}/>
