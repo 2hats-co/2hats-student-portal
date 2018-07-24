@@ -155,6 +155,13 @@ const enhance = compose(
       ),
     createProfile: props => () =>
         props.firestore.set({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+        education:[],
+        experience:[],
+        industry:'IT',
+        bio:'',
+        interests:[],
+        skills:[],
+        isComplete:false,
         hasSubmit: false,
         createdAt: props.firestore.FieldValue.serverTimestamp()
       }
