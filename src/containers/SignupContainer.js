@@ -51,7 +51,7 @@ const styles = theme => ({
   }
 });
 let INITIAL_PROFILE = {
- process:PROCESS_TYPES.build,//['build','upload']
+// process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -86,6 +86,7 @@ class ResumeBuilderContainer extends Component {
     this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
+
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)
