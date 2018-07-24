@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import {getInterestByKey} from '../../constants/resumeBuilderPrompts'
 import EditDialog from './EditDialog';
 import CareerInterests from '../InputFields/CareerInterests';
+import Section from './Section'
 const styles = {
     root:{
         marginBottom:20
@@ -52,29 +53,19 @@ const styles = {
     }
 };
 function ProfileCard(props) {
-  const { classes,name,bio,resumeFile,interestsList,skillsList,editHandler} = props;
+  const {classes,name,bio,resumeFile,interestsList,skillsList} = props;
     let interests = (<div/>)
-    if(interestsList){interests=(<div> <Typography variant='subheading'>
-    Career Interests:
-    </Typography>{interestsList.map(x=> {
+    if(interestsList){interests=(<div> 
+   {interests}
+    {interestsList.map(x=> {
       return( <Chip
         key={x}
         label={getInterestByKey(x)[0].label}
         className={classes.chip}
       />)})}</div>)}
       let skills = (<div/>)
-    if(skillsList){skills=(<div> <Typography variant='subheading'>
-    <Grid container='row' justify='space-between' >
-          <Typography variant='subheading'>
-            Skills:
-          </Typography>
-          <Grid item> 
-             <IconButton onClick={editHandler} aria-label="edit resume">
-               <EditIcon />
-             </IconButton> 
-          </Grid>
-      </Grid>
-    </Typography>{skillsList.map(x=> {return( <Chip
+    if(skillsList){skills=(<div>
+    {skillsList.map(x=> {return( <Chip
         key={x}
         label={x}
         className={classes.chip}
@@ -82,19 +73,8 @@ function ProfileCard(props) {
       let resume = (<div/>)
       if(resumeFile){
         resume= <div>
-      <Grid container='row' justify='space-between' >
-          <Typography variant='subheading'>
-            Resume:
-          </Typography>
-          <Grid item> 
-             <IconButton onClick={editHandler} aria-label="edit resume">
-               <EditIcon />
-             </IconButton> 
-          </Grid>
-      </Grid>
           {resumeFile.name&& <Chip key={resumeFile.fullPath}
           label={resumeFile.name}/>}
-          
           </div>
       }
     
@@ -103,22 +83,25 @@ function ProfileCard(props) {
       <div className={classes.avatar}><PersonIcon style={{paddingTop:15,fontSize:120}}/></div>
      <Card className={classes.card}> 
        <CardContent>  
-         <Grid container direction='row' justify='space-between'>
-         <Grid item style={{width:60}}> </Grid>
+         <Grid container direction='row' justify='center'>
+         
          <Grid item><Typography variant='display1' style={{textAlign:'center'}}>
          {name}
          </Typography>
          </Grid>
-           <Grid item> 
-             <IconButton onClick={editHandler} aria-label="Edit">
-               <EditIcon />
-             </IconButton> 
-          </Grid>
          </Grid>
-          <Typography className={classes.bio} variant='body1'> {bio}</Typography>
-           {resume}
+         <Section name='bio'>
+         <Typography className={classes.bio} variant='body1'> {bio}</Typography>
+         </Section>
+          <Section name='resumeFile'>
+         {resume}
+         </Section>
+         <Section name='interests'>
          {interests}
+         </Section>
+        <Section name='skills'>
          {skills}
+         </Section>
        </CardContent>
      </Card>
     { 

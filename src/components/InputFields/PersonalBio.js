@@ -14,6 +14,6 @@ function PersonalBio(props){
         changeHandler={changeHandler}
       />
     )
-
 }
+
 export default PersonalBio

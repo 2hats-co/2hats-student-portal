@@ -115,7 +115,7 @@ class ResumeLoader extends React.Component {
           {resumeFile.name!==''? `${resumeFile.name}`:'Browser Files'}
           
           </Button>
-         {isUploading && <CircularProgress size={24} className={classes.buttonProgress}/>}
+         {isUploading &&<CircularProgress size={24} className={classes.buttonProgress}/>}
         </div>
             </Grid>
             </Dropzone>
