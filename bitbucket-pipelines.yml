@@ -18,7 +18,7 @@ pipelines:
           - npm install
           - yarn install
           - npm run build:staging
-          - firebase deploy --token "$FIREBASE_TOKEN" --project dev2hats --non-i             nteractive --public build --only hosting
+          - firebase deploy --token "$FIREBASE_TOKEN" --project dev2hats --non-interactive --public build --only hosting
 definitions: 
    caches: 
      globalnode: /usr/local/lib/node_modules

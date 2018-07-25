@@ -24,7 +24,7 @@ export const withFirestore = (WrappedComponent) => {
         dispatch={this.context.store.dispatch}
         firestore={this.context.store.firestore}
       />)
-        }else if((<WrappedComponent/>)._self.props.isPublic){
+        }else{
           component = (<WrappedComponent
             {...this.props}
             dispatch={this.context.store.dispatch}
