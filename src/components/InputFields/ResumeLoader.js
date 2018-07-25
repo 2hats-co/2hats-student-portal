@@ -14,14 +14,14 @@ import { connect } from 'react-redux';
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
-        height: 200,
-        width: 400,
+        width:'100%',
+        height:'100%',
         border: '3px dashed #979797',
         borderRadius: 5,
        
     },
     grid:{
-        height:200,
+        height:400,
     },
     wrapper: {
         margin: theme.spacing.unit,
@@ -74,7 +74,6 @@ class ResumeLoader extends React.Component {
     }
     
     onDrop(files) {
-
         let uid = this.props.authUser.uid
         if(uid.includes(':')){
             uid = uid.split(':')[1]
