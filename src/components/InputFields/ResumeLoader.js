@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Dropzone from 'react-dropzone'
-import {storage} from '../../store'
+import {firebaseStorage} from '../../store'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from "classnames";
 import InputWrapper from './InputWrapper'
@@ -54,11 +54,11 @@ class ResumeLoader extends React.Component {
     }
 
     handleDelete(){
-        const ref = storage.child(this.props.resumeFile.fullPath)
+        const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
        // ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
     }
     handleLoader(snapShot){
-        storage
+        firebaseStorage
         .child(snapShot.metadata.fullPath)
         .getDownloadURL()
         .then(url => 
@@ -84,7 +84,7 @@ class ResumeLoader extends React.Component {
       }
         this.setState({isUploading:true})
         this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:''})
-        const documentRef = storage.child(`${uid}/resumes/${files[0].name}`)
+        const documentRef = firebaseStorage.child(`${uid}/resumes/${files[0].name}`)
         documentRef.put(files[0]).then(this.handleLoader);
       }
     render() {

@@ -20,12 +20,17 @@ import * as routes from '../constants/routes'
 //Redux
 import { compose } from 'redux';
 import { withHandlers, lifecycle } from 'recompose'
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 //import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {withRouter} from 'react-router-dom'
 import { INTRODUCTION_CONTAINER } from '../constants/views';
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
+
+import * as action from '../actions/AuthenticationContainerActions';
 
 
 const styles = theme => ({
@@ -61,6 +66,7 @@ class IntroductionContainer extends React.Component {
   createFireStoreRecords(){
     this.props.createUser();
    this.props.createProfile();
+   this.props.MarkUserAsStepsCompleteAction(true);
   }
   goToBuildResume(){
     this.createFireStoreRecords()
@@ -137,6 +143,13 @@ class IntroductionContainer extends React.Component {
 IntroductionContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+function mapStateToProps(state) {
+    return {
+    };
+}
+function mapActionToProps(dispatch) {
+    return bindActionCreators(action.actions, dispatch);
+}
 
 const enhance = compose(
   // add redux store (from react context) as a prop
@@ -168,8 +181,7 @@ const enhance = compose(
         hasSubmit: false,
         createdAt: props.firestore.FieldValue.serverTimestamp()
       }
-      ),
-    
+      ) 
   }),
   // Run functionality on component lifecycle
   lifecycle({
@@ -180,6 +192,7 @@ const enhance = compose(
 
     },
   }),
+  connect(mapStateToProps,mapActionToProps)
 )
 export default enhance(
   withRouter(
