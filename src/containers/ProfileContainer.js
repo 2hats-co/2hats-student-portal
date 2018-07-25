@@ -33,6 +33,9 @@ class ProfileContainer extends Component{
       this.handleEdit = this.handleEdit.bind(this)
       this.handleSubmition = this.handleSubmition.bind(this)
     }
+    componentDidMount(){
+      window.Intercom('update')
+  }
     handleEdit(state){
       this.setState({profileEditorDailog:state})
     }
