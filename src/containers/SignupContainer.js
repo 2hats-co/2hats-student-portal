@@ -2,10 +2,7 @@ import React,{Component} from "react";
 import PropTypes from "prop-types";
 //material
 import { withStyles } from "@material-ui/core/styles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Grid from "@material-ui/core/Grid";
+
 //child components
 import LogoOnCard from "../components/LogoOnCard";
 //form sections
@@ -38,10 +35,6 @@ const styles = theme => ({
   container: {
     width: "100%",
     padding: 50
-  },
-  stepper: {
-    width: 750,
-    padding: 0
   },
   footerContainer: {
     width: 320
@@ -211,56 +204,20 @@ class ResumeBuilderContainer extends Component {
     const { activeStep ,profile} = this.state;
     const steps = STEP_LABELS[(profile.process)];
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
-    const stepController = (
-      <StepController currentStep={currentStep} 
-      profile={profile} 
-      nextHandler={this.handleNext}
-      backHandler={this.handleBack}/>
-    )
+
     return (
         <LogoOnCard width={850} height={this.state.height}>
+        
           <div className={classes.container}>
-            <Stepper
-              className={classes.stepper}
-              activeStep={activeStep}
-              alternativeLabel
-            >
-              {steps.map(label => {
-                return (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
-            <div>
-              {this.state.activeStep === steps.length ? (
-                <SectionWrapper
-                 
-                  width={750}
-                  height={170}
-                > <Grid
-                container
-                direction="column"
-                justify="space-between"
-                style={{ height: 200 }}
-              >
-                <Completed process={profile.process}/>
-                {stepController}
-              </Grid></SectionWrapper>
-              ) : (
-                <Grid
-                  container
-                  direction="column"
-                  justify="space-between"
-                >
-                  <Grid item>{this.getStepContent(currentStep,profile)}</Grid>
-                  <Grid item>
-                  {stepController}
-                  </Grid>
-                </Grid>
-              )}
-            </div>
+  
+          <StepController
+          activeStep={activeStep}
+          profile={profile} 
+          nextHandler={this.handleNext}
+          backHandler={this.handleBack}>
+           {this.getStepContent(currentStep,profile)}
+           </StepController>
+          
           </div>
         </LogoOnCard>
       

@@ -1,13 +1,22 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
+import Stepper from "@material-ui/core/Stepper";
+import Step from "@material-ui/core/Step";
+import StepLabel from "@material-ui/core/StepLabel";
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import {withRouter} from 'react-router-dom'
-import {ALL_STEPS,checkComplition} from '../../constants/signUpProcess'
+import {PROCESS_TYPES,ALL_STEPS,STEP_LABELS,checkComplition} from '../../constants/signUpProcess'
 import * as routes from '../../constants/routes'
+
+
+
 const styles = theme => ({
   root: {
     width: 600
+  },stepper: {
+    width: 750,
+    padding: 0
   },
   button:{
    marginBottom:20,
@@ -54,7 +63,9 @@ disableNext(currentStep,profile){
   }
 render(){
 
- const{classes,profile,currentStep,nextHandler,backHandler} = this.props
+ const{classes,profile,nextHandler,backHandler,activeStep} = this.props
+ const steps = STEP_LABELS[(profile.process)];
+ const currentStep = STEP_LABELS[(profile.process)][activeStep]
  const nextButton = (<Button
     className={classes.button}
     disabled={checkComplition(currentStep,profile)}
@@ -89,7 +100,27 @@ render(){
   </Button>)
 
  return(
-    <Grid
+   <div>
+ <Stepper
+              className={classes.stepper}
+              activeStep={activeStep}
+              alternativeLabel
+            >
+              {steps.map(label => {
+                return (
+                  <Step key={label}>
+                    <StepLabel>{label}</StepLabel>
+                  </Step>
+                );
+              })}
+            </Stepper>
+                  <Grid
+                  container
+                  direction="column"
+                  justify="space-between">
+                  <Grid item>{this.props.children}</Grid>
+                  <Grid item>
+                  <Grid
     className={classes.root}
     container
     direction="row"
@@ -100,6 +131,11 @@ render(){
    {(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton}
    {!currentStep&&previewButton}
     </Grid>
+                  </Grid>
+                </Grid>
+
+    
+    </div>
  )
 }
 }
