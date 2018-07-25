@@ -75,7 +75,7 @@ const INITIAL_STATE = {
   firstName: '',
   lastName: '',
   password: '',
-  isMounted:true,
+  isMounted: true,
   confirmPassword: '',
   email: '',
   error: null,
@@ -106,7 +106,7 @@ class AuthenticationContainer extends React.Component {
     this.handleProgress = this.handleProgress.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
     this.handleChange = this.handleChange.bind(this)
- 
+
   }
   goToSignIn() {
     this.props.history.push(routes.SIGN_IN)
@@ -179,7 +179,7 @@ class AuthenticationContainer extends React.Component {
               this.handleLoadingIndicator(false);
               this.goToIntroduction()
             }, 500)
-           
+
           } else {
             // todo: means this is an existing user who already complete initial steps, go to profile page directly
             this.handleProgress(90);
@@ -188,7 +188,7 @@ class AuthenticationContainer extends React.Component {
               this.handleLoadingIndicator(false);
               this.goToDashboard()
             }, 500)
-         
+
           }
 
         } catch (error) {
@@ -319,21 +319,25 @@ class AuthenticationContainer extends React.Component {
     auth.doCreateUserWithEmailAndPassword(email, password)
       .then(authUser => {
         this.handleProgress(60);
+        console.log('user successfully created', authUser)
         authUser.user.updateProfile({
           displayName: `${firstName} ${lastName}`
-        })}).then(
+        })
+      }).then((re) => {
           this.handleProgress(90),
-          this.setState({isMounted:false}),
+          console.log('full name successfully created', re),
+          this.setState({ isMounted: false }),
           setTimeout(() => {
             this.goToIntroduction()
           }, 1000)
-        ).catch(error => {
-          console.log('error', error);
-          this.handleSnackBar(true, 'error', error.message);
-          this.handleLoadingIndicator(false);
-            this.setState(updateByPropertyName('error', error));
-        });
-    
+      }
+      ).catch(error => {
+        console.log('error', error);
+        this.handleSnackBar(true, 'error', error.message);
+        this.handleLoadingIndicator(false);
+        this.setState(updateByPropertyName('error', error));
+      });
+
   }
   handleResetPassword(email) {
     auth.doPasswordReset(email)
@@ -396,10 +400,10 @@ class AuthenticationContainer extends React.Component {
     let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
     </StyledLink>)
-    const emailField = (<Email key="emailField" value={email} changeHandler={this.handleChange}/>)
-    const passwordField = (<Password key="passwordField" value={password} changeHandler={this.handleChange}/>)
-    const confirmPasswordField =(<ConfirmPassword key="confirmPasswordField" value={confirmPassword} changeHandler={this.handleChange}/>)
-    const nameFields = (<Name key="nameField" firstName={firstName} lastName={lastName} changeHandler={this.handleChange}/>)
+    const emailField = (<Email key="emailField" value={email} changeHandler={this.handleChange} />)
+    const passwordField = (<Password key="passwordField" value={password} changeHandler={this.handleChange} />)
+    const confirmPasswordField = (<ConfirmPassword key="confirmPasswordField" value={confirmPassword} changeHandler={this.handleChange} />)
+    const nameFields = (<Name key="nameField" firstName={firstName} lastName={lastName} changeHandler={this.handleChange} />)
     const orLabel = (<Typography key="or" className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
@@ -508,12 +512,12 @@ AuthenticationContainer.propTypes = {
 };
 
 function mapStateToProps(state) {
-    return {
-    };
+  return {
+  };
 }
 
 function mapActionToProps(dispatch) {
-    return bindActionCreators(action.actions, dispatch);
+  return bindActionCreators(action.actions, dispatch);
 }
 
 const enhance = compose(
@@ -528,7 +532,7 @@ const enhance = compose(
       ),
   }),
   //redux action connection
-  connect(mapStateToProps,mapActionToProps)
+  connect(mapStateToProps, mapActionToProps)
 )
 export default enhance(
   withRouter(
