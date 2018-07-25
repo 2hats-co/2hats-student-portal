@@ -19,6 +19,9 @@ const styles = theme => ({
 });
 class DashboardContainer extends Component{
     
+    componentDidMount(){
+        window.Intercom('update')
+    }
     renderApplicationProcess(profile){ 
         if(profile){
         const profileData=Object.values(profile)[0]
