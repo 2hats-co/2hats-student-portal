@@ -6,10 +6,20 @@
 image: node:6.9.4
 
 pipelines:
-  default:
-    - step:
-        caches:
+  branches:
+    staging:
+      - step:
+          caches:
           - node
-        script: # Modify the commands below to build your repository.
+          - globalnode
+          - localnode
+          script: # Modify the commands below to build your repository.
+          - npm install -g firebase-tools
           - npm install
-          - npm test
+          - yarn install
+          - npm run build:staging
+          - firebase deploy --token "$FIREBASE_TOKEN" --project dev2hats --non-i             nteractive --public build --only hosting
+definitions: 
+   caches: 
+     globalnode: /usr/local/lib/node_modules
+     localnode: /opt/atlassian/pipelines/agent/build/functions/node_modules
