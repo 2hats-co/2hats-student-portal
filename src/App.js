@@ -33,18 +33,18 @@ class App extends Component {
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signUp}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signIn}/>} />
       <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
-      <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer/>} />
-      <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
-      <Route exact path={routes.JOB_BOARD} component={() => <JobBoardContainer/>} />
-      <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer />} />
-      <Route exact path={routes.BUILD_RESUME} component={() => <SignupContainer/>} />
-      <Route exact path={routes.BUILD_RESUME_BIO} component={() => <SignupContainer currentStep={ALL_STEPS.bio}/>} />
-      <Route exact path={routes.BUILD_RESUME_EDU} component={() => <SignupContainer currentStep={ALL_STEPS.education}/>} />
-      <Route exact path={routes.BUILD_RESUME_EXP} component={() => <SignupContainer currentStep={ALL_STEPS.experience}/>} />
-      <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other}/>} />
-      <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer/>} />
-      <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} />      
-      <Route exact path={'/'} component={() => <Landing/>} />      
+      <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer isPublic={false}/>} />
+      <Route exact path={routes.PROFILE} component={() => <ProfileContainer isPublic={false}/>} />
+      <Route exact path={routes.JOB_BOARD} component={() => <JobBoardContainer isPublic={false}/>} />
+      <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer isPublic={false}/>} />
+      <Route exact path={routes.BUILD_RESUME} component={() => <SignupContainer isPublic={false}/>} />
+      <Route exact path={routes.BUILD_RESUME_BIO} component={() => <SignupContainer currentStep={ALL_STEPS.bio} isPublic={false}/>} />
+      <Route exact path={routes.BUILD_RESUME_EDU} component={() => <SignupContainer currentStep={ALL_STEPS.education} isPublic={false}/>} />
+      <Route exact path={routes.BUILD_RESUME_EXP} component={() => <SignupContainer currentStep={ALL_STEPS.experience} isPublic={false}/>} />
+      <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other} isPublic={false}/>} />
+      <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer isPublic={false}/>} />
+      <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer isPublic={false}/>} />      
+      <Route exact path={'/'} component={() => <Landing isPublic={true}/>} />      
     </div>
   </Router>
  
