@@ -18,7 +18,6 @@ const styles = theme => ({
     }
 });
 class DashboardContainer extends Component{
-    
     componentDidMount(){
         window.Intercom('update')
     }
@@ -31,7 +30,6 @@ class DashboardContainer extends Component{
                return <div style={{marginBottom:40}}><ApplicationProgress data={profileData}/></div>
             }
         }
-
     }
 
 
