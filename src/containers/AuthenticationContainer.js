@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+//redux actions
+import * as action from '../actions/AuthenticationContainerActions';
 //material ui
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -16,6 +18,8 @@ import CircularStatic from '../components/circularProgressStatic.js';
 import CustomizedSnackbars from '../components/snackBars.js';
 //Redux
 import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { withHandlers } from 'recompose'
 import { withFirestore } from '../utilities/withFirestore';
 import { auth } from '../firebase';
@@ -170,14 +174,16 @@ class AuthenticationContainer extends React.Component {
           if (response.returnedUser === false) {
             // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
             this.handleProgress(90);
+            this.props.MarkUserAsStepsCompleteAction(false);
             setTimeout(() => {
               this.handleLoadingIndicator(false);
               this.goToIntroduction()
             }, 500)
            
           } else {
-            // todo: means this is an existing user, go to profile page directly
+            // todo: means this is an existing user who already complete initial steps, go to profile page directly
             this.handleProgress(90);
+            this.props.MarkUserAsStepsCompleteAction(true);
             setTimeout(() => {
               this.handleLoadingIndicator(false);
               this.goToDashboard()
@@ -226,6 +232,7 @@ class AuthenticationContainer extends React.Component {
             if (response.returnedUser === false) {
               // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
               this.handleProgress(90);
+              this.props.MarkUserAsStepsCompleteAction(false);
               setTimeout(() => {
                 this.handleLoadingIndicator(false);
                 this.goToIntroduction()
@@ -233,8 +240,9 @@ class AuthenticationContainer extends React.Component {
 
               // Note: for demo purpose, introduction page will be displayed
             } else {
-              // todo: means this is an existing user, go to profile page directly
+              // todo: means this is an existing user who already complete initial steps, go to profile page directly
               this.handleProgress(90);
+              this.props.MarkUserAsStepsCompleteAction(true);
               setTimeout(() => {
                 this.handleLoadingIndicator(false);
                 this.goToDashboard()
@@ -468,6 +476,7 @@ class AuthenticationContainer extends React.Component {
       default:
         break;
     }
+    //console.log('authentication props',this.props);
     return (
       <LogoInCard width={350} height={isLoading ? 300 : cardHeight}>
         <Grid
@@ -498,6 +507,15 @@ AuthenticationContainer.propTypes = {
   })
 };
 
+function mapStateToProps(state) {
+    return {
+    };
+}
+
+function mapActionToProps(dispatch) {
+    return bindActionCreators(action.actions, dispatch);
+}
+
 const enhance = compose(
   // add redux store (from react context) as a prop
   withFirestore,
@@ -509,7 +527,8 @@ const enhance = compose(
       }
       ),
   }),
-
+  //redux action connection
+  connect(mapStateToProps,mapActionToProps)
 )
 export default enhance(
   withRouter(
