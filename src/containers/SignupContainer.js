@@ -17,7 +17,7 @@ import OtherInfo from '../components/SignUp/OtherInfo';
 import BioAndSkills from '../components/SignUp/BioAndSkills';
 import Completed from '../components/SignUp/Completed';
 import ProfileDetails from "../components/SignUp/ProfileDetails";
-import UploadResume from "../components/SignUp/UploadResume";
+import ResumeLoader from "../components/InputFields/ResumeLoader";
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
@@ -51,7 +51,7 @@ const styles = theme => ({
   }
 });
 let INITIAL_PROFILE = {
- process:PROCESS_TYPES.build,//['build','upload']
+// process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -86,6 +86,7 @@ class ResumeBuilderContainer extends Component {
     this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
+
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)
@@ -130,7 +131,6 @@ class ResumeBuilderContainer extends Component {
         interests={this.state.profile.interests}
          skills={this.state.profile.skills} 
          changeHandler={this.handleChange}/></SectionWrapper>
-       
       case ALL_STEPS.education: return <SectionWrapper
         width={400} height={420}> 
         <EducationContainer industry={industry} 
@@ -153,11 +153,13 @@ class ResumeBuilderContainer extends Component {
       interests={this.state.profile.interests}
        skills={this.state.profile.skills} 
        changeHandler={this.handleChange}/></SectionWrapper>;
-      case ALL_STEPS.uploadResume:return <SectionWrapper width={400} height={420}><UploadResume 
-      resumeFile={this.state.profile.resumeFile}
-       bio={this.state.profile.bio}
-       industry={this.state.profile.industry}
-         changeHandler={this.handleChange}/></SectionWrapper>;
+      case ALL_STEPS.uploadResume:return <SectionWrapper width={750} 
+      height={450}
+      >
+      <ResumeLoader 
+      resumeFile={this.state.profile.resumeFile} 
+      changeHandler={this.handleChange}/>
+      </SectionWrapper>;
       default: return "Uknown step";
     }
   }
