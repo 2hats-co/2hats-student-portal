@@ -38,15 +38,12 @@ function NumberFormatCustom(props) {
 }
 
 class PhoneNumber extends React.Component {
-  state = {
-    number: '',
-  };
+  state = { number: '',};
   componentWillMount(){
     const {value}= this.props
     if(value){
       this.setState({number:value})
     }
-
   }
   componentDidUpdate(prevProps, prevState){
     if(prevState !== this.state){
@@ -91,5 +88,4 @@ PhoneNumber.propTypes = {
   classes: PropTypes.object.isRequired,
   changeHandler: PropTypes.func.isRequired
 };
-
 export default withStyles(styles)(PhoneNumber);

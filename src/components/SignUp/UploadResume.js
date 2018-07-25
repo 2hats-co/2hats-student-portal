@@ -14,11 +14,7 @@ function UploadResume(props){
       justify="space-between"
     >
     <ResumeLoader resumeFile={resumeFile} changeHandler={changeHandler}/>
-      <PersonalBio
-          industry={industry}
-          bio={bio}
-          changeHandler={changeHandler}
-        />
+     
     </Grid>
     )
 }

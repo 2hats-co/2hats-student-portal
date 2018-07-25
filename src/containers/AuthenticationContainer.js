@@ -294,7 +294,7 @@ class AuthenticationContainer extends React.Component {
         this.handleProgress(90);
         this.handleSnackBar(true, 'success', 'Sign in successfully !');
         setTimeout(() => {
-          this.goToIntroduction()
+          this.goToDashboard()
         }, 500)
       })
       .catch(error => {
