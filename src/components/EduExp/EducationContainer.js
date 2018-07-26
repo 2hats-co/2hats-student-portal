@@ -130,7 +130,7 @@ class EducationContainer extends React.Component {
     }
     return (
       <div>
-        <Grid style={{width:'110%',maxWidth:this.props.width}} container direction="column" alignItems="center">
+        <Grid style={{width:'100%',maxWidth:this.props.width}} container direction="column" alignItems="center">
           <HeaderBar
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}

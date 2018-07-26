@@ -32,7 +32,10 @@ const styles = theme => ({
   root: {
     height: 800
   },
-  container: {
+  mobileContainer: {
+    width: "100%",
+  },
+  webContainer: {
     width: "90%",
     padding: 50
   },
@@ -129,13 +132,13 @@ class ResumeBuilderContainer extends Component {
         <EducationContainer industry={industry} isMobile={isMobile}
           name='education' changeHandler={this.handleChange} 
           data = {this.state.profile.education}
-          width={470}/>
+          width={600}/>
         </SectionWrapper>;
       case ALL_STEPS.experience: return  <SectionWrapper width={750} height={420} isMobile={isMobile} >  
       <EducationContainer industry={industry} isMobile={isMobile}
       name='experience' changeHandler={this.handleChange} 
       data = {this.state.profile.experience}      
-      width={470}/>        
+      width={600}/>        
         </SectionWrapper>;
       case ALL_STEPS.other: return <SectionWrapper width={750} height={270} isMobile={isMobile}>
        <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} 
@@ -206,7 +209,7 @@ class ResumeBuilderContainer extends Component {
     const isMobile=(size.width<750)
     return (
         <LogoOnCard isMobile={isMobile} height={this.state.height}>
-          <div className={classes.container}>
+          <div className={isMobile?classes.mobileContainer:classes.webContainer}>
                   <StepController isMobile={isMobile}
                   activeStep={activeStep}
                   profile={profile} 

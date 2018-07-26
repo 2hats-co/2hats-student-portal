@@ -9,7 +9,6 @@ const styles = theme => ({
     margin:'auto',
     width:'90%',
     widthMax:750,
-    marginLeft:-40
   }
   
   });

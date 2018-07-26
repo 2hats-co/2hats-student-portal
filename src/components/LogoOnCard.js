@@ -28,7 +28,7 @@ const styles = theme => ({
 function LogoOnCard(props) {
   if(props.isMobile){
     setBackground("#fff",'')
-      return(<div style={{ marginRight:-50}}>
+      return(<div>
         {props.children}
         </div>
       )

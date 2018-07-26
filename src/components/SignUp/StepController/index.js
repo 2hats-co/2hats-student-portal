@@ -26,7 +26,7 @@ const styles = theme => ({
   },webContent:{
 
   },mobileContent:{
-   merginLeft:-40,
+  // merginLeft:-40,
   }
 });
 
