@@ -29,11 +29,11 @@ export function configureStore(initialState, history) {
 		enhancers.push(devToolsExtension());
 	}
 
-	const persistConfig = {
-		key: 'root',
-		storage,
-	}
-	const persistedReducer = persistReducer(persistConfig, rootReducer)
+	// const persistConfig = {
+	// 	key: 'root',
+	// 	storage,
+	// }
+	//const persistedReducer = persistReducer(persistConfig, rootReducer)
 	const createStoreWithMiddleware = compose(
 		// Add redux firestore store enhancer
 		reduxFirestore(firebase),
@@ -41,7 +41,7 @@ export function configureStore(initialState, history) {
 		...enhancers
 	)(createStore)
 
-	const store = createStoreWithMiddleware(persistedReducer);
+	const store = createStoreWithMiddleware(rootReducer);
 
 	return store;
 }
