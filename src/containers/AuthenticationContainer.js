@@ -92,7 +92,6 @@ const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
 });
 
-
 class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -105,8 +104,7 @@ class AuthenticationContainer extends React.Component {
     this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
-    this.handleChange = this.handleChange.bind(this)
-
+    this.handleChange = this.handleChange.bind(this);
   }
   goToSignIn() {
     this.props.history.push(routes.SIGN_IN)
@@ -361,6 +359,24 @@ class AuthenticationContainer extends React.Component {
     const LinkedinCID = '86gj7a83u3ne8b'; // CID should be hidden somewhere else, I put here only for development purpose
     this.initializeLinkedin(LinkedinCID);
   }
+  *renderCard(a) {
+    if(this.state.isLoading){
+      yield (
+        <div key='loading'><CircularStatic completed={this.state.progress} /><Typography>Loading, please wait</Typography></div> 
+      );
+    }else{
+      yield (
+        a.map(x => x)
+      )
+    }
+  }
+  *renderCustomizedSnackbars(){
+    if(this.state.showSnackBar){
+      yield (
+        <CustomizedSnackbars key='snack' showSnackBar={this.state.showSnackBar} variant={this.state.snackBarVariant} message={this.state.snackBarMessage} />
+      );
+    }
+  }
   render() {
     const { classes } = this.props;
     const GoogleCID = '983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com';
@@ -489,17 +505,11 @@ class AuthenticationContainer extends React.Component {
           alignItems='center'
           direction='column'
           justify='flex-start'
+          
         >
-          {
-            isLoading ?
-              <div><CircularStatic completed={progress} /><Typography>Loading, please wait</Typography></div> : loadedView.map(x => x)
-          }
+         {[...this.renderCard(loadedView)]} 
         </Grid>
-        {
-          showSnackBar &&
-          <CustomizedSnackbars showSnackBar={showSnackBar} variant={snackBarVariant} message={snackBarMessage} />
-        }
-
+         {[...this.renderCustomizedSnackbars()]} 
       </LogoInCard>
     );
   }
