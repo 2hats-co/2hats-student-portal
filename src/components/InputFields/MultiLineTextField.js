@@ -8,7 +8,7 @@ const styles = theme => ({
     root: {
       marginTop:'10px',
       padding:'11px !important',
-     height:'90px',
+     height:'150px',
     width:'94%',
     // width: '380px',
       backgroundColor:'#EDEDED',

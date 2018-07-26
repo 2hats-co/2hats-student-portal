@@ -12,17 +12,18 @@ function BioAndSkills(props){
         container
         direction="row"
         justify="space-between"
-        style={{width: 400 }}
+        style={{width: '100%' }}
       >
+         <Skills 
+        interestKeys = {interests}
+        preSelectedList={skills} 
+        changeHandler={changeHandler}/>
         <PersonalBio
           industry={industry}
           bio={bio}
           changeHandler={changeHandler}
         />
-        <Skills 
-        interestKeys = {interests}
-        preSelectedList={skills} 
-        changeHandler={changeHandler} />
+     
       </Grid>
     )
 }

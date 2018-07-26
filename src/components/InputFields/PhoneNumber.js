@@ -9,10 +9,10 @@ import InputWrapper from './InputWrapper'
 import NumberFormat from 'react-number-format';
 const styles = theme => ({
   root:{
-     width:250,
+     width:'100%',
   },
   inputField:{
-    width:250
+    width:'100%'
   }
 
 });

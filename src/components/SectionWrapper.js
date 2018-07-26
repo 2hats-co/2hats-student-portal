@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import Tween from 'rc-tween-one';
 
 function SectionWrapper(props) {
-  const {width,height } = props;
+  const {width,height,isMobile } = props;
   return (
     <Tween
       animation={{ minHeight:height}}
     >
-   <div style= {{margin:0,marginTop:30,width:width}}>
+   <div style= {{margin:0,marginLeft:isMobile?-30:0,marginTop:30,width:'90%',maxWidth:width}}>
    {props.children}
   </div>
   </Tween>

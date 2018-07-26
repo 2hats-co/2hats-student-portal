@@ -18,26 +18,37 @@ const styles = theme => ({
     margin: 'auto',
     },
   paper:{
-    maxWidth:1200,
+    maxWidth:850,
+    width:'90%',
     margin: 'auto',
   },
   
 });
 
 function LogoOnCard(props) {
-  const { classes,width,height } = props;
-  setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad')
-  const logo = (<img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>)
-  return (
-    <div className={classes.root}>
-     <div className={classes.logo}>
-      {logo}
-     </div>
-      <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
-      {props.children}
-      </Paper>
-    </div>
-  );
+  if(props.isMobile){
+    setBackground("#fff",'')
+      return(<div style={{ marginRight:-50}}>
+        {props.children}
+        </div>
+      )
+  }else{
+    const { classes,width,height } = props;
+    setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad')
+    const logo = (<img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>)
+    
+    return (
+      <div className={classes.root}>
+       <div className={classes.logo}>
+        {logo}
+       </div>
+        <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
+        {props.children}
+        </Paper>
+      </div>
+    );
+  }
+ 
 }
 
 LogoOnCard.propTypes = {

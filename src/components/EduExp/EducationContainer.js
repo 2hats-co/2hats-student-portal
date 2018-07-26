@@ -1,9 +1,9 @@
 import React from "react";
 import EduExpCard from "./DetailsCard";
-import HeaderBar from "../HeaderBar";
+import HeaderBar from "./HeaderBar";
 import PropTypes from "prop-types";
 
-import DialogForm from "./DailogForm";
+import DialogForm from "./DialogForm";
 import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
 import * as _ from "lodash";
@@ -107,7 +107,7 @@ class EducationContainer extends React.Component {
   render() {
     let items;
     const {dialog} = this.state
-    const { name,data} = this.props;
+    const { name,data,isMobile} = this.props;
     if(data){
      items=data.map(item=>{
       return (
@@ -130,7 +130,7 @@ class EducationContainer extends React.Component {
     }
     return (
       <div>
-        <Grid style={{width:this.props.width}} container direction="column" alignItems="center">
+        <Grid style={{width:'110%',maxWidth:this.props.width}} container direction="column" alignItems="center">
           <HeaderBar
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
@@ -142,7 +142,7 @@ class EducationContainer extends React.Component {
           
           </Card>}
         </Grid>
-        <DialogForm
+        <DialogForm isMobile={isMobile}
           activity={dialog.key?'Edit':'Add'}
           title={name === EDU ? "Tertiary Education" : "Practical Experience"}
           key={this.state.dialog.key}

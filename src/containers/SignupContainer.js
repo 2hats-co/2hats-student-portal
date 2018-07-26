@@ -12,7 +12,6 @@ import CareerInterests from "../components/InputFields/CareerInterests";
 import EducationContainer from "../components/EduExp/EducationContainer";
 import OtherInfo from '../components/SignUp/OtherInfo';
 import BioAndSkills from '../components/SignUp/BioAndSkills';
-import Completed from '../components/SignUp/Completed';
 import ProfileDetails from "../components/SignUp/ProfileDetails";
 import ResumeLoader from "../components/InputFields/ResumeLoader";
 //Redux
@@ -27,13 +26,14 @@ import { COLLECTIONS } from "../constants/firestore";
 import * as _ from "lodash";
 import * as routes from '../constants/routes';
 import StepController from "../components/SignUp/StepController";
+import sizeMe from 'react-sizeme'
 
 const styles = theme => ({
   root: {
     height: 800
   },
   container: {
-    width: "100%",
+    width: "90%",
     padding: 50
   },
   footerContainer: {
@@ -44,7 +44,7 @@ const styles = theme => ({
   }
 });
 let INITIAL_PROFILE = {
-// process:PROCESS_TYPES.build,//['build','upload']
+  process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -58,10 +58,11 @@ let INITIAL_PROFILE = {
   resumeFile:{name:'',fullPath:''},
   experience: []}
 const INITIAL_STATE = {
-  activeStep: 0,
+  activeStep: 4,
   profile:{},
   error: null
 };
+
 function AvailableDaysConverter(string){
   const  days = string
   let  number = parseInt(days)
@@ -79,7 +80,6 @@ class ResumeBuilderContainer extends Component {
     this.handleBack = this.handleBack.bind(this)
   }
   componentWillMount(){
-
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)
@@ -106,47 +106,47 @@ class ResumeBuilderContainer extends Component {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
   }
-  getStepContent(currentStep,profile) { 
+  getStepContent(currentStep,profile,isMobile) { 
     const{interests,
      industry} = profile
     switch (currentStep) {
       case ALL_STEPS.interests: 
         return (
-          <SectionWrapper width={750} height={220}>
+          <SectionWrapper isMobile={isMobile} width={750} height={220}>
               <CareerInterests preSelectedList={interests} changeHandler={this.handleChange} />
           </SectionWrapper>
          
         );
-      case ALL_STEPS.bio: return <SectionWrapper width={400} height={420}>
-      <BioAndSkills 
+      case ALL_STEPS.bio: return <SectionWrapper isMobile={isMobile} width={750} height={420}>
+      <BioAndSkills
         industry={this.state.profile.industry}
        bio={this.state.profile.bio}
         interests={this.state.profile.interests}
          skills={this.state.profile.skills} 
          changeHandler={this.handleChange}/></SectionWrapper>
-      case ALL_STEPS.education: return <SectionWrapper
+      case ALL_STEPS.education: return <SectionWrapper isMobile={isMobile}
         width={400} height={420}> 
-        <EducationContainer industry={industry} 
+        <EducationContainer industry={industry} isMobile={isMobile}
           name='education' changeHandler={this.handleChange} 
           data = {this.state.profile.education}
           width={470}/>
         </SectionWrapper>;
-      case ALL_STEPS.experience: return  <SectionWrapper width={400} height={420} >  
-      <EducationContainer industry={industry} 
+      case ALL_STEPS.experience: return  <SectionWrapper width={750} height={420} isMobile={isMobile} >  
+      <EducationContainer industry={industry} isMobile={isMobile}
       name='experience' changeHandler={this.handleChange} 
       data = {this.state.profile.experience}      
       width={470}/>        
         </SectionWrapper>;
-      case ALL_STEPS.other: return <SectionWrapper width={250} height={270}>
+      case ALL_STEPS.other: return <SectionWrapper width={750} height={270} isMobile={isMobile}>
        <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} 
        workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
-      case ALL_STEPS.profileDetails:return <SectionWrapper width={400} height={420}> <ProfileDetails 
+      case ALL_STEPS.profileDetails:return <SectionWrapper width={750} height={420} isMobile={isMobile}> <ProfileDetails 
       industry={this.state.profile.industry}
       currentUniversity={this.state.profile.currentUniversity}
       interests={this.state.profile.interests}
        skills={this.state.profile.skills} 
        changeHandler={this.handleChange}/></SectionWrapper>;
-      case ALL_STEPS.uploadResume:return <SectionWrapper width={750} 
+      case ALL_STEPS.uploadResume:return <SectionWrapper isMobile={isMobile} width={750} 
       height={450}
       >
       <ResumeLoader 
@@ -175,7 +175,8 @@ class ResumeBuilderContainer extends Component {
       break; 
       case ALL_STEPS.uploadResume:this.props.onProfileUpdate({resumeFile:profile.resumeFile,bio:profile.bio,completedStep:currentStep})
       break; 
-      case ALL_STEPS.other:this.props.onProfileUpdate({completedStep:'completed',isComplete:true,phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:AvailableDaysConverter(profile.availableDays)})
+      case ALL_STEPS.other:this.props.onProfileUpdate({completedStep:'completed',isComplete:true,
+      phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:profile.availableDays})
       this.props.onUserUpdate({phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:AvailableDaysConverter(profile.availableDays)})
       break;
       default:
@@ -199,25 +200,20 @@ class ResumeBuilderContainer extends Component {
     });
   };
   render() {
-    const { classes } = this.props;
-
+    const { classes,size } = this.props;
     const { activeStep ,profile} = this.state;
-    const steps = STEP_LABELS[(profile.process)];
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
-
+    const isMobile=(size.width<750)
     return (
-        <LogoOnCard width={850} height={this.state.height}>
-        
+        <LogoOnCard isMobile={isMobile} height={this.state.height}>
           <div className={classes.container}>
-  
-          <StepController
-          activeStep={activeStep}
-          profile={profile} 
-          nextHandler={this.handleNext}
-          backHandler={this.handleBack}>
-           {this.getStepContent(currentStep,profile)}
-           </StepController>
-          
+                  <StepController isMobile={isMobile}
+                  activeStep={activeStep}
+                  profile={profile} 
+                  nextHandler={this.handleNext}
+                  backHandler={this.handleBack}>
+                  {this.getStepContent(currentStep,profile,isMobile)}
+                  </StepController>
           </div>
         </LogoOnCard>
       
@@ -254,6 +250,7 @@ const enhance = compose(
      profile: firestore.data.profiles, // document data by id
   }))
 )
-export default enhance(
+
+export default sizeMe({ monitorHeight: true })(enhance(
     withRouter(withStyles(styles)(ResumeBuilderContainer))
-)
+))

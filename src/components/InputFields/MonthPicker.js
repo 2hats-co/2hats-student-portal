@@ -22,14 +22,15 @@ function getMonthName(n){return(monthNames[n-1])}
 const styles = theme => ({
     root: {
         height: 42,
-        width: 250,
+        //maxWidth: 500,
+        width: '100%',
         border:'2px solid #9B9B9B',
         borderStyle:'none',
         borderBottomStyle: 'solid'
     },
     
     monthsGrid: {
-        width:230,
+        width:'100%',
         height:85
     },
     selectedDiv:{
@@ -66,7 +67,8 @@ const styles = theme => ({
     },
     calendar:{
         paddingLeft:5,
-        width:250,
+        marginRight:40,
+       // width:'74%',
         height:140,
         border:'1px solid #9B9B9B',
         backgroundColor:'#fff',
@@ -120,7 +122,9 @@ const styles = theme => ({
         return(<Grid container  className={classes.monthsGrid} direction='column' alignItems='center' justify='space-between'>
          {monthLabels.map((season,i) => {
             return(
-            <Grid container key={`${label}-season-${i}`} style={{width:250}} direction='row' alignItems='center' justify='space-around'>
+            <Grid container  alignItems='center'  key={`${label}-season-${i}`} 
+            //style={{width:250}}
+             direction='row' alignItems='center' justify='space-around'>
                  {season.map((month,n)=> {
                      const isSelected = (selected===(1+n+i*4))
                      return(
@@ -152,8 +156,8 @@ const styles = theme => ({
             <IconButton onClick={this.handleIncrementYear} className={classes.button} component="span">
           <NextIcon />
         </IconButton>
+        {this.renderMonths(this.state.month)}
             </Grid>
-            {this.renderMonths(this.state.month)}
             </div>
         )
     }
@@ -164,8 +168,8 @@ const styles = theme => ({
         return( 
             <Grid container direction='column'>
             {captionLabel&& <Typography variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
-            <Grid  className={classes.root} container direction='row' style={{width:'250px'}} alignItems='center' justify='space-between'>
-            {!captionLabel&&label} 
+            <Grid className={classes.root} container direction='row' alignItems='center' justify='space-between'>
+            {(!captionLabel&&!value)? label:<Grid item/>} 
                 {value&& value}
                 <IconButton style={{height:42,width:42,marginRight:-10}} onClick={()=>{this.setState({isOpen:!this.state.isOpen})}} className={classes.button} component="span">
                     <DownIcon/>

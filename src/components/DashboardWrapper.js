@@ -1,10 +1,17 @@
-
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import Hidden from '@material-ui/core/Hidden';
+import Divider from '@material-ui/core/Divider';
+import MenuIcon from '@material-ui/icons/Menu';
+
+
+
 import Grid from '@material-ui/core/Grid';
 import NavigationButton from './NavigationButton'
 import { compose } from 'recompose';
@@ -31,41 +38,57 @@ const drawerWidth = 240;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: '100%',
+    height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
-  },logo:{
-    height: 53,	
-    width: 145,
-    },
-  appBar: {
-    backgroundColor: '#F4F4F4',
-    zIndex: theme.zIndex.drawer + 1,
+    width: '100%',
   },
+  appBar: {
+    position: 'absolute',
+    marginLeft: drawerWidth,
+    
+    [theme.breakpoints.up('md')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+  },
+  navIconHide: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    position: 'relative',
+    backgroundColor:'#2c2c2c',
     width: drawerWidth,
-    backgroundColor: '#2C2C2C',
+    [theme.breakpoints.up('md')]: {
+      position: 'relative',
+    },
   },
   content: {
     flexGrow: 1,
-    backgroundColor: '#fff',
+    backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-    minWidth: 0, // So the Typography noWrap works
   },
-  toolbar: theme.mixins.toolbar,
 });
+
+
 
 class DashboardWrapper extends React.Component {
   constructor(props) {
     super(props);
-  
     this.goTo = this.goTo.bind(this)
- 
-
   }
+  state = {
+    mobileOpen: false,
+  };
+
+  handleDrawerToggle = () => {
+    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  };
+
+
   componentWillMount(){
    
   }
@@ -73,35 +96,69 @@ class DashboardWrapper extends React.Component {
   goTo(route){
     this.props.history.push(route)
   }
+  
  
 
   render(){
-  const { classes } = this.props;
+  const { classes,theme } = this.props;
    const pathName = this.props.history.location.pathname
+
+   const drawer = (
+    <div>
+      <div className={classes.toolbar} />
+      <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
+      <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
+      <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
+    </div>
+  );
   return (
+
     <div className={classes.root}>
-      <AppBar position="absolute" className={classes.appBar}>
-      <Grid container direction='row' justify='space-between'> 
-        <Toolbar>
-        <img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>
-        </Toolbar>
-        <UserActions/>
-        </Grid>
-      </AppBar>
+    <AppBar className={classes.appBar}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="Open drawer"
+          onClick={this.handleDrawerToggle}
+          className={classes.navIconHide}
+        >
+          <MenuIcon />
+        </IconButton>
+        <Typography variant="title" color="inherit" noWrap>
+        
+        </Typography>
+      </Toolbar>
+    </AppBar>
+    <Hidden mdUp>
+      <Drawer
+        variant="temporary"
+        anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+        open={this.state.mobileOpen}
+        onClose={this.handleDrawerToggle}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+        ModalProps={{
+          keepMounted: true, 
+          // Better open performance on mobile.
+        }}
+      >
+        {drawer}
+      </Drawer>
+    </Hidden>
+    <Hidden smDown implementation="css">
       <Drawer
         variant="permanent"
+        open
         classes={{
           paper: classes.drawerPaper,
         }}
       >
-        <div className={classes.toolbar} />
-        <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
-        <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
-        <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
-        
+        {drawer}
       </Drawer>
+    </Hidden>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        <div className={classes.toolbar}/>
         {this.props.profile?this.props.children:'loading'}
       </main>
     </div>
@@ -172,7 +229,7 @@ const authCondition = (authUser) => !!authUser;
 export default enhance(
   withRouter(
   compose(
-    withAuthorisation(authCondition)(withStyles(styles)(DashboardWrapper))
+    withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(DashboardWrapper))
   )
 )
 )

@@ -1,40 +1,48 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
+
+
+import WebStepper from './WebStepper'
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import {withRouter} from 'react-router-dom'
-import {PROCESS_TYPES,ALL_STEPS,STEP_LABELS,checkComplition} from '../../constants/signUpProcess'
-import * as routes from '../../constants/routes'
+import {PROCESS_TYPES,ALL_STEPS,STEP_LABELS,checkComplition} from '../../../constants/signUpProcess'
+
+
+import * as routes from '../../../constants/routes'
+import DotMobileStepper from "./MobileStepper";
 
 
 
 const styles = theme => ({
   root: {
-    width: 600
-  },stepper: {
-    width: 750,
-    padding: 0
+    width: '100%'
   },
   button:{
    marginBottom:20,
    marginRight:20,
     height:35,
     width: 140
+  },webContent:{
+
+  },mobileContent:{
+   merginLeft:-40,
   }
 });
-
 
 class StepController extends React.Component {
 constructor(props){
   super(props);
   this.goToPreview = this.goToPreview.bind(this)
   this.goToLockedDashboard = this.goToLockedDashboard.bind(this)
+  this.goToIntroduction = this.goToIntroduction.bind(this)
+  this.handleBack = this.handleBack.bind(this)
 }
 goToPreview(){
   this.props.history.push(routes.PROFILE)
+}
+goToIntroduction(){
+  this.props.history.goBack()
 }
 goToLockedDashboard(){
   this.props.nextHandler()
@@ -61,9 +69,12 @@ disableNext(currentStep,profile){
   disableSave(currentStep,profile){
       return (currentStep===ALL_STEPS.education && profile.education.length === 0)
   }
+  handleBack(currentStep){
+    currentStep===ALL_STEPS.interests?this.goToIntroduction():this.props.backHandler()
+  }
 render(){
 
- const{classes,profile,nextHandler,backHandler,activeStep} = this.props
+ const{classes,profile,nextHandler,backHandler,activeStep,isMobile} = this.props
  const steps = STEP_LABELS[(profile.process)];
  const currentStep = STEP_LABELS[(profile.process)][activeStep]
  const nextButton = (<Button
@@ -86,7 +97,7 @@ render(){
   const backButton = (<Button
     className={classes.button}
     variant="outlined"
-    onClick={currentStep===ALL_STEPS.interests?this.props.history.goBack:backHandler}
+    onClick={()=>{this.handleBack(currentStep)}}
   >
     Back
   </Button>)
@@ -98,43 +109,37 @@ render(){
   >
     Save for Later
   </Button>)
-
+  const webButtons =(<Grid item>
+    <Grid
+className={classes.root}
+container
+direction="row"
+justify='flex-start'
+>
+{backButton}
+{currentStep&&nextButton}
+{(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton}
+{!currentStep&&previewButton}
+</Grid>
+    </Grid>)
  return(
    <div>
- <Stepper
-              className={classes.stepper}
-              activeStep={activeStep}
-              alternativeLabel
-            >
-              {steps.map(label => {
-                return (
-                  <Step key={label}>
-                    <StepLabel>{label}</StepLabel>
-                  </Step>
-                );
-              })}
-            </Stepper>
+            {isMobile && <DotMobileStepper handleNext={nextHandler} handleBack={()=>{this.handleBack(currentStep)}} steps={steps} activeStep={activeStep}/>}
+            {!isMobile && <WebStepper steps={steps} activeStep={activeStep}/>}
+
                   <Grid
                   container
                   direction="column"
                   justify="space-between">
-                  <Grid item>{this.props.children}</Grid>
                   <Grid item>
-                  <Grid
-    className={classes.root}
-    container
-    direction="row"
-    justify='flex-start'
-  >
-    {backButton}
-   {currentStep&&nextButton}
-   {(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton}
-   {!currentStep&&previewButton}
-    </Grid>
+                  <div className={isMobile?classes.mobileContent:classes.webContent}>
+                  {this.props.children}
+                  </div>
                   </Grid>
+                  {!isMobile &&
+                  webButtons
+                  }
                 </Grid>
-
-    
     </div>
  )
 }
