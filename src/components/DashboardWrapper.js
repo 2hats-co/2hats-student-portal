@@ -31,16 +31,22 @@ import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
 import LightLogo from '../assets/images/Logo/WhiteText.png'
 import UserActions from './UserActions';
+<<<<<<< HEAD
 
 import sizeMe from 'react-sizeme'
 
+=======
+import sizeMe from 'react-sizeme'
+
+
+>>>>>>> master
 const drawerWidth = 240;
 
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
+    height: '100%',
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -226,11 +232,20 @@ const enhance = compose(
 const authCondition = (authUser) => !!authUser;
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 export default sizeMe({ monitorHeight: true })(enhance(
   withRouter(
   compose(
     withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(DashboardWrapper))
   )
 )
+<<<<<<< HEAD
 ))
+=======
+))
+
+
+>>>>>>> master
