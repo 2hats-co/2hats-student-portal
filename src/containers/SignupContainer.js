@@ -128,7 +128,7 @@ class ResumeBuilderContainer extends Component {
          skills={this.state.profile.skills} 
          changeHandler={this.handleChange}/></SectionWrapper>
       case ALL_STEPS.education: return <SectionWrapper isMobile={isMobile}
-        width={400} height={420}> 
+        width={750} height={420}> 
         <EducationContainer industry={industry} isMobile={isMobile}
           name='education' changeHandler={this.handleChange} 
           data = {this.state.profile.education}

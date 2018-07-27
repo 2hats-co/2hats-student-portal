@@ -67,7 +67,11 @@ class ResumeLoader extends React.Component {
                 name:this.props.resumeFile.name,
                 fullPath:snapShot.metadata.fullPath,
                 downloadURL:url,
+<<<<<<< HEAD
                 createAt:new Date(Date.now())
+=======
+                createAt: new Date(Date.now())
+>>>>>>> master
             }
             )
     )

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Tween from 'rc-tween-one';
 
 function SectionWrapper(props) {
-  const {width,height,isMobile } = props;
+  const {width,height } = props;
   return (
     <Tween
       animation={{ minHeight:height}}
