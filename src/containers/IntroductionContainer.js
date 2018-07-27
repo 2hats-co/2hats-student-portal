@@ -61,7 +61,7 @@ class IntroductionContainer extends React.Component {
     
   }
   componentDidMount(){
-    window.Intercom('update')
+ //   window.Intercom('update')
 }
   createFireStoreRecords(){
     this.props.createUser();

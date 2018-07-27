@@ -18,6 +18,12 @@ export const Theme = createMuiTheme({
     MuiStepper:{
   
     },
+    MuiFormControlLabel:{
+      root:{
+      fontSize:'20px'
+      }
+    }
+    ,
     MuiInput:{
       root:{
       fontSize:'12px'

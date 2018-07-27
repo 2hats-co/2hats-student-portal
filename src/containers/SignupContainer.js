@@ -47,7 +47,7 @@ const styles = theme => ({
   }
 });
 let INITIAL_PROFILE = {
-  process:PROCESS_TYPES.build,//['build','upload']
+  //process:PROCESS_TYPES.build,//['build','upload']
   interests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
@@ -61,7 +61,7 @@ let INITIAL_PROFILE = {
   resumeFile:{name:'',fullPath:''},
   experience: []}
 const INITIAL_STATE = {
-  activeStep: 4,
+  activeStep: 0,
   profile:{},
   error: null
 };

@@ -19,7 +19,7 @@ const styles = theme => ({
 });
 class DashboardContainer extends Component{
     componentDidMount(){
-        window.Intercom('update')
+      //  window.Intercom('update')
     }
     renderApplicationProcess(profile){ 
         if(profile){
