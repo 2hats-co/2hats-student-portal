@@ -108,16 +108,16 @@ export function getIndustryFromInterests(interests){
 }
 
 const SKILLS ={
-    B2B:['Salesforce','CRM System','HubSpot'],
-    LG:['Salesforce','CRM System','HubSpot'],
-    RM:['Zoho','System','Excel'],
-    CW:['Wordpress','Word'],
+    B2B:['Salesforce','CRM System','HubSpot','Hunter.io','Mailshake','Cold Calling'],
+    LG:['Salesforce','CRM System','HubSpot','Hunter.io','Mailshake'],
+    RM:['Salesforce','Zoho','HubSpot','CRM System','Intercom'],
+    CW:['Wordpress','Word','Hemingway'],
     SMM:['Facebook AD','Google Analytics/Adword','SEO','MailChimp','Canva'],
-    SEO:['SEMrush','SE Ranking'],
+    SEO:['SEMrush','SE Ranking','Google Analytics/Adword'],
     GI:['Adobe Photoshop','Adobe Illustrator','Adobe InDesign'],
     UI:['Sketch','Adobe XD','Adobe Photoshop','Adobe Illustrator','Framer'],
-    UX:['Sketch','Adobe XD','Balsamiq','InVision','Framer'],
-    APP:['JavaScript','HTML/CSS','JQuery','React','Node.JS','Swift'],
+    UX:['Sketch','InVision','Adobe XD','Balsamiq','Framer'],
+    APP:['JavaScript','HTML/CSS','JQuery','React','Node.JS','Swift','Vue.js','AngularJS'],
     DEV:['Java','Python','C','C++','C#','SQL'],
     DA:['Python','SQL','R','Excel','Matlab']
 }
