@@ -7,70 +7,94 @@ import { Grid, Button, Typography, Dialog, DialogContent, DialogActions, DialogT
 import SectionWrapper from '../components/SectionWrapper';
 import { validateEmail } from '../utilities/validators';
 
-function Transition(props) {
-    return <Slide direction="up" {...props} />;
-}
+// Redux
+import { compose } from 'redux';
+import { withHandlers } from 'recompose'
+import { connect } from 'react-redux';
+import  {withFirestore} from '../utilities/withFirestore';
+
+// Routing
+import {withRouter} from 'react-router-dom'
+import { COLLECTIONS } from "../constants/firestore";
+
 const styles = theme => ({
-    grid: {
-        height: 460
-    },
-    footerButtons: {
-        width: 440,
+    root: {
+        flexGrow: 1,
+        'padding-top': '0px',
+        'padding-right': '40px',
+        'padding-bottom': '40px',
+        'padding-left': '40px'
     },
     button: {
-        width: 200,
-    },
-    image: {
-        width: 200,
-    },
-    textField: {
-        //marginTop:-12,
-        width: '100%'
-      },
+        'text-align': 'center'
+    }
 });
 
-const body = ['To ensure you can successfully receive our feedback, we have sent a verification email to your provided email address. ',
-    'Please click on the link in the email to verify your email address. You will be directed to our dashboard once your email is verified. ',
-    'If you have not received such email from 2hats, you can request another verification email or modify your email address. ',
-]
 class EmailVerificationContainer extends React.Component {
-    state = {
-        modifyDialog: false,
-        resendDialog: false,
-    };
-    handleChangeEmail = () => {
-        this.setState({
-            modifyDialog: true,
-        });
+    componentWillMount() {
+        if(this.props.history.location.search) {
+            const url = this.props.history.location.search;
+            const evKeyName = "?evKey=";
+            
+            if(url.indexOf(evKeyName)!== -1) {
+                const evKeyVal = url.slice(evKeyName.length, url.length);
+                if(evKeyVal !== "") {
+                    this.props.onEmailVerificationsUpdate(evKeyVal);
+                }
+            }
+        }
     }
-    handleSendVerificationEmail = () => {
-        this.setState({
-            resendDialog: true
-        });
-    }
-    handleClose = () => {
-        this.setState({
-            modifyDialog: false,
-            resendDialog: false
-        });
-    };
-    handleChange = name => event => {
-       
-      };
+    
     render() {
         const { classes } = this.props;
-        
+     
         return (
-            <LogoInCard width={560}>
-                
+            <LogoInCard height={350}>
+                <div className={classes.root}>
+                    <Grid container spacing={24}>
+                        <Grid item xs={12}>
+                            <Typography variant="title" color="primary">
+                                Account Validated
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography variant="Body 1">
+                                Your 2hats account has been validated. You can jump back to your application process now.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}  className={classes.button} >
+                            <Button
+                                variant="flat"
+                                color="primary"
+                            >
+                                Continue My Application
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </div>
             </LogoInCard>
-
         )
     }
-
-
 }
+
 EmailVerificationContainer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
-export default withStyles(styles)(EmailVerificationContainer);
+
+const enhance = compose(
+    // add redux store (from react context) as a prop
+    withFirestore,
+    // Handler functions as props
+    withHandlers({
+        onEmailVerificationsUpdate: props => (evKey) =>
+            props.firestore.update({ collection: COLLECTIONS.emailVerifications, doc: evKey }, {
+                emailVerified: true,
+                updatedAt: props.firestore.FieldValue.serverTimestamp()
+            }
+        )
+    })
+)
+  
+export default enhance(
+    withRouter(withStyles(styles)(EmailVerificationContainer))
+)
