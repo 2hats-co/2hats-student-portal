@@ -401,7 +401,6 @@ class AuthenticationContainer extends React.Component {
             </Button>
           )}
         />
-
         :
         <Button key={`${provider}${method}`} variant='flat'
           style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }}

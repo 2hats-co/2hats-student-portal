@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import LogoOnCard from '../components/LogoOnCard';
+import LogoInCard from '../components/LogoOnCard';
 import OpenMail from '../assets/images/graphics/EmailVerification.png'
 import { Grid, Button, Typography, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText, Slide, TextField } from '@material-ui/core';
 import SectionWrapper from '../components/SectionWrapper';
@@ -55,110 +55,15 @@ class EmailVerificationContainer extends React.Component {
         });
     };
     handleChange = name => event => {
-        this.setState({
-          [name]: event.target.value,
-        });
+       
       };
     render() {
         const { classes } = this.props;
-        const modifyEmailDialog = (<Dialog
-            open={this.state.modifyDialog}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={this.handleClose}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-        >
-            <DialogTitle id="alert-dialog-slide-title">
-            <Typography variant='title' color='primary'>
-                Modify email
-                </Typography>
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                Please enter the correct email address below. 
-              </DialogContentText>
-                <TextField
-                    id="email"
-                    label="Email Address"
-                    placeholder="Email Address"
-                    onChange={this.handleChange('email')}
-                    className={classes.textField}
-                    margin="normal"
-                    color="primary"
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={this.handleClose} disabled={!validateEmail(this.state.email)} color="primary">
-                    Modify
-              </Button>
-            </DialogActions>
-        </Dialog>)
-        const resendVerifiactionEmailDialog = (<Dialog
-            open={this.state.resendDialog}
-            TransitionComponent={Transition}
-            keepMounted
-            onClose={this.handleClose}
-            aria-labelledby="alert-dialog-slide-title"
-            aria-describedby="alert-dialog-slide-description"
-        >
-            <DialogTitle id="alert-dialog-slide-title">
-            <Typography variant='title' color='primary'>
-                Resend email
-            </Typography>
-            </DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-slide-description">
-                    We have just resent the verification email. Please check your inbox and follow the instruction in the email.
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
-                    Okay
-              </Button>
-            </DialogActions>
-        </Dialog>)
+        
         return (
-            <LogoOnCard width={560}>
-                <SectionWrapper SectionWrapper height={600} child={(<Grid container
-                    className={classes.grid}
-                    direction="column"
-                    justify='space-between'
-                    alignItems='center'
-                >
-                    <Typography variant="display1">
-                        Your submission is received!
-                      </Typography>
-
-                    <img alt='email graphic' className={classes.image} src={OpenMail} />
-                    {body.map((p) => <Typography key={p} variant="body1">
-                        {p}
-                    </Typography>)}
-                    <Grid container
-                        direction="row"
-                        className={classes.footerButtons}
-                        justify='space-between'
-                    >
-                        <Button variant="outlined"
-                            className={classes.button}
-                            color="primary"
-                            onClick={this.handleChangeEmail}
-                        >
-                            Modify email
-                </Button>
-                        <Button
-                            className={classes.button}
-                            variant="flat"
-                            color="primary"
-                            onClick={this.handleSendVerificationEmail}>
-                            Resend Email
-                </Button>
-                    </Grid>
-                </Grid>)}/>
+            <LogoInCard width={560}>
                 
-                {resendVerifiactionEmailDialog}
-                {modifyEmailDialog}
-            </LogoOnCard>
+            </LogoInCard>
 
         )
     }

@@ -15,9 +15,7 @@ export const LISTENER =(COLLECTION,UID)=>{
                 collection: COLLECTION,
                     doc: UID,
                   };
-        case COLLECTIONS.upcomingEvents:return{collection:COLLECTION}
         
-        default:
-            break;
+        default: return{collection:COLLECTION}
     }
 }

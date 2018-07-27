@@ -10,8 +10,6 @@ import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 
-
-
 import Grid from '@material-ui/core/Grid';
 import NavigationButton from './NavigationButton'
 import { compose } from 'recompose';
@@ -31,9 +29,13 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
-import DarkLogo from '../assets/images/Logo/DarkText.png'
+import LightLogo from '../assets/images/Logo/WhiteText.png'
 import UserActions from './UserActions';
+
+import sizeMe from 'react-sizeme'
+
 const drawerWidth = 240;
+
 
 const styles = theme => ({
   root: {
@@ -73,8 +75,6 @@ const styles = theme => ({
   },
 });
 
-
-
 class DashboardWrapper extends React.Component {
   constructor(props) {
     super(props);
@@ -96,11 +96,10 @@ class DashboardWrapper extends React.Component {
   goTo(route){
     this.props.history.push(route)
   }
-  
- 
 
   render(){
-  const { classes,theme } = this.props;
+  const { classes,theme,size } = this.props;
+  const {width,height} = size
    const pathName = this.props.history.location.pathname
 
    const drawer = (
@@ -113,7 +112,7 @@ class DashboardWrapper extends React.Component {
   );
   return (
 
-    <div className={classes.root}>
+    <div className={classes.root} style={{height:height}}>
     <AppBar className={classes.appBar}>
       <Toolbar>
         <IconButton
@@ -226,11 +225,12 @@ const enhance = compose(
 
 const authCondition = (authUser) => !!authUser;
 
-export default enhance(
+
+
+export default sizeMe({ monitorHeight: true })(enhance(
   withRouter(
   compose(
     withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(DashboardWrapper))
   )
 )
-)
-
+))
