@@ -13,4 +13,4 @@ export const DASHBOARD = '/dashboard';
 export const RESUME = '/resume';
 export const PROFILE = '/profile';
 export const JOB_BOARD = '/jobs';
-export const EMAIL_VERIFICATION = '/emailVerification'
+export const EMAIL_VERIFICATION = '/emailVerifications'

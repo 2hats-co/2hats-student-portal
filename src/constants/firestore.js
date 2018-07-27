@@ -4,6 +4,7 @@ export const COLLECTIONS = {
     submissions:'submissions',
     upcomingEvents:'upcomingEvents',
     profiles:'profiles',
+    emailVerifications: 'emailVerifications'
 }
 export const LISTENER =(COLLECTION,UID)=>{
     switch (COLLECTION) {

@@ -43,7 +43,7 @@ class App extends Component {
       <Route exact path={routes.BUILD_RESUME_EXP} component={() => <SignupContainer currentStep={ALL_STEPS.experience} isPublic={false}/>} />
       <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other} isPublic={false}/>} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer isPublic={false}/>} />
-      <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer isPublic={false}/>} />      
+      <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer isPublic={true}/>} />      
       <Route exact path={'/'} component={() => <Landing isPublic={true}/>} />      
     </div>
   </Router>
