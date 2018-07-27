@@ -226,20 +226,10 @@ const enhance = compose(
 const authCondition = (authUser) => !!authUser;
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 export default sizeMe({ monitorHeight: true })(enhance(
   withRouter(
   compose(
     withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(DashboardWrapper))
   )
 )
-<<<<<<< HEAD
 ))
-=======
-))
-
-
->>>>>>> master
