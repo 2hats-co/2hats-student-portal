@@ -32,8 +32,6 @@ import { COLLECTIONS,LISTENER } from "../constants/firestore";
 import LightLogo from '../assets/images/Logo/WhiteText.png'
 import UserActions from './UserActions';
 
-import sizeMe from 'react-sizeme'
-
 const drawerWidth = 240;
 
 
@@ -70,6 +68,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
+    overflow:'scroll',
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
   },
@@ -78,7 +77,9 @@ const styles = theme => ({
 class DashboardWrapper extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { width: 0, height: 0 };
     this.goTo = this.goTo.bind(this)
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   state = {
     mobileOpen: false,
@@ -89,8 +90,15 @@ class DashboardWrapper extends React.Component {
   };
 
 
-  componentWillMount(){
-   
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   goTo(route){
@@ -98,9 +106,8 @@ class DashboardWrapper extends React.Component {
   }
 
   render(){
-  const { classes,theme,size } = this.props;
-  const {width,height} = size
-   const pathName = this.props.history.location.pathname
+  const {classes,theme,history} = this.props
+   const pathName = history.location.pathname
 
    const drawer = (
     <div>
@@ -112,7 +119,9 @@ class DashboardWrapper extends React.Component {
   );
   return (
 
-    <div className={classes.root} style={{height:height}}>
+    <div className={classes.root} 
+    style={{height:this.state.height}}
+    >
     <AppBar className={classes.appBar}>
       <Toolbar>
         <IconButton
@@ -240,10 +249,10 @@ const enhance = compose(
 const authCondition = (authUser) => !!authUser;
 
 
-export default sizeMe({ monitorHeight: true })(enhance(
+export default enhance(
   withRouter(
   compose(
     withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(DashboardWrapper))
-  )
-)
-))
+  )))
+
+
