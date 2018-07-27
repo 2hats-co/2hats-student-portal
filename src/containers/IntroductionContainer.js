@@ -189,11 +189,12 @@ const enhance = compose(
     componentWillMount() {
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
       this.props.loadData(profileListenerSettings);
-
     },
   }),
   connect(mapStateToProps,mapActionToProps)
 )
+
+
 export default enhance(
   withRouter(
     withStyles(styles)(IntroductionContainer)

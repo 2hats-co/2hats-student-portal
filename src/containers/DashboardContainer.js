@@ -51,6 +51,7 @@ const enhance = compose(
     // add redux store (from react context) as a prop
     withFirestore,
     // Connect get data from fire stroe
+    
     connect(({ firestore }) => ({
         profile: firestore.data.profiles,
         user: firestore.data.users,

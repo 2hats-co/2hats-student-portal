@@ -199,12 +199,26 @@ const enhance = compose(
   lifecycle({
     // Load data when component mounts
     componentWillMount() {
+      if(this.props.uid){
+      console.log('mount',this.props.uid)
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
       this.props.loadData(profileListenerSettings);
       const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
       this.props.loadData(usersListenerSettings);
       const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
       this.props.loadData(upcomingEventsListenerSettings);
+      }
+    },
+    componentDidUpdate(prevProps,prevState){
+      if(prevProps.uid !== this.props.uid){
+        console.log('update',this.props.uid)
+        const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+        this.props.loadData(profileListenerSettings);
+        const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
+        this.props.loadData(usersListenerSettings);
+        const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
+        this.props.loadData(upcomingEventsListenerSettings);
+      }
     },
     componentWillUnmount() {
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)

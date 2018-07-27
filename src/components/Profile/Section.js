@@ -20,7 +20,7 @@ class Section extends React.Component{
         const {isOpen} = this.state
         return(
            <div>
-        <Grid container='row' justify='space-between' alignItems='center' >
+        <Grid container direction='row' justify='space-between' alignItems='center' >
                <Typography variant='subheading'>
                  {name}:
                </Typography>
