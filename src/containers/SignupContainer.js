@@ -26,8 +26,6 @@ import { COLLECTIONS } from "../constants/firestore";
 import * as _ from "lodash";
 import * as routes from '../constants/routes';
 import StepController from "../components/SignUp/StepController";
-import sizeMe from 'react-sizeme'
-
 const styles = theme => ({
   root: {
     height: 800
@@ -63,7 +61,9 @@ let INITIAL_PROFILE = {
 const INITIAL_STATE = {
   activeStep: 0,
   profile:{},
-  error: null
+  error: null,
+  width: 0, 
+  height: 0
 };
 
 function AvailableDaysConverter(string){
@@ -78,11 +78,15 @@ class ResumeBuilderContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.handleChange = this.handleChange.bind(this)
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
+
   }
   componentWillMount(){
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)
@@ -97,6 +101,12 @@ class ResumeBuilderContainer extends Component {
       this.setState({profile:updatedProfile})
       this.props.onProfileUpdate({process:PROCESS_TYPES.upload,hasSubmit:false})
     }
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
@@ -203,12 +213,12 @@ class ResumeBuilderContainer extends Component {
     });
   };
   render() {
-    const { classes,size } = this.props;
+    const { classes } = this.props;
     const { activeStep ,profile} = this.state;
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
-    const isMobile=(size.width<750)
+    const isMobile=(this.state.width<750)
     return (
-        <LogoOnCard isMobile={isMobile} height={this.state.height}>
+        <LogoOnCard isMobile={isMobile} >
           <div className={isMobile?classes.mobileContainer:classes.webContainer}>
                   <StepController isMobile={isMobile}
                   activeStep={activeStep}
@@ -254,6 +264,6 @@ const enhance = compose(
   }))
 )
 
-export default sizeMe({ monitorHeight: true })(enhance(
+export default enhance(
     withRouter(withStyles(styles)(ResumeBuilderContainer))
-))
+)
