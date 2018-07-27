@@ -31,15 +31,9 @@ import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
 import LightLogo from '../assets/images/Logo/WhiteText.png'
 import UserActions from './UserActions';
-<<<<<<< HEAD
 
 import sizeMe from 'react-sizeme'
 
-=======
-import sizeMe from 'react-sizeme'
-
-
->>>>>>> master
 const drawerWidth = 240;
 
 
