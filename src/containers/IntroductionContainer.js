@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 import LogoOnCard from '../components/LogoOnCard';
 import CardSections from '../components/Introduction/CardSections';
+import MobileView from '../components/Introduction/MobileView';
 
 import intro1 from '../assets/images/graphics/Intro1.png'
 import intro2 from '../assets/images/graphics/Intro2.png'
@@ -44,25 +45,29 @@ const styles = theme => ({
     }
   });
 
-
-     
 class IntroductionContainer extends React.Component {
   state = {
     view: INTRODUCTION_CONTAINER.process
   }
   constructor(props) {
     super(props)
+    this.state = { width: 0, height: 0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
     this.goToBuildResume = this.goToBuildResume.bind(this)
     this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
-  componentDidMount(){
-    
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
   }
-  componentDidMount(){
- //   window.Intercom('update')
-}
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
   createFireStoreRecords(){
     this.props.createUser();
    this.props.createProfile();
@@ -82,9 +87,10 @@ class IntroductionContainer extends React.Component {
   }
 
   render(){
-
+    
     const { classes } = this.props;
-    const process = 
+    const isMobile = (this.state.width<700) 
+    const process =   
   { heading: 'Application Process',
   width:900,
   sections:[
@@ -127,16 +133,20 @@ class IntroductionContainer extends React.Component {
  <div className={classes.sections} >
      <CardSections hasSteps width={process.width} sections={process.sections}/>
   </div></div>)
-        
-    return (
-    <LogoOnCard 
-    width={this.state.view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
-    >
-    <SectionWrapper 
-      height = {550}
-     > {this.state.view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
-     </LogoOnCard>
-    );
+    if(isMobile){
+      return(<MobileView height={this.state.height} tutorialSteps={process.sections}/>)
+    }else{
+      return (
+        <LogoOnCard 
+        width={this.state.view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
+        >
+        <SectionWrapper 
+          height = {550}
+         > {this.state.view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
+         </LogoOnCard>
+        );
+    }   
+   
   }
 }
 
