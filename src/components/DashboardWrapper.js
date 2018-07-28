@@ -31,6 +31,11 @@ import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
 import LightLogo from '../assets/images/Logo/WhiteText.png'
 import UserActions from './UserActions';
+import DarkLogo from '../assets/images/Logo/DarkText.png'
+
+import {auth} from '../firebase';
+import LogoutIcon from '@material-ui/icons/ExitToApp'
+
 
 const drawerWidth = 240;
 
@@ -71,7 +76,13 @@ const styles = theme => ({
     overflow:'scroll',
     backgroundColor: theme.palette.background.default,
     padding: theme.spacing.unit * 3,
-  },
+  },logo:{
+    width:150,
+    marginLeft:45,
+    marginBottom:-60,
+    marginTop:20
+  
+    },
 });
 
 class DashboardWrapper extends React.Component {
@@ -111,10 +122,12 @@ class DashboardWrapper extends React.Component {
 
    const drawer = (
     <div>
+        <img className={classes.logo} alt='light2hatsLogo' src={LightLogo}/>
       <div className={classes.toolbar} />
       <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
       <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
       <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
+      <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
     </div>
   );
   return (
