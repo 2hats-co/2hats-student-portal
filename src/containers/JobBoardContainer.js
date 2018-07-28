@@ -2,9 +2,10 @@ import React from 'react';
 
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -13,11 +14,14 @@ import * as routes from '../constants/routes'
 
 import DashboardWrapper from '../components/DashboardWrapper';
 
+
 const styles = theme => ({
     content: {
     margin:'auto',
-     width:330,
-     height:285,
+    padding:20,
+    paddingTop:0,
+     maxWidth:330,
+     maxHeight:285,
     },
     button:{
         width:150
@@ -41,11 +45,11 @@ class JobBoardContainer extends React.Component {
         >
           <DialogTitle id="alert-dialog-title">{"Accepted Students Only"}</DialogTitle>
           <DialogContent className={classes.content}>
-            <DialogContentText id="alert-dialog-description">
+            <Typography variant='body1'>
 Once you pass the assessment centre, you will be accepted into the 2hats talent pool. 
 This job board will allow you to review open positions and enable direct communication with position providers. 
 In the meantime, you can check our dashboard for resume feedback and any upcoming events. 
-            </DialogContentText>
+            </Typography>
           </DialogContent>
           <DialogActions>
             <Button className={classes.button} onClick={this.handleClose} color="primary" autoFocus>

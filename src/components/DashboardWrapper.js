@@ -18,7 +18,7 @@ import withAuthorisation from '../utilities/Session/withAuthorisation'
 import PersonIcon from '@material-ui/icons/Person'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import JobIcon from '@material-ui/icons/Work'
-
+import LiveHelp from '@material-ui/icons/LiveHelp'
 
 import {withRouter} from 'react-router-dom'
 import * as routes from '../constants/routes'
@@ -32,6 +32,7 @@ import { COLLECTIONS,LISTENER } from "../constants/firestore";
 import LightLogo from '../assets/images/Logo/WhiteText.png'
 import UserActions from './UserActions';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
+import UpdateIcon from '@material-ui/icons/Update'
 
 import {auth} from '../firebase';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
@@ -127,7 +128,9 @@ class DashboardWrapper extends React.Component {
       <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
       <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
       <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
-      <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
+      <NavigationButton isSelected={false} name='Account Info' icon={<UpdateIcon style={{color:'#fff'}}/>} route={()=>{}}/>    
+      <NavigationButton isSelected={false} name='Support' icon={<LiveHelp style={{color:'#fff'}}/>} route={()=>{}}/>         
+     <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
     </div>
   );
   return (
