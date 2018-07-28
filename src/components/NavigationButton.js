@@ -30,6 +30,7 @@ const styles = theme => ({
         textWeight:500,
         textAlign:'left',
         color:'#fff',
+
         width:130
     }
   });
@@ -38,7 +39,7 @@ function NavigationButton(props){
     return(
     <Grid container className={isSelected ?classes.root: classes.otherRoot} justify='center' alignItems='center'>
     <Button onClick={()=>{route()}} className={classes.button}><Grid container direction='row' justify='space-between'>
-    {icon} <Typography variant='headline' className={classes.label}>{name}</Typography></Grid>
+    {icon} <Typography variant='title' className={classes.label}>{name}</Typography></Grid>
     </Button>
     </Grid>
 

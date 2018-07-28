@@ -6,15 +6,16 @@ import { Typography, Card, Grid ,IconButton} from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit'
 import DeleteIcon from '@material-ui/icons/Delete'
 
+
 const styles = theme => ({
   root:{
   width:'100%'
   },
   card:{  
-    width: '85%',
+    width: '91%',
     paddingTop: 30,
     paddingBottom: 30,
-    paddingLeft:40,
+    paddingLeft:20,
     paddingRight:40,
     marginBottom:10
   },

@@ -27,7 +27,6 @@ const styles = theme => ({
   },content:{
     height:'100%',
     minHeight:'370px',
-    maxHeight:'500px',
     width:'90%',
     margin:'auto'
   },description:{
@@ -39,6 +38,10 @@ const styles = theme => ({
         marginBottom:'20px',
         height:'100%',
       width:'90%'
+  },mobileStepper:{
+    position:'absolute',
+    bottom:0,
+    width:'100%'
   }
 
 });
@@ -68,24 +71,7 @@ class MobileIntro extends React.Component {
     const maxSteps = tutorialSteps.length;
     return (
       <div className={classes.root}>
-       <MobileStepper
-          steps={maxSteps}
-          position="static"
-          activeStep={activeStep}
-          className={classes.mobileStepper}
-          nextButton={
-            <Button size="medium" onClick={activeStep < maxSteps-1?this.handleNext:startHandler}>
-              {activeStep === maxSteps-1?`Start`:'Next'}
-              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
-            </Button>
-          }
-          backButton={
-            <Button size="medium" onClick={this.handleBack} disabled={activeStep === 0}>
-              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
-              Back
-            </Button>
-          }
-        />
+      
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={this.state.activeStep}
@@ -108,7 +94,24 @@ class MobileIntro extends React.Component {
             </Grid></Card>
           ))}
         </SwipeableViews>
-       
+        <MobileStepper
+          steps={maxSteps}
+          position="static"
+          activeStep={activeStep}
+          className={classes.mobileStepper}
+          nextButton={
+            <Button size="medium" onClick={activeStep < maxSteps-1?this.handleNext:startHandler}>
+              {activeStep === maxSteps-1?`Start`:'Next'}
+              {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            </Button>
+          }
+          backButton={
+            <Button size="medium" onClick={this.handleBack} disabled={activeStep === 0}>
+              {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
+              Back
+            </Button>
+          }
+        />
       </div>
     );
   }

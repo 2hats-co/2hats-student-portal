@@ -38,6 +38,8 @@ import Name from '../components/InputFields/Name'
 import Password from '../components/InputFields/Password'
 import Email from '../components/InputFields/Email'
 import ConfirmPassword from '../components/InputFields/ConfirmPassword'
+
+
 const styles = theme => ({
   root: {
     paddingLeft: 50,
@@ -475,15 +477,18 @@ class AuthenticationContainer extends React.Component {
         {linkButton(linkLabel, link)}
       </div>
     )
+    let disclaimer = (<Typography variant='caption' style={{marginTop:10,marginBottom:-15, textAlign:'center'}}>
+    By clicking Sign Up, you agree to our Terms and Conditions and Privacy Terms.
+    </Typography>)
     const signInView = [socialButton('google', 'in'), socialButton('linkedin', 'in'), orLabel, emailField, passwordField, signInRow, footerLink('Don’t have an account?', routes.SIGN_UP, 'Sign Up')]
-    const signUpView = [socialButton('google', 'up'), socialButton('linkedin', 'up'), orLabel, nameFields, emailField, passwordField, confirmPasswordField, signUpButton, footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
+    const signUpView = [socialButton('google', 'up'), socialButton('linkedin', 'up'), orLabel, nameFields, emailField, passwordField, confirmPasswordField,disclaimer, signUpButton, footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
     const resetView = [resetPasswordText, emailField, resetPasswordButton(!validateEmail(email))]
     let loadedView = signUpView
     let cardHeight = 610
     switch (view) {
       case AUTHENTICATION_CONTAINER.signUp:
         loadedView = signUpView
-        cardHeight = 610
+        cardHeight = 620
         break;
       case AUTHENTICATION_CONTAINER.signIn:
         loadedView = signInView

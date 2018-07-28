@@ -2,7 +2,6 @@ import React,{Component} from "react";
 import PropTypes from "prop-types";
 //material
 import { withStyles } from "@material-ui/core/styles";
-
 //child components
 import LogoOnCard from "../components/LogoOnCard";
 //form sections
@@ -144,7 +143,7 @@ class ResumeBuilderContainer extends Component {
           data = {this.state.profile.education}
           width={600}/>
         </SectionWrapper>;
-      case ALL_STEPS.experience: return  <SectionWrapper width={750} height={420} isMobile={isMobile} >  
+      case ALL_STEPS.experience: return  <SectionWrapper width={750} height={420} >  
       <EducationContainer industry={industry} isMobile={isMobile}
       name='experience' changeHandler={this.handleChange} 
       data = {this.state.profile.experience}      

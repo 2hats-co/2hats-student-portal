@@ -30,8 +30,6 @@ import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
 import LightLogo from '../assets/images/Logo/WhiteText.png'
-import UserActions from './UserActions';
-import DarkLogo from '../assets/images/Logo/DarkText.png'
 import UpdateIcon from '@material-ui/icons/Update'
 
 import {auth} from '../firebase';
@@ -73,10 +71,15 @@ const styles = theme => ({
     },
   },
   content: {
+    margin:'auto',
+
+    marginTop:0,
+    marginBottom:0,
     flexGrow: 1,
     overflow:'scroll',
+    width:'100%',
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    //padding: theme.spacing.unit * 3,
   },logo:{
     width:150,
     marginLeft:45,
