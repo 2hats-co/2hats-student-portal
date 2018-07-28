@@ -6,7 +6,9 @@ import Typography from '@material-ui/core/Typography';
 
 import LogoOnCard from '../components/LogoOnCard';
 import CardSections from '../components/Introduction/CardSections';
-import MobileView from '../components/Introduction/MobileView';
+
+import MobileIntro from '../components/Introduction/MobileIntro';
+import MobileSubmission from '../components/Introduction/MobileSubmission';
 
 import intro1 from '../assets/images/graphics/Intro1.png'
 import intro2 from '../assets/images/graphics/Intro2.png'
@@ -46,12 +48,9 @@ const styles = theme => ({
   });
 
 class IntroductionContainer extends React.Component {
-  state = {
-    view: INTRODUCTION_CONTAINER.process
-  }
   constructor(props) {
     super(props)
-    this.state = { width: 0, height: 0 };
+    this.state = {view: INTRODUCTION_CONTAINER.process,width: 0, height: 0 };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
@@ -83,15 +82,16 @@ class IntroductionContainer extends React.Component {
     this.props.history.push(routes.UPLOAD_RESUME)
   }
   goToResumeOptions(){
-    this.setState({view: INTRODUCTION_CONTAINER.resumeOptions})
+    this.setState({view: INTRODUCTION_CONTAINER.submission})
   }
 
   render(){
     
     const { classes } = this.props;
-    const isMobile = (this.state.width<700) 
+    const {view,width,height} = this.state
+    const isMobile = (width<650) 
     const process =   
-  { heading: 'Application Process',
+  { headLine: 'Application Process',
   width:900,
   sections:[
     {title:'Get Reviewed',
@@ -107,7 +107,7 @@ class IntroductionContainer extends React.Component {
      description:'Once you are qualified, we will match you with a paid placement in your chosen career interests.'
     }]}
     const submission = 
-        { heading: 'Resume Submission',
+        { headLine: 'Resume Submission',
         width:680,
         sections:[{title:'Upload Resume',
         image:UploadResume,
@@ -120,7 +120,7 @@ class IntroductionContainer extends React.Component {
         }]
         }
   const submissionView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
-    {submission.heading}
+    {submission.headLine}
  </Typography>
 <div className={classes.sections} >
     <CardSections width={submission.width} sections={submission.sections} hasDivider/>
@@ -128,21 +128,29 @@ class IntroductionContainer extends React.Component {
  
 )
      const processView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
-     {process.heading}
+     {process.headLine}
   </Typography>
  <div className={classes.sections} >
      <CardSections hasSteps width={process.width} sections={process.sections}/>
   </div></div>)
     if(isMobile){
-      return(<MobileView height={this.state.height} tutorialSteps={process.sections}/>)
+
+      
+      return(<div>
+  {view === INTRODUCTION_CONTAINER.process&&<MobileIntro height={height} tutorialSteps={process.sections} startHandler={this.goToResumeOptions}/>}
+  {view === INTRODUCTION_CONTAINER.submission&&<MobileSubmission headLine={submission.headLine} height={height} uploadHandler={this.goToUploadResume} buildHandler={this.goToBuildResume}/>}
+  </div>
+    )
+
     }else{
+  
       return (
         <LogoOnCard 
-        width={this.state.view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
+        width={view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
         >
         <SectionWrapper 
           height = {550}
-         > {this.state.view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
+         > {view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
          </LogoOnCard>
         );
     }   

@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
+
 import {setBackground} from '../../utilities/styling'
 
 const styles = theme => ({
@@ -43,7 +43,7 @@ const styles = theme => ({
 
 });
 
-class SwipeableTextMobileStepper extends React.Component {
+class MobileIntro extends React.Component {
   state = {
     activeStep: 0,
   };
@@ -62,12 +62,10 @@ class SwipeableTextMobileStepper extends React.Component {
   };
 
   render() {
-    const { classes, theme,tutorialSteps,height} = this.props;
+    const { classes, theme,tutorialSteps,height,startHandler} = this.props;
     const { activeStep } = this.state;
     setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad')
-
     const maxSteps = tutorialSteps.length;
-
     return (
       <div className={classes.root}>
        <MobileStepper
@@ -76,7 +74,7 @@ class SwipeableTextMobileStepper extends React.Component {
           activeStep={activeStep}
           className={classes.mobileStepper}
           nextButton={
-            <Button size="medium" onClick={this.handleNext} disabled={activeStep === maxSteps}>
+            <Button size="medium" onClick={activeStep < maxSteps-1?this.handleNext:startHandler}>
               {activeStep === maxSteps-1?`Start`:'Next'}
               {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
             </Button>
@@ -95,8 +93,8 @@ class SwipeableTextMobileStepper extends React.Component {
           enableMouseEvents
 
         >
-          {tutorialSteps.map((step,index) => (<Card className={classes.card} style={{height:height*0.6}}>
-            <Grid  key={step.title} container className={classes.content} direction='column' justify='space-around' alignItems='center'>
+          {tutorialSteps.map((step,index) => (<Card key={step.title} className={classes.card} style={{height:height*0.85}}>
+            <Grid container className={classes.content} direction='column' justify='space-around' alignItems='center'>
             <Typography variant="title">
         Step {index+1}
       </Typography>
@@ -116,9 +114,10 @@ class SwipeableTextMobileStepper extends React.Component {
   }
 }
 
-SwipeableTextMobileStepper.propTypes = {
+MobileIntro.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  tutorialSteps: PropTypes.array.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(SwipeableTextMobileStepper);
+export default withStyles(styles, { withTheme: true })(MobileIntro);
