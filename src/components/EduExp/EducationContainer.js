@@ -3,7 +3,7 @@ import EduExpCard from "./DetailsCard";
 import HeaderBar from "./HeaderBar";
 import PropTypes from "prop-types";
 
-import DialogForm from "./DialogForm";
+import DialogForm from "./Form";
 import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
 import * as _ from "lodash";

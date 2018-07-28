@@ -2,17 +2,17 @@ import React from 'react';
 
 import TextField from '@material-ui/core/TextField';
 
-import DropDown from '../../InputFields/DropDown';
-import MonthPicker from '../../InputFields/MonthPicker';
-import AutoCompleteField from '../../InputFields/AutoCompleteField';
-import MultiLineTextField from '../../InputFields/MultiLineTextField';
+import DropDown from '../InputFields/DropDown';
+import MonthPicker from '../InputFields/MonthPicker';
+import AutoCompleteField from '../InputFields/AutoCompleteField';
+import MultiLineTextField from '../InputFields/MultiLineTextField';
 
-import WebForm from './WebForm';
+
 import PropTypes from 'prop-types';
-import { INPUTS } from '../../../constants/enums';
+import { INPUTS } from '../../constants/enums';
 import * as _ from 'lodash'
-import MobileForm from './MobileForm';
-import ChangeAdpter from '../../InputFields/ChangeAdapter'
+import ChangeAdpter from '../InputFields/ChangeAdapter'
+import Dialog from '../Dialog';
 
 function completed(field){
  if(field){
@@ -50,7 +50,6 @@ class DialogForm extends React.Component {
       fields.forEach((field)=>{
         this.setState({[field.name]:{value:'',isRequired:field.isRequired}})})
     } 
-  
   }
   
   componentWillMount(){
@@ -88,32 +87,9 @@ class DialogForm extends React.Component {
       else{return true};
     });
   }
-  renderMobile(form){
-    const {activity,title,handler,isOpen} = this.props
-    return(
-        <MobileForm activity={activity} 
-        title={title} isOpen={isOpen} 
-        addHandler={this.handleAdd.bind(this)} 
-        disabled={this.isDisabled()} 
-        cancelHandler={()=>{handler()}}>
-        {form}
-          </MobileForm>
-    )}
-    renderWeb(form){
-        const {activity,title,handler,isOpen} = this.props
-        return(
-            <WebForm activity={activity} 
-            title={title} isOpen={isOpen} 
-            addHandler={this.handleAdd.bind(this)} 
-            disabled={this.isDisabled()} 
-            cancelHandler={()=>{handler()}}>
-            {form}
-              </WebForm>
-        )
-    }
   render() {
     console.log(this.state)
-    const {fields,isMobile} = this.props
+    const {fields,isMobile,activity,title,isOpen,handler} = this.props
     const form = fields.map((field)=>{
         switch (field.type) {
           case INPUTS.textField:return <TextField
@@ -178,11 +154,15 @@ class DialogForm extends React.Component {
       })
 
     return (
-      <div>
-   
-   {isMobile?this.renderMobile(form):this.renderWeb(form)}
+      <Dialog activity={activity} 
+      title={title} isOpen={isOpen} 
+      addHandler={this.handleAdd.bind(this)} 
+      disabled={this.isDisabled()} 
+      cancelHandler={()=>{handler()}}
+      isMobile={isMobile}>
+      {form}
          
-      </div>
+      </Dialog>
     );
   }
 }

@@ -58,10 +58,10 @@ function WebForm(props){
     )
 }
 WebForm.protoTypes = {
+    title: PropTypes.string.isRequired,
+    activity: PropTypes.string.isRequired,
     classes: PropTypes.object.isRequired,
     isOpen:PropTypes.boolean,
-    activity: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
   }
 
 export default withStyles(styles)(WebForm);
