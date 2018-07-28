@@ -34,7 +34,7 @@ import UpdateIcon from '@material-ui/icons/Update'
 
 import {auth} from '../firebase';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
-
+import AccountInfoDailog from '../components/UserActions/AccountInfoDialog'
 
 const drawerWidth = 240;
 
@@ -95,9 +95,11 @@ class DashboardWrapper extends React.Component {
     this.state = { width: 0, height: 0 };
     this.goTo = this.goTo.bind(this)
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.handleInfoDialog = this.handleInfoDialog.bind(this)
   }
   state = {
     mobileOpen: false,
+    infoDialog:false
   };
 
   handleDrawerToggle = () => {
@@ -119,11 +121,15 @@ class DashboardWrapper extends React.Component {
   goTo(route){
     this.props.history.push(route)
   }
+  handleInfoDialog(isOpen){
+    this.setState({infoDialog:isOpen})
+}
 
   render(){
+
   const {classes,theme,history} = this.props
    const pathName = history.location.pathname
-
+   const isMobile = (this.state.width<650) 
    const drawer = (
     <div>
         <img className={classes.logo} alt='light2hatsLogo' src={LightLogo}/>
@@ -131,7 +137,7 @@ class DashboardWrapper extends React.Component {
       <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
       <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
       <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
-      <NavigationButton isSelected={false} name='Account Info' icon={<UpdateIcon style={{color:'#fff'}}/>} route={()=>{}}/>    
+      <NavigationButton isSelected={false} name='Account Info' icon={<UpdateIcon style={{color:'#fff'}}/>} route={()=>{this.handleInfoDialog(true)}}/>    
       <NavigationButton isSelected={false} name='Support' icon={<LiveHelp style={{color:'#fff'}}/>} route={()=>{}}/>         
      <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
     </div>
@@ -188,6 +194,10 @@ class DashboardWrapper extends React.Component {
         <div className={classes.toolbar}/>
         {this.props.profile?this.props.children:'loading'}
       </main>
+      <AccountInfoDailog
+       isOpen={this.state.infoDialog} 
+       closeHandler={this.handleInfoDialog}
+       isMobile={isMobile}/>
     </div>
   );
 }

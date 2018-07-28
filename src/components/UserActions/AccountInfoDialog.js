@@ -1,13 +1,6 @@
 import React from 'react';
-
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '../Dialog';
 import { withStyles } from '@material-ui/core/styles';
-
-import ChangeAdpter from '../InputFields/ChangeAdapter'
 
 //Redux
 import { compose } from 'redux';
@@ -17,7 +10,10 @@ import  {withFirestore} from '../../utilities/withFirestore';
 import { COLLECTIONS } from "../../constants/firestore";
 import WorkingRights from '../InputFields/WorkingRights';
 import PhoneNumber from '../InputFields/PhoneNumber';
+import CurrentUniversity from '../InputFields/CurrentUniversity';
 import Name from '../InputFields/Name';
+import ChangeAdpter from '../InputFields/ChangeAdapter'
+
 
 const styles = theme => ({
     content: {
@@ -44,6 +40,8 @@ const styles = theme => ({
             workingRights:'',
         }
         this.handleChange = this.handleChange.bind(this)
+        this.handleUpdate = this.handleUpdate.bind(this)
+        this.handleCancel = this.handleCancel.bind(this)
      }
      componentWillMount(){
         this.loadData()
@@ -55,11 +53,12 @@ const styles = theme => ({
     }
     loadData(){
         if(this.props.user){
-        const {firstName,lastName,phoneNumber,workingRights} = Object.values(this.props.user)[0]
+        const {firstName,lastName,phoneNumber,workingRights,currentUniversity} = Object.values(this.props.user)[0]
             this.handleChange('firstName',firstName)
             this.handleChange('lastName',lastName)
            this.handleChange('phoneNumber',phoneNumber)
            this.handleChange('workingRights',workingRights)
+           this.handleChange('currentUniversity',currentUniversity)
         }
     }
     handleCancel=() =>{
@@ -71,7 +70,8 @@ const styles = theme => ({
             firstName:this.state.firstName,
             lastName:this.state.lastName,
             phoneNumber:this.state.phoneNumber,
-            workingRights:this.state.workingRights
+            workingRights:this.state.workingRights,
+            currentUniversity:this.state.currentUniversity
         })
         this.props.closeHandler()
     }
@@ -82,39 +82,29 @@ const styles = theme => ({
     }
 
   render() {
-      const {classes,isOpen} = this.props
+      const {classes,isOpen,isMobile} = this.props
  
         if(this.state){
-        const {firstName,lastName,phoneNumber,workingRights} = this.state
+        const {firstName,lastName,phoneNumber,workingRights,currentUniversity} = this.state
 
             return (
-                <Dialog
-                  open={isOpen}
-                  //onClose={closeHandler}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle className={classes.title} id="alert-dialog-title">{'Confirm Resume Submission'}</DialogTitle>
-                  <DialogContent  className={classes.content}>
-                  <ChangeAdpter changeHandler={this.handleChange.bind(this)}>
+                <Dialog activity='Update' 
+                title='Account info' isOpen={isOpen} 
+                addHandler={()=>{this.handleUpdate()}} 
+                disabled={!firstName || !lastName} 
+                cancelHandler={()=>{this.handleCancel()}}
+                isMobile={isMobile}>
+               <ChangeAdpter changeHandler={this.handleChange}>
                     <Name firstName={firstName} lastName={lastName}/>
                     </ChangeAdpter>
-                   <WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange.bind(this)}/>
-                   <PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange.bind(this)}/>
-                  </DialogContent>
-                  <DialogActions>
-                  <Button className={classes.button} onClick={()=>{this.handleCancel()}}>
-                    Cancel
-                    </Button>
-                    <Button className={classes.button} onClick={()=>{this.handleUpdate()}} disabled={!firstName || !lastName} autoFocus>
-                    Update
-                    </Button>
-                  </DialogActions>
+                   <WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange}/>
+                   <CurrentUniversity hasLabel value={currentUniversity} changeHandler={this.handleChange}/>
+                   <PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange}/>
+                   
                 </Dialog>
             )
         }else{
             return (<div/>)
-
         }
 }
 }

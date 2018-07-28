@@ -7,7 +7,6 @@ import MonthPicker from '../InputFields/MonthPicker';
 import AutoCompleteField from '../InputFields/AutoCompleteField';
 import MultiLineTextField from '../InputFields/MultiLineTextField';
 
-
 import PropTypes from 'prop-types';
 import { INPUTS } from '../../constants/enums';
 import * as _ from 'lodash'
@@ -152,7 +151,6 @@ class DialogForm extends React.Component {
           default:break;
         }
       })
-
     return (
       <Dialog activity={activity} 
       title={title} isOpen={isOpen} 
