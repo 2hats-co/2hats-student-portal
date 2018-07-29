@@ -35,6 +35,7 @@ import {auth} from '../firebase';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
 import AccountInfoDailog from '../components/UserActions/AccountInfoDialog'
 
+import LoadingMessage from './LoadingMessage'
 const drawerWidth = 240;
 
 
@@ -189,7 +190,7 @@ export const withNavigation = (WrappedComponent) => {
           <main className={classes.content}>
             <div className={classes.toolbar}/>
 
-            {(!profile || !user || !upcomingEvents)?'loading':<WrappedComponent
+            {(!profile || !user || !upcomingEvents)?<LoadingMessage/>:<WrappedComponent
 {...this.props}
 profile={Object.values(profile)[0]}
 user={Object.values(user)[0]}
