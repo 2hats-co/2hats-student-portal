@@ -50,7 +50,7 @@ const styles = theme => ({
 class IntroductionContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {view: INTRODUCTION_CONTAINER.process,width: 0, height: 0 };
+    this.state = {view: INTRODUCTION_CONTAINER.process};
      this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
     this.goToBuildResume = this.goToBuildResume.bind(this)
@@ -128,8 +128,8 @@ class IntroductionContainer extends React.Component {
 
       
       return(<div>
-  {view === INTRODUCTION_CONTAINER.process&&<MobileIntro height={height} tutorialSteps={process.sections} startHandler={this.goToResumeOptions}/>}
-  {view === INTRODUCTION_CONTAINER.submission&&<MobileSubmission headLine={submission.headLine} height={height} uploadHandler={this.goToUploadResume} buildHandler={this.goToBuildResume}/>}
+  {view === INTRODUCTION_CONTAINER.process&&<MobileIntro tutorialSteps={process.sections} startHandler={this.goToResumeOptions}/>}
+  {view === INTRODUCTION_CONTAINER.submission&&<MobileSubmission headLine={submission.headLine} uploadHandler={this.goToUploadResume} buildHandler={this.goToBuildResume}/>}
   </div>
     )
 

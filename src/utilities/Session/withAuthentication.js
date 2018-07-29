@@ -26,7 +26,9 @@ const withAuthentication = (Component) => {
         app_id: "k8mrtb3h",
         name: authUser.displayName, // Full name
         email: authUser.email, // Email address
-        created_at: authUser.metadata.creationTime // Signup Date
+        created_at: authUser.metadata.creationTime, // Signup Date
+       // horizontal_padding: 20,	
+      //  vertical_padding: 100
       }
      window.intercomSettings =user;
     }
