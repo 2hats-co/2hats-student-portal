@@ -6,14 +6,15 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import UploadMan from '../../assets/images/graphics/UploadMan.svg'
+import UploadMan from '../../assets/images/graphics/UploadMan.png'
 
 const styles = theme => ({
     root: {
         margin:30,
       padding:20,
-   
+        maxHeight:600
     },
+    img:{maxHeight:300},
    button:{
         marginTop: 15,
         width: '90%',
