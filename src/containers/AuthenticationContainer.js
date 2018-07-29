@@ -38,6 +38,7 @@ import Name from '../components/InputFields/Name'
 import Password from '../components/InputFields/Password'
 import Email from '../components/InputFields/Email'
 import ConfirmPassword from '../components/InputFields/ConfirmPassword'
+import Disclaimer from '../components/Authentication/Disclaimer';
 
 
 const styles = theme => ({
@@ -477,9 +478,7 @@ class AuthenticationContainer extends React.Component {
         {linkButton(linkLabel, link)}
       </div>
     )
-    let disclaimer = (<Typography variant='caption' style={{marginTop:10,marginBottom:-15, textAlign:'center'}}>
-    By clicking Sign Up, you agree to our Terms and Conditions and Privacy Terms.
-    </Typography>)
+    let disclaimer = (<Disclaimer/>)
     const signInView = [socialButton('google', 'in'), socialButton('linkedin', 'in'), orLabel, emailField, passwordField, signInRow, footerLink('Don’t have an account?', routes.SIGN_UP, 'Sign Up')]
     const signUpView = [socialButton('google', 'up'), socialButton('linkedin', 'up'), orLabel, nameFields, emailField, passwordField, confirmPasswordField,disclaimer, signUpButton, footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
     const resetView = [resetPasswordText, emailField, resetPasswordButton(!validateEmail(email))]
