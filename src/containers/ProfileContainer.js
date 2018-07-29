@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DashboardWrapper from '../components/DashboardWrapper';
+import {withNavigation} from '../components/withNavigation';
 import {Grid, Button } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import EducationContainer from '../components/EduExp/EducationContainer';
@@ -16,10 +16,16 @@ import { COLLECTIONS } from "../constants/firestore";
 import { PROCESS_TYPES, isComplete} from "../constants/signUpProcess";
 import ProfileDialogForm from '../components/Profile/ProfileDialogForm';
 import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
+import { width } from 'window-size';
 
 const styles = theme => ({
     root: {
-
+     
+    },
+    item:{
+      width:'98%',
+      maxWidth:750,
+  
     }
 });
 class ProfileContainer extends Component{
@@ -41,75 +47,51 @@ class ProfileContainer extends Component{
       this.props.onSubmit()
     }  
     render(){
-        const {classes, profile,user} = this.props
+        const {classes, profile,user,isLoading} = this.props
         console.log(this.props)
-        const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
-        let view = loading
-        const userData = Object.values(user)[0]
-        const profileData = Object.values(profile)[0]
-        if (profile&& user){
-        
 
-        
-          const submitButton = (
-            <Button variant='flat' style={{paddingLeft:20,paddingRight:20}} 
-            disabled={!profileData.isComplete}
-            onClick={()=>{
-              this.handleSubmition()
-              //this.setState({submitionDialog:true})
-            }}>
-            {profileData.isComplete ?'Submit Resume':'Complete Profile to submit'}
-            </Button>
-            )
-            const submittedButton = (<Button disabled={true} variant='flat'>
-              Submission Unavailable - Pending Feedback
-            </Button>)
-
-
-
-           
-        }
         return(
-            <DashboardWrapper header='Dashboard'>
+       <div>
                <Grid
                 container
-              //  className={classes.root}
+               className={classes.root}
                 alignItems='center'
                 direction='column'
               >
-                
+                <Grid item className={classes.item}>
               <ProfileCard 
-              process = {profileData.process}
-              skillsList={profileData.skills}
-              bio={profileData.bio}
-              name={`${userData.firstName} ${userData.lastName}`}
-            resumeFile={profileData.process === PROCESS_TYPES.upload&& profileData.resumeFile}
-              interestsList={profileData.interests}
+              process = {profile.process}
+              skillsList={profile.skills}
+              bio={profile.bio}
+              name={`${user.firstName} ${user.lastName}`}
+            resumeFile={profile.process === PROCESS_TYPES.upload&& profile.resumeFile}
+              interestsList={profile.interests}
               editHandler={()=>{this.handleEdit(true)}}/>
-
-                {profileData.process === PROCESS_TYPES.build&&
-              <div 
-              style= {{marginTop:10 ,width:'100%'}}
-              >
+              </Grid>{profile.process === PROCESS_TYPES.build&&
+              <Grid item className={classes.item}>               
                 <EducationContainer 
-                industry={profileData.industry} 
+                industry={profile.industry} 
              
                   name='education' changeHandler={this.props.onUpdate.bind(this)} 
-                   data = {profileData.education}
-                  width={750}/>     
+                   data = {profile.education}
+                  width={750}/>   
+              
+                
                 <EducationContainer 
-                industry={profileData.industry} 
+                industry={profile.industry} 
                 name='experience' 
-                data={profileData.experience} 
+                data={profile.experience} 
                 width={750} changeHandler={this.props.onUpdate.bind(this)}/>
-
-            </div>//profileData.hasSubmit?submittedButton:submitButton
+                
+                </Grid>//profileData.hasSubmit?submittedButton:submitButton
             }
                 </Grid>
                 <ConfirmSubmission isOpen={this.state.submitionDialog}/>
-            </DashboardWrapper>
+            </div>
         )
-    }
+        }
+        
+    
 
 }
 ProfileContainer.propTypes = {
@@ -117,6 +99,7 @@ ProfileContainer.propTypes = {
   };
   const enhance = compose(
     // add redux store (from react context) as a prop
+    withNavigation,
     withFirestore,
     // Handler functions as props
     withHandlers({
@@ -138,11 +121,7 @@ ProfileContainer.propTypes = {
     }
   ),
     }),
-    // Connect get data from fire stroe
-    connect(({ firestore }) => ({
-       profile: firestore.data.profiles, // document data by id
-       user: firestore.data.users, // document data by id
-    }))
+  
   )
   export default enhance(
       withStyles(styles)(ProfileContainer)

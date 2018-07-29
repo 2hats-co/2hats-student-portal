@@ -1,19 +1,16 @@
 import React from 'react';
-
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import Typography from '@material-ui/core/Typography';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
-
+import { compose } from 'redux';
 import {withRouter} from 'react-router-dom'
 import * as routes from '../constants/routes'
 
-import DashboardWrapper from '../components/DashboardWrapper';
-
+import {withNavigation} from '../components/withNavigation';
 
 const styles = theme => ({
     content: {
@@ -36,7 +33,7 @@ class JobBoardContainer extends React.Component {
   render() {
       const {classes} = this.props
     return (
-      <DashboardWrapper>
+ 
         <Dialog
           open={true}
           onClose={this.handleClose}
@@ -57,9 +54,16 @@ In the meantime, you can check our dashboard for resume feedback and any upcomin
             </Button>
           </DialogActions>
         </Dialog>
-      </DashboardWrapper>
+      
     );
   }
 }
 
-export default withRouter(withStyles(styles)(JobBoardContainer))
+const enhance = compose(
+  // add redux store (from react context) as a prop
+  withNavigation,
+  // Connect get data from fire stroe
+)
+export default enhance(
+  withRouter(withStyles(styles)(JobBoardContainer))
+)
