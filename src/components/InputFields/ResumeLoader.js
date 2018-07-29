@@ -8,8 +8,12 @@ import {firebaseStorage} from '../../store'
 import CircularProgress from '@material-ui/core/CircularProgress';
 import classNames from "classnames";
 import InputWrapper from './InputWrapper'
+import MessageBar from '../MessageBar';
+
 
 import { connect } from 'react-redux';
+
+
 
 const styles = theme => ({
     root: {
@@ -51,6 +55,10 @@ class ResumeLoader extends React.Component {
         this.handleLoader = this.handleLoader.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.onDrop = this.onDrop.bind(this)
+        this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this)
+    }
+    handleCloseSnackbar(){
+        this.setState({errorBar:false})
     }
 
     handleDelete(){
@@ -76,17 +84,21 @@ class ResumeLoader extends React.Component {
     }
     
     onDrop(files) {
-        let uid = this.props.authUser.uid
-        if(uid.includes(':')){
-            uid = uid.split(':')[1]
+        if(files[0].type !=='application/pdf'){
+        this.setState({errorBar:true})
+        }else{
+            let uid = this.props.authUser.uid
+            if(uid.includes(':')){
+                uid = uid.split(':')[1]
+            }
+          if(this.props.resumeFile.name!==''){
+            this.handleDelete()
+          }
+            this.setState({isUploading:true})
+            this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:''})
+            const documentRef = firebaseStorage.child(`${uid}/resumes/${files[0].name}`)
+            documentRef.put(files[0]).then(this.handleLoader);
         }
-      if(this.props.resumeFile.name!==''){
-        this.handleDelete()
-      }
-        this.setState({isUploading:true})
-        this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:''})
-        const documentRef = firebaseStorage.child(`${uid}/resumes/${files[0].name}`)
-        documentRef.put(files[0]).then(this.handleLoader);
       }
     render() {
         const {classes,resumeFile } = this.props;
@@ -95,6 +107,7 @@ class ResumeLoader extends React.Component {
             [classes.buttonSuccess]: true,
           });
         return (
+            <div>
             <InputWrapper
       title={'Resume Upload'}>
             <Dropzone className={classes.root}
@@ -131,6 +144,8 @@ class ResumeLoader extends React.Component {
             </Grid>
             </Dropzone>
             </InputWrapper>
+            <MessageBar message="sorry minjie only wants pdfs" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
+            </div>
         );
     } 
 }
