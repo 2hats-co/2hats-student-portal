@@ -3,13 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
-import MobileStepper from '@material-ui/core/MobileStepper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import SwipeableViews from 'react-swipeable-views';
-
 import {setBackground} from '../../utilities/styling'
 import StepsIndecator from './StepsIndecator'
 const styles = theme => ({
@@ -81,7 +77,7 @@ class MobileIntro extends React.Component {
                     {step.description}
                     </Typography>
                     
-                    {index===2?<Button className={classes.button}// onClick={}
+                    {index===2?<Button className={classes.button} onClick={startHandler}
                      variant='flat' color="primary">
             Let's Start
           </Button>:<StepsIndecator index={index}/>}
