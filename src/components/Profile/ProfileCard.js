@@ -22,7 +22,7 @@ const styles = {
     marginBottom:20
     },
   card: {
-    width:'90%',
+    width:'88%',
    maxWidth:660,
    padding:40,
    paddingBottom:5
@@ -44,15 +44,17 @@ const styles = {
     paddingTop:20,
     paddingBottom:20
   },
+  avatarCenteringContainer:{
+    width:'100%',
+    marginTop:10,
+    marginBottom:100,
+    position:'absolute',
+  },
   avatar:{width:150,
     height:150,
     borderRadius:75,
     backgroundColor:'#D8D8D8',
-    position:'relative',
-    left:250,
-    bottom:-50,
-    textAlign:'center',
-  
+    margin:'auto',
     }
 };
 function ProfileCard(props) {
@@ -83,7 +85,12 @@ function ProfileCard(props) {
     
     return (
       <div className={classes.root}>
-      <div className={classes.avatar}><PersonIcon style={{paddingTop:15,fontSize:120}}/></div>
+      <div style={{marginTop:20,marginBottom:10}}>
+      <div className={classes.avatarContainer}>
+      <div className={classes.avatar}><PersonIcon style={{paddingTop:15,fontSize:120}}/>
+      </div>
+      </div>
+      </div>
      <Card className={classes.card}> 
        <CardContent>  
          <Grid container direction='row' justify='center'>

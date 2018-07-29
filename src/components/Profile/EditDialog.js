@@ -1,10 +1,7 @@
 import React from 'react';
 //Material UI
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
+
+import Dialog from '../Dialog';
 import { withStyles } from '@material-ui/core/styles';
 
 //Redux
@@ -103,26 +100,15 @@ const styles = theme => ({
         }
 
         return(
-            <Dialog
-            maxWidth ={'md'}
-            open={isOpen}
-            onClose={this.handleCancel}
-            aria-labelledby="alert-dialog-title"
-            aria-describedby="alert-dialog-description">
-          
-            <DialogContent>
+          <Dialog activity={`update`} 
+          title={''} isOpen={isOpen} 
+          addHandler={this.handleSave} 
+          disabled={false} 
+          cancelHandler={this.handleCancel}
+          >
               <div className={classes.content}>
                 {inputField}
              </div>
-            </DialogContent>
-            <DialogActions>
-            <Button className={classes.button} onClick={this.handleCancel}>
-             Cancel
-              </Button>
-              <Button className={classes.button} onClick={this.handleSave}>
-              Save
-              </Button>
-            </DialogActions>
           </Dialog>
         )
       }
