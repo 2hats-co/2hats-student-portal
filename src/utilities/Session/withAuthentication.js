@@ -6,9 +6,7 @@ import { auth } from '../../store';
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
     componentWillMount(){
-      // window.Intercom("boot", {
-      //   app_id: "k8mrtb3h"
-      // });
+    
       
     }
     componentDidMount() {
@@ -30,7 +28,7 @@ const withAuthentication = (Component) => {
         email: authUser.email, // Email address
         created_at: authUser.metadata.creationTime // Signup Date
       }
-     // window.intercomSettings =user;
+     window.intercomSettings =user;
     }
  
     render() {

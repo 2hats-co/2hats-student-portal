@@ -81,8 +81,11 @@ class ResumeBuilderContainer extends Component {
 
   }
   componentWillMount(){
+     window.Intercom('update',{
+      'hide_default_launcher': true
+    })
+ 
     
-   
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)

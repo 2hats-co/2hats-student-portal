@@ -42,7 +42,7 @@ const drawerWidth = 240;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: '100%',
+    height:theme.responsive.height,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -93,31 +93,27 @@ const styles = theme => ({
 class DashboardWrapper extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { width: 0, height: 0 };
+   
     this.goTo = this.goTo.bind(this)
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.handleInfoDialog = this.handleInfoDialog.bind(this)
+  this.handleInfoDialog = this.handleInfoDialog.bind(this)
   }
   state = {
     mobileOpen: false,
     infoDialog:false
   };
-
+  componentWillMount(){
+   window.Intercom('update')
+    window.Intercom('update',{
+      'hide_default_launcher': false
+    })
+   }
+   
   handleDrawerToggle = () => {
     this.setState(state => ({ mobileOpen: !state.mobileOpen }));
   };
 
 
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }
+ 
 
   goTo(route){
     this.props.history.push(route)
@@ -140,17 +136,14 @@ class DashboardWrapper extends React.Component {
       <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
       <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
       <NavigationButton isSelected={false} name='Account Info' icon={<UpdateIcon style={{color:'#fff'}}/>} route={()=>{this.handleInfoDialog(true)}}/>    
-      <NavigationButton isSelected={false} name='Support' icon={<LiveHelp style={{color:'#fff'}}/>} route={()=>{}}/>         
+      <NavigationButton isSelected={false} name='Support' icon={<LiveHelp style={{color:'#fff'}}/>} route={()=>{window.Intercom('show');}}/>         
      <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
     </div>
   );
-  const childrenWithProps = React.Children.map(children, child =>
-    React.cloneElement(child, { device: 'mobile'}));
-    console.log(theme)
+
   return (
 
     <div className={classes.root} 
-    style={{height:this.state.height}}
     >
     <AppBar className={classes.appBar}>
       <Toolbar>
@@ -197,7 +190,7 @@ class DashboardWrapper extends React.Component {
     </Hidden>
       <main className={classes.content}>
         <div className={classes.toolbar}/>
-        {this.props.profile?childrenWithProps:'loading'}
+        {this.props.profile?children:'loading'}
       </main>
       <AccountInfoDailog
        isOpen={this.state.infoDialog} 
