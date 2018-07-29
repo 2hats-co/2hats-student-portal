@@ -8,6 +8,9 @@ export const BLACK = '#2c2c2c'
 export const GREY = '#EDEDED'
 const primaryColor = PRIMARY_COLOR
 export const Theme = createMuiTheme({
+  responsive:{
+    isMobile:true
+  },
   overrides: {
     MuiStepIcon:{
       root:{

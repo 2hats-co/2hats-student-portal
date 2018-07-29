@@ -76,7 +76,8 @@ disableNext(currentStep,profile){
   }
 render(){
 
- const{classes,profile,nextHandler,backHandler,activeStep,isMobile} = this.props
+ const{classes,profile,nextHandler,backHandler,activeStep,theme} = this.props
+ const isMobile = theme.responsive.isMobile
  const steps = STEP_LABELS[(profile.process)];
  const currentStep = STEP_LABELS[(profile.process)][activeStep]
  const nextButton = (<Button
@@ -137,4 +138,4 @@ justify='flex-start'
  )
 }
 }
-export default  withRouter(withStyles(styles)(StepController))
+export default  withRouter(withStyles(styles,{ withTheme: true })(StepController))

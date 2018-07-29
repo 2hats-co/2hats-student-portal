@@ -26,7 +26,7 @@ const styles = theme => ({
 });
 
 function LogoOnCard(props) {
-  if(props.isMobile){
+  if(props.theme.responsive.isMobile){
     setBackground("#fff",'')
       return(<div>
         {props.children}
@@ -61,4 +61,4 @@ LogoOnCard.propTypes = {
 
 const authCondition = (authUser) => !!authUser;
 
-export default compose(withAuthorisation(authCondition)(withStyles(styles)(LogoOnCard)))
+export default compose(withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(LogoOnCard)))

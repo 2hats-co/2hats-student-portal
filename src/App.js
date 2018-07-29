@@ -21,12 +21,42 @@ import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER} from './constants/views'
 import {ALL_STEPS} from './constants/signUpProcess'
 import Landing from './components/Landing';
+
+
+import ReactGA from 'react-ga';
+
+const DEFAULT_CONFIG = {
+  trackingId: '',
+  debug: true,
+  gaOptions: {
+    cookieDomain: 'none'
+  }
+};
+
 class App extends Component {
- 
+  constructor(props){
+    super(props)
+    this.state={theme:Theme}
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+  }
+
+ componentDidMount() {
+  this.updateWindowDimensions();
+  window.addEventListener('resize', this.updateWindowDimensions);
+}
+componentWillUnmount() {
+  window.removeEventListener('resize', this.updateWindowDimensions);
+}
+ updateWindowDimensions() {
+   const isMobile = window.innerWidth<700
+   if(isMobile ==! this.state.theme.responsive.isMobile){
+    this.setState({theme:Object.assign(Theme,{responsive:{width: window.innerWidth, height: window.innerHeight,isMobile }})});
+   }
+}
   render() {
   
     return (
-      <MuiThemeProvider theme={Theme}>
+      <MuiThemeProvider theme={this.state.theme}>
 
        <Router>
     <div className="app"> 

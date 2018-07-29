@@ -107,7 +107,7 @@ class EducationContainer extends React.Component {
   render() {
     let items;
     const {dialog} = this.state
-    const { name,data,isMobile} = this.props;
+    const { name,data} = this.props;
     if(data){
      items=data.map(item=>{
       return (
@@ -142,7 +142,7 @@ class EducationContainer extends React.Component {
           
           </Card>}
         </Grid>
-        <DialogForm isMobile={isMobile}
+        <DialogForm 
           activity={dialog.key?'Edit':'Add'}
           title={name === EDU ? "Tertiary Education" : "Practical Experience"}
           key={this.state.dialog.key}

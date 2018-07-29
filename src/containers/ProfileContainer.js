@@ -44,17 +44,15 @@ class ProfileContainer extends Component{
     }  
     render(){
         const {classes, profile,user} = this.props
-      
-     
-
+        console.log(this.props)
         const loading = (<CircularProgress className={classes.progress} color="primary"  size={100} />)
         let view = loading
-        
+        const userData = Object.values(user)[0]
+        const profileData = Object.values(profile)[0]
         if (profile&& user){
         
 
-          const userData = Object.values(user)[0]
-          const profileData = Object.values(profile)[0]
+        
           const submitButton = (
             <Button variant='flat' style={{paddingLeft:20,paddingRight:20}} 
             disabled={!profileData.isComplete}
@@ -69,7 +67,13 @@ class ProfileContainer extends Component{
               Submission Unavailable - Pending Feedback
             </Button>)
 
-            view = (<Grid
+
+
+           
+        }
+        return(
+            <DashboardWrapper header='Dashboard'>
+               <Grid
                 container
               //  className={classes.root}
                 alignItems='center'
@@ -91,26 +95,19 @@ class ProfileContainer extends Component{
               >
                 <EducationContainer 
                 industry={profileData.industry} 
-                  isMobile={true}
+             
                   name='education' changeHandler={this.props.onUpdate.bind(this)} 
                    data = {profileData.education}
                   width={750}/>     
                 <EducationContainer 
                 industry={profileData.industry} 
-                name='experience' isMobile={true}
+                name='experience' 
                 data={profileData.experience} 
                 width={750} changeHandler={this.props.onUpdate.bind(this)}/>
 
             </div>//profileData.hasSubmit?submittedButton:submitButton
             }
-                </Grid>)
-
-
-           
-        }
-        return(
-            <DashboardWrapper header='Dashboard'>
-                {view}
+                </Grid>
                 <ConfirmSubmission isOpen={this.state.submitionDialog}/>
             </DashboardWrapper>
         )

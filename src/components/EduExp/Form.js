@@ -88,7 +88,7 @@ class DialogForm extends React.Component {
   }
   render() {
     console.log(this.state)
-    const {fields,isMobile,activity,title,isOpen,handler} = this.props
+    const {fields,activity,title,isOpen,handler} = this.props
     const form = fields.map((field)=>{
         switch (field.type) {
           case INPUTS.textField:return <TextField
@@ -157,7 +157,7 @@ class DialogForm extends React.Component {
       addHandler={this.handleAdd.bind(this)} 
       disabled={this.isDisabled()} 
       cancelHandler={()=>{handler()}}
-      isMobile={isMobile}>
+      >
       {form}
          
       </Dialog>

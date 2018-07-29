@@ -50,6 +50,7 @@ const styles = theme => ({
     width: '100%',
   },
   appBar: {
+    backgroundColor:'#EDEDED',    
     position: 'absolute',
     marginLeft: drawerWidth,
     
@@ -127,9 +128,10 @@ class DashboardWrapper extends React.Component {
 
   render(){
 
-  const {classes,theme,history} = this.props
+  const {classes,theme,history,children} = this.props
    const pathName = history.location.pathname
-   const isMobile = (this.state.width<650) 
+
+   
    const drawer = (
     <div>
         <img className={classes.logo} alt='light2hatsLogo' src={LightLogo}/>
@@ -142,6 +144,9 @@ class DashboardWrapper extends React.Component {
      <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
     </div>
   );
+  const childrenWithProps = React.Children.map(children, child =>
+    React.cloneElement(child, { device: 'mobile'}));
+    console.log(theme)
   return (
 
     <div className={classes.root} 
@@ -192,12 +197,12 @@ class DashboardWrapper extends React.Component {
     </Hidden>
       <main className={classes.content}>
         <div className={classes.toolbar}/>
-        {this.props.profile?this.props.children:'loading'}
+        {this.props.profile?childrenWithProps:'loading'}
       </main>
       <AccountInfoDailog
        isOpen={this.state.infoDialog} 
        closeHandler={this.handleInfoDialog}
-       isMobile={isMobile}/>
+     />
     </div>
   );
 }

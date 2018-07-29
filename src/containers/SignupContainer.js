@@ -61,8 +61,6 @@ const INITIAL_STATE = {
   activeStep: 0,
   profile:{},
   error: null,
-  width: 0, 
-  height: 0
 };
 
 function AvailableDaysConverter(string){
@@ -77,15 +75,14 @@ class ResumeBuilderContainer extends Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.handleChange = this.handleChange.bind(this)
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
 
   }
   componentWillMount(){
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
+    
+   
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
         this.handleChange(key,value)
@@ -101,12 +98,8 @@ class ResumeBuilderContainer extends Component {
       this.props.onProfileUpdate({process:PROCESS_TYPES.upload,hasSubmit:false})
     }
   }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }
+
+  
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
      _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
@@ -118,47 +111,47 @@ class ResumeBuilderContainer extends Component {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
     this.setState({ profile: newProfile });
   }
-  getStepContent(currentStep,profile,isMobile) { 
+  getStepContent(currentStep,profile) { 
     const{interests,
      industry} = profile
     switch (currentStep) {
       case ALL_STEPS.interests: 
         return (
-          <SectionWrapper isMobile={isMobile} width={750} height={220}>
+          <SectionWrapper width={750} height={220}>
               <CareerInterests preSelectedList={interests} changeHandler={this.handleChange} />
           </SectionWrapper>
          
         );
-      case ALL_STEPS.bio: return <SectionWrapper isMobile={isMobile} width={750} height={420}>
+      case ALL_STEPS.bio: return <SectionWrapper width={750} height={420}>
       <BioAndSkills
         industry={this.state.profile.industry}
        bio={this.state.profile.bio}
         interests={this.state.profile.interests}
          skills={this.state.profile.skills} 
          changeHandler={this.handleChange}/></SectionWrapper>
-      case ALL_STEPS.education: return <SectionWrapper isMobile={isMobile}
+      case ALL_STEPS.education: return <SectionWrapper
         width={750} height={420}> 
-        <EducationContainer industry={industry} isMobile={isMobile}
+        <EducationContainer industry={industry}
           name='education' changeHandler={this.handleChange} 
           data = {this.state.profile.education}
           width={600}/>
         </SectionWrapper>;
       case ALL_STEPS.experience: return  <SectionWrapper width={750} height={420} >  
-      <EducationContainer industry={industry} isMobile={isMobile}
+      <EducationContainer industry={industry}
       name='experience' changeHandler={this.handleChange} 
       data = {this.state.profile.experience}      
       width={600}/>        
         </SectionWrapper>;
-      case ALL_STEPS.other: return <SectionWrapper width={750} height={270} isMobile={isMobile}>
+      case ALL_STEPS.other: return <SectionWrapper width={750} height={270} >
        <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} 
        workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
-      case ALL_STEPS.profileDetails:return <SectionWrapper width={750} height={420} isMobile={isMobile}> <ProfileDetails 
+      case ALL_STEPS.profileDetails:return <SectionWrapper width={750} height={420}> <ProfileDetails 
       industry={this.state.profile.industry}
       currentUniversity={this.state.profile.currentUniversity}
       interests={this.state.profile.interests}
        skills={this.state.profile.skills} 
        changeHandler={this.handleChange}/></SectionWrapper>;
-      case ALL_STEPS.uploadResume:return <SectionWrapper isMobile={isMobile} width={750} 
+      case ALL_STEPS.uploadResume:return <SectionWrapper width={750} 
       height={450}
       >
       <ResumeLoader 
@@ -212,19 +205,19 @@ class ResumeBuilderContainer extends Component {
     });
   };
   render() {
-    const { classes } = this.props;
+    const { classes,theme } = this.props;
     const { activeStep ,profile} = this.state;
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
-    const isMobile=(this.state.width<750)
+  
     return (
-        <LogoOnCard isMobile={isMobile} >
-          <div className={isMobile?classes.mobileContainer:classes.webContainer}>
-                  <StepController isMobile={isMobile}
+        <LogoOnCard>
+          <div className={theme.responsive.isMobile?classes.mobileContainer:classes.webContainer}>
+                  <StepController 
                   activeStep={activeStep}
                   profile={profile} 
                   nextHandler={this.handleNext}
                   backHandler={this.handleBack}>
-                  {this.getStepContent(currentStep,profile,isMobile)}
+                  {this.getStepContent(currentStep,profile)}
                   </StepController>
           </div>
         </LogoOnCard>
@@ -264,5 +257,5 @@ const enhance = compose(
 )
 
 export default enhance(
-    withRouter(withStyles(styles)(ResumeBuilderContainer))
+    withRouter(withStyles(styles,{ withTheme: true })(ResumeBuilderContainer))
 )

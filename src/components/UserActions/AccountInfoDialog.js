@@ -82,7 +82,7 @@ const styles = theme => ({
     }
 
   render() {
-      const {classes,isOpen,isMobile} = this.props
+      const {classes,isOpen} = this.props
  
         if(this.state){
         const {firstName,lastName,phoneNumber,workingRights,currentUniversity} = this.state
@@ -93,7 +93,7 @@ const styles = theme => ({
                 addHandler={()=>{this.handleUpdate()}} 
                 disabled={!firstName || !lastName} 
                 cancelHandler={()=>{this.handleCancel()}}
-                isMobile={isMobile}>
+               >
                <ChangeAdpter changeHandler={this.handleChange}>
                     <Name firstName={firstName} lastName={lastName}/>
                     </ChangeAdpter>

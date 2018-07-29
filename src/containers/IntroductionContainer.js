@@ -87,9 +87,9 @@ class IntroductionContainer extends React.Component {
 
   render(){
     
-    const { classes } = this.props;
+    const { classes,theme} = this.props;
     const {view,width,height} = this.state
-    const isMobile = (width<650) 
+  
     const process =   
   { headLine: 'Application Process',
   width:900,
@@ -133,7 +133,7 @@ class IntroductionContainer extends React.Component {
  <div className={classes.sections} >
      <CardSections hasSteps width={process.width} sections={process.sections}/>
   </div></div>)
-    if(isMobile){
+    if(theme.responsive.isMobile){
 
       
       return(<div>
@@ -215,6 +215,6 @@ const enhance = compose(
 
 export default enhance(
   withRouter(
-    withStyles(styles)(IntroductionContainer)
+    withStyles(styles,{ withTheme: true })(IntroductionContainer)
   )
 )
