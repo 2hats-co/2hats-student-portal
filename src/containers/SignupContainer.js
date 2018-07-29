@@ -184,8 +184,13 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.uploadResume:this.props.onProfileUpdate({resumeFile:profile.resumeFile,bio:profile.bio,completedStep:currentStep})
       break; 
       case ALL_STEPS.other:this.props.onProfileUpdate({completedStep:'completed',isComplete:true,
-      phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:profile.availableDays})
-      this.props.onUserUpdate({phoneNumber:profile.phoneNumber,workingRights:profile.workingRights,availableDays:AvailableDaysConverter(profile.availableDays)})
+      phoneNumber:profile.phoneNumber,
+      workingRights:profile.workingRights,
+      availableDays:profile.availableDays})
+      this.props.onUserUpdate({phoneNumber:profile.phoneNumber,
+        workingRights:profile.workingRights,
+        availableDays:profile.availableDays,
+        availableDaysInt:AvailableDaysConverter(profile.availableDays)})
       break;
       default:
         break;

@@ -16,10 +16,10 @@ const styles = theme => ({
 },
 });
 function DropDown(props) {
-  const {classes,list,value,changeHandler,name,title,hint,label} = props;
+  const {classes,list,value,hasLabel,changeHandler,name,title,hint,label} = props;
     const InputField = ( 
         <FormControl className = {classes.inputField}>
-          {label&& <Typography variant='caption'>{label}</Typography>}
+          {hasLabel&& <Typography variant='caption'>{label}</Typography>}
         <Select  
        value={value}
        onChange={(e)=>{
@@ -37,8 +37,8 @@ function DropDown(props) {
     )
   return (
     <InputWrapper 
-  title={title}
-  hint={hint}>
+  title={!hasLabel?title:''}
+  hint={!hasLabel?hint:''}>
     {InputField}
     </InputWrapper>
   );

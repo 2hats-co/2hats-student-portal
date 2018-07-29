@@ -33,7 +33,7 @@ import UpdateIcon from '@material-ui/icons/Update'
 
 import {auth} from '../firebase';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
-import AccountInfoDailog from '../components/UserActions/AccountInfoDialog'
+import AccountInfoDailog from './AccountInfoDialog'
 
 import LoadingMessage from './LoadingMessage'
 const drawerWidth = 240;
@@ -73,7 +73,6 @@ const styles = theme => ({
   },
   content: {
     margin:'auto',
-
     marginTop:0,
     marginBottom:0,
     flexGrow: 1,
@@ -94,9 +93,8 @@ export const withNavigation = (WrappedComponent) => {
   class WithNavigation extends Component {
     constructor(props) {
         super(props);
-       
         this.goTo = this.goTo.bind(this)
-      this.handleInfoDialog = this.handleInfoDialog.bind(this)
+        this.handleInfoDialog = this.handleInfoDialog.bind(this)
       }
       state = {
         mobileOpen: false,
@@ -118,7 +116,7 @@ export const withNavigation = (WrappedComponent) => {
       handleInfoDialog(isOpen){
         this.setState({infoDialog:isOpen})
     }
-    c
+    
       render(){
       const {classes,theme,history,children,profile,user,upcomingEvents} = this.props
       if(profile){
@@ -129,14 +127,33 @@ export const withNavigation = (WrappedComponent) => {
        
        const drawer = (
         <div>
-            <img className={classes.logo} alt='light2hatsLogo' src={LightLogo}/>
+          <img className={classes.logo} alt='light2hatsLogo' src={LightLogo}/>
           <div className={classes.toolbar} />
-          <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
-          <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
-          <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
-          <NavigationButton isSelected={false} name='Account Info' icon={<UpdateIcon style={{color:'#fff'}}/>} route={()=>{this.handleInfoDialog(true)}}/>    
-          <NavigationButton isSelected={false} name='Support' icon={<LiveHelp style={{color:'#fff'}}/>} route={()=>{window.Intercom('show');}}/>         
-         <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
+        
+          <NavigationButton isSelected={(pathName===routes.DASHBOARD)} 
+          name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} 
+          route={()=>{this.goTo(routes.DASHBOARD)}}/>
+
+          <NavigationButton isSelected={(pathName===routes.PROFILE)} 
+          name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} 
+          route={()=>{this.goTo(routes.PROFILE)}}/>
+
+          <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} 
+          name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} 
+          route={()=>{this.goTo(routes.JOB_BOARD)}}/>
+
+          <NavigationButton isSelected={false} name='Account Info' 
+          icon={<UpdateIcon style={{color:'#fff'}}/>} 
+          route={()=>{this.handleInfoDialog(true)}}/>    
+
+          <NavigationButton isSelected={false} name='Support' 
+          icon={<LiveHelp style={{color:'#fff'}}/>}
+          route={()=>{window.Intercom('show');}}/>         
+
+         <NavigationButton isSelected={(pathName===routes.SIGN_IN)} 
+         name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} 
+         route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
+
         </div>
       );
     
@@ -147,7 +164,7 @@ export const withNavigation = (WrappedComponent) => {
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
-              color="inherit"
+              color="primary"
               aria-label="Open drawer"
               onClick={this.handleDrawerToggle}
               className={classes.navIconHide}
@@ -190,18 +207,21 @@ export const withNavigation = (WrappedComponent) => {
           <main className={classes.content}>
             <div className={classes.toolbar}/>
 
-            {(!profile || !user || !upcomingEvents)?<LoadingMessage/>:<WrappedComponent
-{...this.props}
-profile={Object.values(profile)[0]}
-user={Object.values(user)[0]}
-upcomingEvents={upcomingEvents}
-/>
-}
-          </main>
+            {(!profile || !user || !upcomingEvents)?<LoadingMessage/>:<div>
+                      <WrappedComponent
+                        {...this.props}
+                        profile={Object.values(profile)[0]}
+                        user={Object.values(user)[0]}
+                        upcomingEvents={upcomingEvents}
+                        />
+                        
           <AccountInfoDailog
+          user={Object.values(user)[0]}
            isOpen={this.state.infoDialog} 
-           closeHandler={this.handleInfoDialog}
-         />
+           closeHandler={this.handleInfoDialog}/></div>}
+          </main>
+
+
         </div>
       );
     }

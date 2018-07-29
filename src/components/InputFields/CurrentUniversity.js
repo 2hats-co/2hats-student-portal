@@ -7,13 +7,14 @@ function CurrentUniversity(props){
 
         
         <DropDown
-        title={!hasLabel?"Current University or Institution":''}
-        label={hasLabel?"Current University or Institution":''}
+        hasLabel={hasLabel}
+        title={"Current University or Institution"}
+        label={"Current University or Institution"}
         name="currentUniversity"
         value={value}
         changeHandler={changeHandler}
         list={UNIVERSITIES('sydney')}
-        hint={!hasLabel?'We cater to current university and recent graduate students who have little professional experience.':''}
+        hint={'We cater to current university and recent graduate students who have little professional experience.'}
       />
     )
 }
