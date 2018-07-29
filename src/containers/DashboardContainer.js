@@ -18,9 +18,7 @@ const styles = theme => ({
     }
 });
 class DashboardContainer extends Component{
-    componentDidMount(){
-      //  window.Intercom('update')
-    }
+    
     renderApplicationProcess(profile){ 
         if(profile){
         const profileData=Object.values(profile)[0]
@@ -31,8 +29,6 @@ class DashboardContainer extends Component{
             }
         }
     }
-
-
     render(){
         const {classes,upcomingEvents,profile} = this.props
         return(

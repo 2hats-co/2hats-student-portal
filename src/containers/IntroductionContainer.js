@@ -51,22 +51,13 @@ class IntroductionContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {view: INTRODUCTION_CONTAINER.process,width: 0, height: 0 };
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.goToResumeOptions = this.goToResumeOptions.bind(this)
+     this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
     this.goToBuildResume = this.goToBuildResume.bind(this)
     this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
-  componentDidMount() {
-    this.updateWindowDimensions();
-    window.addEventListener('resize', this.updateWindowDimensions);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateWindowDimensions);
-  }
-  updateWindowDimensions() {
-    this.setState({ width: window.innerWidth, height: window.innerHeight });
-  }
+  
+  
   createFireStoreRecords(){
     this.props.createUser();
    this.props.createProfile();
