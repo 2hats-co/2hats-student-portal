@@ -17,7 +17,7 @@ const eduEmptyFields = (industry) => [
 {type:INPUTS.dropDown,name:'university',label:'University',list:UNIVERSITIES('sydney'),isRequired:true},
 {type:INPUTS.monthPicker,name:'startDate',label:'Start',isRequired:true},
 {type:INPUTS.monthPicker,name:'endDate',label:'End',isRequired:true},
-{type:INPUTS.multiLine,name:'description',label:'Discription(Optional)',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:false}
+{type:INPUTS.multiLine,name:'description',label:'Description(Optional)',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:false}
 ]
 const expEmptyFields = (industry) => [
     {type:INPUTS.textField,name:'title',label:'Position/Job Title',isRequired:true},
@@ -25,7 +25,7 @@ const expEmptyFields = (industry) => [
     {type:INPUTS.dropDown,name:'type',label:'Type of Experince',list:['Extra Curricular','Employment','Internship','Project'],isRequired:true},
     {type:INPUTS.monthPicker,name:'startDate',label:'Start',isRequired:true},
     {type:INPUTS.monthPicker,name:'endDate',label:'End',toggle:{label:'This is my current position.',value:'Present',isSelected:false},isRequired:true},
-    {type:INPUTS.multiLine,name:'description',label:'Discription',placeholder:getPrompts(industry).exp,isRequired:true}
+    {type:INPUTS.multiLine,name:'description',label:'Description',placeholder:getPrompts(industry).exp,isRequired:true}
 ]
 
 export function getFormFields(type,industry){
