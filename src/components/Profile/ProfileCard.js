@@ -12,15 +12,18 @@ import PersonIcon from '@material-ui/icons/Person';
 import EditIcon from '@material-ui/icons/Edit'
 import Grid from '@material-ui/core/Grid';
 import {getInterestByKey} from '../../constants/resumeBuilderPrompts'
+import {PROCESS_TYPES} from '../../constants/signUpProcess'
 import EditDialog from './EditDialog';
 import CareerInterests from '../InputFields/CareerInterests';
 import Section from './Section'
 const styles = {
     root:{
-        marginBottom:20
+    width:'100%',
+    marginBottom:20
     },
   card: {
-   width:550,
+    width:'90%',
+   maxWidth:660,
    padding:40,
    paddingBottom:5
   },
@@ -53,7 +56,7 @@ const styles = {
     }
 };
 function ProfileCard(props) {
-  const {classes,name,bio,resumeFile,interestsList,skillsList} = props;
+  const {classes,name,bio,resumeFile,interestsList,skillsList,process} = props;
     let interests = (<div/>)
     if(interestsList){interests=(<div> 
    {interests}
@@ -90,12 +93,12 @@ function ProfileCard(props) {
          </Typography>
          </Grid>
          </Grid>
-         <Section name='bio'>
+         {process===PROCESS_TYPES.build&& <Section name='bio'>
          <Typography className={classes.bio} variant='body1'> {bio}</Typography>
-         </Section>
-          <Section name='resumeFile'>
+         </Section>}
+          {process===PROCESS_TYPES.upload&& <Section name='resumeFile'>
          {resume}
-         </Section>
+         </Section>}
          <Section name='interests'>
          {interests}
          </Section>
@@ -105,10 +108,6 @@ function ProfileCard(props) {
        </CardContent>
      </Card>
     { 
-    // <EditDialog isOpen={true}>{
-    //    interestsList&&<CareerInterests preSelectedList={interestsList} />
-    //  }
-    // </EditDialog>
   }
    </div>
   );

@@ -20,11 +20,13 @@ const styles = theme => ({
     fontSize:'16px',
     color:'#000',
   //  marginBottom:5
+  },label:{
+    fontSize:'15px',
   },
   checkBox:{
     height:15,
-    fontSize:'12px',
-  }
+    fontSize:'15px',
+  },
 });
 class CareerInterests extends React.Component {
  
@@ -42,7 +44,7 @@ class CareerInterests extends React.Component {
   renderCheckBox(item){
     const { classes,preSelectedList } = this.props;
     return(
-    <FormControlLabel key={item.key}
+    <FormControlLabel className={classes.label} style={{fontSize:'30px'}} key={item.key}
             control={
               <Checkbox
                 className={classes.checkBox}

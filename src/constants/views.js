@@ -7,7 +7,7 @@ export const AUTHENTICATION_CONTAINER = {
 }
 export const INTRODUCTION_CONTAINER = {
     process:'process',
-    resumeOptions:'resumeOptions'
+    submission:'submission'
 }
 export const UPLOAD_RESUME_CONTAINER = {
     upload:'upload',

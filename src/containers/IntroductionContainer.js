@@ -7,6 +7,9 @@ import Typography from '@material-ui/core/Typography';
 import LogoOnCard from '../components/LogoOnCard';
 import CardSections from '../components/Introduction/CardSections';
 
+import MobileIntro from '../components/Introduction/MobileIntro';
+import MobileSubmission from '../components/Introduction/MobileSubmission';
+
 import intro1 from '../assets/images/graphics/Intro1.png'
 import intro2 from '../assets/images/graphics/Intro2.png'
 import intro3 from '../assets/images/graphics/Intro3.png'
@@ -44,25 +47,26 @@ const styles = theme => ({
     }
   });
 
-
-     
 class IntroductionContainer extends React.Component {
-  state = {
-    view: INTRODUCTION_CONTAINER.process
-  }
   constructor(props) {
     super(props)
+    this.state = {view: INTRODUCTION_CONTAINER.process,width: 0, height: 0 };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
     this.goToBuildResume = this.goToBuildResume.bind(this)
     this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
-  componentDidMount(){
-    
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
   }
-  componentDidMount(){
-    window.Intercom('update')
-}
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
+  }
   createFireStoreRecords(){
     this.props.createUser();
    this.props.createProfile();
@@ -78,14 +82,16 @@ class IntroductionContainer extends React.Component {
     this.props.history.push(routes.UPLOAD_RESUME)
   }
   goToResumeOptions(){
-    this.setState({view: INTRODUCTION_CONTAINER.resumeOptions})
+    this.setState({view: INTRODUCTION_CONTAINER.submission})
   }
 
   render(){
-
+    
     const { classes } = this.props;
-    const process = 
-  { heading: 'Application Process',
+    const {view,width,height} = this.state
+    const isMobile = (width<650) 
+    const process =   
+  { headLine: 'Application Process',
   width:900,
   sections:[
     {title:'Get Reviewed',
@@ -101,7 +107,7 @@ class IntroductionContainer extends React.Component {
      description:'Once you are qualified, we will match you with a paid placement in your chosen career interests.'
     }]}
     const submission = 
-        { heading: 'Resume Submission',
+        { headLine: 'Resume Submission',
         width:680,
         sections:[{title:'Upload Resume',
         image:UploadResume,
@@ -114,7 +120,7 @@ class IntroductionContainer extends React.Component {
         }]
         }
   const submissionView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
-    {submission.heading}
+    {submission.headLine}
  </Typography>
 <div className={classes.sections} >
     <CardSections width={submission.width} sections={submission.sections} hasDivider/>
@@ -122,21 +128,33 @@ class IntroductionContainer extends React.Component {
  
 )
      const processView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
-     {process.heading}
+     {process.headLine}
   </Typography>
  <div className={classes.sections} >
      <CardSections hasSteps width={process.width} sections={process.sections}/>
   </div></div>)
-        
-    return (
-    <LogoOnCard 
-    width={this.state.view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
-    >
-    <SectionWrapper 
-      height = {550}
-     > {this.state.view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
-     </LogoOnCard>
-    );
+    if(isMobile){
+
+      
+      return(<div>
+  {view === INTRODUCTION_CONTAINER.process&&<MobileIntro height={height} tutorialSteps={process.sections} startHandler={this.goToResumeOptions}/>}
+  {view === INTRODUCTION_CONTAINER.submission&&<MobileSubmission headLine={submission.headLine} height={height} uploadHandler={this.goToUploadResume} buildHandler={this.goToBuildResume}/>}
+  </div>
+    )
+
+    }else{
+  
+      return (
+        <LogoOnCard 
+        width={view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
+        >
+        <SectionWrapper 
+          height = {550}
+         > {view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
+         </LogoOnCard>
+        );
+    }   
+   
   }
 }
 
@@ -189,11 +207,12 @@ const enhance = compose(
     componentWillMount() {
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
       this.props.loadData(profileListenerSettings);
-
     },
   }),
   connect(mapStateToProps,mapActionToProps)
 )
+
+
 export default enhance(
   withRouter(
     withStyles(styles)(IntroductionContainer)

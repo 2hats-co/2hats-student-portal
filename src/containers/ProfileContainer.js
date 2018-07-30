@@ -19,7 +19,6 @@ import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
 
 const styles = theme => ({
     root: {
-     width:'100%',
 
     }
 });
@@ -34,7 +33,7 @@ class ProfileContainer extends Component{
       this.handleSubmition = this.handleSubmition.bind(this)
     }
     componentDidMount(){
-      window.Intercom('update')
+     // window.Intercom('update')
   }
     handleEdit(state){
       this.setState({profileEditorDailog:state})
@@ -53,8 +52,6 @@ class ProfileContainer extends Component{
         
         if (profile&& user){
         
-         
-
 
           const userData = Object.values(user)[0]
           const profileData = Object.values(profile)[0]
@@ -72,31 +69,49 @@ class ProfileContainer extends Component{
               Submission Unavailable - Pending Feedback
             </Button>)
 
-            view = (<div><Grid
+            view = (<Grid
                 container
-                spacing={16}
-                className={classes.root}
+              //  className={classes.root}
                 alignItems='center'
-                direction='column'>
+                direction='column'
+              >
+                
               <ProfileCard 
+              process = {profileData.process}
               skillsList={profileData.skills}
               bio={profileData.bio}
               name={`${userData.firstName} ${userData.lastName}`}
             resumeFile={profileData.process === PROCESS_TYPES.upload&& profileData.resumeFile}
               interestsList={profileData.interests}
               editHandler={()=>{this.handleEdit(true)}}/>
-                {profileData.process === PROCESS_TYPES.build&&<div>
-                  <EducationContainer industry={profileData.industry} name='education' data={profileData.education} width={650} changeHandler={this.props.onUpdate.bind(this)}/> 
-                <EducationContainer industry={profileData.industry} name='experience' data={profileData.experience} width={650} changeHandler={this.props.onUpdate.bind(this)}/>
-            </div>}{profileData.hasSubmit?submittedButton:submitButton}
-                </Grid>
-                <ConfirmSubmission isOpen={this.state.submitionDialog}/>
-                <ProfileDialogForm isOpen={this.state.profileEditorDailog} closeHandler={()=>{this.handleEdit(false)}} profile={profileData}/>
-                </div>)
+
+                {profileData.process === PROCESS_TYPES.build&&
+              <div 
+              style= {{marginTop:10 ,width:'100%'}}
+              >
+                <EducationContainer 
+                industry={profileData.industry} 
+                  isMobile={true}
+                  name='education' changeHandler={this.props.onUpdate.bind(this)} 
+                   data = {profileData.education}
+                  width={750}/>     
+                <EducationContainer 
+                industry={profileData.industry} 
+                name='experience' isMobile={true}
+                data={profileData.experience} 
+                width={750} changeHandler={this.props.onUpdate.bind(this)}/>
+
+            </div>//profileData.hasSubmit?submittedButton:submitButton
+            }
+                </Grid>)
+
+
+           
         }
         return(
             <DashboardWrapper header='Dashboard'>
                 {view}
+                <ConfirmSubmission isOpen={this.state.submitionDialog}/>
             </DashboardWrapper>
         )
     }

@@ -4,12 +4,15 @@ import TextField from '@material-ui/core/TextField';
 
 import DropDown from '../../InputFields/DropDown';
 import MonthPicker from '../../InputFields/MonthPicker';
+import AutoCompleteField from '../../InputFields/AutoCompleteField';
+import MultiLineTextField from '../../InputFields/MultiLineTextField';
+
 import WebForm from './WebForm';
 import PropTypes from 'prop-types';
-import MultiLineTextField from '../../InputFields/MultiLineTextField';
 import { INPUTS } from '../../../constants/enums';
 import * as _ from 'lodash'
 import MobileForm from './MobileForm';
+import ChangeAdpter from '../../InputFields/ChangeAdapter'
 
 function completed(field){
  if(field){
@@ -109,6 +112,7 @@ class DialogForm extends React.Component {
         )
     }
   render() {
+    console.log(this.state)
     const {fields,isMobile} = this.props
     const form = fields.map((field)=>{
         switch (field.type) {
@@ -139,6 +143,14 @@ class DialogForm extends React.Component {
           changeHandler={this.handleChange.bind(this)}
 
           />
+          case INPUTS.autoComplete:return  <ChangeAdpter   name={field.name} key= {field.name} changeHandler={this.handleChange.bind(this)}>
+           <AutoCompleteField label={field.label} 
+          list={field.list} 
+          value={this.state[field.name]&& this.state[field.name].value}
+           name={field.name}
+           />
+          </ChangeAdpter>
+         
         case INPUTS.datePicker:return <TextField
         key= {field.name}
         id={field.name}

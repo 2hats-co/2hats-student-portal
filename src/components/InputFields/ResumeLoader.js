@@ -67,7 +67,7 @@ class ResumeLoader extends React.Component {
                 name:this.props.resumeFile.name,
                 fullPath:snapShot.metadata.fullPath,
                 downloadURL:url,
-                createAt: new Date(Date.now())
+                createAt:new Date(Date.now())
             }
             )
     )
@@ -80,7 +80,6 @@ class ResumeLoader extends React.Component {
         if(uid.includes(':')){
             uid = uid.split(':')[1]
         }
-       // console.log(files[0].type)
       if(this.props.resumeFile.name!==''){
         this.handleDelete()
       }
@@ -100,6 +99,7 @@ class ResumeLoader extends React.Component {
       title={'Resume Upload'}>
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
+            accept="application/pdf"
             > 
             <Grid 
             className={classes.grid}

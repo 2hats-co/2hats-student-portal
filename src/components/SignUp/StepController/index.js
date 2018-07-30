@@ -22,7 +22,9 @@ const styles = theme => ({
    marginBottom:20,
    marginRight:20,
     height:35,
-    width: 140
+  //  width: 140
+  paddingLeft:40,
+  paddingRight:40,
   },webContent:{
 
   },mobileContent:{
@@ -81,19 +83,11 @@ render(){
     className={classes.button}
     disabled={checkComplition(currentStep,profile)}
     variant="flat"
-    onClick={nextHandler}
+    onClick={currentStep===ALL_STEPS.other?this.goToPreview:nextHandler}
   >
-   {currentStep===ALL_STEPS.other?'Finish': 'Next'}
+   {currentStep===ALL_STEPS.other?'Preview for Submission':'Next'}
   </Button>)
  
-  const previewButton = (<Button
-    className={classes.button}
-    style={{width:210}}
-    variant="flat"
-    onClick={this.goToPreview}
-  >
-  Preview for Submission
-  </Button>)
   const backButton = (<Button
     className={classes.button}
     variant="outlined"
@@ -119,7 +113,6 @@ justify='flex-start'
 {backButton}
 {currentStep&&nextButton}
 {(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton}
-{!currentStep&&previewButton}
 </Grid>
     </Grid>)
  return(

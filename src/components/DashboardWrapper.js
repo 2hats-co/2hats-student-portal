@@ -10,8 +10,6 @@ import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import MenuIcon from '@material-ui/icons/Menu';
 
-
-
 import Grid from '@material-ui/core/Grid';
 import NavigationButton from './NavigationButton'
 import { compose } from 'recompose';
@@ -20,7 +18,7 @@ import withAuthorisation from '../utilities/Session/withAuthorisation'
 import PersonIcon from '@material-ui/icons/Person'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import JobIcon from '@material-ui/icons/Work'
-
+import LiveHelp from '@material-ui/icons/LiveHelp'
 
 import {withRouter} from 'react-router-dom'
 import * as routes from '../constants/routes'
@@ -31,9 +29,11 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
-import DarkLogo from '../assets/images/Logo/DarkText.png'
-import UserActions from './UserActions';
-import sizeMe from 'react-sizeme'
+import LightLogo from '../assets/images/Logo/WhiteText.png'
+import UpdateIcon from '@material-ui/icons/Update'
+
+import {auth} from '../firebase';
+import LogoutIcon from '@material-ui/icons/ExitToApp'
 
 
 const drawerWidth = 240;
@@ -71,18 +71,30 @@ const styles = theme => ({
     },
   },
   content: {
+    margin:'auto',
+
+    marginTop:0,
+    marginBottom:0,
     flexGrow: 1,
+    overflow:'scroll',
+    width:'100%',
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
-  },
+    //padding: theme.spacing.unit * 3,
+  },logo:{
+    width:150,
+    marginLeft:45,
+    marginBottom:-60,
+    marginTop:20
+  
+    },
 });
-
-
 
 class DashboardWrapper extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { width: 0, height: 0 };
     this.goTo = this.goTo.bind(this)
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
   state = {
     mobileOpen: false,
@@ -93,32 +105,42 @@ class DashboardWrapper extends React.Component {
   };
 
 
-  componentWillMount(){
-   
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  updateWindowDimensions() {
+    this.setState({ width: window.innerWidth, height: window.innerHeight });
   }
 
   goTo(route){
     this.props.history.push(route)
   }
-  
- 
 
   render(){
-  const { classes,theme,size} = this.props;
-  const {width,height} = size
-   const pathName = this.props.history.location.pathname
+  const {classes,theme,history} = this.props
+   const pathName = history.location.pathname
 
    const drawer = (
     <div>
+        <img className={classes.logo} alt='light2hatsLogo' src={LightLogo}/>
       <div className={classes.toolbar} />
       <NavigationButton isSelected={(pathName===routes.DASHBOARD)} name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.DASHBOARD)}}/>
       <NavigationButton isSelected={(pathName===routes.PROFILE)} name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.PROFILE)}}/>
       <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} route={()=>{this.goTo(routes.JOB_BOARD)}}/>
+      <NavigationButton isSelected={false} name='Account Info' icon={<UpdateIcon style={{color:'#fff'}}/>} route={()=>{}}/>    
+      <NavigationButton isSelected={false} name='Support' icon={<LiveHelp style={{color:'#fff'}}/>} route={()=>{}}/>         
+     <NavigationButton isSelected={(pathName===routes.SIGN_IN)} name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
     </div>
   );
   return (
 
-    <div className={classes.root} style={{height:height}} >
+    <div className={classes.root} 
+    style={{height:this.state.height}}
+    >
     <AppBar className={classes.appBar}>
       <Toolbar>
         <IconButton
@@ -205,12 +227,26 @@ const enhance = compose(
   lifecycle({
     // Load data when component mounts
     componentWillMount() {
+      if(this.props.uid){
+      console.log('mount',this.props.uid)
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
       this.props.loadData(profileListenerSettings);
       const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
       this.props.loadData(usersListenerSettings);
       const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
       this.props.loadData(upcomingEventsListenerSettings);
+      }
+    },
+    componentDidUpdate(prevProps,prevState){
+      if(prevProps.uid !== this.props.uid){
+        console.log('update',this.props.uid)
+        const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+        this.props.loadData(profileListenerSettings);
+        const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
+        this.props.loadData(usersListenerSettings);
+        const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
+        this.props.loadData(upcomingEventsListenerSettings);
+      }
     },
     componentWillUnmount() {
       const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
@@ -232,12 +268,10 @@ const enhance = compose(
 const authCondition = (authUser) => !!authUser;
 
 
-export default sizeMe({ monitorHeight: true })(enhance(
+export default enhance(
   withRouter(
   compose(
     withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(DashboardWrapper))
-  )
-)
-))
+  )))
 
 

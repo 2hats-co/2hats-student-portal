@@ -19,7 +19,7 @@ const styles = theme => ({
 });
 class DashboardContainer extends Component{
     componentDidMount(){
-        window.Intercom('update')
+      //  window.Intercom('update')
     }
     renderApplicationProcess(profile){ 
         if(profile){
@@ -51,6 +51,7 @@ const enhance = compose(
     // add redux store (from react context) as a prop
     withFirestore,
     // Connect get data from fire stroe
+    
     connect(({ firestore }) => ({
         profile: firestore.data.profiles,
         user: firestore.data.users,

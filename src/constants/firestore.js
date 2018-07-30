@@ -6,19 +6,17 @@ export const COLLECTIONS = {
     profiles:'profiles',
     emailVerifications: 'emailVerifications'
 }
+
+
 export const LISTENER =(COLLECTION,UID)=>{
     switch (COLLECTION) {
         case COLLECTIONS.profiles:
         case COLLECTIONS.users:
-        case COLLECTIONS.events:
         case COLLECTIONS.submissions:
             return{
                 collection: COLLECTION,
                     doc: UID,
                   };
-        case COLLECTIONS.upcomingEvents:return{collection:COLLECTION}
-        
-        default:
-            break;
+        default: return{collection:COLLECTION}
     }
 }

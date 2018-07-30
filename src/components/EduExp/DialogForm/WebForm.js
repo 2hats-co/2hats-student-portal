@@ -31,7 +31,7 @@ function WebForm(props){
         <Dialog 
         className={classes.root}
         open={isOpen}
-        onClose={cancelHandler}
+        //onClose={cancelHandler} TODO: show snack bar to suggest save or cancel
         aria-labelledby="form-dialog-title"
       >
       <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{activity} {title}</DialogTitle>
@@ -51,7 +51,7 @@ function WebForm(props){
             </Button>
             <Button disabled={disabled} 
             color='inherit' onClick={addHandler} style={{color:'#000'}}>
-              {activity}
+              {activity==='Edit'?'Save':activity }
             </Button>
           </DialogActions>
         </Dialog>
