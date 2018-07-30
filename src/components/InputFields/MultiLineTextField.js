@@ -87,7 +87,7 @@ class MultiLineTextField extends React.Component {
       onChange={this.handleChange.bind(this)}
       onFocus={this.handleFocus.bind(this)}
       className={classes.root}rows="4" cols="50"
-      placeholder={placeholder}
+      placeholder={'For Example: \n'+placeholder}
      // style={{widthMax:200 +'!important'}}
       value={this.state.inputValue}>
       </textarea></InputWrapper>

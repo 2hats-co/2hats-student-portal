@@ -4,7 +4,7 @@ import {getPrompts} from './resumeBuilderPrompts'
 export const UNIVERSITIES= (city)=> {
     switch (city) {
         case 'sydney':
-            return ['Australian Catholic University','Macquarie University','University of New South Wales','University of Sydney','University of Technology Sydney','Western Sydney University']
+            return ['Australian Catholic University','Macquarie University','University of New South Wales','University of Sydney','University of Technology Sydney','Western Sydney University','University of Notre Dame','University of Wollongong','University of Newcastle']
         default:
             break;
     }
@@ -25,7 +25,7 @@ const expEmptyFields = (industry) => [
     {type:INPUTS.dropDown,name:'type',label:'Type of Experince',list:['Extra Curricular','Employment','Internship','Project'],isRequired:true},
     {type:INPUTS.monthPicker,name:'startDate',label:'Start',isRequired:true},
     {type:INPUTS.monthPicker,name:'endDate',label:'End',toggle:{label:'This is my current position.',value:'Present',isSelected:false},isRequired:true},
-    {type:INPUTS.multiLine,name:'description',label:'Description',placeholder:getPrompts(industry).exp,isRequired:true}
+    {type:INPUTS.multiLine,name:'description',label:'Description',placeholder:getPrompts(industry).exp,hint:'This description should focus on your key achievement in this job/position.',isRequired:true}
 ]
 
 export function getFormFields(type,industry){
