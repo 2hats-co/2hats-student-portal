@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import LogoInCard from '../components/LogoOnCard';
-import OpenMail from '../assets/images/graphics/EmailVerification.png'
+import LogoInCard from '../components/LogoInCard';
 import { Grid, Button, Typography, Dialog, DialogContent, DialogActions, DialogTitle, DialogContentText, Slide, TextField } from '@material-ui/core';
 import SectionWrapper from '../components/SectionWrapper';
 import { validateEmail } from '../utilities/validators';
+import { isLoaded, isEmpty } from 'react-redux-firebase';
 
 // Redux
 import { compose } from 'redux';
-import { withHandlers } from 'recompose'
+import { withHandlers, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 
 // Routing
 import {withRouter} from 'react-router-dom'
-import { COLLECTIONS } from "../constants/firestore";
+import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
 const styles = theme => ({
     root: {
@@ -31,22 +31,62 @@ const styles = theme => ({
 });
 
 class EmailVerificationContainer extends React.Component {
+    static contextTypes = {
+        store: PropTypes.object.isRequired
+    }
+
     componentWillMount() {
-        if(this.props.history.location.search) {
-            const url = this.props.history.location.search;
+        this.verifyUser();      
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.authUser !== prevProps.authUser) {
+            const { authUser } = this.props;
+
+            if(authUser) {
+                const { firestore } = this.context.store;
+                const profileListenerSettings = LISTENER(COLLECTIONS.profiles, authUser.uid);
+                firestore.setListener(profileListenerSettings);
+            }
+        }
+    }
+
+    componentWillUnmount() {
+        const { authUser } = this.props;
+
+        if(authUser) {
+            const { firestore } = this.context.store;
+            const profileListenerSettings = LISTENER(COLLECTIONS.profiles, authUser.uid);
+            firestore.unsetListener(profileListenerSettings);
+        }
+    }
+
+    verifyUser = () => {
+        const { firestore } = this.context.store;
+        const queryStr = this.props.history.location.search;
+
+        if(queryStr) {
             const evKeyName = "?evKey=";
             
-            if(url.indexOf(evKeyName)!== -1) {
-                const evKeyVal = url.slice(evKeyName.length, url.length);
+            if(queryStr.indexOf(evKeyName)!== -1) {
+                const evKeyVal = queryStr.slice(evKeyName.length, queryStr.length);
+
                 if(evKeyVal !== "") {
-                    this.props.onEmailVerificationsUpdate(evKeyVal);
+                    firestore.update({ collection: COLLECTIONS.emailVerifications, doc: evKeyVal }, {
+                        emailVerified: true,
+                        updatedAt: firestore.FieldValue.serverTimestamp()
+                    });
                 }
             }
         }
     }
     
     render() {
-        const { classes } = this.props;
+        const { classes, profiles } = this.props;
+
+        if(!isLoaded(profiles) || isEmpty(profiles)) {
+            return (null);
+        }
      
         return (
             <LogoInCard height={350}>
@@ -58,7 +98,7 @@ class EmailVerificationContainer extends React.Component {
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography variant="Body 1">
+                            <Typography variant="body1">
                                 Your 2hats account has been validated. You can jump back to your application process now.
                             </Typography>
                         </Grid>
@@ -81,20 +121,16 @@ EmailVerificationContainer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
+function mapStateToProps(state){
+    return {
+        authUser: state.sessionState.authUser,
+        profiles: state.firestore.data.profiles
+    }
+}
+
 const enhance = compose(
-    // add redux store (from react context) as a prop
-    withFirestore,
-    // Handler functions as props
-    withHandlers({
-        onEmailVerificationsUpdate: props => (evKey) =>
-            props.firestore.update({ collection: COLLECTIONS.emailVerifications, doc: evKey }, {
-                emailVerified: true,
-                updatedAt: props.firestore.FieldValue.serverTimestamp()
-            }
-        )
-    })
+    withStyles(styles),
+    connect(mapStateToProps),
 )
-  
-export default enhance(
-    withRouter(withStyles(styles)(EmailVerificationContainer))
-)
+
+export default enhance(withRouter(EmailVerificationContainer))
