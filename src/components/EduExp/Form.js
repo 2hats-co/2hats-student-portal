@@ -72,10 +72,15 @@ class DialogForm extends React.Component {
     this.setState({ open: false });
   };
   handleChange = (name,value) =>{
+  
+    let item = {value:value} 
+    if(this.state[name]){
+      item = {value:value,isRequired:this.state[name].isRequired}
+    }
+    if(item !== this.state[name]){
+      this.setState({[name]:item})
+    }
  
-    const isRequired = this.state[name].isRequired
-    
-   this.setState({[name]:{value:value,isRequired:isRequired}})
   }
   isDisabled(){
   const completedRequired = _.map(this.state,completed)

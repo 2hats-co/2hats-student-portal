@@ -3,18 +3,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
+
 import CardContent from '@material-ui/core/CardContent';
-import IconButton from '@material-ui/core/IconButton';
+
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
-import EditIcon from '@material-ui/icons/Edit'
+
 import Grid from '@material-ui/core/Grid';
 import {getInterestByKey} from '../../constants/resumeBuilderPrompts'
 import {PROCESS_TYPES} from '../../constants/signUpProcess'
-import EditDialog from './EditDialog';
-import CareerInterests from '../InputFields/CareerInterests';
+
 import Section from './Section'
 const styles = {
     root:{

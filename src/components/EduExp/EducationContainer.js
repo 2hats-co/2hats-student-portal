@@ -109,7 +109,8 @@ class EducationContainer extends React.Component {
     const {dialog} = this.state
     const { name,data} = this.props;
     if(data){
-     items=data.map(item=>{
+      const orderedData = _.orderBy(data, 'endDateValue','desc')
+     items=orderedData.map(item=>{
       return (
                 <EduExpCard
                   key={item.key}

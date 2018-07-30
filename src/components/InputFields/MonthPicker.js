@@ -91,8 +91,17 @@ const styles = theme => ({
         this.handleSelectMonth = this.handleSelectMonth.bind(this)
     }
     componentDidUpdate(prevProps, prevState) {
-        if (prevState.value !== this.state.value) {
-          this.props.changeHandler(this.props.name,this.state.value)
+       const {value,year,month}= this.state
+      
+        if (prevState.value !== value&& value!=='') {
+            console.log('paase',this.state,this.props)
+
+          this.props.changeHandler(this.props.name,value)
+        if(this.props.toggle && value === this.props.toggle.value){
+          this.props.changeHandler(`${this.props.name}Value`,1201)
+          }else{
+          this.props.changeHandler(`${this.props.name}Value`,(year-2000)*month)
+          }
         }
       }
     handleOpen(){
@@ -162,8 +171,8 @@ const styles = theme => ({
         )
     }
     renderField(){
-        const {label,classes}=this.props
-        const {isOpen,value} = this.state
+        const {label,value,classes}=this.props
+        const {isOpen} = this.state
         const captionLabel = (isOpen || value !=='')
         return( 
             <Grid container direction='column'>
