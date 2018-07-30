@@ -100,16 +100,16 @@ function ProfileCard(props) {
          </Typography>
          </Grid>
          </Grid>
-         {process===PROCESS_TYPES.build&& <Section name='bio'>
+         {process===PROCESS_TYPES.build&& <Section name='bio' label='Personal Bio'>
          <Typography className={classes.bio} variant='body1'> {bio}</Typography>
          </Section>}
-          {process===PROCESS_TYPES.upload&& <Section name='resumeFile'>
+          {process===PROCESS_TYPES.upload&& <Section name='resumeFile' label='Resume'>
          {resume}
          </Section>}
-         <Section name='interests'>
+         <Section name='interests' label='Career Interests'>
          {interests}
          </Section>
-        <Section name='skills'>
+        <Section name='skills' label='Skills'>
          {skills}
          </Section>
        </CardContent>

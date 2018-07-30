@@ -3,6 +3,7 @@ export const SIGN_UP = '/signup';
 export const SIGN_IN = '/signin';
 export const PASSWORD_FORGET = '/resetpassword';
 export const INTRODUCTION = '/introduction';
+export const SUBMISSION = '/submission';
 export const UPLOAD_RESUME = '/uploadResume';
 export const BUILD_RESUME = '/buildResume';
 export const BUILD_RESUME_BIO = '/buildResumeBio';

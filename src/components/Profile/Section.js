@@ -16,17 +16,18 @@ class Section extends React.Component{
     this.setState({isOpen:false})
     }
     render(){
-        const {name, children,editHandler} = this.props
+        const {name,label, children,editHandler} = this.props
+       
         const {isOpen} = this.state
         return(
            <div>
         <Grid container direction='row' justify='space-between' alignItems='center' >
                <Typography variant='subheading'>
-                 {name}:
+                 {label}:
                </Typography>
                <Grid item> 
                   <IconButton onClick={()=>{this.setState({isOpen:true})}} 
-                  aria-label="edit resume">
+                  aria-label={`edit ${label}`}>
                     <EditIcon />
                   </IconButton> 
                </Grid>
