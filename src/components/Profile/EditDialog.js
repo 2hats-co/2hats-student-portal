@@ -24,13 +24,14 @@ const styles = theme => ({
     root: {
      padding:25,
       margin:20,
-      maxWidth:810
+      maxWidth:900
     },
     button:{
         width:150
     },
     content:{
-      maxWidth:800,
+      width:theme.responsive.width*0.8,
+      maxWidth:900,
     },
   });
   const INITIAL_STATE = {
