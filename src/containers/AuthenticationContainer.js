@@ -382,7 +382,7 @@ class AuthenticationContainer extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    const GoogleCID = '983671595153-t8ebacvkq0vc3vjjk05r65lk2jv7oc5r.apps.googleusercontent.com';
+    const GoogleCID = '188089188588-8r48rugf1o7i1dl1j6himv4kvk19erv5.apps.googleusercontent.com';
     const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress, showSnackBar, snackBarVariant, snackBarMessage } = this.state
     let socialButton = (provider, method) => (
       provider === 'google' ?

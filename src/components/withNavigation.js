@@ -90,7 +90,11 @@ const styles = theme => ({
 });
 
 export const withNavigation = (WrappedComponent) => {
+  
   class WithNavigation extends Component {
+    static contextTypes = {
+      store: PropTypes.object.isRequired
+  }
     constructor(props) {
         super(props);
         this.goTo = this.goTo.bind(this)
@@ -119,8 +123,8 @@ export const withNavigation = (WrappedComponent) => {
     
       render(){
       const {classes,theme,history,children,profile,user,upcomingEvents} = this.props
-      if(profile){
-        console.log('profile',Object.values(profile))
+      if(user){
+        console.log('user',Object.values(user))
       }
     
        const pathName = history.location.pathname
@@ -207,12 +211,12 @@ export const withNavigation = (WrappedComponent) => {
           <main className={classes.content}>
             <div className={classes.toolbar}/>
 
-            {(!profile || !user || !upcomingEvents)?<LoadingMessage/>:<div>
+            {(!profile || !user)?<LoadingMessage/>:<div>
                       <WrappedComponent
                         {...this.props}
                         profile={Object.values(profile)[0]}
                         user={Object.values(user)[0]}
-                        upcomingEvents={upcomingEvents}
+                       // upcomingEvents={upcomingEvents}
                         />
                         
           <AccountInfoDailog
@@ -265,12 +269,12 @@ export const withNavigation = (WrappedComponent) => {
           }
         },
         componentWillUnmount() {
-          const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-          this.props.firestore.unsetListener(profileListenerSettings);
-          const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
-          this.props.firestore.unsetListener(usersListenerSettings);
-          const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
-          this.props.firestore.unsetListener(upcomingEventsListenerSettings);
+          // const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+          // this.props.firestore.unsetListener(profileListenerSettings);
+          // const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
+          // this.props.firestore.unsetListener(usersListenerSettings);
+          // const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
+          // this.props.firestore.unsetListener(upcomingEventsListenerSettings);
         }
       }),
       // Connect todos from redux state to props.todos

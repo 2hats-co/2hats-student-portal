@@ -51,8 +51,7 @@ return(
       </Button>
       <Button className={classes.button} onClick={uploadHandler} variant='outlined' color="primary">
        I Have a Resume Myself
-      </Button>
-               
+      </Button>      
         </Grid>
     </Card>
 )
