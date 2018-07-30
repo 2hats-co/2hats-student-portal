@@ -1,9 +1,11 @@
+const PROJECT_NAME = 'staging2hats'
+
 export const developmentConfig = {
     apiKey: "AIzaSyAQ7SF4GnCvUGPUehqR6l1uGYkRRmNqZV0",
-    authDomain: "dev2hats.firebaseapp.com",
-    databaseURL: "https://dev2hats.firebaseio.com",
-    projectId: "dev2hats",
-    storageBucket: "dev2hats.appspot.com",
+    authDomain: "staging2hats.firebaseapp.com",
+    databaseURL: `https://${PROJECT_NAME}.firebaseio.com`,
+    projectId: PROJECT_NAME,
+    storageBucket: "${PROJECT_NAME}.appspot.com",
     messagingSenderId: "983671595153"
   };
 
@@ -18,9 +20,9 @@ export const developmentConfig = {
 
 export const productionConfig = {
     apiKey: "AIzaSyAQ7SF4GnCvUGPUehqR6l1uGYkRRmNqZV0",
-    authDomain: "dev2hats.firebaseapp.com",
-    databaseURL: "https://dev2hats.firebaseio.com",
-    projectId: "dev2hats",
-    storageBucket: "dev2hats.appspot.com",
+    authDomain: `${PROJECT_NAME}.firebaseapp.com`,
+    databaseURL: `https://${PROJECT_NAME}.firebaseio.com`,
+    projectId: PROJECT_NAME,
+    storageBucket: `${PROJECT_NAME}.appspot.com`,
     messagingSenderId: "983671595153"
   };
