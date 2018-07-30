@@ -187,7 +187,8 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.education:
       let currentUniversity = ''
       if(profile.education){
-        currentUniversity= profile.education[0].university
+        const education = _.orderBy(profile.education,'endDateValue','desc')
+        currentUniversity= education[0].university
       }
       this.props.onProfileUpdate({education:profile.education,completedStep:currentStep})
       this.props.onUserUpdate({currentUniversity:currentUniversity})//TODO: make it smarter
