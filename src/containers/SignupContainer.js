@@ -78,6 +78,7 @@ class ResumeBuilderContainer extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
+    this.handleUpdate = this.handleUpdate.bind(this)
 
   }
   componentWillMount(){
@@ -165,8 +166,15 @@ class ResumeBuilderContainer extends Component {
     }
   }
   handleNext = () => {
-    const {profile} = this.state
     const { activeStep } = this.state;
+    this.handleUpdate(activeStep)
+    this.setState({
+      activeStep: activeStep + 1
+    });
+  };
+
+  handleUpdate = (activeStep) => {
+    const {profile} = this.state
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
     switch (currentStep) {
       case ALL_STEPS.interests:this.props.onProfileUpdate({interests:profile.interests,industry:profile.industry,completedStep:currentStep})
@@ -176,8 +184,13 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.profileDetails:this.props.onProfileUpdate({skills:profile.skills,currentUniversity:profile.currentUniversity,completedStep:currentStep})
       this.props.onUserUpdate({currentUniversity:profile.currentUniversity})
       break; 
-      case ALL_STEPS.education:this.props.onProfileUpdate({education:profile.education,completedStep:currentStep})
-      this.props.onUserUpdate({currentUniversity:profile.education[0].university})//TODO: make it smarter
+      case ALL_STEPS.education:
+      let currentUniversity = ''
+      if(profile.education){
+        currentUniversity= profile.education[0].university
+      }
+      this.props.onProfileUpdate({education:profile.education,completedStep:currentStep})
+      this.props.onUserUpdate({currentUniversity:currentUniversity})//TODO: make it smarter
       break; 
       case ALL_STEPS.experience:this.props.onProfileUpdate({experience:profile.experience,completedStep:currentStep})
       break; 
@@ -195,12 +208,11 @@ class ResumeBuilderContainer extends Component {
       default:
         break;
     }
-    this.setState({
-      activeStep: activeStep + 1
-    });
-  };
+    
+  }
   handleBack = () => {
     const { activeStep } = this.state;
+    this.handleUpdate(activeStep)
     if(activeStep !== 0){
       this.setState({
         activeStep: activeStep - 1
@@ -257,7 +269,6 @@ const enhance = compose(
       }
     ),
   }),
- 
   // Connect todos from redux state to props.profile
   connect(({ firestore }) => ({ 
      profile: firestore.data.profiles, // document data by id
