@@ -19,8 +19,9 @@ import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
 import { width } from 'window-size';
 
 const styles = theme => ({
-    root: {
-     
+    grid: {
+     maxWidth:900,
+     overflow: 'scroll'
     },
     item:{
       width:'98%',
@@ -54,36 +55,35 @@ class ProfileContainer extends Component{
        <div>
                <Grid
                 container
-               className={classes.root}
+               className={classes.grid}
                 alignItems='center'
                 direction='column'
               >
-                <Grid item className={classes.item}>
+              <Grid item className={classes.item}>
               <ProfileCard 
               process = {profile.process}
               skillsList={profile.skills}
               bio={profile.bio}
               name={`${user.firstName} ${user.lastName}`}
-            resumeFile={profile.process === PROCESS_TYPES.upload&& profile.resumeFile}
+              resumeFile={profile.process === PROCESS_TYPES.upload&& profile.resumeFile}
               interestsList={profile.interests}
               editHandler={()=>{this.handleEdit(true)}}/>
-              </Grid>{profile.process === PROCESS_TYPES.build&&
-              <Grid item className={classes.item}>               
-                <EducationContainer 
-                industry={profile.industry} 
-             
-                  name='education' changeHandler={this.props.onUpdate.bind(this)} 
-                   data = {profile.education}
-                  width={750}/>   
-              
-                
+              </Grid>
+              {profile.process === PROCESS_TYPES.build&&
+              <Grid item className={classes.item}> 
+
+                <EducationContainer industry={profile.industry} 
+                name='education' changeHandler={this.props.onUpdate.bind(this)} 
+                data = {profile.education}
+                width={750}/>   
+            
                 <EducationContainer 
                 industry={profile.industry} 
                 name='experience' 
                 data={profile.experience} 
                 width={750} changeHandler={this.props.onUpdate.bind(this)}/>
                 
-                </Grid>//profileData.hasSubmit?submittedButton:submitButton
+                </Grid>
             }
                 </Grid>
                 <ConfirmSubmission isOpen={this.state.submitionDialog}/>
