@@ -6,6 +6,7 @@ function AvailableDays(props){
         <DropDown
         hasLabel={hasLabel}
         title="Available Days"
+        label="Available Days"
         name="availableDays"
         value={value}
         changeHandler={changeHandler}

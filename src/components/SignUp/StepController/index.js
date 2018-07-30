@@ -36,7 +36,7 @@ class StepController extends React.Component {
 constructor(props){
   super(props);
   this.goToPreview = this.goToPreview.bind(this)
-  this.goToLockedDashboard = this.goToLockedDashboard.bind(this)
+  this.goToDashboard = this.goToDashboard.bind(this)
   this.goToIntroduction = this.goToIntroduction.bind(this)
   this.handleBack = this.handleBack.bind(this)
 }
@@ -46,7 +46,7 @@ goToPreview(){
 goToIntroduction(){
   this.props.history.goBack()
 }
-goToLockedDashboard(){
+goToDashboard(){
   this.props.nextHandler()
   this.props.history.push(routes.DASHBOARD)
 }
@@ -84,7 +84,7 @@ render(){
     className={classes.button}
     disabled={checkComplition(currentStep,profile)}
     variant="flat"
-    onClick={currentStep===ALL_STEPS.other?this.goToPreview:nextHandler}
+    onClick={currentStep===ALL_STEPS.other?()=>{this.goToPreview(),nextHandler()}:nextHandler}
   >
    {currentStep===ALL_STEPS.other?'Preview for Submission':'Next'}
   </Button>)
@@ -100,7 +100,7 @@ render(){
     className={classes.button}
     variant="outlined"
     disabled={this.disableSave(currentStep,profile)}
-  onClick={this.goToLockedDashboard}
+  onClick={this.goToDashboard}
   >
     Save for Later
   </Button>)
