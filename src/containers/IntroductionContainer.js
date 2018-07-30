@@ -73,13 +73,13 @@ class IntroductionContainer extends React.Component {
     this.props.history.push(routes.UPLOAD_RESUME)
   }
   goToResumeOptions(){
-    this.setState({view: INTRODUCTION_CONTAINER.submission})
+    this.props.history.push(routes.SUBMISSION)
   }
 
   render(){
     
-    const { classes,theme} = this.props;
-    const {view,width,height} = this.state
+    const { classes,view,theme} = this.props;
+   
   
     const process =   
   { headLine: 'Application Process',
