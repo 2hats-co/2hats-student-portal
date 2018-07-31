@@ -5,18 +5,15 @@ import { withStyles } from '@material-ui/core/styles';
 import EducationContainer from '../components/EduExp/EducationContainer';
 import ProfileCard from '../components/Profile/ProfileCard';
 import PropTypes from "prop-types";
-import CircularProgress from '@material-ui/core/CircularProgress'
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
-import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS } from "../constants/firestore";
 
 import { PROCESS_TYPES, isComplete} from "../constants/signUpProcess";
-import ProfileDialogForm from '../components/Profile/ProfileDialogForm';
 import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
-import { width } from 'window-size';
+
 
 const styles = theme => ({
     grid: {
@@ -55,7 +52,7 @@ class ProfileContainer extends Component{
        <div>
                <Grid
                 container
-               className={classes.grid}
+                className={classes.grid}
                 alignItems='center'
                 direction='column'
               >
@@ -89,10 +86,7 @@ class ProfileContainer extends Component{
                 <ConfirmSubmission isOpen={this.state.submitionDialog}/>
             </div>
         )
-        }
-        
-    
-
+  }
 }
 ProfileContainer.propTypes = {
     classes: PropTypes.object

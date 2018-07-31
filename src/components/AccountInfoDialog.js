@@ -93,7 +93,7 @@ const styles = theme => ({
 
             return (
                 <Dialog activity='Update' 
-                title='Account info' isOpen={isOpen} 
+                title='Account information' isOpen={isOpen} 
                 addHandler={()=>{this.handleUpdate()}} 
                 disabled={!firstName || !lastName} 
                 cancelHandler={()=>{this.handleCancel()}}

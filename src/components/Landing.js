@@ -8,13 +8,9 @@ import { AUTHENTICATION_CONTAINER } from '../constants/views'
 class Landing extends React.Component {
     constructor(props) {
         super(props)
-        this.state = {
-
-
-        }
+        this.state = {}
     }
     componentWillMount() {
-        console.log(this.props.authUser)
         if (this.props.authUser == ! null) {
             if (this.props.userProfileCreated) {
                 this.props.history.push(routes.DASHBOARD)
@@ -24,8 +20,6 @@ class Landing extends React.Component {
         }
     }
     componentDidMount() {
-        console.log(this.props.authUser)
-
         if (this.props.authUser == ! null) {
             if (this.props.userProfileCreated) {
                 this.props.history.push(routes.DASHBOARD)
