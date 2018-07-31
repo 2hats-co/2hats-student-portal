@@ -11,15 +11,16 @@ const styles = theme => ({
     },
   });
 function ApplicationTimeLine(props){
-    const {classes} = props
+    const {classes,theme} = props
     const steps =['Resume Submission','Online Interview','Assessment Centre','Job Placement']
     return(<div><Typography variant='display1'>
     Application Timeline
     </Typography>
     <Stepper
+      orientation={theme.responsive.isMobile?"vertical":"horizontal"}
       className={classes.stepper}
       activeStep={0}
-      alternativeLabel
+      alternativeLabel={!theme.responsive.isMobile}
     >
       {steps.map(label => {
         return (
@@ -30,5 +31,4 @@ function ApplicationTimeLine(props){
       })}
     </Stepper></div>)
 }
-
-export default withStyles(styles)(ApplicationTimeLine);
+export default withStyles(styles,{ withTheme: true })(ApplicationTimeLine);

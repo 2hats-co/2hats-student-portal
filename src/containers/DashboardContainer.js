@@ -6,10 +6,11 @@ import FeedbackHistory from '../components/Dashboard/FeedbackHistory'
 import UpcomingEvents from '../components/Dashboard/UpcomingEvents'
 import { compose } from 'redux';
 import { withNavigation } from '../components/withNavigation';
+import { Grid } from '../../node_modules/@material-ui/core';
 
 const styles = theme => ({
     root: {
-    marginLeft:50
+    width:'100%'
     }
 });
 class DashboardContainer extends Component{
@@ -17,7 +18,7 @@ class DashboardContainer extends Component{
     renderApplicationProcess(profile){ 
         if(profile){
 
-            if(profile.hasSubmit){
+            if(!profile.hasSubmit){
                 return<ApplicationTimeLine/>
             }else{
                return <div style={{marginBottom:40}}><ApplicationProgress data={profile}/></div>
@@ -27,10 +28,10 @@ class DashboardContainer extends Component{
     render(){
         const {classes,upcomingEvents,profile} = this.props
         return(
-            <div className={classes.root}>
+            <Grid container direction='column' className={classes.root}>
             {this.renderApplicationProcess(profile)}      
            <UpcomingEvents data={upcomingEvents}/>
-           </div>
+           </Grid>
         )
     }
 

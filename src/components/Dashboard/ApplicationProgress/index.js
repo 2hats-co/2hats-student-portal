@@ -6,43 +6,18 @@ import ProgressDial from './ProgressDial'
 import Step from './Step'
 import {PROCESS_TYPES, STEP_LABELS, checkComplition} from '../../../constants/signUpProcess'
 
-import {withRouter} from 'react-router-dom'
-import * as routes from '../../../constants/routes'
-import SwitchDialog from './SwitchDialog'
+
 const styles = theme => ({
     root: {
-     width:530,
-     height:300
+     width:'100%',
+  
     },
     ProgressGrid:{
-      width:500,
-      height:200
-    },
-    buttonsGrid:{
-    width: 485,
-    height:40   
-    },
-    button:{
-        width:230,height:35
+      width:'100%',
     }
   });
   class ApplicationProgress extends React.Component{
-   constructor(props){
-    super(props);
-     this.state = {
-        switchDialog:false
-     }
-  
-    this.handleRouting = this.handleRouting.bind(this)
-   }
-    handleRouting = (route) => {
-   
-      if(route){
-        this.props.history.push(route)
-      }else{
-        this.setState({switchDialog:false})
-      }
-  };
+
   completitionPercentage(data){
     const allSteps = STEP_LABELS[data.process]
     const completed = allSteps.filter(x =>!checkComplition(x,data))
@@ -53,55 +28,26 @@ const styles = theme => ({
   render(){
     const {classes,data} = this.props
     const {process} =data
-
     const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
-    const finishButton = (<Button
-        className={classes.button}
-        variant="flat"
-      onClick={()=>{
-        let route = routes.BUILD_RESUME
-        if(process === PROCESS_TYPES.upload){
-          route = routes.UPLOAD_RESUME
-        }
-        this.handleRouting(route)}}
-      >
-      Finish Application
-      </Button>)
-
-       const buildButton = (<Button
-        className={classes.button}
-        variant="outlined"
-        onClick={()=>{this.setState({switchDialog:true})}}
-      >
-        Build Resume Instead
-      </Button>)
-
-      const uploadButton = (<Button
-        className={classes.button}
-        variant="outlined"
-        onClick={()=>{this.setState({switchDialog:true})}}
-      >
-        Upload Resume Instead
-      </Button>)
     return(<div className={classes.root}>
-    <Typography variant='display1'>
-   Application Progress
-    </Typography>
+    
     <Grid className={classes.ProgressGrid} container  alignItems='center' direction='row' justify='space-around'>
-         
+    <Grid item   xs={12} sm={12}>
+    <Typography variant='display1'>
+      Application Progress
+    </Typography>
+    </Grid>
+
+        <Grid item   xs={12} sm={6}>
              <ProgressDial percentage={this.completitionPercentage(data)}/>
-             <Grid item>
+          </Grid>
+
+             <Grid item   xs={12} sm={6}>
               {steps}
               </Grid>
-
     </Grid>
-    <Grid className={classes.buttonsGrid} container direction='row' justify='space-between'>
-        {process===PROCESS_TYPES.upload?buildButton:uploadButton}
-        {finishButton}
-    </Grid>
-   <SwitchDialog isOpen={this.state.switchDialog} currentProcess={process} closeHandler={this.handleRouting}/>
+  
    </div>)
 }
   }
-
-export default withRouter(withStyles(styles)(ApplicationProgress))
+export default withStyles(styles)(ApplicationProgress)
