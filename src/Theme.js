@@ -123,6 +123,13 @@ export const Theme = createMuiTheme({
       fontFamily:primaryFontFamily,
       letterSpacing: '0.06px'
 
+    },button:{
+      fontSize: '15px',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      fontFamily:primaryFontFamily,
+      textTransform: 'none',
+      color:'#000'
     },
     caption: {
       fontSize: '11px',
