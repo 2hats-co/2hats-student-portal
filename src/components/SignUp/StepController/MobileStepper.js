@@ -27,7 +27,7 @@ function DotMobileStepper(props){
         nextButton={
           <Button size="small" onClick={handleNext} disabled={nextDisabler}>
             {activeStep === steps.length-1?'Preview':"Next"}
-            {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
+            {(activeStep !== steps.length-1)&& (theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />)}
           </Button>
         }
         backButton={

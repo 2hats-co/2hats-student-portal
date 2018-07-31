@@ -101,7 +101,7 @@ class ResumeLoader extends React.Component {
         }
       }
     render() {
-        const {classes,resumeFile } = this.props;
+        const {classes,resumeFile,theme } = this.props;
         const {isUploading} = this.state; 
         const buttonClassname = classNames({
             [classes.buttonSuccess]: true,
@@ -122,8 +122,8 @@ class ResumeLoader extends React.Component {
             alignItems='center'
             > 
             <CloudUploadIcon style={{ fontSize: 66 }}/>
-            <Typography variant='subheading'>
-            Drag and drop your resume
+            <Typography variant='button'>
+            {theme.responsive.isMobile?'Click to brower for your PDF resume':'Drag and drop your resume'}
             </Typography>
             <Typography variant='subheading'>
             OR
@@ -165,4 +165,4 @@ ResumeLoader.propTypes = {
     }
   }
 
-export default withStyles(styles)(connect(mapStateToProps)(ResumeLoader));
+export default withStyles(styles,{ withTheme: true })(connect(mapStateToProps)(ResumeLoader));
