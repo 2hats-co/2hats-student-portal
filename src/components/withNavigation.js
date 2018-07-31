@@ -36,6 +36,8 @@ import LogoutIcon from '@material-ui/icons/ExitToApp'
 import AccountInfoDailog from './AccountInfoDialog'
 
 import LoadingMessage from './LoadingMessage'
+import StatusCard from './StatusCard'
+import { PROCESS_TYPES } from '../constants/signUpProcess';
 const drawerWidth = 240;
 
 
@@ -79,7 +81,8 @@ const styles = theme => ({
     overflow:'scroll',
     width:'100%',
     backgroundColor: theme.palette.background.default,
-    //padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 3,
+    paddingBottom: 160,
   },logo:{
     width:150,
     marginLeft:45,
@@ -87,7 +90,26 @@ const styles = theme => ({
     marginTop:20
   
     },
+    toaster: {
+      position: 'absolute',
+      bottom:0,
+      right:0,
+      zIndex: 4000,
+     
+     maxHeight:200,
+  
+     [theme.breakpoints.up('xs')]: {
+        width: '100%',
+        bottom:0,
+   
+      },
+    [theme.breakpoints.up('md')]: {
+      width: `calc(100% - ${drawerWidth+2}px)`,
+      bottom:0,
+    },
+    }
 });
+
 
 export const withNavigation = (WrappedComponent) => {
   
@@ -120,6 +142,46 @@ export const withNavigation = (WrappedComponent) => {
       handleInfoDialog(isOpen){
         this.setState({infoDialog:isOpen})
     }
+    getStatusPrompt(profile){
+      const uploadLink = {label:'Upload Existing Resume Instead',route:routes.UPLOAD_RESUME}
+      const uploadButton = {label:'Upload Resume',action:()=>{this.goTo(routes.UPLOAD_RESUME)}}
+      const completeButton = {label:'Complete Profile',action:()=>{this.goTo(routes.UPLOAD_RESUME)}}
+      const buildLink = {label:'Use Our Resume Builder Instead',route:routes.BUILD_RESUME}
+      const buildButton = {label:'Continue Building',action:()=>{this.goTo(routes.BUILD_RESUME)}}
+      const submitButton = {label:'Submit Profile',action:()=>{console.log('submitted')}}
+      const inCompleteBuildMessage = 'It looks like you haven’t finished building your resume yet.'
+      const inCompleteUploadMessage = 'It looks like you haven’t filled out all the necessary information yet.'
+      const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
+      const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
+      if(profile.isComplete){
+        if(profile.process === PROCESS_TYPES.build){
+          return({message:completeMessage,
+                  buttons:[submitButton],
+                  link:uploadLink})
+        }else if(profile.process === PROCESS_TYPES.upload){
+          return({message:completeMessage,
+                  buttons:[submitButton],
+                  link:buildLink})
+        }
+      }else{
+        if(profile.process === PROCESS_TYPES.build){
+          return({message:inCompleteBuildMessage,
+                  buttons:[buildButton],
+                  link:uploadLink})
+        }else if(profile.process === PROCESS_TYPES.upload){
+            if(profile.resumeFile.fullPath !== ''){
+              return({message:inCompleteUploadMessage,
+                      buttons:[completeButton],
+                      link:buildLink})
+            }else{
+              return({message:noUploadMessage,
+                      buttons:[uploadButton],
+                      link:buildLink})
+            }
+        }
+
+      }
+    }
     
       render(){
       const {classes,theme,history,children,profile,user,upcomingEvents} = this.props
@@ -146,7 +208,7 @@ export const withNavigation = (WrappedComponent) => {
           name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} 
           route={()=>{this.goTo(routes.JOB_BOARD)}}/>
 
-          <NavigationButton isSelected={false} name='Account Info' 
+          <NavigationButton isSelected={false} name='Account' 
           icon={<UpdateIcon style={{color:'#fff'}}/>} 
           route={()=>{this.handleInfoDialog(true)}}/>    
 
@@ -219,12 +281,23 @@ export const withNavigation = (WrappedComponent) => {
                        // upcomingEvents={upcomingEvents}
                         />
                         
+        
+           </div>
+           }
+           
+          </main>
+          {(profile && user)&&
+          <div>
           <AccountInfoDailog
           user={Object.values(user)[0]}
            isOpen={this.state.infoDialog} 
-           closeHandler={this.handleInfoDialog}/></div>}
-          </main>
-
+           closeHandler={this.handleInfoDialog}/>
+           <div className={classes.toaster}>
+           <StatusCard prompt = {this.getStatusPrompt(Object.values(profile)[0])}/>
+           </div>
+           </div>
+          }
+          
 
         </div>
       );
