@@ -16,7 +16,7 @@ class Section extends React.Component{
     this.setState({isOpen:false})
     }
     render(){
-        const {name,label, children,editHandler} = this.props
+        const {name,label, children} = this.props
        
         const {isOpen} = this.state
         return(

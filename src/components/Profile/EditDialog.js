@@ -23,14 +23,14 @@ import ResumeLoader from '../InputFields/ResumeLoader'
 const styles = theme => ({
     root: {
      padding:25,
-      margin:20,
-      maxWidth:900
+      margin:'auto',
+      maxWidth:900,width:'100%',
     },
     button:{
         width:150
     },
     content:{
-      width:theme.responsive.width*0.8,
+      width:'100%',
       maxWidth:900,
     },
   });
@@ -40,7 +40,6 @@ const styles = theme => ({
     skills: [],
     industry:'IT',
     resumeFile:{name:'',fullPath:''},
-
     process:PROCESS_TYPES.build,
     error: null
   };
@@ -81,7 +80,6 @@ const styles = theme => ({
       }
       render() {
         const {classes,isOpen,name} = this.props
-  
         let inputField = (<div/>)
         switch (name) {
           case 'interests':
@@ -99,7 +97,6 @@ const styles = theme => ({
           default:
             break;
         }
-
         return(
           <Dialog activity={`update`} 
           title={''} isOpen={isOpen} 
@@ -113,12 +110,7 @@ const styles = theme => ({
           </Dialog>
         )
       }
-      
-
   }
-
-
-
 const enhance = compose(
     // add redux store (from react context) as a prop
     withFirestore,

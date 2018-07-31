@@ -20,12 +20,12 @@ const styles = theme => ({
     grid:{
       paddingLeft:40,
       paddingRight:40,
-      width:330,
+    //  width:330,
     }
   });
 
 function WebForm(props){
-    const {classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler} = props
+    const {classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler,width} = props
     
     return(
         <Dialog 
@@ -39,6 +39,7 @@ function WebForm(props){
           <Grid
           container
           className={classes.grid}
+          style={{width:width?width:'80%'}}
           direction='column'
           justify='flex-start'
           > 

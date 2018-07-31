@@ -53,10 +53,8 @@ class DialogForm extends React.Component {
   
   componentWillMount(){
     const {fields} = this.props
-
    fields.forEach((field)=>{
    this.setState({[field.name]:{value:field.value||'',isRequired:field.isRequired}})})
-
   }
   
   handleAdd = () =>{
@@ -92,7 +90,6 @@ class DialogForm extends React.Component {
     });
   }
   render() {
-    console.log(this.state)
     const {fields,activity,title,isOpen,handler} = this.props
     const form = fields.map((field)=>{
         switch (field.type) {
@@ -129,8 +126,7 @@ class DialogForm extends React.Component {
           value={this.state[field.name]&& this.state[field.name].value}
            name={field.name}
            />
-          </ChangeAdpter>
-         
+          </ChangeAdpter> 
         case INPUTS.datePicker:return <TextField
         key= {field.name}
         id={field.name}
@@ -162,9 +158,9 @@ class DialogForm extends React.Component {
       addHandler={this.handleAdd.bind(this)} 
       disabled={this.isDisabled()} 
       cancelHandler={()=>{handler()}}
+      width={330}
       >
       {form}
-         
       </Dialog>
     );
   }
