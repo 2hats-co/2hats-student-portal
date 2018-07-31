@@ -80,7 +80,7 @@ const styles = theme => ({
     flexGrow: 1,
     overflow:'scroll',
     width:'100%',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: '#fff',
     padding: theme.spacing.unit * 3,
     paddingBottom: 160,
   },logo:{
