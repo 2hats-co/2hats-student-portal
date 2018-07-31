@@ -87,15 +87,15 @@ class IntroductionContainer extends React.Component {
   sections:[
     {title:'Get Reviewed',
     image:intro1,
-    description:'2hats Professionals will you a set of tailored and practical feedback based on your resume.',
+    description:'We will provide you a set of tailored and practical feedback based on your resume submission.',
     },
     {title:'Get Assessed',
     image:intro2,
-    description:'We will assess your capability through interviews & assessments and provide you actionable feedback for improvement.  ',
+    description:'We will assess your capability in our interview & assessment centre. You will be provided with feedback for improvement. ',
      button:{label: `Let's start`, onClick:this.goToResumeOptions}},
      {title:'Get Offer',
      image:intro3,
-     description:'Once you are qualified, we will match you with a paid placement in your chosen career interests.'
+     description:'Once you have qualified through our assessment centre, we will match you with a paid placement in your chosen industry.'
     }]}
     const submission = 
         { headLine: 'Resume Submission',
@@ -103,11 +103,11 @@ class IntroductionContainer extends React.Component {
         sections:[{title:'Upload Resume',
         image:UploadResume,
         description:'If you have a resume already created, you can upload it directly to our platform to submit it for review instantly',
-         button:{label: `Upload`,onClick:this.goToUploadResume}},
+         button:{label: `I have a resume already`,onClick:this.goToUploadResume}},
          {title:'Build Resume',
          image:BuildResume,
          description: `If you don't have a resume, we will help you build a professional resume through our quick and easy 5-Step process!`,
-          button:{label: `Build`, onClick:this.goToBuildResume}
+          button:{label: `I want to build a resume`, onClick:this.goToBuildResume}
         }]
         }
   const submissionView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
