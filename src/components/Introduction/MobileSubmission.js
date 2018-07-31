@@ -39,19 +39,20 @@ return(
                     {headLine}
                 </Typography>
                 <img className={classes.img} src={UploadMan} alt='uploadMan' />
-
+                <Typography className={classes.body} variant='button'>
+                Do you have a resume?</Typography>
                 <Typography className={classes.body} variant='body1'>
-                To obtain the personalised feedback from our 2hats resume specialists, we need to review your resume first.
-                </Typography>
+                If you do, you will be asked to upload your resume near the end of the sign-up process. You can save your progress and upload your resume later, too!</Typography>
                 <Typography className={classes.body} variant='body1'>
-                Please upload your resume. If you don’t have one, we can help you build one using our quick and easy 5-Step process!
-                </Typography>
-                <Button className={classes.button} onClick={buildHandler} variant='flat' color="primary">
-        Help Me Build a Resume
-      </Button>
-      <Button className={classes.button} onClick={uploadHandler} variant='outlined' color="primary">
+                Otherwise, we can help you build a resume using our quick and easy 5-step process!
+                    </Typography>
+                    <Button className={classes.button} onClick={uploadHandler} variant='flat' color="primary">
        I Have a Resume Myself
       </Button>      
+                <Button className={classes.button} onClick={buildHandler} variant='outlined' color="primary">
+        Help Me Build a Resume
+      </Button>
+      
         </Grid>
     </Card>
 )
