@@ -18,7 +18,7 @@ class DashboardContainer extends Component{
     renderApplicationProcess(profile){ 
         if(profile){
 
-            if(!profile.hasSubmit){
+            if(profile.hasSubmit){
                 return<ApplicationTimeLine/>
             }else{
                return <div style={{marginBottom:40}}><ApplicationProgress data={profile}/></div>

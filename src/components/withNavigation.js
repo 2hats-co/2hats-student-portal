@@ -83,6 +83,7 @@ const styles = theme => ({
     backgroundColor: '#fff',
     padding: theme.spacing.unit * 3,
     paddingBottom: 160,
+   
   },logo:{
     width:150,
     marginLeft:45,
@@ -91,7 +92,7 @@ const styles = theme => ({
   
     },
     toaster: {
-      position: 'absolute',
+      position: 'absolute !important',
       bottom:0,
       right:0,
       zIndex: 4000,

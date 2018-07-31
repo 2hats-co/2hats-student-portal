@@ -16,22 +16,22 @@ const styles = theme => ({
   });
   
 function DotMobileStepper(props){
-    const {activeStep,steps,classes,handleNext,handleBack,theme} = props
+    const {activeStep,steps,classes,handleNext,handleBack,theme,nextDisabler} = props
     return(
         <MobileStepper
         variant="dots"
-        steps={steps.length+1}
+        steps={steps.length}
         position="static"
         activeStep={activeStep}
         className={classes.root}
         nextButton={
-          <Button size="small" onClick={handleNext} disabled={activeStep === steps.length+1}>
-            Next
+          <Button size="small" onClick={handleNext} disabled={nextDisabler}>
+            {activeStep === steps.length-1?'Preview':"Next"}
             {theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack} disabled={activeStep === 0}>
+          <Button size="small" onClick={handleBack}>
             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             Back
           </Button>

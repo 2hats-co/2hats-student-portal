@@ -39,6 +39,7 @@ constructor(props){
   this.goToDashboard = this.goToDashboard.bind(this)
   this.goToIntroduction = this.goToIntroduction.bind(this)
   this.handleBack = this.handleBack.bind(this)
+  this.handleNext = this.handleNext.bind(this)
 }
 goToPreview(){
   this.props.history.push(routes.PROFILE)
@@ -74,9 +75,13 @@ disableNext(currentStep,profile){
   handleBack(currentStep){
     currentStep===ALL_STEPS.interests?this.goToIntroduction():this.props.backHandler()
   }
+  handleNext(currentStep){
+    if(currentStep===ALL_STEPS.other)
+    {this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
+  }
 render(){
 
- const{classes,profile,nextHandler,backHandler,activeStep,theme} = this.props
+ const{classes,profile,activeStep,theme} = this.props
  const isMobile = theme.responsive.isMobile
  const steps = STEP_LABELS[(profile.process)];
  const currentStep = STEP_LABELS[(profile.process)][activeStep]
@@ -84,7 +89,7 @@ render(){
     className={classes.button}
     disabled={checkComplition(currentStep,profile)}
     variant="flat"
-    onClick={currentStep===ALL_STEPS.other?()=>{this.goToPreview(),nextHandler()}:nextHandler}
+    onClick={()=>{this.handleNext(currentStep)}}
   >
    {currentStep===ALL_STEPS.other?'Preview for Submission':'Next'}
   </Button>)
@@ -118,7 +123,10 @@ justify='flex-start'
     </Grid>)
  return(
    <div>
-            {isMobile && <DotMobileStepper handleNext={nextHandler} handleBack={()=>{this.handleBack(currentStep)}} steps={steps} activeStep={activeStep}/>}
+            {isMobile && <DotMobileStepper nextDisabler={checkComplition(currentStep,profile)}
+                                            handleNext={()=>{this.handleNext(currentStep)}} 
+                                            handleBack={()=>{this.handleBack(currentStep)}} 
+                                            steps={steps} activeStep={activeStep}/>}
             {!isMobile && <WebStepper steps={steps} activeStep={activeStep}/>}
 
                   <Grid
