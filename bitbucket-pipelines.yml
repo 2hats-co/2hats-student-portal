@@ -14,7 +14,7 @@ pipelines:
           - globalnode
           - localnode
           script: # Modify the commands below to build your repository.
-          - npm install -g firebase-tools
+          - yarn global add firebase-tools
           - yarn install
           - CI=false yarn build
           - firebase deploy --token "$FIREBASE_TOKEN" --project staging2hats --non-interactive --public build --only hosting
