@@ -12,13 +12,19 @@ import BackIcon from '@material-ui/icons/ArrowBack'
 import NextIcon from '@material-ui/icons/ArrowForward'
 import DownIcon from '@material-ui/icons/ArrowDropDown'
 
+
 import {PRIMARY_COLOR} from '../../Theme'
 
 
 const monthLabels = [['Jan','Feb','Mar','Apr'],['May','Jun','Jul','Aug'],['Sep','Oct','Nov','Dec']]
 const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
 function getMonthName(n){return(monthNames[n-1])} 
-
+function getDateIndex(month,year){
+    if(month<10){return(`${year-2000}0${month}`)}
+    else{
+        return(`${year-2000}${month}`)
+    }
+}
 const styles = theme => ({
     root: {
         height: 42,
@@ -74,6 +80,10 @@ const styles = theme => ({
         backgroundColor:'#fff',
         position:'absolute',
         zIndex:100
+    },
+    errorText:{
+        fontSize:'11px',
+        color:'#ff0000'
     }
   });
 
@@ -98,29 +108,49 @@ const styles = theme => ({
 
           this.props.changeHandler(this.props.name,value)
         if(this.props.toggle && value === this.props.toggle.value){
-          this.props.changeHandler(`${this.props.name}Value`,1201)
+          this.props.changeHandler(`${this.props.name}Value`,9999)
           }else{
-          this.props.changeHandler(`${this.props.name}Value`,(year-2000)*month)
+          this.props.changeHandler(`${this.props.name}Value`,getDateIndex(month,year))
           }
         }
       }
-    handleOpen(){
-
+      handleCloseSnackbar(){
+        this.setState({errorBar:false})
+    }
+    validRange(month,year){
+        if(this.props.minValue&& this.props.minValue.value>getDateIndex(month,year)){
+           
+            this.setState({errorMessage:`Minjie doesn't like that`})
+            return false
+            }else if(this.props.maxValue&& this.props.maxValue.value<getDateIndex(month,year)){
+                this.setState({errorMessage:`Minjie doesn't like that`})          
+                
+           
+                return false
+            }
+            else{
+                this.setState({errorMessage:null})
+                return true
+            }
     }
     handleSelectMonth(n){
-        this.setState({month:n,isOpen:false,value:`${getMonthName(n)} ${this.state.year}`,toggled:false})
+        if(this.validRange(n,this.state.year)){
+            this.setState({month:n,isOpen:false,value:`${getMonthName(n)} ${this.state.year}`,toggled:false})        
+        }
     }
     handleIncrementYear(){
         const newYear = this.state.year +1
-        if(this.props.max.year > newYear){
-        this.setState({year:newYear})
-    }
+        if(!this.state.month || this.validRange(this.state.month,newYear)){
+                this.setState({year:newYear})
+        }
+      
     }
     handleDecrementYear(){
         const newYear = this.state.year -1
-        if(this.props.min.year < newYear){
+        if(!this.state.month || this.validRange(this.state.month,newYear)){
             this.setState({year:newYear})
-        }
+    }
+     
     }
     handleChange = name => event => {
         this.setState({ [name]: event.target.checked});
@@ -172,7 +202,7 @@ const styles = theme => ({
     }
     renderField(){
         const {label,value,classes}=this.props
-        const {isOpen} = this.state
+        const {isOpen,errorMessage} = this.state
         const captionLabel = (isOpen || value !=='')
         return( 
             <Grid container direction='column'>
@@ -184,6 +214,9 @@ const styles = theme => ({
                     <DownIcon/>
                 </IconButton>
             </Grid>
+           {errorMessage&& <Typography className={classes.errorText}>
+            {errorMessage}
+            </Typography>}
             </Grid>
         )
     }
@@ -211,7 +244,7 @@ const styles = theme => ({
           value="toggled"
           color="primary"
         />
-            </Grid>}          
+            </Grid>}   
             </div>
         )  
     }
