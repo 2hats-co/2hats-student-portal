@@ -15,8 +15,8 @@ const eduEmptyFields = (industry) => [
     {type:INPUTS.textField,name:'degree',label:'Degree',placeholder:'e.g. Bachelor of Commerce',isRequired:true},
 {type:INPUTS.textField,name:'major',label:'Major (optional)',placeholder:'e.g. Accounting & Finance',isRequired:false},
 {type:INPUTS.dropDown,name:'university',label:'University',list:UNIVERSITIES('sydney'),isRequired:true},
-{type:INPUTS.monthPicker,name:'startDate',label:'Start',isRequired:true},
-{type:INPUTS.monthPicker,name:'endDate',label:'End',isRequired:true},
+{type:INPUTS.monthPicker,name:'startDate',label:'Start',maxRefrence:'endDateValue',isRequired:true},
+{type:INPUTS.monthPicker,name:'endDate',label:'End',minRefrence:'startDateValue',isRequired:true},
 {type:INPUTS.multiLine,name:'description',label:'Description(Optional)',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:false}
 ]
 const expEmptyFields = (industry) => [

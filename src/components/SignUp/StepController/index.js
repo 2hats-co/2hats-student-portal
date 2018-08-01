@@ -73,7 +73,11 @@ disableNext(currentStep,profile){
       return (currentStep===ALL_STEPS.education && profile.education.length === 0)
   }
   handleBack(currentStep){
-    currentStep===ALL_STEPS.interests?this.goToIntroduction():this.props.backHandler()
+    const{profile,activeStep,updateHandler,backHandler} = this.props
+    if(!checkComplition(currentStep,profile)){
+     updateHandler(activeStep)
+    }
+    currentStep===ALL_STEPS.interests?this.goToIntroduction():backHandler()
   }
   handleNext(currentStep){
     if(currentStep===ALL_STEPS.other)

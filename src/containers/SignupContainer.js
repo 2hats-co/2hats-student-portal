@@ -213,7 +213,8 @@ class ResumeBuilderContainer extends Component {
   }
   handleBack = () => {
     const { activeStep } = this.state;
-    this.handleUpdate(activeStep)
+
+   // this.handleUpdate(activeStep)
     if(activeStep !== 0){
       this.setState({
         activeStep: activeStep - 1
@@ -234,8 +235,10 @@ class ResumeBuilderContainer extends Component {
         <LogoOnCard>
           <div className={theme.responsive.isMobile?classes.mobileContainer:classes.webContainer}>
                   <StepController 
+                  
                   activeStep={activeStep}
                   profile={profile} 
+                  updateHandler={this.handleUpdate}
                   nextHandler={this.handleNext}
                   backHandler={this.handleBack}>
                   {this.getStepContent(currentStep,profile)}
