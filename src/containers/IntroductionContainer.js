@@ -172,11 +172,11 @@ const enhance = compose(
       props.firestore.set({ collection: COLLECTIONS.users, doc: props.uid }, {
         firstName: props.auth.displayName.split(' ')[0],
         lastName: props.auth.displayName.split(' ')[1],
-        emailVerified: props.auth.emailVerified,
+        emailVerified: props.uid.includes(':')||props.auth.emailVerified,
         email: props.auth.email,
         stage:'pre-review',// TODO make into a constants object
         status:'incomplete',
-        providerId:props.auth.providerData[0].providerId,
+        providerId:props.uid.includes(':')&&props.uid.split(':')[0]||props.auth.providerData[0].providerId ,
         creationTime:props.auth.metadata.creationTime,
         lastSignInTime:props.auth.metadata.creationTime,
         createdAt: props.firestore.FieldValue.serverTimestamp()
