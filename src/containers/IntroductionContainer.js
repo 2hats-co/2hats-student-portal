@@ -98,16 +98,16 @@ class IntroductionContainer extends React.Component {
      description:'Once you have qualified through our assessment centre, we will match you with a paid placement in your chosen industry.'
     }]}
     const submission = 
-        { headLine: 'Resume Submission',
+        { headLine: 'Do you have a resume?',
         width:680,
-        sections:[{title:'Upload Resume',
+        sections:[{title:'Yes, I do',
         image:UploadResume,
-        description:'If you have a resume already created, you can upload it directly to our platform to submit it for review instantly',
-         button:{label: `I have a resume already`,onClick:this.goToUploadResume}},
-         {title:'Build Resume',
+        description:`You will be asked to upload your resume near the end of the sign-up process. If you don't have it now, you can save your progress and upload it later.`,
+         button:{label: `I have a resume`,onClick:this.goToUploadResume}},
+         {title:`No, I don't`,
          image:BuildResume,
-         description: `If you don't have a resume, we will help you build a professional resume through our quick and easy 5-Step process!`,
-          button:{label: `I want to build a resume`, onClick:this.goToBuildResume}
+         description: `Don't worry! We will help you build a professional resume through our quick and easy 5-step process.`,
+          button:{label: `Help me build a resume`, onClick:this.goToBuildResume}
         }]
         }
   const submissionView = (<div className={classes.root}><Typography className={classes.header} variant="display1">
