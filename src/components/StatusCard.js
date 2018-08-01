@@ -28,7 +28,7 @@ const styles = theme => ({
         '&:hover': {
           cursor: 'pointer'
         },
-        minWidth:245
+        
         
       }
   });
@@ -45,10 +45,10 @@ function StatusCard(props){
                 </Grid>
                 {
                 <Grid item xs={12} sm={6}>
-                <Grid container  direction='row' alignItems='center' justify='space-around'>
+                <Grid container  direction='row' alignItems='center' justify='flex-end'>
                 {buttons&&
                     buttons.map(x=>{return(
-                        <Grid item xs={12} sm={5}>
+                        <Grid item xs={6} sm={4}>
                         <Button onClick={x.action} style={{maxHeight:35,minWidth:150}} variant='flat'>
                         {x.label}
                         </Button>
@@ -57,11 +57,11 @@ function StatusCard(props){
                 })
                 }
                 {
-                //    link &&  <Grid item xs={12} sm={2}> <Typography variant='Button' style={{textAlign:'center',width:'100%'}}>OR</Typography> </Grid>
+                 (link && !theme.responsive.isMobile)&&  <Grid item xs={1} sm={1}> <Typography variant='Button' style={{textAlign:'left'}}>OR</Typography> </Grid>
                 }
                  {link&&
-                  <Grid item xs={12} sm={7}>
-                    <a className={classes.link} href={link.route}>
+                  <Grid item xs={6} sm={6}>
+                    <a className={classes.link} onClick={()=>{link.action()}}>
                     {link.label}
                     </a> 
                     </Grid>

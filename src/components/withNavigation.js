@@ -37,6 +37,9 @@ import AccountInfoDailog from './AccountInfoDialog'
 
 import LoadingMessage from './LoadingMessage'
 import StatusCard from './StatusCard'
+import ConfirmationDialog from './ConfirmationDialog'
+
+
 import { PROCESS_TYPES } from '../constants/signUpProcess';
 const drawerWidth = 240;
 
@@ -125,7 +128,9 @@ export const withNavigation = (WrappedComponent) => {
       }
       state = {
         mobileOpen: false,
-        infoDialog:false
+        infoDialog:false,
+        confirmationDialog:null,
+
       };
       componentWillMount(){
        window.Intercom('update')
@@ -143,13 +148,34 @@ export const withNavigation = (WrappedComponent) => {
       handleInfoDialog(isOpen){
         this.setState({infoDialog:isOpen})
     }
+    getConfirmationDialog(dialog){
+      switch (dialog) {
+        case 'submit':return {title:'Confirm Profile Submission',
+        body:[`Are you sure you want to submit?`,`\n`,`Once you click 'submit' your resume will be sent to the 2hats resume specialists for review. You will be unable to make further changes to your submission until after your resume has been reviewed and given feedback.`],
+        checkbox:{isChecked:false,label:'I confirm that I want to submit my profile.'},
+        confirm:{label:'Submit',action:()=>{console.log('test')}}}
+        case 'build':return {title:'Use Our Resume Builder Instead',
+        body:['Are you sure you want to build a new resume instead?','','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
+        confirm:{label:'Build',action:()=>{
+          this.goTo(routes.BUILD_RESUME)
+        }}}
+       case 'upload':return {title:'Upload Existing Resume Instead',
+        body:[`Are you sure you want to switch to uploading your resume instead?`,`\n`
+        `All your previous progress will be saved, and you can always go back to using our Resume Builder if you wish.`],
+        confirm:{label:'Upload',action:()=>{
+          this.goTo(routes.UPLOAD_RESUME)
+        }}}
+        default:
+          break;
+      }
+    }
     getStatusPrompt(profile){
-      const uploadLink = {label:'Upload Existing Resume Instead',route:routes.UPLOAD_RESUME}
+      const uploadLink = {label:'Upload Existing Resume Instead',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('upload')})}}
       const uploadButton = {label:'Upload Resume',action:()=>{this.goTo(routes.UPLOAD_RESUME)}}
       const completeButton = {label:'Complete Profile',action:()=>{this.goTo(routes.UPLOAD_RESUME)}}
-      const buildLink = {label:'Use Our Resume Builder Instead',route:routes.BUILD_RESUME}
+      const buildLink = {label:'Use Our Resume Builder Instead',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('build')})}}
       const buildButton = {label:'Continue Building',action:()=>{this.goTo(routes.BUILD_RESUME)}}
-      const submitButton = {label:'Submit Profile',action:()=>{console.log('submitted')}}
+      const submitButton = {label:'Submit Profile',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('submit')})}}
       const inCompleteBuildMessage = 'It looks like you haven’t finished building your resume yet.'
       const inCompleteUploadMessage = 'It looks like you haven’t filled out all the necessary information yet.'
       const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
@@ -281,8 +307,6 @@ export const withNavigation = (WrappedComponent) => {
                         user={Object.values(user)[0]}
                        // upcomingEvents={upcomingEvents}
                         />
-                        
-        
            </div>
            }
            
@@ -298,7 +322,16 @@ export const withNavigation = (WrappedComponent) => {
            </div>
            </div>
           }
-          
+          {
+            this.state.confirmationDialog&& 
+                              <ConfirmationDialog dialog={this.state.confirmationDialog} 
+                              closeHandler={()=>{this.setState({confirmationDialog:null})}}
+                              checkHandler={()=>{
+                              let newObj = Object.assign(this.state.confirmationDialog,{checkbox:{isChecked:!this.state.confirmationDialog.checkbox.isChecked,
+                                                          label:this.state.confirmationDialog.checkbox.label}}
+                                )
+                              this.setState({confirmationDialog:newObj})}}/>
+        }
 
         </div>
       );
