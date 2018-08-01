@@ -10,10 +10,10 @@ import {PROCESS_TYPES, STEP_LABELS, checkComplition} from '../../../constants/si
 const styles = theme => ({
     root: {
      width:'100%',
-  
     },
     ProgressGrid:{
       width:'100%',
+      maxWidth:600, 
     }
   });
   class ApplicationProgress extends React.Component{
@@ -37,11 +37,9 @@ const styles = theme => ({
       Application Progress
     </Typography>
     </Grid>
-
         <Grid item   xs={12} sm={6}>
              <ProgressDial percentage={this.completitionPercentage(data)}/>
           </Grid>
-
              <Grid item   xs={12} sm={6}>
               {steps}
               </Grid>
