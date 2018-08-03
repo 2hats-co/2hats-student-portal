@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton'
 import BackIcon from '@material-ui/icons/ArrowBack'
 import NextIcon from '@material-ui/icons/ArrowForward'
 import DownIcon from '@material-ui/icons/ArrowDropDown'
-
+import moment from 'moment'
 
 import {PRIMARY_COLOR} from '../../Theme'
 
@@ -118,20 +118,27 @@ const styles = theme => ({
         this.setState({errorBar:false})
     }
     validRange(month,year){
-        if(this.props.minValue&& this.props.minValue.value>getDateIndex(month,year)){
-           
-            this.setState({errorMessage:`Minjie doesn't like that`})
+        console.log(this.props.name,moment().format("M"),month)
+        if(this.props.name.includes('start')&& moment().format("YYYY")<=year && moment().format("M")<month){
+            this.setState({errorMessage:`Minjie doesn't like that it starts later than now`})
             return false
-            }else if(this.props.maxValue&& this.props.maxValue.value<getDateIndex(month,year)){
-                this.setState({errorMessage:`Minjie doesn't like that`})          
-                
+        }else{
+            if(this.props.minValue&& this.props.minValue.value>getDateIndex(month,year)){
            
+                this.setState({errorMessage:`Minjie doesn't like that`})
                 return false
-            }
-            else{
-                this.setState({errorMessage:null})
-                return true
-            }
+                }else if(this.props.maxValue&& this.props.maxValue.value<getDateIndex(month,year)){
+                    this.setState({errorMessage:`Minjie doesn't like that`})          
+                    
+               
+                    return false
+                }
+                else{
+                    this.setState({errorMessage:null})
+                    return true
+                }
+        }
+        
     }
     handleSelectMonth(n){
         if(this.validRange(n,this.state.year)){
@@ -139,9 +146,13 @@ const styles = theme => ({
         }
     }
     handleIncrementYear(){
+        
         const newYear = this.state.year +1
+
+       
         if(!this.state.month || this.validRange(this.state.month,newYear)){
                 this.setState({year:newYear})
+        
         }
       
     }
