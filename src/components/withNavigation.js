@@ -135,10 +135,21 @@ export const withNavigation = (WrappedComponent) => {
 
       };
       componentWillMount(){
-       window.Intercom('update')
+      
         window.Intercom('update',{
           'hide_default_launcher': false
         })
+       // window.Intercom('show')
+        window.Intercom('hide')
+       }
+       componentDidUpdate(prevProps,prevState){
+         if(prevProps.profile !== this.props.profile){
+          
+            if(!this.props.profile[0].process){
+
+            this.goTo(routes.INTRODUCTION)
+            }
+         }
        }
        
       handleDrawerToggle = () => {
@@ -155,7 +166,7 @@ export const withNavigation = (WrappedComponent) => {
         case 'submit':return {title:'Confirm Profile Submission',
         body:[`Are you sure you want to submit?`,`\n`,`Once you click 'submit' your resume will be sent to the 2hats resume specialists for review. You will be unable to make further changes to your submission until after your resume has been reviewed and given feedback.`],
         checkbox:{isChecked:false,label:'I confirm that I want to submit my profile.'},
-        confirm:{label:'Submit',action:()=>{console.log('test')}}}
+        confirm:{label:'Submit',action:()=>{this.props.onSubmit()}}}
         case 'build':return {title:'Use Our Resume Builder Instead',
         body:['Are you sure you want to build a new resume instead?','','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
         confirm:{label:'Build',action:()=>{
@@ -317,7 +328,7 @@ export const withNavigation = (WrappedComponent) => {
            isOpen={this.state.infoDialog} 
            closeHandler={this.handleInfoDialog}/>
            <div className={classes.toaster}>
-           <StatusCard prompt = {this.getStatusPrompt(profile[0])}/>
+           {!profile[0].hasSubmit&& <StatusCard prompt = {this.getStatusPrompt(profile[0])}/>}
            </div>
            </div>
           }
@@ -354,6 +365,11 @@ export const withNavigation = (WrappedComponent) => {
       withHandlers({
         loadData: props => listenerSettings =>
           props.firestore.setListener(listenerSettings),
+          onSubmit: props => (data) =>
+          props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+          hasSubmit:true,
+          submittedAt: props.firestore.FieldValue.serverTimestamp()
+        })
       }),
       // Run functionality on component lifecycle
       lifecycle({
