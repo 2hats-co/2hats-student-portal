@@ -85,7 +85,8 @@ class ResumeBuilderContainer extends Component {
      window.Intercom('update',{
       'hide_default_launcher': true
     })
- 
+    window.Intercom('hide')
+    //window.Intercom.hideMessenger();
     
     if(this.props.profile){
       _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
