@@ -93,7 +93,7 @@ class IntroductionContainer extends React.Component {
     image:intro2,
     description:'We will assess your capability in our interview & assessment centre. You will be provided with feedback for improvement. ',
      button:{label: `Let's start`, onClick:this.goToResumeOptions}},
-     {title:'Get Offer',
+     {title:'Get an Offer',
      image:intro3,
      description:'Once you have qualified through our assessment centre, we will match you with a paid placement in your chosen industry.'
     }]}
