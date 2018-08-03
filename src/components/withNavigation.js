@@ -399,8 +399,13 @@ export const withNavigation = (WrappedComponent) => {
         componentWillUnmount() {
           // const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
           // this.props.firestore.unsetListener(profileListenerSettings);
+<<<<<<< HEAD
           // const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
           //this.props.firestore.unsetListener(usersListenerSettings);
+=======
+          const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
+          this.props.firestore.unsetListener(usersListenerSettings);
+>>>>>>> 40027d4af1c27e9998d9a124385c1ea8515efcdf
           // const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
           // this.props.firestore.unsetListener(upcomingEventsListenerSettings);
         }
