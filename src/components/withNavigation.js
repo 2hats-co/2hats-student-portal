@@ -39,8 +39,10 @@ import LoadingMessage from './LoadingMessage'
 import StatusCard from './StatusCard'
 import ConfirmationDialog from './ConfirmationDialog'
 
+import {actionTypes} from 'redux-firestore'
 
 import { PROCESS_TYPES } from '../constants/signUpProcess';
+
 const drawerWidth = 240;
 
 
@@ -160,7 +162,7 @@ export const withNavigation = (WrappedComponent) => {
           this.goTo(routes.BUILD_RESUME)
         }}}
        case 'upload':return {title:'Upload Existing Resume Instead',
-        body:[`Are you sure you want to switch to uploading your resume instead?`,`\n`
+        body:[`Are you sure you want to switch to uploading your resume instead?`,`\n`,
         `All your previous progress will be saved, and you can always go back to using our Resume Builder if you wish.`],
         confirm:{label:'Upload',action:()=>{
           this.goTo(routes.UPLOAD_RESUME)
@@ -196,7 +198,7 @@ export const withNavigation = (WrappedComponent) => {
                   buttons:[buildButton],
                   link:uploadLink})
         }else if(profile.process === PROCESS_TYPES.upload){
-            if(profile.resumeFile.fullPath !== ''){
+            if(profile.resumeFile && profile.resumeFile.fullPath !== ''){
               return({message:inCompleteUploadMessage,
                       buttons:[completeButton],
                       link:buildLink})
@@ -211,11 +213,7 @@ export const withNavigation = (WrappedComponent) => {
     }
     
       render(){
-      const {classes,theme,history,children,profile,user,upcomingEvents} = this.props
-      if(user){
-        console.log('user',Object.values(user))
-      }
-    
+      const {classes,theme,history,children,profile,user,upcomingEvents} = this.props    
        const pathName = history.location.pathname
        
        const drawer = (
@@ -245,7 +243,7 @@ export const withNavigation = (WrappedComponent) => {
 
          <NavigationButton isSelected={(pathName===routes.SIGN_IN)} 
          name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} 
-         route={()=>{auth.doSignOut();this.goTo(routes.SIGN_IN)}}/>
+         route={()=>{auth.doSignOut();this.props.clearData();this.goTo(routes.SIGN_IN)}}/>
 
         </div>
       );
@@ -301,10 +299,11 @@ export const withNavigation = (WrappedComponent) => {
             <div className={classes.toolbar}/>
 
             {(!profile || !user)?<LoadingMessage/>:<div>
+              
                       <WrappedComponent
                         {...this.props}
-                        profile={Object.values(profile)[0]}
-                        user={Object.values(user)[0]}
+                        profile={profile[0]}
+                        user={user[0]}
                        // upcomingEvents={upcomingEvents}
                         />
            </div>
@@ -314,11 +313,11 @@ export const withNavigation = (WrappedComponent) => {
           {(profile && user)&&
           <div>
           <AccountInfoDailog
-          user={Object.values(user)[0]}
+          user={user[0]}
            isOpen={this.state.infoDialog} 
            closeHandler={this.handleInfoDialog}/>
            <div className={classes.toaster}>
-           <StatusCard prompt = {this.getStatusPrompt(Object.values(profile)[0])}/>
+           <StatusCard prompt = {this.getStatusPrompt(profile[0])}/>
            </div>
            </div>
           }
@@ -341,7 +340,13 @@ export const withNavigation = (WrappedComponent) => {
     WithNavigation.propTypes = {
       classes: PropTypes.object.isRequired,
     };
-    
+    function mapDispatchToProps(dispatch) {
+      return({
+          clearData: () => {dispatch({ type: actionTypes.CLEAR_DATA, preserve: { data: false, ordered: false }})}
+      })
+  }
+  
+
     const enhance = compose(
       // add redux store (from react context) as a prop
       withFirestore,
@@ -379,17 +384,18 @@ export const withNavigation = (WrappedComponent) => {
           // const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
           // this.props.firestore.unsetListener(profileListenerSettings);
           // const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
-          // this.props.firestore.unsetListener(usersListenerSettings);
+          //this.props.firestore.unsetListener(usersListenerSettings);
           // const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
           // this.props.firestore.unsetListener(upcomingEventsListenerSettings);
         }
       }),
       // Connect todos from redux state to props.todos
       connect(({ firestore }) => ({
-         profile: firestore.data.profiles, // document data by id
-         user: firestore.data.users, // document data by id
+         profile: firestore.ordered.profiles, // document data by id
+         user: firestore.ordered.users, // document data by id
          upcomingEvents: firestore.data.upcomingEvents, // document data by i
-      }))
+      }), mapDispatchToProps)
+      
     )
     const authCondition = (authUser) => !!authUser;
    return enhance(
