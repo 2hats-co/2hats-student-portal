@@ -17,14 +17,14 @@ const eduEmptyFields = (industry) => [
 {type:INPUTS.dropDown,name:'university',label:'University',list:UNIVERSITIES('sydney'),isRequired:true},
 {type:INPUTS.monthPicker,name:'startDate',label:'Start',maxRefrence:'endDateValue',isRequired:true},
 {type:INPUTS.monthPicker,name:'endDate',label:'End',minRefrence:'startDateValue',isRequired:true},
-{type:INPUTS.multiLine,name:'description',label:'Description(Optional)',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:false}
+{type:INPUTS.multiLine,name:'description',label:'Description',placeholder:getPrompts(industry).edu,hint:'This description should focus on your key achievenment and career-relevant experience.' ,isRequired:true}
 ]
 const expEmptyFields = (industry) => [
     {type:INPUTS.textField,name:'title',label:'Position/Job Title',isRequired:true},
     {type:INPUTS.textField,name:'organisation',label:'Organisation',isRequired:true},
     {type:INPUTS.dropDown,name:'type',label:'Type of Experince',list:['Extra Curricular','Employment','Internship','Project'],isRequired:true},
-    {type:INPUTS.monthPicker,name:'startDate',label:'Start',isRequired:true},
-    {type:INPUTS.monthPicker,name:'endDate',label:'End',toggle:{label:'This is my current position.',value:'Present',isSelected:false},isRequired:true},
+    {type:INPUTS.monthPicker,name:'startDate',label:'Start',maxRefrence:'endDateValue',isRequired:true},
+    {type:INPUTS.monthPicker,name:'endDate',label:'End',minRefrence:'startDateValue',toggle:{label:'This is my current position.',value:'Present',isSelected:false},isRequired:true},
     {type:INPUTS.multiLine,name:'description',label:'Description',placeholder:getPrompts(industry).exp,hint:'This description should focus on your key achievement in this job/position.',isRequired:true}
 ]
 
