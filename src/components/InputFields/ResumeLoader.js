@@ -123,7 +123,7 @@ class ResumeLoader extends React.Component {
             > 
             <CloudUploadIcon style={{ fontSize: 66 }}/>
             <Typography variant='button'>
-            {theme.responsive.isMobile?'Click to brower for your PDF resume':'Drag and drop your resume'}
+            {theme.responsive.isMobile?'Click to browser for your PDF resume':'Drag and drop your resume'}
             </Typography>
             <Typography variant='subheading'>
             OR
