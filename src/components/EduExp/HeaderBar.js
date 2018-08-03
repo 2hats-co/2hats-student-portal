@@ -25,7 +25,7 @@ const styles = theme => ({
 });
 
 function HeaderBar(props) {
-  const { classes,title,handler } = props;
+  const { classes,title,handler,disabled } = props;
   return (
     <div className={classes.header}>
           <Grid
@@ -36,9 +36,9 @@ function HeaderBar(props) {
           <Typography variant="title" color="inherit">
             {title}
           </Typography> 
-          <IconButton className={classes.add} onClick={()=>{handler()}} color="inherit" aria-label="add">
+          {!disabled&&<IconButton className={classes.add} onClick={()=>{handler()}} color="inherit" aria-label="add">
             <AddIcon style={{ fontSize: 36 }} />
-          </IconButton>
+          </IconButton>}
           </Grid>
           
     </div>

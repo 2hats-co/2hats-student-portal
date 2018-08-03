@@ -4,13 +4,13 @@ export const PROCESS_TYPES ={
 }
 
 export function checkComplition(currentStep,profile){
-    const{interests,
+    const{careerInterests,
       skills,
       bio,
       workingRights,currentUniversity,resumeFile,
       education,experience} = profile
     switch (currentStep) {
-      case ALL_STEPS.interests:return !interests || interests.length === 0;
+      case ALL_STEPS.careerInterests:return !careerInterests || careerInterests.length === 0;
       case ALL_STEPS.bio:return !bio|| !skills ||(skills.length === 0 || bio.length === 0);
       case ALL_STEPS.uploadResume:return !resumeFile || resumeFile.fullPath.length === 0;
       case ALL_STEPS.education:return !education || education.length === 0 ;
@@ -32,7 +32,7 @@ export function isComplete(profile){
 }
   
 export const ALL_STEPS = {
-    interests: "Career Interests",
+    careerInterests: "Career Interests",
     bio:"Bio & Relevant Skills",
     education:"Tertiary Education",
     experience:"Practical Experience",
@@ -42,13 +42,13 @@ export const ALL_STEPS = {
 }
 export const STEP_LABELS ={
     upload:[
-        ALL_STEPS.interests,
+        ALL_STEPS.careerInterests,
         ALL_STEPS.profileDetails,
         ALL_STEPS.uploadResume,
         ALL_STEPS.other
       ],
       build:[
-        ALL_STEPS.interests,
+        ALL_STEPS.careerInterests,
         ALL_STEPS.bio,
         ALL_STEPS.education,
         ALL_STEPS.experience,

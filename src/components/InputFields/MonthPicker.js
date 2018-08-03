@@ -120,7 +120,7 @@ const styles = theme => ({
     validRange(month,year){
         console.log(this.props.name,moment().format("M"),month)
         if(this.props.name.includes('start')&& moment().format("YYYY")<=year && moment().format("M")<month){
-            this.setState({errorMessage:`Minjie doesn't like that it starts later than now`})
+            this.setState({errorMessage:`Minjie doesn't like that it start later than now`})
             return false
         }else{
             if(this.props.minValue&& this.props.minValue.value>getDateIndex(month,year)){

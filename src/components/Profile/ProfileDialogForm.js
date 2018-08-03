@@ -35,7 +35,7 @@ const styles = theme => ({
 });
 
 const INITIAL_STATE = {
-    interests: [],
+    careerInterests: [],
     bio: "",
     skills: [],
     resumeFile:{name:'',fullPath:''},
@@ -60,7 +60,7 @@ class ProfileDialogForm extends React.Component {
      this.props.closeHandler()
   }
   handleSave = () => {
-    this.props.onSave({interests: this.state.interests,
+    this.props.onSave({careerInterests: this.state.careerInterests,
       bio: this.state.bio,
       skills: this.state.skills,
       resumeFile:this.state.resumeFile
@@ -72,7 +72,7 @@ class ProfileDialogForm extends React.Component {
   }
   render() {
       const {classes,isOpen} = this.props
-      const {process,interests,bio,skills,industry,resumeFile} = this.state
+      const {process,careerInterests,bio,skills,industry,resumeFile} = this.state
     return (
         <Dialog
           maxWidth ={'md'}
@@ -85,9 +85,9 @@ class ProfileDialogForm extends React.Component {
           
           <DialogContent>
             <div className={classes.content}>
-           <CareerInterests preSelectedList={interests} changeHandler={this.handleChange}/>
+           <CareerInterests preSelectedList={careerInterests} changeHandler={this.handleChange}/>
           <div style={{width:400}}><PersonalBio industry={industry||'IT'} bio={bio} changeHandler={this.handleChange}/></div>
-           <Skills hideSuggestions preSelectedList={skills} interestKeys={interests} changeHandler={this.handleChange}/>
+           <Skills hideSuggestions preSelectedList={skills} interestKeys={careerInterests} changeHandler={this.handleChange}/>
            {process ===PROCESS_TYPES.upload &&<ResumeLoader resumeFile={resumeFile} changeHandler={this.handleChange}/>}
            </div>
           </DialogContent>

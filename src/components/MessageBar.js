@@ -112,7 +112,7 @@ class CustomizedSnackbars extends React.Component {
       <div>
         <Snackbar
           anchorOrigin={{
-            vertical: 'top',
+            vertical: 'bottom',
             horizontal: 'center',
           }}
           open={isOpen}

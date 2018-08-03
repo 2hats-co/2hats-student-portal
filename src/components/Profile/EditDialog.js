@@ -35,7 +35,7 @@ const styles = theme => ({
     },
   });
   const INITIAL_STATE = {
-    interests: [],
+    careerInterests: [],
     bio: "",
     skills: [],
     industry:'IT',
@@ -70,7 +70,7 @@ const styles = theme => ({
       }
       handleSave = () => {
         const {name} = this.props
-        this.props.onSave({interests: this.state.interests,
+        this.props.onSave({careerInterests: this.state.careerInterests,
           [name]:this.state[name]
           })//update fire store
          this.props.closeHandler()  
@@ -82,8 +82,8 @@ const styles = theme => ({
         const {classes,isOpen,name} = this.props
         let inputField = (<div/>)
         switch (name) {
-          case 'interests':
-           inputField = <CareerInterests preSelectedList={this.state.interests} changeHandler={this.handleChange}/> 
+          case 'careerInterests':
+           inputField = <CareerInterests preSelectedList={this.state.careerInterests} changeHandler={this.handleChange}/> 
             break;
             case 'bio':
             inputField = <PersonalBio bio={this.state.bio} industry={this.state.industry} changeHandler={this.handleChange} />

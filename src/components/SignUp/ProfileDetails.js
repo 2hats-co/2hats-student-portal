@@ -7,7 +7,7 @@ import Skills from "../InputFields/Skills"
 import CurrentUniversity from "../InputFields/CurrentUniversity";
 
 function ProfileDetails(props){
-    const {currentUniversity,interests,skills,changeHandler} = props
+    const {currentUniversity,careerInterests,skills,changeHandler} = props
     return(
         <Grid
       container
@@ -16,7 +16,7 @@ function ProfileDetails(props){
     >
       <CurrentUniversity value={currentUniversity} changeHandler={changeHandler}/>
       <Skills 
-        interestKeys = {interests}
+        interestKeys = {careerInterests}
         preSelectedList={skills} 
         changeHandler={changeHandler} />
     </Grid>
@@ -26,6 +26,6 @@ ProfileDetails.propTypes = {
     changeHandler: PropTypes.func.isRequired,
     currentUniversity: PropTypes.string,
     skills: PropTypes.arrayOf(PropTypes.string),
-    interests: PropTypes.arrayOf(PropTypes.string),
+    careerInterests: PropTypes.arrayOf(PropTypes.string),
   };
 export default ProfileDetails

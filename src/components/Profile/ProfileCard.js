@@ -57,10 +57,10 @@ const styles = {
     }
 };
 function ProfileCard(props) {
-  const {classes,name,bio,resumeFile,interestsList,skillsList,process} = props;
-    let interests = (<div/>)
-    if(interestsList){interests=(<div> 
-   {interests}
+  const {disabled,classes,name,bio,resumeFile,interestsList,skillsList,process} = props;
+    let careerInterests = (<div/>)
+    if(interestsList){careerInterests=(<div> 
+   {careerInterests}
     {interestsList.map(x=> {
       return( <Chip
         key={x}
@@ -105,8 +105,8 @@ function ProfileCard(props) {
           {process===PROCESS_TYPES.upload&& <Section name='resumeFile' label='Resume'>
          {resume}
          </Section>}
-         <Section name='interests' label='Career Interests'>
-         {interests}
+         <Section name='careerInterests' label='Career Interests'>
+         {careerInterests}
          </Section>
         <Section name='skills' label='Skills'>
          {skills}

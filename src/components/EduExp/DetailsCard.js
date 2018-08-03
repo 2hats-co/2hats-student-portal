@@ -21,7 +21,7 @@ const styles = theme => ({
   },
 });
 function EduExpCard(props) {
-  const { classes, title, key, label, description, startDate, endDate,editHandler,deleteHandler} = props;
+  const {disabled, classes, title, key, label, description, startDate, endDate,editHandler,deleteHandler} = props;
   return (
     <div key ={key} className={classes.root}>
  
@@ -30,14 +30,14 @@ function EduExpCard(props) {
       <Grid container direction="column" alignItems="flex-start" spacing={16}>
       <Grid container direction="row" alignItems="center" justify="space-between">
       <Typography variant='subheading'>{title}</Typography>
-      <Grid item>
-      <IconButton onClick={()=>{editHandler()}} aria-label="Edit">
+      {!disabled&&<Grid item>
+     <IconButton onClick={()=>{editHandler()}} aria-label="Edit">
         <EditIcon />
       </IconButton>
       <IconButton onClick={()=>{deleteHandler()}} aria-label="Delete">
         <DeleteIcon />
       </IconButton>
-      </Grid>
+      </Grid>}
       </Grid>
         <Grid container direction="row" alignItems="flex-start" justify="space-between">
           <Typography variant="body1">{label}</Typography>

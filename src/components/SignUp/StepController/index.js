@@ -52,13 +52,13 @@ goToDashboard(){
   this.props.history.push(routes.DASHBOARD)
 }
 disableNext(currentStep,profile){
-    const{interests,
+    const{careerInterests,
       skills,
       bio,
       workingRights,currentUniversity,resumeFile,
       education,experience} = profile
     switch (currentStep) {
-      case ALL_STEPS.interests:return interests.length === 0;
+      case ALL_STEPS.careerInterests:return careerInterests.length === 0;
       case ALL_STEPS.bio:return skills.length === 0 || bio.length === 0;
       case ALL_STEPS.uploadResume:return resumeFile.fullPath.length === 0;
       case ALL_STEPS.education:return education.length === 0 ;
@@ -77,7 +77,7 @@ disableNext(currentStep,profile){
     if(!checkComplition(currentStep,profile)){
      updateHandler(activeStep)
     }
-    currentStep===ALL_STEPS.interests?this.goToIntroduction():backHandler()
+    currentStep===ALL_STEPS.careerInterests?this.goToIntroduction():backHandler()
   }
   handleNext(currentStep){
     if(currentStep===ALL_STEPS.other)

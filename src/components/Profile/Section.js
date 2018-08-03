@@ -16,7 +16,7 @@ class Section extends React.Component{
     this.setState({isOpen:false})
     }
     render(){
-        const {name,label, children} = this.props
+        const {disabled, name,label, children} = this.props
        
         const {isOpen} = this.state
         return(
@@ -26,10 +26,12 @@ class Section extends React.Component{
                  {label}:
                </Typography>
                <Grid item> 
+               {!disabled&&
                   <IconButton onClick={()=>{this.setState({isOpen:true})}} 
-                  aria-label={`edit ${label}`}>
+                     aria-label={`edit ${label}`}>
                     <EditIcon />
-                  </IconButton> 
+                 </IconButton> 
+                }
                </Grid>
            </Grid>
            {children}

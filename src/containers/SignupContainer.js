@@ -46,7 +46,7 @@ const styles = theme => ({
 let INITIAL_PROFILE = {
   //process:PROCESS_TYPES.build,//['build','upload']
   careerInterests: [],
-  currentStep:ALL_STEPS.interests,
+  currentStep:ALL_STEPS.careerInterests,
   bio: "",
   currentUniversity:"",
   skills: [],
@@ -117,13 +117,13 @@ class ResumeBuilderContainer extends Component {
     this.setState({ profile: newProfile });
   }
   getStepContent(currentStep,profile) { 
-    const{interests,
+    const{careerInterests,
      industry} = profile
     switch (currentStep) {
-      case ALL_STEPS.interests: 
+      case ALL_STEPS.careerInterests: 
         return (
           <SectionWrapper width={750} height={220}>
-              <CareerInterests preSelectedList={interests} changeHandler={this.handleChange} />
+              <CareerInterests preSelectedList={careerInterests} changeHandler={this.handleChange} />
           </SectionWrapper>
          
         );
@@ -131,7 +131,7 @@ class ResumeBuilderContainer extends Component {
       <BioAndSkills
         industry={this.state.profile.industry}
        bio={this.state.profile.bio}
-        interests={this.state.profile.interests}
+       careerInterests={this.state.profile.careerInterests}
          skills={this.state.profile.skills} 
          changeHandler={this.handleChange}/></SectionWrapper>
       case ALL_STEPS.education: return <SectionWrapper
@@ -153,7 +153,7 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.profileDetails:return <SectionWrapper width={750} height={420}> <ProfileDetails 
       industry={this.state.profile.industry}
       currentUniversity={this.state.profile.currentUniversity}
-      interests={this.state.profile.interests}
+      careerInterests={this.state.profile.careerInterests}
        skills={this.state.profile.skills} 
        changeHandler={this.handleChange}/></SectionWrapper>;
       case ALL_STEPS.uploadResume:return <SectionWrapper width={750} 
@@ -178,7 +178,7 @@ class ResumeBuilderContainer extends Component {
     const {profile} = this.state
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
     switch (currentStep) {
-      case ALL_STEPS.interests:this.props.onProfileUpdate({interests:profile.interests,industry:profile.industry,completedStep:currentStep})
+      case ALL_STEPS.careerInterests:this.props.onProfileUpdate({careerInterests:profile.careerInterests,industry:profile.industry,completedStep:currentStep})
       break;
       case ALL_STEPS.bio:this.props.onProfileUpdate({bio:profile.bio,skills:profile.skills,completedStep:currentStep})
       break; 

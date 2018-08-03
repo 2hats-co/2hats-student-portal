@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 import PersonalBio from "../InputFields/PersonalBio";
 import Skills from "../InputFields/Skills";
 function BioAndSkills(props){
-    const {industry,bio,skills,interests,changeHandler} = props
+    const {industry,bio,skills,careerInterests,changeHandler} = props
     return( 
         <Grid
         container
@@ -15,7 +15,7 @@ function BioAndSkills(props){
         style={{width: '100%' }}
       >
          <Skills 
-        interestKeys = {interests}
+        interestKeys = {careerInterests}
         preSelectedList={skills} 
         changeHandler={changeHandler}/>
         <PersonalBio
@@ -33,6 +33,6 @@ BioAndSkills.propTypes = {
     industry: PropTypes.string.isRequired,
     bio: PropTypes.string,
     skills: PropTypes.arrayOf(PropTypes.string),
-    interests: PropTypes.arrayOf(PropTypes.string).isRequired,
+    careerInterests: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 export default BioAndSkills

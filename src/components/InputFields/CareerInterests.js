@@ -33,11 +33,11 @@ class CareerInterests extends React.Component {
   handleChange = name => event => {
     if(event.target.checked){
       const newInterests = this.props.preSelectedList.concat(name)
-      this.props.changeHandler('interests',newInterests)
+      this.props.changeHandler('careerInterests',newInterests)
       this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }else{
       const newInterests = this.props.preSelectedList.filter(x=> x!==name)
-    this.props.changeHandler('interests',newInterests)
+    this.props.changeHandler('careerInterests',newInterests)
     this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }
   };

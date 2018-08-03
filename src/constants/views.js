@@ -11,6 +11,6 @@ export const INTRODUCTION_CONTAINER = {
 }
 export const UPLOAD_RESUME_CONTAINER = {
     upload:'upload',
-    interests:'interests',
+    careerInterests:'careerInterests',
     info:'info'
 }
