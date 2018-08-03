@@ -196,7 +196,7 @@ const enhance = compose(
         experience:[],
         industry:'IT',
         bio:'',
-        interests:[],
+        careerInterests:[],
         skills:[],
         isComplete:false,
         hasSubmit: false,

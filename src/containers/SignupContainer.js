@@ -45,7 +45,7 @@ const styles = theme => ({
 });
 let INITIAL_PROFILE = {
   //process:PROCESS_TYPES.build,//['build','upload']
-  interests: [],
+  careerInterests: [],
   currentStep:ALL_STEPS.interests,
   bio: "",
   currentUniversity:"",
