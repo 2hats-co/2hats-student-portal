@@ -57,6 +57,13 @@ class IntroductionContainer extends React.Component {
     this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
   
+  componentDidUpdate(prevProps,prevState){
+    if(prevProps.uid != this.props.uid){
+      console.log('created')
+      this.props.createProfile()
+      this.props.createUser()
+    }
+  }
   
   createFireStoreRecords(){
     this.props.createUser();
