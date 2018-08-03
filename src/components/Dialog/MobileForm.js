@@ -51,7 +51,7 @@ function MobileForm(props){
                 <Typography variant="title" color="inherit" className={classes.flex}>
                  {title}
                 </Typography>
-                <Button color="inherit" onClick={addHandler}>
+                <Button color="inherit" onClick={addHandler} disabled={disabled}>
                   {activity}
                 </Button>
               </Toolbar>

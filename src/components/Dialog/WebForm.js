@@ -39,7 +39,7 @@ function WebForm(props){
           <Grid
           container
           className={classes.grid}
-          style={{width:width?width:'80%'}}
+         // style={{width:width?width:'80%'}}
           direction='column'
           justify='flex-start'
           > 
