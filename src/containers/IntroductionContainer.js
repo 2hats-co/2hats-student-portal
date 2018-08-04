@@ -109,7 +109,7 @@ class IntroductionContainer extends React.Component {
         width:680,
         sections:[{title:'Yes, I do',
         image:UploadResume,
-        description:`You will be asked to upload your resume near the end of the sign-up process. If you don't have it now, you can save your progress and upload it later.`,
+        description:`You will be asked to upload your resume near the end of the sign-up process. If you don’t have it now, you can upload it later. `,
          button:{label: `I have a resume`,onClick:this.goToUploadResume}},
          {title:`No, I don't`,
          image:BuildResume,
