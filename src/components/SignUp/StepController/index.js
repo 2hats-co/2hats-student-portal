@@ -145,6 +145,9 @@ justify='flex-start'
                   {!isMobile &&
                   webButtons
                   }
+                  {(isMobile&&(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume))&&
+                    <Grid container style={{width:'100%'}} direction='row' justify='center'><Grid item>{saveButton}</Grid></Grid>
+                    }
                 </Grid>
     </div>
  )
