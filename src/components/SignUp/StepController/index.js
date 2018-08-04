@@ -89,7 +89,7 @@ render(){
  const isMobile = theme.responsive.isMobile
  const steps = STEP_LABELS[(profile.process)];
  const currentStep = STEP_LABELS[(profile.process)][activeStep]
- const nextButton = (<Button
+ const nextButton = (<Button id={`next-${currentStep}`}
     className={classes.button}
     disabled={checkComplition(currentStep,profile)}
     variant="flat"
@@ -98,14 +98,14 @@ render(){
    {currentStep===ALL_STEPS.other?'Preview for Submission':'Next'}
   </Button>)
  
-  const backButton = (<Button
+  const backButton = (<Button id={`back-${currentStep}`}
     className={classes.button}
     variant="outlined"
     onClick={()=>{this.handleBack(currentStep)}}
   >
     Back
   </Button>)
-  const saveButton = (<Button
+  const saveButton = (<Button id={`save-${currentStep}`}
     className={classes.button}
     variant="outlined"
     disabled={this.disableSave(currentStep,profile)}
@@ -113,6 +113,7 @@ render(){
   >
     Save for Later
   </Button>)
+  const saveButtonWithConditions = ((currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton)
   const webButtons =(<Grid item>
     <Grid
 className={classes.root}
@@ -122,7 +123,7 @@ justify='flex-start'
 >
 {backButton}
 {currentStep&&nextButton}
-{(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton}
+{saveButtonWithConditions}
 </Grid>
     </Grid>)
  return(
@@ -145,8 +146,12 @@ justify='flex-start'
                   {!isMobile &&
                   webButtons
                   }
-                  {(isMobile&&(currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume))&&
-                    <Grid container style={{width:'100%'}} direction='row' justify='center'><Grid item>{saveButton}</Grid></Grid>
+                  {isMobile&&
+                    <Grid container style={{width:'100%'}} direction='row' justify='center'>
+                     <Grid item>
+                        {saveButtonWithConditions}
+                     </Grid>
+                    </Grid>
                     }
                 </Grid>
     </div>
