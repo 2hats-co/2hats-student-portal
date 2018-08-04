@@ -7,7 +7,8 @@ import Divider from '@material-ui/core/Divider'
 import * as _ from 'lodash'
 const styles = theme => ({
     root: {
-     width:500,
+      width:'100%',
+      maxWidth:500
     },
     title:{
       marginBottom:15

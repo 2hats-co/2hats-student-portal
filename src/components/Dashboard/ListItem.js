@@ -7,7 +7,8 @@ import IconButton  from "@material-ui/core/IconButton";
 const styles = theme => ({
     root: {
      height:65,
-     width:500
+     width:'100%',
+ 
     },
     date:{
         height:65,
@@ -15,7 +16,7 @@ const styles = theme => ({
     },
     content:{
         height:65,
-        width:370
+        width:`calc(100% - 65px)`,
     },action:{
         height:65,
         width:65
@@ -41,29 +42,32 @@ function ListItem(props){
     const date = getTimeStampData(timestamp).date
     const month = getTimeStampData(timestamp).month
     return(
-    <Grid container direction='row' className={classes.root} alignItems='center'>
-    <Grid container direction='column'className={classes.date} alignItems='center' justify='center'>
-    <Typography variant='button'>
-        {month}
-    </Typography>
-    <Typography variant='display1'>
-        {date}
-    </Typography>
-    </Grid>
-    <Grid container direction='column'className={classes.content} justify='center'>
-    <Typography variant='title'>
-        {title}
-    </Typography>
-    <Typography variant='body1'>
-         {body}
-    </Typography>
-    </Grid>
-    <Grid container className={classes.action} alignItems='center' justify='center' >
-    <IconButton className={classes.button} component="span"><a className={classes.link} href={link} target="_blank">
-             {actionIcon}</a>
-        </IconButton>
-        
-    </Grid>
+    <Grid container direction='row' className={classes.root} alignItems='center' justify='space-between'>
+        <Grid item className={classes.content}>
+            <Grid container direction='row'className={classes.root} alignItems='center' justify='flex-start'>
+                <Grid container direction='column'className={classes.date} alignItems='center' justify='center'>
+                    <Typography variant='button'>
+                        {month}
+                    </Typography>
+                    <Typography variant='display1'>
+                        {date}
+                    </Typography>
+                </Grid>
+                <Grid container style={{width:'calc(100% - 65px)'}}className direction='column' justify='center'>
+                    <Typography variant='title'>
+                        {title}
+                    </Typography>
+                    <Typography variant='body1'>
+                        {body}
+                    </Typography>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid item className={classes.action} alignItems='center' justify='center' >
+            <IconButton className={classes.button} component="span"><a className={classes.link} href={link} target="_blank">
+                {actionIcon}</a>
+            </IconButton>
+        </Grid>
     </Grid>
    )
 }

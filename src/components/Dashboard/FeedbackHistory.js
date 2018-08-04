@@ -8,7 +8,8 @@ import { now } from '../../../node_modules/moment';
 
 const styles = theme => ({
     root: {
-     width:500
+      width:'100%',
+      maxWidth:500
     },
   });
 function FeedbackHistory(props){
@@ -18,7 +19,8 @@ function FeedbackHistory(props){
    if(data){
    items= data.map(x=>{
      console.log(x)
-      return({title:`Resume Submission (${x.submissionContent.process})`,body:'Under Review',timestamp:x.createdAt,key:x.id})
+     // (${x.submissionContent.process})
+      return({title:`Resume Submission`,body:'Under Review',timestamp:x.createdAt,key:x.id})
    })
    }
    console.log('feed1',items)
