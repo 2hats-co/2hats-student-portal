@@ -15,16 +15,19 @@ import ProfileDetails from "../components/SignUp/ProfileDetails";
 import ResumeLoader from "../components/InputFields/ResumeLoader";
 //Redux
 import { compose } from 'redux';
-import { withHandlers } from 'recompose'
+import { withHandlers,lifecycle } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 //routing
 import {withRouter} from 'react-router-dom'
-import { COLLECTIONS } from "../constants/firestore";
+import { COLLECTIONS,LISTENER} from "../constants/firestore";
 
 import * as _ from "lodash";
 import * as routes from '../constants/routes';
 import StepController from "../components/SignUp/StepController";
+import LoadingMessage from "../components/LoadingMessage";
+import withAuthorisation from '../utilities/Session/withAuthorisation'
+
 const styles = theme => ({
   root: {
     height: 800
@@ -89,7 +92,7 @@ class ResumeBuilderContainer extends Component {
     //window.Intercom.hideMessenger();
     
     if(this.props.profile){
-      _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
+      _.forOwn(this.props.profile[0],(value,key)=>{
         this.handleChange(key,value)
        })
     }
@@ -107,7 +110,7 @@ class ResumeBuilderContainer extends Component {
   
   componentDidUpdate(prevProps, prevState) {
     if(prevProps.profile !== this.props.profile){
-     _.forOwn(Object.values(this.props.profile)[0],(value,key)=>{
+     _.forOwn(this.props.profile[0],(value,key)=>{
       this.handleChange(key,value)
      })
     }
@@ -230,9 +233,10 @@ class ResumeBuilderContainer extends Component {
   render() {
     const { classes,theme } = this.props;
     const { activeStep ,profile} = this.state;
+    if(profile.createdAt){
+      console.log('test',profile)
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
-  
-    return (
+      return (
         <LogoOnCard>
           <div className={theme.responsive.isMobile?classes.mobileContainer:classes.webContainer}>
                   <StepController 
@@ -246,8 +250,13 @@ class ResumeBuilderContainer extends Component {
                   </StepController>
           </div>
         </LogoOnCard>
-      
     );
+    }else{return(
+      <LogoOnCard>
+        <LoadingMessage message={'Minjie is preparing the copy for this form'}/>
+            </LogoOnCard>
+    )
+    }
   }
 }
 ResumeBuilderContainer.propTypes = {
@@ -256,11 +265,13 @@ ResumeBuilderContainer.propTypes = {
     firestore: PropTypes.object
   })
 };
+
 const enhance = compose(
   // add redux store (from react context) as a prop
   withFirestore,
   // Handler functions as props
-  withHandlers({
+  withHandlers({loadData: props => listenerSettings =>
+    props.firestore.setListener(listenerSettings),
     onProfileUpdate: props => (data) =>
         props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
         ...data,
@@ -274,12 +285,44 @@ const enhance = compose(
       }
     ),
   }),
-  // Connect todos from redux state to props.profile
-  connect(({ firestore }) => ({ 
-     profile: firestore.data.profiles, // document data by id
+  // Run functionality on component lifecycle
+  lifecycle({
+    // Load data when component mounts
+    componentWillMount() {
+      if(this.props.uid){
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      this.props.loadData(profileListenerSettings);
+      const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
+      this.props.loadData(usersListenerSettings);
+      }
+    },
+    componentDidUpdate(prevProps,prevState){
+      if(prevProps.uid !== this.props.uid){
+        const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+        this.props.loadData(profileListenerSettings);
+        const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
+        this.props.loadData(usersListenerSettings);
+      }
+    },
+    componentWillUnmount() {
+      const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+      this.props.firestore.unsetListener(profileListenerSettings);
+      const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
+      this.props.firestore.unsetListener(usersListenerSettings);
+    }
+  }),
+  // Connect todos from redux state to props.todos
+  connect(({ firestore }) => ({
+     profile: firestore.ordered.profiles, // document data by id
+     user: firestore.ordered.users, // document data by id
   }))
 )
-
+const authCondition = (authUser) => !!authUser;
 export default enhance(
-    withRouter(withStyles(styles,{ withTheme: true })(ResumeBuilderContainer))
-)
+  withRouter(
+  compose(
+    withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(ResumeBuilderContainer))
+)))
+
+
+
