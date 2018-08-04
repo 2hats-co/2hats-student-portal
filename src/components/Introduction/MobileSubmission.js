@@ -55,7 +55,7 @@ return(
                     </Grid>
             <Grid item style={{width:'100%'}}>
                     <Button className={classes.button} onClick={uploadHandler} variant='flat' color="primary">
-       I Have a Resume Myself
+                    I Have a Resume
       </Button>  
       </Grid>
             <Grid style={{width:'100%'}} item>    

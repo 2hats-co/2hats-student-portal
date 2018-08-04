@@ -58,7 +58,7 @@ class MobileIntro extends React.Component {
       
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-          index={this.state.activeStep}
+          index={activeStep}
           onChangeIndex={this.handleStepChange}
           enableMouseEvents
         >
@@ -81,8 +81,6 @@ class MobileIntro extends React.Component {
                      variant='flat' color="primary">
             Let's Start
           </Button>:<StepsIndecator index={index}/>}
-    
-                   
             </Grid>
         </Card>
           ))}
