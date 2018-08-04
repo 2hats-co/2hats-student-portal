@@ -16,12 +16,14 @@ const styles = theme => ({
     content: {
     margin:'auto',
     padding:20,
+    paddingBottom:'24px !important',
     paddingTop:0,
+    width:'80% !important',
      maxWidth:330,
      maxHeight:285,
     },
     button:{
-        width:150
+        width:180
     }
   });
 class JobBoardContainer extends React.Component {
@@ -33,7 +35,7 @@ class JobBoardContainer extends React.Component {
   render() {
       const {classes} = this.props
     return (
- 
+      <div>
         <Dialog
           open={true}
           onClose={this.handleClose}
@@ -54,7 +56,7 @@ In the meantime, you can check our dashboard for resume feedback and any upcomin
             </Button>
           </DialogActions>
         </Dialog>
-      
+        </div>
     );
   }
 }
