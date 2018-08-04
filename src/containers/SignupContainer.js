@@ -8,7 +8,7 @@ import LogoOnCard from "../components/LogoOnCard";
 import SectionWrapper from '../components/SectionWrapper'
 import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
 import CareerInterests from "../components/InputFields/CareerInterests";
-import EducationContainer from "../components/EduExp/EducationContainer";
+import EduExp from "../components/EduExp";
 import OtherInfo from '../components/SignUp/OtherInfo';
 import BioAndSkills from '../components/SignUp/BioAndSkills';
 import ProfileDetails from "../components/SignUp/ProfileDetails";
@@ -136,13 +136,13 @@ class ResumeBuilderContainer extends Component {
          changeHandler={this.handleChange}/></SectionWrapper>
       case ALL_STEPS.education: return <SectionWrapper
         width={750} height={420}> 
-        <EducationContainer industry={industry}
+        <EduExp industry={industry}
           name='education' changeHandler={this.handleChange} 
           data = {this.state.profile.education}
           width={600}/>
         </SectionWrapper>;
       case ALL_STEPS.experience: return  <SectionWrapper width={750} height={420} >  
-      <EducationContainer industry={industry}
+      <EduExp industry={industry}
       name='experience' changeHandler={this.handleChange} 
       data = {this.state.profile.experience}      
       width={600}/>        

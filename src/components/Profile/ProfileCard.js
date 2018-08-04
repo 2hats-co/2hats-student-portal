@@ -14,6 +14,7 @@ import Grid from '@material-ui/core/Grid';
 import {getInterestByKey} from '../../constants/resumeBuilderPrompts'
 import {PROCESS_TYPES} from '../../constants/signUpProcess'
 
+import DownloadIcon from '@material-ui/icons/ArrowDownward'
 import Section from './Section'
 const styles = {
     root:{
@@ -30,6 +31,7 @@ const styles = {
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
+    padding:'0 20px',
     transform: 'scale(0.8)',
   },
   title: {
@@ -56,6 +58,7 @@ const styles = {
     margin:'auto',
     }
 };
+
 function ProfileCard(props) {
   const {disabled,classes,name,bio,resumeFile,interestsList,skillsList,process} = props;
     let careerInterests = (<div/>)
@@ -77,8 +80,15 @@ function ProfileCard(props) {
       let resume = (<div/>)
       if(resumeFile){
         resume= <div>
-          {resumeFile.name&& <Chip key={resumeFile.fullPath}
-          label={resumeFile.name}/>}
+          {resumeFile.name&& 
+          <Chip
+          key={resumeFile.fullPath}
+          label={resumeFile.name}
+          onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
+          onDelete={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
+          className={classes.chip}
+          deleteIcon={<DownloadIcon />}
+        />}
           </div>
       }
     
@@ -99,16 +109,16 @@ function ProfileCard(props) {
          </Typography>
          </Grid>
          </Grid>
-         {process===PROCESS_TYPES.build&& <Section name='bio' label='Personal Bio'>
+         {process===PROCESS_TYPES.build&& <Section disabled={disabled} name='bio' label='Personal Bio'>
          <Typography className={classes.bio} variant='body1'> {bio}</Typography>
          </Section>}
           {process===PROCESS_TYPES.upload&& <Section name='resumeFile' label='Resume'>
          {resume}
          </Section>}
-         <Section name='careerInterests' label='Career Interests'>
+         <Section disabled={disabled} name='careerInterests' label='Career Interests'>
          {careerInterests}
          </Section>
-        <Section name='skills' label='Skills'>
+        <Section disabled={disabled} name='skills' label='Skills'>
          {skills}
          </Section>
        </CardContent>

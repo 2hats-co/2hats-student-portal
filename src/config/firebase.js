@@ -1,8 +1,9 @@
 const PROJECT_NAME = 'staging2hats'
 const dev2hatsKey = 'AIzaSyAQ7SF4GnCvUGPUehqR6l1uGYkRRmNqZV0'
 const staging2hatsKey = "AIzaSyC5X6WfsorYvEG_wZacfhg7Y6QP4IgJ9DI"
+const key = staging2hatsKey
 export const developmentConfig = {
-    apiKey: staging2hatsKey,
+    apiKey: key,
     authDomain: `${PROJECT_NAME}.firebaseapp.com`,
     databaseURL: `https://${PROJECT_NAME}.firebaseio.com`,
     projectId: PROJECT_NAME,
@@ -20,7 +21,7 @@ export const developmentConfig = {
 //   };
 
 export const productionConfig = {
-    apiKey: staging2hatsKey,
+    apiKey: key,
     authDomain: `${PROJECT_NAME}.firebaseapp.com`,
     databaseURL: `https://${PROJECT_NAME}.firebaseio.com`,
     projectId: PROJECT_NAME,

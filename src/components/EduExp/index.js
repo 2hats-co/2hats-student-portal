@@ -107,12 +107,13 @@ class EducationContainer extends React.Component {
   render() {
     let items;
     const {dialog} = this.state
-    const { name,data} = this.props;
+    const { name,data,disabled} = this.props;
     if(data){
       const orderedData = _.orderBy(data, 'endDateValue','desc')
      items=orderedData.map(item=>{
       return (
                 <EduExpCard
+                  disabled={disabled}
                   key={item.key}
                   title={name === EDU ? (item.major?(item.degree+' - '+item.major):item.degree) : item.title}
                   label={name === EDU ? item.university : (item.organisation+' / '+item.type) }
@@ -133,6 +134,7 @@ class EducationContainer extends React.Component {
       <div>
         <Grid style={{width:'100%',maxWidth:this.props.width}} container direction="column" alignItems="center">
           <HeaderBar
+            disabled={disabled}
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
           />

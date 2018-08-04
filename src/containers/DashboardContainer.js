@@ -26,10 +26,11 @@ class DashboardContainer extends Component{
         }
     }
     render(){
-        const {classes,upcomingEvents,profile} = this.props
+        const {classes,upcomingEvents,submissions, profile} = this.props
         return(
             <Grid container direction='column' className={classes.root}>
-            {this.renderApplicationProcess(profile)}      
+            {this.renderApplicationProcess(profile)}  
+            <FeedbackHistory data={submissions}/>    
            <UpcomingEvents data={upcomingEvents}/>
            </Grid>
         )

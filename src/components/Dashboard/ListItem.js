@@ -28,8 +28,18 @@ const styles = theme => ({
         'a:active':{color:'#000'}
     }
   });
+  function getTimeStampData(timestamp){
+    const time = new Date(timestamp.seconds*1000)
+    const date = time.getDate()
+    const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][time.getMonth()]
+    const hour = time.getHours()
+    const minutes = time.getMinutes()
+   return {date,month,hour,minutes}
+  }
 function ListItem(props){
-    const {classes,actionIcon,month,date,title,body,link} = props
+    const {classes,actionIcon,timestamp,title,body,link} = props
+    const date = getTimeStampData(timestamp).date
+    const month = getTimeStampData(timestamp).month
     return(
     <Grid container direction='row' className={classes.root} alignItems='center'>
     <Grid container direction='column'className={classes.date} alignItems='center' justify='center'>

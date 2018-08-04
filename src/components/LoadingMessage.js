@@ -12,7 +12,7 @@ const styles = theme => ({
   });
 function LoadingMessage(props){
 
-    const {classes} = props 
+    const {classes,message} = props 
 
     return(
         <Grid container 
@@ -21,7 +21,7 @@ function LoadingMessage(props){
         alignItems='center'
         >
         <Typography variant='headline'>
-        Your Future Starts Soon…
+       {message?message:'Your Future Starts Soon…'} 
         </Typography>
         <CircularProgress color="primary"  size={40} />
         </Grid>

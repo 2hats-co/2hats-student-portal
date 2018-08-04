@@ -6,6 +6,7 @@ import { Theme } from './Theme';
 import withAuthentication from './utilities/Session/withAuthentication';
 import AuthenticationContainer from './containers/AuthenticationContainer'
 import SignupContainer from './containers/SignupContainer'
+import SubmissionContainer from './containers/SubmissionContainer'
 import IntroductionContainer from './containers/IntroductionContainer';
 import EmailVerificationContainer from './containers/EmailVerificationContainer';
 import DashboardContainer from './containers/DashboardContainer';
@@ -23,15 +24,6 @@ import {ALL_STEPS} from './constants/signUpProcess'
 import Landing from './components/Landing';
 
 
-import ReactGA from 'react-ga';
-
-const DEFAULT_CONFIG = {
-  trackingId: '',
-  debug: true,
-  gaOptions: {
-    cookieDomain: 'none'
-  }
-};
 
 class App extends Component {
   constructor(props){
@@ -75,6 +67,7 @@ componentWillUnmount() {
       <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other} />} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer/>} />
       <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} />      
+      <Route exact path={routes.PREVIOUS_SUBMISSION} component={() => <SubmissionContainer/>} />      
       <Route exact path={'/'} component={() => <Landing/>} />      
     </div>
   </Router>

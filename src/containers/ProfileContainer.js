@@ -1,19 +1,16 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {withNavigation} from '../components/withNavigation';
-import {Grid, Button } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
-import EducationContainer from '../components/EduExp/EducationContainer';
+import {Grid} from '@material-ui/core';
+import {withStyles} from '@material-ui/core/styles';
+import EduExp from '../components/EduExp/';
 import ProfileCard from '../components/Profile/ProfileCard';
 import PropTypes from "prop-types";
 //Redux
-import { compose } from 'redux';
-import { withHandlers } from 'recompose'
+import {compose} from 'redux';
+import {withHandlers} from 'recompose'
 import  {withFirestore} from '../utilities/withFirestore';
-import { COLLECTIONS } from "../constants/firestore";
-
-import { PROCESS_TYPES, isComplete} from "../constants/signUpProcess";
-import ConfirmSubmission from '../components/Profile/ConfirmSubmission';
-
+import {COLLECTIONS} from "../constants/firestore";
+import {PROCESS_TYPES} from "../constants/signUpProcess";
 
 const styles = theme => ({
     grid: {
@@ -23,7 +20,6 @@ const styles = theme => ({
     item:{
       width:'98%',
       maxWidth:750,
-  
     }
 });
 class ProfileContainer extends Component{
@@ -31,23 +27,11 @@ class ProfileContainer extends Component{
       super(props);
       this.state = {
         profileEditorDailog:false,
-        submitionDialog:false 
       }
-      this.handleEdit = this.handleEdit.bind(this)
-      this.handleSubmition = this.handleSubmition.bind(this)
     }
-   
-    handleEdit(state){
-      this.setState({profileEditorDailog:state})
-    }
-    handleSubmition(){
-      this.setState({submitionDialog:false})
-      this.props.onSubmit()
-    }  
     render(){
-        const {classes, profile,user,isLoading} = this.props
+        const {classes, profile,user} = this.props
         console.log(this.props)
-
         return(
        <div>
                <Grid
@@ -69,21 +53,19 @@ class ProfileContainer extends Component{
               {profile.process === PROCESS_TYPES.build&&
               <Grid item className={classes.item}> 
 
-                <EducationContainer industry={profile.industry} 
+                <EduExp industry={profile.industry} 
                 name='education' changeHandler={this.props.onUpdate.bind(this)} 
                 data = {profile.education}
                 width={750}/>   
-            
-                <EducationContainer 
+                <EduExp 
                 industry={profile.industry} 
                 name='experience' 
                 data={profile.experience} 
                 width={750} changeHandler={this.props.onUpdate.bind(this)}/>
-                
                 </Grid>
             }
                 </Grid>
-                <ConfirmSubmission isOpen={this.state.submitionDialog}/>
+                
             </div>
         )
   }
@@ -97,23 +79,13 @@ ProfileContainer.propTypes = {
     withFirestore,
     // Handler functions as props
     withHandlers({
-      onNext: props => (profile) =>
-          props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-          ...profile,
-          updatedAt: props.firestore.FieldValue.serverTimestamp()
-        }
-      ),
+     
       onUpdate: props => (name,value) =>
           props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
           [name]:value,
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
-      ),onSubmit: props => () =>
-      props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-      hasSubmit:true,
-      submittedAt: props.firestore.FieldValue.serverTimestamp()
-    }
-  ),
+      )
     }),
   
   )
