@@ -48,8 +48,8 @@ const styles = theme => ({
     height: 500
   },
   button: {
-    marginTop: 25,
-    marginBottom: 25,
+    marginTop: 17,
+    marginBottom: 17,
     width: 120
   },
   resetButton: {
@@ -61,9 +61,7 @@ const styles = theme => ({
     height: 40,
     color: '#fff',
   },
-
   socialIcon: {
-
     marginRight: 17
   },
   or: {
@@ -282,7 +280,6 @@ class AuthenticationContainer extends React.Component {
           })
         }, 3000)
       }
-
     })
   }
   handleLoadingIndicator(isLoading) {
@@ -438,7 +435,7 @@ class AuthenticationContainer extends React.Component {
     </Button>
       </Grid>
     )
-    const signUpButton = (<Button key='signupbutton' variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password !== confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
+    const signUpButton = (<Button key='signupbutton'id='signupbutton' variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password !== confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
       Sign Up
 </Button>)
     const resetPasswordText = (<Grid
@@ -457,16 +454,14 @@ class AuthenticationContainer extends React.Component {
       <Button variant="outlined"
         onClick={this.goToSignIn}
         className={classes.resetButton}
-      >
-        Back
+      > Back
   </Button>
       <Button
         variant="flat"
         disabled={isDisable}
         className={classes.resetButton}
         onClick={() => { this.handleResetPassword(email) }}
-      >
-        reset
+      > reset
   </Button>
     </Grid>)
     let footerLink = (label, link, linkLabel) => (
