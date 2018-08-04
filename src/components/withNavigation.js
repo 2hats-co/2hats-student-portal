@@ -95,6 +95,10 @@ const styles = theme => ({
     marginBottom:-60,
     marginTop:20
   
+    },greeting:{
+      color:'#2c2c2c',
+      width:'98%',
+      textAlign:'right'
     },
     toaster: {
       position: 'absolute !important',
@@ -132,7 +136,6 @@ export const withNavigation = (WrappedComponent) => {
         mobileOpen: false,
         infoDialog:false,
         confirmationDialog:null,
-
       };
       componentWillMount(){
       
@@ -258,7 +261,7 @@ export const withNavigation = (WrappedComponent) => {
 
         </div>
       );
-    
+      console.log('users',user)
       return (
     
         <div className={classes.root} 
@@ -273,8 +276,8 @@ export const withNavigation = (WrappedComponent) => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-            
+            <Typography  className={classes.greeting} variant="button" color="inherit" noWrap>
+            {user&&`hi, ${user[0].firstName}`}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -310,7 +313,6 @@ export const withNavigation = (WrappedComponent) => {
             <div className={classes.toolbar}/>
 
             {(!profile || !user)?<LoadingMessage/>:<div>
-              
                       <WrappedComponent
                         {...this.props}
                         profile={profile[0]}

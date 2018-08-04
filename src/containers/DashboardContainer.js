@@ -14,7 +14,6 @@ const styles = theme => ({
     }
 });
 class DashboardContainer extends Component{
-    
     renderApplicationProcess(profile){ 
         if(profile){
 
@@ -37,7 +36,6 @@ class DashboardContainer extends Component{
     }
 
 }
-
 const enhance = compose(
     // add redux store (from react context) as a prop
     withNavigation,
