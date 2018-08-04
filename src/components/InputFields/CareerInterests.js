@@ -5,6 +5,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -61,12 +62,15 @@ class CareerInterests extends React.Component {
   renderCheckBoxGroup(label,options){
     const { classes } = this.props;
       return(  
+        <Grid item style={{minWidth:200}}>
     <FormControl className={classes.group} key={label} component="fieldset">
     <FormLabel className={classes.groupHeader} component="legend">{label}</FormLabel>
     <FormGroup>
     {options.map(option => this.renderCheckBox(option))}
     </FormGroup>
-  </FormControl>)
+  </FormControl>
+  </Grid>
+  )
   }
   render() {
     const { classes,preSelectedList} = this.props;
@@ -75,7 +79,9 @@ class CareerInterests extends React.Component {
          <Typography variant="title" color="primary">
          Career Interests - {3-preSelectedList.length} remaining
         </Typography>  
+            <Grid container direction='row' justify='space-between'>
             {CAREER_INTERESTS.map(list => this.renderCheckBoxGroup(list.label,list.items))}    
+            </Grid>
      </div>
     );
   }
