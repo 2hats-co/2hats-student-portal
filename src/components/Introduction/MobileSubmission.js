@@ -16,10 +16,10 @@ const styles = theme => ({
     },
     img:{maxHeight:300},
    button:{
+        maxHeight:35,
         marginTop: 15,
-        width: '90%',
-        marginLeft: 10,
-        marginRight: 10
+        width: '100%',
+       
       },
       body:{
         textAlign:'center',
@@ -34,25 +34,36 @@ function MobileSubmission(props){
     const {headLine,uploadHandler,buildHandler,classes} = props
 return( 
     <Card className={classes.root}>
-        <Grid container direction='column' alignItems='center' justify='space-around'>
+        <Grid container direction='column' alignItems='center' spacing={16} justify='space-between'>
+            <Grid item>
                 <Typography variant='headline'>
                     {headLine}
                 </Typography>
+                </Grid>
+            <Grid item>
                 <img className={classes.img} src={UploadMan} alt='uploadMan' />
-                <Typography className={classes.body} variant='button'>
-                Do you have a resume?</Typography>
+                </Grid>
+            <Grid item>
                 <Typography className={classes.body} variant='body1'>
-                If you do, you will be asked to upload your resume near the end of the sign-up process. You can save your progress and upload your resume later, too!</Typography>
+                If you do, you will be asked to upload your resume near the end of the sign-up process. You can save your progress and upload your resume later, too!
+                </Typography>
+                </Grid>
+            <Grid item>
                 <Typography className={classes.body} variant='body1'>
                 Otherwise, we can help you build a resume using our quick and easy 5-step process!
                     </Typography>
+                    </Grid>
+            <Grid item style={{width:'100%'}}>
                     <Button className={classes.button} onClick={uploadHandler} variant='flat' color="primary">
        I Have a Resume Myself
-      </Button>      
+      </Button>  
+      </Grid>
+            <Grid style={{width:'100%'}} item>    
                 <Button className={classes.button} onClick={buildHandler} variant='outlined' color="primary">
         Help Me Build a Resume
       </Button>
-      
+      </Grid>
+            
         </Grid>
     </Card>
 )
