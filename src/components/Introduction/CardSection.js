@@ -44,7 +44,7 @@ function CardSection(props) {
           {title}
         </Typography>
         <img src={image} alt={title} />
-        <Typography style={{ width: 245 }} variant="body1">
+        <Typography style={{ width: 245,textAlign:'center' }} variant="body1">
           {description}
         </Typography>
         {button && <Button className={classes.button} onClick={button.onClick} variant='flat' color="primary">
