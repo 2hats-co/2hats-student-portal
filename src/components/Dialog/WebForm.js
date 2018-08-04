@@ -19,8 +19,7 @@ const styles = theme => ({
     },
     grid:{
       paddingLeft:40,
-      paddingRight:40,
-    //  width:330,
+      paddingRight:40
     }
   });
 
@@ -39,7 +38,7 @@ function WebForm(props){
           <Grid
           container
           className={classes.grid}
-         // style={{width:width?width:'80%'}}
+          style={{maxWidth:width}}
           direction='column'
           justify='flex-start'
           > 

@@ -143,12 +143,12 @@ class IntroductionContainer extends React.Component {
     }else{
   
       return (
-        <LogoOnCard 
-        width={view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
+        <LogoOnCard width={view === INTRODUCTION_CONTAINER.process? process.width:submission.width}
         >
         <SectionWrapper 
-          height = {550}
-         > {view === INTRODUCTION_CONTAINER.process? processView:submissionView}</SectionWrapper>
+          height = {566}
+         > {view === INTRODUCTION_CONTAINER.process? processView:submissionView}
+         </SectionWrapper>
          </LogoOnCard>
         );
     }   
