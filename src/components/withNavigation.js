@@ -148,8 +148,7 @@ export const withNavigation = (WrappedComponent) => {
        componentDidUpdate(prevProps,prevState){
          if(prevProps.profile !== this.props.profile){
           
-            if(!this.props.profile[0].process){
-
+            if(!this.props.profile[0]){
             this.goTo(routes.INTRODUCTION)
             }
          }
@@ -277,7 +276,7 @@ export const withNavigation = (WrappedComponent) => {
               <MenuIcon />
             </IconButton>
             <Typography  className={classes.greeting} variant="button" color="inherit" noWrap>
-            {user&&`hi, ${user[0].firstName}`}
+            {user&&user[0]&&`hi, ${user[0].firstName}`}
             </Typography>
           </Toolbar>
         </AppBar>
@@ -323,7 +322,7 @@ export const withNavigation = (WrappedComponent) => {
            }
            
           </main>
-          {(profile && user)&&
+          {(profile && user)&&(profile[0] && user[0])&&
           <div>
           <AccountInfoDailog
           user={user[0]}

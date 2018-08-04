@@ -5,12 +5,13 @@ import {PRIMARY_COLOR} from '../../Theme'
 // 1. We define the styles.
 const styles = theme => ({
     root:{
-        fontSize:'12px',
+    paddingTop:5,
+        fontSize:'11px',
     color: '#000',  
     textAlign:'center'  
     },
   link: {
-    fontSize:'12px',
+    fontSize:'11px',
     color: PRIMARY_COLOR,
     textDecoration: 'inherit',
     '&:hover': {
