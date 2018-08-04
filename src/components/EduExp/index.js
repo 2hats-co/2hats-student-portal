@@ -16,10 +16,7 @@ class EducationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      dialog: {
-        isOpen: false,
-        fields: getFormFields(this.props.name, this.props.industry)
-      }
+      dialog: null
     };
     this.handleNewItem = this.handleNewItem.bind(this);
     this.handleEditDialog = this.handleEditDialog.bind(this);
@@ -30,10 +27,7 @@ class EducationContainer extends React.Component {
   }
   componentDidMount() {
     this.setState({
-      dialog: {
-        isOpen: false,
-        fields: getFormFields(this.props.name, this.props.industry)
-      }
+      dialog: null
     });
   }
   handleDeleteDialog(key,item){
@@ -43,10 +37,7 @@ class EducationContainer extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.name !== this.props.name) {
       this.setState({
-        dialog: {
-          isOpen: false,
-          fields: getFormFields(this.props.name, this.props.industry)
-        }
+        dialog: null
       }); 
      
     }
@@ -58,13 +49,12 @@ class EducationContainer extends React.Component {
       Object.assign(field, { value: item[field.name] })
     );
     this.setState({
-      dialog: { isOpen: true, key: key, fields: prefilledForm }
+      dialog: {key: key, fields: prefilledForm }
     });
   }
   handleNewItem() {
     this.setState({
       dialog: {
-        isOpen: true,
         fields: getFormFields(this.props.name, this.props.industry)
       }
     });
@@ -88,10 +78,7 @@ class EducationContainer extends React.Component {
       }
     }
     this.setState({
-      dialog: {
-        isOpen: false,
-        fields: getFormFields(this.props.name, this.props.industry)
-      }
+      dialog: null
     });
   }
   handleDelete(key) {
@@ -145,14 +132,14 @@ class EducationContainer extends React.Component {
           
           </Card>}
         </Grid>
-        <DialogForm 
+        {dialog&&<DialogForm 
           activity={dialog.key?'Edit':'Add'}
           title={name === EDU ? "Tertiary Education" : "Practical Experience"}
           key={this.state.dialog.key}
           fields={this.state.dialog.fields}
           handler={this.handleCloseDialog}
-          isOpen={this.state.dialog.isOpen}
-        />
+          isOpen={true}
+        />}
         {this.state.deleteDialog &&<DeleteDialog 
         name={name} 
         heading={this.state.deleteDialog.heading} 
