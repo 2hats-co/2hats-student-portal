@@ -34,7 +34,7 @@ function MobileSubmission(props){
     const {headLine,uploadHandler,buildHandler,classes} = props
 return( 
     <Card className={classes.root}>
-        <Grid container direction='column' alignItems='center' spacing={16} justify='space-between'>
+        <Grid container direction='column' alignItems='center' spacing={8} justify='space-between'>
             <Grid item>
                 <Typography variant='headline'>
                     {headLine}
