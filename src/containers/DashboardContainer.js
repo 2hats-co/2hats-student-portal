@@ -26,15 +26,15 @@ class DashboardContainer extends Component{
     }
     render(){
         const {classes,upcomingEvents,submissions, profile} = this.props
+     //   console.log('submissions',submissions[0],typeof submissions,typeof submissions === 'undefined')
         return(
             <Grid container direction='column' className={classes.root}>
             {this.renderApplicationProcess(profile)}  
-            <FeedbackHistory data={submissions}/>    
+        {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }  
            <UpcomingEvents data={upcomingEvents}/>
            </Grid>
         )
     }
-
 }
 const enhance = compose(
     // add redux store (from react context) as a prop
