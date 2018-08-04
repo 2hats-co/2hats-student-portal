@@ -13,13 +13,13 @@ import { Typography } from '../../node_modules/@material-ui/core';
 
 class ConfirmationDialog extends Component{
       render() {
-        const { fullScreen,dialog,closeHandler,checkHandler} = this.props;
+        const { dialog,closeHandler,checkHandler} = this.props;
         console.log(dialog)
         const {title,body,confirm,checkbox} = dialog
         return (
           <div>
             <Dialog
-             // fullScreen={fullScreen}
+          
               open={true}
               onClose={closeHandler}
               aria-labelledby="responsive-dialog-title">
