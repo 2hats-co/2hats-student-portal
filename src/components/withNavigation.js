@@ -381,6 +381,8 @@ export const withNavigation = (WrappedComponent) => {
           this.props.loadData(usersListenerSettings);
           const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
           this.props.loadData(upcomingEventsListenerSettings);
+          const submissionsListenerSettings = {collection:COLLECTIONS.submissions, where: ['UID', '==',this.props.uid]}
+            this.props.loadData(submissionsListenerSettings);
           }
         },
         componentDidUpdate(prevProps,prevState){
@@ -392,6 +394,8 @@ export const withNavigation = (WrappedComponent) => {
             this.props.loadData(usersListenerSettings);
             const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
             this.props.loadData(upcomingEventsListenerSettings);
+            const submissionsListenerSettings = {collection:COLLECTIONS.submissions, where: ['UID', '==',this.props.uid]}
+            this.props.loadData(submissionsListenerSettings);
           }
         },
         componentWillUnmount() {
@@ -408,6 +412,7 @@ export const withNavigation = (WrappedComponent) => {
          profile: firestore.ordered.profiles, // document data by id
          user: firestore.ordered.users, // document data by id
          upcomingEvents: firestore.data.upcomingEvents, // document data by i
+         submissions:firestore.ordered.submissions
       }), mapDispatchToProps)
       
     )
@@ -417,7 +422,6 @@ export const withNavigation = (WrappedComponent) => {
       compose(
         withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(WithNavigation))
       )))
-    
 }
 
 
