@@ -31,22 +31,31 @@ const styles = theme => ({
         },
     },
     grid:{
-        padding:20,
+      padding:5,
+      paddingTop:20,
+      paddingBottom:20,
       },
       actionGrid:{
         minWidth:375,
         maxWidth:400
       },
       link:{
+      //  marginLeft:20,
+  
         fontSize:'15px',
         fontWeight:'bold',
-        textAlign:'center',
+        textAlign:'left',
         color: theme.palette.primary.main,
         textDecoration: 'underline',
         '&:hover': {
           cursor: 'pointer'
         },
 
+      },
+      button:{
+       maxHeight:35,
+       minWidth:160,
+    
       }
   });
 class StatusCard extends React.Component{
@@ -132,7 +141,7 @@ class StatusCard extends React.Component{
                 {buttons&&
                     buttons.map(x=>{return(
                         <Grid item xs={6} sm={4}>
-                        <Button onClick={x.action} style={{maxHeight:35,minWidth:180}} variant='flat'>
+                        <Button onClick={x.action} className={classes.button} variant='flat'>
                         {x.label}
                         </Button>
                         </Grid>
@@ -140,10 +149,10 @@ class StatusCard extends React.Component{
                 })
                 }
                 {
-                 (link && !theme.responsive.isMobile)&&  <Grid item xs={1} sm={1}> <Typography variant='Button' style={{textAlign:'left'}}>OR</Typography> </Grid>
+                 (link && !theme.responsive.isMobile)&&<Grid item xs={1} sm={1}> <Typography variant='Button' style={{textAlign:'left'}}>OR</Typography> </Grid>
                 }
                  {link&&
-                  <Grid item xs={6} sm={6}>
+                  <Grid item xs={6} sm={6} style={{paddingLeft:30}}>
                     <a className={classes.link} onClick={()=>{link.action()}}>
                     {link.label}
                     </a> 
