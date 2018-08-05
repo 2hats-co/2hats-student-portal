@@ -46,8 +46,10 @@ const styles = theme => ({
         background: '#FFFFFF',
         height: 25,
         width: 50,
-        borderColor:'#FFFFFF'
-
+        borderColor:'#FFFFFF',
+        borderRadius: 12.5,
+        outline:'none',
+        border: 'none'
     },
     selectedMonthButton:{
         background: '#F15A29',
@@ -56,6 +58,8 @@ const styles = theme => ({
         borderRadius: 12.5,
         fontColor:'#FFFFFF',
         borderColor:'#FFFFFF',
+        outline:'none',
+        border: 'none',
         '&:focus':{
             outline:'none',
             border: 'none'
