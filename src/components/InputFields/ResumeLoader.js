@@ -26,6 +26,7 @@ const styles = theme => ({
     },
     grid:{
         height:400,
+        width:'100%',        
     },
     wrapper: {
         margin: theme.spacing.unit,
@@ -107,7 +108,7 @@ class ResumeLoader extends React.Component {
             [classes.buttonSuccess]: true,
           });
         return (
-            <div>
+            <div style={!theme.responsive.isMobile?{minWidth:500}:{}}>
             <InputWrapper
       title={'Resume Upload'}>
             <Dropzone className={classes.root}
