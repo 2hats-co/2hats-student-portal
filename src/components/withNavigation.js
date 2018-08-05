@@ -4,18 +4,18 @@ import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
-
 import MenuIcon from '@material-ui/icons/Menu';
+import PersonIcon from '@material-ui/icons/Person'
+import DashboardIcon from '@material-ui/icons/Dashboard'
 
 import NavigationButton from './NavigationButton'
 import { compose } from 'recompose';
 import withAuthorisation from '../utilities/Session/withAuthorisation'
 
-import PersonIcon from '@material-ui/icons/Person'
-import DashboardIcon from '@material-ui/icons/Dashboard'
 import JobIcon from '@material-ui/icons/Work'
 import LiveHelp from '@material-ui/icons/LiveHelp'
 
@@ -37,11 +37,11 @@ import AccountInfoDailog from './AccountInfoDialog'
 
 import LoadingMessage from './LoadingMessage'
 import StatusCard from './StatusCard'
-import ConfirmationDialog from './ConfirmationDialog'
+
 
 import {actionTypes} from 'redux-firestore'
+import { runInThisContext } from 'vm';
 
-import { PROCESS_TYPES } from '../constants/signUpProcess';
 
 const drawerWidth = 240;
 
@@ -100,24 +100,7 @@ const styles = theme => ({
       width:'98%',
       textAlign:'right'
     },
-    toaster: {
-      position: 'absolute !important',
-      bottom:0,
-      right:0,
-      zIndex: 4000,
-     
-     maxHeight:200,
-  
-     [theme.breakpoints.up('xs')]: {
-        width: '100%',
-        bottom:0,
-   
-      },
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth+2}px)`,
-      bottom:0,
-    },
-    }
+
 });
 
 
@@ -131,11 +114,12 @@ export const withNavigation = (WrappedComponent) => {
         super(props);
         this.goTo = this.goTo.bind(this)
         this.handleInfoDialog = this.handleInfoDialog.bind(this)
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
       }
       state = {
         mobileOpen: false,
         infoDialog:false,
-        confirmationDialog:null,
+        height:window.innerHeight
       };
       componentWillMount(){
       
@@ -144,10 +128,18 @@ export const withNavigation = (WrappedComponent) => {
         })
        // window.Intercom('show')
         window.Intercom('hide')
-       }
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
+      }
+      componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+      }
+      updateWindowDimensions() {
+       this.setState({height: window.innerHeight});
+      
+     }
        componentDidUpdate(prevProps,prevState){
          if(prevProps.profile !== this.props.profile){
-          
             if(!this.props.profile[0]){
             this.goTo(routes.INTRODUCTION)
             }
@@ -163,67 +155,7 @@ export const withNavigation = (WrappedComponent) => {
       handleInfoDialog(isOpen){
         this.setState({infoDialog:isOpen})
     }
-    getConfirmationDialog(dialog){
-      switch (dialog) {
-        case 'submit':return {title:'Confirm Profile Submission',
-        body:[`Are you sure you want to submit?`,`\n`,`Once you click 'submit' your resume will be sent to the 2hats resume specialists for review. You will be unable to make further changes to your submission until after your resume has been reviewed and given feedback.`],
-        checkbox:{isChecked:false,label:'I confirm that I want to submit my profile.'},
-        confirm:{label:'Submit',action:()=>{this.props.onSubmit()}}}
-        case 'build':return {title:'Use Our Resume Builder Instead',
-        body:['Are you sure you want to build a new resume instead?','','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
-        confirm:{label:'Build',action:()=>{
-          this.goTo(routes.BUILD_RESUME)
-        }}}
-       case 'upload':return {title:'Upload Existing Resume Instead',
-        body:[`Are you sure you want to switch to uploading your resume instead?`,`\n`,
-        `All your previous progress will be saved, and you can always go back to using our Resume Builder if you wish.`],
-        confirm:{label:'Upload',action:()=>{
-          this.goTo(routes.UPLOAD_RESUME)
-        }}}
-        default:
-          break;
-      }
-    }
-    getStatusPrompt(profile){
-      const uploadLink = {label:'Upload Existing Resume Instead',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('upload')})}}
-      const uploadButton = {label:'Upload Resume',action:()=>{this.goTo(routes.UPLOAD_RESUME)}}
-      const completeButton = {label:'Complete Profile',action:()=>{this.goTo(routes.UPLOAD_RESUME)}}
-      const buildLink = {label:'Use Our Resume Builder Instead',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('build')})}}
-      const buildButton = {label:'Continue Building',action:()=>{this.goTo(routes.BUILD_RESUME)}}
-      const submitButton = {label:'Submit Profile',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('submit')})}}
-      const inCompleteBuildMessage = 'It looks like you haven’t finished building your resume yet.'
-      const inCompleteUploadMessage = 'It looks like you haven’t filled out all the necessary information yet.'
-      const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
-      const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
-      if(profile.isComplete){
-        if(profile.process === PROCESS_TYPES.build){
-          return({message:completeMessage,
-                  buttons:[submitButton],
-                  link:uploadLink})
-        }else if(profile.process === PROCESS_TYPES.upload){
-          return({message:completeMessage,
-                  buttons:[submitButton],
-                  link:buildLink})
-        }
-      }else{
-        if(profile.process === PROCESS_TYPES.build){
-          return({message:inCompleteBuildMessage,
-                  buttons:[buildButton],
-                  link:uploadLink})
-        }else if(profile.process === PROCESS_TYPES.upload){
-            if(profile.resumeFile && profile.resumeFile.fullPath !== ''){
-              return({message:inCompleteUploadMessage,
-                      buttons:[completeButton],
-                      link:buildLink})
-            }else{
-              return({message:noUploadMessage,
-                      buttons:[uploadButton],
-                      link:buildLink})
-            }
-        }
-
-      }
-    }
+    
     
       render(){
       const {classes,theme,history,children,profile,user,upcomingEvents} = this.props    
@@ -260,10 +192,10 @@ export const withNavigation = (WrappedComponent) => {
 
         </div>
       );
-      console.log('users',user)
+
       return (
-    
         <div className={classes.root} 
+        style={{height:this.state.height}}
         >
         <AppBar className={classes.appBar}>
           <Toolbar>
@@ -316,11 +248,9 @@ export const withNavigation = (WrappedComponent) => {
                         {...this.props}
                         profile={profile[0]}
                         user={user[0]}
-                       // upcomingEvents={upcomingEvents}
                         />
            </div>
            }
-           
           </main>
           {(profile && user)&&(profile[0] && user[0])&&
           <div>
@@ -328,22 +258,13 @@ export const withNavigation = (WrappedComponent) => {
           user={user[0]}
            isOpen={this.state.infoDialog} 
            closeHandler={this.handleInfoDialog}/>
-           <div className={classes.toaster}>
-           {!profile[0].hasSubmit&& <StatusCard prompt = {this.getStatusPrompt(profile[0])}/>}
-           </div>
+           {!profile[0].hasSubmit&& 
+           <StatusCard
+           onSubmit={this.props.onSubmit.bind(this)} 
+           goTo={this.goTo} 
+           profile={profile[0]}/>}
            </div>
           }
-          {
-            this.state.confirmationDialog&& 
-                              <ConfirmationDialog dialog={this.state.confirmationDialog} 
-                              closeHandler={()=>{this.setState({confirmationDialog:null})}}
-                              checkHandler={()=>{
-                              let newObj = Object.assign(this.state.confirmationDialog,{checkbox:{isChecked:!this.state.confirmationDialog.checkbox.isChecked,
-                                                          label:this.state.confirmationDialog.checkbox.label}}
-                                )
-                              this.setState({confirmationDialog:newObj})}}/>
-        }
-
         </div>
       );
     }
@@ -375,7 +296,7 @@ export const withNavigation = (WrappedComponent) => {
         // Load data when component mounts
         componentWillMount() {
           if(this.props.uid){
-          console.log('mount',this.props.uid)
+        
           const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
           this.props.loadData(profileListenerSettings);
           const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
@@ -388,7 +309,7 @@ export const withNavigation = (WrappedComponent) => {
         },
         componentDidUpdate(prevProps,prevState){
           if(prevProps.uid !== this.props.uid){
-            console.log('update',this.props.uid)
+         
             const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
             this.props.loadData(profileListenerSettings);
             const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
@@ -408,11 +329,10 @@ export const withNavigation = (WrappedComponent) => {
           // this.props.firestore.unsetListener(upcomingEventsListenerSettings);
         }
       }),
-      // Connect todos from redux state to props.todos
       connect(({ firestore }) => ({
-         profile: firestore.ordered.profiles, // document data by id
-         user: firestore.ordered.users, // document data by id
-         upcomingEvents: firestore.data.upcomingEvents, // document data by i
+         profile: firestore.ordered.profiles,
+         user: firestore.ordered.users, 
+         upcomingEvents: firestore.data.upcomingEvents, 
          submissions:firestore.ordered.submissions
       }), mapDispatchToProps)
       
