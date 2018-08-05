@@ -248,7 +248,6 @@ class ResumeBuilderContainer extends Component {
         <LogoOnCard>
           <div className={theme.responsive.isMobile?classes.mobileContainer:classes.webContainer}>
                   <StepController 
-                  
                   activeStep={activeStep}
                   profile={profile} 
                   updateHandler={this.handleUpdate}

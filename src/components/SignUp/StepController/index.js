@@ -1,22 +1,19 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 
-
 import WebStepper from './WebStepper'
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import {withRouter} from 'react-router-dom'
 import {PROCESS_TYPES,ALL_STEPS,STEP_LABELS,checkComplition} from '../../../constants/signUpProcess'
 
-
 import * as routes from '../../../constants/routes'
 import DotMobileStepper from "./MobileStepper";
-
-
-
 const styles = theme => ({
   root: {
-    width: '100%'
+    width: '100%',
+    marginTop:10,
+    marginLeft:35
   },
   button:{
    marginBottom:20,
