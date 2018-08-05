@@ -7,6 +7,7 @@ import Divider from '@material-ui/core/Divider'
 import * as _ from 'lodash'
 const styles = theme => ({
     root: {
+      marginTop:20,
       width:'100%',
       maxWidth:500
     },
@@ -20,9 +21,7 @@ function UpcomingEvents(props){
     const {classes,data} = props
     const orderedData = _.sortBy(data,['startDate'])
     _.forEach(orderedData,(event,key)=>{
-    
       const timestamp = event.startDate
-    
       const title = event.name
       const body = event.location
       const link = event.url
