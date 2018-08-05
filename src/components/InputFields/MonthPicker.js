@@ -74,6 +74,11 @@ const styles = theme => ({
             border: 'none'
         }
 
+    },inputLabel:{
+        fontSize:18,fontWeight:300,color:'#7c7c7c',marginTop:20
+    },
+    valueLabel:{
+        fontSize:14,fontWeight:400,color:'#000',marginTop:20,marginRight:10,width:'calc(100% - 45px)'
     },
     calendar:{
         paddingLeft:5,
@@ -88,6 +93,10 @@ const styles = theme => ({
     errorText:{
         fontSize:'11px',
         color:'#ff0000'
+    },captionLabel:{
+
+        marginTop:10,
+        marginBottom:-15
     }
   });
 
@@ -123,7 +132,9 @@ const styles = theme => ({
     }
     validRange(month,year){
         console.log(this.props.name,moment().format("M"),month)
-        if(this.props.name.includes('start')&& moment().format("YYYY")<=year && moment().format("M")<month){
+        if(this.props.name.includes('start')&& 
+        (moment().format("YYYY")<year || (moment().format("YYYY")==year && moment().format("M")<month)))
+        {
             this.setState({errorMessage:`Minjie doesn't like that it start later than now`})
             return false
         }else{
@@ -220,12 +231,14 @@ const styles = theme => ({
         const {isOpen,errorMessage} = this.state
         const captionLabel = (isOpen || value !=='')
         return( 
-            <Grid container direction='column'>
-            {captionLabel&& <Typography variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
+            <Grid container  onClick={()=>{this.setState({isOpen:!this.state.isOpen})}} direction='column'>
+            {captionLabel&& <Typography className={classes.captionLabel} variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
             <Grid className={classes.root} container direction='row' alignItems='center' justify='space-between'>
-            {(!captionLabel&&!value)? label:<Grid item/>} 
-                {value&& value}
-                <IconButton style={{height:42,width:42,marginRight:-10}} onClick={()=>{this.setState({isOpen:!this.state.isOpen})}} className={classes.button} component="span">
+            {(!captionLabel&&!value)? <Typography className={classes.inputLabel}>{label}</Typography>:<Grid item/>} 
+                {value&&  <Typography className={classes.valueLabel}>{value}</Typography>}
+                <IconButton style={{height:42,width:42,marginRight:-10}}
+                onClick={()=>{this.setState({isOpen:!this.state.isOpen})}}
+                className={classes.button}>
                     <DownIcon/>
                 </IconButton>
             </Grid>
