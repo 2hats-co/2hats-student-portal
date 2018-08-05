@@ -112,7 +112,7 @@ function ProfileCard(props) {
          {process===PROCESS_TYPES.build&& <Section disabled={disabled} name='bio' label='Personal Bio'>
          <Typography className={classes.bio} variant='body1'> {bio}</Typography>
          </Section>}
-          {process===PROCESS_TYPES.upload&& <Section name='resumeFile' label='Resume'>
+          {process===PROCESS_TYPES.upload&& <Section disabled={disabled} name='resumeFile' label='Resume'>
          {resume}
          </Section>}
          <Section disabled={disabled} name='careerInterests' label='Career Interests'>

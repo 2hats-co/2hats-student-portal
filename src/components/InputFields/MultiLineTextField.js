@@ -78,7 +78,7 @@ class MultiLineTextField extends React.Component {
     const { classes,title,label,hint,placeholder,numberOfLines} = this.props;
     return(
       <div>
-      {label&& <Typography style={{marginLeft:1}}variant='caption'>{label}</Typography>}
+      {label&& <Typography style={{marginLeft:1,marginTop:10}}variant='caption'>{label}</Typography>}
       <InputWrapper
       title={title}
       hint={hint}

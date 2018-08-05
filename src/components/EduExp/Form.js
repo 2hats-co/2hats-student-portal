@@ -114,9 +114,11 @@ class DialogForm extends React.Component {
            toggle={field.toggle}
            fullWidth
          />
-         case INPUTS.dropDown:return  <DropDown label={field.label} 
+         case INPUTS.dropDown:return  <DropDown 
+         hasLabel
          key= {field.name} 
          list={field.list} 
+         label={field.label}
          value={this.state[field.name]&& this.state[field.name].value}
           name={field.name}
           changeHandler={this.handleChange.bind(this)}

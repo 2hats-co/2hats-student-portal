@@ -28,7 +28,7 @@ function InputWrapper(props) {
    className={classes.footer}
        container
        direction='row'
-       alignItems='flex-start'
+       alignItems='flex-end'
        justify='space-between'
       >
        <Grid

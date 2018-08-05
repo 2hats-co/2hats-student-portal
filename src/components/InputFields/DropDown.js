@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import {FormControl,Select,MenuItem,Typography} from '@material-ui/core'
 import InputWrapper from './InputWrapper'
-
+import InputLabel from '@material-ui/core/InputLabel';
 const styles = theme => ({
   root: {
     
@@ -19,16 +19,16 @@ function DropDown(props) {
   const {classes,list,value,hasLabel,changeHandler,name,title,hint,label} = props;
     const InputField = ( 
         <FormControl className = {classes.inputField}>
-          {hasLabel&& <Typography variant='caption'>{label}</Typography>}
+          {hasLabel&&<InputLabel htmlFor={`${name}dropDown`} id={`${name}dropDown`} style={{textTransform:'capitalize'}}>{label}</InputLabel>}
         <Select  
        value={value}
        onChange={(e)=>{
          changeHandler(name,e.target.value)
         }}
         >
-          <MenuItem className={classes.placeHolderItem}
-          value="select option" disabled>
-          </MenuItem>
+          <MenuItem value="">
+              <em></em>
+            </MenuItem>
           {list.map(option=>(
           <MenuItem key={option} value={option}>{option}</MenuItem>)
           )}
