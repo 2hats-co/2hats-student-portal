@@ -1,20 +1,18 @@
 import React from 'react';
-import {UNIVERSITIES} from '../../constants/dialogFormFields'
-import DropDown from './DropDown';
+import AutoComplete from "../InputFields/AutoComplete";
+import {UNIVERSITIES} from '../../constants/universityList'
 function CurrentUniversity(props){
-    const {value,changeHandler,hasLabel} = props
+    const {value,hasLabel,changeHandler} = props
     return(
-
-        
-        <DropDown
+        <AutoComplete
         hasLabel={hasLabel}
-        title={"Current University or Institution"}
-        label={"Current University or Institution"}
+        title={"Current University"}
+        label="Current University"
         name="currentUniversity"
         value={value}
         changeHandler={changeHandler}
-        list={UNIVERSITIES('sydney')}
-        hint={'We cater to current university and recent graduate students who have little professional experience.'}
+        list={UNIVERSITIES}
+       hint={"We accept candidates with both restricted and unrestricted working rights. Your answer will not impact your submission."}
       />
     )
 }

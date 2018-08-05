@@ -14,11 +14,12 @@ function ProfileDetails(props){
       direction="row"
       justify="space-between"
     >
-      <CurrentUniversity value={currentUniversity} changeHandler={changeHandler}/>
-      <Skills 
+  <Skills 
         interestKeys = {careerInterests}
         preSelectedList={skills} 
         changeHandler={changeHandler} />
+      <CurrentUniversity value={currentUniversity} changeHandler={changeHandler}/>
+
     </Grid>
     )
 }

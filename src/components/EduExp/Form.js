@@ -4,13 +4,12 @@ import TextField from '@material-ui/core/TextField';
 
 import DropDown from '../InputFields/DropDown';
 import MonthPicker from '../InputFields/MonthPicker';
-import AutoCompleteField from '../InputFields/AutoCompleteField';
+import AutoComplete from '../InputFields/AutoComplete';
 import MultiLineTextField from '../InputFields/MultiLineTextField';
 
 import PropTypes from 'prop-types';
 import { INPUTS } from '../../constants/enums';
 import * as _ from 'lodash'
-import ChangeAdpter from '../InputFields/ChangeAdapter'
 import Dialog from '../Dialog';
 
 function completed(field){
@@ -24,7 +23,7 @@ function completed(field){
  
 }
 const initialState = {
-  aaa:'',
+  focusedField:{value:'',isRequired:false},
   type:null,
   degree:null,
   major:null,
@@ -70,13 +69,12 @@ class DialogForm extends React.Component {
     this.setState({ open: false });
   };
   handleChange = (name,value) =>{
-  
     let item = {value:value} 
     if(this.state[name]){
       item = {value:value,isRequired:this.state[name].isRequired}
     }
     if(item !== this.state[name]){
-      this.setState({[name]:item})
+      this.setState({[name]:item,isRequired:false})
     }
  
   }
@@ -91,6 +89,7 @@ class DialogForm extends React.Component {
   }
   render() {
     const {fields,activity,title,isOpen,handler} = this.props
+    console.log(fields)
     const form = fields.map((field)=>{
         switch (field.type) {
           case INPUTS.textField:return <TextField
@@ -104,6 +103,7 @@ class DialogForm extends React.Component {
            fullWidth
          />
          case INPUTS.monthPicker:return <MonthPicker
+          focusedField = {this.state.focusedField.value}
           key= {field.name}
           name= {field.name}
            label={field.label}
@@ -124,13 +124,17 @@ class DialogForm extends React.Component {
           changeHandler={this.handleChange.bind(this)}
 
           />
-          case INPUTS.autoComplete:return  <ChangeAdpter   name={field.name} key= {field.name} changeHandler={this.handleChange.bind(this)}>
-           <AutoCompleteField label={field.label} 
+          case INPUTS.autoComplete:return <AutoComplete 
+          hasLabel
+          focusedField = {this.state.focusedField.value}
+          key= {field.name} 
           list={field.list} 
+          label={field.label}
           value={this.state[field.name]&& this.state[field.name].value}
            name={field.name}
+           changeHandler={this.handleChange.bind(this)}
            />
-          </ChangeAdpter> 
+         
         case INPUTS.datePicker:return <TextField
         key= {field.name}
         id={field.name}

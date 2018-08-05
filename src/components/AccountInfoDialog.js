@@ -98,14 +98,15 @@ const styles = theme => ({
                 disabled={!firstName || !lastName} 
                 cancelHandler={()=>{this.handleCancel()}}
                >
+               <div style={{paddingTop:10,height:300,minWidth:300}}>
                <ChangeAdpter changeHandler={this.handleChange}>
                     <Name firstName={firstName} lastName={lastName}/>
                     </ChangeAdpter>
+                   <CurrentUniversity hasLabel value={currentUniversity} changeHandler={this.handleChange}/>
                    <WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange}/>
                    <AvailableDays hasLabel value={availableDays} changeHandler={this.handleChange}/>
-                   <CurrentUniversity hasLabel value={currentUniversity} changeHandler={this.handleChange}/>
                    <PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange}/>
-                   
+                   </div>
                 </Dialog>
             )
         }else{
