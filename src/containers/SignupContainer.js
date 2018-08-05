@@ -82,7 +82,6 @@ class ResumeBuilderContainer extends Component {
     this.handleNext = this.handleNext.bind(this)
     this.handleBack = this.handleBack.bind(this)
     this.handleUpdate = this.handleUpdate.bind(this)
-
   }
   componentWillMount(){
      window.Intercom('update',{
@@ -114,6 +113,15 @@ class ResumeBuilderContainer extends Component {
       this.handleChange(key,value)
      })
     }
+    if(prevProps.user !== this.props.user ){
+      const {profile, user,onProfileUpdate} = this.props
+      if(user[0].currentUniversity && user[0].currentUniversity !== profile[0].currentUniversity){
+        onProfileUpdate({currentUniversity:user[0].currentUniversity})
+      }
+      console.log('profile',this.props.profile[0])
+    }
+    
+
   }
   handleChange(name, value) {
     const newProfile = Object.assign(this.state.profile,{[name]:value})
