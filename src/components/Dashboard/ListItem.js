@@ -6,7 +6,9 @@ import IconButton  from "@material-ui/core/IconButton";
 
 const styles = theme => ({
     root: {
-     height:65,
+        paddingTop:5,
+        paddingBottom:5,
+//   height:65,
      width:'100%',
  
     },
@@ -15,7 +17,7 @@ const styles = theme => ({
         width:65
     },
     content:{
-        height:65,
+        //height:65,
         width:`calc(100% - 65px)`,
     },action:{
         height:65,
@@ -27,6 +29,8 @@ const styles = theme => ({
         'a:visited':{color:'#000'},
         'a:hover':{color:'#000'},
         'a:active':{color:'#000'}
+    },button:{
+        marginTop:10
     }
   });
   function getTimeStampData(timestamp){

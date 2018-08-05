@@ -86,7 +86,7 @@ const styles = theme => ({
     overflow:'scroll',
     width:'100%',
     backgroundColor: '#fff',
-    padding: theme.spacing.unit * 3,
+   // padding: theme.spacing.unit * 3,
     paddingBottom: 160,
    
   },logo:{

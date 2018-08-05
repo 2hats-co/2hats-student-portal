@@ -10,8 +10,20 @@ import { Grid } from '../../node_modules/@material-ui/core';
 
 const styles = theme => ({
     root: {
-    width:'100%'
+    width:'100%',
+        paddingTop:30,
+    [theme.breakpoints.up('xs')]: {
+        paddingLeft:30,
+        paddingRight:30
+
+      },
+    [theme.breakpoints.up('md')]: {
+        paddingLeft:60
     }
+   
+    }
+    
+   
 });
 class DashboardContainer extends Component{
     renderApplicationProcess(profile){ 
