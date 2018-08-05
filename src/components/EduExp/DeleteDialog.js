@@ -17,7 +17,7 @@ function DeleteDialog(props) {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">Delete {name ===EDU ?"Education": 'Practical Experience'}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Delete {name ===EDU ?"Tertiary Education": 'Practical Experience'}</DialogTitle>
           <DialogContent>
            <Typography variant='subheading'>
            {heading}
