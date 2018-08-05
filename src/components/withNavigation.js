@@ -126,17 +126,20 @@ export const withNavigation = (WrappedComponent) => {
         window.Intercom('update',{
           'hide_default_launcher': false
         })
+      
        // window.Intercom('show')
         window.Intercom('hide')
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+      }
+      componentDidMount(){
+        window.Intercom('update')
       }
       componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
       }
       updateWindowDimensions() {
        this.setState({height: window.innerHeight});
-      
      }
        componentDidUpdate(prevProps,prevState){
          if(prevProps.profile !== this.props.profile){
