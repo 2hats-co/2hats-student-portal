@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ConfirmationDialog from './ConfirmationDialog'
 import { PROCESS_TYPES } from '../constants/signUpProcess';
 import * as routes from '../constants/routes'
-
+import {isComplete} from '../constants/signUpProcess'
 const drawerWidth = 240;
 const styles = theme => ({
     root:{
@@ -94,7 +94,7 @@ class StatusCard extends React.Component{
         const inCompleteUploadMessage = 'It looks like you haven’t filled out all the necessary information yet.'
         const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
         const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
-        if(profile.isComplete){
+        if(isComplete(profile)){
           if(profile.process === PROCESS_TYPES.build){
             return({message:completeMessage,
                     buttons:[submitButton],
@@ -126,7 +126,6 @@ class StatusCard extends React.Component{
     render(){
     const {classes,profile ,theme} = this.props
     const {message,buttons,link} = this.getStatusPrompt(profile)
-
     return(
         <div>
         <Card className={classes.root}>
