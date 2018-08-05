@@ -31,7 +31,7 @@ const styles = theme => ({
         },
     },
     grid:{
-      padding:5,
+      padding:10,
       paddingTop:20,
       paddingBottom:20,
       },
@@ -129,7 +129,7 @@ class StatusCard extends React.Component{
     return(
         <div>
         <Card className={classes.root}>
-            <Grid container className={classes.grid} direction='row' alignItems='center' justify='space-around'> 
+            <Grid container className={classes.grid} style={!theme.responsive.isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' justify='space-around'> 
                 <Grid  xs={12} sm={6} item><Typography className={classes.prompt} variant='subheading'>
                   {message}
                 </Typography>
