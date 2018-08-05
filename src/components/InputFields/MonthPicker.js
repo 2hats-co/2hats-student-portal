@@ -105,7 +105,6 @@ const styles = theme => ({
         super(props);
         this.state = {
             year:2018,
-            isOpen:false,
             value:'',
             toggled:false
         }
@@ -115,10 +114,8 @@ const styles = theme => ({
     }
     componentDidUpdate(prevProps, prevState) {
        const {value,year,month}= this.state
-      
         if (prevState.value !== value&& value!=='') {
             console.log('paase',this.state,this.props)
-
           this.props.changeHandler(this.props.name,value)
         if(this.props.toggle && value === this.props.toggle.value){
           this.props.changeHandler(`${this.props.name}Value`,9999)
@@ -157,7 +154,8 @@ const styles = theme => ({
     }
     handleSelectMonth(n){
         if(this.validRange(n,this.state.year)){
-            this.setState({month:n,isOpen:false,value:`${getMonthName(n)} ${this.state.year}`,toggled:false})        
+            this.openCalender()
+            this.setState({month:n,value:`${getMonthName(n)} ${this.state.year}`,toggled:false})        
         }
     }
     handleIncrementYear(){
@@ -226,18 +224,29 @@ const styles = theme => ({
             </div>
         )
     }
+    openCalender(name,focusedField){
+        console.log(name,focusedField)
+        if(focusedField === name){
+          this.props.changeHandler('focusedField','fsfsfsf')
+       
+        }else{
+          this.props.changeHandler('focusedField',name)
+        }
+    }
     renderField(){
-        const {label,value,classes}=this.props
-        const {isOpen,errorMessage} = this.state
+        const {label,value,classes,name,focusedField}=this.props
+        console.log(this.props)
+        const {errorMessage} = this.state
+        const isOpen = (name===focusedField)
         const captionLabel = (isOpen || value !=='')
         return( 
-            <Grid container  onClick={()=>{this.setState({isOpen:!this.state.isOpen})}} direction='column'>
+            <Grid container  onClick={()=>{this.openCalender(name,focusedField)}} direction='column'>
             {captionLabel&& <Typography className={classes.captionLabel} variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
             <Grid className={classes.root} container direction='row' alignItems='center' justify='space-between'>
             {(!captionLabel&&!value)? <Typography className={classes.inputLabel}>{label}</Typography>:<Grid item/>} 
                 {value&&  <Typography className={classes.valueLabel}>{value}</Typography>}
                 <IconButton style={{height:42,width:42,marginRight:-10}}
-                onClick={()=>{this.setState({isOpen:!this.state.isOpen})}}
+                onClick={()=>{this.openCalender(name,focusedField)}}
                 className={classes.button}>
                     <DownIcon/>
                 </IconButton>
@@ -248,11 +257,13 @@ const styles = theme => ({
             </Grid>
         )
     }
+    
     render(){
-        const {toggle} = this.props
+        const {toggle,name,focusedField} = this.props
+        const isOpen = (name===focusedField)
         return(<div>
             {this.renderField()}
-            {this.state.isOpen && this.renderCalender()}
+            {isOpen && this.renderCalender()}
             {toggle &&<Grid container direction='row' alignItems='center' justify='space-between'>
             <Typography variant='caption'>
                 {toggle.label}
