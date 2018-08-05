@@ -12,7 +12,7 @@ const styles = theme => ({
   width:'100%'
   },
   card:{  
-    width: '91%',
+    width:'calc(100%0)',
     paddingTop: 30,
     paddingBottom: 30,
     paddingLeft:20,

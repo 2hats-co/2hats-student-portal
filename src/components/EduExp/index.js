@@ -125,7 +125,7 @@ class EducationContainer extends React.Component {
             title={name === EDU ? "Tertiary Education" : "Practical Experience"}
             handler={this.handleNewItem}
           />
-          {items.length !==0 ? items:<Card style={{width:'98%',height:80,marginBottom:20}}>
+          {items.length !==0 ? items:<Card style={{width:'100%',height:80,marginBottom:20}}>
           <Typography variant='body1' style={{textAlign:'center',marginTop:40}}>
           Press ‘+’ to get started
           </Typography>

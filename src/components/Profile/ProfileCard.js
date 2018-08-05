@@ -16,16 +16,22 @@ import {PROCESS_TYPES} from '../../constants/signUpProcess'
 
 import DownloadIcon from '@material-ui/icons/ArrowDownward'
 import Section from './Section'
-const styles = {
+const styles = theme => ({
     root:{
     width:'100%',
     marginBottom:20
     },
   card: {
-    width:'88%',
+    width:'calc(100%0)',
    maxWidth:660,
-   padding:40,
-   paddingBottom:5
+
+   paddingBottom:5,
+   [theme.breakpoints.up('xs')]: {
+    padding:10,
+  },
+[theme.breakpoints.up('md')]: {
+  padding:40,
+},
   },
   chip:{marginRight:10},
   bullet: {
@@ -57,7 +63,7 @@ const styles = {
     backgroundColor:'#D8D8D8',
     margin:'auto',
     }
-};
+})
 
 function ProfileCard(props) {
   const {disabled,classes,name,bio,resumeFile,interestsList,skillsList,process} = props;

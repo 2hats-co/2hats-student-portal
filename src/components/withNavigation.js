@@ -243,7 +243,7 @@ export const withNavigation = (WrappedComponent) => {
             {drawer}
           </Drawer>
         </Hidden>
-          <main className={classes.content}>
+          <main className={classes.content} style={theme.responsive.isMobile?{paddingRight:0,paddingLeft:0}:{}}>
             <div className={classes.toolbar}/>
 
             {(!profile || !user)?<LoadingMessage/>:<div>
