@@ -235,7 +235,6 @@ const styles = theme => ({
     }
     renderField(){
         const {label,value,classes,name,focusedField}=this.props
-        console.log(this.props)
         const {errorMessage} = this.state
         const isOpen = (name===focusedField)
         const captionLabel = (isOpen || value !=='')

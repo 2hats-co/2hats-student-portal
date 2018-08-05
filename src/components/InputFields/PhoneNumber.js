@@ -64,6 +64,7 @@ class PhoneNumber extends React.Component {
       className={classes.inputField}
       placeholder='e.g. 0400 000 000'
       value={number}
+      //error
       onChange={this.handleChange('number')}
       id="phoneNumber"
       InputProps={{

@@ -16,7 +16,6 @@ const styles = theme => ({
 class DashboardContainer extends Component{
     renderApplicationProcess(profile){ 
         if(profile){
-
             if(profile.hasSubmit){
                 return<ApplicationTimeLine/>
             }else{
@@ -26,7 +25,6 @@ class DashboardContainer extends Component{
     }
     render(){
         const {classes,upcomingEvents,submissions, profile} = this.props
-     //   console.log('submissions',submissions[0],typeof submissions,typeof submissions === 'undefined')
         return(
             <Grid container direction='column' className={classes.root}>
             {this.renderApplicationProcess(profile)}  
@@ -37,9 +35,7 @@ class DashboardContainer extends Component{
     }
 }
 const enhance = compose(
-    // add redux store (from react context) as a prop
     withNavigation,
-    // Connect get data from fire stroe
   )
   export default enhance(
       withStyles(styles)(DashboardContainer)

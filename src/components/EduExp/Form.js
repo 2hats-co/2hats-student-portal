@@ -89,7 +89,6 @@ class DialogForm extends React.Component {
   }
   render() {
     const {fields,activity,title,isOpen,handler} = this.props
-    console.log(fields)
     const form = fields.map((field)=>{
         switch (field.type) {
           case INPUTS.textField:return <TextField

@@ -140,7 +140,7 @@ const styles = theme => ({
       this.props.changeHandler(name,value.label)
     };   
     render() {
-      const {classes,list,value,name,hint,title} = this.props
+      const {classes,list,value,hasLabel,name,hint,title} = this.props
       const options = optionsGenerator(list)
     
       const components = {
@@ -154,8 +154,8 @@ const styles = theme => ({
       return (
         <div className={classes.root}>
          <InputWrapper
-          title={title}
-          hint={hint}
+          title={!hasLabel?title:''}
+          hint={!hasLabel?hint:''}
         >
             <Select className={classes.root}
               allowCreate
