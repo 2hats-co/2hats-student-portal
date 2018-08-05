@@ -26,7 +26,7 @@ function DeleteDialog(props) {
            {subheading}
            </Typography>
            <Typography variant='body1'>
-           You are about to delete all information associated with the above {name ===EDU ?'degree/course.': 'position/job title'} 
+           You are about to delete all information associated with the above {name ===EDU ?'degree/course.': 'position/job title.'} 
            </Typography>
           </DialogContent>
           <DialogActions>
