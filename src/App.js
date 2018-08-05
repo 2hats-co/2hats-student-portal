@@ -41,9 +41,9 @@ componentWillUnmount() {
 }
  updateWindowDimensions() {
    const isMobile = window.innerWidth<700
-   if(isMobile ==! this.state.theme.responsive.isMobile){
+   if(isMobile !== this.state.theme.responsive.isMobile){
     this.setState({theme:Object.assign(Theme,{responsive:{width: window.innerWidth, height: window.innerHeight,isMobile }})});
-   }
+  }
 }
   render() {
   

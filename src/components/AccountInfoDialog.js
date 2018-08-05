@@ -61,7 +61,7 @@ const styles = theme => ({
            this.handleChange('workingRights',workingRights)
            this.handleChange('currentUniversity',currentUniversity)
            this.handleChange('availableDays',availableDays)
-
+            console.log("User: ", this.props.user);
         }
     }
     handleCancel=() =>{

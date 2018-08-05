@@ -62,13 +62,13 @@ class StatusCard extends React.Component{
           case 'build':return {title:'Use Our Resume Builder Instead',
           body:['Are you sure you want to build a new resume instead?','','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
           confirm:{label:'Build',action:()=>{
-            this.goTo(routes.BUILD_RESUME)
+            this.props.goTo(routes.BUILD_RESUME)
           }}}
          case 'upload':return {title:'Upload Existing Resume Instead',
           body:[`Are you sure you want to switch to uploading your resume instead?`,`\n`,
           `All your previous progress will be saved, and you can always go back to using our Resume Builder if you wish.`],
           confirm:{label:'Upload',action:()=>{
-            this.goTo(routes.UPLOAD_RESUME)
+            this.props.goTo(routes.UPLOAD_RESUME)
           }}}
           default:
             break;
