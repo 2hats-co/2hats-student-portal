@@ -14,7 +14,6 @@ import {PROCESS_TYPES} from "../constants/signUpProcess";
 
 const styles = theme => ({
     grid: {
-     maxWidth:900,
      overflow: 'scroll'
     },
     item:{

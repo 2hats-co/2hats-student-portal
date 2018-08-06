@@ -23,8 +23,6 @@ const styles = theme => ({
     },
   card: {
     width:'calc(100%0)',
-
-
    paddingBottom:5,
    [theme.breakpoints.up('xs')]: {
     maxWidth:740,
