@@ -31,7 +31,7 @@ const INDUSTRIES = ['Business','Marketing','Design','IT']
 const businessList = [{key:'B2B',label:'B2B Sales'},{key:'RM',label:'Relationship Management'},{key:'LG',label:'Lead Generation'}]
 const marketingList = [{key:'CW',label:'Content Writing'},{key:'SMM',label:'Social Media Marketing'},{key:'SEO',label:'SEO'}]
 const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User Experience'},{key:'UI',label:'User Interface'}]
-const ITList = [{key:'APP',label:'App/Web Development'},{key:'DEV',label:'Software Development'},{key:'DA',label:'Data Analytics'}]
+const ITList = [{key:'APP',label:'App Development'},{key:'WEB',label:'Web Development'},{key:'DA',label:'Data Analytics'}]
 const ALL_INTERESTS = [].concat(marketingList,DesignList).concat(businessList,ITList)
 export function getInterestByKey(key){
     return ALL_INTERESTS.filter(x => x.key === key)
@@ -133,8 +133,8 @@ const SKILLS ={
     GI:['Adobe Photoshop','Adobe Illustrator','Adobe InDesign'],
     UI:['Sketch','Adobe XD','Adobe Photoshop','Adobe Illustrator','Framer'],
     UX:['Sketch','InVision','Adobe XD','Balsamiq','Framer'],
-    APP:['JavaScript','HTML/CSS','JQuery','React','Node.JS','Swift','Vue.js','AngularJS'],
-    DEV:['Java','Python','C','C++','C#','SQL'],
+    APP:['Java','Swift','C++','Objective-c','React Native','Kotlin'],
+    WEB:['JavaScript','HTML/CSS','JQuery','React','PHP','Node.JS','Vue.js','AngularJS'],
     DA:['Python','SQL','R','Excel','Matlab']
 }
 
