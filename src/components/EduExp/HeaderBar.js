@@ -32,6 +32,7 @@ function HeaderBar(props) {
           container
           direction='row'
           justify='space-between'
+          onClick={()=>{handler()}} 
           >
           <Typography variant="title" color="inherit">
             {title}
