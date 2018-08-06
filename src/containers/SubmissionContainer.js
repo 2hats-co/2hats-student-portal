@@ -17,7 +17,6 @@ import LoadingMessage from '../components/LoadingMessage';
 
 const styles = theme => ({
     grid: {
-     maxWidth:900,
      overflow: 'scroll'
     },
     item:{
@@ -63,7 +62,7 @@ class SubmissionContainer extends Component {
                   process = {profile.process}
                   skillsList={profile.skills}
                   bio={profile.bio}
-                  name={`Shams mosowi`}
+                  name={profile.displayName}
                   resumeFile={profile.process === PROCESS_TYPES.upload&& profile.resumeFile}
                   interestsList={profile.careerInterests}
                   disabled/>
