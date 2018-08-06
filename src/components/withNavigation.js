@@ -133,13 +133,24 @@ export const withNavigation = (WrappedComponent) => {
         window.addEventListener('resize', this.updateWindowDimensions);
       }
       componentDidMount(){
-        window.Intercom('update')
+        window.Intercom('update',{
+          'hide_default_launcher': false
+        })
       }
       componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);
       }
       updateWindowDimensions() {
        this.setState({height: window.innerHeight});
+       if(this.props.theme.responsive.isMobile){
+        window.Intercom('update',{
+          'hide_default_launcher': true
+        })
+       }else{
+        window.Intercom('update',{
+          'hide_default_launcher': false
+        })
+       }
      }
        componentDidUpdate(prevProps,prevState){
          if(prevProps.profile !== this.props.profile){
