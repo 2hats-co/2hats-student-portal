@@ -95,6 +95,7 @@ class StatusCard extends React.Component{
         const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
         const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
         if(isComplete(profile)){
+         //if(profile.isComplete){
           if(profile.process === PROCESS_TYPES.build){
             return({message:completeMessage,
                     buttons:[submitButton],
@@ -130,7 +131,7 @@ class StatusCard extends React.Component{
         <div>
         <Card className={classes.root}>
             <Grid container className={classes.grid} style={!theme.responsive.isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' justify='space-around'> 
-                <Grid  xs={12} sm={6} item><Typography className={classes.prompt} variant='subheading'>
+                <Grid   item><Typography className={classes.prompt} variant='subheading'>
                   {message}
                 </Typography>
                 </Grid>

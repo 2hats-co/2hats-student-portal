@@ -1,12 +1,9 @@
 import React from 'react';
-
 import TextField from '@material-ui/core/TextField';
-
 import DropDown from '../InputFields/DropDown';
 import MonthPicker from '../InputFields/MonthPicker';
 import AutoComplete from '../InputFields/AutoComplete';
 import MultiLineTextField from '../InputFields/MultiLineTextField';
-
 import PropTypes from 'prop-types';
 import { INPUTS } from '../../constants/enums';
 import * as _ from 'lodash'

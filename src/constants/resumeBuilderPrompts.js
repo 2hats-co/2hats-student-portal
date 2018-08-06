@@ -70,6 +70,22 @@ export const CAREER_INTERESTS = [{label:'Business',items: businessList},{label:'
 //     })
 //   }
 
+// let input=['aaa','aa','bb','b']
+
+// let count ={}
+
+// count = {a:0,b:0}
+// {a: 0, b: 0}
+// function recursiveCount(input,count){
+	
+// 	if(input.length>0){
+// 		console.log(input[0]);
+// 		recursiveCount(input.pop(),count)
+// 	}else{
+// 	return count
+// 	}
+// }
+
 
 export function getPrompts(field){
     switch (field) {
