@@ -32,7 +32,7 @@ function HeaderBar(props) {
           container
           direction='row'
           justify='space-between'
-          onClick={()=>{handler()}} 
+          onClick={()=>{if(!disabled){handler()}}} 
           >
           <Typography variant="title" color="inherit">
             {title}
