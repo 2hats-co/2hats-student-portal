@@ -77,6 +77,12 @@ const styles = theme => ({
             currentUniversity:this.state.currentUniversity,
             availableDays:this.state.availableDays,
         })
+        this.props.onProfileUpdate({
+            phoneNumber:this.state.phoneNumber,
+            workingRights:this.state.workingRights,
+            currentUniversity:this.state.currentUniversity,
+            availableDays:this.state.availableDays,
+        })
         this.props.closeHandler()
     }
     handleChange(name,value){
@@ -121,6 +127,12 @@ const enhance = compose(
     withHandlers({
       onUserUpdate: props => (data) =>
           props.firestore.update({ collection: COLLECTIONS.users, doc: props.uid }, {
+          ...data,
+          updatedAt: props.firestore.FieldValue.serverTimestamp()
+        }
+      ),
+      onProfileUpdate: props => (data) =>
+          props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
           ...data,
           updatedAt: props.firestore.FieldValue.serverTimestamp()
         }
