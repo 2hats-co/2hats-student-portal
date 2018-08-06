@@ -8,7 +8,7 @@ function SectionWrapper(props) {
     <Tween
       animation={{ minHeight:height}}
     >
-   <div style= {{margin:'auto',marginTop:'20px' ,width:'90%',maxWidth:width}}>
+   <div>
    {props.children}
   </div>
   </Tween>

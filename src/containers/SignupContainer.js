@@ -245,7 +245,7 @@ class ResumeBuilderContainer extends Component {
       console.log('test',profile)
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
       return (
-        <LogoOnCard>
+        <LogoOnCard width={900}>
           <div className={theme.responsive.isMobile?classes.mobileContainer:classes.webContainer}>
                   <StepController 
                   activeStep={activeStep}
@@ -259,8 +259,12 @@ class ResumeBuilderContainer extends Component {
         </LogoOnCard>
     );
     }else{return(
-      <LogoOnCard>
+      <LogoOnCard width={900}> 
+      <SectionWrapper height={420} width={900}>
+      <div style={{padding:30}}>
         <LoadingMessage message={'Minjie is preparing the copy for this form'}/>
+        </div>
+        </SectionWrapper>
             </LogoOnCard>
     )
     }

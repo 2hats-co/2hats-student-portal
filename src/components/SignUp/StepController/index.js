@@ -13,7 +13,7 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop:10,
-    marginLeft:35
+   // marginLeft:35
   },
   button:{
    marginBottom:20,

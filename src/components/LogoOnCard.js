@@ -1,11 +1,12 @@
 //wrapper card with 2hats logo on top of the card
-// props: width! hieght! children
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png';
 import {setBackground} from '../utilities/styling'
+import Tween from 'rc-tween-one';
 
 import { compose } from 'recompose';
 import withAuthorisation from '../utilities/Session/withAuthorisation'
@@ -18,9 +19,11 @@ const styles = theme => ({
     margin: 'auto',
     },
   paper:{
-    maxWidth:850,
-    width:'90%',
     margin: 'auto',
+    marginBottom:20,
+ //   width:680,
+   paddingLeft:'30px',
+   paddingRight:'30px',
   },
   
 });
@@ -33,18 +36,43 @@ function LogoOnCard(props) {
         </div>
       )
   }else{
-    const { classes,width,height } = props;
     setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad')
+    const {classes,height,startingWidth,animateWidth,animateHeight,width } = props;
     const logo = (<img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>)
-    
+
+            let style ={}
+            let animation = {}
+            if(animateWidth){
+              animation.duration=200
+              animation.width= width
+              animation.margin = 'auto'
+              animation.ease= 'linear'
+              if(startingWidth<width){
+                style.minWidth =startingWidth 
+              }else{
+                style.maxWidth= startingWidth 
+              }
+            }else{
+              style.width = width
+            }
+            if(animateHeight){
+             // animation.duration=300
+              animation.height= height
+             // animation.margin = 'auto'
+             // animation.ease= 'linear'
+            }else{
+              style.height = height
+            }
     return (
       <div className={classes.root}>
        <div className={classes.logo}>
         {logo}
        </div>
-        <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
+       <Tween animation={animation}>
+        <Paper className={classes.paper} style={style} elevation={15}>
         {props.children}
         </Paper>
+        </Tween>
       </div>
     );
   }

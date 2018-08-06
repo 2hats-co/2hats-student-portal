@@ -33,7 +33,7 @@ const styles = theme => ({
   padding:40,
 },
   },
-  chip:{marginRight:10},
+  chip:{marginRight:10, marginBottom:5},
   bullet: {
     display: 'inline-block',
     margin: '0 2px',

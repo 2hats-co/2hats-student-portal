@@ -92,12 +92,14 @@ class ProfileDialogForm extends React.Component {
            </div>
           </DialogContent>
           <DialogActions>
+
           <Button className={classes.button} onClick={this.handleCancel}>
            Cancel
             </Button>
             <Button className={classes.button} onClick={this.handleSave}>
             Save
             </Button>
+            
           </DialogActions>
         </Dialog>
    

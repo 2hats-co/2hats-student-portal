@@ -96,7 +96,7 @@ class ResumeLoader extends React.Component {
             this.handleDelete()
           }
             this.setState({isUploading:true})
-            this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:''})
+            this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`${uid}/resumes/${files[0].name}`})
             const documentRef = firebaseStorage.child(`${uid}/resumes/${files[0].name}`)
             documentRef.put(files[0]).then(this.handleLoader);
         }

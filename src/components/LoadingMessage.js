@@ -23,7 +23,7 @@ function LoadingMessage(props){
         <Typography variant='headline'>
        {message?message:'Your Future Starts Soon…'} 
         </Typography>
-        <CircularProgress color="primary"  size={40} />
+        <CircularProgress color="primary"  size={60} />
         </Grid>
     )
 
