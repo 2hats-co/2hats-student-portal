@@ -12,7 +12,7 @@ import { compose } from 'recompose';
 import withAuthorisation from '../utilities/Session/withAuthorisation'
 const styles = theme => ({
   logo:{
-    paddingTop:32,        
+    paddingTop:15,        
    marginBottom:45,        
     width:200,
     height:69,

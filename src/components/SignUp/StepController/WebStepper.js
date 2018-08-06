@@ -6,9 +6,10 @@ import StepLabel from "@material-ui/core/StepLabel";
 
 const styles = theme => ({
   stepper:{
+    paddingTop:0,
     margin:'auto',
     width:'90%',
-    widthMax:750,
+    widthMax:850,
   }
   
   });

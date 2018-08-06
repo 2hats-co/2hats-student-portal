@@ -37,7 +37,8 @@ const styles = theme => ({
   },
   webContainer: {
     width: "90%",
-    padding: 50
+    padding: 35,
+    paddingTop:45
   },
   footerContainer: {
     width: 320
@@ -245,7 +246,7 @@ class ResumeBuilderContainer extends Component {
       console.log('test',profile)
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
       return (
-        <LogoOnCard width={900}>
+        <LogoOnCard width={850}>
           <div className={theme.responsive.isMobile?classes.mobileContainer:classes.webContainer}>
                   <StepController 
                   activeStep={activeStep}

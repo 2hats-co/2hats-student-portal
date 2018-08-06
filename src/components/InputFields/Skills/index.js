@@ -7,9 +7,8 @@ import SuggestedSkills from './SuggestedSkills';
 import {ALL_SKILLS} from '../../../constants/resumeBuilderPrompts'
 const styles = theme => ({
     root: {
-        paddingTop:25,
      width:'100%',
-     maxWidth:750
+     maxWidth:850
     },chip: {
         marginTop: 10,
         margin: 4

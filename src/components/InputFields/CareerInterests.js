@@ -62,7 +62,7 @@ class CareerInterests extends React.Component {
   renderCheckBoxGroup(label,options){
     const { classes } = this.props;
       return(  
-        <Grid item style={{minWidth:200}}>
+        <Grid item style={{minWidth:180}}>
     <FormControl className={classes.group} key={label} component="fieldset">
     <FormLabel className={classes.groupHeader} component="legend">{label}</FormLabel>
     <FormGroup>
