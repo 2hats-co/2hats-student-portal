@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import ListItem from './ListItem';
 import LinkIcon from '@material-ui/icons/KeyboardArrowRight'
 import { Divider } from '../../../node_modules/@material-ui/core';
-import { now } from '../../../node_modules/moment';
+import * as _ from 'lodash'
 
 const styles = theme => ({
     root: {
@@ -22,6 +22,7 @@ function FeedbackHistory(props){
      // (${x.submissionContent.process})
       return({title:`Resume Submission`,body:'Under Review',timestamp:x.createdAt,key:x.id})
    })
+   items = _.orderBy(items, 'timestamp','asc')
    }
    console.log('feed1',items)
    

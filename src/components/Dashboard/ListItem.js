@@ -35,7 +35,10 @@ const styles = theme => ({
   });
   function getTimeStampData(timestamp){
     const time = new Date(timestamp.seconds*1000)
-    const date = time.getDate()
+    let date = time.getDate()
+    if (date<10){
+        date=`0${date}`
+    }
     const month = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'][time.getMonth()]
     const hour = time.getHours()
     const minutes = time.getMinutes()

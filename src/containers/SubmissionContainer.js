@@ -49,7 +49,7 @@ class SubmissionContainer extends Component {
         const {classes,submission} = this.props
         if(submission){
             const profile = submission[0].submissionContent
-        console.log(profile)
+        console.log(submission[0])
         return(
             <div className={classes.content}>
                 <Grid container
@@ -62,7 +62,7 @@ class SubmissionContainer extends Component {
                   process = {profile.process}
                   skillsList={profile.skills}
                   bio={profile.bio}
-                  name={profile.displayName}
+                  name={submission[0].displayName}
                   resumeFile={profile.process === PROCESS_TYPES.upload&& profile.resumeFile}
                   interestsList={profile.careerInterests}
                   disabled/>
@@ -86,7 +86,7 @@ class SubmissionContainer extends Component {
         }
         
         return(
-       <LoadingMessage message='loading up your previous submission'/>
+       <LoadingMessage message='Loading up your previous submission'/>
         )
     }
 } 
