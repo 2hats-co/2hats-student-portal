@@ -23,13 +23,15 @@ const styles = theme => ({
     },
   card: {
     width:'calc(100%0)',
-   maxWidth:660,
+
 
    paddingBottom:5,
    [theme.breakpoints.up('xs')]: {
+    maxWidth:740,
     padding:10,
   },
 [theme.breakpoints.up('md')]: {
+  maxWidth:680,
   padding:40,
 },
   },
@@ -102,7 +104,8 @@ function ProfileCard(props) {
       <div className={classes.root}>
       <div style={{marginTop:20,marginBottom:10}}>
       <div className={classes.avatarContainer}>
-      <div className={classes.avatar}><PersonIcon style={{paddingTop:15,fontSize:120}}/>
+      <div className={classes.avatar} >
+      <PersonIcon style={{paddingTop:10,fontSize:120, width:'100%',textAlign:'center'}}/>
       </div>
       </div>
       </div>
