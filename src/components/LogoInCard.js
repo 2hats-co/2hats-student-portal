@@ -7,7 +7,14 @@ import {setBackground} from '../utilities/styling'
 
 const styles = theme => ({
   root:{
-    marginTop:40
+    display: 'table',
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+  },
+  table:{
+    display: 'table-cell',
+    verticalAlign: 'middle'
   },
   logo:{
     paddingTop:40,        
@@ -18,9 +25,9 @@ const styles = theme => ({
   
     },
     paper:{
-    marginTop:145,
-    maxWidth:475,
-    margin: 'auto',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      width: 475
     }
 });
 
@@ -29,14 +36,12 @@ function LogoInCard(props) {
   setBackground("#FA5E4E",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94')
   return (
     <div className={classes.root}>
-      
+      <div className={classes.table}>
       <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
-    
         <img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>
-     
-      {props.children}
-      
+        {props.children}
       </Paper>
+      </div>
     </div>
   );
 }
