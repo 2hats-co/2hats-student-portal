@@ -11,7 +11,8 @@ import { Grid } from '../../node_modules/@material-ui/core';
 const styles = theme => ({
     root: {
     width:'100%',
-        paddingTop:30,
+    paddingTop:30,
+    widthMax:700,
     [theme.breakpoints.up('xs')]: {
         paddingLeft:30,
         paddingRight:30
@@ -45,10 +46,16 @@ class DashboardContainer extends Component{
     render(){
         const {classes,upcomingEvents,submissions, profile} = this.props
         return(
-            <Grid container direction='column' className={classes.root}>
+            <Grid container direction='row' className={classes.root}>
+            <Grid item xs={12} >
             {this.renderApplicationProcess(profile)}  
+            </Grid>
+            <Grid item  xs={12}>            
         {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }  
+           </Grid>
+            <Grid item  xs={12}>    
            <UpcomingEvents data={upcomingEvents}/>
+           </Grid>
            </Grid>
         )
     }
