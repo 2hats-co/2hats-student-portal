@@ -21,7 +21,14 @@ const styles = theme => ({
         paddingLeft:60
     }
    
-    }
+    },
+    navIconHide:{},
+    appBar:{},
+    toolbar:{},
+    drawerPaper:{},
+    content:{},
+    logo:{},
+    greeting:{},
     
    
 });

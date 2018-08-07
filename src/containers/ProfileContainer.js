@@ -13,6 +13,14 @@ import {COLLECTIONS} from "../constants/firestore";
 import {PROCESS_TYPES} from "../constants/signUpProcess";
 
 const styles = theme => ({
+    root:{},
+    navIconHide:{},
+    appBar:{},
+    toolbar:{},
+    drawerPaper:{},
+    content:{},
+    logo:{},
+    greeting:{},
     grid: {
      overflow: 'scroll'
     },

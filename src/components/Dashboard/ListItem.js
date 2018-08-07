@@ -49,7 +49,12 @@ function ListItem(props){
     const date = getTimeStampData(timestamp).date
     const month = getTimeStampData(timestamp).month
     return(
-    <Grid container direction='row' className={classes.root} alignItems='center' justify='space-between'>
+    <Grid container
+    onClick={()=>{ window.open(link, '_blank');}}
+    direction='row' 
+    className={classes.root} 
+    alignItems='center' 
+    justify='space-between'>
         <Grid item className={classes.content}>
             <Grid container direction='row'className={classes.root} alignItems='center' justify='flex-start'>
                 <Grid container direction='column'className={classes.date} alignItems='center' justify='center'>
@@ -60,7 +65,7 @@ function ListItem(props){
                         {date}
                     </Typography>
                 </Grid>
-                <Grid container style={{width:'calc(100% - 65px)'}}className direction='column' justify='center'>
+                <Grid container style={{width:'calc(100% - 65px)'}} direction='column' justify='center'>
                     <Typography variant='title'>
                         {title}
                     </Typography>
@@ -70,7 +75,9 @@ function ListItem(props){
                 </Grid>
             </Grid>
         </Grid>
-        <Grid item className={classes.action} alignItems='center' justify='center' >
+        <Grid item className={classes.action} 
+        //alignItems='center' justify='center' 
+        >
             <IconButton className={classes.button} component="span"><a className={classes.link} href={link} target="_blank">
                 {actionIcon}</a>
             </IconButton>

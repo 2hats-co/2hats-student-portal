@@ -140,7 +140,7 @@ class StatusCard extends React.Component{
                 <Grid container  direction='row' alignItems='center' justify='flex-end'>
                 {buttons&&
                     buttons.map(x=>{return(
-                        <Grid item xs={6} sm={4}>
+                        <Grid key={x.label} id={`${x.label}-toaster-button`} item xs={6} sm={4}>
                         <Button onClick={x.action} className={classes.button} variant='flat'>
                         {x.label}
                         </Button>
@@ -149,11 +149,11 @@ class StatusCard extends React.Component{
                 })
                 }
                 {
-                 (link && !theme.responsive.isMobile)&&<Grid item xs={1} sm={1}> <Typography variant='Button' style={{textAlign:'left'}}>OR</Typography> </Grid>
+                 (link && !theme.responsive.isMobile)&&<Grid item xs={1} sm={1}> <Typography variant='button' style={{textAlign:'left'}}>OR</Typography> </Grid>
                 }
                  {link&&
                   <Grid item xs={6} sm={6} style={{paddingLeft:30}}>
-                    <a className={classes.link} onClick={()=>{link.action()}}>
+                    <a className={classes.link} id={`${link.label.split(' ')[0]}-toaster-button`} onClick={()=>{link.action()}}>
                     {link.label}
                     </a> 
                     </Grid>
