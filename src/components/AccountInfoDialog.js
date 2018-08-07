@@ -35,10 +35,7 @@ const styles = theme => ({
      constructor(props){
         super(props)
         this.state = {
-            firstName:'',
-            lastName:'',
-            phoneNumber:'',
-            workingRights:'',
+           
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)
@@ -69,20 +66,8 @@ const styles = theme => ({
         this.props.closeHandler()
     }
     handleUpdate(){
-        this.props.onUserUpdate({
-            firstName:this.state.firstName,
-            lastName:this.state.lastName,
-            phoneNumber:this.state.phoneNumber,
-            workingRights:this.state.workingRights,
-            currentUniversity:this.state.currentUniversity,
-            availableDays:this.state.availableDays,
-        })
-        this.props.onProfileUpdate({
-            phoneNumber:this.state.phoneNumber,
-            workingRights:this.state.workingRights,
-            currentUniversity:this.state.currentUniversity,
-            availableDays:this.state.availableDays,
-        })
+        this.props.onUserUpdate(this.state)
+        this.props.onProfileUpdate(this.state)
         this.props.closeHandler()
     }
     handleChange(name,value){
