@@ -5,7 +5,7 @@ function PersonalBio(props){
     const {changeHandler,industry,bio,hideTitle} = props
     return(
         <MultiLineTextField
-        title={!hideTitle&&"Personal Bio"}
+        title={!hideTitle?"Personal Bio":''}
         hint="This bio should focus on your key achievement and what value you can bring to the position-providing companies."
         placeholder={`${getPrompts(industry).bio}`}
         value={bio}

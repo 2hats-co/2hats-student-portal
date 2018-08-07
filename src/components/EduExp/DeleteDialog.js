@@ -30,10 +30,11 @@ function DeleteDialog(props) {
            </Typography>
           </DialogContent>
           <DialogActions>
-            <Button onClick={cancelHandler}>
+            <Button variant='contained' onClick={cancelHandler}>
               Cancel
             </Button>
-            <Button onClick={deleteHandler} autoFocus>
+            <Button  variant='contained' 
+            onClick={deleteHandler} autoFocus>
               Delete
             </Button>
           </DialogActions>

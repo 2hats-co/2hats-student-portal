@@ -38,10 +38,15 @@ class ConfirmationDialog extends Component{
         />}
               </DialogContent>
               <DialogActions>
-                <Button onClick={closeHandler} color="primary">
+                <Button 
+                onClick={closeHandler} 
+                variant='contained'>
                   Cancel
                 </Button>
-                <Button onClick={()=>{confirm.action(),closeHandler()}} disabled={checkbox&&!checkbox.isChecked} color="primary" autoFocus>
+                <Button variant='contained'
+                onClick={()=>{confirm.action(),closeHandler()}}
+                 disabled={checkbox&&!checkbox.isChecked}
+                  autoFocus>
                   {confirm.label}
                 </Button>
               </DialogActions>

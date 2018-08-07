@@ -79,15 +79,9 @@ const styles = theme => ({
         this.setState({[name]:value})
       }
       disabledUpadate(name){
-        console.log(this.state[name])
         switch (name) {
           case 'resumeFile':return this.state.resumeFile.downloadURL === ''
-          case 'skills':return this.state.skills.length ===0
-          case 'careerInterests':return this.state.careerInterests.length ===0
-          case 'bio':return this.state.bio.length ===''
-        
-          default:false
-            break;
+          default:return this.state[name].length ===0
         }
       }
       render() {
@@ -111,7 +105,7 @@ const styles = theme => ({
         }
         return(
           <Dialog activity={`update`} 
-          title={` your ${label}`} isOpen={isOpen} 
+          title={` ${label}`} isOpen={isOpen} 
           addHandler={this.handleSave} 
           disabled={this.disabledUpadate(name)} 
           cancelHandler={this.handleCancel}

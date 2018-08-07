@@ -37,10 +37,13 @@ function ConfirmSubmission(props) {
             </Typography>
           </DialogContent>
           <DialogActions>
-          <Button className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>
+          <Button variant='contained' className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>
             Back
             </Button>
-            <Button className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>
+            <Button variant='contained' 
+            className={classes.button}
+            onClick={()=>{closeHandler()}} 
+            autoFocus>
             Submit
             </Button>
           </DialogActions>

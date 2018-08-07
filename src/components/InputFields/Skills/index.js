@@ -56,11 +56,11 @@ class Skills extends React.Component {
         this.setState({ selectedList:newSelectedList});
         }
     render() {
-        const {classes,interestKeys,hideSuggestions} = this.props;
+        const {classes,interestKeys,hideSuggestions,hideTitle} = this.props;
         return (
             <div className={classes.root}>
          <AutoCompleteField
-        title = 'Skills'
+        title = {!hideTitle?'Skills':''}
         hint = 'Please address your chosen skill(s) in your tertiary education and practical experience. '
         placeholder = 'Enter your relevant practical skills, e.g. Adobe Photoshop'
         list = {ALL_SKILLS.filter(x=> !this.state.selectedList.includes(x))}

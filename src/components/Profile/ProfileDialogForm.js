@@ -27,7 +27,7 @@ const styles = theme => ({
       maxWidth:810
     },
     button:{
-        width:150
+       // width:150
     },
     content:{
       maxWidth:800,
@@ -93,10 +93,16 @@ class ProfileDialogForm extends React.Component {
           </DialogContent>
           <DialogActions>
 
-          <Button className={classes.button} onClick={this.handleCancel}>
+          <Button
+          // className={classes.button} 
+          variant='contained'
+          onClick={this.handleCancel}>
            Cancel
             </Button>
-            <Button className={classes.button} onClick={this.handleSave}>
+            <Button 
+            //className={classes.button} 
+            variant='contained'
+            onClick={this.handleSave}>
             Save
             </Button>
             

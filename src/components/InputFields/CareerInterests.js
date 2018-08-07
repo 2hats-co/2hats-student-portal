@@ -48,9 +48,11 @@ class CareerInterests extends React.Component {
     <FormControlLabel className={classes.label} style={{fontSize:'30px'}} key={item.key}
             control={
               <Checkbox
+                key={item.key+'checkbox'}
                 className={classes.checkBox}
                 disabled = {this.props.preSelectedList.length >2 && !this.props.preSelectedList.includes(item.key)}
                 checked={preSelectedList.includes(item.key)}
+                id={`${item.key}-checkbox-${preSelectedList.includes(item.key)}`}
                 onChange={this.handleChange(item.key)}
                 value={item.label}
               />
@@ -62,7 +64,7 @@ class CareerInterests extends React.Component {
   renderCheckBoxGroup(label,options){
     const { classes } = this.props;
       return(  
-        <Grid item style={{minWidth:180}}>
+        <Grid key={label+'column'} item style={{minWidth:180}}>
     <FormControl className={classes.group} key={label} component="fieldset">
     <FormLabel className={classes.groupHeader} component="legend">{label}</FormLabel>
     <FormGroup>

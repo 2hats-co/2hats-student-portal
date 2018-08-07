@@ -45,14 +45,15 @@ function WebForm(props){
           {children}
           </Grid>
           </DialogContent>
-          <DialogActions className={classes.actions}>
-            <Button variant="text"  onClick={cancelHandler}>
+          <DialogActions>
+            <Button variant='contained' onClick={cancelHandler}>
               Cancel
             </Button>
-            <Button disabled={disabled} 
-            color='inherit' onClick={addHandler} style={{color:'#000'}}>
+          <Button variant='contained'  disabled={disabled} 
+              onClick={addHandler} >
               {activity==='Edit'?'Save':activity }
             </Button>
+            
           </DialogActions>
         </Dialog>
     )

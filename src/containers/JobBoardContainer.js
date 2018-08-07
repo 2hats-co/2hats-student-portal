@@ -51,7 +51,7 @@ In the meantime, you can check our dashboard for resume feedback and any upcomin
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button className={classes.button} onClick={this.handleClose} color="primary" autoFocus>
+            <Button className={classes.button} variant='contained' onClick={this.handleClose} autoFocus>
             Go to Dashboard
             </Button>
           </DialogActions>

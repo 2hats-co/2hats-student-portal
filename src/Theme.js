@@ -8,6 +8,7 @@ export const BLACK = '#2c2c2c'
 export const GREY = '#EDEDED'
 const primaryColor = PRIMARY_COLOR
 export const Theme = createMuiTheme({
+  
   responsive:{
     isMobile:true
   },
@@ -69,14 +70,24 @@ export const Theme = createMuiTheme({
         textTransform: 'capitalize',   
         '&:hover': {backgroundColor:WHITE}
       },
-      text: { // Name of the rule
+      contained: { // Name of the rule
         color: BLACK,
         backgroundColor:WHITE+'!important',
         borderRadius:'2px',// should this be rounded
-        width:80,
+        //width:80,
+        margin:5,
         height:36,
-       // '&:hover': {backgroundColor:WHITE},
-      
+        '&:hover': {
+          backgroundColor: WHITE,
+          // Reset on touch devices, it doesn't add specificity
+          '@media (hover: none)': {
+            backgroundColor: GREY
+          }
+        },
+       '&:active': {
+        boxShadow: GREY
+      },
+       boxShadow:'none'
       },    
     },
   },
@@ -162,6 +173,10 @@ export const Theme = createMuiTheme({
       main: '#f44336',
       dark: '#ba000d',
       contrastText: BLACK,
+    },action:{
+      disabled:'#ABABAB',
     },
+    
   },
 });
+

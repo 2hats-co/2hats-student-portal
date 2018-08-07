@@ -66,6 +66,7 @@ const styles = theme => ({
     },
   },
   navIconHide: {
+  //  color:'#000',
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
@@ -222,7 +223,7 @@ export const withNavigation = (WrappedComponent) => {
               <MenuIcon />
             </IconButton>
             <Typography  className={classes.greeting} variant="button" color="inherit" noWrap>
-            {user&&user[0]&&`hi, ${user[0].firstName}`}
+            {user&&user[0]&&`Hi ${user[0].firstName}`}
             </Typography>
           </Toolbar>
         </AppBar>

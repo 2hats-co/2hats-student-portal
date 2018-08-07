@@ -56,10 +56,16 @@ function SwitchDialog(props) {
             </Typography>
           </DialogContent>
           <DialogActions>
-          <Button className={classes.button} onClick={()=>{closeHandler()}} color="primary" autoFocus>
+          <Button variant='contained'
+          className={classes.button} 
+          onClick={()=>{closeHandler()}}
+          autoFocus>
             Cancel
             </Button>
-            <Button className={classes.button} onClick={()=>{closeHandler(newProcess.route)}} color="primary" autoFocus>
+            <Button variant='contained'
+            className={classes.button} 
+            onClick={()=>{closeHandler(newProcess.route)}}
+            autoFocus>
             {newProcess.button}
             </Button>
           </DialogActions>

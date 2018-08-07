@@ -123,7 +123,7 @@ const styles = theme => ({
             this.props.changeHandler('focusedField',this.props.name)
           }
         }}
-          InputLabelProps={{shrink:this.state.shrink||this.props.value}}
+          InputLabelProps={{shrink:this.state.shrink||this.props.value!==''}}
           InputProps={{
             inputComponent,
             inputProps: {
