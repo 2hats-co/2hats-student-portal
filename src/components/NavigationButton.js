@@ -13,7 +13,6 @@ const styles = theme => ({
         borderLeftStyle:'solid',
         leftPadding:10,
         marginTop:10,
-        
     },
     otherRoot:{
         width:'100%',
@@ -30,7 +29,6 @@ const styles = theme => ({
         textWeight:500,
         textAlign:'left',
         color:'#fff',
-
         width:130
     }
   });
