@@ -43,11 +43,11 @@ class JobBoardContainer extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">{"Accepted Students Only"}</DialogTitle>
+          <DialogTitle id="alert-dialog-title">{"2hats Talent Pool Only"}</DialogTitle>
           <DialogContent className={classes.content}>
             <Typography variant='body1'>
-Once you pass the assessment centre, you will be accepted into the 2hats talent pool. 
-This job board will allow you to review open positions and enable direct communication with position providers. 
+Once you pass the 2hats application process, you will be accepted into the 2hats talent pool, and will gain access to this Job Board. 
+
 In the meantime, you can check our dashboard for resume feedback and any upcoming events. 
             </Typography>
           </DialogContent>
