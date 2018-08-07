@@ -13,7 +13,6 @@ const styles = theme => ({
   root: {
     width: '100%',
     marginTop:10,
-   // marginLeft:35
   },
   button:{
    marginBottom:20,
@@ -25,6 +24,8 @@ const styles = theme => ({
   },webContent:{
 
   },mobileContent:{
+   
+    padding:10
   // merginLeft:-40,
   }
 });
@@ -136,7 +137,7 @@ justify='flex-start'
                   direction="column"
                   justify="space-between">
                   <Grid item>
-                  <div className={isMobile?classes.mobileContent:classes.webContent}>
+                  <div className={isMobile?classes.mobileContent:classes.webContent} >
                   {this.props.children}
                   </div>
                   </Grid>

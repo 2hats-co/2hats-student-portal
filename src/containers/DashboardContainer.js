@@ -16,13 +16,10 @@ const styles = theme => ({
     [theme.breakpoints.up('xs')]: {
         paddingLeft:30,
         paddingRight:30
-
       },
     [theme.breakpoints.up('md')]: {
         paddingLeft:60
-    }
-   
-    },
+    }},
     navIconHide:{},
     appBar:{},
     toolbar:{},

@@ -10,6 +10,8 @@ import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 const styles = theme => ({
     root: { 
       width:'100%',
+      padding:0,
+      overflowX:'hidden',
       maxWidth: 750,
         flexGrow: 1,
       },
