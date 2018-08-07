@@ -73,12 +73,12 @@ class CareerInterests extends React.Component {
   )
   }
   render() {
-    const { classes,preSelectedList} = this.props;
+    const { classes,preSelectedList,hideTitle} = this.props;
     return (
         <div className={classes.root}>
-         <Typography variant="title" color="primary">
+         {!hideTitle&&<Typography variant="title" color="primary">
          Career Interests - {3-preSelectedList.length} remaining
-        </Typography>  
+    </Typography> }
             <Grid container direction='row' justify='space-between'>
             {CAREER_INTERESTS.map(list => this.renderCheckBoxGroup(list.label,list.items))}    
             </Grid>

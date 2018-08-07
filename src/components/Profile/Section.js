@@ -35,7 +35,7 @@ class Section extends React.Component{
                </Grid>
            </Grid>
            {children}
-            <EditDialog name={name} isOpen={isOpen} closeHandler={this.handleClose}/>
+            <EditDialog name={name} label={label} isOpen={isOpen} closeHandler={this.handleClose}/>
            </div>
         )
     }

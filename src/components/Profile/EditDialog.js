@@ -91,27 +91,27 @@ const styles = theme => ({
         }
       }
       render() {
-        const {classes,isOpen,name} = this.props
+        const {classes,isOpen,name,label} = this.props
         let inputField = (<div/>)
         switch (name) {
           case 'careerInterests':
-           inputField = <CareerInterests preSelectedList={this.state.careerInterests} changeHandler={this.handleChange}/> 
+           inputField = <CareerInterests hideTitle preSelectedList={this.state.careerInterests} changeHandler={this.handleChange}/> 
             break;
             case 'bio':
-            inputField = <PersonalBio bio={this.state.bio} industry={this.state.industry} changeHandler={this.handleChange} />
+            inputField = <PersonalBio hideTitle bio={this.state.bio} industry={this.state.industry} changeHandler={this.handleChange} />
             break;
             case 'skills':
-            inputField = <Skills preSelectedList={this.state.skills} changeHandler={this.handleChange}/>
+            inputField = <Skills hideTitle preSelectedList={this.state.skills} interestKeys={this.state.careerInterests} changeHandler={this.handleChange}/>
             break;
             case 'resumeFile':
-            inputField = <ResumeLoader resumeFile={this.state.resumeFile} changeHandler={this.handleChange}/>
+            inputField = <ResumeLoader hideTitle resumeFile={this.state.resumeFile} changeHandler={this.handleChange}/>
             break;
           default:
             break;
         }
         return(
           <Dialog activity={`update`} 
-          title={'  '} isOpen={isOpen} 
+          title={` your ${label}`} isOpen={isOpen} 
           addHandler={this.handleSave} 
           disabled={this.disabledUpadate(name)} 
           cancelHandler={this.handleCancel}

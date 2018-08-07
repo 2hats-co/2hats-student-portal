@@ -102,7 +102,7 @@ class ResumeLoader extends React.Component {
         }
       }
     render() {
-        const {classes,resumeFile,theme } = this.props;
+        const {classes,resumeFile,theme,hideTitle } = this.props;
         const {isUploading} = this.state; 
         const buttonClassname = classNames({
             [classes.buttonSuccess]: true,
@@ -110,7 +110,7 @@ class ResumeLoader extends React.Component {
         return (
             <div style={!theme.responsive.isMobile?{minWidth:500}:{}}>
             <InputWrapper
-      title={'Resume Upload'}>
+      title={!hideTitle&&'Resume Upload'}>
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
             accept="application/pdf"
