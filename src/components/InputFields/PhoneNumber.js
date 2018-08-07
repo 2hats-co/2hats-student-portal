@@ -60,7 +60,7 @@ class PhoneNumber extends React.Component {
   const { number } = this.state;
     const InputField = (
       <TextField
-      label={hasLabel&&'MobileNumber'}
+      label={hasLabel&&'Mobile Number'}
       className={classes.inputField}
       placeholder='e.g. 0400 000 000'
       value={number}
@@ -77,7 +77,7 @@ class PhoneNumber extends React.Component {
    >
     <InputWrapper 
   title={!hasLabel?'mobile number (Optional)':''}
-  hint={!hasLabel?'Your mobile number is required so that we can contact you for a phone interview.':''}
+  hint={!hasLabel?'Providing your mobile number will allow us to contact you throughout the application process.':''}
   >{InputField}
   </InputWrapper> 
   </div> 
