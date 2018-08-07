@@ -12,6 +12,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import PersonIcon from '@material-ui/icons/Person'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 
+// Logout toggle
+import Button from '@material-ui/core/Button';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
+
 import NavigationButton from './NavigationButton'
 import { compose } from 'recompose';
 import withAuthorisation from '../utilities/Session/withAuthorisation'
@@ -33,6 +43,7 @@ import UpdateIcon from '@material-ui/icons/Update'
 
 import {auth} from '../firebase';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
+import DownArrowIcon from '@material-ui/icons/ArrowDropDown'
 import AccountInfoDailog from './AccountInfoDialog'
 
 import LoadingMessage from './LoadingMessage'
@@ -97,13 +108,15 @@ const styles = theme => ({
     marginTop:20
   
     },greeting:{
-      color:'#2c2c2c',
-      width:'98%',
-      textAlign:'right'
+      position: 'absolute',
+      right: 10,
+      top: 10,
+      paddingLeft: 30,
+      paddingRight: 30,
+      textAlign: 'center',
+      backgroundColor: '#EDEDED !important'
     },
-
 });
-
 
 export const withNavigation = (WrappedComponent) => {
   
@@ -120,7 +133,8 @@ export const withNavigation = (WrappedComponent) => {
       state = {
         mobileOpen: false,
         infoDialog:false,
-        height:window.innerHeight
+        height:window.innerHeight,
+        logoutToggleOpen: false
       };
       componentWillMount(){
       
@@ -169,12 +183,20 @@ export const withNavigation = (WrappedComponent) => {
       }
       handleInfoDialog(isOpen){
         this.setState({infoDialog:isOpen})
-    }
-    
+      }
+
+      // Handle logout toggle
+      handleLogoutToggle = () => {
+        this.setState(state => ({ logoutToggleOpen: !state.logoutToggleOpen }));
+      };  
+      handleLogoutToggleClose = event => {    
+        this.setState({ logoutToggleOpen: false });
+      };
     
       render(){
       const {classes,theme,history,children,profile,user,upcomingEvents} = this.props    
-       const pathName = history.location.pathname
+      const { logoutToggleOpen } = this.state;
+      const pathName = history.location.pathname
        
        const drawer = (
         <div>
@@ -193,17 +215,17 @@ export const withNavigation = (WrappedComponent) => {
           name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} 
           route={()=>{this.goTo(routes.JOB_BOARD)}}/>
 
-          <NavigationButton isSelected={false} name='Account' 
+          {/* <NavigationButton isSelected={false} name='Account' 
           icon={<UpdateIcon style={{color:'#fff'}}/>} 
-          route={()=>{this.handleInfoDialog(true)}}/>    
+          route={()=>{this.handleInfoDialog(true)}}/>     */}
 
           <NavigationButton isSelected={false} name='Support' 
           icon={<LiveHelp style={{color:'#fff'}}/>}
           route={()=>{window.Intercom('show');}}/>         
 
-         <NavigationButton isSelected={(pathName===routes.SIGN_IN)} 
+         {/* <NavigationButton isSelected={(pathName===routes.SIGN_IN)} 
          name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} 
-         route={()=>{auth.doSignOut();this.props.clearData();this.goTo(routes.SIGN_IN)}}/>
+         route={()=>{auth.doSignOut();this.props.clearData();this.goTo(routes.SIGN_IN)}}/> */}
 
         </div>
       );
@@ -222,9 +244,38 @@ export const withNavigation = (WrappedComponent) => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography  className={classes.greeting} variant="button" color="inherit" noWrap>
-            {user&&user[0]&&`Hi ${user[0].firstName}`}
-            </Typography>
+            <div>
+              <Button
+                className={classes.greeting}
+                variant='contained'
+                buttonRef={node => {
+                  this.anchorEl = node;
+                }}
+                aria-owns={logoutToggleOpen ? 'logout-toggle' : null}
+                aria-haspopup="true"
+                onClick={this.handleLogoutToggle}
+              >
+                { Array.isArray(user) && user[0] && user[0].firstName && `Hi ${user[0].firstName}` } <DownArrowIcon/>
+              </Button>
+              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal>
+                {({ TransitionProps, placement }) => (
+                  <Grow
+                    {...TransitionProps}
+                    id="logout-toggle"
+                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                  >
+                    <Paper>
+                      <ClickAwayListener onClickAway={this.handleLogoutToggleClose}>
+                        <MenuList>
+                          <MenuItem onClick={()=>{this.handleInfoDialog(true)}}>My account</MenuItem>
+                          <MenuItem onClick={()=>{auth.doSignOut();this.props.clearData();this.goTo(routes.SIGN_IN)}}>Logout</MenuItem>
+                        </MenuList>
+                      </ClickAwayListener>
+                    </Paper>
+                  </Grow>
+                )}
+              </Popper>
+            </div>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
