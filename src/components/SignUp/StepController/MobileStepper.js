@@ -25,13 +25,13 @@ function DotMobileStepper(props){
         activeStep={activeStep}
         className={classes.root}
         nextButton={
-          <Button size="small" onClick={handleNext} disabled={nextDisabler}>
+          <Button variant='contained' size="small" onClick={handleNext} disabled={nextDisabler}>
             {activeStep === steps.length-1?'Preview':"Next"}
             {(activeStep !== steps.length-1)&& (theme.direction === 'rtl' ? <KeyboardArrowLeft /> : <KeyboardArrowRight />)}
           </Button>
         }
         backButton={
-          <Button size="small" onClick={handleBack}>
+          <Button variant='contained' size="small" onClick={handleBack}>
             {theme.direction === 'rtl' ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
             Back
           </Button>

@@ -30,9 +30,10 @@ const styles = theme => ({
         height: 42,
         //maxWidth: 500,
         width: '100%',
-        border:'2px solid #9B9B9B',
+        border:'1px solid #9B9B9B',
         borderStyle:'none',
-        borderBottomStyle: 'solid'
+        borderBottomStyle: 'solid',
+        '&hover':{ border:'1px solid #000',}
     },
     
     monthsGrid: {
@@ -74,16 +75,11 @@ const styles = theme => ({
             border: 'none'
         }
 
-    },inputLabel:{
-        fontSize:18,fontWeight:300,color:'#7c7c7c',marginTop:20
-    },
-    valueLabel:{
-        fontSize:14,fontWeight:400,color:'#000',marginTop:20,marginRight:10,width:'calc(100% - 45px)'
     },
     calendar:{
         paddingLeft:5,
         marginRight:40,
-       // width:'74%',
+        width:'calc(100% - 85px)',
         height:140,
         border:'1px solid #9B9B9B',
         backgroundColor:'#fff',
@@ -242,15 +238,15 @@ const styles = theme => ({
             <Grid container  onClick={()=>{this.openCalender(name,focusedField)}} direction='column'>
             {captionLabel&& <Typography className={classes.captionLabel} variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
             <Grid className={classes.root} container direction='row' alignItems='center' justify='space-between'>
-            {(!captionLabel&&!value)? <Typography className={classes.inputLabel}>{label}</Typography>:<Grid item/>} 
-                {value&&  <Typography className={classes.valueLabel}>{value}</Typography>}
+            {(!captionLabel&&!value)? <Typography variant='body1'>{label}</Typography>:<Grid item/>} 
+                {value&&  <Typography variant='body1'>{value}</Typography>}
                 <IconButton style={{height:42,width:42,marginRight:-10}}
                 onClick={()=>{this.openCalender(name,focusedField)}}
                 className={classes.button}>
                     <DownIcon/>
                 </IconButton>
             </Grid>
-           {errorMessage&& <Typography className={classes.errorText}>
+           {(errorMessage&&isOpen)&& <Typography className={classes.errorText}>
             {errorMessage}
             </Typography>}
             </Grid>

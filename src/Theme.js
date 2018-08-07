@@ -18,9 +18,18 @@ export const Theme = createMuiTheme({
         color:GREY,
       },
     },
-    
-    MuiStepper:{
-  
+    MuiInput:{
+      opacity:1,
+      borderBottom:'#000 !important'
+    },
+    MuiInputLabel:{
+      root:{
+      fontSize: '12px',
+      fontWeight: 400,
+      fontColor:'rgba(0,0,0,1) !important',
+      fontFamily:primaryFontFamily,
+      letterSpacing: '0.06px',
+    }
     },
     MuiFormControlLabel:{
       root:{
@@ -122,7 +131,6 @@ export const Theme = createMuiTheme({
     },
     
     subheading: {
-   
       fontFamily:primaryFontFamily,
       fontWeight: 500,
       fontSize: '16px',
@@ -130,7 +138,7 @@ export const Theme = createMuiTheme({
     },
     body1: {
       fontSize: '12px',
-      fontWeight: 500,
+      fontWeight: 400,
       fontFamily:primaryFontFamily,
       letterSpacing: '0.06px'
 
