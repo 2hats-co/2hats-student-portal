@@ -200,6 +200,7 @@ const enhance = compose(
         bio:'',
         careerInterests:[],
         skills:[],
+        resumeFile:{name:'',fullPath:'',downloadURL:''},
         isComplete:false,
         hasSubmit: false,
         createdAt: props.firestore.FieldValue.serverTimestamp()

@@ -36,10 +36,10 @@ const styles = theme => ({
   });
   const INITIAL_STATE = {
     careerInterests: [],
-    bio: "",
+    bio: '',
     skills: [],
     industry:'IT',
-    resumeFile:{name:'',fullPath:''},
+    resumeFile:{name:'',fullPath:'',downloadURL:''},
     process:PROCESS_TYPES.build,
     error: null
   };
@@ -78,6 +78,18 @@ const styles = theme => ({
       handleChange(name, value) {
         this.setState({[name]:value})
       }
+      disabledUpadate(name){
+        console.log(this.state[name])
+        switch (name) {
+          case 'resumeFile':return this.state.resumeFile.downloadURL === ''
+          case 'skills':return this.state.skills.length ===0
+          case 'careerInterests':return this.state.careerInterests.length ===0
+          case 'bio':return this.state.bio.length ===''
+        
+          default:false
+            break;
+        }
+      }
       render() {
         const {classes,isOpen,name} = this.props
         let inputField = (<div/>)
@@ -101,7 +113,7 @@ const styles = theme => ({
           <Dialog activity={`update`} 
           title={'  '} isOpen={isOpen} 
           addHandler={this.handleSave} 
-          disabled={false} 
+          disabled={this.disabledUpadate(name)} 
           cancelHandler={this.handleCancel}
           >
               <div className={classes.content}>

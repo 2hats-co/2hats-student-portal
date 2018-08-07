@@ -12,7 +12,7 @@ export function checkComplition(currentStep,profile){
     switch (currentStep) {
       case ALL_STEPS.careerInterests:return !careerInterests || careerInterests.length === 0;
       case ALL_STEPS.bio:return !bio|| !skills ||(skills.length === 0 || bio.length === 0);
-      case ALL_STEPS.uploadResume:return !resumeFile || resumeFile.fullPath.length === 0;
+      case ALL_STEPS.uploadResume:return !resumeFile || resumeFile.downloadURL.length === 0;
       case ALL_STEPS.education:return !education || education.length === 0 ;
       case ALL_STEPS.experience:return !experience || experience.length === 0 ;
       case ALL_STEPS.profileDetails:return !currentUniversity || !skills|| (currentUniversity.length === 0 ||skills.length === 0);

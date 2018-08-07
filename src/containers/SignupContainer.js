@@ -59,7 +59,7 @@ let INITIAL_PROFILE = {
   phoneNumber: "",
   industry: "IT",
   education: [],
-  resumeFile:{name:'',fullPath:''},
+  resumeFile:{name:'',fullPath:'',downloadURL:''},
   experience: []}
 const INITIAL_STATE = {
   activeStep: 0,
