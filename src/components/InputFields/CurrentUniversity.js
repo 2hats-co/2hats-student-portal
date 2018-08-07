@@ -12,7 +12,7 @@ function CurrentUniversity(props){
         value={value}
         changeHandler={changeHandler}
         list={UNIVERSITIES}
-       hint={"We accept candidates with both restricted and unrestricted working rights. Your answer will not impact your submission."}
+       hint={"We cater to current university and recent graduate students who have little professional experience."}
       />
     )
 }
