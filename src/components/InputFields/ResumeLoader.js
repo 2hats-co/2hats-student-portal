@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 const styles = theme => ({
     root: {
         boxSizing: 'border-box',
+        marginTop:5,
         width:'100%',
         height:'100%',
         border: '3px dashed #979797',
@@ -25,7 +26,7 @@ const styles = theme => ({
        
     },
     grid:{
-        height:400,
+        height:270,
         width:'100%',        
     },
     wrapper: {
@@ -110,7 +111,9 @@ class ResumeLoader extends React.Component {
         return (
             <div style={!theme.responsive.isMobile?{minWidth:500}:{}}>
             <InputWrapper
-      title={!hideTitle&&'Resume Upload'}>
+      title={!hideTitle&&'Resume Upload'}
+      hint={!hideTitle&&'Minjie only wants pdfs'}
+      >
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
             accept="application/pdf"

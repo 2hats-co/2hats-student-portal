@@ -134,12 +134,12 @@ class ResumeBuilderContainer extends Component {
     switch (currentStep) {
       case ALL_STEPS.careerInterests: 
         return (
-          <SectionWrapper width={750} height={220}>
+          <SectionWrapper width={750} height={320}>
               <CareerInterests preSelectedList={careerInterests} changeHandler={this.handleChange} />
           </SectionWrapper>
          
         );
-      case ALL_STEPS.bio: return <SectionWrapper width={750} height={420}>
+      case ALL_STEPS.bio: return <SectionWrapper width={750} height={320}>
       <BioAndSkills
         industry={this.state.profile.industry}
        bio={this.state.profile.bio}
@@ -147,34 +147,32 @@ class ResumeBuilderContainer extends Component {
          skills={this.state.profile.skills} 
          changeHandler={this.handleChange}/></SectionWrapper>
       case ALL_STEPS.education: return <SectionWrapper
-        width={750} height={420}> 
+        width={750} height={320}> 
         <EduExp industry={industry}
           name='education' changeHandler={this.handleChange} 
           data = {this.state.profile.education}
           width={600}/>
         </SectionWrapper>;
-      case ALL_STEPS.experience: return  <SectionWrapper width={750} height={420} >  
+      case ALL_STEPS.experience: return  <SectionWrapper width={750} height={320} >  
       <EduExp industry={industry}
       name='experience' changeHandler={this.handleChange} 
       data = {this.state.profile.experience}      
       width={600}/>        
         </SectionWrapper>;
-      case ALL_STEPS.other: return <SectionWrapper width={750} height={270} >
+      case ALL_STEPS.other: return <SectionWrapper width={750} height={320} >
        <OtherInfo availableDays={this.state.profile.availableDays} phoneNumber={this.state.profile.phoneNumber} 
        workingRights={this.state.profile.workingRights} changeHandler={this.handleChange}/></SectionWrapper>
-      case ALL_STEPS.profileDetails:return <SectionWrapper width={750} height={420}> <ProfileDetails 
+      case ALL_STEPS.profileDetails:return <SectionWrapper width={750} height={320}> <ProfileDetails 
       industry={this.state.profile.industry}
       currentUniversity={this.state.profile.currentUniversity}
       careerInterests={this.state.profile.careerInterests}
        skills={this.state.profile.skills} 
        changeHandler={this.handleChange}/></SectionWrapper>;
-      case ALL_STEPS.uploadResume:return <SectionWrapper width={750} 
-      height={450}
-      >
-      <ResumeLoader 
-      resumeFile={this.state.profile.resumeFile} 
-      changeHandler={this.handleChange}/>
-      </SectionWrapper>;
+      case ALL_STEPS.uploadResume:return <SectionWrapper width={750} height={320}>
+                          <ResumeLoader 
+                          resumeFile={this.state.profile.resumeFile} 
+                          changeHandler={this.handleChange}/>
+                     </SectionWrapper>
       default: return "Uknown step";
     }
   }
@@ -204,7 +202,7 @@ class ResumeBuilderContainer extends Component {
         currentUniversity= education[0].university
       }
       this.props.onProfileUpdate({education:profile.education,completedStep:currentStep})
-      this.props.onUserUpdate({currentUniversity:currentUniversity})//TODO: make it smarter
+      this.props.onUserUpdate({currentUniversity:currentUniversity})
       break; 
       case ALL_STEPS.experience:this.props.onProfileUpdate({experience:profile.experience,completedStep:currentStep})
       break; 
@@ -260,7 +258,7 @@ class ResumeBuilderContainer extends Component {
         </LogoOnCard>
     );
     }else{return(
-      <LogoOnCard width={900}> 
+      <LogoOnCard height={520} width={900}> 
       <SectionWrapper height={420} width={900}>
       <div style={{padding:30}}>
         <LoadingMessage message={'Minjie is preparing the copy for this form'}/>
