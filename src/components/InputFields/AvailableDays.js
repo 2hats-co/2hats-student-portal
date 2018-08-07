@@ -12,7 +12,7 @@ function AvailableDays(props){
         changeHandler={changeHandler}
        // list={["1 Day","2 Days","3 Days","4 Days","5 Days"]}
         list={["1 Day","1½ Days","2 Days","2½ Days","3 Days","3½ Days","4 Days","4½ Days","5 Days"]}
-        hint="How many days are you available to work per week"
+        hint="How many days are you available to work per week (Mon-Fri)?"
       />
     )
 }
