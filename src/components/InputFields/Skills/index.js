@@ -62,7 +62,7 @@ class Skills extends React.Component {
          <AutoCompleteField
         title = 'Skills'
         hint = 'Please address your chosen skill(s) in your tertiary education and practical experience. '
-        placeholder = 'Choose relevant skills and/or choose your own, e.g. Excel VBA'
+        placeholder = 'Enter your relevant practical skills, e.g. Adobe Photoshop'
         list = {ALL_SKILLS.filter(x=> !this.state.selectedList.includes(x))}
         onComplete = {this.addNewSkill}
         />
