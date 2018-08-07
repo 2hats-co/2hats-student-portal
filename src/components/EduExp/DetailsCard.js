@@ -14,38 +14,62 @@ const styles = theme => ({
   card:{  
     width:'calc(100%0)',
     paddingTop: 30,
-    paddingBottom: 30,
-    paddingLeft:20,
+    paddingBottom: 30, 
+    marginBottom:10,
+    [theme.breakpoints.up('xs')]: {
+      paddingLeft:30,
+      paddingRight:30,
+    },
+    [theme.breakpoints.up('sm')]: {
+    paddingLeft:40,
     paddingRight:40,
-    marginBottom:10
+    },[theme.breakpoints.up('md')]: {
+      paddingLeft:50,
+      paddingRight:50,
+      },
+    
   },
 });
 function EduExpCard(props) {
   const {disabled, classes, title, key, label, description, startDate, endDate,editHandler,deleteHandler} = props;
   return (
     <div key ={key} className={classes.root}>
- 
     <Card elevation={2} className={classes.card}>
-  
-      <Grid container direction="column" alignItems="flex-start" spacing={16}>
-      <Grid container direction="row" alignItems="center" justify="space-between">
-      <Typography variant='subheading'>{title}</Typography>
-      {!disabled&&<Grid item>
-     <IconButton onClick={()=>{editHandler()}} aria-label="Edit">
-        <EditIcon />
-      </IconButton>
-      <IconButton onClick={()=>{deleteHandler()}} aria-label="Delete">
-        <DeleteIcon />
-      </IconButton>
-      </Grid>}
-      </Grid>
-        <Grid container direction="row" alignItems="flex-start" justify="space-between">
-          <Typography variant="body1">{label}</Typography>
-          <Typography variant="body1">
-            {startDate} - {endDate}
-          </Typography>
+      <Grid container 
+      direction="column" 
+      alignItems="flex-start" 
+      spacing={16}>
+      <Grid container 
+      direction="row" 
+      alignItems="center" 
+      justify="space-between">
+          <Grid item xs={8} sm={9}>
+          <Typography variant='subheading'>{title}</Typography>
+          </Grid>
+            {!disabled&&<Grid item xs={4} sm={3}>
+            <Grid container direction='row' justify='flex-end'>
+          <IconButton onClick={()=>{editHandler()}} aria-label="Edit">
+              <EditIcon />
+            </IconButton>
+            <IconButton onClick={()=>{deleteHandler()}} aria-label="Delete">
+              <DeleteIcon />
+            </IconButton>
+            </Grid></Grid>}
         </Grid>
-        <Typography variant="body1">{description}</Typography>
+        <Grid container direction="row" alignItems="center" justify="space-between">
+            <Grid item xs={7} sm={8}>
+              <Typography variant="body1">{label}</Typography>
+            </Grid>
+            <Grid item xs={5} sm={4}>
+              <Typography variant="body1" 
+              style={{textAlign:'right'}}>
+                {startDate} - {endDate}
+              </Typography>
+            </Grid>
+        </Grid>
+        <Grid item xs={12} style={{paddingLeft:0,paddingRight:0}}>
+        <Typography variant="body1" >{description}</Typography>
+        </Grid>
       </Grid>
     </Card>
     </div>
