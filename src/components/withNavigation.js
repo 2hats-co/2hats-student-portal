@@ -189,7 +189,11 @@ export const withNavigation = (WrappedComponent) => {
       handleLogoutToggle = () => {
         this.setState(state => ({ logoutToggleOpen: !state.logoutToggleOpen }));
       };  
-      handleLogoutToggleClose = event => {    
+      handleLogoutToggleClose = event => { 
+        if (this.anchorEl.contains(event.target)) {
+          return;
+        }
+
         this.setState({ logoutToggleOpen: false });
       };
     
@@ -215,18 +219,9 @@ export const withNavigation = (WrappedComponent) => {
           name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} 
           route={()=>{this.goTo(routes.JOB_BOARD)}}/>
 
-          {/* <NavigationButton isSelected={false} name='Account' 
-          icon={<UpdateIcon style={{color:'#fff'}}/>} 
-          route={()=>{this.handleInfoDialog(true)}}/>     */}
-
           <NavigationButton isSelected={false} name='Support' 
           icon={<LiveHelp style={{color:'#fff'}}/>}
           route={()=>{window.Intercom('show');}}/>         
-
-         {/* <NavigationButton isSelected={(pathName===routes.SIGN_IN)} 
-         name='Logout' icon={<LogoutIcon style={{color:'#fff'}}/>} 
-         route={()=>{auth.doSignOut();this.props.clearData();this.goTo(routes.SIGN_IN)}}/> */}
-
         </div>
       );
 
@@ -267,8 +262,20 @@ export const withNavigation = (WrappedComponent) => {
                     <Paper>
                       <ClickAwayListener onClickAway={this.handleLogoutToggleClose}>
                         <MenuList>
-                          <MenuItem onClick={()=>{this.handleInfoDialog(true)}}>My account</MenuItem>
-                          <MenuItem onClick={()=>{auth.doSignOut();this.props.clearData();this.goTo(routes.SIGN_IN)}}>Logout</MenuItem>
+                          <MenuItem value="Account" onClick={() => {
+                            this.setState({ logoutToggleOpen: false });
+                            this.handleInfoDialog(true);
+                          }}>
+                            My account
+                          </MenuItem>
+                          <MenuItem value="Logout" onClick={() => {
+                            this.setState({ logoutToggleOpen: false });
+                            auth.doSignOut();
+                            this.props.clearData();
+                            this.goTo(routes.SIGN_IN);
+                          }}>
+                            Logout
+                          </MenuItem>
                         </MenuList>
                       </ClickAwayListener>
                     </Paper>
