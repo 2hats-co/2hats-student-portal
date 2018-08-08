@@ -12,10 +12,6 @@ import BackIcon from '@material-ui/icons/ArrowBack'
 import NextIcon from '@material-ui/icons/ArrowForward'
 import DownIcon from '@material-ui/icons/ArrowDropDown'
 import moment from 'moment'
-
-import {PRIMARY_COLOR} from '../../Theme'
-
-
 const monthLabels = [['Jan','Feb','Mar','Apr'],['May','Jun','Jul','Aug'],['Sep','Oct','Nov','Dec']]
 const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
 function getMonthName(n){return(monthNames[n-1])} 
@@ -41,7 +37,7 @@ const styles = theme => ({
         height:85
     },
     selectedDiv:{
-        backgroundColor:PRIMARY_COLOR
+        backgroundColor:theme.palette.primary.light
     },
     monthButton:{
         background: '#FFFFFF',
@@ -74,7 +70,6 @@ const styles = theme => ({
             outline: 'none',
             border: 'none'
         }
-
     },
     calendar:{
         paddingLeft:5,
@@ -233,13 +228,17 @@ const styles = theme => ({
         const {label,value,classes,name,focusedField}=this.props
         const {errorMessage} = this.state
         const isOpen = (name===focusedField)
-        const captionLabel = (isOpen || value !=='')
+     
         return( 
             <Grid container  onClick={()=>{this.openCalender(name,focusedField)}} direction='column'>
-            {captionLabel&& <Typography className={classes.captionLabel} variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
+
+
+            {(isOpen||value)&&<Typography className={classes.captionLabel} variant='caption' color={isOpen?'primary':'default'}>{label}</Typography>}
             <Grid className={classes.root} container direction='row' alignItems='center' justify='space-between'>
-            {(!captionLabel&&!value)? <Typography variant='body1'>{label}</Typography>:<Grid item/>} 
-                {value&&  <Typography variant='body1'>{value}</Typography>}
+            {(!isOpen&&!value)&&<Typography variant='body1'>{label}</Typography>}
+            {(isOpen&&!value)&&<Grid item/>}
+
+                {value&& <Typography variant='body1' style={{marginTop:20}}>{value}</Typography>}
                 <IconButton style={{height:42,width:42,marginRight:-10}}
                 onClick={()=>{this.openCalender(name,focusedField)}}
                 className={classes.button}>
