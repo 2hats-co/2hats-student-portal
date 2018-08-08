@@ -1,5 +1,5 @@
 {
   "projects": {
-    "default": "stage2hats"
+    "default": "production2hats"
   }
 }

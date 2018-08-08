@@ -123,15 +123,15 @@ const styles = theme => ({
         if(this.props.name.includes('start')&& 
         (moment().format("YYYY")<year || (moment().format("YYYY")==year && moment().format("M")<month)))
         {
-            this.setState({errorMessage:`Minjie doesn't like that it start later than now`})
+            this.setState({errorMessage:`Please choose an earlier date`})
             return false
         }else{
             if(this.props.minValue&& this.props.minValue.value>getDateIndex(month,year)){
            
-                this.setState({errorMessage:`Minjie doesn't like that`})
+                this.setState({errorMessage:`Please choose a later date`})
                 return false
                 }else if(this.props.maxValue&& this.props.maxValue.value<getDateIndex(month,year)){
-                    this.setState({errorMessage:`Minjie doesn't like that`})          
+                    this.setState({errorMessage:`Please choose an earlier date`})          
                     
                
                     return false

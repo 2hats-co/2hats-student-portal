@@ -112,7 +112,7 @@ class ResumeLoader extends React.Component {
             <div style={!theme.responsive.isMobile?{minWidth:500}:{}}>
             <InputWrapper
       title={!hideTitle&&'Resume Upload'}
-      hint={!hideTitle&&'Minjie only wants pdfs'}
+      hint={!hideTitle&&'Please upload in PDF format'}
       >
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
@@ -148,7 +148,7 @@ class ResumeLoader extends React.Component {
             </Grid>
             </Dropzone>
             </InputWrapper>
-            <MessageBar message="sorry minjie only wants pdfs" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
+            <MessageBar message="Please upload in PDF format" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
             </div>
         );
     } 

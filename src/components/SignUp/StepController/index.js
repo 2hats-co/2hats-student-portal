@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
 import {withRouter} from 'react-router-dom'
 import {PROCESS_TYPES,ALL_STEPS,STEP_LABELS,checkComplition} from '../../../constants/signUpProcess'
-
+import StyledLink from '../../StyledLink'
 import * as routes from '../../../constants/routes'
 import DotMobileStepper from "./MobileStepper";
 const styles = theme => ({
@@ -103,25 +103,39 @@ render(){
   >
     Back
   </Button>)
-  const saveButton = (<Button id={`save-${currentStep}`}
-    className={classes.button}
-    variant="outlined"
-    disabled={this.disableSave(currentStep,profile)}
-  onClick={this.goToDashboard}
-  >
-    Save for Later
-  </Button>)
-  const saveButtonWithConditions = ((currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&saveButton)
-  const webButtons =(<Grid item>
+  // const saveButton = (<Button id={`save-${currentStep}`}
+  //  className={classes.button}
+  //   //variant="link"
+  //   disabled={this.disableSave(currentStep,profile)}
+  // onClick={this.goToDashboard}
+  // >)
+  const saveLink = (<StyledLink style={{color:'#000',width:'100%',textAlign:'right'}} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
+      Finish later
+    </StyledLink>)
+  const saveButtonWithConditions = (((currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&!checkComplition(ALL_STEPS.education,profile))&&saveLink)
+  const webButtons =(<Grid item style={{height:35}}>
     <Grid
-className={classes.root}
+//className={classes.root}
 container
 direction="row"
+alignItems='center'
+justify='space-between'
+>
+<Grid item sm={10}>
+<Grid
+//className={classes.root}
+container
+direction="row"
+alignItems='center'
 justify='flex-start'
 >
 {backButton}
 {currentStep&&nextButton}
+</Grid>
+</Grid>
+<Grid item sm={2} style={{textAlign:'right'}}>
 {saveButtonWithConditions}
+</Grid>
 </Grid>
     </Grid>)
  return(
@@ -145,7 +159,7 @@ justify='flex-start'
                   webButtons
                   }
                   {isMobile&&
-                    <Grid container style={{width:'100%'}} direction='row' justify='center'>
+                    <Grid container style={{width:'90%'}} direction='row' justify='flex-end'>
                      <Grid item>
                         {saveButtonWithConditions}
                      </Grid>
