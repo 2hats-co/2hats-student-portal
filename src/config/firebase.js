@@ -1,13 +1,14 @@
-const PROJECT_NAME = 'staging2hats'
-const dev2hatsKey = 'AIzaSyAQ7SF4GnCvUGPUehqR6l1uGYkRRmNqZV0'
+const STAGING_PROJECT_NAME = 'staging2hats'
+const PRODUCTION_PROJECT_NAME = 'production2hats'
+
 const staging2hatsKey = "AIzaSyC5X6WfsorYvEG_wZacfhg7Y6QP4IgJ9DI"
-const key = staging2hatsKey
-export const developmentConfig = {
-    apiKey: key,
-    authDomain: `${PROJECT_NAME}.firebaseapp.com`,
-    databaseURL: `https://${PROJECT_NAME}.firebaseio.com`,
-    projectId: PROJECT_NAME,
-    storageBucket: `${PROJECT_NAME}.appspot.com`,
+const production2hatsKey = "AIzaSyD9EnwYfFxTvnaDMA7r6MbKoXmZbQmukrg"
+export const stagingConfig = {
+    apiKey: staging2hatsKey,
+    authDomain: `${STAGING_PROJECT_NAME}.firebaseapp.com`,
+    databaseURL: `https://${STAGING_PROJECT_NAME}.firebaseio.com`,
+    projectId: STAGING_PROJECT_NAME,
+    storageBucket: `${STAGING_PROJECT_NAME}.appspot.com`,
     messagingSenderId: "188089188588"
   };
 
@@ -21,10 +22,10 @@ export const developmentConfig = {
 //   };
 
 export const productionConfig = {
-    apiKey: key,
-    authDomain: `${PROJECT_NAME}.firebaseapp.com`,
-    databaseURL: `https://${PROJECT_NAME}.firebaseio.com`,
-    projectId: PROJECT_NAME,
-    storageBucket: `${PROJECT_NAME}.appspot.com`,
+    apiKey: production2hatsKey,
+    authDomain: `${PRODUCTION_PROJECT_NAME}.firebaseapp.com`,
+    databaseURL: `https://${PRODUCTION_PROJECT_NAME}.firebaseio.com`,
+    projectId: PRODUCTION_PROJECT_NAME,
+    storageBucket: `${PRODUCTION_PROJECT_NAME}.appspot.com`,
     messagingSenderId: "188089188588"
   };
