@@ -261,7 +261,7 @@ class ResumeBuilderContainer extends Component {
       <LogoOnCard height={520} width={900}> 
       <SectionWrapper height={420} width={900}>
       <div style={{padding:30}}>
-        <LoadingMessage message={'Minjie is preparing the copy for this form'}/>
+        <LoadingMessage message={`Hold onto your hat!`}/>  
         </div>
         </SectionWrapper>
             </LogoOnCard>
