@@ -18,7 +18,7 @@ pipelines:
           - yarn install
           - CI=false yarn build
           - firebase deploy --token "$FIREBASE_TOKEN" --project staging2hats --non-interactive --public build --only hosting
-production:
+    production:
       - step:
           caches:
           - node
