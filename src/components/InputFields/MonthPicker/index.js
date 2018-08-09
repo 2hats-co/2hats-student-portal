@@ -131,9 +131,7 @@ const styles = theme => ({
                 this.setState({errorMessage:`Please choose a later date`})
                 return false
                 }else if(this.props.maxValue&& this.props.maxValue.value<getDateIndex(month,year)){
-                    this.setState({errorMessage:`Please choose an earlier date`})          
-                    
-               
+                    this.setState({errorMessage:`Please choose an earlier date`})
                     return false
                 }
                 else{

@@ -12,7 +12,7 @@ const styles = theme => ({
     height: '100%',
     width: '100%',
   },
-  table:{
+  middle:{
     display: 'table-cell',
     verticalAlign: 'middle'
   },
@@ -36,9 +36,14 @@ function LogoInCard(props) {
   setBackground("#FA5E4E",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94')
   return (
     <div className={classes.root}>
-      <div className={classes.table}>
-      <Paper className={classes.paper} style={{width:width,height:height}} elevation={15}>
-        <img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>
+      <div className={classes.middle}>
+      <Paper className={classes.paper} 
+              style={{width:width,
+                      height:height}} 
+              elevation={15}>
+        <img className={classes.logo} 
+              alt='dark2hatsLogo' 
+              src={DarkLogo}/>
         {props.children}
       </Paper>
       </div>

@@ -50,16 +50,24 @@ const styles = theme => ({
 class IntroductionContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {view: INTRODUCTION_CONTAINER.process};
+    this.state = {view:INTRODUCTION_CONTAINER.process,createdUser:null};
      this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
     this.goToBuildResume = this.goToBuildResume.bind(this)
     this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
-  
+  componentDidMount(){
+    if(this.props.uid && !this.state.createdUser){
+      console.log('created at mount')
+      this.setState({createdUser:true})
+      this.props.createProfile()
+      this.props.createUser()
+    }
+  }
   componentDidUpdate(prevProps,prevState){
-    if(prevProps.uid != this.props.uid){
-      console.log('created')
+    if((prevProps.uid != this.props.uid)&& !this.state.createdUser){
+      console.log('created on update')
+      this.setState({createdUser:true})
       this.props.createProfile()
       this.props.createUser()
     }

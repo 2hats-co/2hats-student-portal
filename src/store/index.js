@@ -9,14 +9,14 @@ import logger from 'redux-logger'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import { productionConfig, developmentConfig } from '../config/firebase'
+import { productionConfig, stagingConfig } from '../config/firebase'
 
 import rootReducer from '../reducers'
 
 if (process.env.NODE_ENV === 'production') {
 	firebase.initializeApp(productionConfig)
 } else {
-	firebase.initializeApp(developmentConfig)
+	firebase.initializeApp(stagingConfig)
 }
 
 export function configureStore(initialState, history) {
