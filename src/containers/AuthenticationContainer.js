@@ -7,15 +7,11 @@ import * as action from '../actions/AuthenticationContainerActions';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import LogoInCard from '../components/LogoInCard';
-import GoogleIcon from '../assets/images/social/google.svg'
-import LinkedinIcon from '../assets/images/social/linkedin.svg'
+
 
 import StyledLink from '../components/StyledLink';
-import { validateEmail, validatePassword, validateName } from '../utilities/validators';
-//loading indecators
-import CircularStatic from '../components/circularProgressStatic.js';
-import CustomizedSnackbars from '../components/snackBars.js';
+
+
 //Redux
 import { compose } from 'redux';
 import { connect } from 'react-redux';
@@ -28,18 +24,17 @@ import { COLLECTIONS } from '../constants/firestore';
 import * as routes from '../constants/routes'
 import { withRouter } from "react-router-dom";
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
-
 //authentication
-import GoogleLogin from '../utilities/GoogleLogin.js';
-//firebase remote functions
-import { firebaseFunctions } from '../firebase';
 
 import Name from '../components/InputFields/Name'
-import Password from '../components/InputFields/Password'
-import Email from '../components/InputFields/Email'
-import ConfirmPassword from '../components/InputFields/ConfirmPassword'
+
 import Disclaimer from '../components/Authentication/Disclaimer';
 
+import EmailAuth from '../components/Authentication/EmailAuth'
+import GoogleButton from '../components/Authentication/GoogleButton'
+import LinkedinButton from '../components/Authentication/LinkedinButton'
+
+import LogoInCard from '../components/LogoInCard'
 
 const styles = theme => ({
   root: {
@@ -91,8 +86,11 @@ const INITIAL_STATE = {
 
 const updateByPropertyName = (propertyName, value) => () => ({
   [propertyName]: value,
+  emailReport:null
 });
 
+const googleButton = (<GoogleButton/>)
+const linkedinButton = (<LinkedinButton/>)
 class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -100,8 +98,6 @@ class AuthenticationContainer extends React.Component {
     this.goToIntroduction = this.goToIntroduction.bind(this);
     this.goToDashboard = this.goToDashboard.bind(this);
     this.goToSignIn = this.goToSignIn.bind(this);
-    this.handleLinkedInAuth = this.handleLinkedInAuth.bind(this);
-    this.handleGoogleAuth = this.handleGoogleAuth.bind(this);
     this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
@@ -116,155 +112,6 @@ class AuthenticationContainer extends React.Component {
   goToDashboard() {
     this.props.history.push(routes.DASHBOARD);
   }
-
-  // ? begin of different ways of authentication, jack
-  handleGoogleAuthFail = (error) => {
-    console.log('google auth fail', error)
-  }
-
-  initializeLinkedin = clientId => {
-    ; ((d, s, id) => {
-      const element = d.getElementsByTagName(s)[0]
-      const ljs = element
-      let js = element
-      if (d.getElementById(id)) {
-        return
-      }
-      js = d.createElement(s)
-      js.id = id
-      js.src = `//platform.linkedin.com/in.js`
-      js.text = `api_key: ${clientId}`
-      ljs.parentNode.insertBefore(js, ljs)
-    })(document, 'script', 'linkedin-jssdk')
-  }
-
-  handleGoogleAuth = (response) => {
-    this.handleLoadingIndicator(true);
-    this.handleProgress(30);
-    console.log('google response -->', response);
-    let data = {
-      googleId: response.googleId,
-      googleEmail: response.profileObj.email,
-      familyName: response.profileObj.familyName,
-      givenName: response.profileObj.givenName,
-      photo: response.profileObj.imageUrl,
-    };
-    firebaseFunctions.callRemoteMethodOnFirestore('googleAuth', data, async (response) => {
-      console.log('resp coming->', response);
-      this.handleProgress(60);
-      if (response.code) {
-        this.handleLoadingIndicator(false);
-        console.log(response.code);
-        this.handleSnackBar(true, 'warning', response.code);
-      }
-      if (response.crossAuth) {
-        console.log(response.crossAuth);
-        this.handleSnackBar(true, 'success', 'authenticating with Linkedin instead...');
-      }
-      if (response.customToken) {
-        try {
-          console.log('authenticating ...');
-          const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
-          console.log('authWithGoogle successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
-          if (!response.crossAuth) {
-            this.handleSnackBar(true, 'success', 'Google authenticating successfully !');
-          }
-          this.handleProgress(80);
-          if (response.returnedUser === false) {
-            // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
-            this.handleProgress(90);
-            this.props.MarkUserAsStepsCompleteAction(false);
-            setTimeout(() => {
-              this.handleLoadingIndicator(false);
-              this.goToIntroduction()
-            }, 500)
-
-          } else {
-            // todo: means this is an existing user who already complete initial steps, go to profile page directly
-            this.handleProgress(90);
-            this.props.MarkUserAsStepsCompleteAction(true);
-            setTimeout(() => {
-              this.handleLoadingIndicator(false);
-              this.goToDashboard()
-            }, 500)
-
-          }
-
-        } catch (error) {
-          this.handleLoadingIndicator(false);
-          console.log('Google auth error', error);
-        }
-      }
-
-    })
-  }
-
-  handleLinkedInAuth = () => {
-    //!important, please add an indicator to cover the screen, because the linkedin auth will take longer time than google does.
-    this.handleLoadingIndicator(true);
-    this.handleProgress(20);
-    const fields = ":(id,email-address,headline,summary,first-name,last-name,num-connections,picture-urls::(original))";
-    window.IN.API.Raw(`/people/~${fields}`).result(async r => {
-      console.log('linked in response -->', r);
-      this.handleProgress(40);
-      firebaseFunctions.callRemoteMethodOnFirestore('linkedinAuth', r, async (response) => {
-        console.log('resp coming->', response);
-        this.handleProgress(60);
-        if (response.code) {
-          this.handleLoadingIndicator(false);
-          console.log(response.code);
-          this.handleSnackBar(true, 'warning', response.code);
-        }
-        if (response.crossAuth) {
-          console.log(response.crossAuth);
-          this.handleSnackBar(true, 'success', 'authenticating with Google instead...');
-        }
-        if (response.customToken) {
-          try {
-            console.log('authenticating ...');
-            const signInWithCustomToken = await auth.doSignInWithCustomToken(response.customToken);
-            console.log('authWithLinkedin successfully ...', signInWithCustomToken); // loading user data from firebase authentication system
-            if (!response.crossAuth) {
-              this.handleSnackBar(true, 'success', 'Linkedin authenticating successfully !');
-            }
-            this.handleProgress(80);
-            if (response.returnedUser === false) {
-              // todo: means this is a brand new user, he/she should go through the initial registration steps before accessing the profile page
-              this.handleProgress(90);
-              this.props.MarkUserAsStepsCompleteAction(false);
-              setTimeout(() => {
-                this.handleLoadingIndicator(false);
-                this.goToIntroduction()
-              }, 500)
-
-              // Note: for demo purpose, introduction page will be displayed
-            } else {
-              // todo: means this is an existing user who already complete initial steps, go to profile page directly
-              this.handleProgress(90);
-              this.props.MarkUserAsStepsCompleteAction(true);
-              setTimeout(() => {
-                this.handleLoadingIndicator(false);
-                this.goToDashboard()
-              }, 500)
-            }
-
-          } catch (error) {
-            this.handleLoadingIndicator(false);
-            console.log('Linkdin auth error', error);
-          }
-        }
-
-      })
-
-    })
-  }
-
-  authorize = e => {
-    window.IN.User.authorize(this.handleLinkedInAuth, '')
-  }
-
-  // ? end of different of authentication, jack
-
   handleSnackBar = (showSnackBar, snackBarVariant, snackBarMessage) => {
     this.setState({
       showSnackBar,
@@ -335,7 +182,6 @@ class AuthenticationContainer extends React.Component {
         this.handleLoadingIndicator(false);
         this.setState(updateByPropertyName('error', error));
       });
-
   }
   handleResetPassword(email) {
     auth.doPasswordReset(email)
@@ -346,103 +192,24 @@ class AuthenticationContainer extends React.Component {
         this.setState(updateByPropertyName('error', error));
       });
   }
+  
   handleChange = name => event => {
-    /// used to update state on textfield change
     this.setState({
       [name]: event.target.value,
     });
   };
-  componentWillMount() {
-    this.setState({ view: this.props.view })
-  }
-  componentDidMount() {
-    const LinkedinCID = '86gj7a83u3ne8b'; // CID should be hidden somewhere else, I put here only for development purpose
-    this.initializeLinkedin(LinkedinCID);
-  }
-  *renderCard(a) {
-    if(this.state.isLoading){
-      yield (
-        <div key='loading'><CircularStatic completed={this.state.progress} /><Typography>Loading, please wait</Typography></div> 
-      );
-    }else{
-      yield (
-        a.map(x => x)
-      )
-    }
-  }
-  *renderCustomizedSnackbars(){
-    if(this.state.showSnackBar){
-      yield (
-        <CustomizedSnackbars key='snack' showSnackBar={this.state.showSnackBar} variant={this.state.snackBarVariant} message={this.state.snackBarMessage} />
-      );
-    }
-  }
   render() {
     const { classes } = this.props;
-    const GoogleCID = '1045443129080-6pd4ivjeuhp4boapn17ti36d2nn80ml7.apps.googleusercontent.com';
     const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress, showSnackBar, snackBarVariant, snackBarMessage } = this.state
-    let socialButton = (provider, method) => (
-      provider === 'google' ?
-        <GoogleLogin
-          key={`${provider}${method}`}
-          clientId={GoogleCID}
-          buttonText="Login"
-          onSuccess={this.handleGoogleAuth}
-          onFailure={this.handleGoogleAuthFail}
-          render={renderProps => (
-            <Button variant='flat'
-              key={`${provider}${method}1`}
-              style={{ backgroundColor: '#E05449' }}
-              onClick={renderProps.onClick}
-              className={classes.socialButton}>
-              <div className={classes.socialIcon} >
-                <img alt={provider} src={GoogleIcon} />
-              </div> sign {method} with {provider}
-            </Button>
-          )}
-        />
-        :
-        <Button key={`${provider}${method}`} variant='flat'
-          style={provider === 'google' ? { backgroundColor: '#E05449' } : { backgroundColor: '#0077B5' }}
-          onClick={provider === 'google' ? this.handleGoogleAuth : this.authorize}
-          className={classes.socialButton}>
-          <div className={classes.socialIcon} >
-            <img alt={provider} src={provider === 'google' ? GoogleIcon : LinkedinIcon} />
-          </div> sign {method} with {provider}
-        </Button>
-
-    )
     let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
     </StyledLink>)
-    const emailField = (<Email key="emailField" value={email} changeHandler={this.handleChange} />)
-    const passwordField = (<Password key="passwordField" value={password} changeHandler={this.handleChange} />)
-    const confirmPasswordField = (<ConfirmPassword key="confirmPasswordField" value={confirmPassword} changeHandler={this.handleChange} />)
-    const nameFields = (<Name key="nameField" firstName={firstName} lastName={lastName} changeHandler={this.handleChange} />)
+   const nameFields = (<Name key="nameField" firstName={firstName} lastName={lastName} changeHandler={this.handleChange} />)
     const orLabel = (<Typography key="or" className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
-    const signInRow = (
-      <Grid container
-        key='signInRow'
-        alignItems='center'
-        justify='space-between'
-        direction='row'
-      >
-        {linkButton('Forgot Password?', routes.PASSWORD_FORGET)}
-        <Button variant='flat' onClick={this.handleSignin.bind(this)} className={classes.button}>
-          Sign In
-    </Button>
-      </Grid>
-    )
-    const signUpButton = (<Button key='signupbutton'id='signupbutton' variant="flat" disabled={(!validateName(firstName) || !validateName(lastName) || !validateEmail(email) || !validatePassword(password) || password !== confirmPassword)} onClick={this.handleSignup.bind(this)} className={classes.button}>
-      Sign Up
-</Button>)
-    const resetPasswordText = (<Grid
-      key='resetPasswordText'
-      container
-      alignItems='left'
-    >
+    
+    const resetPasswordText = (<Grid key='resetPasswordText' container alignItems='left'>
       <Typography variant="subheading" color="primary">
         Reset Password
 </Typography>
@@ -469,32 +236,37 @@ class AuthenticationContainer extends React.Component {
         <Typography className={classes.footerLink} variant="body1">
           {label}
         </Typography>
-
         {linkButton(linkLabel, link)}
       </div>
     )
-    let disclaimer = (<Disclaimer/>)
-    const signInView = [socialButton('google', 'in'), socialButton('linkedin', 'in'), orLabel, emailField, passwordField, signInRow, footerLink('Don’t have an account?', routes.SIGN_UP, 'Sign Up')]
-    const signUpView = [socialButton('google', 'up'), socialButton('linkedin', 'up'), orLabel, nameFields, emailField, passwordField, confirmPasswordField,disclaimer, signUpButton, footerLink('Already have an account?', routes.SIGN_IN, 'Sign In')]
-    const resetView = [resetPasswordText, emailField, resetPasswordButton(!validateEmail(email))]
-    let loadedView = signUpView
-    let cardHeight = 610
+    
+    const disclaimer = (<Disclaimer/>)
+ 
+    const AuthView = [googleButton,linkedinButton,orLabel,EmailAuth]
+    const GoogleView = [GoogleButton]
+    const LinkedinView = [LinkedinButton]
+
+    let loadedView = AuthView
+    let cardHeight = 450
     switch (view) {
-      case AUTHENTICATION_CONTAINER.signUp:
-        loadedView = signUpView
-        cardHeight = 620
+      case AUTHENTICATION_CONTAINER.auth:
+        loadedView = AuthView
+        cardHeight = 450
         break;
-      case AUTHENTICATION_CONTAINER.signIn:
-        loadedView = signInView
-        cardHeight = 510
-        break; case AUTHENTICATION_CONTAINER.resetPassword:
-        loadedView = resetView
+      case AUTHENTICATION_CONTAINER.google:
+     //   loadedView = 
+        cardHeight = 450
+        break; case AUTHENTICATION_CONTAINER.linkedin:
+      //  loadedView = 
+        cardHeight = 360
+        break;
+        case AUTHENTICATION_CONTAINER.magic:
+       // loadedView = 
         cardHeight = 360
         break;
       default:
         break;
     }
-    //console.log('authentication props',this.props);
     return (
       <LogoInCard width={350} height={isLoading ? 300 : cardHeight}>
         <Grid
@@ -503,11 +275,10 @@ class AuthenticationContainer extends React.Component {
           alignItems='center'
           direction='column'
           justify='flex-start'
-          
         >
-         {[...this.renderCard(loadedView)]} 
+         {[loadedView]} 
         </Grid>
-         {[...this.renderCustomizedSnackbars()]} 
+         
       </LogoInCard>
     );
   }

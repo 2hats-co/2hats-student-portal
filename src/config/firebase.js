@@ -11,16 +11,6 @@ export const stagingConfig = {
     storageBucket: `${STAGING_PROJECT_NAME}.appspot.com`,
     messagingSenderId: "188089188588"
   };
-
-// export const productionConfig = {
-//     apiKey: "AIzaSyAao6BwLXZzmhzLSGSypBFYw-zAM9wbI44",
-//     authDomain: "hatstest-860eb.firebaseapp.com",
-//     databaseURL: "https://hatstest-860eb.firebaseio.com",
-//     projectId: "hatstest-860eb",
-//     storageBucket: "hatstest-860eb.appspot.com",
-//     messagingSenderId: "839771603283"
-//   };
-
 export const productionConfig = {
     apiKey: production2hatsKey,
     authDomain: `${PRODUCTION_PROJECT_NAME}.firebaseapp.com`,
