@@ -97,7 +97,7 @@ const styles = theme => ({
       this.state = {
         single: null,
         value:'',
-        label:'tests',
+        freeText:'tests',
         shrink:false
       };
       this.ValueContainer = this.ValueContainer.bind(this)
@@ -123,6 +123,7 @@ const styles = theme => ({
             this.props.changeHandler('focusedField',this.props.name)
           }
         }}
+          onChange={(e)=>{this.setState({freeText:e.target.value})}}
           InputLabelProps={{shrink:this.state.shrink||this.props.value!==''}}
           InputProps={{
             inputComponent,
@@ -141,7 +142,7 @@ const styles = theme => ({
     };   
     render() {
       const {classes,list,value,hasLabel,name,hint,title} = this.props
-      const options = optionsGenerator(list)
+      const options = optionsGenerator(list.concat([this.state.freeText]))
     
       const components = {
         Option,
