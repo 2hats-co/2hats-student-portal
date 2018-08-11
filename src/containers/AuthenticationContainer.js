@@ -91,6 +91,7 @@ const updateByPropertyName = (propertyName, value) => () => ({
 
 const googleButton = (<GoogleButton/>)
 const linkedinButton = (<LinkedinButton/>)
+const emailAuth = (<EmailAuth/>)
 class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -223,9 +224,7 @@ class AuthenticationContainer extends React.Component {
         className={classes.resetButton}
       > Back
   </Button>
-      <Button
-        variant="flat"
-        disabled={isDisable}
+      <Button variant="flat" disabled={isDisable}
         className={classes.resetButton}
         onClick={() => { this.handleResetPassword(email) }}
       > reset
@@ -241,8 +240,8 @@ class AuthenticationContainer extends React.Component {
     )
     
     const disclaimer = (<Disclaimer/>)
- 
-    const AuthView = [googleButton,linkedinButton,orLabel,EmailAuth]
+    
+    const AuthView = [googleButton,linkedinButton,orLabel,emailAuth]
     const GoogleView = [GoogleButton]
     const LinkedinView = [LinkedinButton]
 

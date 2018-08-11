@@ -13,7 +13,7 @@ import { productionConfig, stagingConfig } from '../config/firebase'
 
 import rootReducer from '../reducers'
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.GCLOUD_PROJECT === 'production2hats') {
 	firebase.initializeApp(productionConfig)
 } else {
 	firebase.initializeApp(stagingConfig)

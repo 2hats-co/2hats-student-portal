@@ -17,17 +17,16 @@ const styles = theme => ({
 class EmailAuth extends Component {
     constructor(props){
         super(props)
+        this.state ={email:''}
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount() {
-       //this.setState({view:this.props.view})
-        //this.wakeupEmailChecker()
-      checkEmail('wakeup')
+      checkEmail('wakeup', o => {return o => o})
     }
     handleChange = name => event => {
         if(name==='email'){
           if(event.target.value.length ===4){
-            checkEmail('wakeup')
+            checkEmail('wakeup', o => {return o => o})
           }
         }
         this.setState({
@@ -41,7 +40,7 @@ class EmailAuth extends Component {
             <div>
            <Email key="emailField" value={email} changeHandler={this.handleChange} />
           <Button key='check-button'  id='check-button' variant='flat'
-            disabled={!validateEmail(email)}  onClick={checkEmail(this.state.email)} className={classes.button}>
+            disabled={!validateEmail(email)}  onClick={()=>{checkEmail(this.state.email,(o)=>{console.log(o)})}} className={classes.button}>
              Next 
              </Button>
              </div>

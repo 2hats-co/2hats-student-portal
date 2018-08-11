@@ -127,7 +127,7 @@ class ResumeLoader extends React.Component {
             > 
             <CloudUploadIcon style={{ fontSize: 66 }}/>
             <Typography variant='button'>
-            {theme.responsive.isMobile?'Click to browser for your PDF resume':'Drag and drop your resume'}
+            {theme.responsive.isMobile?'Click to browse for your PDF resume':'Drag and drop your PDF resume'}
             </Typography>
             <Typography variant='subheading'>
             OR
@@ -140,7 +140,7 @@ class ResumeLoader extends React.Component {
             disabled={isUploading}
             onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
           >
-          {resumeFile.name!==''? `${resumeFile.name}`:'Browser Files'}
+          {resumeFile.name!==''? `${resumeFile.name}`:'Browse Files'}
           
           </Button>
          {isUploading &&<CircularProgress size={24} className={classes.buttonProgress}/>}

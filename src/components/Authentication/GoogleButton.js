@@ -43,7 +43,6 @@ class GoogleButton extends Component{
           photo: response.profileObj.imageUrl,
         };
         checkEmail(data.googleEmail,(res)=>{console.log(res)})
-
     }
     render(){
         const {classes} = this.props
