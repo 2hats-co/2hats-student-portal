@@ -16,26 +16,11 @@ import ChangeAdpter from './InputFields/ChangeAdapter'
 import AvailableDays from './InputFields/AvailableDays';
 
 
-const styles = theme => ({
-    content: {
-      width:270,
-      height:150,
-      paddingTop:2,
-      paddingLeft:40,
-      paddingRight:40
-    },
-    title:{
-      paddingLeft:40
-    },
-    button:{
-        width:100
-    }
-  });
  class AccountInfoDialog extends React.Component{
      constructor(props){
         super(props)
         this.state = {
-           
+           unChanged:true
         }
         this.handleChange = this.handleChange.bind(this)
         this.handleUpdate = this.handleUpdate.bind(this)
@@ -58,6 +43,7 @@ const styles = theme => ({
            this.handleChange('workingRights',workingRights)
            this.handleChange('currentUniversity',currentUniversity)
            this.handleChange('availableDays',availableDays)
+           this.setState({unChanged:true})
             console.log("User: ", this.props.user);
         }
     }
@@ -66,24 +52,26 @@ const styles = theme => ({
         this.props.closeHandler()
     }
     handleUpdate(){
-        this.props.onUserUpdate(this.state)
-        this.props.onProfileUpdate(this.state)
+        let stateCopy = Object.assign(this.state,{})
+        stateCopy.unChanged = undefined
+        this.props.onUserUpdate(stateCopy)
+        this.props.onProfileUpdate(stateCopy)
         this.props.closeHandler()
     }
     handleChange(name,value){
         if(value){
             this.setState({[name]:value}) 
-        } 
+            this.setState({unChanged:false})
+        }
     }
-
   render() {
-      const {classes,isOpen} = this.props
+      const {isOpen} = this.props
  
         if(this.state){
         const {firstName,lastName,phoneNumber,workingRights,currentUniversity,availableDays} = this.state
-
             return (
                 <Dialog activity='Update' 
+                unChanged={this.state.unChanged}
                 title='Account information' isOpen={isOpen} 
                 addHandler={()=>{this.handleUpdate()}} 
                 disabled={!firstName || !lastName} 
@@ -125,5 +113,5 @@ const enhance = compose(
     }),
 )
 export default enhance(
-    withStyles(styles)(AccountInfoDialog)
+   AccountInfoDialog
 )

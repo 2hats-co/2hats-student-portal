@@ -24,13 +24,13 @@ const styles = theme => ({
   });
 
 function WebForm(props){
-    const {classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler,width} = props
+    const {classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler,width,unChanged} = props
     
     return(
         <Dialog 
         className={classes.root}
         open={isOpen}
-        //onClose={cancelHandler} TODO: show snack bar to suggest save or cancel
+        onClose={unChanged&&cancelHandler} 
         aria-labelledby="form-dialog-title"
       >
       <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{activity} {title}</DialogTitle>

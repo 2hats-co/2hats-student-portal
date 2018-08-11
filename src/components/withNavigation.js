@@ -51,7 +51,7 @@ import StatusCard from './StatusCard'
 
 
 import {actionTypes} from 'redux-firestore'
-import { runInThisContext } from 'vm';
+
 
 
 const drawerWidth = 240;
@@ -107,10 +107,14 @@ const styles = theme => ({
     marginBottom:-60,
     marginTop:20
   
-    },greeting:{
+    },
+    userActions:{
       position: 'absolute',
       right: 10,
       top: 10,
+    },
+    
+    dropDown:{
       paddingLeft: 30,
       paddingRight: 30,
       textAlign: 'center',
@@ -237,11 +241,13 @@ export const withNavigation = (WrappedComponent) => {
               onClick={this.handleDrawerToggle}
               className={classes.navIconHide}
             >
-              <MenuIcon />
+              <MenuIcon/>
             </IconButton>
-            <div>
+            <div
+                className={classes.userActions}            
+            >
               <Button
-                className={classes.greeting}
+                className={classes.dropDown}
                 variant='contained'
                 buttonRef={node => {
                   this.anchorEl = node;
@@ -266,7 +272,7 @@ export const withNavigation = (WrappedComponent) => {
                             this.setState({ logoutToggleOpen: false });
                             this.handleInfoDialog(true);
                           }}>
-                            My account
+                            <UpdateIcon/>My account
                           </MenuItem>
                           <MenuItem value="Logout" onClick={() => {
                             this.setState({ logoutToggleOpen: false });
@@ -274,7 +280,7 @@ export const withNavigation = (WrappedComponent) => {
                             this.props.clearData();
                             this.goTo(routes.SIGN_IN);
                           }}>
-                            Logout
+                            <LogoutIcon/>Logout
                           </MenuItem>
                         </MenuList>
                       </ClickAwayListener>

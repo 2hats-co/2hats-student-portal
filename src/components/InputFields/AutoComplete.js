@@ -91,7 +91,6 @@ const styles = theme => ({
   
   
   class AutoComplete extends React.Component {
-  
     constructor(props){
       super(props)
       this.state = {
@@ -105,7 +104,10 @@ const styles = theme => ({
     }
     SingleValue(props) {
       return (
-        <Typography variant='body1' {...props.innerProps} style={{fontSize:'12px !important'}}>
+        <Typography variant='body1' 
+        {...props.innerProps} 
+        style={{fontSize:'12px !important'}}
+        >
           {props.children}
         </Typography>
       );

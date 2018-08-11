@@ -38,9 +38,7 @@ const styles = theme => ({
 });
 
 class SubmissionContainer extends Component {
-    // constructor(props){
-    //     super(props)
-    // }
+  
     componentWillMount(){
        const submissionKey = this.props.history.location.search.slice(1)
        this.props.loadSubmission(submissionKey)
