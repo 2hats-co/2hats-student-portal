@@ -8,7 +8,6 @@ import CardContent from '@material-ui/core/CardContent';
 
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
-import PersonIcon from '@material-ui/icons/Person';
 
 import Grid from '@material-ui/core/Grid';
 import {getInterestByKey} from '../../constants/resumeBuilderPrompts'
@@ -101,11 +100,6 @@ function ProfileCard(props) {
     return (
       <div className={classes.root}>
       <div style={{marginTop:20,marginBottom:10}}>
-      <div className={classes.avatarContainer}>
-      <div className={classes.avatar} >
-      <PersonIcon style={{paddingTop:10,fontSize:120, width:'100%',textAlign:'center'}}/>
-      </div>
-      </div>
       </div>
      <Card className={classes.card}> 
        <CardContent>  
