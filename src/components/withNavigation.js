@@ -5,7 +5,6 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -16,7 +15,6 @@ import DashboardIcon from '@material-ui/icons/Dashboard'
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -138,8 +136,10 @@ export const withNavigation = (WrappedComponent) => {
         mobileOpen: false,
         infoDialog:false,
         height:window.innerHeight,
-        logoutToggleOpen: false
+        logoutToggleOpen: false,
+        currentRoute:null
       };
+
       componentWillMount(){
       
         window.Intercom('update',{
@@ -150,6 +150,11 @@ export const withNavigation = (WrappedComponent) => {
         window.Intercom('hide')
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+        //set currentRoute
+       this.setState({currentRoute:this.props.history.location.pathname})
+
+
+
       }
       componentDidMount(){
         window.Intercom('update',{
@@ -321,7 +326,6 @@ export const withNavigation = (WrappedComponent) => {
         </Hidden>
           <main className={classes.content} style={theme.responsive.isMobile?{paddingRight:0,paddingLeft:0}:{}}>
             <div className={classes.toolbar}/>
-
             {(!profile || !user)?<LoadingMessage/>:<div>
                       <WrappedComponent
                         {...this.props}
@@ -339,6 +343,7 @@ export const withNavigation = (WrappedComponent) => {
            closeHandler={this.handleInfoDialog}/>
            {!profile[0].hasSubmit&& 
            <StatusCard
+           currentRoute= {this.state.currentRoute}
            onSubmit={this.props.onSubmit.bind(this)} 
            goTo={this.goTo} 
            profile={profile[0]}/>}
