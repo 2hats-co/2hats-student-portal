@@ -71,9 +71,8 @@ class Skills extends React.Component {
               key={x}
               label={x}
               className={classes.chip}
-              onDelete={() => {
-                this.handleDelete(x);
-              }}
+              onClick={() => {this.handleDelete(x);}}
+              onDelete={() => {this.handleDelete(x);}}
             />
           ))}
        {!hideSuggestions&& <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill} interestKeys={interestKeys}/>}

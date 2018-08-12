@@ -5,7 +5,6 @@ import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -16,7 +15,6 @@ import DashboardIcon from '@material-ui/icons/Dashboard'
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -51,7 +49,7 @@ import StatusCard from './StatusCard'
 
 
 import {actionTypes} from 'redux-firestore'
-import { runInThisContext } from 'vm';
+
 
 
 const drawerWidth = 240;
@@ -107,10 +105,14 @@ const styles = theme => ({
     marginBottom:-60,
     marginTop:20
   
-    },greeting:{
+    },
+    userActions:{
       position: 'absolute',
       right: 10,
       top: 10,
+    },
+    
+    dropDown:{
       paddingLeft: 30,
       paddingRight: 30,
       textAlign: 'center',
@@ -134,8 +136,10 @@ export const withNavigation = (WrappedComponent) => {
         mobileOpen: false,
         infoDialog:false,
         height:window.innerHeight,
-        logoutToggleOpen: false
+        logoutToggleOpen: false,
+        currentRoute:null
       };
+
       componentWillMount(){
       
         window.Intercom('update',{
@@ -146,6 +150,11 @@ export const withNavigation = (WrappedComponent) => {
         window.Intercom('hide')
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
+        //set currentRoute
+       this.setState({currentRoute:this.props.history.location.pathname})
+
+
+
       }
       componentDidMount(){
         window.Intercom('update',{
@@ -237,11 +246,13 @@ export const withNavigation = (WrappedComponent) => {
               onClick={this.handleDrawerToggle}
               className={classes.navIconHide}
             >
-              <MenuIcon />
+              <MenuIcon/>
             </IconButton>
-            <div>
+            <div
+                className={classes.userActions}            
+            >
               <Button
-                className={classes.greeting}
+                className={classes.dropDown}
                 variant='contained'
                 buttonRef={node => {
                   this.anchorEl = node;
@@ -266,7 +277,7 @@ export const withNavigation = (WrappedComponent) => {
                             this.setState({ logoutToggleOpen: false });
                             this.handleInfoDialog(true);
                           }}>
-                            My account
+                            <UpdateIcon/>My account
                           </MenuItem>
                           <MenuItem value="Logout" onClick={() => {
                             this.setState({ logoutToggleOpen: false });
@@ -274,7 +285,7 @@ export const withNavigation = (WrappedComponent) => {
                             this.props.clearData();
                             this.goTo(routes.SIGN_IN);
                           }}>
-                            Logout
+                            <LogoutIcon/>Logout
                           </MenuItem>
                         </MenuList>
                       </ClickAwayListener>
@@ -315,7 +326,6 @@ export const withNavigation = (WrappedComponent) => {
         </Hidden>
           <main className={classes.content} style={theme.responsive.isMobile?{paddingRight:0,paddingLeft:0}:{}}>
             <div className={classes.toolbar}/>
-
             {(!profile || !user)?<LoadingMessage/>:<div>
                       <WrappedComponent
                         {...this.props}
@@ -333,6 +343,7 @@ export const withNavigation = (WrappedComponent) => {
            closeHandler={this.handleInfoDialog}/>
            {!profile[0].hasSubmit&& 
            <StatusCard
+           currentRoute= {this.state.currentRoute}
            onSubmit={this.props.onSubmit.bind(this)} 
            goTo={this.goTo} 
            profile={profile[0]}/>}

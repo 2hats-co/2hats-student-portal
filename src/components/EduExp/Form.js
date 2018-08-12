@@ -26,7 +26,8 @@ const initialState = {
   major:null,
   organisation:null,
   university:null,
-  title:null
+  title:null,
+  unChanged:true
 };
 class DialogForm extends React.Component {
   constructor(props) {
@@ -55,6 +56,8 @@ class DialogForm extends React.Component {
   
   handleAdd = () =>{
       let stateCopy = Object.assign(this.state,{})
+      stateCopy.unChanged = undefined
+      stateCopy.focusedField = undefined
       Object.keys(stateCopy).forEach((key) => (stateCopy[key] == null) && delete stateCopy[key]);
       const newItem =  _.reduce(stateCopy,(r,v, k)=>{
           let newObject = {[k]:v.value}
@@ -73,6 +76,7 @@ class DialogForm extends React.Component {
     if(item !== this.state[name]){
       this.setState({[name]:item,isRequired:false})
     }
+    this.setState({unChanged:false})
  
   }
   isDisabled(){
@@ -161,6 +165,7 @@ class DialogForm extends React.Component {
       title={title} isOpen={isOpen} 
       addHandler={this.handleAdd.bind(this)} 
       disabled={this.isDisabled()} 
+      unChanged={this.state.unChanged}
       cancelHandler={()=>{handler()}}
       width={330}
       >

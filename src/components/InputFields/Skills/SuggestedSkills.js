@@ -33,6 +33,7 @@ class SuggestedSkills extends React.Component {
             key={skill}
             label={skill}
             className={classes.chip}
+            onClick = {()=>{this.handleAdd(skill)}}
             onDelete={()=>{this.handleAdd(skill)}}
             deleteIcon={<AddIcon/>}
           />)

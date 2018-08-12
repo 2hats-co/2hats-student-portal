@@ -34,6 +34,7 @@ const styles = theme => ({
       padding:10,
       paddingTop:20,
       paddingBottom:20,
+      marginRight:0
       },
       actionGrid:{
         minWidth:375,
@@ -95,7 +96,6 @@ class StatusCard extends React.Component{
         const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
         const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
         if(isComplete(profile)){
-         //if(profile.isComplete){
           if(profile.process === PROCESS_TYPES.build){
             return({message:completeMessage,
                     buttons:[submitButton],
@@ -125,40 +125,31 @@ class StatusCard extends React.Component{
         }
       }
     render(){
-    const {classes,profile ,theme} = this.props
+    const {classes,profile,theme,currentRoute} = this.props
     const {message,buttons,link} = this.getStatusPrompt(profile)
+    const isMobile = theme.responsive.isMobile
+    const hideToaster = (currentRoute=== routes.PROFILE)
     return(
         <div>
-        <Card className={classes.root}>
-            <Grid container className={classes.grid} style={!theme.responsive.isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' justify='space-around'> 
-                <Grid   item><Typography className={classes.prompt} variant='subheading'>
+        <Card className={classes.root} style={hideToaster?{}:{display:'none'}}>
+            <Grid container 
+            justify={isMobile?'flex-end':'space-between'} className={classes.grid} style={!isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' > 
+                <Grid  xs={12} sm={6} item><Typography className={classes.prompt} variant='subheading'>
                   {message}
                 </Typography>
                 </Grid>
                 {
-                <Grid item xs={12} sm={6}>
-                <Grid container  direction='row' alignItems='center' justify='flex-end'>
+                <Grid item xs={12} sm={6} style={{maxWidth:230}}>
                 {buttons&&
                     buttons.map(x=>{return(
-                        <Grid key={x.label} id={`${x.label}-toaster-button`} item xs={6} sm={4}>
-                        <Button onClick={x.action} className={classes.button} variant='flat'>
+          
+                        <Button key={x.label} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
                         {x.label}
                         </Button>
-                        </Grid>
+                     
                     )
                 })
-                }
-                {
-                 (link && !theme.responsive.isMobile)&&<Grid item xs={1} sm={1}> <Typography variant='button' style={{textAlign:'left'}}>OR</Typography> </Grid>
-                }
-                 {link&&
-                  <Grid item xs={6} sm={6} style={{paddingLeft:30}}>
-                    <a className={classes.link} id={`${link.label.split(' ')[0]}-toaster-button`} onClick={()=>{link.action()}}>
-                    {link.label}
-                    </a> 
-                    </Grid>
-                }
-                </Grid>
+                }<Button variant='outline'> ... </Button>
                 </Grid>
                 }
             </Grid>

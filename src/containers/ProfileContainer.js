@@ -38,6 +38,8 @@ class ProfileContainer extends Component{
     }
     render(){
         const {classes, profile,user} = this.props
+        console.log(user)
+        const disabled = (user.status === 'in-review')
         console.log(this.props)
         return(
        <div>
@@ -49,6 +51,7 @@ class ProfileContainer extends Component{
               >
               <Grid item className={classes.item}>
               <ProfileCard 
+              disabled={disabled}
               process = {profile.process}
               skillsList={profile.skills}
               bio={profile.bio}
@@ -61,11 +64,13 @@ class ProfileContainer extends Component{
               <Grid item className={classes.item}> 
 
                 <EduExp industry={profile.industry} 
+                disabled={disabled}
                 name='education' changeHandler={this.props.onUpdate.bind(this)} 
                 data = {profile.education}
                 width={750}/>   
                 <EduExp 
                 industry={profile.industry} 
+                disabled={disabled}
                 name='experience' 
                 data={profile.experience} 
                 width={750} changeHandler={this.props.onUpdate.bind(this)}/>

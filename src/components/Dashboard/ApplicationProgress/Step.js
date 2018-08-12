@@ -28,8 +28,10 @@ const styles = theme => ({
     borderRadius:10,
     backgroundColor:PRIMARY_COLOR,
 },doneIcon:{
+  paddingTop:2,
+  paddingLeft:1,
   marign:'auto',
-  fontSize:18,
+  fontSize:17,
   color:'#fff'
 }
 
