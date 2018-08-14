@@ -1,9 +1,7 @@
 import React from 'react';
 //Material UI
-
 import Dialog from '../Dialog';
 import { withStyles } from '@material-ui/core/styles';
-
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
@@ -12,14 +10,11 @@ import { COLLECTIONS } from "../../constants/firestore";
 import { PROCESS_TYPES } from "../../constants/signUpProcess";
 import { connect } from 'react-redux';
 import * as _ from "lodash";
-
 //input fields
 import CareerInterests from '../InputFields/CareerInterests'
 import PersonalBio from '../InputFields/PersonalBio'
 import Skills from '../InputFields/Skills'
 import ResumeLoader from '../InputFields/ResumeLoader'
-
-
 const styles = theme => ({
     root: {
      padding:25,

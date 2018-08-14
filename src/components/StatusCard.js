@@ -68,7 +68,7 @@ class StatusCard extends React.Component{
           case 'submit':return {title:'Confirm Profile Submission',
           body:[`Are you sure you want to submit?`,`\n`,`Once you click 'submit' your resume will be sent to the 2hats resume specialists for review. You will be unable to make further changes to your submission until after your resume has been reviewed and given feedback.`],
           checkbox:{isChecked:false,label:'I confirm that I want to submit my profile.'},
-          confirm:{label:'Submit',action:()=>{this.props.onSubmit()}}}
+          confirm:{label:'Submit',action:()=>{this.props.goTo(routes.DASHBOARD),this.props.onSubmit()}}}
           case 'build':return {title:'Use Our Resume Builder Instead',
           body:['Are you sure you want to build a new resume instead?','','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
           confirm:{label:'Build',action:()=>{
