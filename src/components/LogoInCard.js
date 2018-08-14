@@ -24,16 +24,24 @@ const styles = theme => ({
     height:69,
   
     },
+    miniLogo:{
+      marginTop:50,        
+      marginBottom:30, 
+      marginLeft:55,
+      width:117,
+      height:42,
+      },
     paper:{
+      borderRadius:10,
       marginLeft: 'auto',
       marginRight: 'auto',
-      width: 475
     }
 });
 
 function LogoInCard(props) {
-  const { classes,width,height } = props;
-  setBackground("#FA5E4E",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94')
+  const { classes,width,height,theme } = props;
+  const {isMobile} = theme.responsive
+  setBackground('#FA5E4E','https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94',isMobile)
   return (
     <div className={classes.root}>
       <div className={classes.middle}>
@@ -41,7 +49,7 @@ function LogoInCard(props) {
               style={{width:width,
                       height:height}} 
               elevation={15}>
-        <img className={classes.logo} 
+        <img className={classes.miniLogo} 
               alt='dark2hatsLogo' 
               src={DarkLogo}/>
         {props.children}
@@ -60,4 +68,4 @@ LogoInCard.defaultProps = {
   height: 500
 };
 
-export default withStyles(styles)(LogoInCard);
+export default withStyles(styles,{withTheme:true})(LogoInCard);

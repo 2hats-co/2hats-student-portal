@@ -9,7 +9,7 @@ const styles = theme => ({
         fontSize:'11px',
     color: '#000',  
     textAlign:'center'  
-    },
+    },large:theme.typography.body1,
   link: {
     fontSize:'11px',
     color: PRIMARY_COLOR,
@@ -28,15 +28,17 @@ function Disclaimer(props) {
   const { classes} = props;
 
   return (
-      <div className={classes.root}>
+      <div className={classes.large}>
              {`By clicking Sign Up, you agree to our `}
     <a
      href="https://www.2hats.com.au/terms.html"
+     target="_blank"
       className={classes.link}
     >
     Terms and Conditions
     </a>{` and `}<a
      href="https://www.2hats.com.au/privacy.html"
+     target="_blank"
       className={classes.link}
     >
     Privacy Policy
@@ -46,10 +48,9 @@ function Disclaimer(props) {
 }
 
 Disclaimer.propTypes = {
-  children: PropTypes.node.isRequired,
+  //  : PropTypes.node.isRequired,
   classes: PropTypes.object.isRequired,
-
-  variant: PropTypes.oneOf(['primary']),
+  //variant: PropTypes.oneOf(['primary']),
 };
 
 export default withStyles(styles)(Disclaimer);
