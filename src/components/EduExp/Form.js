@@ -20,14 +20,14 @@ function completed(field){
  
 }
 const initialState = {
-  focusedField:{value:'',isRequired:false},
   type:null,
   degree:null,
   major:null,
   organisation:null,
   university:null,
   title:null,
-  unChanged:true
+  focusedField:{value:'',isRequired:false},
+  unChanged:{value:true,isRequired:false}
 };
 class DialogForm extends React.Component {
   constructor(props) {
@@ -58,12 +58,14 @@ class DialogForm extends React.Component {
       let stateCopy = Object.assign(this.state,{})
       stateCopy.unChanged = undefined
       stateCopy.focusedField = undefined
-      Object.keys(stateCopy).forEach((key) => (stateCopy[key] == null) && delete stateCopy[key]);
-      const newItem =  _.reduce(stateCopy,(r,v, k)=>{
-          let newObject = {[k]:v.value}
-          return {...r,...newObject}
-       })
-      this.props.handler(_.omit(newItem,['isRequired','value']))
+      console.log('form submition',stateCopy)
+      console.log('fields',this.props.fields)
+      let newItem ={}
+      this.props.fields.forEach((field)=>{
+        newItem[field.name]= this.state[field.name].value
+        console.log(field.name,this.state[field.name])
+      })
+     this.props.handler(newItem)
 }
   handleClose = () => {
     this.setState({ open: false });
@@ -76,7 +78,7 @@ class DialogForm extends React.Component {
     if(item !== this.state[name]){
       this.setState({[name]:item,isRequired:false})
     }
-    this.setState({unChanged:false})
+    this.setState({unChanged:{value:false,isRequired:false}})
  
   }
   isDisabled(){
@@ -160,7 +162,9 @@ class DialogForm extends React.Component {
           default:break;
         }
       })
+     
     return (
+      
       <Dialog activity={activity} 
       title={title} isOpen={isOpen} 
       addHandler={this.handleAdd.bind(this)} 
