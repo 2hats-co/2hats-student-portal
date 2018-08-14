@@ -15,7 +15,6 @@ import girlWithLaptop from '../assets/images/graphics/girlWithLaptop.png'
 import celebratingMan from '../assets/images/graphics/congratsMan.svg'
 import Industy from '../components/InputFields/Industry';
 
-import LinearProgress from '@material-ui/core/LinearProgress';
 
 import {SPEEDY_SIGNUP} from '../constants/views'
 
@@ -68,8 +67,9 @@ class SpeedySignupContainer extends Component {
             email:'',
             currentUniversity:'University of Technology Sydney',
             industry:'',
-            view:SPEEDY_SIGNUP.success,
-            isPublic:true
+            view:SPEEDY_SIGNUP.form,
+            isPublic:true,
+            isLoading:false
         }
         this.createUser = this.createUser.bind(this)
         this.handleResponse = this.handleResponse.bind(this)
@@ -78,7 +78,6 @@ class SpeedySignupContainer extends Component {
         this.warmupAPI= this.warmupAPI.bind(this)
     }
     componentWillMount(){
-        console.log(this.props.history.location.hash)
         if(this.props.history.location.hash ==='#UTS'){
             this.setState({isPublic:false})
         }
@@ -152,14 +151,14 @@ class SpeedySignupContainer extends Component {
        }
       };
     goHome(){
-        //this.props.history.push
-        console.log('goes home')
+        window.open('https://2hats.com.au','_self')
     }
+
 
     renderForm(){
         const {classes,theme} = this.props
         const isMobile = theme.responsive.isMobile
-        const {firstName,lastName,email,currentUniversity,industry} = this.state
+        const {firstName,lastName,email,currentUniversity,industry,isLoading} = this.state
         return(<Grid className={isMobile? classes.mobileForm:classes.webForm} container  direction='column'>
                 <Grid className={classes.header} item>
                 <Typography variant={isMobile?'subheading':'title'} style={isMobile?{textAlign:'center'}:{}}>Welcome to the UTS Career Fair!</Typography>
@@ -176,7 +175,9 @@ class SpeedySignupContainer extends Component {
                value={currentUniversity} 
                changeHandler={this.handleChange}/>
                <Disclaimer/>
-                <Button className={isMobile?classes.mobileButton:classes.button} variant='flat' onClick={this.createUser}>Sign up!</Button>
+                <Button className={isMobile?classes.mobileButton:classes.button}
+                disabled={isLoading} 
+                variant='flat' onClick={this.createUser}>Sign up!</Button>
             </Grid>
             )
     }
@@ -207,24 +208,17 @@ class SpeedySignupContainer extends Component {
      render(){
          const {view,isLoading} = this.state
          const {theme,classes} = this.props
-         console.log(theme)
          const isMobile = theme.responsive.isMobile
          return(
-             <LogoInCard width={isMobile?290:755} height={520}>
+             <LogoInCard width={isMobile?290:755} height={520} isLoading={isLoading}>
             
                 <Grid container direction={isMobile?'column':'row'} alignItems='center' justify='space-around'>
                 {view === SPEEDY_SIGNUP.form? this.renderForm():this.renderCongrats()}
                 {!isMobile &&
-          
                 <Grid item>
                     <img className={classes.img} src={view === SPEEDY_SIGNUP.success? celebratingMan:girlWithLaptop}/>
+                </Grid>}
                 </Grid>
-               
-            }
-                
-                </Grid>
-
-                <LinearProgress className={classes.loading} style={isLoading?{}:{display:'none'}}/>
              </LogoInCard>
          )
      }
