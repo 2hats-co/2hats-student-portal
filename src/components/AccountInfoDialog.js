@@ -53,7 +53,7 @@ import AvailableDays from './InputFields/AvailableDays';
     }
     handleUpdate(){
         let stateCopy = Object.assign(this.state,{})
-        stateCopy.unChanged = undefined
+        delete stateCopy.unChanged
         this.props.onUserUpdate(stateCopy)
         this.props.onProfileUpdate(stateCopy)
         this.props.closeHandler()
