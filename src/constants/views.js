@@ -16,3 +16,7 @@ export const UPLOAD_RESUME_CONTAINER = {
     careerInterests:'careerInterests',
     info:'info'
 }
+export const SPEEDY_SIGNUP ={
+    form:'form',
+    success:'success'
+}

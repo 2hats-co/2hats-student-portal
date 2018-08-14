@@ -48,7 +48,6 @@ const styles = theme => ({
   }
 });
 let INITIAL_PROFILE = {
-  //process:PROCESS_TYPES.build,//['build','upload']
   careerInterests: [],
   currentStep:ALL_STEPS.careerInterests,
   bio: "",
@@ -100,10 +99,12 @@ class ResumeBuilderContainer extends Component {
       let updatedProfile = Object.assign({process:PROCESS_TYPES.build},INITIAL_PROFILE)
       this.setState({profile:updatedProfile})
       this.props.onProfileUpdate({process:PROCESS_TYPES.build,hasSubmit:false})
+      this.props.onUserUpdate({process:PROCESS_TYPES.build})
     }else if(this.props.history.location.pathname === routes.UPLOAD_RESUME){
       let updatedProfile = Object.assign({process:PROCESS_TYPES.upload},INITIAL_PROFILE)
       this.setState({profile:updatedProfile})
-      this.props.onProfileUpdate({process:PROCESS_TYPES.upload,hasSubmit:false})
+      this.props.onProfileUpdate({process:PROCESS_TYPES.build,hasSubmit:false})
+      this.props.onUserUpdate({process:PROCESS_TYPES.upload})
     }
   }
 
@@ -119,7 +120,6 @@ class ResumeBuilderContainer extends Component {
       if(user[0].currentUniversity && user[0].currentUniversity !== profile[0].currentUniversity){
         onProfileUpdate({currentUniversity:user[0].currentUniversity})
       }
-      console.log('profile',this.props.profile[0])
     }
     
 
@@ -259,12 +259,12 @@ class ResumeBuilderContainer extends Component {
     );
     }else{return(
       <LogoOnCard height={520} width={900}> 
-      <SectionWrapper height={420} width={900}>
-      <div style={{padding:30}}>
-        <LoadingMessage message={`Hold onto your hat!`}/>  
-        </div>
+        <SectionWrapper height={420} width={900}>
+           <div style={{padding:30}}>
+             <LoadingMessage message={`Hold onto your hat!`}/>  
+          </div>
         </SectionWrapper>
-            </LogoOnCard>
+      </LogoOnCard>
     )
     }
   }

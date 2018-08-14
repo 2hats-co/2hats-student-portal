@@ -3,6 +3,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
 import LinkedinIcon from '../../assets/images/social/linkedin.svg'
 import {LINKEDIN_CID} from '../../config/auth'
+import {getTokenWith3rdParty} from '../../utilities/Authentication/getTokenWith3rdParty'
+import { withRouter } from "react-router-dom";
 
 const styles = theme => ({
     root: {
@@ -25,10 +27,24 @@ class LinkedinButton extends Component{
     constructor(props){
         super(props)
         this.handleLinkedInAuth = this.handleLinkedInAuth.bind(this)
+        this.handleRouting = this.handleRouting.bind(this)
+    }
+    handleRouting(route){
+      this.props.history.replace(route)
     }
     componentWillMount(){
         this.initializeLinkedin(LINKEDIN_CID);
     }
+    getToken(r){
+      let user={};
+      console.log('linked in response -->1', r,r.firstName);
+      user.email = r.emailAddress
+      user.firstName = r.firstName
+      user.lastName = r.lastName
+      user.provider = {service:'linkedin',id:r.id}
+      getTokenWith3rdParty(user,this.handleRouting)
+    }
+   
     initializeLinkedin = clientId => {
         ; ((d, s, id) => {
           const element = d.getElementsByTagName(s)[0]
@@ -45,24 +61,24 @@ class LinkedinButton extends Component{
       handleLinkedInAuth = () => {
         const fields = ":(id,email-address,headline,summary,first-name,last-name,num-connections,picture-urls::(original))";
         window.IN.API.Raw(`/people/~${fields}`).result(async r => {
-          console.log('linked in response -->', r);
+          this.getToken(r)
       })
     }
     authorize = e => {
         window.IN.User.authorize(this.handleLinkedInAuth, '')
       }    
     render(){
-      const {classes} = this.props
+      const {classes,action} = this.props
         return(
             <Button key={`linkedin-button`} variant='flat'
           onClick={this.authorize}
           className={classes.socialButton}>
           <div className={classes.socialIcon} >
             <img alt={'linkedinLogo'} src={LinkedinIcon} />
-          </div> Authenticate with Linkedin
+          </div> {action} with Linkedin
         </Button>
         )
     }
 
 }
-export default withStyles(styles)(LinkedinButton)
+export default withRouter(withStyles(styles)(LinkedinButton))

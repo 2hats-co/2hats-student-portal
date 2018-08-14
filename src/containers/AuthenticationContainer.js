@@ -1,40 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-//redux actions
-import * as action from '../actions/AuthenticationContainerActions';
+
 //material ui
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-
-
 import StyledLink from '../components/StyledLink';
 
-
-//Redux
-import { compose } from 'redux';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { withHandlers } from 'recompose'
-import { withFirestore } from '../utilities/withFirestore';
-import { auth } from '../firebase';
-import { COLLECTIONS } from '../constants/firestore';
 //routing
 import * as routes from '../constants/routes'
 import { withRouter } from "react-router-dom";
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
-//authentication
 
+//authentication components
 import Name from '../components/InputFields/Name'
-
 import Disclaimer from '../components/Authentication/Disclaimer';
-
 import EmailAuth from '../components/Authentication/EmailAuth'
 import GoogleButton from '../components/Authentication/GoogleButton'
 import LinkedinButton from '../components/Authentication/LinkedinButton'
-
 import LogoInCard from '../components/LogoInCard'
+
+//utilities
+import {resetPasswordEmail} from '../utilities/Authentication/resetPassword'
 
 const styles = theme => ({
   root: {
@@ -84,10 +72,6 @@ const INITIAL_STATE = {
   timeStamp: ''
 };
 
-const updateByPropertyName = (propertyName, value) => () => ({
-  [propertyName]: value,
-  emailReport:null
-});
 
 const googleButton = (<GoogleButton/>)
 const linkedinButton = (<LinkedinButton/>)
@@ -96,22 +80,13 @@ class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
-    this.goToIntroduction = this.goToIntroduction.bind(this);
-    this.goToDashboard = this.goToDashboard.bind(this);
-    this.goToSignIn = this.goToSignIn.bind(this);
+    this.goTo = this.goTo.bind(this);
     this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
-    this.handleProgress = this.handleProgress.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
-  goToSignIn() {
-    this.props.history.push(routes.SIGN_IN)
-  }
-  goToIntroduction() {
-    this.props.history.push(routes.INTRODUCTION);
-  }
-  goToDashboard() {
-    this.props.history.push(routes.DASHBOARD);
+  goTo(route){
+    this.props.history.push(route)
   }
   handleSnackBar = (showSnackBar, snackBarVariant, snackBarMessage) => {
     this.setState({
@@ -133,67 +108,21 @@ class AuthenticationContainer extends React.Component {
   handleLoadingIndicator(isLoading) {
     this.setState({ isLoading: isLoading })
   }
-  handleProgress(progress) {
-    this.setState({ progress: progress })
-  }
+
   handleSignin() {
     this.handleLoadingIndicator(true);
-    this.handleProgress(30);
     const { email, password } = this.state;
-    auth.doSignInWithEmailAndPassword(email, password)
-      .then(authUser => {
-        this.handleProgress(60);
-        this.props.onSignIn(authUser.user.uid)
-        this.setState(() => ({ ...INITIAL_STATE, isLoading: true }));
-        this.handleProgress(90);
-        this.handleSnackBar(true, 'success', 'Sign in successfully !');
-        setTimeout(() => {
-          this.goToDashboard()
-        }, 500)
-      })
-      .catch(error => {
-        console.log('error', error);
-        this.handleSnackBar(true, 'error', error.message);
-        this.handleLoadingIndicator(false);
-        this.setState(updateByPropertyName('error', error));
-      });
+   const user = {email,password}
   }
   handleSignup() {
-    this.handleLoadingIndicator(true);
-    this.handleProgress(30);
-    const { firstName, lastName, email, password } = this.state
-    auth.doCreateUserWithEmailAndPassword(email, password)
-      .then(authUser => {
-        this.handleProgress(60);
-        console.log('user successfully created', authUser)
-        authUser.user.updateProfile({
-          displayName: `${firstName} ${lastName}`
-        })
-      }).then((re) => {
-          this.handleProgress(90),
-          console.log('full name successfully created', re),
-          this.setState({ isMounted: false }),
-          setTimeout(() => {
-            this.goToIntroduction()
-          }, 1000)
-      }
-      ).catch(error => {
-        console.log('error', error);
-        this.handleSnackBar(true, 'error', error.message);
-        this.handleLoadingIndicator(false);
-        this.setState(updateByPropertyName('error', error));
-      });
+   
+   
   }
-  handleResetPassword(email) {
-    auth.doPasswordReset(email)
-      .then(() => {
-        this.setState(() => ({ ...INITIAL_STATE }));
-      })
-      .catch(error => {
-        this.setState(updateByPropertyName('error', error));
-      });
+  handleResetPasswordEmail(email) {
+    //TODO: create restAPI
+    resetPasswordEmail(email)
   }
-  
+
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
@@ -284,37 +213,7 @@ class AuthenticationContainer extends React.Component {
 }
 AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
-  store: PropTypes.shape({
-    firestore: PropTypes.object
-  })
 };
+export default withRouter(withStyles(styles)(AuthenticationContainer))
 
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-function mapActionToProps(dispatch) {
-  return bindActionCreators(action.actions, dispatch);
-}
-
-const enhance = compose(
-  // add redux store (from react context) as a prop
-  withFirestore,
-  // Handler functions as props
-  withHandlers({
-    onSignIn: props => (uid) =>
-      props.firestore.update({ collection: COLLECTIONS.users, doc: uid }, {
-        lastSignInAt: props.firestore.FieldValue.serverTimestamp()
-      }
-      ),
-  }),
-  //redux action connection
-  connect(mapStateToProps, mapActionToProps)
-)
-export default enhance(
-  withRouter(
-    withStyles(styles)(AuthenticationContainer)
-  )
-)
 
