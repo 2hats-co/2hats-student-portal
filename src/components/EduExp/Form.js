@@ -58,12 +58,9 @@ class DialogForm extends React.Component {
       let stateCopy = Object.assign(this.state,{})
       stateCopy.unChanged = undefined
       stateCopy.focusedField = undefined
-      console.log('form submition',stateCopy)
-      console.log('fields',this.props.fields)
       let newItem ={}
       this.props.fields.forEach((field)=>{
         newItem[field.name]= this.state[field.name].value
-        console.log(field.name,this.state[field.name])
       })
      this.props.handler(newItem)
 }
@@ -169,7 +166,7 @@ class DialogForm extends React.Component {
       title={title} isOpen={isOpen} 
       addHandler={this.handleAdd.bind(this)} 
       disabled={this.isDisabled()} 
-      unChanged={this.state.unChanged}
+      unChanged={this.state.unChanged.value}
       cancelHandler={()=>{handler()}}
       width={330}
       >
