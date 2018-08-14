@@ -20,10 +20,8 @@ export const getTokenWith3rdParty = (user,callback) =>{
   .set('X-API-Key', 'foobar')
   .set('accept', 'json')
   .end((err, res) => {
-   console.log(res.body)
-    //console.log(JSON.parse(res.text))
+ 
     if(res){
-       
         auth.signInWithCustomToken(res.body.token).then(()=>{
             callback(res.body.route)
         })

@@ -86,7 +86,7 @@ class GoogleLogin extends Component {
   }
   signIn(e) {
     if (e) {
-      e.preventDefault() // Ke: to prevent submit if used within form
+      e.preventDefault()
     }
     if (!this.state.disabled) {
       const auth2 = window.gapi.auth2.getAuthInstance()

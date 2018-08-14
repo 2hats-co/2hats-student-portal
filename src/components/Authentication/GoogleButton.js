@@ -4,7 +4,9 @@ import Button from '@material-ui/core/Button';
 import {GOOGLE_CID} from '../../config/auth';
 import GoogleIcon from '../../assets/images/social/google.svg';
 import GoogleLogin from '../../utilities/Authentication/GoogleLogin.js';
-import {checkEmail} from '../../utilities/Authentication/emailCheck'
+import {getTokenWith3rdParty} from '../../utilities/Authentication/getTokenWith3rdParty'
+import { withRouter } from "react-router-dom";
+
 const styles = theme => ({
     root: {
       paddingLeft: 50,
@@ -25,43 +27,47 @@ const styles = theme => ({
 class GoogleButton extends Component{
     constructor(props){
         super(props)
-        this.handleGoogleAuth = this.handleGoogleAuth.bind(this);
+        this.handleGoogleAuthFail = this.handleGoogleAuthFail.bind(this);
+        this.handleRouting = this.handleRouting.bind(this)
+        this.getToken = this.getToken.bind(this)
     }
     componentWillMount(){
-        //this.initializeLinkedin(LINKEDIN_CID);
+       
+    }
+    handleRouting(route){
+      this.props.history.replace(route)
     }
     handleGoogleAuthFail = (error) => {
         console.log('google auth fail', error)
-      }
-    handleGoogleAuth = (response) => {
-        console.log('google response -->', response);
-        let data = {
-          googleId: response.googleId,
-          googleEmail: response.profileObj.email,
-          familyName: response.profileObj.familyName,
-          givenName: response.profileObj.givenName,
-          photo: response.profileObj.imageUrl,
-        };
-        checkEmail(data.googleEmail,(res)=>{console.log(res)})
+    }
+ 
+    getToken(r){
+      let user={};
+      user.email = r.profileObj.email
+      user.firstName = r.profileObj.givenName
+      user.lastName = r.profileObj.familyName
+      user.provider = {service:'google',id:r.profileObj.googleId}
+      user.avatarURL = r.profileObj.photo ||''
+      getTokenWith3rdParty(user,this.handleRouting)
     }
     render(){
-        const {classes} = this.props
+        const {classes,action} = this.props
         return(
             <GoogleLogin
           key={`google-button`}
           clientId={GOOGLE_CID}
           buttonText="Login"
-          onSuccess={this.handleGoogleAuth}
+          onSuccess={this.getToken}
           onFailure={this.handleGoogleAuthFail}
           render={renderProps => (
             <Button variant='flat'
               key={`google-button`}
               style={{ backgroundColor: '#E05449' }}
-              //onClick={renderProps.onClick}
+              onClick={renderProps.onClick}
               className={classes.socialButton}>
               <div className={classes.socialIcon} >
                 <img alt={'google-logo'} src={GoogleIcon} />
-              </div> Authenticate with google
+              </div> {action} with google
             </Button>
           )}
         />
@@ -69,4 +75,4 @@ class GoogleButton extends Component{
     }
 
 }
-export default withStyles(styles)(GoogleButton)
+export default withRouter(withStyles(styles)(GoogleButton))
