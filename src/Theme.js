@@ -102,7 +102,7 @@ export const Theme = createMuiTheme({
   },
   typography: {
     display2: {
-      fontSize: '48px',
+      fontSize: '42px',
       fontFamily: primaryFontFamily,
       color:'#000',
       fontWeight: 'bold',

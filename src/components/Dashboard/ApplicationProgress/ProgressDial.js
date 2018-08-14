@@ -20,15 +20,15 @@ const styles = theme => ({
   },
   progress:{
     position:'relative',
-    top:-283,
-    left:18,
+    top:-284,
+    left:13,
   },
   label:{
     position:'relative',
     width:190,
     paddingTop:65,
     textAlign:'center',
-    fontSize:47
+
   }
 });
 
@@ -48,7 +48,7 @@ function ProgressDial(props){
           thickness={2}
           className={classes.progress}
           variant="static" 
-          size={152}
+          size={155}
           value={percentage}
         />
       </div>
