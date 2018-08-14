@@ -100,11 +100,13 @@ class ResumeBuilderContainer extends Component {
       this.setState({profile:updatedProfile})
       this.props.onProfileUpdate({process:PROCESS_TYPES.build,hasSubmit:false})
       this.props.onUserUpdate({process:PROCESS_TYPES.build})
+
     }else if(this.props.history.location.pathname === routes.UPLOAD_RESUME){
       let updatedProfile = Object.assign({process:PROCESS_TYPES.upload},INITIAL_PROFILE)
       this.setState({profile:updatedProfile})
-      this.props.onProfileUpdate({process:PROCESS_TYPES.build,hasSubmit:false})
+      this.props.onProfileUpdate({process:PROCESS_TYPES.upload,hasSubmit:false})
       this.props.onUserUpdate({process:PROCESS_TYPES.upload})
+     
     }
   }
 

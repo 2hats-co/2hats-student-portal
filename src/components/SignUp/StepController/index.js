@@ -67,8 +67,18 @@ disableNext(currentStep,profile){
     }
   }
 
-  disableSave(currentStep,profile){
-      return (currentStep===ALL_STEPS.education && profile.education.length === 0)
+  showSave(currentStep,profile){
+    switch (currentStep) {
+      case ALL_STEPS.careerInterests:return false;
+      case ALL_STEPS.bio:return false;
+      case ALL_STEPS.uploadResume:return true;
+      case ALL_STEPS.education:return profile.education.length !== 0 ;
+      case ALL_STEPS.experience:return true;
+      case ALL_STEPS.profileDetails:return false;
+      case ALL_STEPS.other:return false // || phoneNumber.length !== 10;
+      default:return false;
+    }
+      
   }
   handleBack(currentStep){
     const{profile,activeStep,updateHandler,backHandler} = this.props
@@ -81,6 +91,7 @@ disableNext(currentStep,profile){
     if(currentStep===ALL_STEPS.other)
     {this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
   }
+
 render(){
 
  const{classes,profile,activeStep,theme} = this.props
@@ -103,16 +114,11 @@ render(){
   >
     Back
   </Button>)
-  // const saveButton = (<Button id={`save-${currentStep}`}
-  //  className={classes.button}
-  //   //variant="link"
-  //   disabled={this.disableSave(currentStep,profile)}
-  // onClick={this.goToDashboard}
-  // >)
+
   const saveLink = (<StyledLink style={{color:'#000',width:'100%',textAlign:'right'}} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
       Finish later
     </StyledLink>)
-  const saveButtonWithConditions = (((currentStep===ALL_STEPS.education||currentStep===ALL_STEPS.experience||currentStep===ALL_STEPS.uploadResume)&&!checkComplition(ALL_STEPS.education,profile))&&saveLink)
+  const saveButtonWithConditions = ((this.showSave(currentStep,profile))&&saveLink)
   const webButtons =(<Grid item style={{height:35}}>
     <Grid
 //className={classes.root}
