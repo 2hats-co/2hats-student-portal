@@ -132,7 +132,7 @@ export const Theme = createMuiTheme({
     
     subheading: {
       fontFamily:primaryFontFamily,
-      fontWeight: 500,
+      fontWeight: 400,
       fontSize: '16px',
       letterSpacing: '0.08px'
     },

@@ -10,7 +10,12 @@ export const checkEmail = (email,callback) =>{
   .end((err, res) => {
    // console.log(res)
     //console.log(JSON.parse(res.text))
+    if(callback&& res){
     callback(JSON.parse(res.text))
+    }
+    if(err){
+        console.log(err)
+    }
     //this.setState({emailReport:JSON.parse(res.text)})
 });
 }

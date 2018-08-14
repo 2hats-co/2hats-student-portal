@@ -6,6 +6,7 @@ import { Theme } from './Theme';
 import withAuthentication from './utilities/Session/withAuthentication';
 import AuthenticationContainer from './containers/AuthenticationContainer'
 import SignupContainer from './containers/SignupContainer'
+import SpeedySignupContainer from './containers/SpeedySignupContainer'
 import SubmissionContainer from './containers/SubmissionContainer'
 import IntroductionContainer from './containers/IntroductionContainer';
 import EmailVerificationContainer from './containers/EmailVerificationContainer';
@@ -54,6 +55,7 @@ componentWillUnmount() {
     <div className="app"> 
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signUp}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signIn}/>} />
+      <Route exact path={routes.SPEEDY_SIGN_UP} component={() =>  <SpeedySignupContainer isPublic/>} />
       <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer />} />
       <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
