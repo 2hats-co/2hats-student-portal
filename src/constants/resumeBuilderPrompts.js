@@ -93,7 +93,7 @@ export function getPrompts(field){
         case 'IT':return it
         case 'Business':return business
         case 'Design':return design
-        default:
+        default:return business
             break;
     }
   
