@@ -17,10 +17,16 @@ const styles = theme => ({
 });
 function DropDown(props) {
   const {classes,list,value,hasLabel,changeHandler,name,title,hint,label} = props;
+  console.log(name,value)
     const InputField = ( 
         <FormControl className = {classes.inputField}>
-          {hasLabel&&<InputLabel htmlFor={`${name}dropDown`} id={`${name}dropDown`} style={{textTransform:'capitalize'}}>{label}</InputLabel>}
+           {hasLabel&&<InputLabel 
+          shrink={typeof value !=='undefined' } 
+          htmlFor={`${name}dropDown`} 
+          id={`${name}dropDown`}
+          style={{textTransform:'capitalize'}}>{label}</InputLabel>} 
         <Select  
+      
        value={value}
        onChange={(e)=>{
          changeHandler(name,e.target.value)
