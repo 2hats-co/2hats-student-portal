@@ -50,7 +50,7 @@ class MobileIntro extends React.Component {
   render() {
     const { classes, theme,tutorialSteps,startHandler} = this.props;
     const { activeStep } = this.state;
-    setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad')
+    setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad',true)
     const maxSteps = tutorialSteps.length;
 
     return (

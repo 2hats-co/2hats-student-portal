@@ -48,7 +48,7 @@ function ProgressDial(props){
           thickness={2}
           className={classes.progress}
           variant="static" 
-          size={150}
+          size={152}
           value={percentage}
         />
       </div>
