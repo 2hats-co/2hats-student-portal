@@ -189,11 +189,10 @@ class SpeedySignupContainer extends Component {
             <Grid className={isMobile? classes.mobileForm:classes.webForm} container direction='column' alignItems={isMobile?'center':'flex-start'} justify='space-between'>
             {!isMobile&& <Grid item/>}
             <Grid item>
-            <Grid container className={classes.ç}>
+            <Grid container style={{height:100}} justify='space-between'>
             <Typography variant='title' style={isMobile?{textAlign:'center'}:{}}>Congratulations, You’re Almost There!</Typography>
-            <Typography variant='body1' style={isMobile?{textAlign:'center'}:{}}>
-            We’ve sent you an email to finish the sign up process. When you’re ready, submit your information to access job opporunties.
-            </Typography>
+            <Typography variant='body1' style={isMobile?{textAlign:'center'}:{}}>We’ve sent you an email to finish the sign up process.</Typography> 
+            <Typography variant='body1' style={isMobile?{textAlign:'center'}:{}}>When you’re ready, submit your information to access job opporunties.</Typography>
             </Grid>
             </Grid>
             {isMobile &&<Grid item>
