@@ -153,8 +153,7 @@ class SpeedySignupContainer extends Component {
     goHome(){
         window.open('https://2hats.com.au','_self')
     }
-
-
+    
     renderForm(){
         const {classes,theme} = this.props
         const isMobile = theme.responsive.isMobile
@@ -170,10 +169,11 @@ class SpeedySignupContainer extends Component {
                     <ChangeAdpter changeHandler={this.handleChange}>
                         <Email key="emailField" value={email} changeHandler={this.handleChange} />
                     </ChangeAdpter>
-               <Industy hasLabel value={industry} changeHandler={this.handleChange}/>
-               <CurrentUniversity hasLabel 
+                    <CurrentUniversity hasLabel 
                value={currentUniversity} 
                changeHandler={this.handleChange}/>
+               <Industy hasLabel value={industry} changeHandler={this.handleChange}/>
+               
                <Disclaimer/>
                 <Button className={isMobile?classes.mobileButton:classes.button}
                 disabled={isLoading} 
