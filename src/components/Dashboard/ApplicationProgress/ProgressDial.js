@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Typography } from "@material-ui/core";
-
+import green from '@material-ui/core/colors/green';
 const styles = theme => ({
   root:{
     height:180,
@@ -28,7 +28,6 @@ const styles = theme => ({
     width:190,
     paddingTop:65,
     textAlign:'center',
-
   }
 });
 
@@ -43,12 +42,15 @@ function ProgressDial(props){
           variant="static" 
           size={150}
           value={100}
+       
         />
          <CircularProgress
           thickness={2}
           className={classes.progress}
           variant="static" 
           size={155}
+          style={(percentage===100)?{color:green.A700}:{}}
+
           value={percentage}
         />
       </div>
