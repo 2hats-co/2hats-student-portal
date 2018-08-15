@@ -1,23 +1,54 @@
-import React from 'react'
-import TextField from '@material-ui/core/TextField'
+import React from 'react';
+import classNames from 'classnames';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 
-function Password(props){
-    const {changeHandler,value} = props
+class Password extends React.Component{
+    
+      constructor(props){
+          super(props);
+          this.state = {showPassword: false};
+          this.handleClickShowPassword = this.handleClickShowPassword.bind(this)
+      }
+      handleClickShowPassword(){
+          this.setState({showPassword:!this.state.showPassword})
+      } 
+    render(){
+        const {changeHandler,value} = this.props
     return(
-        <TextField
-        id="password"
-        key="password"
-        label="Password"
-        value={value}
-        onChange={changeHandler('password')}
-        style={{ marginTop: 0,
-            width: '100%',
-            marginBottom: 5}}
-        margin="normal"
-        type='password'
-      />
+      
+
+      <FormControl //className={classNames(classes.margin, classes.textField)}
+      >
+          <InputLabel htmlFor="passwordField">Password</InputLabel>
+          <Input
+            id="passwordField"
+            type={this.state.showPassword ? 'text' : 'password'}
+            value={value}
+            onChange={changeHandler('password')}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="Toggle password visibility"
+                  onClick={this.handleClickShowPassword}
+                  onMouseDown={this.handleMouseDownPassword}
+                >
+                  {this.state.showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+
     )
+    }
+    
 
 }
 export default Password
