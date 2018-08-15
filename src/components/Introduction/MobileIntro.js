@@ -10,26 +10,26 @@ import {setBackground} from '../../utilities/styling'
 import StepsIndecator from './StepsIndecator'
 const styles = theme => ({
   root: {
-      margin:30,
-    padding:20,
+    
+      margin:30,marginTop:20,marginBottom:10,
+      padding:20,paddingTop:15,paddingBottom:15,
  
   },
  button:{
-      marginTop: 15,
-      width: '90%',
-      marginLeft: 10,
-      marginRight: 10
+      width: '80%',
+      marginLeft:'10%',
+      position:'absolute',
+      bottom:15
     },
     body:{
       textAlign:'center',
-      marginBottom:5,
     },img:{
 
     }
     
 });
 
-class MobileIntro extends React.Component {
+class MobileIntro extends React.Component{
   state = {
     activeStep: 0,
   };
@@ -55,7 +55,7 @@ class MobileIntro extends React.Component {
 
     return (
      
-      
+      <div>
         <SwipeableViews
           axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
           index={activeStep}
@@ -76,18 +76,17 @@ class MobileIntro extends React.Component {
                     <Typography className={classes.body} variant='body1'>
                     {step.description}
                     </Typography>
-                    
-                    {index===2?<Button className={classes.button} onClick={startHandler}
-                     variant='flat' color="primary">
-            Let's Start
-          </Button>:<StepsIndecator index={index}/>}
+                    <StepsIndecator index={index}/>
             </Grid>
         </Card>
+                
+
           ))}
 
         </SwipeableViews>
-        
-      
+        <Button className={classes.button} onClick={startHandler}
+                variant='flat' color="primary"> Let's Start</Button>
+        </div>
     );
   }
 }

@@ -161,7 +161,7 @@ class SpeedySignupContainer extends Component {
         return(<Grid className={isMobile? classes.mobileForm:classes.webForm} container  direction='column'>
                 <Grid className={classes.header} item>
                 <Typography variant={isMobile?'subheading':'title'} style={isMobile?{textAlign:'center'}:{}}>Welcome to the UTS Career Fair!</Typography>
-                <Typography variant={isMobile?'body1':'subheading'} style={isMobile?{textAlign:'center'}:{}}>Sign up below to get ahead on job opportunities </Typography>
+                <Typography variant={isMobile?'body1':'subheading'} style={isMobile?{textAlign:'center'}:{}}>Sign up below to get ahead on your professional career</Typography>
                    </Grid>
                     <ChangeAdpter changeHandler={this.handleChange}>
                         <Name firstName={firstName} lastName={lastName}/>
