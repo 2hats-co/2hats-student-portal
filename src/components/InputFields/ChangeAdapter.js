@@ -22,7 +22,7 @@ handleChange = name => event => {
     const { children } = this.props;
     const childrenWithProps = React.Children.map(children, child =>
       React.cloneElement(child, { changeHandler: this.handleChange }));
-    return <div>{childrenWithProps}</div>
+    return <div style={{width:'100%'}}>{childrenWithProps}</div>
   }
 }
 export default ChangeAdaper

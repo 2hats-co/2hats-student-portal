@@ -24,13 +24,14 @@ class Password extends React.Component{
     return(
       
 
-      <FormControl //className={classNames(classes.margin, classes.textField)}
-      >
+      <FormControl style={{width:'100%'}}>
           <InputLabel htmlFor="passwordField">Password</InputLabel>
           <Input
             id="passwordField"
             type={this.state.showPassword ? 'text' : 'password'}
             value={value}
+            fullWidth
+            margin="normal"
             onChange={changeHandler('password')}
             endAdornment={
               <InputAdornment position="end">

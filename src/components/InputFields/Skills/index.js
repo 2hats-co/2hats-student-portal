@@ -44,8 +44,10 @@ class Skills extends React.Component {
         this.setState({ selectedList: newSelectedList });
       };
     addNewSkill(val){
+      
         let newSelectedList = this.state.selectedList;
-        let newItem = true
+        if(newSelectedList.length < 10){
+            let newItem = true
         newSelectedList.map((x) => {
             if(x.toUpperCase() === val.toUpperCase()){
                 newItem = false
@@ -55,6 +57,8 @@ class Skills extends React.Component {
         newSelectedList.push(val);
         this.setState({ selectedList:newSelectedList});
         }
+        
+        }
     render() {
         const {classes,interestKeys,hideSuggestions,hideTitle} = this.props;
         return (
@@ -62,7 +66,7 @@ class Skills extends React.Component {
          <AutoCompleteField
         title = {!hideTitle?'Skills':''}
         hint = 'Please address your chosen skill(s) in your tertiary education and practical experience. '
-        placeholder = 'Enter your relevant practical skills, e.g. Adobe Photoshop'
+        placeholder = 'Enter your relevant practical skills (maximum 10), e.g. Adobe Photoshop'
         list = {ALL_SKILLS.filter(x=> !this.state.selectedList.includes(x))}
         onComplete = {this.addNewSkill}
         />

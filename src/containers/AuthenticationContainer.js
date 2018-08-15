@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 //material ui
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import StyledLink from '../components/StyledLink';
 
@@ -26,6 +27,8 @@ import ChangeAdpter from '../components/InputFields/ChangeAdapter'
 //utilities
 import {resetPasswordEmail} from '../utilities/Authentication/resetPassword'
 import {createUserWithPassword,signInWithPassword} from '../utilities/Authentication/authWithPassword'
+
+import BackIcon from '@material-ui/icons/KeyboardBackspace'
 const styles = theme => ({
   root: {
     paddingLeft: 50,
@@ -55,6 +58,8 @@ const styles = theme => ({
   footerLink: {
     display: 'inline',
     marginRight: 5
+  },iconButton:{
+    fontColor:'#000'
   }
 });
 const INITIAL_STATE = {
@@ -109,8 +114,14 @@ class AuthenticationContainer extends React.Component {
   };
   render() {
     const { classes } = this.props;
-    const { firstName, lastName, password, view,isLoading} = this.state
-
+    const { firstName, lastName, password, view,isLoading,email} = this.state
+    const backBar = ( <Grid style={{width:'100%',marginLeft:-30}} 
+                        container direction='row' alignItems='center'
+                        justify='flex-start'> 
+                        <IconButton aria-label="back" 
+                        id="back-to-email" onClick={()=>{this.setState({view:AUTHENTICATION_CONTAINER.auth})}}>
+    <BackIcon className={classes.iconButton} />
+  </IconButton> <Typography variant={(email.length<25)?'subheading':'body1'}>{email}</Typography></Grid>)
     const googleButton = (<GoogleButton key='google-button'  id='google-button' changeHandler={this.handleChange}/>)
     const linkedinButton = (<LinkedinButton key='linkedin-button'  id='google-button'  changeHandler={this.handleChange}/>)
     const emailAuth = (<EmailAuth changeHandler={this.handleChange}/>)
@@ -141,7 +152,13 @@ class AuthenticationContainer extends React.Component {
         {linkButton(linkLabel, link)}
       </div>
     )
+    
     const disclaimer = (<Disclaimer/>)
+    const greeting = (<Typography variant='title' color='primary' style={{width:'100%'}}>Welcome back {firstName},</Typography>)
+    const googleMessage = (<Typography variant='subheading'>It looks like your account is created with Google.</Typography>)
+    const linkedinMessage = (<Typography variant='subheading'>It looks like your account is created with Linkedin.</Typography>)
+    const newAccountMessage = (<Typography variant='subheading'>It look likes we don’t have an account with this email address.</Typography>)
+     
     const passwordField = (<ChangeAdpter changeHandler={this.handleChange}><Password password={password}/></ChangeAdpter>)
     const signUpButton =(
       <Button className={classes.button} onClick={this.handleSignup}>
@@ -155,31 +172,38 @@ class AuthenticationContainer extends React.Component {
         )
        
     const AuthView = [googleButton,linkedinButton,orLabel,emailAuth]
-    const GoogleView = [googleButton]
-    const LinkedinView = [linkedinButton]
-    const signupView = [nameFields,passwordField,signUpButton]
-    const passwordView = [passwordField,footerLink('forgot password?','send reset email','dsfsd'),signInButton]
+    const GoogleView = [backBar,greeting,googleMessage,googleButton]
+    const LinkedinView = [backBar,greeting,linkedinMessage,linkedinButton]
+    const signupView = [backBar,newAccountMessage,nameFields,passwordField,disclaimer,signUpButton]
+    const passwordView = [backBar,greeting,passwordField,signInButton]
     let loadedView = signupView
+    let gridHeight = 200
     let cardHeight = 450
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = AuthView
         cardHeight = 450
+    gridHeight = 300
+
         break;
       case AUTHENTICATION_CONTAINER.google:
       loadedView = GoogleView
-        cardHeight = 450
+      cardHeight = 350
+      gridHeight =200
         break; case AUTHENTICATION_CONTAINER.linkedin:
       loadedView = LinkedinView
-        cardHeight = 450
+        cardHeight = 350
+        gridHeight =200
         break;
         case AUTHENTICATION_CONTAINER.signup:
        loadedView = signupView
-        cardHeight = 450
+        cardHeight = 480
+        gridHeight= 350
         break;
         case AUTHENTICATION_CONTAINER.password:
        loadedView = passwordView
         cardHeight = 450
+        gridHeight= 300
         break;
       default:
         break;
@@ -189,9 +213,10 @@ class AuthenticationContainer extends React.Component {
         <Grid
           container
           className={classes.root}
+          style={{height:gridHeight}}
           alignItems='center'
           direction='column'
-          justify='flex-start'
+          justify='space-between'
         >
          {[loadedView]} 
         </Grid>

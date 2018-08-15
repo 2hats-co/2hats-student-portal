@@ -10,7 +10,7 @@ import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Typography } from '../../node_modules/@material-ui/core';
-
+import Grid from '@material-ui/core/Grid'
 class ConfirmationDialog extends Component{
       render() {
         const { dialog,closeHandler,checkHandler} = this.props;
@@ -19,13 +19,14 @@ class ConfirmationDialog extends Component{
         return (
           <div>
             <Dialog
-          
               open={true}
               onClose={closeHandler}
               aria-labelledby="responsive-dialog-title">
               <DialogTitle id="responsive-dialog-title">{title}</DialogTitle>
               <DialogContent>
-                 {body.map((x)=><Typography variant='body1'>{x}</Typography>)} 
+                <Grid container style={{height:50}} direction='row' justify='flex-start'>
+                 {body.map((x)=><Grid item sx={12}><Typography variant='body1'>{x}</Typography></Grid>)} 
+                </Grid>
                 {checkbox&&<FormControlLabel
           control={
             <Checkbox
