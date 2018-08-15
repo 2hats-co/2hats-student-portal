@@ -5,7 +5,8 @@ export const AUTHENTICATION_CONTAINER = {
     google:'google',
     linkedin:'linkedin',
     password:'password',
-    magic:'magic'
+    magic:'magic',
+    signup:'signup',
 }
 export const INTRODUCTION_CONTAINER = {
     process:'process',

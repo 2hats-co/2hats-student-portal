@@ -34,7 +34,7 @@ const styles = theme => ({
       height:42,
       },
     paper:{
-      borderRadius:10,
+      borderRadius:3,
       marginLeft: 'auto',
       marginRight: 'auto',
       overflowY:'visible',

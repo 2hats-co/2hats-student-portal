@@ -15,6 +15,7 @@ import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 //authentication components
 import Name from '../components/InputFields/Name'
+import Password from '../components/InputFields/Password'
 import Disclaimer from '../components/Authentication/Disclaimer';
 import EmailAuth from '../components/Authentication/EmailAuth'
 import GoogleButton from '../components/Authentication/GoogleButton'
@@ -63,7 +64,7 @@ const INITIAL_STATE = {
   confirmPassword: '',
   email: '',
   error: null,
-  view: 'signup',
+  view: AUTHENTICATION_CONTAINER.auth,
   isLoading: false,
   progress: 10,
   showSnackBar: false,
@@ -75,7 +76,7 @@ const INITIAL_STATE = {
 
 const googleButton = (<GoogleButton/>)
 const linkedinButton = (<LinkedinButton/>)
-const emailAuth = (<EmailAuth/>)
+
 class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -84,6 +85,7 @@ class AuthenticationContainer extends React.Component {
     this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
     this.handleSnackBar = this.handleSnackBar.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleViewChange = this.handleViewChange.bind(this);
   }
   goTo(route){
     this.props.history.push(route)
@@ -122,15 +124,17 @@ class AuthenticationContainer extends React.Component {
     //TODO: create restAPI
     resetPasswordEmail(email)
   }
-
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
+  handleViewChange = (view) =>{
+    this.setState({view:view})
+  }
+  handleChange =(name,value) => {
+    this.setState({[name]:value});
   };
   render() {
     const { classes } = this.props;
-    const { firstName, lastName, password, confirmPassword, email, error, view, isLoading, progress, showSnackBar, snackBarVariant, snackBarMessage } = this.state
+    const { firstName, lastName, password, view,isLoading} = this.state
+
+    const emailAuth = (<EmailAuth setView={this.handleViewChange}/>)
     let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
     </StyledLink>)
@@ -147,18 +151,7 @@ class AuthenticationContainer extends React.Component {
         Please enter your email address to receive the instruction for resetting password.
 </Typography>
     </Grid>)
-    let resetPasswordButton = (isDisable) => (<Grid container direction='row' justify='space-between' style={{ width: 230 }}>
-      <Button variant="outlined"
-        onClick={this.goToSignIn}
-        className={classes.resetButton}
-      > Back
-  </Button>
-      <Button variant="flat" disabled={isDisable}
-        className={classes.resetButton}
-        onClick={() => { this.handleResetPassword(email) }}
-      > reset
-  </Button>
-    </Grid>)
+
     let footerLink = (label, link, linkLabel) => (
       <div key={`${label + link}`} >
         <Typography className={classes.footerLink} variant="body1">
@@ -167,14 +160,25 @@ class AuthenticationContainer extends React.Component {
         {linkButton(linkLabel, link)}
       </div>
     )
-    
     const disclaimer = (<Disclaimer/>)
-    
+    const passwordField = (<Password changeHandler={this.handleChange}/>)
+    const signUpButton =(
+      <Button className={classes.button} onClick={this.handleSignup}>
+        Sign Up
+      </Button>
+      )
+    const signInButton =(
+        <Button className={classes.button} onClick={this.handleSignin}>
+          Sign In
+        </Button>
+        )
+       
     const AuthView = [googleButton,linkedinButton,orLabel,emailAuth]
-    const GoogleView = [GoogleButton]
-    const LinkedinView = [LinkedinButton]
-
-    let loadedView = AuthView
+    const GoogleView = [googleButton]
+    const LinkedinView = [linkedinButton]
+    const signupView = [nameFields,passwordField,signUpButton]
+    const passwordView = [passwordField,footerLink('forgot password?','send reset email','dsfsd'),signUpButton]
+    let loadedView = signupView
     let cardHeight = 450
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
@@ -182,21 +186,25 @@ class AuthenticationContainer extends React.Component {
         cardHeight = 450
         break;
       case AUTHENTICATION_CONTAINER.google:
-     //   loadedView = 
+      loadedView = GoogleView
         cardHeight = 450
         break; case AUTHENTICATION_CONTAINER.linkedin:
-      //  loadedView = 
-        cardHeight = 360
+      loadedView = LinkedinView
+        cardHeight = 450
         break;
-        case AUTHENTICATION_CONTAINER.magic:
-       // loadedView = 
-        cardHeight = 360
+        case AUTHENTICATION_CONTAINER.signup:
+       loadedView = signupView
+        cardHeight = 450
+        break;
+        case AUTHENTICATION_CONTAINER.signin:
+       loadedView = passwordView
+        cardHeight = 450
         break;
       default:
         break;
     }
     return (
-      <LogoInCard width={350} height={isLoading ? 300 : cardHeight}>
+      <LogoInCard width={350} height={cardHeight} isLoading={isLoading}>
         <Grid
           container
           className={classes.root}

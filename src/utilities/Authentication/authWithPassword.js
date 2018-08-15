@@ -13,7 +13,7 @@ export const createUserWithPassword=(user,responseHandler,errorHandler)=>{
             firstName,
             lastName,
             createAt:firebase.firestore.FieldValue.serverTimestamp(),
-            providers:[provider],
+            providers:[{service:'password',id:authUser.uid}],
             stage:'pre-review',// TODO use stage and status constants
             status:'incomplete',
           })

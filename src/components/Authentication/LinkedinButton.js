@@ -75,7 +75,7 @@ class LinkedinButton extends Component{
           className={classes.socialButton}>
           <div className={classes.socialIcon} >
             <img alt={'linkedinLogo'} src={LinkedinIcon} />
-          </div> {action} with Linkedin
+          </div> {action||'sign in'} with Linkedin
         </Button>
         )
     }

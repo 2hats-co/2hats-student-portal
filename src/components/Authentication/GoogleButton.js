@@ -67,7 +67,7 @@ class GoogleButton extends Component{
               className={classes.socialButton}>
               <div className={classes.socialIcon} >
                 <img alt={'google-logo'} src={GoogleIcon} />
-              </div> {action} with google
+              </div> {action||'sign in'} with google
             </Button>
           )}
         />

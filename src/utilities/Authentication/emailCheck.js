@@ -11,7 +11,7 @@ export const checkEmail = (email,callback) =>{
    // console.log(res)
     //console.log(JSON.parse(res.text))
     if(callback&& res){
-    callback(JSON.parse(res.text))
+    callback(res.body)
     }
     if(err){
         console.log(err)
