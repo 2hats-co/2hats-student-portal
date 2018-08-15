@@ -106,16 +106,16 @@ class StatusCard extends React.Component{
     getConfirmationDialog(dialog){
         switch (dialog) {
           case 'submit':return {title:'Confirm Profile Submission',
-          body:[`Are you sure you want to submit?`,`\n`,`Once you click 'submit' your resume will be sent to the 2hats resume specialists for review.`],
+          body:[`Are you sure you want to submit?`,`Once you click 'submit' your resume will be sent to the 2hats resume specialists for review.`],
           checkbox:{isChecked:false,label:'I understand I can not submit again until my resume has been reviewed.'},
           confirm:{label:'Submit',action:()=>{this.props.goTo(routes.DASHBOARD),this.props.onSubmit()}}}
           case 'build':return {title:'Use Our Resume Builder Instead',
-          body:['Are you sure you want to build a new resume instead?','','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
+          body:['Are you sure you want to build a new resume instead?','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
           confirm:{label:'Build',action:()=>{
             this.props.goTo(routes.BUILD_RESUME)
           }}}
          case 'upload':return {title:'Upload Existing Resume Instead',
-          body:[`Are you sure you want to switch to uploading your resume instead?`,`\n`,
+          body:[`Are you sure you want to switch to uploading your resume instead?`,
           `All your previous progress will be saved, and you can always go back to using our Resume Builder if you wish.`],
           confirm:{label:'Upload',action:()=>{
             this.props.goTo(routes.UPLOAD_RESUME)

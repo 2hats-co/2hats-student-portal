@@ -19,14 +19,13 @@ class ConfirmationDialog extends Component{
         return (
           <div>
             <Dialog
-          
               open={true}
               onClose={closeHandler}
               aria-labelledby="responsive-dialog-title">
               <DialogTitle id="responsive-dialog-title">{title}</DialogTitle>
               <DialogContent>
-                <Grid container style={{height:50}} direction='column' justify='space-around'>
-                 {body.map((x)=><Typography variant='body1'>{x}</Typography>)} 
+                <Grid container style={{height:50}} direction='row' justify='flex-start'>
+                 {body.map((x)=><Grid item sx={12}><Typography variant='body1'>{x}</Typography></Grid>)} 
                 </Grid>
                 {checkbox&&<FormControlLabel
           control={
