@@ -149,7 +149,8 @@ class DialogForm extends React.Component {
       case INPUTS.multiLine:return <MultiLineTextField
       key= {field.name}
       characterLimit= {400}
-      label={field.label}
+      title={field.label}
+      hasLabel
       name={field.name}
       placeholder={field.placeholder}
       hint={field.hint}
