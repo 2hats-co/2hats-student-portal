@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton'
 import BackIcon from '@material-ui/icons/ArrowBack'
 import NextIcon from '@material-ui/icons/ArrowForward'
-import DownIcon from '@material-ui/icons/ArrowDropDown'
+import DownIcon from '@material-ui/icons/KeyboardArrowDown'
 import moment from 'moment'
 const monthLabels = [['Jan','Feb','Mar','Apr'],['May','Jun','Jul','Aug'],['Sep','Oct','Nov','Dec']]
 const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
@@ -20,6 +20,13 @@ function getDateIndex(month,year){
     else{
         return(`${year-2000}${month}`)
     }
+}
+function getMoment(m,y){
+    let dateSting = `${m}`+`${y}`
+    if(m<10){
+        dateSting = `0${m}`+`${y}`
+    }
+    return moment(dateSting,'MMYYYY')
 }
 const styles = theme => ({
     root: {
@@ -104,59 +111,73 @@ const styles = theme => ({
         this.handleSelectMonth = this.handleSelectMonth.bind(this)
     }
     componentDidUpdate(prevProps, prevState) {
-       const {value,year,month}= this.state
+       const {value}= this.state
         if (prevState.value !== value&& value!=='') {
-            console.log('paase',this.state,this.props)
           this.props.changeHandler(this.props.name,value)
-        if(this.props.toggle && value === this.props.toggle.value){
-          this.props.changeHandler(`${this.props.name}Value`,9999)
-          }else{
-          this.props.changeHandler(`${this.props.name}Value`,getDateIndex(month,year))
-          }
         }
       }
       handleCloseSnackbar(){
         this.setState({errorBar:false})
     }
     validRange(month,year){
-        console.log(this.props.name,moment().format("M"),month)
-        if(this.props.name.includes('start')&& 
-        (moment().format("YYYY")<year || (moment().format("YYYY")==year && moment().format("M")<month)))
-        {
-            this.setState({errorMessage:`Please choose an earlier date`})
-            return false
-        }else{
-            if(this.props.minValue&& this.props.minValue.value>getDateIndex(month,year)){
-           
-                this.setState({errorMessage:`Please choose a later date`})
-                return false
-                }else if(this.props.maxValue&& this.props.maxValue.value<getDateIndex(month,year)){
+        const {name,maxValue,minValue,toggle} = this.props
+        console.log('aaa',name,minValue,maxValue)
+        let newMoment = getMoment(month,year)
+        if(name === 'startDate'){
+          if(maxValue){
+              if(toggle){
+                  if(newMoment< moment()){
+                    return true  
+                  }else{
+                    this.setState({errorMessage:`Please choose an earlier date`})
+                    return false
+                  }
+              }else{
+                if(newMoment < moment(maxValue,'MMM YYYY') && newMoment< moment()){
+                    this.setState({errorMessage:null})
+                    return true
+                }else{
                     this.setState({errorMessage:`Please choose an earlier date`})
                     return false
                 }
-                else{
+              }
+           
+          }else{
+            this.setState({errorMessage:null})
+
+              return true
+          }
+        }else if(name === 'endDate'){
+            if(minValue){
+                if(newMoment > moment(minValue,'MMM YYYY')){
                     this.setState({errorMessage:null})
+
                     return true
+                }else{
+                    this.setState({errorMessage:`Please choose a later date`})
+                        return false
                 }
+              }else{
+                this.setState({errorMessage:null})
+
+                  return true
+              }
         }
-        
+        return true
     }
     handleSelectMonth(n){
+        console.log(n,this.state.year)
+       console.log(moment(this.state.value,'MMM YYYY'))
         if(this.validRange(n,this.state.year)){
             this.openCalender()
             this.setState({month:n,value:`${getMonthName(n)} ${this.state.year}`,toggled:false})        
         }
     }
     handleIncrementYear(){
-        
         const newYear = this.state.year +1
-
-       
         if(!this.state.month || this.validRange(this.state.month,newYear)){
                 this.setState({year:newYear})
-        
         }
-      
     }
     handleDecrementYear(){
         const newYear = this.state.year -1
@@ -216,9 +237,10 @@ const styles = theme => ({
     openCalender(name,focusedField){
         console.log(name,focusedField)
         if(focusedField === name){
-          this.props.changeHandler('focusedField','fsfsfsf')
+        this.props.changeHandler('focusedField','fsfsfsf')
        
         }else{
+            this.setState({errorMessage:null})
           this.props.changeHandler('focusedField',name)
         }
     }
@@ -237,7 +259,7 @@ const styles = theme => ({
             {(isOpen&&!value)&&<Grid item/>}
 
                 {value&& <Typography variant='body1' style={{marginTop:20}}>{value}</Typography>}
-                <IconButton style={{height:42,width:42,marginRight:-10}}
+                <IconButton style={{height:42,width:42,marginRight:-3}}
                 onClick={()=>{this.openCalender(name,focusedField)}}
                 className={classes.button}>
                     <DownIcon/>

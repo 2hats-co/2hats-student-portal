@@ -106,8 +106,8 @@ class DialogForm extends React.Component {
           key= {field.name}
           name= {field.name}
            label={field.label}
-           minValue={this.state[field.minRefrence]&&this.state[field.minRefrence]}
-           maxValue={this.state[field.maxRefrence]&&this.state[field.maxRefrence]}
+           minValue={this.state.startDate.value}
+           maxValue={this.state.endDate.value}
            value={this.state[field.name]&& this.state[field.name].value}
            changeHandler={this.handleChange}
            toggle={field.toggle}
