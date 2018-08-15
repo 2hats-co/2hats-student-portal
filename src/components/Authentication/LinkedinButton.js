@@ -17,7 +17,7 @@ const styles = theme => ({
       width: 250,
       height: 40,
       color: '#fff',
-      backgroundColor: '#0077B5' 
+      backgroundColor: '#0077B5',
     },
     socialIcon: {
       marginRight: 17
@@ -74,6 +74,7 @@ class LinkedinButton extends Component{
         return(
             <Button key={`linkedin-button`} variant='flat'
           onClick={this.authorize}
+          style={{ backgroundColor: '#0077B5' }}
           className={classes.socialButton}>
           <div className={classes.socialIcon} >
             <img alt={'linkedinLogo'} src={LinkedinIcon} />
