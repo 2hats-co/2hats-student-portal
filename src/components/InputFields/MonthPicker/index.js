@@ -121,7 +121,7 @@ const styles = theme => ({
     }
     validRange(month,year){
         const {name,maxValue,minValue,toggle} = this.props
-        console.log('aaa',name,minValue,maxValue)
+     
         let newMoment = getMoment(month,year)
         if(name === 'startDate'){
           if(maxValue){
@@ -166,8 +166,6 @@ const styles = theme => ({
         return true
     }
     handleSelectMonth(n){
-        console.log(n,this.state.year)
-       console.log(moment(this.state.value,'MMM YYYY'))
         if(this.validRange(n,this.state.year)){
             this.openCalender()
             this.setState({month:n,value:`${getMonthName(n)} ${this.state.year}`,toggled:false})        
@@ -235,7 +233,7 @@ const styles = theme => ({
         )
     }
     openCalender(name,focusedField){
-        console.log(name,focusedField)
+     
         if(focusedField === name){
         this.props.changeHandler('focusedField','fsfsfsf')
        

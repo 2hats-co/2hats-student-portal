@@ -11,7 +11,7 @@ import * as _ from "lodash";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
-
+import moment from 'moment'
 class EducationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -96,7 +96,14 @@ class EducationContainer extends React.Component {
     const {dialog} = this.state
     const { name,data,disabled} = this.props;
     if(data){
-      const orderedData = _.orderBy(data, 'endDateValue','desc')
+      const datedData = data.map(x=>{
+        if(x.endDate ==='Present'){
+          return Object.assign({endMoment:moment('Dec 2100','MMM YYYY').valueOf()},x)
+        }else{
+          return Object.assign({endMoment:moment(x.endDate,'MMM YYYY').valueOf()},x)
+        }
+      })
+      const orderedData = _.orderBy(datedData, 'endMoment','desc')
      items=orderedData.map(item=>{
       return (
                 <EduExpCard
