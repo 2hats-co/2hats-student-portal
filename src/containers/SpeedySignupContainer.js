@@ -161,7 +161,7 @@ class SpeedySignupContainer extends Component {
         return(<Grid className={isMobile? classes.mobileForm:classes.webForm} container  direction='column'>
                 <Grid className={classes.header} item>
                 <Typography variant={isMobile?'subheading':'title'} style={isMobile?{textAlign:'center'}:{}}>Welcome to the UTS Career Fair!</Typography>
-                <Typography variant={isMobile?'body1':'subheading'} style={isMobile?{textAlign:'center'}:{}}>Sign up below to get ahead on job opportunities </Typography>
+                <Typography variant={isMobile?'body1':'subheading'} style={isMobile?{textAlign:'center'}:{}}>Sign up below to get ahead on your professional career</Typography>
                    </Grid>
                     <ChangeAdpter changeHandler={this.handleChange}>
                         <Name firstName={firstName} lastName={lastName}/>
@@ -192,7 +192,7 @@ class SpeedySignupContainer extends Component {
             <Grid container className={classes.ç}>
             <Typography variant='title' style={isMobile?{textAlign:'center'}:{}}>Congratulations, You’re Almost There!</Typography>
             <Typography variant='body1' style={isMobile?{textAlign:'center'}:{}}>
-            We’ve sent you an email to finish the sign up process. When you’re ready, submit your information to access job opporunties.
+            An email is on its way to help you finish the sign up process. Complete your profile to receive tailored feedback and gain access to paid professional experience.
             </Typography>
             </Grid>
             </Grid>
