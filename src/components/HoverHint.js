@@ -74,6 +74,8 @@ const styles = theme => ({
     padding:0,
     margin:0,
     backgroundColor:'rgba(1,1,1,0) !important',
+  },icon:{
+
   }
 });
 
@@ -94,7 +96,7 @@ class CustomizedTooltips extends React.Component {
     return (
       <div>
         <Tooltip title={message} classes={{tooltip: classes.lightTooltip }} placement='top'>
-          <Button className={classes.button}><HelpIcon style={{position:'relative',top:-3,left:-12,color:'#000'}}/></Button>
+          <Button className={classes.button}><HelpIcon style={{position:'relative',top:-3,left:-16,color:'rgba(0,0,0,0.45)', fontSize:16}}/></Button>
         </Tooltip>
       </div>
     );
