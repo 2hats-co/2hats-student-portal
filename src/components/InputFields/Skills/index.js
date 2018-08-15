@@ -44,8 +44,10 @@ class Skills extends React.Component {
         this.setState({ selectedList: newSelectedList });
       };
     addNewSkill(val){
+      
         let newSelectedList = this.state.selectedList;
-        let newItem = true
+        if(newSelectedList.length < 10){
+            let newItem = true
         newSelectedList.map((x) => {
             if(x.toUpperCase() === val.toUpperCase()){
                 newItem = false
@@ -54,6 +56,8 @@ class Skills extends React.Component {
        if(!newItem)return;
         newSelectedList.push(val);
         this.setState({ selectedList:newSelectedList});
+        }
+        
         }
     render() {
         const {classes,interestKeys,hideSuggestions,hideTitle} = this.props;
