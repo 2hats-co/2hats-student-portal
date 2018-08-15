@@ -70,7 +70,7 @@ const styles = theme => ({
               {steps}
               </Grid>
               <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
-              {isComplete?`Preview Submission`:`Continue Application`}
+              {isComplete?`Preview for Submission`:`Continue Application`}
               </Button>
     </Grid>
   
