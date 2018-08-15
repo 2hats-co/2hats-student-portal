@@ -35,13 +35,16 @@ class GoogleButton extends Component{
        
     }
     handleRouting(route){
+      this.props.changeHandler('isLoading',false)
       this.props.history.replace(route)
     }
     handleGoogleAuthFail = (error) => {
+  
         console.log('google auth fail', error)
     }
  
     getToken(r){
+      this.props.changeHandler('isLoading',true)
       let user={};
       user.email = r.profileObj.email
       user.firstName = r.profileObj.givenName

@@ -21,10 +21,11 @@ import EmailAuth from '../components/Authentication/EmailAuth'
 import GoogleButton from '../components/Authentication/GoogleButton'
 import LinkedinButton from '../components/Authentication/LinkedinButton'
 import LogoInCard from '../components/LogoInCard'
+import ChangeAdpter from '../components/InputFields/ChangeAdapter'
 
 //utilities
 import {resetPasswordEmail} from '../utilities/Authentication/resetPassword'
-
+import {createUserWithPassword,signInWithPassword} from '../utilities/Authentication/authWithPassword'
 const styles = theme => ({
   root: {
     paddingLeft: 50,
@@ -74,59 +75,35 @@ const INITIAL_STATE = {
 };
 
 
-const googleButton = (<GoogleButton/>)
-const linkedinButton = (<LinkedinButton/>)
 
 class AuthenticationContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...INITIAL_STATE };
     this.goTo = this.goTo.bind(this);
-    this.handleLoadingIndicator = this.handleLoadingIndicator.bind(this);
-    this.handleSnackBar = this.handleSnackBar.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleViewChange = this.handleViewChange.bind(this);
+    this.handleSignup = this.handleSignup.bind(this)
+    this.handleSignin = this.handleSignin.bind(this)
   }
   goTo(route){
     this.props.history.push(route)
   }
-  handleSnackBar = (showSnackBar, snackBarVariant, snackBarMessage) => {
-    this.setState({
-      showSnackBar,
-      snackBarVariant,
-      snackBarMessage,
-    }, () => {
-      if (snackBarVariant !== 'success') {
-        setTimeout(() => {
-          this.setState({
-            showSnackBar: false
-          }, () => {
-            console.log('snackBar reset!')
-          })
-        }, 3000)
-      }
-    })
-  }
-  handleLoadingIndicator(isLoading) {
-    this.setState({ isLoading: isLoading })
-  }
-
   handleSignin() {
-    this.handleLoadingIndicator(true);
+    this.setState({isLoading:true})
     const { email, password } = this.state;
    const user = {email,password}
+   signInWithPassword(user,(route)=>this.goTo(route),(o)=>(console.log(o)))
   }
   handleSignup() {
-   
-   
+   const {firstName,lastName,email,password} = this.state
+   const user= {firstName,lastName,email,password}
+   createUserWithPassword(user,(route)=>this.goTo(route),(o)=>(console.log(o)))
   }
   handleResetPasswordEmail(email) {
     //TODO: create restAPI
     resetPasswordEmail(email)
   }
-  handleViewChange = (view) =>{
-    this.setState({view:view})
-  }
+ 
   handleChange =(name,value) => {
     this.setState({[name]:value});
   };
@@ -134,11 +111,15 @@ class AuthenticationContainer extends React.Component {
     const { classes } = this.props;
     const { firstName, lastName, password, view,isLoading} = this.state
 
-    const emailAuth = (<EmailAuth setView={this.handleViewChange}/>)
+    const googleButton = (<GoogleButton key='google-button'  id='google-button' changeHandler={this.handleChange}/>)
+    const linkedinButton = (<LinkedinButton key='linkedin-button'  id='google-button'  changeHandler={this.handleChange}/>)
+    const emailAuth = (<EmailAuth changeHandler={this.handleChange}/>)
     let linkButton = (label, link) => (<StyledLink key={`${label}${link}`} href={link}>
       {label}
     </StyledLink>)
-   const nameFields = (<Name key="nameField" firstName={firstName} lastName={lastName} changeHandler={this.handleChange} />)
+   const nameFields = (  <ChangeAdpter changeHandler={this.handleChange}>
+    <Name key='namefield' firstName={firstName} lastName={lastName}/>
+</ChangeAdpter>)
     const orLabel = (<Typography key="or" className={classes.or} variant="subheading" gutterBottom>
       OR
     </Typography>)
@@ -161,7 +142,7 @@ class AuthenticationContainer extends React.Component {
       </div>
     )
     const disclaimer = (<Disclaimer/>)
-    const passwordField = (<Password changeHandler={this.handleChange}/>)
+    const passwordField = (<ChangeAdpter changeHandler={this.handleChange}><Password password={password}/></ChangeAdpter>)
     const signUpButton =(
       <Button className={classes.button} onClick={this.handleSignup}>
         Sign Up
@@ -177,7 +158,7 @@ class AuthenticationContainer extends React.Component {
     const GoogleView = [googleButton]
     const LinkedinView = [linkedinButton]
     const signupView = [nameFields,passwordField,signUpButton]
-    const passwordView = [passwordField,footerLink('forgot password?','send reset email','dsfsd'),signUpButton]
+    const passwordView = [passwordField,footerLink('forgot password?','send reset email','dsfsd'),signInButton]
     let loadedView = signupView
     let cardHeight = 450
     switch (view) {
@@ -196,7 +177,7 @@ class AuthenticationContainer extends React.Component {
        loadedView = signupView
         cardHeight = 450
         break;
-        case AUTHENTICATION_CONTAINER.signin:
+        case AUTHENTICATION_CONTAINER.password:
        loadedView = passwordView
         cardHeight = 450
         break;

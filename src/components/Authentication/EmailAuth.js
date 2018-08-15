@@ -5,7 +5,7 @@ import {checkEmail} from '../../utilities/Authentication/emailCheck'
 import Button from '@material-ui/core/Button'
 import { validateEmail } from '../../utilities/validators';
 import { withStyles } from '@material-ui/core/styles';
-import { AUTHENTICATION_CONTAINER } from '../../constants/views';
+
 
 const styles = theme => ({
   button: {
@@ -38,18 +38,21 @@ class EmailAuth extends Component {
       };
     handleResponse(r){
       console.log(r)
+      this.props.changeHandler('isLoading',false)
+      this.props.changeHandler('email',this.state.email)
+      this.props.changeHandler('firstName',r.firstName)
+
       if(r.error){
-        this.props.setView(AUTHENTICATION_CONTAINER.signup)
-        this.props.changeHandler('email',this.state.email)
+        this.props.changeHandler('view','signup')
       }else{
         this.props.changeHandler('view',r.provider)
-        this.props.changeHandler('email',this.state.email)
       }
        
 
 
     }
     handleEmailCheck(){
+      this.props.changeHandler('isLoading',true)
       checkEmail(this.state.email,this.handleResponse)
     }
     render(){

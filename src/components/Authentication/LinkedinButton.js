@@ -30,12 +30,14 @@ class LinkedinButton extends Component{
         this.handleRouting = this.handleRouting.bind(this)
     }
     handleRouting(route){
+      this.props.changeHandler('isLoading',false)
       this.props.history.replace(route)
     }
     componentWillMount(){
         this.initializeLinkedin(LINKEDIN_CID);
     }
     getToken(r){
+      this.props.changeHandler('isLoading',true)
       let user={};
       console.log('linked in response -->1', r,r.firstName);
       user.email = r.emailAddress
