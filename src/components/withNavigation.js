@@ -60,7 +60,7 @@ const styles = theme => ({
     flexGrow: 1,
     height:theme.responsive.height,
     zIndex: 1,
-    overflow: 'hidden',
+    overflow: 'visible',
     position: 'relative',
     display: 'flex',
     width: '100%',
