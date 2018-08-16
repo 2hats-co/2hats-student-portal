@@ -58,3 +58,10 @@ export const signInWithPassword = (user,routeHandler,errorHandler) =>{
         errorHandler(error)
       });
 }
+
+export const updateUserPassword = (password,routeHandler,errorHandler) =>{
+  console.log(auth.currentUser)
+  auth.updateCurrentUser(Object.assign({password:password},auth.currentUser)).catch(error=>{
+    errorHandler(error)
+  })
+}

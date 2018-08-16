@@ -57,6 +57,7 @@ componentWillUnmount() {
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signIn}/>} />
       <Route exact path={routes.SPEEDY_SIGN_UP} component={() =>  <SpeedySignupContainer isPublic/>} />
       <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
+      <Route exact path={routes.CREATE_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.reset}/>} />
       <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer />} />
       <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
       <Route exact path={routes.JOB_BOARD} component={() => <JobBoardContainer />} />

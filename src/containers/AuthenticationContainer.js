@@ -26,7 +26,7 @@ import ChangeAdpter from '../components/InputFields/ChangeAdapter'
 
 //utilities
 import {resetPasswordEmail} from '../utilities/Authentication/resetPassword'
-import {createUserWithPassword,signInWithPassword} from '../utilities/Authentication/authWithPassword'
+import {createUserWithPassword,signInWithPassword,updateUserPassword} from '../utilities/Authentication/authWithPassword'
 
 import BackIcon from '@material-ui/icons/KeyboardBackspace'
 const styles = theme => ({
@@ -89,6 +89,7 @@ class AuthenticationContainer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSignup = this.handleSignup.bind(this)
     this.handleSignin = this.handleSignin.bind(this)
+    this.handleUpdatePassword = this.handleUpdatePassword.bind(this)
   }
   goTo(route){
     this.props.history.push(route)
@@ -104,6 +105,10 @@ class AuthenticationContainer extends React.Component {
    const user= {firstName,lastName,email,password}
    createUserWithPassword(user,(route)=>this.goTo(route),(o)=>(console.log(o)))
   }
+  handleUpdatePassword() {
+    const {password} = this.state
+    updateUserPassword(password,(route)=>this.goTo(route),(o)=>(console.log(o)))
+   }
   handleResetPasswordEmail(email) {
     //TODO: create restAPI
     resetPasswordEmail(email)
@@ -154,7 +159,9 @@ class AuthenticationContainer extends React.Component {
     )
     
     const disclaimer = (<Disclaimer/>)
-    const greeting = (<Typography variant='title' color='primary' style={{width:'100%'}}>Welcome back {firstName},</Typography>)
+    const welcomeGreeting = (<Typography variant='title' color='primary' style={{width:'100%'}}>Welcome back {firstName},</Typography>)
+    const hiGreeting = (<Typography variant='title' color='primary' style={{width:'100%'}}>Hi {firstName},</Typography>)
+    const resetPasswordMessage = (<Typography variant='subheading'>Please enter in a new password to reset.</Typography>)
     const googleMessage = (<Typography variant='subheading'>It looks like your account is created with Google.</Typography>)
     const linkedinMessage = (<Typography variant='subheading'>It looks like your account is created with Linkedin.</Typography>)
     const newAccountMessage = (<Typography variant='subheading'>It look likes we don’t have an account with this email address.</Typography>)
@@ -165,6 +172,11 @@ class AuthenticationContainer extends React.Component {
         Sign Up
       </Button>
       )
+      const updatePasswordButton= (
+        <Button className={classes.button} onClick={this.handleUpdatePassword}>
+         Update
+        </Button>
+        )
     const signInButton =(
         <Button className={classes.button} onClick={this.handleSignin}>
           Sign In
@@ -172,10 +184,11 @@ class AuthenticationContainer extends React.Component {
         )
        
     const AuthView = [googleButton,linkedinButton,orLabel,emailAuth]
-    const GoogleView = [backBar,greeting,googleMessage,googleButton]
-    const LinkedinView = [backBar,greeting,linkedinMessage,linkedinButton]
+    const GoogleView = [backBar,welcomeGreeting,googleMessage,googleButton]
+    const LinkedinView = [backBar,welcomeGreeting,linkedinMessage,linkedinButton]
     const signupView = [backBar,newAccountMessage,nameFields,passwordField,disclaimer,signUpButton]
-    const passwordView = [backBar,greeting,passwordField,signInButton]
+    const passwordView = [backBar,welcomeGreeting,passwordField,signInButton]
+    const updatePassword =[backBar,hiGreeting,resetPasswordMessage,passwordField,updatePasswordButton]
     let loadedView = signupView
     let gridHeight = 200
     let cardHeight = 450
@@ -202,6 +215,11 @@ class AuthenticationContainer extends React.Component {
         break;
         case AUTHENTICATION_CONTAINER.password:
        loadedView = passwordView
+        cardHeight = 450
+        gridHeight= 300
+        break;
+        case AUTHENTICATION_CONTAINER.reset:
+       loadedView = updatePassword
         cardHeight = 450
         gridHeight= 300
         break;
