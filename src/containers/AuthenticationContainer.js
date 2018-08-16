@@ -70,7 +70,7 @@ const INITIAL_STATE = {
   confirmPassword: '',
   email: '',
   error: null,
-  view: AUTHENTICATION_CONTAINER.auth,
+  view: AUTHENTICATION_CONTAINER.createPassword,
   isLoading: false,
   progress: 10,
   showSnackBar: false,
@@ -172,12 +172,12 @@ class AuthenticationContainer extends React.Component {
         Sign Up
       </Button>
       )
-      const updatePasswordButton= (
+      const updatePasswordButton = (
         <Button className={classes.button} onClick={this.handleUpdatePassword}>
          Update
         </Button>
         )
-    const signInButton =(
+    const signInButton = (
         <Button className={classes.button} onClick={this.handleSignin}>
           Sign In
         </Button>
@@ -223,6 +223,12 @@ class AuthenticationContainer extends React.Component {
         cardHeight = 450
         gridHeight= 300
         break;
+
+        case AUTHENTICATION_CONTAINER.createPassword:
+        loadedView = updatePassword
+         cardHeight = 450
+         gridHeight= 300
+         break;
       default:
         break;
     }
