@@ -10,12 +10,7 @@ import DoneIcon from '@material-ui/icons/Done'
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import PopupSelector from './PopupSelector'
 
 const drawerWidth = 240;
 const styles = theme => ({
@@ -205,36 +200,9 @@ class StatusCard extends React.Component{
                      
                     )
                 })
-                }{link&&<div><Button
-                  className={classes.dropDown}
-                  variant='contained'
-                  buttonRef={node => {
-                    this.anchorEl = node;
-                  }}
-                  aria-owns={popperIsOpen ? 'switch-toggle' : null}
-                  aria-haspopup="true"
-                  onClick={()=>{this.setState({popperIsOpen:true})}}
-                > ... 
-                </Button>
-                <Popper open={popperIsOpen} anchorEl={this.anchorEl} transition disablePortal>
-                  {({ TransitionProps, placement }) => (
-                    <Grow
-                      {...TransitionProps}
-                      id="switch-toggle"
-                      style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
-                    >
-                      <Paper>
-                        <ClickAwayListener onClickAway={()=>{this.setState({popperIsOpen:false})}}>
-                          <MenuList>
-                            <MenuItem value="Account" onClick={link.action}>
-                              {link.label}
-                            </MenuItem>
-                          </MenuList>
-                        </ClickAwayListener>
-                      </Paper>
-                    </Grow>
-                  )}
-                </Popper></div>}
+                }{link&&<div>
+                <PopupSelector items={[{label:link.label,action:link.action}]}/>
+               </div>}
                 </Grid>
                 }
             </Grid>
