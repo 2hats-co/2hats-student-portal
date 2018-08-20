@@ -75,7 +75,7 @@ const INITIAL_STATE = {
   confirmPassword: '',
   email: '',
   error: null,
-  view: AUTHENTICATION_CONTAINER.createPassword,
+  view: AUTHENTICATION_CONTAINER.auth,
   isLoading: false,
   progress: 10,
   showSnackBar: false,
@@ -97,6 +97,9 @@ class AuthenticationContainer extends React.Component {
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this)
   }
   componentWillMount(){
+    if(this.props.view){
+      this.setState({view:this.props.view})
+    }
     window.Intercom('update',{
       'hide_default_launcher': true
     })
@@ -129,8 +132,9 @@ class AuthenticationContainer extends React.Component {
     this.setState({[name]:value});
   };
   render() {
-    const { classes, view } = this.props;
-    const { firstName, lastName, password, isLoading,email} = this.state
+    
+    const {classes} = this.props;
+    const { firstName, lastName, password, isLoading,email,view} = this.state
     const backBar = ( <Grid style={{width:'100%',marginLeft:-30}} 
                         container direction='row' alignItems='center'
                         justify='flex-start'> 
@@ -200,7 +204,7 @@ class AuthenticationContainer extends React.Component {
       </Button>
     )
        
-    const AuthView = [googleButton,linkedinButton,orLabel,emailAuth]
+    const authView = [googleButton,linkedinButton,orLabel,emailAuth]
     const GoogleView = [backBar,welcomeGreeting,googleMessage,googleButton]
     const LinkedinView = [backBar,welcomeGreeting,linkedinMessage,linkedinButton]
     const signupView = [backBar,newAccountMessage,nameFields,passwordField,disclaimer,signUpButton]
@@ -208,16 +212,16 @@ class AuthenticationContainer extends React.Component {
     const resetPasswordView =[backBar,welcomeGreeting,resetPasswordMessage,passwordField,resetPasswordButton]
     const createPasswordView =[welcomeGreeting,createPasswordMessage,googleButton,linkedinButton,orLabel,passwordField,createPasswordButton]
 
-    let loadedView = signupView
-    let gridHeight = 200
-    let cardHeight = 450
+    let loadedView = createPasswordView
+    let gridHeight = 500
+    let cardHeight = 400
 
     console.log(view)
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
-        loadedView = AuthView
-        cardHeight = 450
-    gridHeight = 300
+        loadedView = authView
+        cardHeight = 550
+        gridHeight= 400
 
         break;
       case AUTHENTICATION_CONTAINER.google:
