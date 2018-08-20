@@ -91,6 +91,12 @@ class AuthenticationContainer extends React.Component {
     this.handleSignin = this.handleSignin.bind(this)
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this)
   }
+  componentWillMount(){
+    window.Intercom('update',{
+      'hide_default_launcher': true
+    })
+    window.Intercom('hide')
+  }
   goTo(route){
     this.props.history.push(route)
   }
