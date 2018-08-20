@@ -17,10 +17,11 @@ import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 const styles = theme => ({
   root:{
     width:'100%',
-   
+    maxWidth:450
   },
   textField:{
-      width:'100%'
+      width:'100%',
+      maxWidth:450
   },
   paper: {
   // backgroundColor:'#f00',

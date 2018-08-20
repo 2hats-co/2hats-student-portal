@@ -17,7 +17,6 @@ const styles = theme => ({
 });
 function DropDown(props) {
   const {classes,list,value,hasLabel,changeHandler,name,title,hint,label} = props;
-  console.log(name,value)
     const InputField = ( 
         <FormControl className = {classes.inputField}>
            {hasLabel&&<InputLabel 

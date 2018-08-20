@@ -18,6 +18,14 @@ export const Theme = createMuiTheme({
         color:GREY,
       },
     },
+    MuiStepLabel:{
+       label:{
+          fontSize: '10px',
+          fontWeight:500 
+
+        }
+    },
+
     MuiInput:{
       opacity:1,
       borderBottom:'#000 !important'

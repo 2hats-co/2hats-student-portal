@@ -11,12 +11,13 @@ export function checkComplition(currentStep,profile){
       education,experience} = profile
     switch (currentStep) {
       case ALL_STEPS.careerInterests:return !careerInterests || careerInterests.length === 0;
-      case ALL_STEPS.bio:return !bio|| !skills ||(skills.length === 0 || bio.length === 0);
+      case ALL_STEPS.bio:return !bio|| bio.length === 0;
+      case ALL_STEPS.skills:return !skills|| skills.length === 0;
       case ALL_STEPS.uploadResume:return !resumeFile || resumeFile.downloadURL.length === 0;
       case ALL_STEPS.education:return !education || education.length === 0 ;
       case ALL_STEPS.experience:return !experience || experience.length === 0 ;
       case ALL_STEPS.profileDetails:return !currentUniversity || !skills|| (currentUniversity.length === 0 ||skills.length === 0);
-      case ALL_STEPS.other:return  !workingRights|| workingRights.length === 0 // || phoneNumber.length !== 10;
+      case ALL_STEPS.other:return !workingRights|| workingRights.length === 0 // || phoneNumber.length !== 10;
       default:return false;
     }
   }
@@ -33,7 +34,8 @@ export function isComplete(profile){
   
 export const ALL_STEPS = {
     careerInterests: "Career Interests",
-    bio:"Bio & Relevant Skills",
+    bio:"Personal Bio",
+    skills:"Relevant skills",
     education:"Tertiary Education",
     experience:"Practical Experience",
     other: "Work Availability",
@@ -50,6 +52,7 @@ export const STEP_LABELS ={
       build:[
         ALL_STEPS.careerInterests,
         ALL_STEPS.bio,
+        ALL_STEPS.skills,
         ALL_STEPS.education,
         ALL_STEPS.experience,
         ALL_STEPS.other
