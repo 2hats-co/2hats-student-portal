@@ -306,13 +306,20 @@ class AuthenticationContainer extends React.Component {
         Create Password
       </Button>
     );
-    
+    let switchLink = (onSignup) =>{
+      if(onSignup){
+        return footerLink(`Already have an account?`,routes.SIGN_IN,'Sign in')
+      }else{
+        return footerLink(`Don’t have an account?`,routes.SIGN_UP,'Sign up')
+      }
+    }
     let routeLabel =(onSignup) => (<Typography variant='title' color='primary' style={{width:'100%'}}>{onSignup? 'Sign up':'sign in'}</Typography>)
     let authView = [routeLabel(onSignupRoute),
       googleButton,
        linkedinButton,
        orLabel,
-      emailAuth];
+      emailAuth,
+      switchLink(onSignupRoute)];
     const GoogleView = [backBar,
       welcomeGreeting,
       googleMessage,
@@ -363,8 +370,8 @@ class AuthenticationContainer extends React.Component {
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = authView;
-        cardHeight = 450;
-        gridHeight = 300;
+        cardHeight = 480;
+        gridHeight = 320;
 
         break;
       case AUTHENTICATION_CONTAINER.google:
