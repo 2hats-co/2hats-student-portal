@@ -64,10 +64,6 @@ componentWillUnmount() {
       <Route exact path={routes.INTRODUCTION} component={() => <IntroductionContainer view={INTRODUCTION_CONTAINER.process}/>} />
       <Route exact path={routes.SUBMISSION} component={() => <IntroductionContainer view={INTRODUCTION_CONTAINER.submission}/>} />
       <Route exact path={routes.BUILD_RESUME} component={() => <SignupContainer/>} />
-      <Route exact path={routes.BUILD_RESUME_BIO} component={() => <SignupContainer currentStep={ALL_STEPS.bio} />} />
-      <Route exact path={routes.BUILD_RESUME_EDU} component={() => <SignupContainer currentStep={ALL_STEPS.education} />} />
-      <Route exact path={routes.BUILD_RESUME_EXP} component={() => <SignupContainer currentStep={ALL_STEPS.experience}/>} />
-      <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other} />} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer/>} />
       <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} /> 
       <Route exact path={routes.PREVIOUS_SUBMISSION} component={() => <SubmissionContainer/>} />      

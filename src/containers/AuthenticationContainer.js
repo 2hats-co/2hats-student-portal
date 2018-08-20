@@ -97,9 +97,13 @@ class AuthenticationContainer extends React.Component {
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this)
   }
   componentWillMount(){
+    if(this.props.history.location.search.includes('firstName')){
+      this.setState({firstName:this.props.history.location.search.split('firstName=')[1]})
+     }
     if(this.props.view){
       this.setState({view:this.props.view})
     }
+   
     window.Intercom('update',{
       'hide_default_launcher': true
     })
