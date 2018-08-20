@@ -75,7 +75,7 @@ const INITIAL_STATE = {
   confirmPassword: '',
   email: '',
   error: null,
-  view: AUTHENTICATION_CONTAINER.auth,
+  view: AUTHENTICATION_CONTAINER.createPassword,
   isLoading: false,
   progress: 10,
   showSnackBar: false,
@@ -95,6 +95,12 @@ class AuthenticationContainer extends React.Component {
     this.handleSignup = this.handleSignup.bind(this)
     this.handleSignin = this.handleSignin.bind(this)
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this)
+  }
+  componentWillMount(){
+    window.Intercom('update',{
+      'hide_default_launcher': true
+    })
+    window.Intercom('hide')
   }
   goTo(route){
     this.props.history.push(route)
@@ -183,7 +189,7 @@ class AuthenticationContainer extends React.Component {
          Update
         </Button>
         )
-    const signInButton =(
+    const signInButton = (
         <Button className={classes.button} onClick={this.handleSignin}>
           Sign In
         </Button>

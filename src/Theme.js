@@ -1,7 +1,7 @@
 
 import { createMuiTheme } from '@material-ui/core/styles';
 import { inherits } from 'util';
-export const PRIMARY_COLOR = '#F15A29'
+const PRIMARY_COLOR = '#F15A29'
 const primaryFontFamily = "Helvetica Neue"
 export const WHITE = '#fff'
 export const BLACK = '#2c2c2c'
@@ -18,6 +18,14 @@ export const Theme = createMuiTheme({
         color:GREY,
       },
     },
+    MuiStepLabel:{
+       label:{
+          fontSize: '10px',
+          fontWeight:500 
+
+        }
+    },
+
     MuiInput:{
       opacity:1,
       borderBottom:'#000 !important'

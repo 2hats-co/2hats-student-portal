@@ -10,7 +10,8 @@ import {PROCESS_TYPES,STEP_LABELS,ALL_STEPS} from '../constants/signUpProcess'
 import CareerInterests from "../components/InputFields/CareerInterests";
 import EduExp from "../components/EduExp";
 import OtherInfo from '../components/SignUp/OtherInfo';
-import BioAndSkills from '../components/SignUp/BioAndSkills';
+import PersonalBio from "../components/InputFields/PersonalBio";
+import Skills from "../components/InputFields/Skills";
 import ProfileDetails from "../components/SignUp/ProfileDetails";
 import ResumeLoader from "../components/InputFields/ResumeLoader";
 //Redux
@@ -84,11 +85,14 @@ class ResumeBuilderContainer extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
   }
   componentWillMount(){
+   if(this.props.history.location.search.includes('step')){
+    this.setState({activeStep:parseInt(this.props.history.location.search.split('=')[1])})
+   }
+  
      window.Intercom('update',{
       'hide_default_launcher': true
     })
     window.Intercom('hide')
-    //window.Intercom.hideMessenger();
     
     if(this.props.profile){
       _.forOwn(this.props.profile[0],(value,key)=>{
@@ -142,12 +146,18 @@ class ResumeBuilderContainer extends Component {
          
         );
       case ALL_STEPS.bio: return <SectionWrapper width={750} height={320}>
-      <BioAndSkills
-        industry={this.state.profile.industry}
-       bio={this.state.profile.bio}
-       careerInterests={this.state.profile.careerInterests}
-         skills={this.state.profile.skills} 
-         changeHandler={this.handleChange}/></SectionWrapper>
+        <PersonalBio
+          industry={this.state.profile.industry}
+          bio={this.state.profile.bio}
+          changeHandler={this.handleChange}
+        />
+        </SectionWrapper>
+         case ALL_STEPS.skills: return <SectionWrapper width={750} height={320}>
+         <Skills 
+          interestKeys = {this.state.profile.careerInterests}
+          preSelectedList={this.state.profile.skills} 
+          changeHandler={this.handleChange}/>
+          </SectionWrapper>
       case ALL_STEPS.education: return <SectionWrapper
         width={750} height={320}> 
         <EduExp industry={industry}
@@ -192,7 +202,8 @@ class ResumeBuilderContainer extends Component {
     switch (currentStep) {
       case ALL_STEPS.careerInterests:this.props.onProfileUpdate({careerInterests:profile.careerInterests,industry:profile.industry,completedStep:currentStep})
       break;
-      case ALL_STEPS.bio:this.props.onProfileUpdate({bio:profile.bio,skills:profile.skills,completedStep:currentStep})
+      case ALL_STEPS.bio:this.props.onProfileUpdate({bio:profile.bio,completedStep:currentStep})
+      case ALL_STEPS.skills:this.props.onProfileUpdate({skills:profile.skills,completedStep:currentStep})
       break; 
       case ALL_STEPS.profileDetails:this.props.onProfileUpdate({skills:profile.skills,currentUniversity:profile.currentUniversity,completedStep:currentStep})
       this.props.onUserUpdate({currentUniversity:profile.currentUniversity})
@@ -242,8 +253,8 @@ class ResumeBuilderContainer extends Component {
   render() {
     const { classes,theme } = this.props;
     const { activeStep ,profile} = this.state;
+    
     if(profile.createdAt){
-      console.log('test',profile)
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
       return (
         <LogoOnCard width={850}>

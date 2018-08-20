@@ -27,6 +27,13 @@ const styles = theme => ({
    
     padding:10
   // merginLeft:-40,
+  },finishLabel:{
+    color:'#888',
+    width:'100%',
+    textAlign:'right',
+    fontSize:15,
+    textDecoration:'underline',
+    fontWeight:700
   }
 });
 
@@ -91,6 +98,12 @@ disableNext(currentStep,profile){
     if(currentStep===ALL_STEPS.other)
     {this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
   }
+  handleSave(currentStep){
+    const{profile,activeStep,updateHandler} = this.props
+    if(!checkComplition(currentStep,profile)){
+      updateHandler(activeStep)
+     }
+  }
 
 render(){
 
@@ -115,7 +128,7 @@ render(){
     Back
   </Button>)
 
-  const saveLink = (<StyledLink style={{color:'#000',width:'100%',textAlign:'right'}} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
+  const saveLink = (<StyledLink onClick={()=>{this.handleSave(currentStep)}} className={classes.finishLabel} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
       Finish later
     </StyledLink>)
   const saveButtonWithConditions = ((this.showSave(currentStep,profile))&&saveLink)
