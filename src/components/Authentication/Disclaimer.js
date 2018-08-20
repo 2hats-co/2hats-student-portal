@@ -12,7 +12,7 @@ const styles = theme => ({
     },large:theme.typography.body1,
   link: {
     fontSize:'11px',
-    color: PRIMARY_COLOR,
+    color: theme.palette.primary.light,
     textDecoration: 'inherit',
     '&:hover': {
       textDecoration: 'underline',

@@ -1,5 +1,4 @@
 import React from 'react'
-import {PRIMARY_COLOR} from '../../Theme'
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
@@ -12,7 +11,7 @@ const styles = theme => ({
     current:{
         width:10,
         height:10,
-        backgroundColor:PRIMARY_COLOR,
+        backgroundColor:theme.palette.primary.light,
         borderRadius:5
     },
     other:{

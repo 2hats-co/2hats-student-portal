@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import { Grid,Button} from '@material-ui/core';
 import ProgressDial from './ProgressDial'
 import Step from './Step'
-import {PROCESS_TYPES, STEP_LABELS, checkComplition} from '../../../constants/signUpProcess'
+import {PROCESS_TYPES, STEP_LABELS, checkComplition,isComplete} from '../../../constants/signUpProcess'
 
 import * as routes from '../../../constants/routes'
 const styles = theme => ({
@@ -33,7 +33,7 @@ const styles = theme => ({
   completitionPercentage(data){
     const allSteps = STEP_LABELS[data.process]
     const completed = allSteps.filter(x =>!checkComplition(x,data))
-    const percentage =  (completed.length/allSteps.length)*100
+    const percentage =  Math.round((completed.length/allSteps.length)*100)
     return percentage
   }
   handleContinue(){
@@ -52,9 +52,9 @@ const styles = theme => ({
   }
   render(){
     const {classes,data} = this.props
-    const {process,isComplete} = data
+    const {process} = data
     console.log(data)
-    const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
+    const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} process={process} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
     return(<div className={classes.root}>
     
     <Grid className={classes.ProgressGrid} container  alignItems='center' direction='row' justify='space-around'>
@@ -70,7 +70,7 @@ const styles = theme => ({
               {steps}
               </Grid>
               <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
-              {isComplete?`Preview for Submission`:`Continue Application`}
+              {isComplete(data)?`Preview for Submission`:`Continue Application`}
               </Button>
     </Grid>
   

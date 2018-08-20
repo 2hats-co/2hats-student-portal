@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Typography, Grid } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done"
-import { PRIMARY_COLOR } from "../../../Theme";
-
+import {STEP_LABELS} from '../../../constants/signUpProcess'
 const styles = theme => ({
   root:{
     height:30,
@@ -14,7 +13,10 @@ const styles = theme => ({
     margin: theme.spacing.unit * 2
   },
   label:{
- 
+    cursor: 'pointer',
+    '&hover':{
+   
+    }
   },
   incomplete:{
       width:20,
@@ -26,7 +28,7 @@ const styles = theme => ({
     width:20,
     height:20,
     borderRadius:10,
-    backgroundColor:PRIMARY_COLOR,
+    backgroundColor:theme.palette.primary.light,
 },doneIcon:{
   paddingTop:2,
   paddingLeft:1,
@@ -46,7 +48,7 @@ function Step(props){
       justify='space-between' 
       alignItems='center' 
       className={classes.root} >
-        <Typography variant='subheading' >
+        <Typography className={classes.label} onClick={()=>{console.log('test',props.process,label)}} variant='subheading' >
         {label}
         </Typography>
         {isComplete? completedIndicator:incompletedIndicator}

@@ -4,7 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton';
-import {PRIMARY_COLOR,WHITE} from '../../Theme'
+import {WHITE} from '../../Theme'
 import { Grid } from '@material-ui/core';
 const styles = theme => ({
   header: {
@@ -14,7 +14,7 @@ const styles = theme => ({
     width:'82%',
     height:35,
     borderRadius:35,
-    backgroundColor: PRIMARY_COLOR,
+    backgroundColor: theme.palette.primary.light,
     color:WHITE,
     marginBottom:-25,
     zIndex:10
