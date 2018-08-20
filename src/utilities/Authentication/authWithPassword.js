@@ -14,7 +14,7 @@ export const createUserWithPassword=(user,routeHandler,errorHandler)=>{
                 email,
                 firstName,
                 lastName,
-                createdAt: Date.now(),
+                createdAt: new Date(),
                 providers:[{service:'password',id:uid}],
                 stage:'pre-review',// TODO use stage and status constants
                 status:'incomplete',
@@ -61,7 +61,7 @@ export const signInWithPassword = (user,routeHandler,errorHandler) =>{
 
 export const updateUserPassword = (password,routeHandler,errorHandler) =>{
   console.log(auth.currentUser)
-  auth.updateCurrentUser(Object.assign({password:password},auth.currentUser)).catch(error=>{
-    errorHandler(error)
+  auth.currentUser.updatePassword(password).catch(error=>{
+      errorHandler(error)
   })
 }
