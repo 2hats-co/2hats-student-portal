@@ -40,6 +40,11 @@ const styles = theme => ({
     marginBottom: 17,
     width: 120
   },
+  createButton: {
+    marginTop: 17,
+    marginBottom: 17,
+    width: 180
+  },
   resetButton: {
     width: 100
   },
@@ -118,8 +123,8 @@ class AuthenticationContainer extends React.Component {
     this.setState({[name]:value});
   };
   render() {
-    const { classes } = this.props;
-    const { firstName, lastName, password, view,isLoading,email} = this.state
+    const { classes, view } = this.props;
+    const { firstName, lastName, password, isLoading,email} = this.state
     const backBar = ( <Grid style={{width:'100%',marginLeft:-30}} 
                         container direction='row' alignItems='center'
                         justify='flex-start'> 
@@ -165,6 +170,7 @@ class AuthenticationContainer extends React.Component {
     const googleMessage = (<Typography variant='subheading'>It looks like your account is created with Google.</Typography>)
     const linkedinMessage = (<Typography variant='subheading'>It looks like your account is created with Linkedin.</Typography>)
     const newAccountMessage = (<Typography variant='subheading'>It look likes we don’t have an account with this email address.</Typography>)
+    const createPasswordMessage = (<Typography variant='subheading'>It looks like you don't have a password yet.</Typography>)
      
     const passwordField = (<ChangeAdpter changeHandler={this.handleChange}><Password password={password}/></ChangeAdpter>)
     const signUpButton =(
@@ -172,7 +178,7 @@ class AuthenticationContainer extends React.Component {
         Sign Up
       </Button>
       )
-      const updatePasswordButton= (
+      const resetPasswordButton= (
         <Button className={classes.button} onClick={this.handleUpdatePassword}>
          Update
         </Button>
@@ -182,16 +188,25 @@ class AuthenticationContainer extends React.Component {
           Sign In
         </Button>
         )
+    const createPasswordButton = (
+      <Button className={classes.createButton} onClick={this.handleUpdatePassword}>
+        Create Password
+      </Button>
+    )
        
     const AuthView = [googleButton,linkedinButton,orLabel,emailAuth]
     const GoogleView = [backBar,welcomeGreeting,googleMessage,googleButton]
     const LinkedinView = [backBar,welcomeGreeting,linkedinMessage,linkedinButton]
     const signupView = [backBar,newAccountMessage,nameFields,passwordField,disclaimer,signUpButton]
     const passwordView = [backBar,welcomeGreeting,passwordField,signInButton]
-    const updatePassword =[backBar,hiGreeting,resetPasswordMessage,passwordField,updatePasswordButton]
+    const resetPasswordView =[backBar,welcomeGreeting,resetPasswordMessage,passwordField,resetPasswordButton]
+    const createPasswordView =[welcomeGreeting,createPasswordMessage,googleButton,linkedinButton,orLabel,passwordField,createPasswordButton]
+
     let loadedView = signupView
     let gridHeight = 200
     let cardHeight = 450
+
+    console.log(view)
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = AuthView
@@ -218,11 +233,16 @@ class AuthenticationContainer extends React.Component {
         cardHeight = 450
         gridHeight= 300
         break;
-        case AUTHENTICATION_CONTAINER.reset:
-       loadedView = updatePassword
+        case AUTHENTICATION_CONTAINER.resetPassword:
+       loadedView = resetPasswordView
         cardHeight = 450
         gridHeight= 300
         break;
+        case AUTHENTICATION_CONTAINER.createPassword:
+          loadedView = createPasswordView
+          cardHeight = 550
+          gridHeight= 400
+          break;
       default:
         break;
     }
@@ -243,9 +263,11 @@ class AuthenticationContainer extends React.Component {
     );
   }
 }
+
 AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
 export default withRouter(withStyles(styles)(AuthenticationContainer))
 
 

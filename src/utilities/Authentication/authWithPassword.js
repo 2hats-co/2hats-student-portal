@@ -59,9 +59,12 @@ export const signInWithPassword = (user,routeHandler,errorHandler) =>{
       });
 }
 
-export const updateUserPassword = (password,routeHandler,errorHandler) =>{
-  console.log(auth.currentUser)
-  auth.currentUser.updatePassword(password).catch(error=>{
-      errorHandler(error)
-  })
+export const updateUserPassword = (password, routeHandler, errorHandler) => {
+  auth.currentUser.updatePassword(password).then(() => {
+    // Update successful.
+    routeHandler(INTRODUCTION);
+  }).catch((error) => {
+    // An error happened.
+    errorHandler(error);
+  });
 }

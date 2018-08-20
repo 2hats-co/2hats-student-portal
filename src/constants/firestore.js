@@ -3,7 +3,8 @@ export const COLLECTIONS = {
     submissions:'submissions',
     upcomingEvents:'upcomingEvents',
     profiles:'profiles',
-    emailVerifications: 'emailVerifications'
+    emailVerifications: 'emailVerifications',
+    smartLinks: 'smartLinks'
 }
 
 
@@ -12,6 +13,7 @@ export const LISTENER =(COLLECTION,UID)=>{
         case COLLECTIONS.profiles:
         case COLLECTIONS.users:
         case COLLECTIONS.submissions:
+        case COLLECTIONS.smartLinks:
             return{
                 collection: COLLECTION,
                     doc: UID,

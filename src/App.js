@@ -10,6 +10,7 @@ import SpeedySignupContainer from './containers/SpeedySignupContainer'
 import SubmissionContainer from './containers/SubmissionContainer'
 import IntroductionContainer from './containers/IntroductionContainer';
 import EmailVerificationContainer from './containers/EmailVerificationContainer';
+import SmartLinkContainer from './containers/SmartLinkContainer';
 import DashboardContainer from './containers/DashboardContainer';
 import JobBoardContainer from './containers/JobBoardContainer';
 import ProfileContainer from './containers/ProfileContainer';
@@ -53,11 +54,10 @@ componentWillUnmount() {
 
        <Router>
     <div className="app"> 
-      <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signUp}/>} />
+      <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signup}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.signIn}/>} />
       <Route exact path={routes.SPEEDY_SIGN_UP} component={() =>  <SpeedySignupContainer isPublic/>} />
       <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
-      <Route exact path={routes.CREATE_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.reset}/>} />
       <Route exact path={routes.DASHBOARD} component={() => <DashboardContainer />} />
       <Route exact path={routes.PROFILE} component={() => <ProfileContainer/>} />
       <Route exact path={routes.JOB_BOARD} component={() => <JobBoardContainer />} />
@@ -69,9 +69,11 @@ componentWillUnmount() {
       <Route exact path={routes.BUILD_RESUME_EXP} component={() => <SignupContainer currentStep={ALL_STEPS.experience}/>} />
       <Route exact path={routes.BUILD_RESUME_OTHER} component={() => <SignupContainer currentStep={ALL_STEPS.other} />} />
       <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer/>} />
-      <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} />      
+      <Route exact path={routes.EMAIL_VERIFICATION} component={() => <EmailVerificationContainer/>} /> 
       <Route exact path={routes.PREVIOUS_SUBMISSION} component={() => <SubmissionContainer/>} />      
-      <Route exact path={'/'} component={() => <Landing/>} />      
+      <Route exact path={'/'} component={() => <Landing/>} /> 
+      <Route exact path={routes.SMART_LINK} component={() => <SmartLinkContainer/>} />
+      <Route exact path={routes.CREATE_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.createPassword}/>} />             
     </div>
   </Router>
  

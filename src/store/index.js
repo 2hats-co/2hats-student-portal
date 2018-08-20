@@ -5,6 +5,7 @@ import 'firebase/database'
 import 'firebase/auth'
 import 'firebase/firestore'
 import 'firebase/storage'
+import 'firebase/functions'
 import logger from 'redux-logger'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -48,4 +49,5 @@ export function configureStore(initialState, history) {
 export const auth = firebase.auth();
 export const firebaseStorage = firebase.storage().ref();
 export const db = firebase.firestore();
+export const functions = firebase.functions();
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
