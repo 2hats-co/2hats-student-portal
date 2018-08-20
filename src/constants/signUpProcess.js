@@ -34,8 +34,8 @@ export function isComplete(profile){
   
 export const ALL_STEPS = {
     careerInterests: "Career Interests",
-    bio:"Personal Bio",
     skills:"Relevant skills",
+    bio:"Personal Bio",
     education:"Tertiary Education",
     experience:"Practical Experience",
     other: "Work Availability",
@@ -51,8 +51,8 @@ export const STEP_LABELS ={
       ],
       build:[
         ALL_STEPS.careerInterests,
-        ALL_STEPS.bio,
         ALL_STEPS.skills,
+        ALL_STEPS.bio,
         ALL_STEPS.education,
         ALL_STEPS.experience,
         ALL_STEPS.other

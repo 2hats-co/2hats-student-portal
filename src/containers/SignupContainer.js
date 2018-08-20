@@ -86,7 +86,6 @@ class ResumeBuilderContainer extends Component {
   }
   componentWillMount(){
    if(this.props.history.location.search.includes('step')){
-   // this.setState({activeStep:this.props.history.location.search.split('=')[1]})
     this.setState({activeStep:parseInt(this.props.history.location.search.split('=')[1])})
    }
   
@@ -94,7 +93,6 @@ class ResumeBuilderContainer extends Component {
       'hide_default_launcher': true
     })
     window.Intercom('hide')
-    //window.Intercom.hideMessenger();
     
     if(this.props.profile){
       _.forOwn(this.props.profile[0],(value,key)=>{

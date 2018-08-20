@@ -91,6 +91,12 @@ disableNext(currentStep,profile){
     if(currentStep===ALL_STEPS.other)
     {this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
   }
+  handleSave(currentStep){
+    const{profile,activeStep,updateHandler} = this.props
+    if(!checkComplition(currentStep,profile)){
+      updateHandler(activeStep)
+     }
+  }
 
 render(){
 
@@ -115,7 +121,7 @@ render(){
     Back
   </Button>)
 
-  const saveLink = (<StyledLink style={{color:'#000',width:'100%',textAlign:'right'}} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
+  const saveLink = (<StyledLink onClick={()=>{this.handleSave(currentStep)}} style={{color:'#000',width:'100%',textAlign:'right'}} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
       Finish later
     </StyledLink>)
   const saveButtonWithConditions = ((this.showSave(currentStep,profile))&&saveLink)
