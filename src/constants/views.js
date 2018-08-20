@@ -7,11 +7,7 @@ export const AUTHENTICATION_CONTAINER = {
     password:'password',
     magic:'magic',
     signup:'signup',
-<<<<<<< HEAD
     resetPassword:'resetPassword',
-=======
-    reset:'reset',
->>>>>>> 1d0a9b619b63b7f8359a0bfc2157d549796674a1
     createPassword:'createPassword'
 }
 export const INTRODUCTION_CONTAINER = {
