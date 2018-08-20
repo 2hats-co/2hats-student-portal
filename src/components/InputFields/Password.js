@@ -20,12 +20,12 @@ class Password extends React.Component{
           this.setState({showPassword:!this.state.showPassword})
       } 
     render(){
-        const {changeHandler,value} = this.props
+        const {changeHandler,value,label} = this.props
     return(
       
 
       <FormControl style={{width:'100%'}}>
-          <InputLabel htmlFor="passwordField">Password</InputLabel>
+          <InputLabel htmlFor="passwordField">{label||'Password'}</InputLabel>
           <Input
             id="passwordField"
             type={this.state.showPassword ? 'text' : 'password'}

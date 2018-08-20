@@ -278,9 +278,9 @@ class AuthenticationContainer extends React.Component {
         It looks like you don't have a password yet.
       </Typography>
     );
-    const passwordField = (
+    const passwordField = (label)=>(
       <ChangeAdpter changeHandler={this.handleChange}>
-        <Password password={password} />
+        <Password label={label} password={password} />
       </ChangeAdpter>
     );
     const signUpButton = (
@@ -358,7 +358,7 @@ class AuthenticationContainer extends React.Component {
       googleButton,
       linkedinButton,
       orLabel,
-      passwordField,
+      passwordField('New Password'),
       createPasswordButton
     ];
 

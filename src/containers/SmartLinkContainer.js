@@ -2,6 +2,8 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { auth, functions } from "../store";
 import { CREATE_PASSWORD } from "../constants/routes";
+import LogoInCard from "../components/LogoInCard";
+import { Typography } from "@material-ui/core";
 
 class SmartLinkContainer extends React.Component {
   componentWillMount() {
@@ -42,8 +44,9 @@ class SmartLinkContainer extends React.Component {
         console.log("Call restApiSmartLink error: ", error);
       });
 
-    // Could be a loading view.
-    return null;
+    return(<LogoInCard isLoading={true}>
+      <Typography variant='title' style={{width:'100%',textAlign:'center'}}>Please hold as we redirect you</Typography>
+    </LogoInCard>);
   }
 }
 
