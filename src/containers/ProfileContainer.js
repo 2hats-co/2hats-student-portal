@@ -38,9 +38,8 @@ class ProfileContainer extends Component{
     }
     render(){
         const {classes, profile,user} = this.props
-        console.log(user)
+ 
         const disabled = (user.status === 'in-review')
-        console.log(this.props)
         return(
        <div>
                <Grid

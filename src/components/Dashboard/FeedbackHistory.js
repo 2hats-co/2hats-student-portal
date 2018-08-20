@@ -15,17 +15,15 @@ const styles = theme => ({
 function FeedbackHistory(props){
     const {classes,data} = props
   let items=[]
-   console.log('feed',data)
+
    if(data){
    items= data.map(x=>{
-     console.log(x)
+
      // (${x.submissionContent.process})
       return({title:`Resume Submission`,body:'Under Review',timestamp:x.createdAt,key:x.id})
    })
    items = _.orderBy(items, 'timestamp','asc')
-   }
-   console.log('feed1',items)
-   
+   }  
      
     return(<div className={classes.root}><Typography variant='display1'>
    Feedback History

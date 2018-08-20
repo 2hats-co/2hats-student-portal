@@ -44,7 +44,6 @@ import AvailableDays from './InputFields/AvailableDays';
            this.handleChange('currentUniversity',currentUniversity)
            this.handleChange('availableDays',availableDays)
            this.setState({unChanged:true})
-            console.log("User: ", this.props.user);
         }
     }
     handleCancel=() =>{

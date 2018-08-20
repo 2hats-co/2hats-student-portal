@@ -182,6 +182,10 @@ export const withNavigation = (WrappedComponent) => {
             this.goTo(routes.INTRODUCTION)
             }
          }
+         
+         if(prevProps.history !== this.props.history){
+          console.log('basic',this.props.history.location.hash === '#basic')
+         }
        }
        
       handleDrawerToggle = () => {
@@ -337,11 +341,12 @@ export const withNavigation = (WrappedComponent) => {
           </main>
           {(profile && user)&&(profile[0] && user[0])&&
           <div>
+           
           <AccountInfoDailog
           user={user[0]}
            isOpen={this.state.infoDialog} 
            closeHandler={this.handleInfoDialog}/>
-           {!profile[0].hasSubmit&& 
+           {
            <StatusCard
            currentRoute= {this.state.currentRoute}
            onSubmit={this.props.onSubmit.bind(this)} 
