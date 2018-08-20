@@ -37,8 +37,8 @@ const styles = theme => ({
     return percentage
   }
   handleContinue(){
-    const {process,isComplete} = this.props.data
-    if(isComplete){
+    const {process} = this.props.data
+    if(isComplete(this.props.data)){
       this.goTo(routes.PROFILE)
     }else{
      
@@ -54,7 +54,7 @@ const styles = theme => ({
     const {classes,data} = this.props
     const {process} = data
     console.log(data)
-    const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} process={process} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
+    const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} goTo={this.goTo} process={process} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
     return(<div className={classes.root}>
     
     <Grid className={classes.ProgressGrid} container  alignItems='center' direction='row' justify='space-around'>

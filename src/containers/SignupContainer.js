@@ -85,6 +85,11 @@ class ResumeBuilderContainer extends Component {
     this.handleUpdate = this.handleUpdate.bind(this)
   }
   componentWillMount(){
+   if(this.props.history.location.search.includes('step')){
+   // this.setState({activeStep:this.props.history.location.search.split('=')[1]})
+    this.setState({activeStep:parseInt(this.props.history.location.search.split('=')[1])})
+   }
+  
      window.Intercom('update',{
       'hide_default_launcher': true
     })
@@ -250,6 +255,7 @@ class ResumeBuilderContainer extends Component {
   render() {
     const { classes,theme } = this.props;
     const { activeStep ,profile} = this.state;
+    
     if(profile.createdAt){
     const currentStep = STEP_LABELS[(profile.process)][activeStep]
       return (
