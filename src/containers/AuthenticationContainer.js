@@ -342,14 +342,14 @@ class AuthenticationContainer extends React.Component {
     const passwordView = [
       backBar,
       welcomeGreeting,
-      passwordField,
+      passwordField(),
       signInButton
     ];
     const resetPasswordView = [
       backBar,
       welcomeGreeting,
       resetPasswordMessage,
-      passwordField,
+      passwordField('New Password'),
       resetPasswordButton
     ];
     const createPasswordView = [

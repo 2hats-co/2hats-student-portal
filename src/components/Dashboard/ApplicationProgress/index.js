@@ -42,7 +42,6 @@ const styles = theme => ({
     if(isComplete(this.props.data)){
       this.goTo(routes.PROFILE)
     }else{
-     
         if(process === PROCESS_TYPES.build){
           this.goTo(routes.BUILD_RESUME)
         }else{
