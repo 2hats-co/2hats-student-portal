@@ -11,10 +11,17 @@ const styles = theme => ({
        
     },chip: {
         margin: theme.spacing.unit / 2,
-        backgroundColor:'#FAEDE4'
+        backgroundColor:'#FAEDE4',
+        '&:hover':{
+            backgroundColor:'#FAEDE4'
+        }
+        
       },
       addIcon:{
-        color:theme.palette.primary.light
+        color:theme.palette.primary.light,       
+        '&:hover':{
+            color:theme.palette.primary.light
+        }
       }
 
 });

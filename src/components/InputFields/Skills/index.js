@@ -14,10 +14,16 @@ const styles = theme => ({
         color:"#fff",
         marginTop: 10,
         margin: 4,
-        backgroundColor:theme.palette.primary.light
+        backgroundColor:theme.palette.primary.light,
+        '&:hover':{
+        backgroundColor:theme.palette.primary.light,
+        }
       },
       cancelIcon:{
-        color:"#fff"
+        color:"#fff",
+        '&:hover':{
+            color:"#fff",  
+        }
       }
 });
 class Skills extends React.Component {
