@@ -183,12 +183,12 @@ export const withNavigation = (WrappedComponent) => {
             this.goTo(routes.INTRODUCTION)
             }
          }
-         console.log(this.props)
-        //  if(prevProps.location !== this.props.location){
-        //   console.log('basic',this.props.history.location.hash === '#basic')
-        //   }
-     
-       }
+
+        console.log("location: ", this.props.location)
+        if(prevProps.location !== this.props.location && this.props.location.hash === '#basic'){ 
+          this.handleLogoutToggle();
+        }
+      }
        
       handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
@@ -337,6 +337,9 @@ export const withNavigation = (WrappedComponent) => {
                         {...this.props}
                         profile={profile[0]}
                         user={user[0]}
+                        handleInfoDialog={() => {
+                          this.handleInfoDialog(true);
+                        }}
                         />
            </div>
            }

@@ -52,10 +52,10 @@ const styles = theme => ({
     
   }
   render(){
-    const {classes,data} = this.props
+    const {classes,data,handleInfoDialog} = this.props
     const {process} = data
     const steps = (<Grid container direction='column'> 
-     <Step key='basic' goTo={this.goTo} label='basic info' isComplete={true}/>
+     <Step key='basic' goTo={handleInfoDialog} label='basic info' isComplete={true}/>
     {STEP_LABELS[process].map(x=>
     <Step key={x} goTo={this.goTo} process={process} label={x} isComplete={!checkComplition(x,data)}/>
   )}</Grid>)
