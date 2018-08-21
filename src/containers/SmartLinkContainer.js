@@ -21,9 +21,9 @@ class SmartLinkContainer extends React.Component {
       }
     }
   }
-
-  render() {
-    const { slKey } = this.state;
+  componentDidUpdate(prevProps,prevState){
+    if(prevState.slKey !== this.state.slKey){
+      const { slKey } = this.state;
     const restApiSmartLink = functions.httpsCallable("restApiSmartLink");
 
     restApiSmartLink({ slKey: slKey })
@@ -40,7 +40,13 @@ class SmartLinkContainer extends React.Component {
         // Getting the Error details.
         console.log("Call restApiSmartLink error: ", error);
       });
+    }
+    
 
+  }
+
+  render() {
+    
     return(<LogoInCard isLoading={true}>
       <Typography variant='title' style={{width:'100%',textAlign:'center'}}>Please hold as we redirect you</Typography>
     </LogoInCard>);
