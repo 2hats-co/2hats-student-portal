@@ -238,7 +238,7 @@ class AuthenticationContainer extends React.Component {
       </div>
     );
 
-    const forgetPasswordLink = (label) => {
+    const forgetPasswordLink = () => {
       const callback = () => {
         const restApiResetPassword = functions.httpsCallable("restApiResetPassword");
 
@@ -253,8 +253,8 @@ class AuthenticationContainer extends React.Component {
       };
 
       return (
-        <StyledLink key={label} onClick={callback}>
-          {label}
+        <StyledLink key={'forgot-password'} onClick={callback}>
+         Forget Password?
         </StyledLink>
       );
     };
@@ -325,6 +325,7 @@ class AuthenticationContainer extends React.Component {
         Create Password
       </Button>
     );
+    const signInBar = (<Grid container='row' alignItems='center' justify='space-between'>{signInButton} {forgetPasswordLink()}</Grid>)
     let switchLink = (onSignup) =>{
       if(onSignup){
         return footerLink(`Already have an account?`,routes.SIGN_IN,'Sign in')
@@ -362,8 +363,8 @@ class AuthenticationContainer extends React.Component {
       backBar,
       welcomeGreeting,
       passwordField(),
-      signInButton,
-      forgetPasswordLink('Forget Password')
+      signInBar,
+      
     ];
     const resetPasswordView = [
       welcomeGreeting,
