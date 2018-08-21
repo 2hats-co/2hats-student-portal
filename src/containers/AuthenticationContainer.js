@@ -10,6 +10,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import StyledLink from "../components/StyledLink";
 
+import DoneIcon from '@material-ui/icons/DoneAll'
 //routing
 import * as routes from "../constants/routes";
 import { withRouter } from "react-router-dom";
@@ -79,9 +80,9 @@ const INITIAL_STATE = {
   password: "",
   isMounted: true,
   confirmPassword: "",
-  email: "shams.mosowi+000@gmail.com",
+  email: "",
   error: null,
-  view: AUTHENTICATION_CONTAINER.password,
+  view: AUTHENTICATION_CONTAINER.auth,
   isLoading: false,
   progress: 10,
   snackBar: null,
@@ -215,19 +216,6 @@ class AuthenticationContainer extends React.Component {
         OR
       </Typography>
     );
-
-    const resetPasswordText = (
-      <Grid key="resetPasswordText" container alignItems="left">
-        <Typography variant="subheading" color="primary">
-          Reset Password
-        </Typography>
-        <Typography variant="body">
-          Please enter your email address to receive the instruction for
-          resetting password.
-        </Typography>
-      </Grid>
-    );
-
     let footerLink = (label, link, linkLabel) => (
       <div key={`${label + link}`}>
         <Typography className={classes.footerLink} variant="body1">
@@ -238,7 +226,6 @@ class AuthenticationContainer extends React.Component {
     );
 
     const forgetPasswordLink = () => {
-     
       const callback = () => {
         if(!isLoading){
           const restApiResetPassword = functions.httpsCallable("restApiResetPassword");
@@ -248,12 +235,10 @@ class AuthenticationContainer extends React.Component {
             this.setState({snackBar:{message:"An email for resetting password is sent to you.",variant:'success'},isLoading:false})
           })
           .catch(error => {
-            // Getting the Error details.
-            console.log("Call restApiResetPassword error: ", error);
+            this.setState({snackBar:{message:error,variant:'error'},isLoading:false})
           });
         }
       };
-
       return (
         <StyledLink key={'forgot-password'} onClick={callback}>
          Forget Password?
@@ -267,6 +252,7 @@ class AuthenticationContainer extends React.Component {
         Welcome back {firstName},
       </Typography>
     );
+    const doneIcon = (<DoneIcon style={{fontSize:100, color:'#00E676'}}/>)
     const hiGreeting = (
       <Typography variant="title" color="primary" style={{ width: "100%" }}>
         Hi {firstName},
@@ -314,6 +300,7 @@ class AuthenticationContainer extends React.Component {
         Update
       </Button>
     );
+
     const signInButton = (
       <Button className={classes.button} onClick={this.handleSignin}>
         Sign In
@@ -327,6 +314,7 @@ class AuthenticationContainer extends React.Component {
         Create Password
       </Button>
     );
+    const logoutMessage = (<Typography variant='title' style={{textAlign:'center'}}>You have successfuly logged out</Typography>)
     const signInBar = (<Grid container='row' alignItems='center' justify='space-between'>{signInButton} {forgetPasswordLink()}</Grid>)
     let switchLink = (onSignup) =>{
       if(onSignup){
@@ -336,6 +324,7 @@ class AuthenticationContainer extends React.Component {
       }
     }
     let routeLabel =(onSignup) => (<Typography variant='title' color='primary' style={{width:'100%',textAlign:'center'}}>{onSignup? 'Sign up':'sign in'}</Typography>)
+    
     let authView = [routeLabel(onSignupRoute),
       googleButton,
        linkedinButton,
@@ -383,18 +372,18 @@ class AuthenticationContainer extends React.Component {
       passwordField('New Password'),
       createPasswordButton
     ];
-
+    const logoutView =[doneIcon,
+      logoutMessage,
+      linkButton('go to Sign in',routes.SIGN_IN)
+    ]
     let loadedView = authView;
     let gridHeight = 500;
     let cardHeight = 300;
-
-    console.log(view);
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = authView;
         cardHeight = 480;
         gridHeight = 320;
-
         break;
       case AUTHENTICATION_CONTAINER.google:
         loadedView = GoogleView;
@@ -426,10 +415,14 @@ class AuthenticationContainer extends React.Component {
         cardHeight = 550;
         gridHeight = 400;
         break;
+        case AUTHENTICATION_CONTAINER.logout:
+        loadedView = logoutView;
+        cardHeight = 400;
+        gridHeight = 250;
+        break;
       default:
         break;
     }
-    
     return (
       <LogoInCard width={350} height={cardHeight} isLoading={isLoading} snackBar={snackBar}  >
         <Grid

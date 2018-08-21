@@ -56,6 +56,7 @@ componentWillUnmount() {
     <div className="app"> 
 
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic/>} />
+      <Route exact path={routes.LOG_OUT} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.logout}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic/>} />
       <Route exact path={routes.CREATE_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.createPassword}/>} />   
       <Route exact path={routes.PASSWORD_FORGET} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />

@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
 import {setBackground} from '../utilities/styling'
 import LinearProgress from '@material-ui/core/LinearProgress';
-import SnackBar from './SnackBars'
+import SnackBar from './SnackBar'
 
 const styles = theme => ({
   root:{

@@ -289,7 +289,7 @@ export const withNavigation = (WrappedComponent) => {
                             this.setState({ logoutToggleOpen: false });
                             auth.doSignOut();
                             this.props.clearData();
-                            this.goTo(routes.SIGN_IN);
+                            this.goTo(routes.LOG_OUT);
                           }}>
                             <LogoutIcon/>Logout
                           </MenuItem>

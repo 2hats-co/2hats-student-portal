@@ -1,5 +1,6 @@
 export const LANDING = '/';
 export const SIGN_UP = '/signup';
+export const LOG_OUT = '/logout';
 export const SPEEDY_SIGN_UP = '/speedySignup';
 export const SIGN_IN = '/signin';
 export const PASSWORD_FORGET = '/resetPassword';
