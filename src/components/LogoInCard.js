@@ -6,7 +6,6 @@ import DarkLogo from '../assets/images/Logo/DarkText.png'
 import {setBackground} from '../utilities/styling'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SnackBar from './SnackBars'
-import snackBars from './SnackBars';
 
 const styles = theme => ({
   root:{
