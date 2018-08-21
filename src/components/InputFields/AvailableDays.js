@@ -1,10 +1,11 @@
 import React from 'react';
 import DropDown from "../InputFields/DropDown";
 function AvailableDays(props){
-    const {value,hasLabel,changeHandler} = props
+    const {value,hasLabel,changeHandler, maxWidth} = props
     return(
         <DropDown
         hasLabel={hasLabel}
+        maxWidth ={maxWidth}
         title="Available Days"
         label="Available Days"
         name="availableDays"

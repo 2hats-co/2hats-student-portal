@@ -56,10 +56,11 @@ class PhoneNumber extends React.Component {
     });
   };
   render(){
-  const { classes ,hasLabel} = this.props;
+  const { classes ,hasLabel,maxWidth} = this.props;
   const { number } = this.state;
     const InputField = (
       <TextField
+      style={{maxWidth}}
       label={hasLabel&&'Mobile Number'}
       className={classes.inputField}
       placeholder='e.g. 0400 000 000'

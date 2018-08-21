@@ -145,7 +145,7 @@ export const Theme = createMuiTheme({
       letterSpacing: '0.08px'
     },
     body1: {
-      fontSize: '12px',
+      fontSize: '13px',
       fontWeight: 400,
       fontFamily:primaryFontFamily,
       letterSpacing: '0.06px'
@@ -159,7 +159,7 @@ export const Theme = createMuiTheme({
       color:'#000'
     },
     caption: {
-      fontSize: '11px',
+      fontSize: '12px',
       fontWeight: 'regular',
       fontFamily:primaryFontFamily,
       color: '#9B9B9B',

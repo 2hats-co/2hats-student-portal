@@ -26,6 +26,13 @@ const styles = theme => ({
     height:69,
   
     },
+    centeredLogo:{
+      marginTop:50,        
+      marginBottom:30, 
+      marginLeft:115,
+      width:117,
+      height:42,
+      },
     miniLogo:{
       marginTop:50,        
       marginBottom:30, 
@@ -46,7 +53,7 @@ const styles = theme => ({
 });
 
 function LogoInCard(props) {
-  const { classes,width,height,theme,isLoading} = props;
+  const { classes,width,height,theme,isLoading,logoClass} = props;
   const {isMobile} = theme.responsive
   setBackground('#FA5E4E','https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94',isMobile)
   return (
@@ -59,7 +66,7 @@ function LogoInCard(props) {
               <LinearProgress className={classes.loading} 
                 style={isLoading?{}:{display:'none'}}
                 />
-        <img className={classes.miniLogo} 
+        <img className={classes[logoClass]|| classes.centeredLogo} 
               alt='dark2hatsLogo' 
               src={DarkLogo}/>
                 

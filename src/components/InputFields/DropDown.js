@@ -16,9 +16,9 @@ const styles = theme => ({
 },
 });
 function DropDown(props) {
-  const {classes,list,value,hasLabel,changeHandler,name,title,hint,label} = props;
+  const {classes,list,value,hasLabel,changeHandler,name,title,hint,label,maxWidth} = props;
     const InputField = ( 
-        <FormControl className = {classes.inputField}>
+        <FormControl className = {classes.inputField} style={{maxWidth:maxWidth}}>
            {hasLabel&&<InputLabel 
           shrink={typeof value !=='undefined' } 
           htmlFor={`${name}dropDown`} 

@@ -19,7 +19,7 @@ const styles = theme => ({
       borderRadius:'5px',
       color: BLACK,
       fontFamily: "Helvetica Neue",
-      fontSize: '12px',
+      fontSize: '14px',
       lineHeight: '14px',
       letterSpacing: '0.06px'
         },

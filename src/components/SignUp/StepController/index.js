@@ -32,8 +32,9 @@ const styles = theme => ({
     width:'100%',
     textAlign:'right',
     fontSize:15,
-    textDecoration:'underline',
-    fontWeight:700
+    marginBottom:20
+  //  textDecoration:'underline',
+
   }
 });
 
@@ -129,7 +130,7 @@ render(){
   </Button>)
 
   const saveLink = (<StyledLink onClick={()=>{this.handleSave(currentStep)}} className={classes.finishLabel} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
-      Finish later
+      Finish Later
     </StyledLink>)
   const saveButtonWithConditions = ((this.showSave(currentStep,profile))&&saveLink)
   const webButtons =(<Grid item style={{height:35}}>
@@ -145,7 +146,7 @@ justify='space-between'
 //className={classes.root}
 container
 direction="row"
-alignItems='center'
+alignItems='flex-end'
 justify='flex-start'
 >
 {backButton}

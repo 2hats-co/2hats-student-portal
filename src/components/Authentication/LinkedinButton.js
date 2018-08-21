@@ -20,6 +20,7 @@ const styles = theme => ({
       backgroundColor: '#0077B5',
     },
     socialIcon: {
+      marginTop:2,
       marginRight: 17
     },
   });

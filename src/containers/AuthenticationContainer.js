@@ -313,7 +313,7 @@ class AuthenticationContainer extends React.Component {
         return footerLink(`Don’t have an account?`,routes.SIGN_UP,'Sign up')
       }
     }
-    let routeLabel =(onSignup) => (<Typography variant='title' color='primary' style={{width:'100%'}}>{onSignup? 'Sign up':'sign in'}</Typography>)
+    let routeLabel =(onSignup) => (<Typography variant='title' color='primary' style={{width:'100%',textAlign:'center'}}>{onSignup? 'Sign up':'sign in'}</Typography>)
     let authView = [routeLabel(onSignupRoute),
       googleButton,
        linkedinButton,
@@ -335,21 +335,21 @@ class AuthenticationContainer extends React.Component {
       newAccountMessage(onSignupRoute),
       routeLabel(true),
       nameFields,
-      passwordField,
+      passwordField(),
       disclaimer,
       signUpButton
     ];
     const passwordView = [
       backBar,
       welcomeGreeting,
-      passwordField,
+      passwordField(),
       signInButton
     ];
     const resetPasswordView = [
       backBar,
       welcomeGreeting,
       resetPasswordMessage,
-      passwordField,
+      passwordField('New Password'),
       resetPasswordButton
     ];
     const createPasswordView = [
@@ -408,7 +408,7 @@ class AuthenticationContainer extends React.Component {
         break;
     }
     return (
-      <LogoInCard width={350} height={cardHeight} isLoading={isLoading}>
+      <LogoInCard width={350} height={cardHeight} isLoading={isLoading}  >
         <Grid
           container
           className={classes.root}

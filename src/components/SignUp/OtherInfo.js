@@ -14,14 +14,14 @@ function otherInfo(props){
       container
       direction="row"
       justify="space-between"
-      style={{ height: 270 }}
+      style={{ height: 270}}
     >
        {
-        <AvailableDays value={availableDays} changeHandler={changeHandler}/>
+        <AvailableDays value={availableDays} maxWidth={400} changeHandler={changeHandler}/>
       }
-      <WorkingRights value={workingRights} changeHandler={changeHandler}/>
+      <WorkingRights value={workingRights} maxWidth={400} changeHandler={changeHandler}/>
      
-      <PhoneNumber value={phoneNumber} changeHandler={changeHandler} />
+      <PhoneNumber value={phoneNumber} maxWidth={400} changeHandler={changeHandler} />
     </Grid>
     )
 }

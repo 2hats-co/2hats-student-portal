@@ -37,7 +37,7 @@ function InputWrapper(props) {
          item
          xs={characterCounter? 10:11}
        > 
-         <Typography variant='caption'>
+         <Typography variant='body1'>
            {hint}
          </Typography>
        </Grid>
