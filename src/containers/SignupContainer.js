@@ -16,7 +16,6 @@ import EduExp from "../components/EduExp";
 import OtherInfo from "../components/SignUp/OtherInfo";
 import PersonalBio from "../components/InputFields/PersonalBio";
 import Skills from "../components/InputFields/Skills";
-import ProfileDetails from "../components/SignUp/ProfileDetails";
 import ResumeLoader from "../components/InputFields/ResumeLoader";
 //Redux
 import { compose } from "redux";
@@ -222,7 +221,6 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.currentUniversity:
         return (
           <SectionWrapper width={750} height={320}>
-            {" "}
             <CurrentUniversity
               value={this.state.profile.currentUniversity}
               changeHandler={this.handleChange}
