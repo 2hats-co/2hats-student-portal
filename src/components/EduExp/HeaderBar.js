@@ -23,7 +23,6 @@ const styles = theme => ({
     marginTop:-15 
   }
 });
-
 function HeaderBar(props) {
   const { classes,title,handler,disabled } = props;
   return (
@@ -45,10 +44,8 @@ function HeaderBar(props) {
     </div>
   );
 }
-
 HeaderBar.propTypes = {
   title: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
 };
-
 export default withStyles(styles)(HeaderBar);

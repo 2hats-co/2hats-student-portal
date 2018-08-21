@@ -314,7 +314,7 @@ class AuthenticationContainer extends React.Component {
         Create Password
       </Button>
     );
-    const logoutMessage = (<Typography variant='title' style={{textAlign:'center'}}>You have successfuly logged out</Typography>)
+    const logoutMessage = ( <Typography variant='title' style={{textAlign:'center'}}>You have successfully logged out</Typography>)
     const signInBar = (<Grid container='row' alignItems='center' justify='space-between'>{signInButton} {forgetPasswordLink()}</Grid>)
     let switchLink = (onSignup) =>{
       if(onSignup){
