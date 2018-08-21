@@ -11,6 +11,7 @@ import * as routes from '../../../constants/routes'
 const styles = theme => ({
     root: {
      width:'100%',
+     maxWidth:600,
     },
     ProgressGrid:{
       width:'100%',
@@ -33,7 +34,7 @@ const styles = theme => ({
   completitionPercentage(data){
     const allSteps = STEP_LABELS[data.process]
     const completed = allSteps.filter(x =>!checkComplition(x,data))
-    const percentage =  Math.round((completed.length/allSteps.length)*100)
+    const percentage =  Math.round(((completed.length+1)/(allSteps.length+1))*100)
     return percentage
   }
   handleContinue(){
@@ -53,8 +54,11 @@ const styles = theme => ({
   render(){
     const {classes,data} = this.props
     const {process} = data
-    console.log(data)
-    const steps = (<Grid container direction='column'> {STEP_LABELS[process].map(x=><Step key={x} goTo={this.goTo} process={process} label={x} isComplete={!checkComplition(x,data)}/>)}</Grid>)
+    const steps = (<Grid container direction='column'> 
+     <Step key='basic' goTo={this.goTo} label='basic info' isComplete={true}/>
+    {STEP_LABELS[process].map(x=>
+    <Step key={x} goTo={this.goTo} process={process} label={x} isComplete={!checkComplition(x,data)}/>
+  )}</Grid>)
     return(<div className={classes.root}>
     
     <Grid className={classes.ProgressGrid} container  alignItems='center' direction='row' justify='space-around'>

@@ -4,7 +4,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Typography, Grid } from "@material-ui/core";
 import DoneIcon from "@material-ui/icons/Done"
 import {STEP_LABELS,PROCESS_TYPES} from '../../../constants/signUpProcess'
-import {UPLOAD_RESUME,BUILD_RESUME} from '../../../constants/routes'
+import {UPLOAD_RESUME,BUILD_RESUME, DASHBOARD} from '../../../constants/routes'
 const styles = theme => ({
   root:{
     height:30,
@@ -43,7 +43,11 @@ function Step(props){
     const { classes,label,process,goTo,isComplete} = props;
     const completedIndicator = (<div className={classes.complete}><DoneIcon className={classes.doneIcon}/></div>)
     const incompletedIndicator = (<div className={classes.incomplete}></div>)
-    const route = `${process === PROCESS_TYPES.build? BUILD_RESUME:UPLOAD_RESUME}?step=${STEP_LABELS[props.process].indexOf(label)}`
+   let route = DASHBOARD+'#basic'
+    if(process){
+   route = `${process === PROCESS_TYPES.build? BUILD_RESUME:UPLOAD_RESUME}?step=${STEP_LABELS[props.process].indexOf(label)}`
+
+    }
     return (
       <Grid container 
       direction='row'

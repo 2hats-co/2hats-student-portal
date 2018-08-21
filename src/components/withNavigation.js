@@ -124,7 +124,8 @@ export const withNavigation = (WrappedComponent) => {
   
   class WithNavigation extends Component {
     static contextTypes = {
-      store: PropTypes.object.isRequired
+      store: PropTypes.object.isRequired,
+  //    location: React.PropTypes.object.isRequired
   }
     constructor(props) {
         super(props);
@@ -182,10 +183,11 @@ export const withNavigation = (WrappedComponent) => {
             this.goTo(routes.INTRODUCTION)
             }
          }
-         
-         if(prevProps.history !== this.props.history){
-          console.log('basic',this.props.history.location.hash === '#basic')
-         }
+         console.log(this.props)
+        //  if(prevProps.location !== this.props.location){
+        //   console.log('basic',this.props.history.location.hash === '#basic')
+        //   }
+     
        }
        
       handleDrawerToggle = () => {

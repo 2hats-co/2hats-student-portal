@@ -76,7 +76,6 @@ class ProfileContainer extends Component{
                 </Grid>
             }
                 </Grid>
-                
             </div>
         )
   }
