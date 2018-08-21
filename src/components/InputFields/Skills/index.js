@@ -5,14 +5,20 @@ import AutoCompleteField from '../AutoCompleteField';
 import Chip from '@material-ui/core/Chip'
 import SuggestedSkills from './SuggestedSkills';
 import {ALL_SKILLS} from '../../../constants/resumeBuilderPrompts'
+import CancelIcon from '@material-ui/icons/Cancel';
 const styles = theme => ({
     root: {
      width:'100%',
      maxWidth:850
     },chip: {
+        color:"#fff",
         marginTop: 10,
-        margin: 4
+        margin: 4,
+        backgroundColor:theme.palette.primary.light
       },
+      cancelIcon:{
+        color:"#fff"
+      }
 });
 class Skills extends React.Component {
     constructor(props){
@@ -77,6 +83,7 @@ class Skills extends React.Component {
               className={classes.chip}
               onClick={() => {this.handleDelete(x);}}
               onDelete={() => {this.handleDelete(x);}}
+              deleteIcon={<CancelIcon className={classes.cancelIcon}/>}
             />
           ))}
        {!hideSuggestions&& <SuggestedSkills preSelectedList={this.state.selectedList} onAdd={this.addNewSkill} interestKeys={interestKeys}/>}

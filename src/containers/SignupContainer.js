@@ -16,7 +16,6 @@ import EduExp from "../components/EduExp";
 import OtherInfo from "../components/SignUp/OtherInfo";
 import PersonalBio from "../components/InputFields/PersonalBio";
 import Skills from "../components/InputFields/Skills";
-import ProfileDetails from "../components/SignUp/ProfileDetails";
 import ResumeLoader from "../components/InputFields/ResumeLoader";
 //Redux
 import { compose } from "redux";
@@ -32,6 +31,7 @@ import * as routes from "../constants/routes";
 import StepController from "../components/SignUp/StepController";
 import LoadingMessage from "../components/LoadingMessage";
 import withAuthorisation from "../utilities/Session/withAuthorisation";
+import CurrentUniversity from "../components/InputFields/CurrentUniversity";
 
 const styles = theme => ({
   root: {
@@ -218,15 +218,11 @@ class ResumeBuilderContainer extends Component {
             />
           </SectionWrapper>
         );
-      case ALL_STEPS.profileDetails:
+      case ALL_STEPS.currentUniversity:
         return (
           <SectionWrapper width={750} height={320}>
-            {" "}
-            <ProfileDetails
-              industry={this.state.profile.industry}
-              currentUniversity={this.state.profile.currentUniversity}
-              careerInterests={this.state.profile.careerInterests}
-              skills={this.state.profile.skills}
+            <CurrentUniversity
+              value={this.state.profile.currentUniversity}
               changeHandler={this.handleChange}
             />
           </SectionWrapper>

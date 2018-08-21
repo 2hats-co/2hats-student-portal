@@ -72,11 +72,10 @@ const styles = theme => ({
              <Grid item   xs={12} sm={6}>
               {steps}
               </Grid>
-              <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
-              {isComplete(data)?`Preview for Submission`:`Continue Application`}
-              </Button>
     </Grid>
-  
+    <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
+              {isComplete(data)?`Preview`:`Continue Application`}
+              </Button>
    </div>)
 }
   }

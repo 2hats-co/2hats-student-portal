@@ -81,16 +81,22 @@ const styles = theme => ({
         color:red[500]
       },
       success:{
+        width:30,
+        height:30,
+        borderRadius:15,
+        backgroundColor:green.A700
+      },
+      successIcon:{
         position:'relative',
-        top:5,
-        left:-5,
-        color:green.A700
+        color:'#fff',
+        top:3,
+        left:2,
       },
       dropDown:{
         position:'absolute',
         right:0,
-        bottom:10
-      }
+        bottom:20
+      },
 
   });
 class StatusCard extends React.Component{
@@ -133,7 +139,7 @@ class StatusCard extends React.Component{
         const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
         const inReviewMessage = 'Your profile is currently under review. We will notify you regarding the feedback.'
         const alterIcon =(<AlertIcon className={this.props.classes.alert}/>)
-        const doneIcon =(<DoneIcon className={this.props.classes.success}/>)
+        const doneIcon =(<div className={this.props.classes.success} ><DoneIcon className={this.props.classes.successIcon}/></div>)
         if(profile.hasSubmit){
           return({icon:doneIcon,
             message:inReviewMessage,
@@ -185,9 +191,17 @@ class StatusCard extends React.Component{
         <Card className={classes.root} style={hideToaster?{}:{display:'none'}}>
             <Grid container 
             justify={isMobile?'flex-end':'space-between'} className={classes.grid} style={!isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' > 
-                <Grid  xs={12} sm={6} md={9} lg={10} item><Typography className={classes.prompt} variant='subheading'>
-                  {icon}{message}
+                <Grid  xs={12} sm={6} md={9} lg={10} item>
+                <Grid container direction='row' justify='flex-start' alignItems='center'>
+                <Grid item xs={1}>
+                {icon}</Grid>
+                <Grid item xs={11}>
+                <Typography className={classes.prompt} variant='subheading'>
+                 {message}
                 </Typography>
+                </Grid>
+                </Grid>
+               
                 </Grid>
                 {
                 <Grid item xs={12} sm={6}  md={3} lg={2} style={{maxWidth:230}}>

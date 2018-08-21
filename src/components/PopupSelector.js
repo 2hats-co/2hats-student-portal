@@ -16,7 +16,7 @@ render(){
     const {items,classes} = this.props
     return(
         <div>
-        <Button
+        <Button disableRipple
                   style={{ position:'absolute',
                   right:0,
                   bottom:10}}

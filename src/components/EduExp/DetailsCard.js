@@ -13,7 +13,7 @@ const styles = theme => ({
   },
   card:{  
     width:'calc(100%0)',
-    paddingTop: 30,
+    paddingTop: 35,
     paddingBottom: 30, 
     marginBottom:10,
     [theme.breakpoints.up('xs')]: {
