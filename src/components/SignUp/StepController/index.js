@@ -118,7 +118,7 @@ render(){
     variant="flat"
     onClick={()=>{this.handleNext(currentStep)}}
   >
-   {currentStep===ALL_STEPS.other?'Preview for Submission':'Next'}
+   {currentStep===ALL_STEPS.other?'Preview':'Next'}
   </Button>)
  
   const backButton = (<Button id={`back-${currentStep}`}
