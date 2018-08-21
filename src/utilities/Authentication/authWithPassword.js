@@ -62,7 +62,7 @@ export const signInWithPassword = (user,routeHandler,errorHandler) =>{
 export const updateUserPassword = (password, routeHandler, errorHandler) => {
   auth.currentUser.updatePassword(password).then(() => {
     // Update successful.
-    routeHandler(INTRODUCTION);
+    routeHandler();
   }).catch((error) => {
     // An error happened.
     errorHandler(error);

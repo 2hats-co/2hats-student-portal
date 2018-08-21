@@ -31,13 +31,10 @@ class SmartLinkContainer extends React.Component {
         // Sign in user with custom token.
         const authUser = await auth.signInWithCustomToken(result.data.token);
 
+        // Redirect page based on the route.
         const route = result.data.route;
-        if (result.data.route === CREATE_PASSWORD) {
-          const firstName = authUser.user.displayName.split(" ")[[0]];
-          this.props.history.replace(route + `?firstName=${firstName}`);
-        } else {
-          this.props.history.replace(route);
-        }
+        const firstName = authUser.user.displayName.split(" ")[[0]];
+        this.props.history.replace(route + `?firstName=${firstName}`);
       })
       .catch(error => {
         // Getting the Error details.

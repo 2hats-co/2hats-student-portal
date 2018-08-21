@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import { functions } from "../store";
 
 //material ui
 import Typography from "@material-ui/core/Typography";
@@ -132,19 +133,16 @@ class AuthenticationContainer extends React.Component {
       o => console.log(o)
     );
   }
-  handleUpdatePassword() {
-    const { password } = this.state;
-    updateUserPassword(
-      password,
-      route => this.goTo(route),
-      o => console.log(o)
-    );
+  handleUpdatePassword(route) {
+    return () => {
+      const { password } = this.state;
+      updateUserPassword(
+        password,
+        () => this.goTo(route),
+        o => console.log(o)
+      );
+    };
   }
-  handleResetPasswordEmail(email) {
-    //TODO: create restAPI
-    resetPasswordEmail(email);
-  }
-
   handleChange = (name, value) => {
     this.setState({ [name]: value });
   };
@@ -240,6 +238,27 @@ class AuthenticationContainer extends React.Component {
       </div>
     );
 
+    const forgetPasswordLink = (label) => {
+      const callback = () => {
+        const restApiResetPassword = functions.httpsCallable("restApiResetPassword");
+
+        restApiResetPassword({ email: email })
+          .then(() => {
+            console.log("Send reset password request successful");
+          })
+          .catch(error => {
+            // Getting the Error details.
+            console.log("Call restApiResetPassword error: ", error);
+          });
+      };
+
+      return (
+        <StyledLink key={label} onClick={callback}>
+          {label}
+        </StyledLink>
+      );
+    };
+
     const disclaimer = <Disclaimer />;
     const welcomeGreeting = (
       <Typography variant="title" color="primary" style={{ width: "100%" }}>
@@ -289,7 +308,7 @@ class AuthenticationContainer extends React.Component {
       </Button>
     );
     const resetPasswordButton = (
-      <Button className={classes.button} onClick={this.handleUpdatePassword}>
+      <Button className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
         Update
       </Button>
     );
@@ -301,7 +320,7 @@ class AuthenticationContainer extends React.Component {
     const createPasswordButton = (
       <Button
         className={classes.createButton}
-        onClick={this.handleUpdatePassword}
+        onClick={this.handleUpdatePassword(routes.INTRODUCTION)}
       >
         Create Password
       </Button>
@@ -343,10 +362,10 @@ class AuthenticationContainer extends React.Component {
       backBar,
       welcomeGreeting,
       passwordField(),
-      signInButton
+      signInButton,
+      forgetPasswordLink('Forget Password')
     ];
     const resetPasswordView = [
-      backBar,
       welcomeGreeting,
       resetPasswordMessage,
       passwordField('New Password'),
