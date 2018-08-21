@@ -11,7 +11,12 @@ const styles = theme => ({
        
     },chip: {
         margin: theme.spacing.unit / 2,
+        backgroundColor:'#FAEDE4'
       },
+      addIcon:{
+        color:theme.palette.primary.light
+      }
+
 });
 class SuggestedSkills extends React.Component { 
     state = {suggestedSkills:[]}
@@ -35,7 +40,7 @@ class SuggestedSkills extends React.Component {
             className={classes.chip}
             onClick = {()=>{this.handleAdd(skill)}}
             onDelete={()=>{this.handleAdd(skill)}}
-            deleteIcon={<AddIcon/>}
+            deleteIcon={<AddIcon className={classes.addIcon}/>}
           />)
        })
         return(
