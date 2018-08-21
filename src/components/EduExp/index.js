@@ -8,10 +8,21 @@ import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
 import * as _ from "lodash";
 
+import { withStyles } from "@material-ui/core/styles";
+
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import moment from 'moment'
+
+const styles = theme => ({
+  link:{
+    color:theme.palette.primary.light,
+    cursor:'pointer',
+    textDecoration:'underline',
+  }
+ 
+});
 class EducationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -94,7 +105,7 @@ class EducationContainer extends React.Component {
   render() {
     let items;
     const {dialog} = this.state
-    const { name,data,disabled} = this.props;
+    const { classes, name,data,disabled} = this.props;
     if(data){
       const datedData = data.map(x=>{
         if(x.endDate ==='Present'){
@@ -133,8 +144,8 @@ class EducationContainer extends React.Component {
             handler={this.handleNewItem}
           />
           {items.length !==0 ? items:<Card style={{width:'100%',height:80,marginBottom:20}}>
-          <Typography variant='body1' style={{textAlign:'center',marginTop:40}}>
-          Press ‘+’ to get started
+          <Typography variant='body1' style={{textAlign:'left',marginTop:40,marginLeft:40}}>
+          Press ‘+’ or <a className={classes.link} onClick={this.handleNewItem}> here</a> to get started
           </Typography>
           
           </Card>}
@@ -173,4 +184,4 @@ EducationContainer.defaultProps ={
   width:470
 }
 
-export default EducationContainer;
+export default withStyles(styles)(EducationContainer);
