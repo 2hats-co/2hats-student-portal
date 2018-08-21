@@ -79,14 +79,12 @@ const INITIAL_STATE = {
   password: "",
   isMounted: true,
   confirmPassword: "",
-  email: "",
+  email: "shams.mosowi+000@gmail.com",
   error: null,
-  view: AUTHENTICATION_CONTAINER.auth,
+  view: AUTHENTICATION_CONTAINER.password,
   isLoading: false,
   progress: 10,
-  showSnackBar: false,
-  snackBarVariant: "",
-  snackBarMessage: "",
+  snackBar: null,
   timeStamp: ""
 };
 
@@ -153,6 +151,7 @@ class AuthenticationContainer extends React.Component {
       lastName,
       password,
       isLoading,
+      snackBar,
       email,
       view
     } = this.state;
@@ -239,17 +238,20 @@ class AuthenticationContainer extends React.Component {
     );
 
     const forgetPasswordLink = () => {
+     
       const callback = () => {
-        const restApiResetPassword = functions.httpsCallable("restApiResetPassword");
-
+        if(!isLoading){
+          const restApiResetPassword = functions.httpsCallable("restApiResetPassword");
+          this.setState({isLoading:true})
         restApiResetPassword({ email: email })
           .then(() => {
-            console.log("Send reset password request successful");
+            this.setState({snackBar:{message:"An email for resetting password is sent to you.",variant:'success'},isLoading:false})
           })
           .catch(error => {
             // Getting the Error details.
             console.log("Call restApiResetPassword error: ", error);
           });
+        }
       };
 
       return (
@@ -427,8 +429,9 @@ class AuthenticationContainer extends React.Component {
       default:
         break;
     }
+    
     return (
-      <LogoInCard width={350} height={cardHeight} isLoading={isLoading}  >
+      <LogoInCard width={350} height={cardHeight} isLoading={isLoading} snackBar={snackBar}  >
         <Grid
           container
           className={classes.root}
