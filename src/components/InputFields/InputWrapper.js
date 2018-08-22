@@ -36,6 +36,7 @@ function InputWrapper(props) {
        <Grid
          item
          xs={characterCounter? 10:11}
+         md={11}
        > 
          <Typography variant='body1'>
            {hint}
@@ -44,6 +45,7 @@ function InputWrapper(props) {
        <Grid
          item
          xs={characterCounter? 2:1}
+         md={1}
        >
          <Typography className={classes.characterCount} variant='caption'>
            {characterCounter}

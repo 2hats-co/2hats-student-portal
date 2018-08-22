@@ -76,16 +76,15 @@ class MultiLineTextField extends React.Component {
     return(
       <div style={{width:'100%'}}>
       <InputWrapper
-      tip={`For Example: \n ${placeholder}`}
       hasLabel={hasLabel}
       title={title}
-      hint={hint}
+      hint={`For Example: \n ${placeholder}`}
       characterCounter={this.state.characterCountValue}
       ><textarea
       onChange={this.handleChange.bind(this)}
       onFocus={this.handleFocus.bind(this)}
       className={classes.root}rows="4" cols="50"
-      placeholder={`Press '?' to check for example`}
+      placeholder={hint}
       value={this.state.inputValue}>
       </textarea></InputWrapper>
       </div>
