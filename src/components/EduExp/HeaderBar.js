@@ -20,7 +20,9 @@ const styles = theme => ({
     zIndex:10
   },
   add:{
-    marginTop:-15 
+    width:40,
+    height:40,
+    marginTop:-10 
   }
 });
 function HeaderBar(props) {
@@ -37,7 +39,7 @@ function HeaderBar(props) {
             {title}
           </Typography> 
           {!disabled&&<IconButton className={classes.add} onClick={()=>{handler()}} color="inherit" aria-label="add">
-            <AddIcon style={{ fontSize: 36 }} />
+            <AddIcon style={{ fontSize: 33 }} />
           </IconButton>}
           </Grid>
           
