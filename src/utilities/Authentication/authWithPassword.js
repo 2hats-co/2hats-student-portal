@@ -24,7 +24,7 @@ export const createUserWithPassword=(user,routeHandler,errorHandler)=>{
                 experience:[],
                 industry:'OTHER',
                 bio:'',
-                careerInterests:[],
+                careerInterests:{type:'defualt',value:[]},
                 skills:[],
                 resumeFile:{name:'',fullPath:'',downloadURL:''},
                 isComplete:false,

@@ -10,7 +10,7 @@ export function checkComplition(currentStep,profile){
       workingRights,currentUniversity,resumeFile,
       education,experience} = profile
     switch (currentStep) {
-      case ALL_STEPS.careerInterests:return !careerInterests || careerInterests.length === 0;
+      case ALL_STEPS.careerInterests:return !careerInterests || careerInterests.value.length === 0;
       case ALL_STEPS.bio:return !bio|| bio.length === 0;
       case ALL_STEPS.skills:return !skills|| skills.length === 0;
       case ALL_STEPS.uploadResume:return !resumeFile || resumeFile.downloadURL.length === 0;

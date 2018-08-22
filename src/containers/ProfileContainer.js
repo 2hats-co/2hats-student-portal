@@ -57,6 +57,7 @@ class ProfileContainer extends Component{
               name={`${user.firstName} ${user.lastName}`}
               resumeFile={profile.process === PROCESS_TYPES.upload&& profile.resumeFile}
               interestsList={profile.careerInterests}
+        
               editHandler={()=>{this.handleEdit(true)}}/>
               </Grid>
               {profile.process === PROCESS_TYPES.build&&

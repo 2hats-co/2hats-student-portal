@@ -148,8 +148,8 @@ export const ALL_SKILLS = Object.values(SKILLS).reduce((r,interest)=>{
     return r.concat(newSkills)
 })
 export function getSkills(interests){
-    if(!interests) return [];
-    let suggestedSkills = []
+    try{
+        let suggestedSkills = []
     interests.forEach(interest => {
         SKILLS[interest].forEach(skill => {
             if(!suggestedSkills.includes(skill)){
@@ -157,4 +157,8 @@ export function getSkills(interests){
             }
     });})
     return suggestedSkills
+    }catch(error){
+        return []
+    }
+    
 }
