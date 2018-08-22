@@ -125,7 +125,7 @@ class CareerInterests extends React.Component {
         color="primary"
       />
       <Typography variant='body1' className={classes.text}>
-        Note: We can't guarantee Minje
+        Note: We can't guarantee that we will be able to find you a career placement in your specific field of interest, but we will do our best.
       </Typography>
       </div>
       )
