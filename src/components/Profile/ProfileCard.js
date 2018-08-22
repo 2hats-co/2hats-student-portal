@@ -65,7 +65,6 @@ const styles = theme => ({
 })
 
 function getInterests(interestsList){
-  console.log('interestsList',interestsList)
   if(interestsList.type === "defualt"){
     return interestsList.value.map(x=> {
       return( <Chip
