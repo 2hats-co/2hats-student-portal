@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import {CAREER_INTERESTS,getIndustryFromInterests} from '../../constants/resumeBuilderPrompts'
+import { TextField } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -28,19 +29,43 @@ const styles = theme => ({
     height:15,
     fontSize:'15px',
   },
+  text:{
+    paddingTop:10,
+    paddingBottom:10
+  },
+  link:{
+    color: theme.palette.primary.light,
+    cursor:'pointer',
+    textDecoration: 'underline',
+
+    '&:hover':{
+      textDecoration: 'underline'
+    }
+  }
 });
 class CareerInterests extends React.Component {
- 
+  switchToOther(){
+    this.props.changeHandler('careerInterests',{type:'custom',value:[]})
+    this.props.changeHandler('industry','OTHER')
+  }
+  switchToOptions(){
+    this.props.changeHandler('careerInterests',{type:'defualt',value:[]})
+   // this.props.changeHandler('customInterest','')
+  }
+
+
   handleChange = name => event => {
+    
     if(event.target.checked){
-      const newInterests = this.props.preSelectedList.concat(name)
-      this.props.changeHandler('careerInterests',newInterests)
+      const newInterests = this.props.preSelectedList.value.concat(name)
+      this.props.changeHandler('careerInterests',{type:'defualt', value:newInterests})
       this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }else{
-      const newInterests = this.props.preSelectedList.filter(x=> x!==name)
-    this.props.changeHandler('careerInterests',newInterests)
-    this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
+      const newInterests = this.props.preSelectedList.value.filter(x=> x!==name)
+      this.props.changeHandler('careerInterests',{type:'defualt', value:newInterests})
+      this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }
+    
   };
   renderCheckBox(item){
     const { classes,preSelectedList } = this.props;
@@ -50,9 +75,9 @@ class CareerInterests extends React.Component {
               <Checkbox
                 key={item.key+'checkbox'}
                 className={classes.checkBox}
-                disabled = {this.props.preSelectedList.length >2 && !this.props.preSelectedList.includes(item.key)}
-                checked={preSelectedList.includes(item.key)}
-                id={`${item.key}-checkbox-${preSelectedList.includes(item.key)}`}
+                disabled = {this.props.preSelectedList.value.length >2 && !this.props.preSelectedList.value.includes(item.key)}
+                checked={preSelectedList.value.includes(item.key)}
+                id={`${item.key}-checkbox-${preSelectedList.value.includes(item.key)}`}
                 onChange={this.handleChange(item.key)}
                 value={item.label}
               />
@@ -62,7 +87,7 @@ class CareerInterests extends React.Component {
     )
   }
   renderCheckBoxGroup(label,options){
-    const { classes } = this.props;
+    const { classes} = this.props;
       return(  
         <Grid key={label+'column'} item style={{minWidth:180}}>
     <FormControl className={classes.group} key={label} component="fieldset">
@@ -75,23 +100,58 @@ class CareerInterests extends React.Component {
   )
   }
   render() {
-    const { classes,preSelectedList,hideTitle} = this.props;
-    return (
+    const { classes,preSelectedList,hideTitle,changeHandler} = this.props;
+    if(preSelectedList.type==="custom"){
+      return(
+        <div className={classes.root}>
+        {!hideTitle&&<Typography variant="title" color="primary">
+         Career Interests
+    </Typography> } 
+    <Typography variant='body1' className={classes.text}>
+    Want to check career interests from 2hats again? <a className={classes.link} onClick={this.switchToOptions.bind(this)}>Click here</a>
+    </Typography>
+        <TextField
+        id="otherInterest"
+        key="otherInterest"
+        //label="your career interest"
+        placeholder='Add your career interest here'
+       onChange={(e)=>{changeHandler('careerInterests',{type:'custom',value:[e.target.value]})}}
+       value={preSelectedList.value[0]}
+        style={{ marginTop: 0,
+            width: '100%',
+            maxWidth:250,
+            marginBottom: 5}}
+        margin="normal"
+        color="primary"
+      />
+      <Typography variant='body1' className={classes.text}>
+        Note: We can't guarantee Minje
+      </Typography>
+      </div>
+      )
+    }else{
+      return (
         <div className={classes.root}>
          {!hideTitle&&<Typography variant="title" color="primary">
-         Career Interests - {3-preSelectedList.length} remaining
+         Career Interests - {3-preSelectedList.value.length} remaining
     </Typography> }
             <Grid container direction='row' justify='space-between'>
             {CAREER_INTERESTS.map(list => this.renderCheckBoxGroup(list.label,list.items))}    
             </Grid>
+            <Typography variant='body1' className={classes.text}>
+    Don't see your career interest? <a className={classes.link} onClick={this.switchToOther.bind(this)}>Click here</a>
+    </Typography>
+           
      </div>
     );
+    }
+    
   }
 }
 
 CareerInterests.propTypes = {
   classes: PropTypes.object.isRequired,
   changeHandler: PropTypes.func.isRequired,
-  preSelectedList: PropTypes.arrayOf(PropTypes.string)
+  preSelectedList: PropTypes.exact({type:PropTypes.string,value:PropTypes.arrayOf(PropTypes.string)})
 };
 export default withStyles(styles)(CareerInterests);

@@ -50,39 +50,18 @@ const styles = theme => ({
 class IntroductionContainer extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {view:INTRODUCTION_CONTAINER.process,createdUser:null};
+    this.state = {view:INTRODUCTION_CONTAINER.process};
      this.goToResumeOptions = this.goToResumeOptions.bind(this)
     this.goToUploadResume = this.goToUploadResume.bind(this)
     this.goToBuildResume = this.goToBuildResume.bind(this)
- //   this.createFireStoreRecords = this.createFireStoreRecords.bind(this)
   }
-  componentDidMount(){
-    if(this.props.uid && !this.state.createdUser){
-      console.log('created at mount')
-      this.setState({createdUser:true})
-     
-    }
-  }
-  componentDidUpdate(prevProps,prevState){
-    if((prevProps.uid != this.props.uid)&& !this.state.createdUser){
-      console.log('created on update')
-      this.setState({createdUser:true})
-   
-    }
-  }
-  
-  // createFireStoreRecords(){
-  //   this.props.createUser();
-  //  this.props.createProfile();
-  //  this.props.MarkUserAsStepsCompleteAction(true);
-  // }
+ 
+
   goToBuildResume(){
-    //this.createFireStoreRecords()
     this.props.history.push(routes.BUILD_RESUME)
   }
 
   goToUploadResume(){
-   // this.createFireStoreRecords()
     this.props.history.push(routes.UPLOAD_RESUME)
   }
   goToResumeOptions(){
@@ -182,35 +161,6 @@ const enhance = compose(
   withHandlers({
     loadData: props => listenerSettings =>
       props.firestore.setListener(listenerSettings),
-    //   createUser: props => () =>
-
-    //   props.firestore.set({ collection: COLLECTIONS.users, doc: props.uid }, {
-    //     firstName: props.auth.displayName.split(' ')[0],
-    //     lastName: props.auth.displayName.split(' ')[1],
-    //     emailVerified: props.uid.includes(':')||props.auth.emailVerified,
-    //     email: props.auth.email,
-    //     stage:'pre-review',// TODO make into a constants object
-    //     status:'incomplete',
-    //     providerId:props.uid.includes(':')&&props.uid.split(':')[0]||props.auth.providerData[0].providerId ,
-    //     createdAt:props.auth.metadata.creationTime,
-    //     lastSignInTime:props.auth.metadata.creationTime,
-    //   }
-
-    //   ),
-    // createProfile: props => () =>
-    //     props.firestore.set({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-    //     education:[],
-    //     experience:[],
-    //     industry:'IT',
-    //     bio:'',
-    //     careerInterests:[],
-    //     skills:[],
-    //     resumeFile:{name:'',fullPath:'',downloadURL:''},
-    //     isComplete:false,
-    //     hasSubmit: false,
-    //     createdAt: props.firestore.FieldValue.serverTimestamp()
-    //   }
-    //   ) 
   }),
   // Run functionality on component lifecycle
   lifecycle({
@@ -222,8 +172,6 @@ const enhance = compose(
   }),
   connect(mapStateToProps,mapActionToProps)
 )
-
-
 export default enhance(
   withRouter(
     withStyles(styles,{ withTheme: true })(IntroductionContainer)

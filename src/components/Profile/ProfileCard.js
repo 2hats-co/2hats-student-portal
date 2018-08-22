@@ -64,17 +64,31 @@ const styles = theme => ({
     }
 })
 
+function getInterests(interestsList){
+  if(interestsList.type === "defualt"){
+    return interestsList.value.map(x=> {
+      return( <Chip
+        key={x}
+        label={getInterestByKey(x)[0].label}
+       style={{marginRight:10, marginBottom:5}}
+      />)})
+  }else{
+    return interestsList.value.map(x=> {
+      return( <Chip
+        key={x}
+        label={x}
+        style={{marginRight:10, marginBottom:5}}
+      />)})
+  }
+ 
+  
+}
 function ProfileCard(props) {
   const {disabled,classes,name,bio,resumeFile,interestsList,skillsList,process} = props;
     let careerInterests = (<div/>)
     if(interestsList){careerInterests=(<div> 
    {careerInterests}
-    {interestsList.map(x=> {
-      return( <Chip
-        key={x}
-        label={getInterestByKey(x)[0].label}
-        className={classes.chip}
-      />)})}</div>)}
+    {getInterests(interestsList)}</div>)}
       let skills = (<div/>)
     if(skillsList){skills=(<div>
     {skillsList.map(x=> {return( <Chip

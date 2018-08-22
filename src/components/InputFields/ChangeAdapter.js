@@ -14,7 +14,6 @@ handleChange = name => event => {
 };
     componentDidUpdate(prevProps, prevState){
     if(prevState !== this.state){
-        console.log(prevState,prevProps)
     this.props.changeHandler(this.props.name,this.state.inputValue)
     }
 }

@@ -47,7 +47,6 @@ class SubmissionContainer extends Component {
         const {classes,submission} = this.props
         if(submission){
             const profile = submission[0].submissionContent
-        console.log(submission[0])
         return(
             <div className={classes.content}>
                 <Grid container

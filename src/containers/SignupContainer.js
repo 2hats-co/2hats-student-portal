@@ -53,7 +53,7 @@ const styles = theme => ({
   }
 });
 let INITIAL_PROFILE = {
-  careerInterests: [],
+  careerInterests: {type:'defualt',value:[]},
   currentStep: ALL_STEPS.careerInterests,
   bio: "",
   currentUniversity: "",
@@ -152,7 +152,9 @@ class ResumeBuilderContainer extends Component {
     this.setState({ profile: newProfile });
   }
   getStepContent(currentStep, profile) {
+    
     const { careerInterests, industry } = profile;
+    console.log('careerInterests',careerInterests)
     switch (currentStep) {
       case ALL_STEPS.careerInterests:
         return (
@@ -177,7 +179,7 @@ class ResumeBuilderContainer extends Component {
         return (
           <SectionWrapper width={750} height={320}>
             <Skills
-              interestKeys={this.state.profile.careerInterests}
+              interestKeys={this.state.profile.careerInterests.value}
               preSelectedList={this.state.profile.skills}
               changeHandler={this.handleChange}
             />

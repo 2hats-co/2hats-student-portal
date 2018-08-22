@@ -6,8 +6,9 @@ import { Grid,Button} from '@material-ui/core';
 import ProgressDial from './ProgressDial'
 import Step from './Step'
 import {PROCESS_TYPES, STEP_LABELS, checkComplition,isComplete} from '../../../constants/signUpProcess'
-
+import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
 import * as routes from '../../../constants/routes'
+import AnimateIcon from '../../AnimateIcon'
 const styles = theme => ({
     root: {
      width:'100%',
@@ -18,9 +19,21 @@ const styles = theme => ({
       maxWidth:600, 
     },
     button:{
+      alignItems:'top !important',
+      marginTop:10,
       width:230,
       height:35
+    },stepItem:{
+      width:230
+    },
+    header:{
+
+    },
+    mobileHeader:{
+      width:'100%',
+      textAlign:'center !important'
     }
+    
   });
   class ApplicationProgress extends React.Component{
     constructor(props){
@@ -51,32 +64,34 @@ const styles = theme => ({
     
   }
   render(){
-    const {classes,data,handleInfoDialog} = this.props
+    const {classes,data,handleInfoDialog,theme} = this.props
     const {process} = data
-    const steps = (<Grid container direction='column'> 
-     <Step key='basic' goTo={handleInfoDialog} label='basic info' isComplete={true}/>
+    const {isMobile} = theme.responsive
+    const steps = (<Grid container alignItems='center' direction='column'> 
+     <Step className={classes.stepItem} key='basic' goTo={handleInfoDialog} label='basic info' isComplete={true}/>
     {STEP_LABELS[process].map(x=>
     <Step key={x} goTo={this.goTo} process={process} label={x} isComplete={!checkComplition(x,data)}/>
   )}</Grid>)
     return(<div className={classes.root}>
     
-    <Grid className={classes.ProgressGrid} container  alignItems='center' direction='row' justify='space-around'>
+    <Grid className={classes.ProgressGrid} container  alignItems='center' direction={isMobile?'column':'row'} justify='space-around'>
     <Grid item   xs={12} sm={12}>
-    <Typography variant='display1'>
+    <Typography variant='display1' className={isMobile?classes.mobileHeader:classes.header} >
       Application Progress
     </Typography>
     </Grid>
-        <Grid item   xs={12} sm={6}>
+        <Grid style={{maxWidth:230}} item  xs={12} sm={6}>
              <ProgressDial percentage={this.completitionPercentage(data)}/>
           </Grid>
              <Grid item   xs={12} sm={6}>
               {steps}
               </Grid>
-    </Grid>
-    <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
-              {isComplete(data)?`Preview`:`Continue Application`}
+              <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
+             <div style={{marginTop:-7}}> {isComplete(data)?`Preview`:`Continue Application`}</div> <AnimateIcon> <ArrowIcon/><ArrowIcon style={{marginLeft:-18}}/> </AnimateIcon> 
               </Button>
+    </Grid>
+   
    </div>)
 }
   }
-export default withRouter(withStyles(styles)(ApplicationProgress))
+export default withRouter(withStyles(styles,{withTheme:true})(ApplicationProgress))
