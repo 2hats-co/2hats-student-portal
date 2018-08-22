@@ -7,6 +7,7 @@ import { Typography } from "@material-ui/core";
 import green from '@material-ui/core/colors/green';
 const styles = theme => ({
   root:{
+    marginLeft:25,
     height:180,
     width:180
   },
