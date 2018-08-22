@@ -26,7 +26,6 @@ import LogoInCard from "../components/LogoInCard";
 import ChangeAdpter from "../components/InputFields/ChangeAdapter";
 
 //utilities
-import { resetPasswordEmail } from "../utilities/Authentication/resetPassword";
 import {
   createUserWithPassword,
   signInWithPassword,
@@ -97,6 +96,7 @@ class AuthenticationContainer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleSignin = this.handleSignin.bind(this);
+    this.handleError = this.handleError.bind(this);
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this);
   }
   componentWillMount() {
@@ -121,17 +121,28 @@ class AuthenticationContainer extends React.Component {
     this.setState({ isLoading: true });
     const { email, password } = this.state;
     const user = { email, password };
-    signInWithPassword(user, route => this.goTo(route), o => console.log(o));
+    signInWithPassword(user, route => this.goTo(route),this.handleError);
+  }
+  handleError=(o)=>{ 
+    this.setState({snackBar:{message:o.message,variant:'error'},isLoading:false})
   }
   handleSignup() {
-    const { firstName, lastName, email, password } = this.state;
-    console.log(this.state)
-    const user = { firstName, lastName, email, password };
-    createUserWithPassword(
-      user,
-      route => this.goTo(route),
-      o => console.log(o)
-    );
+    if(!this.state.isLoading){
+      const { firstName, lastName, email, password } = this.state;
+      if(firstName!==''||lastName!==''){
+        const user = { firstName, lastName, email, password };
+        this.setState({isLoading:true})
+      createUserWithPassword(
+        user,
+        route => this.goTo(route),
+        this.handleError
+      );
+      }else{
+        this.setState({snackBar:{message:'Please enter you first and last name',variant:'error'},isLoading:false})
+      }
+    }
+   
+    
   }
   handleUpdatePassword(route) {
     return () => {
@@ -139,7 +150,7 @@ class AuthenticationContainer extends React.Component {
       updateUserPassword(
         password,
         () => this.goTo(route),
-        o => console.log(o)
+       this.handleError
       );
     };
   }
@@ -301,9 +312,9 @@ class AuthenticationContainer extends React.Component {
         It looks like you don't have a password yet.
       </Typography>
     );
-    const passwordField = (label)=>(
+    const passwordField = (label,action)=>(
       <ChangeAdpter key='passwordFieldAdapter' changeHandler={this.handleChange}>
-        <Password label={label} password={password} />
+        <Password primaryAction={action} label={label} password={password} />
       </ChangeAdpter>
     );
     const signUpButton = (
@@ -363,21 +374,21 @@ class AuthenticationContainer extends React.Component {
       newAccountMessage(onSignupRoute),
       routeLabel(true),
       nameFields,
-      passwordField(),
+      passwordField('Password',this.handleSignup),
       disclaimer,
       signUpButton
     ];
     const passwordView = [
       backBar,
       welcomeGreeting,
-      passwordField(),
+      passwordField('Password',this.handleSignin),
       signInBar,
       
     ];
     const resetPasswordView = [
       welcomeGreeting,
       resetPasswordMessage,
-      passwordField('New Password'),
+      passwordField('New Password',this.handleUpdatePassword),
       resetPasswordButton
     ];
     const createPasswordView = [
@@ -386,7 +397,7 @@ class AuthenticationContainer extends React.Component {
       googleButton,
       linkedinButton,
       orLabel,
-      passwordField('New Password'),
+      passwordField('New Password',this.handleUpdatePassword),
       createPasswordButton
     ];
     const logoutView =[doneIcon,

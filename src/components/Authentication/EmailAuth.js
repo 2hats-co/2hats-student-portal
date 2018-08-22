@@ -29,19 +29,26 @@ class EmailAuth extends Component {
         });
      };
     handleEmailCheck(){
-      this.props.changeHandler('isLoading',true)
-      checkEmail(this.state.email, (result) => {
+      const {email} = this.state
+      if(validateEmail(email)){
+        this.props.changeHandler('isLoading',true)
+      checkEmail(email, (result) => {
         const { firstName, provider } = result.data;
-
         this.props.changeHandler('isLoading', false)
-        this.props.changeHandler('email', this.state.email)
+        this.props.changeHandler('email',email)
         this.props.changeHandler('firstName', firstName)
         this.props.changeHandler('view', provider)
+        this.props.changeHandler('snackBar',null)
+
       }, (error) => {
         this.props.changeHandler('isLoading', false)
-        this.props.changeHandler('email', this.state.email)
+        this.props.changeHandler('email',email)
         this.props.changeHandler('view', 'signup')
       });
+      }else{
+        this.props.changeHandler('snackBar', {message:'invalid email format',variant:'error'})
+      }
+      
     }
     render(){
       const {email} = this.state
@@ -49,6 +56,7 @@ class EmailAuth extends Component {
         return(
             <div>
            <Email key="emailField" 
+           primaryAction={this.handleEmailCheck}
            value={email} 
            changeHandler={this.handleChange}/>
           <Button key='check-button' 
