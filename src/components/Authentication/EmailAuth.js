@@ -21,40 +21,27 @@ class EmailAuth extends Component {
         super(props)
         this.state ={email:''}
         this.handleChange = this.handleChange.bind(this);
-        this.handleResponse = this.handleResponse.bind(this)
         this.handleEmailCheck = this.handleEmailCheck.bind(this)
     }
-    componentWillMount() {
-      checkEmail('wakeup', o => {return o => o})     
-    }
     handleChange = name => event => {
-        if(name==='email'){
-          if(event.target.value.length ===7){
-            checkEmail('wakeup', o => {return o => o})
-          }
-        }
         this.setState({
           [name]: event.target.value,
         });
-      };
-    handleResponse(r){
-      console.log(r)
-      this.props.changeHandler('isLoading',false)
-      this.props.changeHandler('email',this.state.email)
-      this.props.changeHandler('firstName',r.firstName)
-
-      if(r.error){
-        this.props.changeHandler('view','signup')
-      }else{
-        this.props.changeHandler('view',r.provider)
-      }
-       
-
-
-    }
+     };
     handleEmailCheck(){
       this.props.changeHandler('isLoading',true)
-      checkEmail(this.state.email,this.handleResponse)
+      checkEmail(this.state.email, (result) => {
+        const { firstName, provider } = result.data;
+
+        this.props.changeHandler('isLoading', false)
+        this.props.changeHandler('email', this.state.email)
+        this.props.changeHandler('firstName', firstName)
+        this.props.changeHandler('view', provider)
+      }, (error) => {
+        this.props.changeHandler('isLoading', false)
+        this.props.changeHandler('email', this.state.email)
+        this.props.changeHandler('view', 'signup')
+      });
     }
     render(){
       const {email} = this.state

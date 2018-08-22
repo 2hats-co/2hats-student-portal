@@ -1,21 +1,17 @@
-import request from 'superagent'
-const API = 'https://us-central1-staging2hats.cloudfunctions.net/restApiCheckEmail';
+import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
-export const checkEmail = (email,callback) =>{
-    request
-  .post(API)
-  .send({ email: email}) // sends a JSON post body
-  .set('X-API-Key', 'foobar')
-  .set('accept', 'json')
-  .end((err, res) => {
-   // console.log(res)
-    //console.log(JSON.parse(res.text))
-    if(callback&& res){
-    callback(res.body)
-    }
-    if(err){
-        console.log(err)
-    }
-    //this.setState({emailReport:JSON.parse(res.text)})
-});
-}
+export const checkEmail = (email, success, fail) => {
+    const request = { 
+        email: email
+    };
+
+    cloudFunction(CLOUD_FUNCTIONS.CHECK_EMAIL, request
+        ,(result) => {
+            console.log("Call checkEmail success: ", result);
+            success(result);
+        }
+        ,(error) => {
+            console.log("Call checkEmail error: ", error.message);
+            fail(error);
+        });
+};

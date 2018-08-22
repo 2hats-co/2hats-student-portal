@@ -20,9 +20,7 @@ import {SPEEDY_SIGNUP} from '../constants/views'
 
 import request from 'superagent'
 import { withRouter } from "react-router-dom";
-
-const API = 'https://us-central1-staging2hats.cloudfunctions.net/restApiSpeedySignup';
-
+import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 
 const styles = theme => ({
     root: {
@@ -72,10 +70,8 @@ class SpeedySignupContainer extends Component {
             isLoading:false
         }
         this.createUser = this.createUser.bind(this)
-        this.handleResponse = this.handleResponse.bind(this)
         this.handleReset = this.handleReset.bind(this)
         this.goHome = this.goHome.bind(this)
-        this.warmupAPI= this.warmupAPI.bind(this)
     }
     componentWillMount(){
         if(this.props.history.location.hash ==='#UTS'){
@@ -83,8 +79,7 @@ class SpeedySignupContainer extends Component {
         }
         window.Intercom('update',{
             'hide_default_launcher': true
-          })
-          this.warmupAPI()
+        })
     }
     handleReset(){
         this.setState({
@@ -97,59 +92,32 @@ class SpeedySignupContainer extends Component {
             isLoading: false
         })
     }
-    handleResponse(body){
-        this.setState({isLoading:false})
-        if(body.message === 'success'){
-            this.setState({view:SPEEDY_SIGNUP.success})
-        }
-    }
-    warmupAPI(){
-        request
-  .post(API)
-  .send({
-    warmUp:true,
-  }) // sends a JSON post body
-  .set('X-API-Key', 'foobar')
-  .set('accept', 'json')
-  .end((err, res) => {
-   
-    console.log(res.body)
     
-    if(err){console.log(err)}
-    })
-    }
     createUser(){
-        this.setState({isLoading:true})
-        const {firstName,lastName,email,currentUniversity,industry} = this.state
-        request
-  .post(API)
-  .send({
-    warmUp:false,
-    firstName:firstName,
-    lastName:lastName,
-    email:email,
-    currentUniversity:currentUniversity,
-    industry:industry
-  }) // sends a JSON post body
-  .set('X-API-Key', 'foobar')
-  .set('accept', 'json')
-  .end((err, res) => {
-   
-    this.handleResponse(res.body)
-    
-    if(err){console.log(err)}
-    })
+        const { firstName, lastName, email, currentUniversity, industry } = this.state
+        const userInfo = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            currentUniversity: currentUniversity,
+            industry: industry
+        };
+
+        this.setState({ isLoading: true });
+        cloudFunction(CLOUD_FUNCTIONS.SPEEDY_SIGNUP, userInfo
+            ,(result) => {
+                this.setState({ isLoading: false })
+                this.setState({ view: SPEEDY_SIGNUP.success })
+                console.log("Call speedySignup success: ", result);
+            }
+            ,(error) => {
+                console.log("Call speedySignup error: ", error);
+            });
     }
     handleChange = (name,value) => {
-        
        this.setState({[name]:value})
-       if(name==='industry'){
-           this.warmupAPI()
-       }
-       if(name==='email'&& value.length===6){
-        this.warmupAPI()
-       }
-      };
+    };
+
     goHome(){
         window.open('https://2hats.com.au','_self')
     }

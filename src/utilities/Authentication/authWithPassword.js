@@ -2,6 +2,7 @@ import {auth,db} from '../../store/index'
 import {INTRODUCTION, DASHBOARD} from '../../constants/routes'
 export const createUserWithPassword=(user,routeHandler,errorHandler)=>{
     const { firstName, lastName, email, password } = user
+    
     auth.createUserWithEmailAndPassword(email, password)
       .then(authUser => {
         authUser.user.updateProfile({

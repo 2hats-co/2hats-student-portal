@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { functions } from "../store";
 
 //material ui
 import Typography from "@material-ui/core/Typography";
@@ -33,6 +32,7 @@ import {
   signInWithPassword,
   updateUserPassword
 } from "../utilities/Authentication/authWithPassword";
+import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 
 import BackIcon from "@material-ui/icons/KeyboardBackspace";
 const styles = theme => ({
@@ -125,6 +125,7 @@ class AuthenticationContainer extends React.Component {
   }
   handleSignup() {
     const { firstName, lastName, email, password } = this.state;
+    console.log(this.state)
     const user = { firstName, lastName, email, password };
     createUserWithPassword(
       user,
@@ -228,14 +229,29 @@ class AuthenticationContainer extends React.Component {
     const forgetPasswordLink = () => {
       const callback = () => {
         if(!isLoading){
-          const restApiResetPassword = functions.httpsCallable("restApiResetPassword");
-          this.setState({isLoading:true})
-        restApiResetPassword({ email: email })
-          .then(() => {
-            this.setState({snackBar:{message:"An email for resetting password is sent to you.",variant:'success'},isLoading:false})
-          })
-          .catch(error => {
-            this.setState({snackBar:{message:error,variant:'error'},isLoading:false})
+          const request = {
+            email: email
+          };
+
+          this.setState({isLoading:true});
+          cloudFunction(CLOUD_FUNCTIONS.RESET_PASSWORD, request,
+            (result) => {
+              this.setState({
+                snackBar: { 
+                  message: "An email for resetting password is sent to you.",
+                  variant: 'success'
+                },
+                isLoading: false
+              });
+            },
+          (error) => {
+            this.setState({
+              snackBar: {
+                message: error.message,
+                variant: 'error'
+              },
+              isLoading: false
+            })
           });
         }
       };

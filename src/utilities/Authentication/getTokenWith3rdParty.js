@@ -1,37 +1,24 @@
-import request from 'superagent'
-import {auth} from '../../store/index'
-import { withRouter } from "react-router-dom";
+import { auth } from '../../store/index'
+import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
-const API = 'https://us-central1-staging2hats.cloudfunctions.net/restApiAuthenticate3rdParty';
+export const getTokenWith3rdParty = (user, callback) => {
+    const request = { 
+        id: user.id,
+        email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        provider: user.provider,
+        avatarURL: user.avatarURL
+    };
 
-export const getTokenWith3rdParty = (user,callback) =>{
-    //console.log(this)
-    request
-  .post(API)
-  .send({ 
-    provider:user.provider,
-    email:user.email,
-    id:user.id,
-    firstName:user.firstName,
-    lastName:user.lastName,
-    avatarURL:user.avatarURL
-
-  }) // sends a JSON post body
-  .set('X-API-Key', 'foobar')
-  .set('accept', 'json')
-  .end((err, res) => {
- 
-    if(res){
-        auth.signInWithCustomToken(res.body.token).then(()=>{
-            callback(res.body.route)
-        })
-    }
-    if(err){
-        console.log(err)
-    }
-   
-});
-}
-
-
-//const { providerId,email,id,firstName,lastName,avatarURL} = req;
+    cloudFunction(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY, request
+        ,(result) => {
+            auth.signInWithCustomToken(result.data.token).then(()=>{
+                callback(result.data.route);
+            });
+            console.log("Call authenticate3rdParty success: ", result);
+        }
+        ,(error) => {
+            console.log("Call authenticate3rdParty error: ", error);
+        });
+};
