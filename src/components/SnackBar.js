@@ -114,7 +114,7 @@ class SnackBar extends React.Component {
   };
 
   render() {
-    const { classes,data} = this.props;
+    const {data} = this.props;
     if(data){
         return (
             <div>

@@ -159,7 +159,7 @@ class AuthenticationContainer extends React.Component {
     } = this.state;
     const onSignupRoute = this.props.history.location.pathname=== routes.SIGN_UP
     const backBar = (
-      <Grid
+      <Grid key="back-bar"
         style={{ width: "100%", marginLeft: -30 }}
         container
         direction="row"
@@ -191,20 +191,20 @@ class AuthenticationContainer extends React.Component {
     const linkedinButton = (
       <LinkedinButton
         key="linkedin-button"
-        id="google-button"
+        id="linkedin-button"
         action={onSignupRoute?'Sign up': 'Sign in'}
         changeHandler={this.handleChange}
       />
     );
-    const emailAuth = <EmailAuth changeHandler={this.handleChange} />;
+    const emailAuth = <EmailAuth key='EmailAuth' changeHandler={this.handleChange} />;
     let linkButton = (label, link) => (
       <StyledLink key={`${label}${link}`} href={link}>
         {label}
       </StyledLink>
     );
     const nameFields = (
-      <ChangeAdpter changeHandler={this.handleChange}>
-        <Name key="namefield" firstName={firstName} lastName={lastName} />
+      <ChangeAdpter  key="namefield" changeHandler={this.handleChange}>
+        <Name firstName={firstName} lastName={lastName} />
       </ChangeAdpter>
     );
     const orLabel = (
@@ -256,82 +256,83 @@ class AuthenticationContainer extends React.Component {
         }
       };
       return (
-        <StyledLink key={'forgot-password'} onClick={callback}>
+        <StyledLink key='forgot-password' onClick={callback}>
          Forget Password?
         </StyledLink>
       );
     };
 
-    const disclaimer = <Disclaimer />;
+    const disclaimer = <Disclaimer key='Disclaimer'  />;
     const welcomeGreeting = (
-      <Typography variant="title" color="primary" style={{ width: "100%" }}>
+      <Typography key='welcomeGreeting'  variant="title" color="primary" style={{ width: "100%" }}>
         Welcome back {firstName},
       </Typography>
     );
-    const doneIcon = (<DoneIcon style={{fontSize:100, color:'#00E676'}}/>)
+    const doneIcon = (<DoneIcon key='logout-icon' style={{fontSize:100, color:'#00E676'}}/>)
     const hiGreeting = (
-      <Typography variant="title" color="primary" style={{ width: "100%" }}>
+      <Typography key='hiGreeting' variant="title" color="primary" style={{ width: "100%" }}>
         Hi {firstName},
       </Typography>
     );
     const resetPasswordMessage = (
-      <Typography variant="subheading">
+      <Typography  key='resetPasswordMessage' variant="subheading">
         Please enter in a new password to reset.
       </Typography>
     );
     const googleMessage = (
-      <Typography variant="subheading">
+      <Typography key='googleMessage' variant="subheading">
         It looks like your account is created with Google.
       </Typography>
     );
     const linkedinMessage = (
-      <Typography variant="subheading">
+      <Typography key='linkedinMessage' variant="subheading">
         It looks like your account is created with Linkedin.
       </Typography>
     );
     const newAccountMessage =(isHidden)=> {
       if(!isHidden){
-        return <Typography variant="subheading">
+        return <Typography key='newAccountMessage' variant="subheading">
             It look likes we don’t have an account with this email address.
           </Typography>
       }
     }
     const createPasswordMessage = (
-      <Typography variant="subheading">
+      <Typography key='createPasswordMessage' variant="subheading">
         It looks like you don't have a password yet.
       </Typography>
     );
     const passwordField = (label)=>(
-      <ChangeAdpter changeHandler={this.handleChange}>
+      <ChangeAdpter key='passwordFieldAdapter' changeHandler={this.handleChange}>
         <Password label={label} password={password} />
       </ChangeAdpter>
     );
     const signUpButton = (
-      <Button className={classes.button} onClick={this.handleSignup}>
+      <Button key='signUpButton' className={classes.button} onClick={this.handleSignup}>
         Sign Up
       </Button>
     );
     const resetPasswordButton = (
-      <Button className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
+      <Button key='resetPasswordButton' className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
         Update
       </Button>
     );
 
     const signInButton = (
-      <Button className={classes.button} onClick={this.handleSignin}>
+      <Button  key='signInButton' 
+       className={classes.button} onClick={this.handleSignin}>
         Sign In
       </Button>
     );
     const createPasswordButton = (
-      <Button
+      <Button key='createPasswordButton' 
         className={classes.createButton}
         onClick={this.handleUpdatePassword(routes.INTRODUCTION)}
       >
         Create Password
       </Button>
     );
-    const logoutMessage = ( <Typography variant='title' style={{textAlign:'center'}}>You have successfully logged out</Typography>)
-    const signInBar = (<Grid container='row' alignItems='center' justify='space-between'>{signInButton} {forgetPasswordLink()}</Grid>)
+    const logoutMessage = ( <Typography key='logoutMessage'  variant='title' style={{textAlign:'center'}}>You have successfully logged out</Typography>)
+    const signInBar = (<Grid key= 'signInBar'  container='row' alignItems='center' justify='space-between'>{signInButton} {forgetPasswordLink()}</Grid>)
     let switchLink = (onSignup) =>{
       if(onSignup){
         return footerLink(`Already have an account?`,routes.SIGN_IN,'Sign in')
@@ -339,7 +340,7 @@ class AuthenticationContainer extends React.Component {
         return footerLink(`Don’t have an account?`,routes.SIGN_UP,'Sign up')
       }
     }
-    let routeLabel =(onSignup) => (<Typography variant='title' color='primary' style={{width:'100%',textAlign:'center'}}>{onSignup? 'Sign up':'sign in'}</Typography>)
+    let routeLabel =(onSignup) => (<Typography key={`routeLabel-${onSignup? 'Sign-up':'sign-in'}`}variant='title' color='primary' style={{width:'100%',textAlign:'center'}}>{onSignup? 'Sign up':'sign in'}</Typography>)
     
     let authView = [routeLabel(onSignupRoute),
       googleButton,
@@ -442,6 +443,7 @@ class AuthenticationContainer extends React.Component {
     return (
       <LogoInCard width={350} height={cardHeight} isLoading={isLoading} snackBar={snackBar}  >
         <Grid
+
           container
           className={classes.root}
           style={{ height: gridHeight }}

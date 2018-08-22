@@ -149,7 +149,7 @@ ProfileCard.propTypes = {
   bio:PropTypes.string.isRequired,
   name:PropTypes.string.isRequired,
   resumeFile:PropTypes.any,
-  interestsList:PropTypes.arrayOf(PropTypes.string).isRequired,
+  interestsList:PropTypes.exact({type:PropTypes.string,value:PropTypes.arrayOf(PropTypes.string)}),
   skillsList:PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

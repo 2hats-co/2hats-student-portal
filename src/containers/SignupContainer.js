@@ -152,9 +152,7 @@ class ResumeBuilderContainer extends Component {
     this.setState({ profile: newProfile });
   }
   getStepContent(currentStep, profile) {
-    
     const { careerInterests, industry } = profile;
-    console.log('careerInterests',careerInterests)
     switch (currentStep) {
       case ALL_STEPS.careerInterests:
         return (

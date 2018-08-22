@@ -7,8 +7,7 @@ import 'firebase/firestore'
 import 'firebase/storage'
 import 'firebase/functions'
 import logger from 'redux-logger'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+
 
 import { productionConfig, stagingConfig } from '../config/firebase'
 

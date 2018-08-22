@@ -40,7 +40,7 @@ render(){
               <ClickAwayListener onClickAway={()=>{this.setState({popperIsOpen:false})}}>
                 <MenuList>
                   {items.map((x)=>{
-                    return <MenuItem onClick={x.action}>
+                    return <MenuItem key={x.label} onClick={x.action}>
                       {x.label}
                     </MenuItem>
                   })}}

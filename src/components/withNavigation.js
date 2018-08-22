@@ -183,11 +183,6 @@ export const withNavigation = (WrappedComponent) => {
             this.goTo(routes.INTRODUCTION)
             }
          }
-
-        console.log("location: ", this.props.location)
-        if(prevProps.location !== this.props.location && this.props.location.hash === '#basic'){ 
-          this.handleLogoutToggle();
-        }
       }
        
       handleDrawerToggle = () => {
@@ -213,7 +208,7 @@ export const withNavigation = (WrappedComponent) => {
       };
     
       render(){
-      const {classes,theme,history,children,profile,user,upcomingEvents} = this.props    
+      const {classes,theme,history,profile,user} = this.props    
       const { logoutToggleOpen } = this.state;
       const pathName = history.location.pathname
        
@@ -285,9 +280,9 @@ export const withNavigation = (WrappedComponent) => {
                           }}>
                             <UpdateIcon/>My account
                           </MenuItem>
-                          <MenuItem value="Logout" onClick={() => {
+                          <MenuItem value="Logout" onClick={async() => {
                             this.setState({ logoutToggleOpen: false });
-                            auth.doSignOut();
+                            await auth.doSignOut();
                             this.props.clearData();
                             this.goTo(routes.LOG_OUT);
                           }}>

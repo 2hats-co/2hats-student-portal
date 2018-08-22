@@ -15,12 +15,7 @@ import moment from 'moment'
 const monthLabels = [['Jan','Feb','Mar','Apr'],['May','Jun','Jul','Aug'],['Sep','Oct','Nov','Dec']]
 const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
 function getMonthName(n){return(monthNames[n-1])} 
-function getDateIndex(month,year){
-    if(month<10){return(`${year-2000}0${month}`)}
-    else{
-        return(`${year-2000}${month}`)
-    }
-}
+
 function getMoment(m,y){
     let dateSting = `${m}`+`${y}`
     if(m<10){

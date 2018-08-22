@@ -31,7 +31,7 @@ class Password extends React.Component{
             type={this.state.showPassword ? 'text' : 'password'}
             value={value}
             fullWidth
-            margin="normal"
+         //   margin="normal"
             onChange={changeHandler('password')}
             endAdornment={
               <InputAdornment position="end">
