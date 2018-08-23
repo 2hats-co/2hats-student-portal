@@ -33,7 +33,7 @@ const styles = theme => ({
         minHeight:350
     },
     mobileForm:{
-        width:250,
+        width:280,
        // marginLeft:50
     },
     button:{
@@ -177,7 +177,8 @@ class SpeedySignupContainer extends Component {
          const {theme,classes} = this.props
          const isMobile = theme.responsive.isMobile
          return(
-             <LogoInCard width={isMobile?290:755} height={520} isLoading={isLoading}>
+             <LogoInCard width={isMobile?350:755} height={520} isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
+             >
             
                 <Grid container direction={isMobile?'column':'row'} alignItems='center' justify='space-around'>
                 {view === SPEEDY_SIGNUP.form? this.renderForm():this.renderCongrats()}

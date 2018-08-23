@@ -27,10 +27,10 @@ function SmartLinkContainer(props) {
 						auth.signInWithCustomToken(result.data.token).then(authUser => {
 							// Redirect page based on the route.
 							const route = result.data.route;
-							const firstName = authUser.user.displayName.split(" ")[[0]];
 							//routing to target page
 							if(route === routes.CREATE_PASSWORD ||route === routes.RESET_PASSWORD ){
-							props.history.replace(route + `?firstName=${firstName}`);
+								const firstName = authUser.user.displayName.split(" ")[[0]];
+								props.history.replace(route + `?firstName=${firstName}`);
 							}else if(route === routes.VALIDATE_EMAIL){
 							db.collection(COLLECTIONS.users).doc(authUser.user.uid).update({emailVerified:true})
 							props.history.replace(route);
