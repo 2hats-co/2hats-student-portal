@@ -282,6 +282,7 @@ function Compressor_class() {
 				cores: cores,
 				source: source[c].data.buffer,
 			};
+	remoteConsole.log(`objData===>${JSON.stringify(objData)}`)
 			my_worker.postMessage(objData, [objData.source]);
 		}
 	};
