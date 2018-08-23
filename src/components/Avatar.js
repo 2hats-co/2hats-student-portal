@@ -6,16 +6,15 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiAvatar from '@material-ui/core/Avatar';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import Dialog from './Dialog/index'
-import { Button } from '@material-ui/core';
+import { Button, Grid } from '@material-ui/core';
 
 import Dropzone from 'react-dropzone'
 import {db,firebaseStorage} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 
-
+import {imageCompressor} from '../utilities/imageCompressor'
 const styles = theme =>({
     dropZone:{
-      
         border:'none !important'
     },
     avatar: {
@@ -29,20 +28,21 @@ const styles = theme =>({
         backgroundColor: deepOrange[600],
     },
     bigAvatar: {
-        margin:30,
+        marginTop:30,
+        marginLeft:20,
+        marginBottom:10,
       width: 150,
       height: 150,
       fontSize:45
     },
-    uploadButton:{
-        marginLeft:10,  
+    uploadButton:{  
         width:190
     }
   });
   
 class Avatar extends Component{
 
-    state= { isOpen:true,
+    state= { isOpen:false,
         isUploading:false,
         avatarURL:'',
         hasChanged:false,
@@ -87,11 +87,15 @@ class Avatar extends Component{
      
         this.setState({isUploading:false})
     }
+    
     onDrop(files) {
+        this.setState({isUploading:true,hasChanged:true})
+        this.setState({avatarURL:files[0].preview})
         const uid = this.props.uid
-            this.setState({isUploading:true,hasChanged:true})
-            const documentRef = firebaseStorage.child(`${uid}/avatarPhotos/${Date.now()}/${files[0].name}`)
-            documentRef.put(files[0]).then(this.handleUpload);
+        const documentRef = firebaseStorage.child(`${uid}/avatarPhotos/${Date.now()}/${files[0].name}`)
+        imageCompressor(files[0].preview,300,(o)=>{
+            documentRef.putString(o, 'base64').then(this.handleUpload);
+        })
       }
     render(){
         const {avatarURL,firstName,lastName,classes} = this.props
@@ -121,6 +125,7 @@ class Avatar extends Component{
             addHandler={this.saveHandler} 
             cancelHandler={this.cancelHandler}
             >
+            <Grid container direction='column' alignItems='center' style={{width:'100%'}}>
              <Dropzone 
              onDrop={this.onDrop.bind(this)} 
              className={classes.dropZone}
@@ -131,6 +136,7 @@ class Avatar extends Component{
             Upload Photo
             </Button>
             </Dropzone>
+            </Grid>
             </Dialog>
         </div>
         )
