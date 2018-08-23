@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { withStyles } from "@material-ui/core/styles";
 import InputWrapper from "./InputWrapper";
-import { TextField } from "@material-ui/core";
+
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -13,15 +13,21 @@ import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import FormControl from '@material-ui/core/FormControl';
+
+import AddIcon from '@material-ui/icons/AddCircleOutline'
 
 const styles = theme => ({
   root:{
     width:'100%',
-    maxWidth:450
+    maxWidth:520
   },
   textField:{
       width:'100%',
-      maxWidth:450
+      maxWidth:520
   },
   paper: {
   // backgroundColor:'#f00',
@@ -33,6 +39,8 @@ const styles = theme => ({
     pointerEvents: "none"
   },chip: {
     margin: 4
+  },addIcon:{
+    color:theme.palette.primary.light
   }
 });
 
@@ -43,6 +51,12 @@ class AutoCompleteField extends React.Component {
     filteredList: [],
     showList: false,
   };
+  handleAdd(){
+    const skill = this.state.skillValue;
+    if (skill !== "") {
+      this.handleClose(skill);
+    }
+  }
   handleClose = val => {
     this.setState({ showList: false });
     if (typeof val !== "string") return;
@@ -80,7 +94,40 @@ class AutoCompleteField extends React.Component {
                 this.target1 = node;
               }}
             >
-              <TextField
+
+
+            <FormControl style={{width:'100%'}}>
+          {/* <InputLabel htmlFor="passwordField">{label||'Password'}</InputLabel>
+           */}
+          <Input
+            id="SkillsField"
+            type='text'
+            //className={classes.textField}
+            value={this.state.skillValue}
+            placeholder={placeholder}
+            fullWidth
+            onKeyPress={e => {
+              if (e.key === "Enter") {
+              
+                this.handleAdd.bind(this)()
+                
+              }}}
+         //   margin="normal"
+           onChange={this.handleChange("skillValue")}
+         //   onKeyPress={handleKeyPress}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="Toggle password visibility"
+                  onClick={this.handleAdd.bind(this)}
+                >
+                  <AddIcon className={classes.addIcon}/>
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+        </FormControl>
+              {/* <TextField
                 value={this.state.skillValue}
                 placeholder={placeholder}
                 className={classes.textField}
@@ -93,7 +140,7 @@ class AutoCompleteField extends React.Component {
                     }
                   }
                 }}
-              />
+              /> */}
             </div>
           </Target>
           <Popper
