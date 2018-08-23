@@ -76,7 +76,7 @@ export const Theme = createMuiTheme({
         backgroundColor:primaryColor,
         borderRadius:'20px',
         textTransform: 'capitalize',
-        '&:hover': {backgroundColor:primaryColor},
+        '&:hover': {backgroundColor:'#d85125'},
         '&:disabled': {opacity: 0.4,color:WHITE},
       },
       outlined: { // Name of the rule
@@ -85,7 +85,7 @@ export const Theme = createMuiTheme({
         borderRadius:'20px',
         border: `1px solid ${BLACK}`,
         textTransform: 'capitalize',   
-        '&:hover': {backgroundColor:WHITE}
+        '&:hover': {backgroundColor:'#f5f5f5'}
       },
       contained: { // Name of the rule
         color: BLACK,
