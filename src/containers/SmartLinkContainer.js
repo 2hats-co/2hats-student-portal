@@ -3,9 +3,10 @@ import { withRouter } from "react-router-dom";
 import LogoInCard from "../components/LogoInCard";
 import { Typography } from "@material-ui/core";
 
-import { auth } from "../store";
+import { auth,db } from "../store";
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
-
+import * as routes from '../constants/routes'
+import { COLLECTIONS } from "../constants/firestore";
 function SmartLinkContainer(props) {
 	const queryStr = props.history.location.search;
 
@@ -27,7 +28,15 @@ function SmartLinkContainer(props) {
 							// Redirect page based on the route.
 							const route = result.data.route;
 							const firstName = authUser.user.displayName.split(" ")[[0]];
+							//routing to target page
+							if(route === routes.CREATE_PASSWORD ||route === routes.RESET_PASSWORD ){
 							props.history.replace(route + `?firstName=${firstName}`);
+							}else if(route === routes.VALIDATE_EMAIL){
+							db.collection(COLLECTIONS.users).doc(authUser.user.uid).update({emailVerified:true})
+							props.history.replace(route);
+							}else{
+							props.history.replace(route);
+							}
 						});
 					},
 					(error) => {

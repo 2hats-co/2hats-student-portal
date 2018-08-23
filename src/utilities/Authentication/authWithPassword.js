@@ -17,6 +17,7 @@ export const createUserWithPassword=(user,routeHandler,errorHandler)=>{
                 lastName,
                 createdAt: new Date(),
                 providers:[{service:'password',id:uid}],
+                signupMethod:'password',
                 stage:'pre-review',// TODO use stage and status constants
                 status:'incomplete',
               })

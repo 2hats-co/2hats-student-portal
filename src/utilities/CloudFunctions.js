@@ -5,7 +5,8 @@ export const CLOUD_FUNCTIONS = {
     AUTHENTICATE_3RD_PARTY: "restApiAuthenticate3rdParty",
     CHECK_EMAIL: "restApiCheckEmail",
     SMART_LINK: "restApiSmartLink",
-    RESET_PASSWORD: "restApiResetPassword"
+    RESET_PASSWORD: "restApiResetPassword",
+    VALIDATE_EMAIL:'restApiVaildateEmail'
 };
 
 export const cloudFunction = (name, input ,success, fail) =>{
