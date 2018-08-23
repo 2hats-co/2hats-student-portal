@@ -7,7 +7,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-
+import LinearProgress from '@material-ui/core/LinearProgress';
 const styles = theme => ({
     root:{
     },content:{
@@ -24,7 +24,7 @@ const styles = theme => ({
   });
 
 function WebForm(props){
-    const {classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler,width,unChanged} = props
+    const {isLoading,classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler,width,unChanged} = props
     
     return(
         <Dialog 
@@ -33,6 +33,9 @@ function WebForm(props){
         onClose={unChanged&&cancelHandler} 
         aria-labelledby="form-dialog-title"
       >
+        <LinearProgress className={classes.loading} 
+                style={isLoading?{}:{display:'none'}}
+                />
       <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{activity} {title}</DialogTitle>
         <DialogContent className={classes.content}>
           <Grid
@@ -41,7 +44,7 @@ function WebForm(props){
           style={{maxWidth:width}}
           direction='column'
           justify='flex-start'
-          > 
+          >   
           {children}
           </Grid>
           </DialogContent>

@@ -11,11 +11,14 @@ const styles = theme => ({
   });
   
 function Dialog(props){
-    const {activity,title,unChanged,addHandler,isOpen,theme,children,disabled,cancelHandler,width} = props
+    const {isLoading,activity,title,unChanged,addHandler,isOpen,theme,children,disabled,cancelHandler,width} = props
     
     if(theme.responsive.isMobile){return(
-        <MobileForm activity={activity} 
-        title={title} isOpen={isOpen} 
+        <MobileForm
+        isLoading={isLoading}        
+        activity={activity} 
+        title={title}
+        isOpen={isOpen} 
         addHandler={addHandler} 
         disabled={disabled} 
         cancelHandler={cancelHandler}>
@@ -23,7 +26,9 @@ function Dialog(props){
           </MobileForm>
     )}else{
         return(
-            <WebForm activity={activity} 
+            <WebForm 
+            isLoading={isLoading}  
+            activity={activity} 
             unChanged={unChanged}
             title={title} isOpen={isOpen} 
             addHandler={addHandler} 

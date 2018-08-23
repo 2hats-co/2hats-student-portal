@@ -89,16 +89,14 @@ class ResumeLoader extends React.Component {
         if(files[0].type !=='application/pdf'){
         this.setState({errorBar:true})
         }else{
-            let uid = this.props.authUser.uid
-            if(uid.includes(':')){
-                uid = uid.split(':')[1]
-            }
+            const uid = this.props.authUser.uid
+       
           if(this.props.resumeFile.name!==''){
             this.handleDelete()
           }
             this.setState({isUploading:true})
             this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`${uid}/resumes/${Date.now()}/${files[0].name}`, downloadURL:''})
-            const documentRef = firebaseStorage.child(`${uid}/resumes/${files[0].name}`)
+            const documentRef = firebaseStorage.child(`${uid}/resumes/${Date.now()}/${files[0].name}`)
             documentRef.put(files[0]).then(this.handleLoader);
         }
       }

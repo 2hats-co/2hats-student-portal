@@ -49,6 +49,7 @@ import StatusCard from './StatusCard'
 
 
 import {actionTypes} from 'redux-firestore'
+import Avatar from './Avatar';
 
 
 
@@ -66,10 +67,9 @@ const styles = theme => ({
     width: '100%',
   },
   appBar: {
-    backgroundColor:'#EDEDED',    
+    backgroundColor:theme.palette.grey[100],    
     position: 'absolute',
     marginLeft: drawerWidth,
-    
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
@@ -107,6 +107,7 @@ const styles = theme => ({
   
     },
     userActions:{
+      display:'flex',
       position: 'absolute',
       right: 10,
       top: 10,
@@ -116,7 +117,7 @@ const styles = theme => ({
       paddingLeft: 30,
       paddingRight: 30,
       textAlign: 'center',
-      backgroundColor: '#EDEDED !important'
+      backgroundColor: 'rgba(0,0,0,0) !important'
     },
 });
 
@@ -249,9 +250,12 @@ export const withNavigation = (WrappedComponent) => {
             >
               <MenuIcon/>
             </IconButton>
-            <div
+            {this.props.user&&<div
                 className={classes.userActions}            
-            >
+            > <Avatar uid={this.props.uid}firstName={this.props.user[0].firstName}
+              lastName={this.props.user[0].lastName}
+              avatarURL={this.props.user[0].avatarURL}
+            />
               <Button
                 className={classes.dropDown}
                 variant='contained'
@@ -294,7 +298,7 @@ export const withNavigation = (WrappedComponent) => {
                   </Grow>
                 )}
               </Popper>
-            </div>
+            </div>}
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -409,14 +413,6 @@ export const withNavigation = (WrappedComponent) => {
             this.props.loadData(submissionsListenerSettings);
           }
         },
-        componentWillUnmount() {
-          // const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-          // this.props.firestore.unsetListener(profileListenerSettings);
-          // const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)
-          //this.props.firestore.unsetListener(usersListenerSettings);
-          // const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
-          // this.props.firestore.unsetListener(upcomingEventsListenerSettings);
-        }
       }),
       connect(({ firestore }) => ({
          profile: firestore.ordered.profiles,
