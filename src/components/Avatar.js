@@ -13,6 +13,8 @@ import {db,firebaseStorage} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 
 import {imageCompressor} from '../utilities/imageCompressor'
+import {remoteConsole} from '../utilities/remoteLogging'
+
 const styles = theme =>({
     dropZone:{
         border:'none !important'
@@ -84,16 +86,19 @@ class Avatar extends Component{
         .then(url => 
            this.setState({avatarURL:url})
         )
-     
         this.setState({isUploading:false})
     }
     
     onDrop(files) {
+        remoteConsole.log(`files===>${JSON.stringify(files)}`)
+        remoteConsole.log(`files[0]===>${JSON.stringify(files[0])}`)
+        remoteConsole.log(`files[0].preview===>${files[0].preview}`)
         this.setState({isUploading:true,hasChanged:true})
         this.setState({avatarURL:files[0].preview})
         const uid = this.props.uid
         const documentRef = firebaseStorage.child(`${uid}/avatarPhotos/${Date.now()}/${files[0].name}`)
-        imageCompressor(files[0].preview,300,(o)=>{
+        imageCompressor(files[0].preview,500,(o)=>{
+            remoteConsole.log(`base64 avatar===>${o}`)
             documentRef.putString(o, 'base64').then(this.handleUpload);
         })
       }
@@ -129,7 +134,7 @@ class Avatar extends Component{
              <Dropzone 
              onDrop={this.onDrop.bind(this)} 
              className={classes.dropZone}
-             accept="image/jpeg, image/png, image/jpg"
+         //    accept="image/jpeg, image/png, image/jpg"
             > 
             {bigAvatar}
             <Button variant='flat' className={classes.uploadButton}>
