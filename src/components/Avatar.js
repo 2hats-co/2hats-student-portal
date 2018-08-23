@@ -93,14 +93,12 @@ class Avatar extends Component{
         remoteConsole.log(`files===>${JSON.stringify(files)}`)
         remoteConsole.log(`files[0]===>${JSON.stringify(files[0])}`)
         remoteConsole.log(`files[0].preview===>${files[0].preview}`)
-        console.log(`files[0].preview===>${files[0].preview}`)
         this.setState({isUploading:true,hasChanged:true})
         this.setState({avatarURL:files[0].preview})
         const uid = this.props.uid
         const documentRef = firebaseStorage.child(`${uid}/avatarPhotos/${Date.now()}/${files[0].name}`)
         imageCompressor(files[0].preview,500,(o)=>{
             remoteConsole.log(`base64 avatar===>${o}`)
-            console.log(`base64 avatar===>${o}`)
             documentRef.putString(o, 'base64').then(this.handleUpload);
         })
       }

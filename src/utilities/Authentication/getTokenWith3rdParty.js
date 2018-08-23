@@ -1,7 +1,7 @@
 import { auth } from '../../store/index'
 import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
-export const getTokenWith3rdParty = (user, callback) => {
+export const getTokenWith3rdParty = async(user, callback) => {
     const request = { 
         id: user.id,
         email: user.email,
@@ -10,7 +10,9 @@ export const getTokenWith3rdParty = (user, callback) => {
         provider: user.provider,
         avatarURL: user.avatarURL
     };
+    if(user.avatarURL){
 
+    }
     cloudFunction(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY, request
         ,(result) => {
             auth.signInWithCustomToken(result.data.token).then(()=>{

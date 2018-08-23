@@ -39,7 +39,6 @@ function draw_image(){
 	
 	img_w = img.width;
 	img_h = img.height;
-	console.log(`original width,height===>${img_w,img_h}`)
 	remoteConsole.log(`original width,height===>${img_w,img_h}`)
 	//prepare canvas
 	canvas.width = img_w;
@@ -61,7 +60,7 @@ function resize(percentages, callback) {
 	
 	var w =  Math.round(img_w * percentages / 100);
 	var h =  Math.round(img_h * percentages / 100);
-
+	remoteConsole.log(`new width,height===>${w},${h}`)
 	//prepare canvas
 	canvas.width = img_w;
 	canvas.height = img_h;
@@ -69,6 +68,7 @@ function resize(percentages, callback) {
 
 	//start timer
 	var time1 = Date.now();	
+	remoteConsole.log(`compression started at===>${time1}`)
 	
 	var on_finish = function(){
 		remoteConsole.log(`compression time ===>${Math.round(Date.now() - time1)/1000}`)

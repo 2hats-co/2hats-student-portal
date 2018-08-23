@@ -54,7 +54,8 @@ function deleteQueryBatch(db, query, batchSize, resolve, reject) {
   }
   
 
-async function log(message){
+async function log(message){  
+   console.log(message)
     const uid =auth.currentUser.uid
     const remoteLog = await db.collection(COLLECTIONS.remoteLogs).doc(uid).get()
     if(remoteLog.data().loggingEnabled){
