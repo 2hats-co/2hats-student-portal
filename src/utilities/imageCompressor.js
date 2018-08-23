@@ -1,4 +1,5 @@
 
+import {remoteConsole} from './remoteLogging'
 var Compressor = new Compressor_class();
 var canvas = document.createElement('canvas');
 var ctx = canvas.getContext('2d');
@@ -38,7 +39,8 @@ function draw_image(){
 	
 	img_w = img.width;
 	img_h = img.height;
-	
+	console.log(`original width,height===>${img_w,img_h}`)
+	remoteConsole.log(`original width,height===>${img_w,img_h}`)
 	//prepare canvas
 	canvas.width = img_w;
 	canvas.height = img_h;
@@ -69,7 +71,8 @@ function resize(percentages, callback) {
 	var time1 = Date.now();	
 	
 	var on_finish = function(){
-		console.log(Math.round(Date.now() - time1)/1000)
+		remoteConsole.log(`compression time ===>${Math.round(Date.now() - time1)/1000}`)
+		console.log(`compression time ===>${Math.round(Date.now() - time1)/1000}`)
 		const dataString = canvas.toDataURL().split(',')[1]
       callback(dataString)
 	};
