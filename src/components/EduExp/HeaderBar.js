@@ -6,17 +6,20 @@ import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton';
 import {WHITE} from '../../Theme'
 import { Grid } from '@material-ui/core';
-const styles = theme => ({
+const styles = theme => {
+  console.log('palette',theme.palette)
+  return({
   header: {
     paddingTop:15,
     paddingLeft:30,
     paddingRight:10,
     width:'82%',
     height:35,
-    borderRadius:35,
-    backgroundColor: theme.palette.primary.light,
-    color:WHITE,
+    borderRadius:2,
+    backgroundColor: theme.palette.grey[100],
+    color:theme.palette.primary.light,
     marginBottom:-25,
+    boxShadow:`0px 3px 6px 0px ${theme.palette.grey[400]}`,
     zIndex:10
   },
   add:{
@@ -24,7 +27,7 @@ const styles = theme => ({
     height:40,
     marginTop:-10 
   }
-});
+})};
 function HeaderBar(props) {
   const { classes,title,handler,disabled } = props;
   return (
@@ -35,7 +38,8 @@ function HeaderBar(props) {
           justify='space-between'
           onClick={()=>{if(!disabled){handler()}}} 
           >
-          <Typography variant="title" color="inherit">
+          <Typography variant="title" color='default' style={{color:'#000'}}
+          >
             {title}
           </Typography> 
           {!disabled&&<IconButton className={classes.add} onClick={()=>{handler()}} color="inherit" aria-label="add">

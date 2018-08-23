@@ -22,7 +22,7 @@ const styles = theme => ({
 
 function InputWrapper(props) {
   const { hasLabel,classes, title, hint,characterCounter,headerColor,tip } = props;
-  const header = ( <Grid container direction='row' justify='flex-start'><Typography variant={hasLabel?'caption':'title'} style={hasLabel?{marginLeft:1,marginTop:10}:{}} color={hasLabel?'default':'primary'}>
+  const header = ( <Grid container direction='row' justify='flex-start'><Typography variant={hasLabel?'caption':'title'} style={hasLabel?{marginLeft:1,marginTop:10,textTransform:'capitalize'}:{textTransform:'capitalize'}} color={hasLabel?'default':'primary'}>
   {title}
 </Typography>{(tip&& title)&&<HoverHint style={true?{marginTop:-10}:{marginTop:-2,marginLeft:-22}} message={tip}/>}</Grid>)
   const footer = (<Grid
