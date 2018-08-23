@@ -14,7 +14,7 @@ const styles = theme => ({})
 class RemoteLoggerContainer extends Component{
     componentWillMount(){
         remoteConsole.start()
-        remoteConsole.log('test')
+        remoteConsole.log('initate remote logging')
 
     }
     componentWillUnmount(){
