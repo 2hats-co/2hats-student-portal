@@ -31,6 +31,18 @@ export function isComplete(profile){
     
   }else{return false}
 }
+export function firstUnfinishedStep(profile){
+  if(profile){
+    let lastStep = 0
+      STEP_LABELS[profile.process].forEach((step,key) => {
+        if(checkComplition(step,profile)&& lastStep===0){
+          console.log('set',key)
+          lastStep = key
+        }
+      })
+  return lastStep
+  }
+}
   
 export const ALL_STEPS = {
     careerInterests: "Career Interests",

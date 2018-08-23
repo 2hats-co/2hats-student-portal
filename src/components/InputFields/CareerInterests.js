@@ -12,6 +12,10 @@ import { withStyles } from '@material-ui/core/styles';
 import {CAREER_INTERESTS,getIndustryFromInterests} from '../../constants/resumeBuilderPrompts'
 import { TextField } from '@material-ui/core';
 
+const INTERESTS_DATA_TYPE = {
+  default:"default",
+  custom:"custom",
+}
 const styles = theme => ({
   root: {
   },  
@@ -45,11 +49,11 @@ const styles = theme => ({
 });
 class CareerInterests extends React.Component {
   switchToOther(){
-    this.props.changeHandler('careerInterests',{type:'custom',value:[]})
+    this.props.changeHandler('careerInterests',{type:INTERESTS_DATA_TYPE.custom,value:[]})
     this.props.changeHandler('industry','OTHER')
   }
   switchToOptions(){
-    this.props.changeHandler('careerInterests',{type:'defualt',value:[]})
+    this.props.changeHandler('careerInterests',{type:INTERESTS_DATA_TYPE.default,value:[]})
    // this.props.changeHandler('customInterest','')
   }
 
@@ -58,11 +62,11 @@ class CareerInterests extends React.Component {
     
     if(event.target.checked){
       const newInterests = this.props.preSelectedList.value.concat(name)
-      this.props.changeHandler('careerInterests',{type:'defualt', value:newInterests})
+      this.props.changeHandler('careerInterests',{type:INTERESTS_DATA_TYPE.default, value:newInterests})
       this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }else{
       const newInterests = this.props.preSelectedList.value.filter(x=> x!==name)
-      this.props.changeHandler('careerInterests',{type:'defualt', value:newInterests})
+      this.props.changeHandler('careerInterests',{type:INTERESTS_DATA_TYPE.default, value:newInterests})
       this.props.changeHandler('industry',getIndustryFromInterests(newInterests))
     }
     
@@ -101,7 +105,7 @@ class CareerInterests extends React.Component {
   }
   render() {
     const { classes,preSelectedList,hideTitle,changeHandler} = this.props;
-    if(preSelectedList.type==="custom"){
+    if(preSelectedList.type===INTERESTS_DATA_TYPE.custom){
       return(
         <div className={classes.root}>
         {!hideTitle&&<Typography variant="title" color="primary">
@@ -115,7 +119,7 @@ class CareerInterests extends React.Component {
         key="otherInterest"
         //label="your career interest"
         placeholder='Add your career interest here'
-       onChange={(e)=>{changeHandler('careerInterests',{type:'custom',value:[e.target.value]})}}
+       onChange={(e)=>{changeHandler('careerInterests',{type:INTERESTS_DATA_TYPE.custom,value:[e.target.value]})}}
        value={preSelectedList.value[0]}
         style={{ marginTop: 0,
             width: '100%',

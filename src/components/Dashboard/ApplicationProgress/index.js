@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 import { Grid,Button} from '@material-ui/core';
 import ProgressDial from './ProgressDial'
 import Step from './Step'
-import {PROCESS_TYPES, STEP_LABELS, checkComplition,isComplete} from '../../../constants/signUpProcess'
+import {PROCESS_TYPES, STEP_LABELS, checkComplition,isComplete,firstUnfinishedStep} from '../../../constants/signUpProcess'
 import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
 import * as routes from '../../../constants/routes'
 import AnimateIcon from '../../AnimateIcon'
@@ -55,10 +55,12 @@ const styles = theme => ({
     if(isComplete(this.props.data)){
       this.goTo(routes.PROFILE)
     }else{
+        const returnStep = firstUnfinishedStep(this.props.data)
         if(process === PROCESS_TYPES.build){
-          this.goTo(routes.BUILD_RESUME)
+
+          this.goTo(`${routes.BUILD_RESUME}?step=${returnStep}`)
         }else{
-          this.goTo(routes.UPLOAD_RESUME)      
+          this.goTo(`${routes.UPLOAD_RESUME}?step=${returnStep}`)      
         }
     }
     
@@ -68,7 +70,7 @@ const styles = theme => ({
     const {process} = data
     const {isMobile} = theme.responsive
     const steps = (<Grid container alignItems='center' direction='column'> 
-     <Step className={classes.stepItem} key='basic' goTo={handleInfoDialog} label='basic info' isComplete={true}/>
+     <Step className={classes.stepItem} key='basic' goTo={handleInfoDialog} label='Basic Info' isComplete={true}/>
     {STEP_LABELS[process].map(x=>
     <Step key={x} goTo={this.goTo} process={process} label={x} isComplete={!checkComplition(x,data)}/>
   )}</Grid>)
