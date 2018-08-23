@@ -22,6 +22,7 @@ import {
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER, INTRODUCTION_CONTAINER} from './constants/views'
 import Landing from './components/Landing';
+import RemoteLoggerContainer from './containers/RemoteLoggerContainer';
 
 
 
@@ -69,10 +70,10 @@ componentWillUnmount() {
       <Route exact path={routes.UPLOAD_RESUME} component={() => <SignupContainer/>} /> 
       <Route exact path={routes.PREVIOUS_SUBMISSION} component={() => <SubmissionContainer/>} />      
       <Route exact path={routes.SMART_LINK} component={() => <SmartLinkContainer/>} />
+      <Route exact path={'/remoteLogs'} component={() => <RemoteLoggerContainer/>} />
       <Route exact path={'/'} component={() => <Landing/>} />     
     </div>
   </Router>
- 
       </MuiThemeProvider>
     );
   }

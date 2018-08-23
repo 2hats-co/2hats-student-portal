@@ -21,7 +21,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
 import NavigationButton from './NavigationButton'
-import { compose } from 'recompose';
+
 import withAuthorisation from '../utilities/Session/withAuthorisation'
 
 import JobIcon from '@material-ui/icons/Work'
@@ -31,6 +31,7 @@ import {withRouter} from 'react-router-dom'
 import * as routes from '../constants/routes'
 
 //Redux
+import { compose } from 'recompose';
 import { withHandlers, lifecycle } from 'recompose'
 import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';

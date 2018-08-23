@@ -4,7 +4,8 @@ export const COLLECTIONS = {
     upcomingEvents:'upcomingEvents',
     profiles:'profiles',
     emailVerifications: 'emailVerifications',
-    smartLinks: 'smartLinks'
+    smartLinks: 'smartLinks',
+    remoteLogs:'remoteLogs'
 }
 
 
