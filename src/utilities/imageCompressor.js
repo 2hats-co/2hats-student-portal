@@ -77,8 +77,8 @@ function resize(percentages, callback) {
       callback(dataString)
 	};
 	
-	Compressor.resample(canvas, w, h, true, on_finish);
-	Compressor.resample_single(canvas, w, h, true);
+	Compressor.resample_auto(canvas, w, h, true, on_finish);
+	//Compressor.resample_single(canvas, w, h, true);
 }
 
 
@@ -115,7 +115,7 @@ function Compressor_class() {
 	 */
 	this.resample_auto = function (canvas, width, height, resize_canvas, on_finish) {
 		var cores = this.getCores();
-
+	remoteConsole.log(`starting compression with cores===>${JSON.stringify(cores)}`)
 		if (!!window.Worker && cores > 1) {
 			//workers supported and we have at least 2 cpu cores - using multithreading
 			this.resample(canvas, width, height, resize_canvas, on_finish);
