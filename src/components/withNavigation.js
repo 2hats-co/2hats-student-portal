@@ -179,7 +179,7 @@ export const withNavigation = (WrappedComponent) => {
      }
        componentDidUpdate(prevProps,prevState){
          if(prevProps.user !== this.props.profile){
-            if(!this.props.profile[0].currentStep){
+            if(!this.props.profile[0].completedStep){
             this.goTo(routes.INTRODUCTION)
             }
          }
