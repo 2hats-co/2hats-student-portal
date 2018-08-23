@@ -141,8 +141,6 @@ class AuthenticationContainer extends React.Component {
         this.setState({snackBar:{message:'Please enter you first and last name',variant:'error'},isLoading:false})
       }
     }
-   
-    
   }
   handleUpdatePassword(route) {
     return () => {

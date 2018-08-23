@@ -87,7 +87,10 @@ const styles = theme => ({
               {steps}
               </Grid>
               <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
-             <div style={{marginTop:-7}}> {isComplete(data)?`Preview`:`Continue Application`}</div> <AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon> 
+              <div style={{display:'flex',marginLeft:12}}>
+             <div style={{marginTop:0}}> {isComplete(data)?`Preview`:`Continue Application`}</div> <AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon> 
+
+              </div>
               </Button>
     </Grid>
    

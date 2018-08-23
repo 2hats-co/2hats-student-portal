@@ -2,7 +2,7 @@
 import { createMuiTheme } from '@material-ui/core/styles';
 import { inherits } from 'util';
 const PRIMARY_COLOR = '#F15A29'
-const primaryFontFamily = "Helvetica Neue"
+const primaryFontFamily = `"Helvetica Neue", Arial`
 export const WHITE = '#fff'
 export const BLACK = '#2c2c2c'
 export const GREY = '#EDEDED'
@@ -32,7 +32,7 @@ export const Theme = createMuiTheme({
     },
     MuiInputLabel:{
       root:{
-      fontSize: '12px',
+      fontSize: '14px',
       fontWeight: 400,
       fontColor:'rgba(0,0,0,1) !important',
       fontFamily:primaryFontFamily,
@@ -47,7 +47,7 @@ export const Theme = createMuiTheme({
     ,
     MuiInput:{
       root:{
-      fontSize:'12px'
+      fontSize:'14px'
       }
     },
     MuiFormLabel:{

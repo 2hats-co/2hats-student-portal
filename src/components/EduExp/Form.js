@@ -169,7 +169,7 @@ class DialogForm extends React.Component {
       disabled={this.isDisabled()} 
       unChanged={this.state.unChanged.value}
       cancelHandler={()=>{handler()}}
-      width={400}
+      width={550}
       >
       {form}
       </Dialog>
