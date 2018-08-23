@@ -46,7 +46,7 @@ export function firstUnfinishedStep(profile){
   
 export const ALL_STEPS = {
     careerInterests: "Career Interests",
-    skills:"Relevant skills",
+    skills:"Relevant Skills",
     bio:"Personal Bio",
     education:"Tertiary Education",
     experience:"Practical Experience",
