@@ -270,9 +270,8 @@ class ResumeBuilderContainer extends Component {
           completedStep: currentStep
         });
         break;
-      case ALL_STEPS.profileDetails:
+      case ALL_STEPS.currentUniversity:
         this.props.onProfileUpdate({
-          skills: profile.skills,
           currentUniversity: profile.currentUniversity,
           completedStep: currentStep
         });
