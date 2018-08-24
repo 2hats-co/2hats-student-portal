@@ -22,10 +22,10 @@ class ConfirmationDialog extends Component{
               aria-labelledby="responsive-dialog-title">
               <DialogTitle id="responsive-dialog-title">{title}</DialogTitle>
               <DialogContent>
-                <Grid container style={{height:50}} direction='row' justify='flex-start'>
-                 {body.map((x)=><Grid item sx={12}><Typography variant='body1'>{x}</Typography></Grid>)} 
+                <Grid container style={{minHeight:50}} direction='row' justify='flex-start'>
+                 {body.map((x)=><Grid style={{paddingBottom:2}}  item sx={12}><Typography variant='body1'>{x}</Typography></Grid>)} 
                 </Grid>
-                {checkbox&&<FormControlLabel
+                {checkbox&&<FormControlLabel style={{paddingTop:10}}  
           control={
             <Checkbox
               checked={checkbox.isChecked}

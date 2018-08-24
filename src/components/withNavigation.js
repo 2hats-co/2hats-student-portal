@@ -113,7 +113,8 @@ const styles = theme => ({
     },
     
     dropDown:{
-      paddingLeft: 25,
+      marginTop:-1,
+      paddingLeft: 15,
       paddingRight: 0,
       textAlign: 'center',
       backgroundColor: 'rgba(0,0,0,0) !important'

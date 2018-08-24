@@ -20,7 +20,7 @@ const styles = theme =>({
         border:'none !important'
     },
     avatar: {
-      margin: 2,
+      marginTop:-1,
       fontSize:14,
       textTransform:'uppercase'
     },
@@ -89,9 +89,6 @@ class Avatar extends Component{
     }
     
     onDrop(files) {
-        remoteConsole.log(`files===>${JSON.stringify(files)}`)
-        remoteConsole.log(`files[0]===>${JSON.stringify(files[0])}`)
-        remoteConsole.log(`files[0].preview===>${files[0].preview}`)
         this.setState({isUploading:true,hasChanged:true})
         this.setState({avatarURL:files[0].preview})
         avatarUploader(files[0],this.handleUpload)
