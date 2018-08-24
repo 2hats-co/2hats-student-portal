@@ -31,14 +31,16 @@ const styles = theme =>({
     },
     bigAvatar: {
         marginTop:30,
-        marginLeft:20,
+       
+        marginLeft:0,
         marginBottom:10,
-      width: 150,
-      height: 150,
+      width: 230,
+      height: 230,
       fontSize:45
     },
     uploadButton:{  
-        width:190
+        marginTop:10,
+        width:230
     }
   });
   
@@ -125,7 +127,8 @@ class Avatar extends Component{
        return(<div>
             {avatar}
             <Dialog isOpen={isOpen} 
-            isLoading={isUploading}
+           isLoading={isUploading}
+            
             unChanged={!hasChanged}
             title={'your avatar'}
             activity='Update'

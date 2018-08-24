@@ -13,6 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
 
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 const styles = {
   appBar: {
@@ -24,6 +26,9 @@ const styles = {
   fields:{
     paddingLeft:40,
     paddingRight:40,
+  },loading:{
+    //position:'absolute',
+   
   }
 };
 
@@ -34,9 +39,10 @@ function Transition(props) {
 
 
 function MobileForm(props){
-    const {classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler} = props
+    const {isLoading,classes,activity,title,children,isOpen, addHandler,disabled,cancelHandler} = props
 
     return (
+  
             <Dialog
             fullScreen
             open={isOpen}
@@ -45,6 +51,7 @@ function MobileForm(props){
           >
             <AppBar className={classes.appBar}>
               <Toolbar>
+
                 <IconButton color="inherit" onClick={cancelHandler} aria-label="Close">
                   <CloseIcon />
                 </IconButton>
@@ -56,10 +63,16 @@ function MobileForm(props){
                 </Button>
               </Toolbar>
             </AppBar>
+            <LinearProgress className={classes.loading} 
+                style={isLoading?{}:{display:'none'}}
+                />
             <List className={classes.fields}>
               {children}
             </List>
+            
           </Dialog>
+         
+          
       );
     
 }
