@@ -12,7 +12,7 @@ import Dropzone from 'react-dropzone'
 import {db,firebaseStorage} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 
-import {imageCompressor} from '../utilities/imageCompressor'
+import {imageCompressor} from '../utilities/imageCompressor3'
 import {remoteConsole} from '../utilities/remoteLogging'
 
 const styles = theme =>({
@@ -83,8 +83,11 @@ class Avatar extends Component{
         firebaseStorage
         .child(snapShot.metadata.fullPath)
         .getDownloadURL()
-        .then(url => 
-           this.setState({avatarURL:url})
+        .then(url => {
+            console.log(url)
+            this.setState({avatarURL:url})
+        }
+           
         )
         this.setState({isUploading:false})
     }
@@ -97,9 +100,9 @@ class Avatar extends Component{
         this.setState({avatarURL:files[0].preview})
         const uid = this.props.uid
         const documentRef = firebaseStorage.child(`${uid}/avatarPhotos/${Date.now()}/${files[0].name}`)
-        imageCompressor(files[0].preview,500,(o)=>{
-            remoteConsole.log(`base64 avatar===>${o}`)
-            documentRef.putString(o, 'base64').then(this.handleUpload);
+        imageCompressor(files[0],500,(o)=>{
+            remoteConsole.log(`compressed avatar===>${JSON.stringify(o)}`)
+            documentRef.put(o).then(this.handleUpload);
         })
       }
     render(){

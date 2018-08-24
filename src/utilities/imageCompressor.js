@@ -72,7 +72,6 @@ function resize(percentages, callback) {
 	
 	var on_finish = function(){
 		remoteConsole.log(`compression time ===>${Math.round(Date.now() - time1)/1000}`)
-		console.log(`compression time ===>${Math.round(Date.now() - time1)/1000}`)
 		const dataString = canvas.toDataURL().split(',')[1]
       callback(dataString)
 	};
