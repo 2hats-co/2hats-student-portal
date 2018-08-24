@@ -12,19 +12,24 @@ function smallest(a,b){
 }
 function reductionPercentage(min,val){
 	if(val<min){
-		return 99
+		return 0.99
 	}else{
-		return(min/val)*100
+		return(min/val)
 	}
 }
 export const imageCompressor=(blob,minimumDimension,callback)=>{
 img.crossOrigin = "Anonymous"; //cors support
 img.src = blob.preview;
-canvas.style.width= 500
-canvas.style.height= 500
+
 console.log(blob)
 img.onload = function(){
-    console.log(img.width,img.height)
+	const fromWidth = img.width
+	const fromHeight = img.height
+	const percentage = reductionPercentage(minimumDimension,smallest(fromWidth,fromHeight))
+	//set output dimensions
+	canvas.width= fromWidth*percentage
+	canvas.height= fromHeight*percentage
+
     pica.resize(img, canvas)
   .then(result => pica.toBlob(result, blob.type))
   .then(blob => callback(blob));
