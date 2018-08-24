@@ -21,8 +21,10 @@ const styles = theme => ({
     button:{
       alignItems:'top !important',
       marginTop:10,
+      marginBottom:20,
       width:230,
       height:35
+      
     },stepItem:{
       width:230
     },
@@ -82,18 +84,19 @@ const styles = theme => ({
       Application Progress
     </Typography>
     </Grid>
-        <Grid style={{maxWidth:230}} item  xs={12} sm={6}>
+        <Grid style={isMobile?{}:{maxWidth:230}} item  xs={12} sm={12} md={6} lg={6}>
              <ProgressDial percentage={this.completitionPercentage(data)}/>
-          </Grid>
-             <Grid item   xs={12} sm={6}>
-              {steps}
-              </Grid>
-              <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
+             <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
               <div style={{display:'flex',marginLeft:12}}>
              <div style={{marginTop:0}}> {isComplete(data)?`Preview`:`Continue Application`}</div> <AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon> 
 
               </div>
               </Button>
+          </Grid>
+             <Grid style={{width:'100%'}} item xs={12} sm={12} md={6} lg={6}>
+              {steps}
+              </Grid>
+              
     </Grid>
    
    </div>)

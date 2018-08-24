@@ -8,7 +8,13 @@ import {UPLOAD_RESUME,BUILD_RESUME, DASHBOARD} from '../../../constants/routes'
 const styles = theme => ({
   root:{
     height:30,
-    width:215
+    width:215,
+    [theme.breakpoints.up('md')]: {
+      width:215,
+    },
+    [theme.breakpoints.up('xs')]: {
+      width:'90%',
+    },
   },
   progress: {
     margin: theme.spacing.unit * 2
