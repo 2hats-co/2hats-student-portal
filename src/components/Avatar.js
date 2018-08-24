@@ -137,7 +137,7 @@ class Avatar extends Component{
              <Dropzone 
              onDrop={this.onDrop.bind(this)} 
              className={classes.dropZone}
-         //    accept="image/jpeg, image/png, image/jpg"
+            accept="image/jpeg, image/png, image/jpg"
             > 
             {bigAvatar}
             <Button variant='flat' className={classes.uploadButton}>

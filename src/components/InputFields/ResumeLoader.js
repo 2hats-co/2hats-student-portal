@@ -17,6 +17,8 @@ import { connect } from 'react-redux';
 
 const styles = theme => ({
     root: {
+        marginBottom:20,
+        marginTop:20,
         boxSizing: 'border-box',
         marginTop:5,
         width:'100%',
@@ -81,7 +83,6 @@ class ResumeLoader extends React.Component {
             }
             )
     )
-     
         this.setState({isUploading:false})
     }
     

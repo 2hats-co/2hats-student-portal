@@ -109,11 +109,9 @@ class CareerInterests extends React.Component {
       return(
         <div className={classes.root}>
         {!hideTitle&&<Typography variant="title" color="primary">
-         Career Interests
+         Career Interests(Custom)
     </Typography> } 
-    <Typography variant='body1' className={classes.text}>
-    Want to check career interests from 2hats again? <a className={classes.link} onClick={this.switchToOptions.bind(this)}>Click here</a>
-    </Typography>
+   
         <TextField
         id="otherInterest"
         key="otherInterest"
@@ -121,7 +119,7 @@ class CareerInterests extends React.Component {
         placeholder='Add your career interest here'
        onChange={(e)=>{changeHandler('careerInterests',{type:INTERESTS_DATA_TYPE.custom,value:[e.target.value]})}}
        value={preSelectedList.value[0]}
-        style={{ marginTop: 0,
+        style={{ marginTop: 20,
             width: '100%',
             maxWidth:250,
             marginBottom: 5}}
@@ -131,6 +129,10 @@ class CareerInterests extends React.Component {
       <Typography variant='body1' className={classes.text}>
         Note: We can't guarantee that we will be able to find you a career placement in your specific field of interest, but we will do our best.
       </Typography>
+
+       <Typography variant='body1' className={classes.text}>
+    Want to check career interests from 2hats again? <a className={classes.link} onClick={this.switchToOptions.bind(this)}>Click here</a>
+    </Typography>
       </div>
       )
     }else{
