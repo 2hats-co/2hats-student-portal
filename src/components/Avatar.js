@@ -9,10 +9,10 @@ import Dialog from './Dialog/index'
 import { Button, Grid } from '@material-ui/core';
 
 import Dropzone from 'react-dropzone'
-import {db,firebaseStorage} from '../store'
+import {db} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 
-import {imageCompressor} from '../utilities/imageCompressor3'
+import {avatarUploader} from '../utilities/avatarUploader'
 import {remoteConsole} from '../utilities/remoteLogging'
 
 const styles = theme =>({
@@ -81,16 +81,10 @@ class Avatar extends Component{
         db.collection(COLLECTIONS.users).doc(this.props.uid).update({avatarURL:this.state.avatarURL})
         this.closeDialog()
     }
-    handleUpload(snapShot){
-        firebaseStorage
-        .child(snapShot.metadata.fullPath)
-        .getDownloadURL()
-        .then(url => {
-            console.log(url)
-            this.setState({avatarURL:url})
-        }
-           
-        )
+    handleUpload(url){
+        
+        this.setState({avatarURL:url})
+
         this.setState({isUploading:false})
     }
     
@@ -100,12 +94,7 @@ class Avatar extends Component{
         remoteConsole.log(`files[0].preview===>${files[0].preview}`)
         this.setState({isUploading:true,hasChanged:true})
         this.setState({avatarURL:files[0].preview})
-        const uid = this.props.uid
-        const documentRef = firebaseStorage.child(`${uid}/avatarPhotos/${Date.now()}/${files[0].name}`)
-        imageCompressor(files[0],500,(o)=>{
-            remoteConsole.log(`compressed avatar===>${JSON.stringify(o)}`)
-            documentRef.put(o).then(this.handleUpload);
-        })
+        avatarUploader(files[0],this.handleUpload)
       }
     render(){
         const {avatarURL,firstName,lastName,classes} = this.props
