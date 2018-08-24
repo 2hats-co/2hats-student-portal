@@ -71,6 +71,7 @@ const styles = theme => ({
     const {classes,data,handleInfoDialog,theme} = this.props
     const {process} = data
     const {isMobile} = theme.responsive
+   // const stepsData = 
     const steps = (<Grid container alignItems='center' direction='column'> 
      <Step className={classes.stepItem} key='basic' goTo={handleInfoDialog} label='Basic Info' isComplete={true}/>
     {STEP_LABELS[process].map(x=>

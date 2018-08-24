@@ -47,8 +47,6 @@ import AccountInfoDailog from './AccountInfoDialog'
 
 import LoadingMessage from './LoadingMessage'
 import StatusCard from './StatusCard'
-
-
 import {actionTypes} from 'redux-firestore'
 import Avatar from './Avatar';
 
@@ -115,8 +113,8 @@ const styles = theme => ({
     },
     
     dropDown:{
-      paddingLeft: 30,
-      paddingRight: 30,
+      paddingLeft: 25,
+      paddingRight: 0,
       textAlign: 'center',
       backgroundColor: 'rgba(0,0,0,0) !important'
     },

@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
 import StyledLink from "../components/StyledLink";
 
-import DoneIcon from '@material-ui/icons/DoneAll'
+import DoneIcon from '@material-ui/icons/Done'
 //routing
 import * as routes from "../constants/routes";
 import { withRouter } from "react-router-dom";
@@ -271,7 +271,7 @@ class AuthenticationContainer extends React.Component {
     };
 
     const disclaimer = <Disclaimer key='Disclaimer'  />;
-    const doneIcon = (<DoneIcon key='logout-icon' style={{fontSize:100, color:'#00E676'}}/>)
+    const doneIcon = (<DoneIcon key='logout-icon' style={{fontSize:120, color:'#00E676'}}/>)
 
     const GreetingWithFirstName =(greeting)=> (
       <Typography key='welcomeGreeting'  variant="title" color="primary" style={{ width: "100%" }}>
@@ -331,7 +331,7 @@ class AuthenticationContainer extends React.Component {
         Create Password
       </Button>
     );
-    const titleMessage =(message)=> ( <Typography key='logoutMessage'  variant='title' style={{textAlign:'center'}}>{message}</Typography>)
+    const titleMessage =(message)=> ( <Typography key='logoutMessage'  variant='title' style={{textAlign:'center', textTransform:'none'}}>{message}</Typography>)
     const signInBar = (<Grid key= 'signInBar'  container='row' alignItems='center' justify='space-between'>{signInButton} {forgetPasswordLink()}</Grid>)
     let switchLink = (onSignup) =>{
       if(onSignup){
@@ -391,7 +391,7 @@ class AuthenticationContainer extends React.Component {
     ];
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
-      linkButton('go to Sign in',routes.SIGN_IN)
+      linkButton('Go to sign in',routes.SIGN_IN)
     ]
     const validateEmailView =[doneIcon,
       titleMessage('Thank you, We validated your email'),

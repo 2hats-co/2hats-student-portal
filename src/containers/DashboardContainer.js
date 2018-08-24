@@ -31,21 +31,21 @@ const styles = theme => ({
    
 });
 class DashboardContainer extends Component{
-    renderApplicationProcess(profile, handleInfoDialog){ 
+    renderApplicationProcess(profile, user,handleInfoDialog){ 
         if(profile){
             if(profile.hasSubmit){
-                return<ApplicationTimeLine/>
+                return<ApplicationTimeLine user={user}/>
             }else{
                return <div style={{marginBottom:40}}><ApplicationProgress data={profile} handleInfoDialog={handleInfoDialog}/></div>
             }
         }
     }
     render(){
-        const {classes,upcomingEvents,submissions, profile, handleInfoDialog} = this.props
+        const {classes,upcomingEvents,submissions, profile,user,handleInfoDialog} = this.props
         return(
             <Grid container direction='row' className={classes.root}>
             <Grid item xs={12} >
-            {this.renderApplicationProcess(profile, handleInfoDialog)}  
+            {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
             </Grid>
             <Grid item  xs={12}>            
         {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }  
