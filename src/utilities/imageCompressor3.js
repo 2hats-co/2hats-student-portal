@@ -1,5 +1,5 @@
 
-const pica = require('pica')();
+const pica = require('./pica/index')();
 var img = new Image();
 var canvas = document.createElement('canvas');
 
