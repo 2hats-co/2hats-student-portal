@@ -12,7 +12,7 @@ const styles = theme => ({
     root: {
     width:'100%',
     paddingTop:30,
-    widthMax:700,
+    maxWidth:700,
     [theme.breakpoints.up('xs')]: {
         paddingLeft:30,
         paddingRight:30
