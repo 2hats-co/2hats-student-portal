@@ -26,14 +26,32 @@ const styles = theme => ({
         width:180
     }
   });
+  const talentPool = {
+    title:"2hats Talent Pool Only",
+    body:['Once you pass the profile submission, online interview and assessment centre, you will be accepted into the 2hats talent pool.',
+      'This job board will allow you to review open positions and enable direct communication with position providers.',
+      'In the meantime, you can check our dashboard for resume feedback and any upcoming events.' ]
+  }
+  const comingSoon = {
+    title:'Coming Soon',
+    body:['We are in the process of building the job board function and will inform you once it is ready.' ,
+      'This job board will allow you to review open positions and enable direct communication with position providers.',
+      'In the meantime, you can check our dashboard for resume feedback and any upcoming events.']
+  }
 class JobBoardContainer extends React.Component {
 
   handleClose = () => {
     this.props.history.push(routes.DASHBOARD)
   };
-
+  
   render() {
-      const {classes} = this.props
+      const {classes,user} = this.props
+      console.log(user.id,user.stage,user.status)
+      let content = talentPool
+      if(user.status !=='rejected'&& user.stage === 'placed'|| user.stage ==='assessment'){
+        content = comingSoon
+      }
+      
     return (
       <div>
         <Dialog
@@ -42,13 +60,11 @@ class JobBoardContainer extends React.Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle style={{paddingLeft:40}} id="alert-dialog-title" >{"2hats Talent Pool Only"}</DialogTitle>
+          <DialogTitle style={{paddingLeft:40}} id="alert-dialog-title" >{content.title}</DialogTitle>
           <DialogContent className={classes.content}>
-            <Typography variant='body1'>
-Once you pass the 2hats application process, you will be accepted into the 2hats talent pool, and will gain access to this Job Board. 
-
-In the meantime, you can check our dashboard for resume feedback and any upcoming events. 
-            </Typography>
+          {content.body.map(x=>  <Typography variant='body1' style={{paddingTop:10}}>{x}
+            </Typography>)}
+           
           </DialogContent>
           <DialogActions>
             <Button className={classes.button} id={`job-board-back-button`} variant='contained' onClick={this.handleClose} autoFocus>
