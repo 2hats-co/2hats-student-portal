@@ -50,6 +50,7 @@ import StatusCard from './StatusCard'
 import {actionTypes} from 'redux-firestore'
 import Avatar from './Avatar';
 
+import BuggyBoy from './BuggyBoy'
 
 
 const drawerWidth = 240;
@@ -240,6 +241,7 @@ export const withNavigation = (WrappedComponent) => {
         <div className={classes.root} 
         style={{height:this.state.height}}
         >
+          
         <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
@@ -345,7 +347,6 @@ export const withNavigation = (WrappedComponent) => {
           </main>
           {(profile && user)&&(profile[0] && user[0])&&
           <div>
-           
           <AccountInfoDailog
           user={user[0]}
            isOpen={this.state.infoDialog} 
@@ -358,6 +359,7 @@ export const withNavigation = (WrappedComponent) => {
            profile={profile[0]}/>}
            </div>
           }
+             {/* <BuggyBoy/>  */}
         </div>
       );
     }

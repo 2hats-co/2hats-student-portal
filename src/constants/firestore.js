@@ -5,7 +5,8 @@ export const COLLECTIONS = {
     profiles:'profiles',
     emailVerifications: 'emailVerifications',
     smartLinks: 'smartLinks',
-    remoteLogs:'remoteLogs'
+    remoteLogs:'remoteLogs',
+    bugReports:'bugReports'
 }
 
 
