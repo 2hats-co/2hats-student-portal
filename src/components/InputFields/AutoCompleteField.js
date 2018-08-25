@@ -17,6 +17,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
 
 import AddIcon from '@material-ui/icons/AddCircleOutline'
 
@@ -26,6 +29,7 @@ const styles = theme => ({
     maxWidth:520
   },
   textField:{
+    marginTop:4,
       width:'100%',
       maxWidth:520
   },
@@ -96,9 +100,8 @@ class AutoCompleteField extends React.Component {
             >
 
 
-            <FormControl style={{width:'100%'}}>
-          {/* <InputLabel htmlFor="passwordField">{label||'Password'}</InputLabel>
-           */}
+            {/* <FormControl style={{width:'100%'}}>
+        
           <Input
             id="SkillsField"
             type='text'
@@ -126,8 +129,10 @@ class AutoCompleteField extends React.Component {
               </InputAdornment>
             }
           />
-        </FormControl>
-              {/* <TextField
+        </FormControl> */}
+              <Grid container direction='row'>
+              <Grid item xs={10}>
+               <TextField 
                 value={this.state.skillValue}
                 placeholder={placeholder}
                 className={classes.textField}
@@ -140,7 +145,9 @@ class AutoCompleteField extends React.Component {
                     }
                   }
                 }}
-              /> */}
+              /> </Grid>
+              <Grid item xs={2}>
+              <Button variant='flat' style={{marginLeft:5,height:12,borderRadius:5}}>Add</Button></Grid></Grid>
             </div>
           </Target>
           <Popper

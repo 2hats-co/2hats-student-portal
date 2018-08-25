@@ -35,7 +35,6 @@ class Skills extends React.Component {
           this.handleDelete = this.handleDelete.bind(this)
           this.addNewSkill = this.addNewSkill.bind(this)
     }  
-    
       componentWillMount(){
         const {preSelectedList} = this.props
         if(preSelectedList){
@@ -77,8 +76,8 @@ class Skills extends React.Component {
             <div className={classes.root}>
          <AutoCompleteField
         title = {!hideTitle?'Skills':''}
-        hint = 'Please address your chosen skill(s) in your tertiary education and practical experience. '
-        placeholder = 'Enter your relevant practical skills (maximum 10), e.g. Adobe Photoshop'
+        hint = 'Please address your chosen skills in your tertiary education and practical experience. '
+        placeholder = 'Enter your relevant practical skills (10 max) e.g. Adobe Photoshop'
         list = {ALL_SKILLS.filter(x=> !this.state.selectedList.includes(x))}
         onComplete = {this.addNewSkill}
         />

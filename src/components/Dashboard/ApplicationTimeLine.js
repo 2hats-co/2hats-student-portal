@@ -6,11 +6,15 @@ import Step from '@material-ui/core/Step'
 import { withStyles } from "@material-ui/core/styles";
 
 const STAGES = ['pre-review','resume','interview','assessment','placed']
-const styles = theme => ({
+
+  const styles = theme => ({
     root: {
-     
+
     },
-  });
+    label:{
+      fontSize: '13px !important'
+    }
+   });
 function ApplicationTimeLine(props){
     const {classes,theme,user} = props
     const currentStage = user.stage
@@ -33,7 +37,7 @@ function ApplicationTimeLine(props){
       {steps.map(label => {
         return (
           <Step key={label}>
-            <StepLabel>{label}</StepLabel>
+            <StepLabel className={classes.label}>{label}</StepLabel>
           </Step>
         );
       })}

@@ -30,7 +30,13 @@ const styles = theme => ({
         'a:hover':{color:'#000'},
         'a:active':{color:'#000'}
     },button:{
-        marginTop:10
+        marginTop:10,
+        marginLeft:20
+    },description:{
+        overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 2,
+    '-webkit-box-orient': 'vertical'
     }
   });
   function getTimeStampData(timestamp){
@@ -45,7 +51,8 @@ const styles = theme => ({
    return {date,month,hour,minutes}
   }
 function ListItem(props){
-    const {classes,actionIcon,timestamp,title,body,link} = props
+    const {classes,actionIcon,timestamp,title,body,link,theme} = props
+    const {isMobile} = theme.responsive
     const date = getTimeStampData(timestamp).date
     const month = getTimeStampData(timestamp).month
     return(
@@ -66,10 +73,10 @@ function ListItem(props){
                     </Typography>
                 </Grid>
                 <Grid container style={{width:'calc(100% - 65px)'}} direction='column' justify='center'>
-                    <Typography variant='title'>
+                    <Typography variant={'title'}>
                         {title}
                     </Typography>
-                    <Typography variant='body1'>
+                    <Typography variant='body1' className={classes.description}>
                         {body}
                     </Typography>
                 </Grid>
@@ -86,4 +93,4 @@ function ListItem(props){
    )
 }
 
-export default withStyles(styles)(ListItem);
+export default withStyles(styles,{withTheme:true})(ListItem);

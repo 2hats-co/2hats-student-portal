@@ -12,7 +12,7 @@ import Dropzone from 'react-dropzone'
 import {db} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 
-import {avatarUploader} from '../utilities/avatarUploader'
+import {blobAvatarUploader} from '../utilities/Uploader'
 import {remoteConsole} from '../utilities/remoteLogging'
 
 const styles = theme =>({
@@ -31,12 +31,11 @@ const styles = theme =>({
     },
     bigAvatar: {
         marginTop:30,
-       
         marginLeft:0,
         marginBottom:10,
-      width: 230,
-      height: 230,
-      fontSize:45
+        width: 230,
+        height: 230,
+        fontSize:45
     },
     uploadButton:{  
         marginTop:10,
@@ -45,7 +44,6 @@ const styles = theme =>({
   });
   
 class Avatar extends Component{
-
     state= { isOpen:false,
         isUploading:false,
         avatarURL:'',
@@ -82,16 +80,14 @@ class Avatar extends Component{
         this.closeDialog()
     }
     handleUpload(url){
-        
         this.setState({avatarURL:url})
-
         this.setState({isUploading:false})
     }
     
     onDrop(files) {
         this.setState({isUploading:true,hasChanged:true})
         this.setState({avatarURL:files[0].preview})
-        avatarUploader(files[0],this.handleUpload)
+        blobAvatarUploader(files[0],this.handleUpload)
       }
     render(){
         const {avatarURL,firstName,lastName,classes} = this.props

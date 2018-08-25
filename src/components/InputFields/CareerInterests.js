@@ -109,7 +109,7 @@ class CareerInterests extends React.Component {
       return(
         <div className={classes.root}>
         {!hideTitle&&<Typography variant="title" color="primary">
-         Career Interests(Custom)
+         Career Interests - Custom
     </Typography> } 
    
         <TextField

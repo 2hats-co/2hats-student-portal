@@ -169,7 +169,14 @@ class AuthenticationContainer extends React.Component {
     const onSignupRoute = this.props.history.location.pathname=== routes.SIGN_UP
     const backBar = (
       <Grid key="back-bar"
-        style={{ width: "100%", marginLeft: -30 }}
+        style={{ width: "100%", 
+        borderStyle:'solid',
+        borderRadius:30,
+        height:38,
+        borderWidth:0.5,
+        borderColor:'#aeaeae',
+    
+       }}
         container
         direction="row"
         alignItems="center"
@@ -177,6 +184,7 @@ class AuthenticationContainer extends React.Component {
       >
         <IconButton
           aria-label="back"
+          style={{marginLeft:4,width:32,height:32}}
           id="back-to-email"
           onClick={() => {
             this.setState({ view: AUTHENTICATION_CONTAINER.auth });
@@ -184,7 +192,7 @@ class AuthenticationContainer extends React.Component {
         >
           <BackIcon className={classes.iconButton} />
         </IconButton>{" "}
-        <Typography variant={email.length < 25 ? "subheading" : "body1"}>
+        <Typography variant={email.length < 30?"body1":'caption'} style={{marginLeft:5,color:'#000',maxWidth:'75%',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
           {email}
         </Typography>
       </Grid>
@@ -193,6 +201,7 @@ class AuthenticationContainer extends React.Component {
       <GoogleButton
         key="google-button"
         id="google-button"
+        style={{marginTop:10}}
         action={onSignupRoute?'Sign up': 'Sign in'}
         changeHandler={this.handleChange}
       />
@@ -274,25 +283,25 @@ class AuthenticationContainer extends React.Component {
     const doneIcon = (<DoneIcon key='logout-icon' style={{fontSize:120, color:'#00E676'}}/>)
 
     const GreetingWithFirstName =(greeting)=> (
-      <Typography key='welcomeGreeting'  variant="title" color="primary" style={{ width: "100%" }}>
-       {greeting} {firstName},
+      <Typography key='welcomeGreeting'  variant="title" color="primary" style={{ width: "100%" ,textAlign:'center'}}>
+       {greeting} {firstName}
       </Typography>
     );
     const serviceMessage =(service)=> (
-      <Typography key='serviceMessage' variant="subheading">
+      <Typography key='serviceMessage' variant="body1">
         It looks like your account is created with {service}.
       </Typography>
     );
    
     const newAccountMessage =(isHidden)=> {
       if(!isHidden){
-        return <Typography key='newAccountMessage' variant="subheading">
+        return <Typography key='newAccountMessage' style={{marginBottom:10}} variant="body1">
             It look likes we don’t have an account with this email address.
           </Typography>
       }
     }
     const createPasswordMessage = (
-      <Typography key='createPasswordMessage' variant="subheading">
+      <Typography key='createPasswordMessage'  variant="subheading">
         It looks like you don't have a password yet.
       </Typography>
     );
@@ -340,7 +349,15 @@ class AuthenticationContainer extends React.Component {
         return footerLink(`Don’t have an account?`,routes.SIGN_UP,'Sign up')
       }
     }
-    let routeLabel =(onSignup) => (<Typography key={`routeLabel-${onSignup? 'Sign-up':'sign-in'}`}variant='title' color='primary' style={{width:'100%',textAlign:'center'}}>{onSignup? 'Sign up':'sign in'}</Typography>)
+    let routeLabel =(onSignup) => (<Typography key={`routeLabel-${onSignup? 'Sign-up':'sign-in'}`}
+                                            variant='title' color='primary' 
+                                            style={{width:'100%',
+                                            textAlign:'center',
+                                            marginBottom:5,
+                                            //marginTop:5,
+                                            }}>
+                                            {onSignup? 'Sign up':'sign in'}
+                                    </Typography>)
     
     let authView = [routeLabel(onSignupRoute),
       googleButton,
@@ -360,8 +377,8 @@ class AuthenticationContainer extends React.Component {
     ];
     let signupView = [
       backBar,
-      newAccountMessage(onSignupRoute),
       routeLabel(true),
+      newAccountMessage(onSignupRoute),
       nameFields,
       passwordField('Password',this.handleSignup),
       disclaimer,
@@ -418,8 +435,8 @@ class AuthenticationContainer extends React.Component {
         break;
       case AUTHENTICATION_CONTAINER.signup:
         loadedView = signupView;
-        cardHeight = 480;
-        gridHeight = 350;
+        cardHeight = (onSignupRoute? 500:540);
+        gridHeight = (onSignupRoute? 350:400);
         break;
       case AUTHENTICATION_CONTAINER.password:
         loadedView = passwordView;

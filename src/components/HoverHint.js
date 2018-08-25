@@ -9,7 +9,8 @@ const styles = theme => ({
     background: theme.palette.common.white,
     color: theme.palette.text.primary,
     boxShadow: theme.shadows[1],
-    fontSize: 11,
+    fontSize: 12,
+    width:600
   },
   arrowPopper: {
     '&[x-placement*="bottom"] $arrowArrow': {

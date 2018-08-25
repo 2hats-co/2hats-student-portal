@@ -37,54 +37,6 @@ export function getInterestByKey(key){
     return ALL_INTERESTS.filter(x => x.key === key)
 }
 export const CAREER_INTERESTS = [{label:'Business',items: businessList},{label:'Marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
-//recursive
-// let count={Business:0, Marketing:0,Design:0,IT:0}
-// function getIndustryFromInterests(interests, count){
-
-//     CAREER_INTERESTS.forEach(industry=>{
-//         industry.items.forEach(item=>{
-//             interests.forEach(interest=>{
-//                 if(item.key===interest){
-//                     console.log(interests,count) 
-//                     count[industry.label]= count[industry.label]+1
-//                     let newInterests = interests.filter(x=> x!==interest)
-//                     if(newInterests.length ===0){
-//                         let largestIndex = 0
-//     let largestValue = 0
-//     let values = Object.values(count)
-//     values.forEach((x,k)=>{
-//         if (x> largestValue){
-//             largestIndex=k;
-//             largestValue=x;
-//         }
-//     })
-//     return INDUSTRIES[largestIndex] 
-//                     }else{
-//                         return (getIndustryFromInterests(newInterests,count))
-
-//                     }
-                   
-//                 }
-//             })
-//         })
-//     })
-//   }
-
-// let input=['aaa','aa','bb','b']
-
-// let count ={}
-
-// count = {a:0,b:0}
-// {a: 0, b: 0}
-// function recursiveCount(input,count){
-	
-// 	if(input.length>0){
-// 		console.log(input[0]);
-// 		recursiveCount(input.pop(),count)
-// 	}else{
-// 	return count
-// 	}
-// }
 
 
 export function getPrompts(field){
@@ -94,7 +46,6 @@ export function getPrompts(field){
         case 'Business':return business
         case 'Design':return design
         default:return business
-            break;
     }
   
 }

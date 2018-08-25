@@ -9,6 +9,7 @@ import {PROCESS_TYPES, STEP_LABELS, checkComplition,isComplete,firstUnfinishedSt
 import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
 import * as routes from '../../../constants/routes'
 import AnimateIcon from '../../AnimateIcon'
+import * as _ from 'lodash'
 const styles = theme => ({
     root: {
      width:'100%',
@@ -71,11 +72,12 @@ const styles = theme => ({
     const {classes,data,handleInfoDialog,theme} = this.props
     const {process} = data
     const {isMobile} = theme.responsive
-   // const stepsData = 
+    const stepsData = STEP_LABELS[process].map(x=>{return({label:x,completed:!checkComplition(x,data)})})
+    const sortedSteps = _.sortBy(stepsData,['completed']).reverse() 
     const steps = (<Grid container alignItems='center' direction='column'> 
      <Step className={classes.stepItem} key='basic' goTo={handleInfoDialog} label='Basic Info' isComplete={true}/>
-    {STEP_LABELS[process].map(x=>
-    <Step key={x} goTo={this.goTo} process={process} label={x} isComplete={!checkComplition(x,data)}/>
+    {sortedSteps.map(x=>
+    <Step key={x.label} goTo={this.goTo} process={process} label={x.label} isComplete={x.completed}/>
   )}</Grid>)
     return(<div className={classes.root}>
     

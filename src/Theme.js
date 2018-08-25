@@ -164,7 +164,7 @@ export const Theme = createMuiTheme({
       fontFamily:primaryFontFamily,
       color: '#9B9B9B',
       letterSpacing: '0.05px',
-      lineHeight: '12px',
+      lineHeight: '13px',
     }, Button: {
       fontFamily:primaryFontFamily,
       fontWeight: 'bold',

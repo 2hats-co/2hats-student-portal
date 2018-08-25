@@ -37,6 +37,7 @@ class Password extends React.Component{
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
+                  style={{width:30,height:30}}
                   aria-label="Toggle password visibility"
                   onClick={this.handleClickShowPassword}
                   onMouseDown={this.handleMouseDownPassword}

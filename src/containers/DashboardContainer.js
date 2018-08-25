@@ -16,10 +16,13 @@ const styles = theme => ({
     [theme.breakpoints.up('xs')]: {
         paddingLeft:30,
         paddingRight:30
-      },
+      },[theme.breakpoints.up('sm')]: {
+        paddingLeft:'calc(50% - 250px)'
+    },
     [theme.breakpoints.up('md')]: {
         paddingLeft:60
-    }},
+    }
+    },
     navIconHide:{},
     appBar:{},
     toolbar:{},
@@ -27,7 +30,12 @@ const styles = theme => ({
     content:{},
     logo:{},
     greeting:{},
-    
+    item:{
+        width:'100%',
+      maxWidth:500
+
+
+    }
    
 });
 class DashboardContainer extends Component{
@@ -43,14 +51,14 @@ class DashboardContainer extends Component{
     render(){
         const {classes,upcomingEvents,submissions, profile,user,handleInfoDialog} = this.props
         return(
-            <Grid container direction='row' className={classes.root}>
-            <Grid item xs={12} >
+            <Grid container direction='row' alignItems="center" className={classes.root}>
+            <Grid item className={classes.item}>
             {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
             </Grid>
-            <Grid item  xs={12}>            
+            <Grid item className={classes.item}>            
         {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }  
            </Grid>
-            <Grid item  xs={12}>    
+            <Grid item >    
            <UpcomingEvents data={upcomingEvents}/>
            </Grid>
            </Grid>
