@@ -1,14 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { auth,db } from '../../store';
+import UAParser from 'ua-parser-js';
+const storeDeviceInfo = async(uid) =>{
+  console.log('uid',uid)
+  const user = await db.collection("users").doc(uid).get()
+  const userData = user.data()
+  console.log('userData',userData)
+ // const devices = userData.devices
+ var parser = new UAParser();
 
-import { auth } from '../../store';
+ console.log(parser.getResult());
+}
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
-    componentWillMount(){
     
-      
-    }
     componentDidMount() {
       const { onSetAuthUser } = this.props;
 
@@ -31,8 +38,11 @@ const withAuthentication = (Component) => {
      vertical_padding: 90
       }
      window.intercomSettings =user;
+
+     storeDeviceInfo(authUser.uid)
     }
- 
+    
+
     render() {
       return (
         <Component />

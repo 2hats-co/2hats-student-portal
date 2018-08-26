@@ -33,10 +33,7 @@ const styles = theme => ({
     item:{
         width:'100%',
       maxWidth:500
-
-
     }
-   
 });
 class DashboardContainer extends Component{
     renderApplicationProcess(profile, user,handleInfoDialog){ 

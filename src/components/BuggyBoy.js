@@ -1,10 +1,10 @@
 import React,{Component} from 'react'
 
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+
 import { withStyles } from '@material-ui/core/styles';
 import MuiAvatar from '@material-ui/core/Avatar';
-import deepOrange from '@material-ui/core/colors/deepOrange';
+
 import Dialog from './Dialog/index'
 import { Button, Grid } from '@material-ui/core';
 import MultiLineTextField from './InputFields/MultiLineTextField'
@@ -13,7 +13,7 @@ import {db} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 
 import {uploader} from '../utilities/Uploader'
-import {remoteConsole} from '../utilities/remoteLogging'
+import UAParser from 'ua-parser-js';
 
 const minjieURL = 'https://firebasestorage.googleapis.com/v0/b/staging2hats.appspot.com/o/minjie.png?alt=media&token=bc25e10a-eba3-43af-b849-79bc67075138'
 const styles = theme =>({
@@ -40,7 +40,8 @@ class BuggyBoy extends Component{
         screenshotURL:'',
         hasChanged:false,
         expectation:'',
-        behavior:''
+        behavior:'',
+        deviceData:false
         
     }
     constructor(props){
@@ -54,7 +55,8 @@ class BuggyBoy extends Component{
         this.handleChange = this.handleChange.bind(this)
     }
     componentWillMount(){
-    
+        var parser = new UAParser();
+        this.setState({deviceData:parser.getResult()});
     }
     handleChange(name,value){
         this.setState({[name]:value,hasChanged:true})
@@ -64,14 +66,27 @@ class BuggyBoy extends Component{
         this.setState({isOpen:true})
     }
     closeDialog(){
-        this.setState({isOpen:false})
+        this.setState({isOpen:false,isOpen:false,
+            isUploading:false,
+            screenshotURL:'',
+            hasChanged:false,
+            expectation:'',
+            behavior:'',})
     }
     cancelHandler(){
         this.setState({screenshotURL:'',hasChanged:false})
         this.closeDialog()
     }
     saveHandler(){
-        db.collection(COLLECTIONS.users).doc(this.props.uid).update({avatarURL:this.state.avatarURL}) 
+        const {screenshotURL,expectation,behavior,deviceData} = this.state
+        const {userDoc,profileDoc} = this.props
+        db.collection(COLLECTIONS.bugReports).add({userDoc,
+            profileDoc,
+            screenshotURL,
+            expectation,
+            behavior,
+            RawDeviceData:JSON.stringify(deviceData),
+            ua:deviceData.ua}) 
        this.closeDialog()
     }
     handleUpload(url){
@@ -87,7 +102,7 @@ class BuggyBoy extends Component{
       }
     render(){
         const {classes} = this.props
-        const {isUploading,hasChanged,isOpen,screenshotURL,expectation,behavior} = this.state
+        const {isUploading,hasChanged,isOpen,expectation,behavior,screenshotURL} = this.state
         let avatar = (<MuiAvatar onClick={this.openDialog} 
             alt={`buggy boy`}
             src={minjieURL}
@@ -112,7 +127,7 @@ class BuggyBoy extends Component{
             > 
            
             <Button variant='flat' className={classes.uploadButton}>
-            Upload screenshotURL
+            {screenshotURL ===''?'Upload screenshotURL':'Upload Successful'}
             </Button>
             </Dropzone>
             <MultiLineTextField

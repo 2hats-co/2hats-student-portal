@@ -78,9 +78,7 @@ function LogoOnCard(props) {
       </div>
     );
   }
- 
 }
-
 LogoOnCard.propTypes = {
   classes: PropTypes.object.isRequired,
   width: PropTypes.number,

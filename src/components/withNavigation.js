@@ -357,9 +357,10 @@ export const withNavigation = (WrappedComponent) => {
            onSubmit={this.props.onSubmit.bind(this)} 
            goTo={this.goTo} 
            profile={profile[0]}/>}
+            <BuggyBoy userDoc={user[0]} profileDoc={profile[0]}/> 
            </div>
           }
-             {/* <BuggyBoy/>  */}
+            
         </div>
       );
     }

@@ -32,7 +32,7 @@ import StepController from "../components/SignUp/StepController";
 import LoadingMessage from "../components/LoadingMessage";
 import withAuthorisation from "../utilities/Session/withAuthorisation";
 import CurrentUniversity from "../components/InputFields/CurrentUniversity";
-
+import BuggyBoy from '../components/BuggyBoy'
 const styles = theme => ({
   root: {
     height: 800
@@ -329,8 +329,6 @@ class ResumeBuilderContainer extends Component {
   };
   handleBack = () => {
     const { activeStep } = this.state;
-
-    // this.handleUpdate(activeStep)
     if (activeStep !== 0) {
       this.setState({
         activeStep: activeStep - 1
@@ -343,10 +341,9 @@ class ResumeBuilderContainer extends Component {
     });
   };
   render() {
-    const { classes, theme } = this.props;
+    const { classes, theme,user } = this.props;
     const { activeStep, profile } = this.state;
-
-    if (profile.createdAt) {
+    if (profile.createdAt && user) {
       const currentStep = STEP_LABELS[profile.process][activeStep];
       return (
         <LogoOnCard width={850}>
@@ -367,6 +364,7 @@ class ResumeBuilderContainer extends Component {
               {this.getStepContent(currentStep, profile)}
             </StepController>
           </div>
+          <BuggyBoy userDoc={user[0]} profileDoc={profile}/> 
         </LogoOnCard>
       );
     } else {
@@ -377,6 +375,7 @@ class ResumeBuilderContainer extends Component {
               <LoadingMessage message={`Hold onto your hat!`} />
             </div>
           </SectionWrapper>
+        
         </LogoOnCard>
       );
     }
