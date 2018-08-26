@@ -1,17 +1,14 @@
 import React,{Component} from 'react'
 
 import PropTypes from 'prop-types';
-
 import { withStyles } from '@material-ui/core/styles';
 import MuiAvatar from '@material-ui/core/Avatar';
-
 import Dialog from './Dialog/index'
 import { Button, Grid } from '@material-ui/core';
 import MultiLineTextField from './InputFields/MultiLineTextField'
 import Dropzone from 'react-dropzone'
 import {db} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
-
 import {uploader} from '../utilities/Uploader'
 import UAParser from 'ua-parser-js';
 
@@ -131,23 +128,23 @@ class BuggyBoy extends Component{
             </Button>
             </Dropzone>
             <MultiLineTextField
-                title={""}
-                hasLabel = {`what's happening ?`}
+                title={`experienced behavior`}
+                hasLabel = {true}
                 hint={`describe the issue you're experiencing`}
-                placeholder={`type in here`}
-                value={expectation}
-                name='expectation'
-                characterLimit={400}
+                placeholder={`if there's a typo, type in the incorrect spelling and where it's located`}
+                value={behavior}
+                name='behavior'
+                characterLimit={500}
                 changeHandler={this.handleChange}
               />
             <MultiLineTextField
-                title={""}
-                hasLabel = {'What you do expect to happen?'}
-                hint="for example if there's a typo, type in the correct spelling"
-                placeholder={`type in here`}
-                value={behavior}
-                name='behavior'
-                characterLimit={400}
+                title={'expected behavior'}
+                hasLabel = {true}
+                hint="if applicable describe what your goal/expectation of the interaction was"
+                placeholder={`if there's a typo, type in the correct spelling here`}
+                value={expectation}
+                name='expectation'
+                characterLimit={500}
                 changeHandler={this.handleChange}
               />
             </Grid>

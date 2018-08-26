@@ -7,9 +7,7 @@ const storeDeviceInfo = async(uid) =>{
   const user = await db.collection("users").doc(uid).get()
   const userData = user.data()
   console.log('userData',userData)
- // const devices = userData.devices
  var parser = new UAParser();
-
  console.log(parser.getResult());
 }
 
