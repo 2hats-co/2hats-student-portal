@@ -65,6 +65,7 @@ class SpeedySignupContainer extends Component {
             email:'',
             currentUniversity:'University of Technology Sydney',
             industry:'',
+            signupMethod:'speedy',
             view:SPEEDY_SIGNUP.form,
             isPublic:true,
             isLoading:false
