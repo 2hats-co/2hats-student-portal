@@ -49,6 +49,10 @@ const styles = theme => ({
 });
 
 class AutoCompleteField extends React.Component {
+  constructor(props){
+    super(props);
+    this.handleAdd = this.handleAdd.bind(this)
+  }
   state = {
     open: false,
     skillValue: "",
@@ -139,15 +143,12 @@ class AutoCompleteField extends React.Component {
                 onChange={this.handleChange("skillValue")}
                 onKeyPress={e => {
                   if (e.key === "Enter") {
-                    const skill = this.state.skillValue;
-                    if (skill !== "") {
-                      this.handleClose(skill);
-                    }
+                    this.handleAdd()
                   }
                 }}
               /> </Grid>
               <Grid item xs={2}>
-              <Button variant='flat' style={{marginLeft:5,height:12,borderRadius:5}}>Add</Button></Grid></Grid>
+              <Button variant='flat' style={{marginLeft:5,height:12,borderRadius:5}} onClick={this.handleAdd}>Add</Button></Grid></Grid>
             </div>
           </Target>
           <Popper
