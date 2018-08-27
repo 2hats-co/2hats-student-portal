@@ -29,13 +29,11 @@ const styles = theme => ({
   const talentPool = {
     title:"2hats Talent Pool Only",
     body:['Once you pass the profile submission, online interview and assessment centre, you will be accepted into the 2hats talent pool.',
-      'This job board will allow you to review open positions and enable direct communication with position providers.',
       'In the meantime, you can check our dashboard for resume feedback and any upcoming events.' ]
   }
   const comingSoon = {
     title:'Coming Soon',
     body:['We are in the process of building the job board function and will inform you once it is ready.' ,
-      'This job board will allow you to review open positions and enable direct communication with position providers.',
       'In the meantime, you can check our dashboard for resume feedback and any upcoming events.']
   }
 class JobBoardContainer extends React.Component {
