@@ -7,6 +7,9 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 const styles = theme => ({
    root:{
        marginTop:'20%'
+   },
+   msg: {
+       marginBottom: 40
    }
   });
 function LoadingMessage(props){
@@ -20,6 +23,7 @@ function LoadingMessage(props){
         alignItems='center'
         >
         <Typography 
+            className={classes.msg}
             variant='headline'>
        {message?message:'Your Future Starts Soon…'} 
         </Typography>
