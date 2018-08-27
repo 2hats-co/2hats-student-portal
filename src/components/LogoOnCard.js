@@ -7,9 +7,11 @@ import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png';
 import {setBackground} from '../utilities/styling'
 import Tween from 'rc-tween-one';
+import { Grid } from '@material-ui/core';
 
 import { compose } from 'recompose';
 import withAuthorisation from '../utilities/Session/withAuthorisation'
+import SupportFooter from './SupportFooter';
 const styles = theme => ({
   logo:{
     paddingTop:15,        
@@ -31,8 +33,17 @@ const styles = theme => ({
 function LogoOnCard(props) {
   if(props.theme.responsive.isMobile){
     setBackground("#fff",'')
-      return(<div>
-        {props.children}
+      return(
+        <div>
+          <Grid container direction='column' justify='space-between' alignItems='center'
+          style={{minHeight:'100vh',width:'100%'}}>
+            <Grid item style={{width:'100%'}}>
+              {props.children}
+            </Grid>
+            <Grid item style={{height: 200, width: '100%', position: 'relative', paddingTop: '60px'}}>
+              <SupportFooter mobile={true}/>
+            </Grid>
+          </Grid>
         </div>
       )
   }else{
@@ -40,7 +51,6 @@ function LogoOnCard(props) {
     const {isMobile} = theme.responsive
     setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad',isMobile)
 
-    const logo = (<img className={classes.logo} alt='dark2hatsLogo' src={DarkLogo}/>)
 
             let style ={}
             let animation = {}
@@ -67,14 +77,21 @@ function LogoOnCard(props) {
             }
     return (
       <div className={classes.root}>
-       <div className={classes.logo}>
-        {logo}
-       </div>
-       <Tween animation={animation}>
-        <Paper className={classes.paper} style={style} elevation={15}>
-        {props.children}
-        </Paper>
-        </Tween>
+        <Grid container direction='column' justify='space-between' alignItems='center'
+        style={{minHeight:'100vh',paddingTop:40}}>
+          <Grid item>
+       
+            <Tween animation={animation}>
+              <Paper className={classes.paper} style={style} elevation={15}>
+                {props.children}
+              </Paper>
+            </Tween>
+          </Grid>
+
+          <Grid item style={{height: 'calc(10vw + 120px)', width: '100%', position: 'relative', paddingTop: '60px'}}>
+            <SupportFooter mobile={false}/>
+          </Grid>
+        </Grid>
       </div>
     );
   }

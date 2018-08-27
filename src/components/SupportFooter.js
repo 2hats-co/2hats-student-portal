@@ -3,39 +3,61 @@ import FooterImage from '../assets/images/graphics/Footer.svg'
 import Logo from '../assets/images/Logo/White2hats.svg'  
 import Typography from '@material-ui/core/Typography'
 import { Grid } from '@material-ui/core';
+import Footer from '../assets/images/graphics/Footer.svg';
+import FooterMobile from '../assets/images/graphics/FooterMobile.svg';
 
 function SupportFooter(props){
     window.Intercom('update',{
         'hide_default_launcher': true
-      })
-    return(
-        <div style={{paddingBottom:50}}>
-        <Grid container direction='row' justify='space-around' alignItems='flex-start' 
-        style={{position:'relative',top:180,left:-16,right:0,backgroundColor:'#ff8a64',width:'calc(100% + 32px)',paddingBottom:30,paddingTop:50}}>
-        <img style={{maxWidth:150}} src={Logo}/>
-        <Grid container direction='row' alignItems='center' justify='center' style={{width:180, height:60}}>
-        <Grid item xs={5}>
-        <Typography variant='button' style={{color:'#fff'}} >
-        Get help
-        </Typography> </Grid>
-        <Grid item xs={2}>
-        <Typography variant='button' style={{color:'#fff'}} >
-        |
-        </Typography> </Grid>
+      });
+    
+    const FooterStyle = props.mobile ? {
+        padding:'7.5%',
+        backgroundImage:`url(${FooterMobile})`
+    } : {
+        padding:'4.37%',
+        backgroundImage:`url(${Footer})`
+    };
 
-        <Grid item xs={5}>
-        <Typography variant='button' xs={6} style={{color:'#fff'}}>
-        FAQ some
-        </Typography> 
+    return(
+        <Grid container direction='column' justify='flex-end' alignItems='center'
+        style={{position:'absolute',bottom:0}}>
+            <Grid item style={{
+                width:'100%',fontSize:0,height:0,backgroundSize:'103% 103%',
+                backgroundRepeat:'no-repeat', backgroundPosition: 'top center',
+                ...FooterStyle}}>
+            </Grid>
+            <Grid item style={{backgroundColor:'#ef5b34',width:'100%'}}>
+                <Grid container direction='row' justify='space-between' alignItems='flex-start' 
+                style={{width:'85%',paddingBottom:30,paddingTop:0,margin:'0 auto'}}>
+                    <img style={{maxWidth:150}} src={Logo}/>
+
+                    <Grid container direction='row' alignItems='center' justify='center' style={{width:180, height:60}}>
+                        <Grid item xs={5}>
+                            <Typography variant='button' style={{color:'#fff'}} >
+                            Get help
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={2}>
+                            <Typography variant='button' style={{color:'#fff'}} >
+                            |
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={5}>
+                            <Typography variant='button' xs={6} style={{color:'#fff'}}>
+                            FAQ some
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Typography  variant='caption' style={{color:'#fff',textAlign:'right', marginTop:10}}> 
+                            2hats 2018. All Rights Reserved.
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
         </Grid>
-        <Grid item xs={12}>
-        <Typography  variant='caption' style={{color:'#fff',textAlign:'right', marginTop:10}}> 
-        2hats 2018. All Rights Reserved.
-        </Typography>
-        </Grid>
-        </Grid>
-        </Grid>
-        </div>
         )
 }
 export default SupportFooter
