@@ -7,6 +7,7 @@ import HoverHint from '../HoverHint';
 const styles = theme => ({
   root:{
     width: '100%',
+    marginTop: 20,
   },
   footer:{
     marginTop:4
