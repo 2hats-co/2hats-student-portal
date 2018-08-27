@@ -11,6 +11,9 @@ const styles = theme => ({
       width:'100%',
       maxWidth:500
     },
+    title: {
+      marginBottom: 15
+    },
   });
 function FeedbackHistory(props){
     const {classes,data} = props
@@ -25,7 +28,7 @@ function FeedbackHistory(props){
    items = _.orderBy(items, 'timestamp','asc')
    }  
      
-    return(<div className={classes.root}><Typography variant='display1'>
+    return(<div className={classes.root}><Typography className={classes.title} variant='display1'>
    Feedback History
     </Typography>
     <Divider/>
