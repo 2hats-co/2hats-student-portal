@@ -53,9 +53,7 @@ class DashboardContainer extends Component{
                 <Grid item className={classes.item}>
                     {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
                 </Grid>
-                <Grid item className={classes.item}>            
-                    {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }
-                </Grid>
+                {submissions&&submissions[0]&&<Grid item className={classes.item}><FeedbackHistory data={submissions}/></Grid> }
                 <Grid item>
                     <UpcomingEvents data={upcomingEvents}/>
                 </Grid>
