@@ -12,7 +12,6 @@ const styles = theme => ({
     root: {
     width:'100%',
     paddingTop:30,
-    maxWidth:700,
     [theme.breakpoints.up('xs')]: {
         paddingLeft:30,
         paddingRight:30
@@ -32,7 +31,8 @@ const styles = theme => ({
     greeting:{},
     item:{
         width:'100%',
-      maxWidth:500
+        maxWidth:500,
+        marginBottom:40
     }
 });
 class DashboardContainer extends Component{
@@ -48,16 +48,17 @@ class DashboardContainer extends Component{
     render(){
         const {classes,upcomingEvents,submissions, profile,user,handleInfoDialog} = this.props
         return(
-            <Grid container direction='row' alignItems="center" className={classes.root}>
-            <Grid item className={classes.item}>
-            {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
-            </Grid>
-            <Grid item className={classes.item}>            
-        {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }  
-           </Grid>
-            <Grid item >    
-           <UpcomingEvents data={upcomingEvents}/>
-           </Grid>
+            <Grid container direction='column' alignItems="flex-start" className={classes.root}>
+                <Grid item className={classes.item}>
+                    {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
+                </Grid>
+                <Grid item className={classes.item}>            
+                    {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }  
+        
+                </Grid>
+                <Grid item>
+                    <UpcomingEvents data={upcomingEvents}/>
+                </Grid>
            </Grid>
         )
     }
