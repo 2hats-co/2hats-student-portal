@@ -42,7 +42,7 @@ class DashboardContainer extends Component{
             if(profile.hasSubmit){
                 return<ApplicationTimeLine user={user}/>
             }else{
-               return <div style={{marginBottom:40}}><ApplicationProgress data={profile} handleInfoDialog={handleInfoDialog}/></div>
+               return <ApplicationProgress data={profile} handleInfoDialog={handleInfoDialog}/>
             }
         }
     }
