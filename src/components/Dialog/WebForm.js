@@ -52,7 +52,7 @@ function WebForm(props){
             <Button variant='contained' onClick={cancelHandler}>
               Cancel
             </Button>
-          <Button variant='contained'  disabled={disabled} 
+          <Button variant='contained'  disabled={disabled} style={{textTransform: 'capitalize'}}
               onClick={addHandler} >
               {activity==='Edit'?'Save':activity }
             </Button>
