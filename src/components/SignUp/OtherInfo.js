@@ -14,7 +14,7 @@ function otherInfo(props){
       container
       direction="row"
       justify="space-between"
-      style={{ height: 270}}
+      style={{paddingBottom:40}}
     >
        {
         <AvailableDays value={availableDays} maxWidth={400} changeHandler={changeHandler}/>
