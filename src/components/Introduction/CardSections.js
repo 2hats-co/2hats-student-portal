@@ -35,7 +35,7 @@ function CardSections(props) {
 
         <Grid container
             direction='row'
-            justify='space-between'
+            justify='space-around'
             style={{ width: '100%', height: 400 }}
         >
             {items}
