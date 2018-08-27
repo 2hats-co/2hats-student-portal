@@ -112,7 +112,7 @@ class Avatar extends Component{
            isLoading={isUploading}
             
             unChanged={!hasChanged}
-            title={'your avatar'}
+            title={'Your Profile Photo'}
             activity='Update'
             disabled={isUploading||!hasChanged}
             addHandler={this.saveHandler} 
