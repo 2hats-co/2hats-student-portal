@@ -28,6 +28,7 @@ const styles = theme => ({
   //  marginBottom:5
   },label:{
     fontSize:'15px',
+    marginRight:0,
   },
   checkBox:{
     height:15,
@@ -93,7 +94,7 @@ class CareerInterests extends React.Component {
   renderCheckBoxGroup(label,options){
     const { classes} = this.props;
       return(  
-        <Grid key={label+'column'} item style={{minWidth:180}}  xs={12} sm={6} md={3} lg={3}>
+        <Grid key={label+'column'} item style={{minWidth:190}}  xs={12} sm={6} md={3} lg={3}>
     <FormControl className={classes.group} key={label} component="fieldset">
     <FormLabel className={classes.groupHeader} component="legend">{label}</FormLabel>
     <FormGroup>
