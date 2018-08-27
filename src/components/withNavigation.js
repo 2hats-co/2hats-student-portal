@@ -40,7 +40,6 @@ import { COLLECTIONS,LISTENER } from "../constants/firestore";
 import LightLogo from '../assets/images/Logo/WhiteText.png'
 import UpdateIcon from '@material-ui/icons/Update'
 
-import {auth} from '../firebase';
 import LogoutIcon from '@material-ui/icons/ExitToApp'
 import DownArrowIcon from '@material-ui/icons/ArrowDropDown'
 import AccountInfoDailog from './AccountInfoDialog'
@@ -288,9 +287,9 @@ export const withNavigation = (WrappedComponent) => {
                           </MenuItem>
                           <MenuItem value="Logout" onClick={async() => {
                             this.setState({ logoutToggleOpen: false });
-                            await auth.doSignOut();
-                            this.props.clearData();
                             this.goTo(routes.LOG_OUT);
+                            this.props.clearData();
+
                           }}>
                             <LogoutIcon/>Logout
                           </MenuItem>

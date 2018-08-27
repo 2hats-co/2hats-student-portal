@@ -32,6 +32,10 @@ import {
   updateUserPassword
 } from "../utilities/Authentication/authWithPassword";
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
+import {auth} from '../firebase';
+import { connect } from 'react-redux';
+import {actionTypes} from 'redux-firestore'
+
 
 import BackIcon from "@material-ui/icons/KeyboardBackspace";
 const styles = theme => ({
@@ -99,7 +103,7 @@ class AuthenticationContainer extends React.Component {
     this.handleError = this.handleError.bind(this);
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this);
   }
-  componentWillMount() {
+  async componentWillMount() {
     if (this.props.history.location.search.includes("firstName")) {
       this.setState({
         firstName: this.props.history.location.search.split("firstName=")[1]
@@ -108,12 +112,17 @@ class AuthenticationContainer extends React.Component {
     if (this.props.view) {
       this.setState({ view: this.props.view });
     }
-    
+    if(this.props.view === AUTHENTICATION_CONTAINER.logout){
+      await auth.doSignOut();
+      this.setState({view:AUTHENTICATION_CONTAINER.logout})
+      this.goTo(routes.LOG_OUT)
+  }
     window.Intercom("update", {
       hide_default_launcher: true
     });
     window.Intercom("hide");
   }
+ 
   goTo(route) {
     this.props.history.push(route);
   }
@@ -488,4 +497,11 @@ AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withRouter(withStyles(styles)(AuthenticationContainer));
+function mapDispatchToProps(dispatch) {
+  return({
+      clearData: () => {dispatch({ type: actionTypes.CLEAR_DATA, preserve: { data: false, ordered: false }})}
+  })
+}
+
+
+export default withRouter(withStyles(styles)(connect(mapDispatchToProps)(AuthenticationContainer)));
