@@ -108,7 +108,7 @@ class ResumeLoader extends React.Component {
             [classes.buttonSuccess]: true,
           });
         return (
-            <div style={!theme.responsive.isMobile?{minWidth:500}:{}}>
+            <div style={!theme.responsive.isMobile?{minWidth:420}:{}}>
             <InputWrapper
       title={!hideTitle&&'Resume Upload'}
       hint={!hideTitle&&'Please upload in PDF format'}
