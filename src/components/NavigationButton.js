@@ -19,6 +19,9 @@ const styles = theme => ({
         height:60,
         leftPadding:10,
         marginTop:10, 
+        borderColor:'transparent',
+        borderWidth:5,
+        borderLeftStyle:'solid',
         opacity:0.6 
     },
     button:{
@@ -50,4 +53,3 @@ NavigationButton.propTypes = {
     classes: PropTypes.object.isRequired,
   };
 export default withStyles(styles)(NavigationButton)
-  
