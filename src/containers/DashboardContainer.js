@@ -10,17 +10,18 @@ import { Grid } from '../../node_modules/@material-ui/core';
 
 const styles = theme => ({
     root: {
-    width:'100%',
-    paddingTop:30,
-    [theme.breakpoints.up('xs')]: {
-        paddingLeft:30,
-        paddingRight:30
-      },[theme.breakpoints.up('sm')]: {
-        paddingLeft:'calc(50% - 250px)'
-    },
-    [theme.breakpoints.up('md')]: {
-        paddingLeft:60
-    }
+        width:'100%',
+        paddingTop:30,
+        flexWrap: 'nowrap',
+        [theme.breakpoints.up('xs')]: {
+            paddingLeft:30,
+            paddingRight:30
+        },[theme.breakpoints.up('sm')]: {
+            paddingLeft:'calc(50% - 250px)'
+        },
+        [theme.breakpoints.up('md')]: {
+            paddingLeft:60
+        }
     },
     navIconHide:{},
     appBar:{},
@@ -53,8 +54,7 @@ class DashboardContainer extends Component{
                     {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
                 </Grid>
                 <Grid item className={classes.item}>            
-                    {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }  
-        
+                    {submissions&&submissions[0]&&<FeedbackHistory data={submissions}/> }
                 </Grid>
                 <Grid item>
                     <UpcomingEvents data={upcomingEvents}/>
