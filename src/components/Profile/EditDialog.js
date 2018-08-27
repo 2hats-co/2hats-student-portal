@@ -104,6 +104,7 @@ const styles = theme => ({
           addHandler={this.handleSave} 
           disabled={this.disabledUpadate(name)} 
           cancelHandler={this.handleCancel}
+          width={500}
           >
               <div className={classes.content}>
                 {inputField}
@@ -133,4 +134,3 @@ const enhance = compose(
   export default enhance(
       withStyles(styles)(EditDialog)
     )
-  
