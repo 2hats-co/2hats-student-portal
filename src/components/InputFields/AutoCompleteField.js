@@ -37,7 +37,10 @@ const styles = theme => ({
   // backgroundColor:'#f00',
    position: 'absolute',
     zIndex:10,
-    marginRight: theme.spacing.unit * 2
+    marginRight: theme.spacing.unit * 2,
+    maxHeight:240,
+    overflowY: 'scroll'
+    
   },
   popperClose: {
     pointerEvents: "none"
@@ -89,6 +92,8 @@ class AutoCompleteField extends React.Component {
   render() {
     const { classes, title, hint ,placeholder} = this.props;
     const { showList, filteredList } = this.state;
+   
+  
     return (
      
         <InputWrapper
