@@ -32,21 +32,21 @@ function SupportFooter(props){
                 style={{width:'85%',paddingBottom:30,paddingTop:0,margin:'0 auto'}}>
                     <img style={{maxWidth:150}} src={Logo}/>
 
-                    <Grid container direction='row' alignItems='center' justify='center' style={{width:180, height:60}}>
-                        <Grid item xs={5}>
-                            <Typography variant='button' style={{color:'#fff'}} >
-                            Get help
-                            </Typography>
+                    <Grid container direction='row' alignItems='center' justify='center' style={{width:200, height:60}}>
+                        <Grid item xs={6}>
+                            <a href='https://intercom.help/2hats/faq' style={{textDecoration:'none'}} target='_blank'><Typography variant='button' style={{color:'#fff'}} >
+                            Help Center
+                            </Typography></a>
                         </Grid>
-                        <Grid item xs={2}>
+                        <Grid item xs={1}>
                             <Typography variant='button' style={{color:'#fff'}} >
                             |
                             </Typography>
                         </Grid>
 
                         <Grid item xs={5}>
-                            <Typography variant='button' xs={6} style={{color:'#fff'}}>
-                            FAQ some
+                            <Typography onClick={()=>{window.Intercom('show')}} variant='button' xs={6} style={{color:'#fff',cursor:'pointer'}}>
+                            Live Chat
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
