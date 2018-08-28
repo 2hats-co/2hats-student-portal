@@ -12,6 +12,7 @@ import { COLLECTIONS } from '../constants/firestore';
 import {uploader} from '../utilities/Uploader'
 import UAParser from 'ua-parser-js';
 
+import buggyBoyImage from '../assets/images/buggyBoy.png'
 const minjieURL = 'https://firebasestorage.googleapis.com/v0/b/staging2hats.appspot.com/o/minjie.png?alt=media&token=bc25e10a-eba3-43af-b849-79bc67075138'
 const styles = theme =>({
     dropZone:{
@@ -22,7 +23,7 @@ const styles = theme =>({
      zIndex:2000,
      bottom:300,
      right:10,
-     width:50,height:50
+     width:80,height:80
     },
  
     uploadButton:{  
@@ -102,7 +103,7 @@ class BuggyBoy extends Component{
         const {isUploading,hasChanged,isOpen,expectation,behavior,screenshotURL} = this.state
         let avatar = (<MuiAvatar onClick={this.openDialog} 
             alt={`buggy boy`}
-            src={minjieURL}
+            src={buggyBoyImage}
             className={classes.avatar}/>)
        
        return(<div>
