@@ -305,7 +305,7 @@ class AuthenticationContainer extends React.Component {
     const newAccountMessage =(isHidden)=> {
       if(!isHidden){
         return <Typography key='newAccountMessage' style={{marginBottom:10}} variant="body1">
-            It look likes we don’t have an account with this email address.
+            It look likes we don't have an account with this email address.
           </Typography>
       }
     }
@@ -355,7 +355,7 @@ class AuthenticationContainer extends React.Component {
       if(onSignup){
         return footerLink(`Already have an account?`,routes.SIGN_IN,'Sign in')
       }else{
-        return footerLink(`Don’t have an account?`,routes.SIGN_UP,'Sign up')
+        return footerLink(`Don't have an account?`,routes.SIGN_UP,'Sign up')
       }
     }
     let routeLabel =(onSignup) => (<Typography key={`routeLabel-${onSignup? 'Sign-up':'sign-in'}`}
@@ -375,12 +375,12 @@ class AuthenticationContainer extends React.Component {
       emailAuth,
       switchLink(onSignupRoute)];
     const GoogleView = [backBar,
-      GreetingWithFirstName('Wellcome back'),
+      GreetingWithFirstName('Welcome back'),
       serviceMessage('Google'),
       googleButton];
     const LinkedinView = [
       backBar,
-      GreetingWithFirstName('Wellcome back'),,
+      GreetingWithFirstName('Welcome back'),,
       serviceMessage('Linkedin'),
       linkedinButton
     ];
@@ -395,7 +395,7 @@ class AuthenticationContainer extends React.Component {
     ];
     const passwordView = [
       backBar,
-      GreetingWithFirstName('Wellcome back'),
+      GreetingWithFirstName('Welcome back'),
       passwordField('Password',this.handleSignin),
       signInBar,
       
@@ -407,7 +407,7 @@ class AuthenticationContainer extends React.Component {
       resetPasswordButton
     ];
     const createPasswordView = [
-      GreetingWithFirstName('Wellcome back'),
+      GreetingWithFirstName('Welcome back'),
       createPasswordMessage,
       googleButton,
       linkedinButton,
@@ -420,7 +420,7 @@ class AuthenticationContainer extends React.Component {
       linkButton('Go to sign in',routes.SIGN_IN)
     ]
     const validateEmailView =[doneIcon,
-      titleMessage('Thank you, We validated your email'),
+      titleMessage('Thank you, we have validated your email'),
       linkButton('go to Dashboard',routes.DASHBOARD)
     ]
     let loadedView = authView;

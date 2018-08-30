@@ -106,7 +106,7 @@ class IntroductionContainer extends React.Component {
         {
           title: `No, I don't`,
           image: BuildResume,
-          description: `Don't worry! We will help you build a professional resume through our quick and easy 5-step process.`,
+          description: `Don't worry! We will help you build a professional resume through our quick and easy 6-step process.`,
           button: {
             label: `Help me build a resume`,
             onClick: this.goToBuildResume
