@@ -9,7 +9,8 @@ import {PROCESS_TYPES, STEP_LABELS, checkComplition,isComplete,firstUnfinishedSt
 import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
 import * as routes from '../../../constants/routes'
 import AnimateIcon from '../../AnimateIcon'
-import * as _ from 'lodash'
+
+
 const styles = theme => ({
     root: {
      width:'100%',
@@ -38,6 +39,20 @@ const styles = theme => ({
     }
     
   });
+  function orderByComplete(steps){
+    let orignalOrder = steps.slice(0)
+    console.log(orignalOrder)
+     let inComplete= []
+     let completed = []
+     orignalOrder.forEach(x=>{
+       if(x.completed){
+        completed.push(x)
+       }else{
+         inComplete.push(x)
+       }
+     })
+       return completed.concat(inComplete)
+   }
   class ApplicationProgress extends React.Component{
     constructor(props){
       super(props)
@@ -73,7 +88,8 @@ const styles = theme => ({
     const {process} = data
     const {isMobile} = theme.responsive
     const stepsData = STEP_LABELS[process].map(x=>{return({label:x,completed:!checkComplition(x,data)})})
-    const sortedSteps = _.sortBy(stepsData,['completed']).reverse() 
+    const sortedSteps = orderByComplete(stepsData) 
+  
     const steps = (<Grid container alignItems='center' direction='column'> 
      <Step className={classes.stepItem} key='basic' goTo={handleInfoDialog} label='Basic Info' isComplete={true}/>
     {sortedSteps.map(x=>
