@@ -91,6 +91,7 @@ const styles = theme => ({
     margin:'auto',
     marginTop:0,
     marginBottom:0,
+    marginLeft:40,
     flexGrow: 1,
     overflow:'scroll',
     width:'100%',
@@ -432,5 +433,3 @@ export const withNavigation = (WrappedComponent) => {
         withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(WithNavigation))
       )))
 }
-
-
