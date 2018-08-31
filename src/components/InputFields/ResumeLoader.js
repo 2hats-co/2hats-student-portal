@@ -6,9 +6,11 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Dropzone from 'react-dropzone'
 import {firebaseStorage} from '../../store'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Chip from '@material-ui/core/Chip';
 import classNames from "classnames";
 import InputWrapper from './InputWrapper'
 import MessageBar from '../MessageBar';
+import DownloadIcon from '@material-ui/icons/ArrowDownward';
 
 
 import { connect } from 'react-redux';
@@ -34,21 +36,27 @@ const styles = theme => ({
     wrapper: {
         margin: theme.spacing.unit,
         position: 'relative',
-      },
-      buttonSuccess: {
+        textAlign: 'center',
+    },
+    buttonSuccess: {
         //backgroundColor: green[500],
         '&:hover': {
-        //  backgroundColor: green[700],
+            //  backgroundColor: green[700],
         },
-      },
-     
-      buttonProgress: {
+    },
+    
+    buttonProgress: {
         position: 'absolute',
         top: '50%',
         left: '50%',
         marginTop: -12,
         marginLeft: -12,
-      },
+    },
+
+    chipWrapper: {
+        marginTop: theme.spacing.unit,
+        textAlign: 'center',
+    },
     
 });
 
@@ -139,9 +147,18 @@ class ResumeLoader extends React.Component {
             disabled={isUploading}
             onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
           >
-          {resumeFile.name!==''? `${resumeFile.name}`:'Browse Files'}
-          
+          {resumeFile.name!==''? 'Upload New Resume':'Browse Files'}
           </Button>
+          {resumeFile.name !== '' && 
+            <div className={classes.chipWrapper}>
+                <Chip
+                label={resumeFile.name} 
+                onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
+                onDelete={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
+                deleteIcon={<DownloadIcon />}
+                />
+            </div>
+          }
          {isUploading &&<CircularProgress size={24} className={classes.buttonProgress}/>}
         </div>
             </Grid>
