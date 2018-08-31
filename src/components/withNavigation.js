@@ -143,12 +143,11 @@ export const withNavigation = (WrappedComponent) => {
       };
 
       componentWillMount(){
-      
+      if(!this.props.theme.responsive.isMobile){
         window.Intercom('update',{
           'hide_default_launcher': false
         })
-      
-       // window.Intercom('show')
+      }
         window.Intercom('hide')
         this.updateWindowDimensions();
         window.addEventListener('resize', this.updateWindowDimensions);
@@ -159,9 +158,11 @@ export const withNavigation = (WrappedComponent) => {
 
       }
       componentDidMount(){
-        window.Intercom('update',{
-          'hide_default_launcher': false
-        })
+        if(!this.props.theme.responsive.isMobile){
+          window.Intercom('update',{
+            'hide_default_launcher': false
+          })
+        }
       }
       componentWillUnmount() {
         window.removeEventListener('resize', this.updateWindowDimensions);

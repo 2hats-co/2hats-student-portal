@@ -20,6 +20,11 @@ export const createUserWithPassword=(user,routeHandler,errorHandler)=>{
                 signupMethod:'password',
                 stage:'pre-review',// TODO use stage and status constants
                 status:'incomplete',
+                history: [{
+                  stage: 'pre-review',
+                  status: 'incomplete',
+                  createdAt: new Date() 
+                }]
               })
               db.collection('profiles').doc(uid).set({
                 education:[],
