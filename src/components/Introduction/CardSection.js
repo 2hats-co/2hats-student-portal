@@ -28,7 +28,7 @@ function CardSection(props) {
         container
         className={classes.root}
         spacing={0}
-        style={button?{height:415}:{height:355}}
+        style={{height:415}}
         alignItems='center'
         direction='column'
         justify='space-around'
@@ -37,7 +37,7 @@ function CardSection(props) {
         <Typography variant="title">
           {title}
         </Typography>
-        <Grid container style={{height:220}} alignItems='center'>
+        <Grid container style={{height:240}} alignItems='center'>
           <img src={image} alt={title} />
         </Grid>
         <Grid item style={{flex:1}}>
