@@ -29,7 +29,7 @@ function SupportFooter(props){
             </Grid>
             <Grid item style={{backgroundColor:'#ef5b34',width:'100%'}}>
                 <Grid container direction='row' justify='space-between' alignItems='flex-start' 
-                style={{width:'85%',paddingBottom:30,paddingTop:0,margin:'0 auto'}}>
+                style={{width:'85%',paddingBottom:30,paddingTop:0,margin:'calc(-4vw + 20px) auto 0'}}>
                     <img style={{maxWidth:150}} src={Logo}/>
 
                     <Grid container direction='row' alignItems='center' justify='center' style={{width:200, height:60}}>

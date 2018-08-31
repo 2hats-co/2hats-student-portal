@@ -88,7 +88,7 @@ function LogoOnCard(props) {
             </Tween>
           </Grid>
 
-          <Grid item style={{height: 'calc(10vw + 120px)', width: '100%', position: 'relative', paddingTop: '60px'}}>
+          <Grid item style={{height: 'calc(6vw + 120px)', width: '100%', position: 'relative', paddingTop: '60px'}}>
             <SupportFooter mobile={false}/>
           </Grid>
         </Grid>
