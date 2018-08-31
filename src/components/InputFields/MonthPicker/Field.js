@@ -36,6 +36,7 @@ function Field(props) {
                 </IconButton>
               </InputAdornment>
             }
+            style={{caretColor:'transparent'}}
           />
         </FormControl>
     </Grid>
