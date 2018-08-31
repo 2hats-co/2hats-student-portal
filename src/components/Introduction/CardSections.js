@@ -16,7 +16,7 @@ function divderlocations(nSections) {
 }
 function CardSections(props) {
     const { hasSteps, sections, hasDivider,width } = props
-    const divider= (key) => <div key={key} style={{ boxSizing: "border-box", height: '400px', width: '1px', border: '0.5px solid #979797' }} />
+    const divider= (key) => <div key={key} style={{ boxSizing: "border-box", height: '415px', width: '1px', border: '0.5px solid #979797' }} />
     let items = sections.map((section, index) => {
         return <CardSection
             key={section.title}
@@ -36,7 +36,7 @@ function CardSections(props) {
         <Grid container
             direction='row'
             justify='space-around'
-            style={{ width: '100%', height: 400 }}
+            style={{ width: '100%', height: 415 }}
         >
             {items}
 
