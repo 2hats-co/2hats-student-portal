@@ -13,6 +13,7 @@ import SmartLinkContainer from './containers/SmartLinkContainer';
 import DashboardContainer from './containers/DashboardContainer';
 import JobBoardContainer from './containers/JobBoardContainer';
 import ProfileContainer from './containers/ProfileContainer';
+import RemoteLoggerContainer from './containers/RemoteLoggerContainer';
  
 //routing
 import {
@@ -22,7 +23,6 @@ import {
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER, INTRODUCTION_CONTAINER} from './constants/views'
 import Landing from './components/Landing';
-import RemoteLoggerContainer from './containers/RemoteLoggerContainer';
 
 
 
@@ -53,11 +53,10 @@ componentWillUnmount() {
 
        <Router>
     <div className="app"> 
-
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic/>} />
       <Route exact path={routes.LOG_OUT} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.logout}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic/>} />
-      <Route exact path={routes.CREATE_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.createPassword}/>} />   
+      <Route exact path={routes.CREATE_PASSWORD} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.createPassword}/>} />   
       <Route exact path={routes.RESET_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.VALIDATE_EMAIL} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.validateEmail}/>} />
       <Route exact path={routes.SPEEDY_SIGN_UP} component={() =>  <SpeedySignupContainer isPublic/>}/>
