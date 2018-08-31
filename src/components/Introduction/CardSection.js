@@ -14,7 +14,7 @@ const styles = theme => ({
   }),
   button:{
     minWidth:200,
-    marginTop: 5,
+    marginTop: 20,
     paddingLeft:10,
     paddingRight:10,
     height:35
@@ -31,19 +31,15 @@ function CardSection(props) {
         style={button?{height:415}:{height:355}}
         alignItems='center'
         direction='column'
-        justify='space-around'
+        justify='flex-start'
       >
-        {step && <Typography variant="title"
-        style={button?{marginTop:-4}:{marginTop:0}}        
-        >
-        Step {step}
-      </Typography>}
-        <Typography variant="title" 
-        style={button?{marginTop:-4}:{marginTop:0}}                     
-        >
+        {step && <Typography variant="title">Step {step}</Typography>}
+        <Typography variant="title">
           {title}
         </Typography>
-        <img src={image} alt={title} />
+        <Grid container style={{height:220}} alignItems='center'>
+          <img src={image} alt={title} />
+        </Grid>
         <Typography style={{ width: 245,textAlign:'center' }} variant="body1">
           {description}
         </Typography>
