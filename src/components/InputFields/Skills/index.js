@@ -9,7 +9,8 @@ import CancelIcon from '@material-ui/icons/Cancel';
 const styles = theme => ({
     root: {
      width:'100%',
-     maxWidth:850
+     maxWidth:850,
+     marginTop:-20,
     },chip: {
         color:"#fff",
         marginTop: 10,

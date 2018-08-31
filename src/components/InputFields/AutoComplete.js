@@ -15,7 +15,6 @@ import InputWrapper from "./InputWrapper";
 const styles = theme => ({
     root: {
       flexGrow: 1,
-      marginTop:-8,
     },
     input: {
       display: 'flex',
@@ -156,7 +155,7 @@ const styles = theme => ({
         ValueContainer:this.ValueContainer,
       };
       return (
-        <div className={classes.root}>
+        <div className={classes.root} style={{marginTop:-16}}>
          <InputWrapper
           title={!hasLabel?title:''}
           hint={!hasLabel?hint:''}

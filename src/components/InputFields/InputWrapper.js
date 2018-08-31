@@ -9,6 +9,9 @@ const styles = theme => ({
     width: '100%',
     marginTop: 20,
   },
+  rootTopMarginCollapsed:{
+    width: '100%',
+  },
   footer:{
     marginTop:4
   },
@@ -56,7 +59,7 @@ function InputWrapper(props) {
      
   return (
    <div 
-   className={classes.root}
+   className={props.collapseTopMargin ? classes.rootTopMarginCollapsed : classes.root}
    >
      {header}
      {footer}
