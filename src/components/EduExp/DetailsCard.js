@@ -15,7 +15,7 @@ const styles = theme => ({
     width:'calc(100%0)',
     paddingTop: 35,
     paddingBottom: 30, 
-    marginBottom:10,
+    marginBottom:20,
     [theme.breakpoints.up('xs')]: {
       paddingLeft:30,
       paddingRight:30,

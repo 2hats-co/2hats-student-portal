@@ -22,6 +22,10 @@ const styles = theme => ({
     },
   card: {
     padding:10,
+    [theme.breakpoints.up('md')]: {
+      paddingLeft:18,
+      paddingRight:18,
+      },
   },
   chip:{marginRight:10, marginBottom:5},
   bullet: {
