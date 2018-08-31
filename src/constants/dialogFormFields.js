@@ -21,7 +21,7 @@ const eduEmptyFields = (industry) => [
 const expEmptyFields = (industry) => [
     {type:INPUTS.textField,name:'title',label:'Position/Job Title',isRequired:true},
     {type:INPUTS.textField,name:'organisation',label:'Organisation',isRequired:true},
-    {type:INPUTS.dropDown,name:'type',label:'Type of Experince',list:['Extra Curricular','Employment','Internship','Project'],isRequired:true},
+    {type:INPUTS.dropDown,name:'type',label:'Type of Experience',list:['Extra Curricular','Employment','Internship','Project'],isRequired:true},
     {type:INPUTS.monthPicker,name:'startDate',label:'Start',maxRefrence:'endDateValue',isRequired:true},
     {type:INPUTS.monthPicker,name:'endDate',label:'End',minRefrence:'startDateValue',toggle:{label:'This is my current position.',value:'Present',isSelected:false},isRequired:true},
     {type:INPUTS.multiLine,name:'description',label:'description',placeholder:getPrompts(industry).exp,hint:'This description should focus on your key achievements in this position/job.',isRequired:true}

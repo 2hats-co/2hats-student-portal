@@ -8,13 +8,14 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
+import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import InputWrapper from "./InputWrapper";
 
 const styles = theme => ({
     root: {
       flexGrow: 1,
-      //height: 250,
+      marginTop:-8,
     },
     input: {
       display: 'flex',
@@ -162,10 +163,12 @@ const styles = theme => ({
         >
             <Select className={classes.root}
               allowCreate
+              indicatorSeparator={false}
               classes={classes}
               options={options}
               components={components}
               value={{label:value}}
+
               onChange={this.handleChange(name)}
               placeholder=""
             /></InputWrapper>
