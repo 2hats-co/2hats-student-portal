@@ -115,13 +115,13 @@ class DialogForm extends React.Component {
          />
          case INPUTS.dropDown:return  <DropDown 
          hasLabel
-         key= {field.name} 
+         key={field.name} 
          list={field.list} 
-         label={field.label}
+         label={`${field.label}`}
          value={this.state[field.name]&& this.state[field.name].value}
           name={field.name}
           changeHandler={this.handleChange.bind(this)}
-
+          style={{marginTop:-20}}
           />
           case INPUTS.autoComplete:return <AutoComplete 
           hasLabel

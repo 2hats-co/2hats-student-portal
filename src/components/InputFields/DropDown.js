@@ -4,12 +4,15 @@ import { withStyles } from '@material-ui/core/styles';
 import {FormControl,Select,MenuItem,Typography} from '@material-ui/core'
 import InputWrapper from './InputWrapper'
 import InputLabel from '@material-ui/core/InputLabel';
+import DownIcon from '@material-ui/icons/KeyboardArrowDown';
+
 const styles = theme => ({
   root: {
     
   },
   inputField: {
-    width:'100%'
+    width:'100%',
+    marginTop:-16,
  },
   placeHolderItem:{
     height:0
@@ -20,20 +23,16 @@ function DropDown(props) {
     const InputField = ( 
         <FormControl className = {classes.inputField} style={{maxWidth:maxWidth}}>
            {hasLabel&&<InputLabel 
-          shrink={typeof value !=='undefined' } 
           htmlFor={`${name}dropDown`} 
           id={`${name}dropDown`}
-          style={{textTransform:'capitalize'}}>{label}</InputLabel>} 
+          style={{textTransform:'capitalize',marginTop:2}}>{label}</InputLabel>} 
         <Select  
-      
-       value={value}
-       onChange={(e)=>{
-         changeHandler(name,e.target.value)
-        }}
+          value={value}
+          onChange={(e)=>{
+            changeHandler(name,e.target.value)
+          }}
+          IconComponent={props => <DownIcon style={{opacity:.3,position:'absolute',bottom:0,right:3}} />}
         >
-          <MenuItem value="">
-              <em></em>
-            </MenuItem>
           {list.map(option=>(
           <MenuItem key={option} value={option}>{option}</MenuItem>)
           )}

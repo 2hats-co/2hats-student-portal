@@ -11,16 +11,13 @@ function otherInfo(props){
     const {workingRights,availableDays,phoneNumber,changeHandler} = props
     return(
         <Grid
-      container
-      direction="row"
-      justify="space-between"
-      style={{paddingBottom:40}}
-    >
-       {
-        <AvailableDays value={availableDays} maxWidth={400} changeHandler={changeHandler}/>
-      }
-      <WorkingRights value={workingRights} maxWidth={400} changeHandler={changeHandler}/>
-     
+        container
+        direction="row"
+        justify="space-between"
+        style={{paddingBottom:40,marginTop:-20}}
+      >
+      <AvailableDays value={availableDays} maxWidth={400} changeHandler={changeHandler}/>
+      <WorkingRights value={workingRights} maxWidth={400} changeHandler={changeHandler} />
       <PhoneNumber value={phoneNumber} maxWidth={400} changeHandler={changeHandler} />
     </Grid>
     )
