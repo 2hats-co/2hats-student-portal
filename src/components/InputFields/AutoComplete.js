@@ -163,7 +163,6 @@ const styles = theme => ({
         >
             <Select className={classes.root}
               allowCreate
-              indicatorSeparator={false}
               classes={classes}
               options={options}
               components={components}
