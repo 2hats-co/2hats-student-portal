@@ -155,7 +155,7 @@ const styles = theme => ({
         ValueContainer:this.ValueContainer,
       };
       return (
-        <div className={classes.root} style={{marginTop:-16}}>
+        <div className={classes.root} style={{marginTop:-20}}>
          <InputWrapper
           title={!hasLabel?title:''}
           hint={!hasLabel?hint:''}

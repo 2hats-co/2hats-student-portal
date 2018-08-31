@@ -121,9 +121,10 @@ class ResumeLoader extends React.Component {
         return (
             <div style={!theme.responsive.isMobile?{minWidth:420}:{}}>
             <InputWrapper
-      title={!hideTitle&&'Resume Upload'}
-      hint={!hideTitle&&'Please upload in PDF format'}
-      >
+            title={!hideTitle&&'Resume Upload'}
+            hint={!hideTitle&&'Please upload in PDF format'}
+            collapseTopMargin
+            >
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
             accept="application/pdf"

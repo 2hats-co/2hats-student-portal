@@ -12,7 +12,6 @@ const styles = theme => ({
   },
   inputField: {
     width:'100%',
-    marginTop:-16,
  },
   placeHolderItem:{
     height:0
@@ -42,7 +41,8 @@ function DropDown(props) {
   return (
     <InputWrapper 
   title={!hasLabel?title:''}
-  hint={!hasLabel?hint:''}>
+  hint={!hasLabel?hint:''}
+  collapseTopMargin={true}>
     {InputField}
     </InputWrapper>
   );

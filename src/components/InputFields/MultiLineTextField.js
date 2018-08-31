@@ -74,13 +74,14 @@ class MultiLineTextField extends React.Component {
   render(){
     const { hasLabel,classes,title,hint,placeholder} = this.props;
     return(
-      <div style={{width:'100%',marginTop:-14}}>
+      <div style={{width:'100%'}}>
       <InputWrapper
       hasLabel={hasLabel}
       title={title}
       hint={hint}
       tip={`For Example: \n ${placeholder}`}
       characterCounter={this.state.characterCountValue}
+      collapseTopMargin
       ><textarea
       onChange={this.handleChange.bind(this)}
       onFocus={this.handleFocus.bind(this)}
