@@ -199,32 +199,33 @@ class StatusCard extends React.Component{
         <Card className={classes.root} style={hideToaster?{}:{display:'none'}}>
             <Grid container 
             justify={isMobile?'flex-end':'space-between'} className={classes.grid} style={!isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' > 
-                <Grid  xs={12} sm={6} md={9} lg={10} item>
-                <Grid container direction='row' justify='flex-start' alignItems='center'>
-                <Grid item xs={1}>
-                {icon}</Grid>
-                <Grid item xs={11}>
-                <Typography className={classes.prompt} variant='subheading'>
-                 {message}
-                </Typography>
-                </Grid>
-                </Grid>
+                <Grid  xs={12} sm={6} md={7} lg={9} item>
+                  <Grid container direction='row' justify='flex-start' alignItems='center'>
+                    {icon}
+                    <Grid item style={{flex: 1}}>
+                      <Typography className={classes.prompt} variant='subheading' style={{marginLeft:10,textAlign:'left'}}>
+                      {message}
+                      </Typography>
+                    </Grid>
+                  </Grid>
                
                 </Grid>
                 {
-                <Grid item xs={12} sm={6}  md={3} lg={2} style={{maxWidth:230}}>
-                {buttons&&
-                    buttons.map(x=>{return(
-          
-                        <Button key={x.label} disabled={x.disabled} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
-                        {x.label}
-                        </Button>
-                     
-                    )
-                })
-                }{link&&<div>
-                <PopupSelector items={[{label:link.label,action:link.action}]}/>
-               </div>}
+                <Grid item xs={12} sm={6}  md={5} lg={3}>
+                  <Grid container direction='row' justify='flex-end' alignItems='center'>
+                    {buttons&&
+                        buttons.map(x=>{return(
+              
+                            <Button key={x.label} disabled={x.disabled} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
+                            {x.label}
+                            </Button>
+                        
+                        )
+                    })
+                    }{link&&<div>
+                      <PopupSelector items={[{label:link.label,action:link.action}]}/>
+                    </div>}
+                  </Grid>
                 </Grid>
                 }
             </Grid>

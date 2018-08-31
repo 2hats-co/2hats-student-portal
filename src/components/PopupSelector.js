@@ -17,9 +17,6 @@ render(){
     return(
         <div>
         <Button disableRipple
-                  style={{ position:'absolute',
-                  right:0,
-                  bottom:10}}
                   variant='contained'
                   buttonRef={node => {
                     this.anchorEl = node;
