@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography,Grid,Card,Button } from '@material-ui/core';
 import { withStyles } from "@material-ui/core/styles";
 import ConfirmationDialog from './ConfirmationDialog'
-import { PROCESS_TYPES } from '../constants/signUpProcess';
+import { PROCESS_TYPES,firstUnfinishedStep} from '../constants/signUpProcess';
 import * as routes from '../constants/routes'
 import {isComplete} from '../constants/signUpProcess'
 import AlertIcon from '@material-ui/icons/Error'
@@ -129,9 +129,17 @@ class StatusCard extends React.Component{
         const uploadLink = {label:'Upload Existing Resume Instead',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('upload')})}}
         const uploadButton = {label:'Upload Resume',action:()=>{this.props.goTo(routes.UPLOAD_RESUME)}}
         const pendingButton = {label:'Pending Feedback',disabled:true,action:()=>{}}
-        const completeButton = {label:'Complete Profile',action:()=>{this.props.goTo(routes.UPLOAD_RESUME)}}
+        const completeButton = {label:'Complete Profile',action:()=>{
+            const returnStep = firstUnfinishedStep(this.props.profile)
+            this.props.goTo(`${routes.UPLOAD_RESUME}?step=${returnStep}`) 
+          }
+        }
         const buildLink = {label:'Use Our Resume Builder Instead',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('build')})}}
-        const buildButton = {label:'Continue Building',action:()=>{this.props.goTo(routes.BUILD_RESUME)}}
+        const buildButton = {label:'Continue Building',action:()=>{
+            const returnStep = firstUnfinishedStep(this.props.profile)
+            this.props.goTo(`${routes.BUILD_RESUME}?step=${returnStep}`)
+          }
+        }
         const submitButton = {label:'Submit Profile',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('submit')})}}
         const inCompleteBuildMessage = 'It looks like you haven’t finished building your resume yet.'
         const inCompleteUploadMessage = 'It looks like you haven’t filled out all the necessary information yet.'
