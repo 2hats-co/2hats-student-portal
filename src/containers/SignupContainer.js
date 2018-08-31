@@ -68,6 +68,7 @@ let INITIAL_PROFILE = {
 };
 const INITIAL_STATE = {
   activeStep: 0,
+  isLoading:false,
   profile: {},
   error: null
 };
@@ -148,8 +149,13 @@ class ResumeBuilderContainer extends Component {
     }
   }
   handleChange(name, value) {
-    const newProfile = Object.assign(this.state.profile, { [name]: value });
-    this.setState({ profile: newProfile });
+    if(name ==='isLoading'){
+      this.setState({isLoading:value})
+    }else{
+      const newProfile = Object.assign(this.state.profile, { [name]: value });
+      this.setState({ profile: newProfile });
+    }
+
   }
   getStepContent(currentStep, profile) {
     const { careerInterests, industry } = profile;
@@ -342,7 +348,7 @@ class ResumeBuilderContainer extends Component {
   };
   render() {
     const { classes, theme,user } = this.props;
-    const { activeStep, profile } = this.state;
+    const { activeStep, profile,isLoading } = this.state;
     if (profile.createdAt && user) {
       const currentStep = STEP_LABELS[profile.process][activeStep];
       return (
@@ -355,6 +361,7 @@ class ResumeBuilderContainer extends Component {
             }
           >
             <StepController
+              isLoading={isLoading}
               activeStep={activeStep}
               profile={profile}
               updateHandler={this.handleUpdate}

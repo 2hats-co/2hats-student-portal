@@ -92,9 +92,11 @@ class ResumeLoader extends React.Component {
             )
     )
         this.setState({isUploading:false})
+        this.props.changeHandler('isLoading',false)
     }
     
     onDrop(files) {
+       
         if(files[0].type !=='application/pdf'){
         this.setState({errorBar:true})
         }else{
@@ -104,6 +106,7 @@ class ResumeLoader extends React.Component {
             this.handleDelete()
           }
             this.setState({isUploading:true})
+            this.props.changeHandler('isLoading',true)
             this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`${uid}/resumes/${Date.now()}/${files[0].name}`, downloadURL:''})
             const documentRef = firebaseStorage.child(`${uid}/resumes/${Date.now()}/${files[0].name}`)
             documentRef.put(files[0]).then(this.handleLoader);

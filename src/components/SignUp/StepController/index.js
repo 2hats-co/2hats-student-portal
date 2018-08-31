@@ -107,7 +107,7 @@ disableNext(currentStep,profile){
 
 render(){
 
- const{classes,profile,activeStep,theme} = this.props
+ const{classes,profile,activeStep,theme,isLoading} = this.props
  const isMobile = theme.responsive.isMobile
  const steps = STEP_LABELS[(profile.process)];
  const currentStep = STEP_LABELS[(profile.process)][activeStep]
@@ -131,7 +131,7 @@ render(){
   const saveLink = (<StyledLink onClick={()=>{this.handleSave(currentStep)}} className={classes.finishLabel} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
       Finish Later
     </StyledLink>)
-  const saveButtonWithConditions = ((this.showSave(currentStep,profile))&&saveLink)
+  const saveButtonWithConditions = (((this.showSave(currentStep,profile))&& !isLoading)&&saveLink)
   const webButtons =(<Grid item style={{height:35}}>
     <Grid
 //className={classes.root}
