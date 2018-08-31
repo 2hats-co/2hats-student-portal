@@ -11,7 +11,6 @@ const styles = theme => ({
     textAlign:'center'  
     },large:theme.typography.body1,
   link: {
-    fontSize:'11px',
     color: theme.palette.primary.light,
     textDecoration: 'inherit',
     '&:hover': {

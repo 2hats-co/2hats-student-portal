@@ -28,25 +28,23 @@ function CardSection(props) {
         container
         className={classes.root}
         spacing={0}
-        style={button?{height:415}:{height:355}}
+        style={{height:415}}
         alignItems='center'
         direction='column'
         justify='space-around'
       >
-        {step && <Typography variant="title"
-        style={button?{marginTop:-4}:{marginTop:0}}        
-        >
-        Step {step}
-      </Typography>}
-        <Typography variant="title" 
-        style={button?{marginTop:-4}:{marginTop:0}}                     
-        >
+        {step && <Typography variant="title">Step {step}</Typography>}
+        <Typography variant="title">
           {title}
         </Typography>
-        <img src={image} alt={title} />
-        <Typography style={{ width: 245,textAlign:'center' }} variant="body1">
-          {description}
-        </Typography>
+        <Grid container style={{height:240}} alignItems='center'>
+          <img src={image} alt={title} />
+        </Grid>
+        <Grid item style={{flex:1}}>
+          <Typography style={{ width: 245,textAlign:'center' }} variant="body1">
+            {description}
+          </Typography>
+        </Grid>
         {button && <Button className={classes.button} onClick={button.onClick} variant='flat' color="primary">
         {button.label}
       </Button>}

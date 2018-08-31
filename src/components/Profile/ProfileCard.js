@@ -21,16 +21,11 @@ const styles = theme => ({
     marginBottom:20
     },
   card: {
-    width:'calc(100%0)',
-   paddingBottom:5,
-   [theme.breakpoints.up('xs')]: {
-    maxWidth:740,
     padding:10,
-  },
-[theme.breakpoints.up('md')]: {
-  maxWidth:680,
-  padding:40,
-},
+    [theme.breakpoints.up('md')]: {
+      paddingLeft:18,
+      paddingRight:18,
+      },
   },
   chip:{marginRight:10, marginBottom:5},
   bullet: {
@@ -154,6 +149,3 @@ ProfileCard.propTypes = {
 };
 
 export default withStyles(styles)(ProfileCard)
-  
-
-

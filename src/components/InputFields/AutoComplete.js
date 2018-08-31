@@ -120,7 +120,7 @@ const styles = theme => ({
         <TextField
           fullWidth
           label={this.props.hasLabel&&this.props.label}
-          onFocus={()=>{//this.setState({shrink:true})
+          onFocus={()=>{this.setState({shrink:true})
           if(this.props.focusedField){
             this.props.changeHandler('focusedField',this.props.name)
           }
@@ -181,4 +181,3 @@ const styles = theme => ({
   };
   
   export default withStyles(styles)(AutoComplete);
-
