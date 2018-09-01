@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import { withStyles } from "@material-ui/core/styles";
-import Typography from '@material-ui/core/Typography';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const styles = theme => ({
   //
@@ -18,6 +18,7 @@ const styles = theme => ({
 function Field(props) {
   const {label,value,classes,name,focusedField,errorMessage,openCalendar} = props;
   const isOpen = (name===focusedField)
+  console.log(errorMessage)
   return (
     <Grid container onClick={()=>{openCalendar(name,focusedField)}} direction='column' style={{marginTop:10}}>
       <FormControl style={{width:'100%'}}>
@@ -26,6 +27,7 @@ function Field(props) {
             type="text"
             value={value}
             fullWidth
+            error={errorMessage&& errorMessage !==''}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -38,6 +40,7 @@ function Field(props) {
             }
             style={{caretColor:'transparent'}}
           />
+            {(errorMessage&& errorMessage !=='')&&<FormHelperText id="name-error-text" style={{color:'#f00'}}>{errorMessage}</FormHelperText>}
         </FormControl>
     </Grid>
   )
