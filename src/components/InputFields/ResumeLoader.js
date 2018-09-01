@@ -68,6 +68,7 @@ class ResumeLoader extends React.Component {
         this.handleDelete = this.handleDelete.bind(this)
         this.onDrop = this.onDrop.bind(this)
         this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this)
+        this.handleProgress = this.handleProgress.bind(this)
     }
     handleCloseSnackbar(){
         this.setState({errorBar:false})
@@ -109,9 +110,27 @@ class ResumeLoader extends React.Component {
             this.props.changeHandler('isLoading',true)
             this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`${uid}/resumes/${Date.now()}/${files[0].name}`, downloadURL:''})
             const documentRef = firebaseStorage.child(`${uid}/resumes/${Date.now()}/${files[0].name}`)
-            documentRef.put(files[0]).then(this.handleLoader);
+            let uploadTask = documentRef.put(files[0]);
+            this.handleProgress(uploadTask)
+            uploadTask.then(this.handleLoader)
         }
       }
+    handleProgress(uploadTask){
+        uploadTask.on('state_changed', function(snapshot){
+            // Observe state change events such as progress, pause, and resume
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+            switch (snapshot.state) {
+              case 'paused': // or 
+                console.log('Upload is paused');
+                break;
+              case 'running': // or 'running'
+                console.log('Upload is running');
+                break;
+            }
+          });
+    }
     render() {
         const {classes,resumeFile,theme,hideTitle } = this.props;
         const {isUploading} = this.state; 
