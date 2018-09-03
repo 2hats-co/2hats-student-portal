@@ -6,23 +6,11 @@ import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Input from '@material-ui/core/Input';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
-
-import IconButton from '@material-ui/core/IconButton'
-import BackIcon from '@material-ui/icons/ArrowBack'
-import NextIcon from '@material-ui/icons/ArrowForward'
-import DownIcon from '@material-ui/icons/KeyboardArrowDown'
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown'
 import moment from 'moment'
 
 import Calendar from './Calendar';
 import Field from './Field';
 
-const monthLabels = [['Jan','Feb','Mar','Apr'],['May','Jun','Jul','Aug'],['Sep','Oct','Nov','Dec']]
 const monthNames = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec']
 function getMonthName(n){return(monthNames[n-1])} 
 
@@ -43,21 +31,6 @@ const styles = theme => ({
         borderBottomStyle: 'solid',
         '&hover':{ border:'1px solid #000',}
     },
-    
-    monthsGrid: {
-        width:'100%',
-        height:85
-    },
-    selectedDiv:{
-        backgroundColor:theme.palette.primary.light
-    },
-    errorText:{
-        fontSize:'11px',
-        color:'#ff0000'
-    },captionLabel:{
-        marginTop:2,
-        marginBottom:-15,
-    },
   });
 
   class MonthPicker extends  React.Component {
@@ -66,6 +39,7 @@ const styles = theme => ({
         this.state = {
             year:2018,
             value:'',
+            errorMessage:'',
             toggled:false
         }
         this.handleIncrementYear = this.handleIncrementYear.bind(this);
@@ -83,12 +57,11 @@ const styles = theme => ({
         this.setState({errorBar:false})
     }
     validRange(month,year){
-        const {name,maxValue,minValue,toggle} = this.props
-     
+        const {name,maxValue,minValue} = this.props
         let newMoment = getMoment(month,year)
         if(name === 'startDate'){
           if(maxValue){
-              if(toggle){
+              if(maxValue ==='Present'){
                   if(newMoment< moment()){
                     return true  
                   }else{
@@ -100,6 +73,7 @@ const styles = theme => ({
                     this.setState({errorMessage:null})
                     return true
                 }else{
+                    console.log(moment())
                     this.setState({errorMessage:`Please choose an earlier date`})
                     return false
                 }
@@ -158,7 +132,6 @@ const styles = theme => ({
             this.props.changeHandler('focusedField',name)
         }
     }
-    
     render(){
         const {toggle,name,focusedField} = this.props
         const isOpen = (name===focusedField)
@@ -168,7 +141,7 @@ const styles = theme => ({
                 value={this.props.value}
                 name={this.props.name}
                 focusedField={this.props.focusedField}
-                errorMessage={this.state}
+                errorMessage={isOpen&& this.state.errorMessage}
                 openCalendar={this.openCalendar}
             />}
             {isOpen && <Calendar

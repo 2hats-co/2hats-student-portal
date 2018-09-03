@@ -54,9 +54,7 @@ const styles = theme => ({
   function inputComponent({ inputRef, ...props }) {
     return <div ref={inputRef} {...props} />;
   }
-  
-  
-  
+
   function Option(props) {
     return (
       <MenuItem
@@ -85,18 +83,33 @@ const styles = theme => ({
     );
   }
   
-  function optionsGenerator(list){
-    return list.map(x=>{return({label:x})})
+  Array.prototype.findReg = function(match) {
+    var reg = new RegExp(match,"i");
+    return this.filter(function(item){
+
+        return typeof item == 'string' && item.match(reg);
+    });
+}
+  function optionsGenerator(list,input){
+  
+   if(input === ''){
+    return list.slice(0,20).map(x=>{return({label:x})})
+   }else{
+     let filteredList = list.findReg(input)
+    if (filteredList.length===0){
+      return([{label:input}])
+    }else{
+      return filteredList.slice(0,20).map(x=>{return({label:x})})
+    }
+   } 
   }
-  
-  
   class AutoComplete extends React.Component {
     constructor(props){
       super(props)
       this.state = {
         single: null,
         value:'',
-        freeText:'tests',
+        freeText:'',
         shrink:false
       };
       this.ValueContainer = this.ValueContainer.bind(this)
@@ -144,7 +157,8 @@ const styles = theme => ({
     };   
     render() {
       const {classes,list,value,hasLabel,name,hint,title} = this.props
-      const options = optionsGenerator(list.concat([this.state.freeText]))
+   
+      const options = optionsGenerator(list,this.state.freeText)
     
       const components = {
         Option,
@@ -166,7 +180,6 @@ const styles = theme => ({
               options={options}
               components={components}
               value={{label:value}}
-
               onChange={this.handleChange(name)}
               placeholder=""
             /></InputWrapper>
