@@ -68,7 +68,7 @@ function EduExpCard(props) {
             </Grid>
         </Grid>
         <Grid item xs={12} style={{paddingLeft:0,paddingRight:0}}>
-        <Typography variant="body1" >{description}</Typography>
+        <Typography variant="body1" style={{whiteSpace:'pre'}}>{description}</Typography>
         </Grid>
       </Grid>
     </Card>
