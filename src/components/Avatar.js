@@ -20,6 +20,7 @@ const styles = theme =>({
         border:'none !important'
     },
     avatar: {
+    cursor:'pointer',
       marginTop:-1,
       fontSize:14,
       textTransform:'uppercase'

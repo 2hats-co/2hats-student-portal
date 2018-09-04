@@ -6,6 +6,7 @@ import IconButton  from "@material-ui/core/IconButton";
 
 const styles = theme => ({
     root: {
+        cursor:'pointer',
         paddingTop:5,
         paddingBottom:5,
 //   height:65,
