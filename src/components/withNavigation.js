@@ -50,6 +50,7 @@ import {actionTypes} from 'redux-firestore'
 import Avatar from './Avatar';
 
 import BuggyBoy from './BuggyBoy'
+import {setBackground} from '../utilities/styling'
 
 
 const drawerWidth = 240;
@@ -144,6 +145,7 @@ export const withNavigation = (WrappedComponent) => {
       };
 
       componentWillMount(){
+        setBackground('#fff')
       if(!this.props.theme.responsive.isMobile){
         window.Intercom('update',{
           'hide_default_launcher': false
