@@ -127,7 +127,7 @@ class StatusCard extends React.Component{
       }
       getStatusPrompt(profile){
         const uploadLink = {label:'Upload Existing Resume Instead',action:()=>{this.setState({confirmationDialog:this.getConfirmationDialog('upload')})}}
-        const uploadButton = {label:'Upload Resume',action:()=>{this.props.goTo(routes.UPLOAD_RESUME)}}
+        const uploadButton = {label:'Upload Resume',action:()=>{this.props.goTo(`${routes.UPLOAD_RESUME}?step=3`)}}
         const pendingButton = {label:'Pending Feedback',disabled:true,action:()=>{}}
         const completeButton = {label:'Complete Profile',action:()=>{
             const returnStep = firstUnfinishedStep(this.props.profile)
