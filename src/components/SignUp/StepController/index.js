@@ -53,7 +53,7 @@ goToIntroduction(){
   this.props.history.goBack()
 }
 goToDashboard(){
-  this.props.nextHandler()
+
   this.props.history.push(routes.DASHBOARD)
 }
 disableNext(currentStep,profile){
@@ -99,6 +99,7 @@ disableNext(currentStep,profile){
     {this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
   }
   handleSave(currentStep){
+    console.log(currentStep,profile)
     const{profile,activeStep,updateHandler} = this.props
     if(!checkComplition(currentStep,profile)){
       updateHandler(activeStep)
