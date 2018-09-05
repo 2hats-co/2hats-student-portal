@@ -6,7 +6,7 @@ export const warmUp = (name) => {
     };
 
     cloudFunction(name, request
-        ,() => {
+        ,(result) => {
             console.log(`Call ${name} success: `, result);
         }
         ,(error) => {

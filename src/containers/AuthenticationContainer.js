@@ -15,6 +15,7 @@ import * as routes from "../constants/routes";
 import { withRouter } from "react-router-dom";
 import { AUTHENTICATION_CONTAINER } from "../constants/views";
 
+import {warmUp} from '../utilities/Authentication/warmUp'
 //authentication components
 import Name from "../components/InputFields/Name";
 import Password from "../components/InputFields/Password";
@@ -104,6 +105,8 @@ class AuthenticationContainer extends React.Component {
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this);
   }
   async componentWillMount() {
+    warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL)
+    warmUp(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY)
     if (this.props.history.location.search.includes("firstName")) {
       this.setState({
         firstName: this.props.history.location.search.split("firstName=")[1]
