@@ -2,7 +2,7 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
 export const checkEmail = (email, success, fail) => {
     const request = { 
-        email: email
+        email: email.toLowerCase()
     };
 
     cloudFunction(CLOUD_FUNCTIONS.CHECK_EMAIL, request

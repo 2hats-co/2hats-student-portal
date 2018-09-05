@@ -104,6 +104,7 @@ disableNext(currentStep,profile){
     if(!checkComplition(currentStep,profile)){
       updateHandler(activeStep)
      }
+     setTimeout(this.goToDashboard,200)
   }
 
 render(){
@@ -129,7 +130,7 @@ render(){
     Back
   </Button>)
 
-  const saveLink = (<StyledLink onClick={()=>{this.handleSave(currentStep)}} className={classes.finishLabel} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`} href={'/dashboard'}>
+  const saveLink = (<StyledLink onClick={()=>{this.handleSave(currentStep)}} className={classes.finishLabel} id={`saveAt-${currentStep}`} key={`saveAt-${currentStep}`}>
       Finish Later
     </StyledLink>)
   const saveButtonWithConditions = (((this.showSave(currentStep,profile))&& !isLoading)&&saveLink)
