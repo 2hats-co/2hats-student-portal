@@ -25,12 +25,25 @@ const styles = theme => ({
       }
 
 });
-class SuggestedSkills extends React.Component { 
-    state = {suggestedSkills:[]}
+class SuggestedSkills extends React.Component {
+    constructor(props){
+        super(props)
+        this.state = {suggestedSkills:[]}
+        this.loadSuggestions = this.loadSuggestions.bind(this)
+    }
+    
     componentWillMount(){
+        this.loadSuggestions()
+    }
+    loadSuggestions(){
         const {interestKeys,preSelectedList} = this.props
         const skills = getSkills(interestKeys).filter(x=>!preSelectedList.includes(x))
         this.setState({suggestedSkills:skills})
+    }
+    componentDidUpdate(prevProps){
+        if(prevProps !== this.props){
+           this.loadSuggestions()
+        }  
     }
     handleAdd(skill){
         this.setState({suggestedSkills:this.state.suggestedSkills.filter(x=> x !== skill)})
