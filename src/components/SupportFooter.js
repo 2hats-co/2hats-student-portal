@@ -30,28 +30,25 @@ function SupportFooter(props){
             <Grid item style={{backgroundColor:'#ef5b34',width:'100%'}}>
                 <Grid container direction='row' justify='space-between' alignItems='flex-start' 
                 style={{width:'85%',paddingBottom:30,paddingTop:0,margin:'calc(-4vw + 20px) auto 0'}}>
-                    <img style={{maxWidth:150}} src={Logo}/>
+                    <img style={{maxWidth:150, width:'25vw'}} src={Logo}/>
 
-                    <Grid container direction='row' alignItems='center' justify='center' style={{width:200, height:60}}>
-                        <Grid item xs={6}>
-                            <a href='https://intercom.help/2hats/faq' style={{textDecoration:'none'}} target='_blank'><Typography variant='button' style={{color:'#fff'}} >
-                            Help Center
-                            </Typography></a>
-                        </Grid>
-                        <Grid item xs={1}>
-                            <Typography variant='button' style={{color:'#fff'}} >
-                            |
+                    <Grid container direction='row' alignItems='center' justify='flex-end' style={{width:190, height:60}}>
+                        <Grid item xs={12} style={{textAlign: 'right'}}>
+                            <a href='https://intercom.help/2hats/faq' style={{textDecoration:'none'}} target='_blank'>
+                                <Typography variant='button' style={{color:'#fff', display:'inline'}} >
+                                    Help Center
+                                </Typography>
+                            </a>
+                            <Typography variant='button' style={{color:'#fff',margin:'0 10px', display:'inline'}} >
+                                |
                             </Typography>
-                        </Grid>
-
-                        <Grid item xs={5}>
-                            <Typography onClick={()=>{window.Intercom('show')}} variant='button' xs={6} style={{color:'#fff',cursor:'pointer'}}>
-                            Live Chat
+                            <Typography onClick={()=>{window.Intercom('show')}} variant='button' style={{color:'#fff',cursor:'pointer', display:'inline'}}>
+                                Live Chat
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
                             <Typography  variant='caption' style={{color:'#fff',textAlign:'right', marginTop:10}}> 
-                            2hats 2018. All Rights Reserved.
+                            &copy;&nbsp;2hats&nbsp;{new Date().getFullYear()}. All&nbsp;rights&nbsp;reserved.
                             </Typography>
                         </Grid>
                     </Grid>
