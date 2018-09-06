@@ -28,12 +28,12 @@ function InputWrapper(props) {
   const { hasLabel,classes, title, hint,characterCounter,headerColor,tip } = props;
   const header = ( <Grid container direction='row' justify='flex-start'><Typography variant={hasLabel?'caption':'title'} style={hasLabel?{marginLeft:1,marginTop:10,textTransform:'capitalize'}:{textTransform:'capitalize'}} color={hasLabel?'default':'primary'}>
   {title}
-</Typography>{(tip&& title)&&<HoverHint style={true?{marginTop:-10}:{marginTop:-2,marginLeft:-22}} message={tip}/>}</Grid>)
+</Typography></Grid>)
   const footer = (<Grid
    className={classes.footer}
        container
        direction='row'
-       alignItems='flex-end'
+       alignItems='center'
        justify='space-between'
       >
      
@@ -45,15 +45,19 @@ function InputWrapper(props) {
          <Typography variant='body1'>
            {hint}
          </Typography>
+       
        </Grid>
        <Grid
          item
          xs={characterCounter? 2:1}
          md={1}
        >
+       <Grid container direction='column' alignItems='center' justify='center'>
+       {(tip)&&<HoverHint message={tip}/>}
          <Typography className={classes.characterCount} variant='caption'>
            {characterCounter}
          </Typography>
+       </Grid>
        </Grid>
      </Grid>)
      
