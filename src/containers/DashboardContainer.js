@@ -4,9 +4,11 @@ import ApplicationTimeLine from '../components/Dashboard/ApplicationTimeLine'
 import ApplicationProgress from '../components/Dashboard/ApplicationProgress'
 import FeedbackHistory from '../components/Dashboard/FeedbackHistory'
 import UpcomingEvents from '../components/Dashboard/UpcomingEvents'
+import Next from '../components/Dashboard/NextBanner'
 import { compose } from 'redux';
 import { withNavigation } from '../components/withNavigation';
 import { Grid } from '../../node_modules/@material-ui/core';
+import {isComplete} from '../constants/signUpProcess'
 
 const styles = theme => ({
     root: {
@@ -20,7 +22,7 @@ const styles = theme => ({
             paddingLeft:'calc(50% - 250px)'
         },
         [theme.breakpoints.up('md')]: {
-            paddingLeft:60
+            paddingLeft:100
         }
     },
     navIconHide:{},
@@ -46,13 +48,19 @@ class DashboardContainer extends Component{
             }
         }
     }
+    
     render(){
         const {classes,upcomingEvents,submissions, profile,user,handleInfoDialog} = this.props
+        let banner = (<div/>)
+        if (isComplete(profile)){
+            banner = <Next/>
+        }
         return(
             <Grid container direction='column' alignItems="flex-start" className={classes.root}>
                 <Grid item className={classes.item}>
                     {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
                 </Grid>
+               {banner} 
                 {submissions&&submissions[0]&&<Grid item className={classes.item}><FeedbackHistory data={submissions}/></Grid> }
                 <Grid item>
                     <UpcomingEvents data={upcomingEvents}/>

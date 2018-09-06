@@ -70,18 +70,12 @@ const styles = theme => ({
   }
   handleContinue(){
     const {process} = this.props.data
-    if(isComplete(this.props.data)){
-      this.goTo(routes.PROFILE)
-    }else{
-        const returnStep = firstUnfinishedStep(this.props.data)
-        if(process === PROCESS_TYPES.build){
-
-          this.goTo(`${routes.BUILD_RESUME}?step=${returnStep}`)
-        }else{
-          this.goTo(`${routes.UPLOAD_RESUME}?step=${returnStep}`)      
-        }
-    }
-    
+    const returnStep = firstUnfinishedStep(this.props.data)
+      if(process === PROCESS_TYPES.build){
+        this.goTo(`${routes.BUILD_RESUME}?step=${returnStep}`)
+      }else{
+        this.goTo(`${routes.UPLOAD_RESUME}?step=${returnStep}`)      
+      }
   }
   render(){
     const {classes,data,handleInfoDialog,theme} = this.props
@@ -105,12 +99,11 @@ const styles = theme => ({
     </Grid>
         <Grid style={isMobile?{}:{maxWidth:230}} item  xs={12} sm={12} md={6} lg={6}>
              <ProgressDial percentage={this.completitionPercentage(data)}/>
-             <Button className={classes.button} variant='flat' onClick={this.handleContinue}>
+             {!isComplete(data) &&<Button className={classes.button} variant='flat' onClick={this.handleContinue}>
               <div style={{display:'flex',marginLeft:12}}>
-             <div style={{marginTop:0}}> {isComplete(data)?`Preview`:`Continue Application`}</div> <AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon> 
-
+             <div style={{marginTop:0}}> {`Continue Application`}</div> <AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon> 
               </div>
-              </Button>
+              </Button>}
           </Grid>
              <Grid style={{width:'100%'}} item xs={12} sm={12} md={6} lg={6}>
               {steps}

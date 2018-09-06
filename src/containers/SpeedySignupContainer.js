@@ -14,14 +14,10 @@ import ChangeAdpter from '../components/InputFields/ChangeAdapter'
 import girlWithLaptop from '../assets/images/graphics/girlWithLaptop.png'
 import celebratingMan from '../assets/images/graphics/congratsMan.svg'
 import Industy from '../components/InputFields/Industry';
-
-
 import {SPEEDY_SIGNUP} from '../constants/views'
-
-import request from 'superagent'
 import { withRouter } from "react-router-dom";
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
-
+import {warmUp} from '../utilities/Authentication/warmUp'
 const styles = theme => ({
     root: {
       paddingLeft: 50,
@@ -34,7 +30,6 @@ const styles = theme => ({
     },
     mobileForm:{
         width:280,
-       // marginLeft:50
     },
     button:{
         width:180,
@@ -74,6 +69,7 @@ class SpeedySignupContainer extends Component {
         this.goHome = this.goHome.bind(this)
     }
     componentWillMount(){
+        warmUp(CLOUD_FUNCTIONS.SPEEDY_SIGNUP)
         if(this.props.history.location.hash ==='#UTS'){
             this.setState({isPublic:false})
         }
