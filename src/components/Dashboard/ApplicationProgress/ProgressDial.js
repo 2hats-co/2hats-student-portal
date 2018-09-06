@@ -49,7 +49,7 @@ function ProgressDial(props){
           className={classes.progress}
           variant="static" 
           size={155}
-          style={(percentage===100)?{color:green.A700}:{}}
+          style={(percentage===100)?{color:green[400]}:{}}
 
           value={percentage}
         />

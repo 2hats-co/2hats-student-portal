@@ -14,7 +14,8 @@ const styles = theme =>({
         paddingRight:leftShift/4,
         width:'100%',
         height:200,
-        backgroundColor:'rgba(255,147,71,0.1)'
+        backgroundColor:'rgba(255,147,71,0.1)',
+        marginBottom:40,
         
     },
 

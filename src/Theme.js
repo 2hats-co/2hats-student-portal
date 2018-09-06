@@ -20,7 +20,7 @@ export const Theme = createMuiTheme({
     },
     MuiStepLabel:{
        label:{
-          fontSize: '10px',
+          fontSize: '12px',
           fontWeight:500 
 
         }

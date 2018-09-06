@@ -39,33 +39,35 @@ const styles = theme => ({
     }
 });
 class DashboardContainer extends Component{
-    renderApplicationProcess(profile, user,handleInfoDialog){ 
-        if(profile){
-            if(profile.hasSubmit){
-                return<ApplicationTimeLine user={user}/>
-            }else{
-               return <ApplicationProgress data={profile} handleInfoDialog={handleInfoDialog}/>
-            }
-        }
-    }
-    
+
     render(){
         const {classes,upcomingEvents,submissions, profile,user,handleInfoDialog} = this.props
         let banner = (<div/>)
-        if (isComplete(profile)){
+        let timeLine = (<div/>)
+        let progress = (<div/>)
+        if (isComplete(profile) && !profile.hasSubmit){
             banner = <Next/>
         }
+        if(profile.hasSubmit){
+            timeLine = (<ApplicationTimeLine user={user}/>)
+        }else{
+            progress = (<Grid item className={classes.item}>
+            <ApplicationProgress data={profile} handleInfoDialog={handleInfoDialog}/>
+            </Grid>)
+        }
+
         return(
+            <div>
+            {timeLine}
             <Grid container direction='column' alignItems="flex-start" className={classes.root}>
-                <Grid item className={classes.item}>
-                    {this.renderApplicationProcess(profile,user, handleInfoDialog)}  
-                </Grid>
+               
+                {progress}
                {banner} 
                 {submissions&&submissions[0]&&<Grid item className={classes.item}><FeedbackHistory data={submissions}/></Grid> }
                 <Grid item>
                     <UpcomingEvents data={upcomingEvents}/>
                 </Grid>
-           </Grid>
+           </Grid></div>
         )
     }
 }
