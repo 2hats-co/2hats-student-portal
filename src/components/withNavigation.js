@@ -272,7 +272,7 @@ export const withNavigation = (WrappedComponent) => {
               >
                 { Array.isArray(user) && user[0] && user[0].firstName && `Hi ${user[0].firstName}` } <DownArrowIcon/>
               </Button>
-              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal>
+              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal style={{marginLeft:-10}}>
                 {({ TransitionProps, placement }) => (
                   <Grow
                     {...TransitionProps}
@@ -286,7 +286,7 @@ export const withNavigation = (WrappedComponent) => {
                             this.setState({ logoutToggleOpen: false });
                             this.handleInfoDialog(true);
                           }}>
-                            <UpdateIcon/>My account
+                            <UpdateIcon style={{marginRight:8}}/> My account
                           </MenuItem>
                           <MenuItem value="Logout" onClick={async() => {
                             this.setState({ logoutToggleOpen: false });
@@ -294,7 +294,7 @@ export const withNavigation = (WrappedComponent) => {
                             this.props.clearData();
 
                           }}>
-                            <LogoutIcon/>Logout
+                            <LogoutIcon style={{marginRight:8}}/> Log out
                           </MenuItem>
                         </MenuList>
                       </ClickAwayListener>
