@@ -16,7 +16,7 @@ const styles = theme =>({
         height:200,
         backgroundColor:'rgba(255,147,71,0.1)',
         marginBottom:40,
-        
+        boxShadow: '-120px 0 0 rgba(255,147,71,0.1), 20px 0 0 rgba(255,147,71,0.1)',
     },
 
     grid:{
