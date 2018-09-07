@@ -26,7 +26,9 @@ const styles = theme => ({
       paddingLeft:18,
       paddingRight:18,
       },
-  },
+      marginBottom:10
+  }
+  ,
   chip:{marginRight:10, marginBottom:5},
   bullet: {
     display: 'inline-block',
@@ -111,6 +113,39 @@ function ProfileCard(props) {
       <div style={{marginTop:20,marginBottom:10}}>
       </div>
      <Card className={classes.card}> 
+       <CardContent> 
+
+         <Grid container direction='row' justify='center'>
+         <Grid item><Typography variant='display1' style={{textAlign:'center'}}>
+         {name}
+         </Typography>
+         </Grid>
+         </Grid>
+        <Section disabled={disabled} name='bio' label='Personal Bio'>
+         <Typography className={classes.bio} variant='body1'> {bio}</Typography>
+         </Section> </CardContent>
+     </Card>
+          {process===PROCESS_TYPES.upload&& <Card className={classes.card}> 
+       <CardContent> <Section disabled={disabled} name='resumeFile' label='Resume'>
+         {resume}
+         </Section></CardContent>
+     </Card>
+     }<Card className={classes.card}> 
+       <CardContent> 
+         <Section disabled={disabled} name='careerInterests' label='Career Interests'>
+         {careerInterests}
+         </Section>
+         </CardContent>
+     </Card>
+     <Card className={classes.card}> 
+       <CardContent>  
+        <Section disabled={disabled} name='skills' label='Skills'>
+         {skills}
+         </Section>
+       </CardContent>
+     </Card>
+
+     {/* <Card className={classes.card}> 
        <CardContent>  
          <Grid container direction='row' justify='center'>
          
@@ -132,9 +167,7 @@ function ProfileCard(props) {
          {skills}
          </Section>
        </CardContent>
-     </Card>
-    { 
-  }
+     </Card> */}
    </div>
   );
 }
