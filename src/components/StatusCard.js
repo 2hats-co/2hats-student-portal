@@ -75,9 +75,7 @@ const styles = theme => ({
        minWidth:160,
       },
       alert:{
-        position:'relative',
-        top:5,
-        left:-5,
+        fontSize:34,
         color:red[500]
       },
       success:{
@@ -102,7 +100,6 @@ const styles = theme => ({
 class StatusCard extends React.Component{
     state={
         confirmationDialog:null,
-        popperIsOpen:false
     }
     getConfirmationDialog(dialog){
         switch (dialog) {
@@ -190,7 +187,6 @@ class StatusCard extends React.Component{
       }
     render(){
     const {classes,profile,theme,currentRoute} = this.props
-    const {popperIsOpen} = this.state
     const {message,buttons,icon,link} = this.getStatusPrompt(profile)
     const isMobile = theme.responsive.isMobile
     const hideToaster = (currentRoute=== routes.PROFILE)

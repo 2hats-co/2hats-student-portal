@@ -174,7 +174,6 @@ class AuthenticationContainer extends React.Component {
     this.setState({ [name]: value });
   };
   render() {
-    console.log(this.state)
     const { classes } = this.props;
     const {
       firstName,
