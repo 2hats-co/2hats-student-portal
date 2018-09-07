@@ -94,7 +94,7 @@ class SpeedySignupContainer extends Component {
         const userInfo = {
             firstName: firstName,
             lastName: lastName,
-            email: email,
+            email: email.toLowerCase(),
             currentUniversity: currentUniversity,
             industry: industry,
         };

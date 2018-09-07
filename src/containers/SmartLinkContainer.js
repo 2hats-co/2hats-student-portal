@@ -7,9 +7,16 @@ import { auth,db } from "../store";
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import * as routes from '../constants/routes'
 import { COLLECTIONS } from "../constants/firestore";
-function SmartLinkContainer(props) {
-	const queryStr = props.history.location.search;
+class SmartLinkContainer extends React.Component{
+	state={isLoading:true,errorMessage:''}
 
+
+	componentDidMount(){
+		this.handleKey()
+	}
+	handleKey(){
+		const {history} = this.props
+		const queryStr = history.location.search;
 	if (queryStr) {
 		const slKeyName = "?slKey=";
 
@@ -30,28 +37,39 @@ function SmartLinkContainer(props) {
 							//routing to target page
 							if(route === routes.CREATE_PASSWORD ||route === routes.RESET_PASSWORD ){
 								const firstName = authUser.user.displayName.split(" ")[[0]];
-								props.history.replace(route + `?firstName=${firstName}`);
+								console.log('slink',slKey)
+								history.replace(route + `?firstName=${firstName}?smartKey=${slKey}`);
 							}else if(route === routes.VALIDATE_EMAIL){
 							db.collection(COLLECTIONS.users).doc(authUser.user.uid).update({emailVerified:true})
-							props.history.replace(route);
+							history.replace(route);
 							}else{
-							props.history.replace(route);
+							history.replace(route);
 							}
 						});
 					},
 					(error) => {
 						// Getting the Error details.
 						console.log("Call smartLink error: ", error.message);
+						this.setState({errorMessage:error.message,isLoading:false})
 					});
 			}
 		}
 	}
 
+	}
+	render(){
+		
+		const {isLoading,errorMessage} = this.state
+
 	return (
-		<LogoInCard isLoading={true}>
-			<Typography variant='title' style={{ width: '100%', textAlign: 'center' }}>Please hold as we redirect you</Typography>
+		<LogoInCard isLoading={isLoading} height={330}>
+			<Typography variant='title' style={{ paddingTop:50,width: '100%', textAlign: 'center' }}>{isLoading?'Hold on to your Hat 🤠':errorMessage}</Typography>
 		</LogoInCard>
 	);
+
+
+	}
+	
 }
 
 export default withRouter(SmartLinkContainer);

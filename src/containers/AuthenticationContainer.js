@@ -107,11 +107,15 @@ class AuthenticationContainer extends React.Component {
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL)
     warmUp(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY)
-    if (this.props.history.location.search.includes("firstName")) {
-      this.setState({
-        firstName: this.props.history.location.search.split("firstName=")[1]
-      });
-    }
+    const linkParams = ['firstName','smartKey']
+    linkParams.forEach(x=>{
+      if (this.props.history.location.search.includes(x)) {
+        this.setState({
+          [x]: this.props.history.location.search.split(`${x}=`)[1].split("?")[0]
+        });
+      }
+    })
+  
     if (this.props.view) {
       this.setState({ view: this.props.view });
     }
@@ -156,10 +160,12 @@ class AuthenticationContainer extends React.Component {
   }
   handleUpdatePassword(route) {
     return () => {
-      const { password } = this.state;
+      const { password,smartKey } = this.state;
       updateUserPassword(
         password,
-        () => this.goTo(route),
+        () => {this.goTo(route)
+          cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
+        },
        this.handleError
       );
     };
@@ -168,6 +174,7 @@ class AuthenticationContainer extends React.Component {
     this.setState({ [name]: value });
   };
   render() {
+    console.log(this.state)
     const { classes } = this.props;
     const {
       firstName,
@@ -481,7 +488,6 @@ class AuthenticationContainer extends React.Component {
     return (
       <LogoInCard width={350} height={cardHeight} isLoading={isLoading} snackBar={snackBar}  >
         <Grid
-
           container
           className={classes.root}
           style={{ height: gridHeight }}
