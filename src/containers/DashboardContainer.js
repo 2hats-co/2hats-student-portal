@@ -62,7 +62,7 @@ class DashboardContainer extends Component{
             <Grid container direction='column' alignItems="flex-start" className={classes.root}>
                
                 {progress}
-               {banner} 
+                {banner} 
                 {submissions&&submissions[0]&&<Grid item className={classes.item}><FeedbackHistory data={submissions}/></Grid> }
                 <Grid item>
                     <UpcomingEvents data={upcomingEvents}/>

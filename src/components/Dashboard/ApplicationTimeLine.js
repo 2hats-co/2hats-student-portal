@@ -9,10 +9,28 @@ const STAGES = ['pre-review','resume','interview','assessment','placed']
 
   const styles = theme => ({
     root: {
-
+      paddingTop: 30,
+      paddingLeft: 30,
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: 0,
+      },
+    },
+    title: {
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: 'calc(50% - 250px)'
+      },
+      [theme.breakpoints.up('md')]: {
+          paddingLeft: 100
+      },
     },
     label:{
       fontSize: '13px !important'
+    },
+    stepperMobile: {
+      paddingLeft: 0,
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: 'calc(50% - 250px)',
+      },
     }
    });
 function ApplicationTimeLine(props){
@@ -25,12 +43,12 @@ function ApplicationTimeLine(props){
     }
     const steps =['Resume Submission','Online Interview','Assessment Centre','Job Placement']
 
-    return(<div><Typography variant='display1'>
+    return(<div className={classes.root}><Typography variant='display1' className={classes.title}>
     Application Timeline
     </Typography>
     <Stepper
       orientation={theme.responsive.isMobile?"vertical":"horizontal"}
-      className={classes.stepper}
+      className={theme.responsive.isMobile ? classes.stepperMobile : classes.stepper}
       activeStep={activeStep}
       alternativeLabel={!theme.responsive.isMobile}
     >
