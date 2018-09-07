@@ -10,9 +10,10 @@ export const createUserWithPassword=(user,routeHandler,errorHandler)=>{
         }).then(()=>{
             console.log(authUser)
             const uid = authUser.user.uid
+            const normlizedEmail = email.toLowerCase()
             db.collection('users').doc(uid).set({
                 emailVerified: false,
-                email,
+                email:normlizedEmail,
                 firstName,
                 lastName,
                 createdAt: new Date(),
