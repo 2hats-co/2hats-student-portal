@@ -98,12 +98,15 @@ const styles = theme => ({
     </Typography>
     </Grid>
         <Grid style={isMobile?{}:{maxWidth:230}} item  xs={12} sm={12} md={6} lg={6}>
+          <Grid container direction='column' alignItems='center'>
              <ProgressDial percentage={this.completitionPercentage(data)}/>
              {!isComplete(data) &&<Button className={classes.button} variant='flat' onClick={this.handleContinue}>
               <div style={{display:'flex',marginLeft:12}}>
              <div style={{marginTop:0}}> {`Continue Application`}</div> <AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon> 
               </div>
-              </Button>}
+              </Button>
+            }
+            </Grid>
           </Grid>
              <Grid style={{width:'100%'}} item xs={12} sm={12} md={6} lg={6}>
               {steps}
