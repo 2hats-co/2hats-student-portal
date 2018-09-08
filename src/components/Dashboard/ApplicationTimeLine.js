@@ -25,6 +25,13 @@ const STAGES = ['pre-review','resume','interview','assessment','placed']
     },
     label:{
       fontSize: '13px !important'
+    },stepper:{
+      [theme.breakpoints.up('sm')]: {
+        paddingLeft: 'calc(50% - 250px)'
+      },
+      [theme.breakpoints.up('md')]: {
+          paddingLeft: 70
+      },
     },
     stepperMobile: {
       paddingLeft: 0,
