@@ -38,13 +38,15 @@ class LinkedinButton extends Component{
         this.initializeLinkedin(LINKEDIN_CID);
     }
     getToken(r){
+      console.log(r)
       this.props.changeHandler('isLoading',true)
       let user={};
       user.email = r.emailAddress
       user.firstName = r.firstName
       user.lastName = r.lastName
       user.provider = {service:'linkedin',id:r.id}
-      //TODO: user.avatarURL
+      user.bio = r.summary ||''
+      user.avatarURL = r.values[0]||''
       getTokenWith3rdParty(user,this.handleRouting)
     }
    
