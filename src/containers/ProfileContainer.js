@@ -40,6 +40,7 @@ class ProfileContainer extends Component{
         const {classes, profile,user} = this.props
  
         const disabled = (user.status === 'in-review')
+        console.log('stage status', user.stage, user.status)
         return(
        <div>
                <Grid

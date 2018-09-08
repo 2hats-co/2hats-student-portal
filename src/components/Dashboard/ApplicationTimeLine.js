@@ -31,7 +31,8 @@ function ApplicationTimeLine(props){
     const currentStage = user.stage
     const currentStatus = user.status
     let activeStep = STAGES.indexOf(currentStage)
-    if (currentStatus==='rejected'){
+    let negativeStatuses = ['rejected','lost','updating','conditional','interview','offer']
+    if (negativeStatuses.includes(currentStatus)){
       activeStep = activeStep -1
     }
     const steps =['Resume Submission','Online Interview','Assessment Centre','Job Placement']
@@ -47,8 +48,7 @@ function ApplicationTimeLine(props){
         orientation={theme.responsive.isMobile?"vertical":"horizontal"}
         className={theme.responsive.isMobile ? classes.stepperMobile : classes.stepper}
         activeStep={activeStep}
-        alternativeLabel={!theme.responsive.isMobile}
-      >
+        alternativeLabel={!theme.responsive.isMobile}>
         {steps.map(label => {
           return (
             <Step key={label}>

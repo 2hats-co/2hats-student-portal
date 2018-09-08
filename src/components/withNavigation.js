@@ -347,7 +347,7 @@ export const withNavigation = (WrappedComponent) => {
            </div>
            }
           </main>
-          {(profile && user)&&(profile[0] && user[0])&&
+          {(profile && user)&&(profile[0] && user[0].stage==='pre-review')&&
           <div>
           <AccountInfoDailog
           user={user[0]}
