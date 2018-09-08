@@ -12,10 +12,12 @@ import logger from 'redux-logger'
 import { productionConfig, stagingConfig } from '../config/firebase'
 
 import rootReducer from '../reducers'
-
-if (process.env.GCLOUD_PROJECT === 'production2hats') {
+							
+if (process.env.REACT_APP_ENV === 'PRODUCTION') {
+	console.log('production')
 	firebase.initializeApp(productionConfig)
 } else {
+	console.log('staging')
 	firebase.initializeApp(stagingConfig)
 }
 

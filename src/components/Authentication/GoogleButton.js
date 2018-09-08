@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {GOOGLE_CID} from '../../config/auth';
+import {GOOGLE_CID_STAGING,GOOGLE_CID_PRODUCTION} from '../../config/auth';
 import GoogleIcon from '../../assets/images/social/google.svg';
 import GoogleLogin from '../../utilities/Authentication/GoogleLogin.js';
 import {getTokenWith3rdParty} from '../../utilities/Authentication/getTokenWith3rdParty'
@@ -30,10 +30,16 @@ class GoogleButton extends Component{
         super(props)
         this.handleGoogleAuthFail = this.handleGoogleAuthFail.bind(this);
         this.handleRouting = this.handleRouting.bind(this)
-        this.getToken = this.getToken.bind(this)
+        this.getToken = this.getToken.bind(this) 
+        this.state = {cid:GOOGLE_CID_STAGING}
     }
+    
     componentWillMount(){
-       
+      if (process.env.REACT_APP_ENV === 'PRODUCTION') {
+        this.setState({cid:GOOGLE_CID_PRODUCTION})
+      } else {
+        this.setState({cid:GOOGLE_CID_STAGING})
+      }
     }
     handleRouting(route){
       this.props.changeHandler('isLoading',false)
@@ -56,10 +62,11 @@ class GoogleButton extends Component{
     }
     render(){
         const {classes,action} = this.props
+        const {cid} = this.state
         return(
             <GoogleLogin
           key={`google-button`}
-          clientId={GOOGLE_CID}
+          clientId={cid}
           buttonText="Login"
           onSuccess={this.getToken}
           onFailure={this.handleGoogleAuthFail}
