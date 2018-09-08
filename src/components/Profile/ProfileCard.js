@@ -18,10 +18,11 @@ import Section from './Section'
 const styles = theme => ({
     root:{
     width:'100%',
-    marginBottom:20
+
     },
   card: {
     padding:10,
+    paddingBottom:0,
     [theme.breakpoints.up('md')]: {
       paddingLeft:18,
       paddingRight:18,
@@ -29,7 +30,7 @@ const styles = theme => ({
       marginBottom:10
   }
   ,
-  chip:{marginRight:10, marginBottom:5},
+  chip:{mariginTop:10,marginRight:10, marginBottom:5},
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -37,15 +38,11 @@ const styles = theme => ({
     transform: 'scale(0.8)',
   },
   title: {
-    marginBottom: 16,
+    marginBottom: 20,
     fontSize: 14,
   },
   pos: {
     marginBottom: 12,
-  },
-  bio:{
-    paddingTop:20,
-    paddingBottom:20
   },
   avatarCenteringContainer:{
     width:'100%',
@@ -62,19 +59,20 @@ const styles = theme => ({
 })
 
 function getInterests(interestsList){
+  const chipStyle = {mariginTop:20,marginRight:10, marginBottom:5}
   if(interestsList.type === "default"){
     return interestsList.value.map(x=> {
       return( <Chip
         key={x}
         label={getInterestByKey(x)[0].label}
-       style={{marginRight:10, marginBottom:5}}
+       style={{mariginTop:20,marginRight:10, marginBottom:5}}
       />)})
   }else{
     return interestsList.value.map(x=> {
       return( <Chip
         key={x}
         label={x}
-        style={{marginRight:10, marginBottom:5}}
+        style={{mariginTop:20,marginRight:10, marginBottom:5}}
       />)})
   }
  
@@ -122,7 +120,7 @@ function ProfileCard(props) {
          </Grid>
          </Grid>
         <Section disabled={disabled} name='bio' label='Personal Bio'>
-         <Typography className={classes.bio} variant='body1'> {bio}</Typography>
+         <Typography variant='body1'> {bio}</Typography>
          </Section> </CardContent>
      </Card>
           {process===PROCESS_TYPES.upload&& <Card className={classes.card}> 
@@ -145,7 +143,8 @@ function ProfileCard(props) {
        </CardContent>
      </Card>
 
-     {/* <Card className={classes.card}> 
+     {// single card layout
+       /* <Card className={classes.card}> 
        <CardContent>  
          <Grid container direction='row' justify='center'>
          
