@@ -37,7 +37,6 @@ class SmartLinkContainer extends React.Component{
 							//routing to target page
 							if(route === routes.CREATE_PASSWORD ||route === routes.RESET_PASSWORD ){
 								const firstName = authUser.user.displayName.split(" ")[[0]];
-								console.log('slink',slKey)
 								history.replace(route + `?firstName=${firstName}?smartKey=${slKey}`);
 							}else if(route === routes.VALIDATE_EMAIL){
 							db.collection(COLLECTIONS.users).doc(authUser.user.uid).update({emailVerified:true})

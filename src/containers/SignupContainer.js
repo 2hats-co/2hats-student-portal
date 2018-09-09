@@ -59,7 +59,9 @@ let INITIAL_PROFILE = {
   currentUniversity: "",
   skills: [],
   workingRights: "",
+  workRestricted:-1,
   availableDays: "",
+  availableDaysNum:-1,
   phoneNumber: "",
   industry: "IT",
   education: [],
@@ -73,14 +75,7 @@ const INITIAL_STATE = {
   error: null
 };
 
-function AvailableDaysConverter(string) {
-  const days = string;
-  let number = parseInt(days);
-  if (days.includes("½")) {
-    number = number + 0.5;
-  }
-  return number;
-}
+
 class ResumeBuilderContainer extends Component {
   constructor(props) {
     super(props);
@@ -255,6 +250,7 @@ class ResumeBuilderContainer extends Component {
   };
 
   handleUpdate = activeStep => {
+  
     const { profile } = this.state;
     const currentStep = STEP_LABELS[profile.process][activeStep];
     switch (currentStep) {
@@ -316,8 +312,7 @@ class ResumeBuilderContainer extends Component {
         break;
       case ALL_STEPS.other:
         this.props.onProfileUpdate({
-          completedStep: "completed",
-          isComplete: true,
+          completedStep: currentStep,
           phoneNumber: profile.phoneNumber,
           workingRights: profile.workingRights,
           availableDays: profile.availableDays
@@ -326,7 +321,8 @@ class ResumeBuilderContainer extends Component {
           phoneNumber: profile.phoneNumber,
           workingRights: profile.workingRights,
           availableDays: profile.availableDays,
-          availableDaysInt: AvailableDaysConverter(profile.availableDays)
+          availableDaysNum: profile.availableDaysNum,
+          workRestricted: profile.workRestricted
         });
         break;
       default:

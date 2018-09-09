@@ -153,7 +153,7 @@ const styles = theme => ({
       );
     }
     handleChange = name => value => {
-      this.props.changeHandler(name,value.label)
+      this.props.changeHandler(name,(value&&value.label.includes('\u2063')?value.label.split('\u2063')[0]:value.label))
     };   
     render() {
       const {classes,list,value,hasLabel,name,hint,title} = this.props
@@ -177,9 +177,10 @@ const styles = theme => ({
             <Select className={classes.root}
               allowCreate
               classes={classes}
-              options={options}
+              options={options.map(x=>{
+                return({label:x.label})})}
               components={components}
-              value={{label:value}}
+              value={{label:(value&&value.includes('\u2063')?value.split('\u2063')[0]:value)}}
               onChange={this.handleChange(name)}
               placeholder=""
             /></InputWrapper>

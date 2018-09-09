@@ -201,6 +201,7 @@ class AuthenticationContainer extends React.Component {
         justify="flex-start"
       >
         <IconButton
+          disabled={isLoading}  
           aria-label="back"
           style={{marginLeft:4,width:32,height:32}}
           id="back-to-email"
@@ -217,6 +218,7 @@ class AuthenticationContainer extends React.Component {
     );
     const googleButton = (
       <GoogleButton
+        disabled={isLoading}
         key="google-button"
         id="google-button"
         style={{marginTop:10}}
@@ -226,6 +228,7 @@ class AuthenticationContainer extends React.Component {
     );
     const linkedinButton = (
       <LinkedinButton
+        disabled={isLoading}
         key="linkedin-button"
         id="linkedin-button"
         action={onSignupRoute?'Sign up': 'Sign in'}
@@ -334,24 +337,24 @@ class AuthenticationContainer extends React.Component {
       </ChangeAdpter>
     );
     const signUpButton = (
-      <Button key='signUpButton' className={classes.button} onClick={this.handleSignup}>
+      <Button disabled={isLoading} key='signUpButton' className={classes.button} onClick={this.handleSignup}>
         Sign Up
       </Button>
     );
     const resetPasswordButton = (
-      <Button key='resetPasswordButton' className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
+      <Button disabled={isLoading} key='resetPasswordButton' className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
         Update
       </Button>
     );
 
     const signInButton = (
-      <Button  key='signInButton' 
+      <Button disabled={isLoading} key='signInButton' 
        className={classes.button} onClick={this.handleSignin}>
         Sign In
       </Button>
     );
     const createPasswordButton = (
-      <Button key='createPasswordButton' 
+      <Button disabled={isLoading} key='createPasswordButton' 
         className={classes.createButton}
         onClick={this.handleUpdatePassword(routes.INTRODUCTION)}
       >

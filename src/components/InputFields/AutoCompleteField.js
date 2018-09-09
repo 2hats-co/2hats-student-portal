@@ -109,7 +109,8 @@ class AutoCompleteField extends React.Component {
             >
 
 
-            {/* <FormControl style={{width:'100%'}}>
+            {//Add icon btn
+              /* <FormControl style={{width:'100%'}}>
         
           <Input
             id="SkillsField"

@@ -13,16 +13,13 @@ const storeDeviceInfo = async(uid) =>{
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
-    
     componentDidMount() {
       const { onSetAuthUser } = this.props;
-
       auth.onAuthStateChanged(authUser => {
         authUser
           ? this.setUser(authUser)
           : onSetAuthUser(null);
       });
-
     }
     setUser(authUser){
       const { onSetAuthUser } = this.props;
@@ -39,19 +36,15 @@ const withAuthentication = (Component) => {
 
      storeDeviceInfo(authUser.uid)
     }
-    
-
     render() {
       return (
         <Component />
       );
     }
   }
-  
   const mapDispatchToProps = (dispatch) => ({
     onSetAuthUser: (authUser) => dispatch({ type: 'AUTH_USER_SET', authUser }),
   });
-
   return connect(null, mapDispatchToProps)(WithAuthentication);
 }
 
