@@ -134,9 +134,9 @@ class EmailAuth extends Component {
            {emailSuggestion&&<Typography variant='body1' className={classes.text}>
     Did you mean? <a className={classes.link} 
     onClick={()=>{ this.setState({email:emailSuggestion}),this.handleEmailCheck(emailSuggestion)}
-    }>{emailSuggestion}</a> {!invalidEmail&&<b>     <a className={classes.link} 
+    }>{emailSuggestion}</a> {!invalidEmail&&<b>     <a className={classes.link} style={{color:'#000'}}
     onClick={()=>{this.handleValidEmail(false)}
-    }>Ignore</a> </b>}
+    }>(Ignore)</a> </b>}
     </Typography>}
           <Button key='check-button' 
             id='check-button' variant='flat'

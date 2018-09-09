@@ -143,23 +143,40 @@ class StatusCard extends React.Component{
         const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
         const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
         const inReviewMessage = 'Your profile is currently under review. We will notify you regarding the feedback.'
+        const chanceMessage = 'Feedback received! Please review it and update your profile before submitting again.'
         const alterIcon =(<AlertIcon className={this.props.classes.alert}/>)
-        const doneIcon =(<div className={this.props.classes.success} ><DoneIcon className={this.props.classes.successIcon}/></div>)
+        const doneIcon =(<div className={this.props.classes.success}>
+        <DoneIcon className={this.props.classes.successIcon}/>
+        </div>)
         if(profile.hasSubmit){
-          return({icon:doneIcon,
-            message:inReviewMessage,
-                  buttons:[pendingButton]})
-
+          console.log(this.props.status)
+          if(this.props.status==='updating'){
+            return({icon:doneIcon,
+              message:chanceMessage,
+              buttons:[submitButton]
+            })
+          }else{
+            return({icon:doneIcon,
+                    message:inReviewMessage,
+                    buttons:[pendingButton]
+                  })
+          }
         }else{
           if(isComplete(profile)){
+            let _message = completeMessage
+            if(this.props.status==='updating'){
+              _message = chanceMessage
+            }
             if(profile.process === PROCESS_TYPES.build){
               return({icon:doneIcon,
-                message:completeMessage,
+                message:_message,
                       buttons:[submitButton],
                       link:uploadLink})
             }else if(profile.process === PROCESS_TYPES.upload){
+
+
               return({icon:doneIcon,
-                  message:completeMessage,
+                  message:_message,
                       buttons:[submitButton],
                       link:buildLink})
             }

@@ -31,7 +31,7 @@ function ApplicationTimeLine(props){
     const currentStage = user.stage
     const currentStatus = user.status
     let activeStep = STAGES.indexOf(currentStage)
-    let negativeStatuses = ['rejected','lost','updating','conditional','interview','offer']
+    let negativeStatuses = ['rejected','lost','conditional','interview','offer']
     if (negativeStatuses.includes(currentStatus)){
       activeStep = activeStep -1
     }
