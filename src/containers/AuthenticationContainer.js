@@ -441,8 +441,8 @@ class AuthenticationContainer extends React.Component {
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = authView;
-        cardHeight = 480;
-        gridHeight = 320;
+        cardHeight = 500;
+        gridHeight = 340;
         break;
       case AUTHENTICATION_CONTAINER.google:
         loadedView = GoogleView;

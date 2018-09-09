@@ -9,6 +9,7 @@
     "firebase": "^5.2.0",
     "image-compressor.js": "^1.1.4",
     "lodash": "^4.17.10",
+    "mailgun-validate": "^0.1.0",
     "moment": "^2.22.2",
     "multimath": "^1.0.3",
     "rc-tween-one": "^2.0.11",
