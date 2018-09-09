@@ -41,7 +41,6 @@ const styles = theme => ({
   });
   function orderByComplete(steps){
     let orignalOrder = steps.slice(0)
-    console.log(orignalOrder)
      let inComplete= []
      let completed = []
      orignalOrder.forEach(x=>{

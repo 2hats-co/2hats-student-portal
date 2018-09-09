@@ -38,7 +38,6 @@ class LinkedinButton extends Component{
         this.initializeLinkedin(LINKEDIN_CID);
     }
     getToken(r){
-      console.log(r)
       this.props.changeHandler('isLoading',true)
       let user={};
       user.email = r.emailAddress

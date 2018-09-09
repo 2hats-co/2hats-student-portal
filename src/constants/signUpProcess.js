@@ -36,7 +36,6 @@ export function firstUnfinishedStep(profile){
     let lastStep = 0
       STEP_LABELS[profile.process].forEach((step,key) => {
         if(checkComplition(step,profile)&& lastStep===0){
-          console.log('set',key)
           lastStep = key
         }
       })
