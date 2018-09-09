@@ -108,8 +108,8 @@ class ResumeLoader extends React.Component {
           }
             this.setState({isUploading:true})
             this.props.changeHandler('isLoading',true)
-            this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`${uid}/resumes/${Date.now()}/${files[0].name}`, downloadURL:''})
-            const documentRef = firebaseStorage.child(`${uid}/resumes/${Date.now()}/${files[0].name}`)
+            this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`candidates/${uid}/resumes/${Date.now()}/${files[0].name}`, downloadURL:''})
+            const documentRef = firebaseStorage.child(`candidates/${uid}/resumes/${Date.now()}/${files[0].name}`)
             let uploadTask = documentRef.put(files[0]);
             this.handleProgress(uploadTask)
             uploadTask.then(this.handleLoader)
