@@ -66,7 +66,7 @@ class EmailAuth extends Component {
       const EmailSuggestion = this.handleEmailSuggestion
       validator.validate(email, function(err, response) {
         if (err) {
-            // Log and fallback to regular expressions
+          ValidEmail(false)
             console.log(err)
             return;
         }
