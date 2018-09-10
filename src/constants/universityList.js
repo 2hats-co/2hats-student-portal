@@ -1,6 +1,6 @@
 export const UNIVERSITIES = [`University of Sydney\u2063\ (USYD)`,
 `University of New South Wales\u2063\ (UNSW)`,
-`Macquarie University\u2063\ MU`,
+`Macquarie University\u2063\ (MU)`,
 `University of Technology Sydney\u2063\ (UTS)`,
 `Western Sydney University\u2063\ (WSU)`,
 `University of Notre Dame\u2063\ (UND)`,

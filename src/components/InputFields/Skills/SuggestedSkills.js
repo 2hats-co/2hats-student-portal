@@ -65,7 +65,7 @@ class SuggestedSkills extends React.Component {
        })
         return(
             <div>
-                {(suggestedSkills.length > 0)&& <Typography variant='subheading'>
+                {(suggestedSkills.length > 0)&& <Typography variant='subheading' style={{margin:'16px 0 8px'}}>
                 Suggested skills based on your interests:
                 </Typography>}
                 {chips}
