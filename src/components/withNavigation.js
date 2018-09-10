@@ -291,6 +291,7 @@ export const withNavigation = (WrappedComponent) => {
                         <MenuList>
                           <MenuItem value="Account" onClick={() => {
                             this.setState({ logoutToggleOpen: false });
+                            
                             this.handleInfoDialog(true);
                           }}>
                             <UpdateIcon style={{marginRight:8}}/> My account
@@ -356,13 +357,13 @@ export const withNavigation = (WrappedComponent) => {
            </div>
            }
           </main>
-          {(profile && user)&&(profile[0] && user[0].stage==='pre-review')&&
+          {(profile && user)&&(profile[0])&&
           <div>
           <AccountInfoDailog
           user={user[0]}
            isOpen={this.state.infoDialog} 
            closeHandler={this.handleInfoDialog}/>
-           {
+           { user[0].stage==='pre-review'&&
            <StatusCard
            currentRoute= {this.state.currentRoute}
            onSubmit={this.props.onSubmit.bind(this)} 
