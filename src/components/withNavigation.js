@@ -140,7 +140,8 @@ export const withNavigation = (WrappedComponent) => {
         infoDialog:false,
         height:window.innerHeight,
         logoutToggleOpen: false,
-        currentRoute:null
+        currentRoute:null,
+        isOffline:false,
       };
 
       componentWillMount(){
@@ -183,8 +184,14 @@ export const withNavigation = (WrappedComponent) => {
      }
        componentDidUpdate(prevProps,prevState){
          if(prevProps.user !== this.props.profile){
+            if(this.props.profile.length === 0) {
+              if (!this.state.isOffline) this.setState({isOffline:true});
+              return;
+            } else if (this.state.isOffline) {
+              this.setState({isOffline:false});
+            }
             if(!this.props.profile[0].completedStep){
-            this.goTo(routes.INTRODUCTION)
+              this.goTo(routes.INTRODUCTION)
             }
          }
       }
@@ -256,9 +263,9 @@ export const withNavigation = (WrappedComponent) => {
             </IconButton>
             {this.props.user&&<div
                 className={classes.userActions}            
-            > <Avatar uid={this.props.uid}firstName={this.props.user[0].firstName}
-              lastName={this.props.user[0].lastName}
-              avatarURL={this.props.user[0].avatarURL}
+            > <Avatar uid={this.props.uid}firstName={this.props.user[0]?this.props.user[0].firstName:''}
+              lastName={this.props.user[0]?this.props.user[0].lastName:''}
+              avatarURL={this.props.user[0]?this.props.user[0].avatarURL:''}
             />
               <Button
                 className={classes.dropDown}
@@ -335,7 +342,9 @@ export const withNavigation = (WrappedComponent) => {
         </Hidden>
           <main className={classes.content} style={theme.responsive.isMobile?{paddingRight:0,paddingLeft:0}:{}}>
             <div className={classes.toolbar}/>
-            {(!profile || !user)?<LoadingMessage/>:<div>
+            {
+              this.state.isOffline ? <LoadingMessage message="You are offline. Trying to reconnect you…"/> :
+              (!profile || !user)?<LoadingMessage/>:<div>
                       <WrappedComponent
                         {...this.props}
                         profile={profile[0]}
