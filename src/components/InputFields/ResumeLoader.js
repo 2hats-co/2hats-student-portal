@@ -5,7 +5,7 @@ import { Typography, Button, Grid } from '@material-ui/core';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import Dropzone from 'react-dropzone'
 import {firebaseStorage} from '../../store'
-import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '@material-ui/core/Chip';
 import classNames from "classnames";
 import InputWrapper from './InputWrapper'
@@ -46,11 +46,7 @@ const styles = theme => ({
     },
     
     buttonProgress: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        marginTop: -12,
-        marginLeft: -12,
+        //
     },
 
     chipWrapper: {
@@ -63,12 +59,16 @@ const styles = theme => ({
 class ResumeLoader extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {isUploading:false };
+        this.state = {
+            isUploading: false,
+            uploadProgress: 0,
+        };
         this.handleLoader = this.handleLoader.bind(this)
         this.handleDelete = this.handleDelete.bind(this)
         this.onDrop = this.onDrop.bind(this)
         this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this)
         this.handleProgress = this.handleProgress.bind(this)
+        this.handleChange = this.handleChange.bind(this)
     }
     handleCloseSnackbar(){
         this.setState({errorBar:false})
@@ -115,12 +115,17 @@ class ResumeLoader extends React.Component {
             uploadTask.then(this.handleLoader)
         }
       }
+    handleChange(name,value){
+        this.setState({[name]:value})
+    }
     handleProgress(uploadTask){
-        uploadTask.on('state_changed', function(snapshot){
+        let _changeHandler = this.handleChange;
+        uploadTask.on('state_changed', function(snapshot) {
             // Observe state change events such as progress, pause, and resume
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             console.log('Upload is ' + progress + '% done');
+            _changeHandler('uploadProgress', progress);
             switch (snapshot.state) {
               case 'paused': // or 
                 console.log('Upload is paused');
@@ -129,7 +134,7 @@ class ResumeLoader extends React.Component {
                 console.log('Upload is running');
                 break;
             }
-          });
+        });
     }
     render() {
         const {classes,resumeFile,theme,hideTitle } = this.props;
@@ -182,13 +187,22 @@ class ResumeLoader extends React.Component {
                 />
             </div>
           }
-         {isUploading &&<CircularProgress size={24} className={classes.buttonProgress}/>}
+            { isUploading && 
+                <div style={{margin:'15px auto',width:150}}>
+                <Grid container justify="space-between" style={{marginBottom:5}}>
+                    <Grid item><Typography variant="caption">Uploading&hellip;</Typography></Grid>
+                    <Grid item><Typography variant="caption">{Math.round(this.state.uploadProgress)}%</Typography></Grid>
+                </Grid>
+                    <LinearProgress value={this.state.uploadProgress} variant="determinate" className={classes.buttonProgress}/>
+                </div>
+            }
         </div>
             </Grid>
             </Dropzone>
             </InputWrapper>
             <MessageBar message="Please upload in PDF format" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
             </div>
+            
         );
     } 
 }
