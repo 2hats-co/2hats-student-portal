@@ -76,14 +76,14 @@ import AvailableDays from './InputFields/AvailableDays';
                 disabled={!firstName || !lastName} 
                 cancelHandler={()=>{this.handleCancel()}}
                >
-               <div style={{paddingTop:10,height:300,minWidth:300}}>
+               <div style={{paddingTop:20,height:300,minWidth:300}}>
                <ChangeAdpter changeHandler={this.handleChange}>
                     <Name firstName={firstName} lastName={lastName}/>
                     </ChangeAdpter>
                    <CurrentUniversity hasLabel value={currentUniversity} changeHandler={this.handleChange}/>
-                   <WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange}/>
-                   <AvailableDays hasLabel value={availableDays} changeHandler={this.handleChange}/>
-                   <PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange}/>
+                   <div style={{marginTop:6}}><WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange}/></div>
+                   <div style={{marginTop:6}}><AvailableDays hasLabel value={availableDays} changeHandler={this.handleChange}/></div>
+                   <div style={{marginTop:8}}><PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange}/></div>
                    </div>
                 </Dialog>
             )

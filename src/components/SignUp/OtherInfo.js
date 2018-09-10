@@ -17,8 +17,8 @@ function otherInfo(props){
         style={{paddingBottom:40}}
       >
       <AvailableDays value={availableDays} maxWidth={400} changeHandler={changeHandler}/>
-      <WorkingRights value={workingRights} maxWidth={400} changeHandler={changeHandler} />
-      <PhoneNumber value={phoneNumber} maxWidth={400} changeHandler={changeHandler} />
+      <div style={{marginTop:20}}><WorkingRights value={workingRights} maxWidth={400} changeHandler={changeHandler} /></div>
+      <div style={{marginTop:20}}><PhoneNumber value={phoneNumber} maxWidth={400} changeHandler={changeHandler} /></div>
     </Grid>
     )
 }

@@ -17,35 +17,47 @@ const styles = theme => ({
     height:0
 },
 });
-function DropDown(props) {
-  const {classes,list,value,hasLabel,changeHandler,name,title,hint,label,maxWidth} = props;
-    const InputField = ( 
-        <FormControl className = {classes.inputField} style={{maxWidth:maxWidth}}>
-           {hasLabel&&<InputLabel 
-          htmlFor={`${name}dropDown`} 
-          id={`${name}dropDown`}
-          style={{textTransform:'capitalize',marginTop:2}}>{label}</InputLabel>} 
-        <Select  
-          value={value}
-          onChange={(e)=>{
-            changeHandler(name,e.target.value)
-          }}
-          IconComponent={props => <DownIcon style={{opacity:.3,position:'absolute',bottom:0,right:3}} />}
-        >
-          {list.map(option=>(
-          <MenuItem key={option} value={option}>{option}</MenuItem>)
-          )}
-        </Select>
-      </FormControl>
-    )
-  return (
-    <InputWrapper 
-  title={!hasLabel?title:''}
-  hint={!hasLabel?hint:''}
-  collapseTopMargin={true}>
-    {InputField}
-    </InputWrapper>
-  );
+class DropDown extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
+  }
+
+
+  render() {
+    const {classes,list,value,hasLabel,changeHandler,name,title,hint,label,maxWidth} = this.props;
+      const InputField = ( 
+          <FormControl className = {classes.inputField} style={{maxWidth:maxWidth}}>
+            {hasLabel&&<InputLabel 
+            htmlFor={`${name}dropDown`} 
+            id={`${name}dropDown`}
+            style={{textTransform:'capitalize',marginTop:1}}
+            shrink={value || this.state.open}>{label}</InputLabel>} 
+          <Select  
+            value={value}
+            onChange={(e)=>{
+              changeHandler(name,e.target.value)
+            }}
+            onOpen={() => this.setState({open: true})}
+            open={this.state.open}
+            onClose={() => this.setState({open: false})}
+            IconComponent={() => <DownIcon onClick={() => this.setState({open: true})} style={{opacity:.3,position:'absolute',bottom:2,right:3,cursor:'pointer'}} />}
+          >
+            {list.map(option=>(
+            <MenuItem key={option} value={option}>{option}</MenuItem>)
+            )}
+          </Select>
+        </FormControl>
+      )
+    return (
+      <InputWrapper 
+    title={!hasLabel?title:''}
+    hint={!hasLabel?hint:''}
+    collapseTopMargin={true}>
+      {InputField}
+      </InputWrapper>
+    );
+  }
 }
 DropDown.propTypes = {name: PropTypes.string.isRequired,
   title: PropTypes.string,
