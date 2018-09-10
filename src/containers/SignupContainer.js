@@ -72,7 +72,8 @@ const INITIAL_STATE = {
   activeStep: 0,
   isLoading:false,
   profile: {},
-  error: null
+  error: null,
+  isOffline:false
 };
 
 
@@ -135,6 +136,12 @@ class ResumeBuilderContainer extends Component {
     }
     if (prevProps.user !== this.props.user) {
       const { profile, user, onProfileUpdate } = this.props;
+      if (user.length ===0){
+        this.setState({isOffline:true});
+        return;
+      }else{
+        this.setState({isOffline:false});
+      }
       if (
         user[0].currentUniversity &&
         user[0].currentUniversity !== profile[0].currentUniversity
@@ -238,7 +245,7 @@ class ResumeBuilderContainer extends Component {
           </SectionWrapper>
         );
       default:
-        return "Uknown step";
+        return "Unknown step";
     }
   }
   handleNext = () => {
@@ -345,6 +352,20 @@ class ResumeBuilderContainer extends Component {
   render() {
     const { classes, theme,user } = this.props;
     const { activeStep, profile,isLoading } = this.state;
+
+    if (this.state.isOffline) {
+      return (
+        <LogoOnCard height={520} width={900}>
+          <SectionWrapper height={420} width={900}>
+            <div style={{ padding: 30 }}>
+              <LoadingMessage message={`You are offline.
+              Trying to reconnect you…`} />
+            </div>
+          </SectionWrapper>
+        
+        </LogoOnCard>
+      );
+    }
     if (profile.createdAt && user) {
       const currentStep = STEP_LABELS[profile.process][activeStep];
       return (

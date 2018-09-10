@@ -95,8 +95,12 @@ disableNext(currentStep,profile){
     currentStep===ALL_STEPS.careerInterests?this.goToIntroduction():backHandler()
   }
   handleNext(currentStep){
-    if(currentStep===ALL_STEPS.other)
-    {this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
+    if(currentStep===ALL_STEPS.other){
+    if(!window.navigator.onLine && typeof window.navigator.onLine !== 'undefined'){
+      alert('You are offline. This alert will be replaced later.');
+      return;
+    }
+    this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
   }
   handleSave(currentStep){
 
