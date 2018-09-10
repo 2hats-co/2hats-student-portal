@@ -22,7 +22,6 @@ const styles = theme => ({
     },
   card: {
     padding:10,
-    paddingBottom:0,
     [theme.breakpoints.up('md')]: {
       paddingLeft:18,
       paddingRight:18,
