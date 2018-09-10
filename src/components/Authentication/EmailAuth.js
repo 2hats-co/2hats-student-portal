@@ -61,30 +61,30 @@ class EmailAuth extends Component {
       this.setState({emailSuggestion})
     }
     handleValidation(email){
-      const ValidEmail = this.handleValidEmail
-      const InvalidEmail = this.handleInvalidEmail
-      const EmailSuggestion = this.handleEmailSuggestion
+      const _validEmail = this.handleValidEmail
+      const _invalidEmail = this.handleInvalidEmail
+      const _emailSuggestion = this.handleEmailSuggestion
       validator.validate(email, function(err, response) {
         if (err) {
-          ValidEmail(false)
+          _validEmail(false)
             console.log(err)
             return;
         }
         if (response.is_valid) {
           console.log('valid',response)
-           ValidEmail(response.did_you_mean)
+           _validEmail(response.did_you_mean)
            // Email valid
            if (response.did_you_mean) {
-            EmailSuggestion(response.did_you_mean)
+            _emailSuggestion(response.did_you_mean)
               // Did your mean response.did_you_mean?
           }
         }
         else {
           console.log(response)
-          InvalidEmail()
+          _invalidEmail()
         // Email invalid
             if (response.did_you_mean) {
-              EmailSuggestion(response.did_you_mean)
+              _emailSuggestion(response.did_you_mean)
                 // Did your mean response.did_you_mean?
             }
         }
@@ -108,6 +108,7 @@ class EmailAuth extends Component {
         this.props.changeHandler('snackBar',null)
 
       }, (error) => {
+        // user doesn't exist
         this.handleValidation(email) 
       });
       }else{
@@ -132,11 +133,11 @@ class EmailAuth extends Component {
            value={email} 
            changeHandler={this.handleChange}/>
            {emailSuggestion&&<Typography variant='body1' className={classes.text}>
-    Did you mean? <a className={classes.link} 
+    Do you mean: <b><a className={classes.link} 
     onClick={()=>{ this.setState({email:emailSuggestion}),this.handleEmailCheck(emailSuggestion)}
-    }>{emailSuggestion}</a> {!invalidEmail&&<b>     <a className={classes.link} style={{color:'#000'}}
+    }>{emailSuggestion}</a></b>{!invalidEmail&&<a className={classes.link} style={{color:'#000'}}
     onClick={()=>{this.handleValidEmail(false)}
-    }>(Ignore)</a> </b>}
+    }>(Ignore)</a>}
     </Typography>}
           <Button key='check-button' 
             id='check-button' variant='flat'

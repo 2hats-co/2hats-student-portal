@@ -6,7 +6,7 @@ var canvas = document.createElement('canvas');
 export const blobAvatarUploader=(intialBlob,callback)=>{
 	img.crossOrigin = "Anonymous"; //cors support
 	img.src = intialBlob.preview ||intialBlob;
-	const ref = `${uid}/avatarPhotos/${Date.now()}/${intialBlob.name||'avatarPhoto'}`
+	const ref = `candidates/${uid}/avatarPhotos/${Date.now()}/${intialBlob.name||'avatarPhoto'}`
 	const uid = auth.currentUser.uid
 	const minimumDimension = 500
 	img.onload = function(){
