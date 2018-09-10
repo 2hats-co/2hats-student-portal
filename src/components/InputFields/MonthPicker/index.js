@@ -73,7 +73,7 @@ const styles = theme => ({
                     this.setState({errorMessage:null})
                     return true
                 }else{
-                    console.log(moment())
+                  
                     this.setState({errorMessage:`Please choose an earlier date`})
                     return false
                 }

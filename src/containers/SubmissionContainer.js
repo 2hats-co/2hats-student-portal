@@ -17,24 +17,13 @@ import LoadingMessage from '../components/LoadingMessage';
 
 const styles = theme => ({
     grid: {
-     overflow: 'scroll'
-    },
-    item:{
-      width:'98%',
-      maxWidth:750,
-    },
-    content: {
-        margin:'auto',
-        marginTop:0,
-        marginBottom:0,
-        flexGrow: 1,
-        overflow:'scroll',
-        width:'100%',
-        backgroundColor: '#fff',
-        padding: theme.spacing.unit * 3,
-        paddingBottom: 160,
-       
-      }
+        overflow: 'scroll'
+       },
+       item:{
+         width:'98%',
+         maxWidth:750,
+       },
+
 });
 
 class SubmissionContainer extends Component {
@@ -48,7 +37,7 @@ class SubmissionContainer extends Component {
         if(submission){
             const profile = submission[0].submissionContent
         return(
-            <div className={classes.content}>
+    
                 <Grid container
                     className={classes.grid}
                     alignItems='center'
@@ -78,7 +67,7 @@ class SubmissionContainer extends Component {
                     </Grid>  
                 }
                 </Grid>  
-                </div>
+                
             )
         }
         

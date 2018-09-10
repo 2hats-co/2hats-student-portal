@@ -38,7 +38,6 @@ class ProfileContainer extends Component{
     }
     render(){
         const {classes, profile,user} = this.props
- 
         const disabled = (user.status === 'in-review')
         return(
        <div>

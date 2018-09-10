@@ -107,11 +107,15 @@ class AuthenticationContainer extends React.Component {
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL)
     warmUp(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY)
-    if (this.props.history.location.search.includes("firstName")) {
-      this.setState({
-        firstName: this.props.history.location.search.split("firstName=")[1]
-      });
-    }
+    const linkParams = ['firstName','smartKey']
+    linkParams.forEach(x=>{
+      if (this.props.history.location.search.includes(x)) {
+        this.setState({
+          [x]: this.props.history.location.search.split(`${x}=`)[1].split("?")[0]
+        });
+      }
+    })
+  
     if (this.props.view) {
       this.setState({ view: this.props.view });
     }
@@ -156,10 +160,12 @@ class AuthenticationContainer extends React.Component {
   }
   handleUpdatePassword(route) {
     return () => {
-      const { password } = this.state;
+      const { password,smartKey } = this.state;
       updateUserPassword(
         password,
-        () => this.goTo(route),
+        () => {this.goTo(route)
+          cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
+        },
        this.handleError
       );
     };
@@ -195,6 +201,7 @@ class AuthenticationContainer extends React.Component {
         justify="flex-start"
       >
         <IconButton
+          disabled={isLoading}  
           aria-label="back"
           style={{marginLeft:4,width:32,height:32}}
           id="back-to-email"
@@ -211,6 +218,7 @@ class AuthenticationContainer extends React.Component {
     );
     const googleButton = (
       <GoogleButton
+        disabled={isLoading}
         key="google-button"
         id="google-button"
         style={{marginTop:10}}
@@ -220,6 +228,7 @@ class AuthenticationContainer extends React.Component {
     );
     const linkedinButton = (
       <LinkedinButton
+        disabled={isLoading}
         key="linkedin-button"
         id="linkedin-button"
         action={onSignupRoute?'Sign up': 'Sign in'}
@@ -328,24 +337,24 @@ class AuthenticationContainer extends React.Component {
       </ChangeAdpter>
     );
     const signUpButton = (
-      <Button key='signUpButton' className={classes.button} onClick={this.handleSignup}>
+      <Button disabled={isLoading} key='signUpButton' className={classes.button} onClick={this.handleSignup}>
         Sign Up
       </Button>
     );
     const resetPasswordButton = (
-      <Button key='resetPasswordButton' className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
+      <Button disabled={isLoading} key='resetPasswordButton' className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
         Update
       </Button>
     );
 
     const signInButton = (
-      <Button  key='signInButton' 
+      <Button disabled={isLoading} key='signInButton' 
        className={classes.button} onClick={this.handleSignin}>
         Sign In
       </Button>
     );
     const createPasswordButton = (
-      <Button key='createPasswordButton' 
+      <Button disabled={isLoading} key='createPasswordButton' 
         className={classes.createButton}
         onClick={this.handleUpdatePassword(routes.INTRODUCTION)}
       >
@@ -432,8 +441,8 @@ class AuthenticationContainer extends React.Component {
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = authView;
-        cardHeight = 480;
-        gridHeight = 320;
+        cardHeight = 500;
+        gridHeight = 340;
         break;
       case AUTHENTICATION_CONTAINER.google:
         loadedView = GoogleView;
@@ -481,7 +490,6 @@ class AuthenticationContainer extends React.Component {
     return (
       <LogoInCard width={350} height={cardHeight} isLoading={isLoading} snackBar={snackBar}  >
         <Grid
-
           container
           className={classes.root}
           style={{ height: gridHeight }}

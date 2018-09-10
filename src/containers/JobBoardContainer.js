@@ -44,7 +44,6 @@ class JobBoardContainer extends React.Component {
   
   render() {
       const {classes,user} = this.props
-      console.log(user.id,user.stage,user.status)
       let content = talentPool
       if(user.status !=='rejected'&& user.stage === 'placed'|| user.stage ==='assessment'){
         content = comingSoon

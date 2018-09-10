@@ -7,7 +7,6 @@ import IconButton from '@material-ui/core/IconButton';
 import {WHITE} from '../../Theme'
 import { Grid } from '@material-ui/core';
 const styles = theme => {
-  console.log('palette',theme.palette)
   return({
   header: {
     paddingTop:15,

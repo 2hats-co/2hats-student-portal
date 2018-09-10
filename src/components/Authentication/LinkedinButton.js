@@ -44,7 +44,8 @@ class LinkedinButton extends Component{
       user.firstName = r.firstName
       user.lastName = r.lastName
       user.provider = {service:'linkedin',id:r.id}
-      //TODO: user.avatarURL
+      user.bio = r.summary ||''
+      user.avatarURL = r.values[0]||''
       getTokenWith3rdParty(user,this.handleRouting)
     }
    

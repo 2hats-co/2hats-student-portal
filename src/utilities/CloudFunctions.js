@@ -6,7 +6,8 @@ export const CLOUD_FUNCTIONS = {
     CHECK_EMAIL: "restApiCheckEmail",
     SMART_LINK: "restApiSmartLink",
     RESET_PASSWORD: "restApiResetPassword",
-    VALIDATE_EMAIL:'restApiVaildateEmail'
+    VALIDATE_EMAIL:'restApiVaildateEmail',
+    DISABLE_SMART_LINK:'restApiDisableSmartLink'
 };
 
 export const cloudFunction = (name, input ,success, fail) =>{
@@ -14,10 +15,14 @@ export const cloudFunction = (name, input ,success, fail) =>{
 
     callable(input)
         .then((result) => {
-            success(result);
+            if(success){
+                success(result);
+            }
         })
         .catch((error) => {
-            fail(error);
+            if(fail){
+                fail(error);
+            }
         });
 };
 

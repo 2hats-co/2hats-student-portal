@@ -5,33 +5,100 @@ import {checkEmail} from '../../utilities/Authentication/emailCheck'
 import Button from '@material-ui/core/Button'
 import { validateEmail } from '../../utilities/validators';
 import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography'
+import Grid from '@material-ui/core/Grid'
+import Validator from 'mailgun-validate';
 
 
 const styles = theme => ({
   button: {
-    marginLeft:70,
-    marginTop: 17,
-    marginBottom: 17,
+    
     width: 120
   },
-});
+  grid:{
+    height:140
+  },
+  text:{
+    paddingBottom:10
+  },
+  link:{
+    color: theme.palette.primary.light,
+    cursor:'pointer',
+    textDecoration: 'underline',
 
+    '&:hover':{
+      textDecoration: 'underline'
+    }
+  }
+});
+var validator = new Validator('pubkey-39aac6f76384240d4c4b3a2b1afeaf02');
 class EmailAuth extends Component {
     constructor(props){
         super(props)
-        this.state ={email:''}
+        this.state ={email:'',invalidEmail:false}
+        this.onNext = this.onNext.bind(this)
         this.handleChange = this.handleChange.bind(this);
         this.handleEmailCheck = this.handleEmailCheck.bind(this)
+        this.handleValidation = this.handleValidation.bind(this)
+        this.handleValidEmail = this.handleValidEmail.bind(this)
+        this.handleInvalidEmail = this.handleInvalidEmail.bind(this)
+        this.handleEmailSuggestion = this.handleEmailSuggestion.bind(this)
+    }
+    handleInvalidEmail(){
+      this.props.changeHandler('isLoading', false)
+      this.props.changeHandler('snackBar', {message:'invalid email address',variant:'error'})
+    }
+    handleValidEmail(hasSuggestion){
+      this.props.changeHandler('isLoading', false)
+      this.props.changeHandler('email',this.state.email)
+      this.setState({invalidEmail:false})
+      if(!hasSuggestion){
+        this.ha
+        this.props.changeHandler('view', 'signup')
+      }
+    }
+    handleEmailSuggestion(emailSuggestion){
+      this.setState({emailSuggestion})
+    }
+    handleValidation(email){
+      const ValidEmail = this.handleValidEmail
+      const InvalidEmail = this.handleInvalidEmail
+      const EmailSuggestion = this.handleEmailSuggestion
+      validator.validate(email, function(err, response) {
+        if (err) {
+          ValidEmail(false)
+            console.log(err)
+            return;
+        }
+        if (response.is_valid) {
+          console.log('valid',response)
+           ValidEmail(response.did_you_mean)
+           // Email valid
+           if (response.did_you_mean) {
+            EmailSuggestion(response.did_you_mean)
+              // Did your mean response.did_you_mean?
+          }
+        }
+        else {
+          console.log(response)
+          InvalidEmail()
+        // Email invalid
+            if (response.did_you_mean) {
+              EmailSuggestion(response.did_you_mean)
+                // Did your mean response.did_you_mean?
+            }
+        }
+    })
     }
     handleChange = name => event => {
         this.setState({
           [name]: event.target.value,
         });
      };
-    handleEmailCheck(){
-      const {email} = this.state
+    handleEmailCheck(email){
       if(validateEmail(email)){
         this.props.changeHandler('isLoading',true)
+       
       checkEmail(email, (result) => {
         const { firstName, provider } = result.data;
         this.props.changeHandler('isLoading', false)
@@ -41,32 +108,44 @@ class EmailAuth extends Component {
         this.props.changeHandler('snackBar',null)
 
       }, (error) => {
-        this.props.changeHandler('isLoading', false)
-        this.props.changeHandler('email',email)
-        this.props.changeHandler('view', 'signup')
+        this.handleValidation(email) 
       });
       }else{
+      
         this.props.changeHandler('snackBar', {message:'invalid email format',variant:'error'})
       }
       
     }
+    onNext(){
+      this.props.changeHandler('snackBar',null)
+      this.setState({emailSuggestion:null})
+      this.handleEmailCheck(this.state.email)
+    }
     render(){
-      const {email} = this.state
+      const {email,emailSuggestion,invalidEmail} = this.state
+      console.log(this.state)
       const {classes} = this.props
         return(
-            <div>
+            <Grid className={classes.grid} container direction='column' alignItems='center' justify='space-around'>
            <Email key="emailField" 
-           primaryAction={this.handleEmailCheck}
+           primaryAction={this.onNext}
            value={email} 
            changeHandler={this.handleChange}/>
+           {emailSuggestion&&<Typography variant='body1' className={classes.text}>
+    Did you mean? <a className={classes.link} 
+    onClick={()=>{ this.setState({email:emailSuggestion}),this.handleEmailCheck(emailSuggestion)}
+    }>{emailSuggestion}</a> {!invalidEmail&&<b>     <a className={classes.link} style={{color:'#000'}}
+    onClick={()=>{this.handleValidEmail(false)}
+    }>(Ignore)</a> </b>}
+    </Typography>}
           <Button key='check-button' 
             id='check-button' variant='flat'
             disabled={!validateEmail(email)}
-            onClick={this.handleEmailCheck}
+            onClick={this.onNext}
             className={classes.button}>
              Next
              </Button>
-             </div>
+             </Grid>
         )
     }
 }

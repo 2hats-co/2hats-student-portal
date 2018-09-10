@@ -5,7 +5,8 @@ import Typography from '@material-ui/core/Typography'
 import { Grid } from '@material-ui/core';
 import Footer from '../assets/images/graphics/Footer.svg';
 import FooterMobile from '../assets/images/graphics/FooterMobile.svg';
-
+import ChatIcon from '@material-ui/icons/QuestionAnswer'
+import HelpIcon from '@material-ui/icons/HelpOutline'
 function SupportFooter(props){
     window.Intercom('update',{
         'hide_default_launcher': true
@@ -32,18 +33,18 @@ function SupportFooter(props){
                 style={{width:'85%',paddingBottom:30,paddingTop:0,margin:'calc(-4vw + 20px) auto 0'}}>
                     <img style={{maxWidth:150, width:'25vw'}} src={Logo}/>
 
-                    <Grid container direction='row' alignItems='center' justify='flex-end' style={{width:190, height:60}}>
+                    <Grid container direction='row' alignItems='center' justify='flex-end' style={{width:235, height:60}}>
                         <Grid item xs={12} style={{textAlign: 'right'}}>
                             <a href='https://intercom.help/2hats/faq' style={{textDecoration:'none'}} target='_blank'>
                                 <Typography variant='button' style={{color:'#fff', display:'inline'}} >
-                                    Help Center
+                                    <HelpIcon style={{position:'relative',top:5}}/> Help Center
                                 </Typography>
                             </a>
                             <Typography variant='button' style={{color:'#fff',margin:'0 10px', display:'inline'}} >
                                 |
                             </Typography>
                             <Typography onClick={()=>{window.Intercom('show')}} variant='button' style={{color:'#fff',cursor:'pointer', display:'inline'}}>
-                                Live Chat
+                               <ChatIcon style={{position:'relative',top:5}}/> Live Chat
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>

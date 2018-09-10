@@ -18,16 +18,19 @@ import Section from './Section'
 const styles = theme => ({
     root:{
     width:'100%',
-    marginBottom:20
+
     },
   card: {
     padding:10,
+    paddingBottom:0,
     [theme.breakpoints.up('md')]: {
       paddingLeft:18,
       paddingRight:18,
       },
-  },
-  chip:{marginRight:10, marginBottom:5},
+      marginBottom:10
+  }
+  ,
+  chip:{mariginTop:10,marginRight:10, marginBottom:5},
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -35,15 +38,11 @@ const styles = theme => ({
     transform: 'scale(0.8)',
   },
   title: {
-    marginBottom: 16,
+    marginBottom: 20,
     fontSize: 14,
   },
   pos: {
     marginBottom: 12,
-  },
-  bio:{
-    paddingTop:20,
-    paddingBottom:20
   },
   avatarCenteringContainer:{
     width:'100%',
@@ -60,19 +59,20 @@ const styles = theme => ({
 })
 
 function getInterests(interestsList){
+  const chipStyle = {mariginTop:20,marginRight:10, marginBottom:5}
   if(interestsList.type === "default"){
     return interestsList.value.map(x=> {
       return( <Chip
         key={x}
         label={getInterestByKey(x)[0].label}
-       style={{marginRight:10, marginBottom:5}}
+       style={{mariginTop:20,marginRight:10, marginBottom:5}}
       />)})
   }else{
     return interestsList.value.map(x=> {
       return( <Chip
         key={x}
         label={x}
-        style={{marginRight:10, marginBottom:5}}
+        style={{mariginTop:20,marginRight:10, marginBottom:5}}
       />)})
   }
  
@@ -111,6 +111,40 @@ function ProfileCard(props) {
       <div style={{marginTop:20,marginBottom:10}}>
       </div>
      <Card className={classes.card}> 
+       <CardContent> 
+
+         <Grid container direction='row' justify='center'>
+         <Grid item><Typography variant='display1' style={{textAlign:'center'}}>
+         {name}
+         </Typography>
+         </Grid>
+         </Grid>
+        <Section disabled={disabled} name='bio' label='Personal Bio'>
+         <Typography variant='body1'> {bio}</Typography>
+         </Section> </CardContent>
+     </Card>
+          {process===PROCESS_TYPES.upload&& <Card className={classes.card}> 
+       <CardContent> <Section disabled={disabled} name='resumeFile' label='Resume'>
+         {resume}
+         </Section></CardContent>
+     </Card>
+     }<Card className={classes.card}> 
+       <CardContent> 
+         <Section disabled={disabled} name='careerInterests' label='Career Interests'>
+         {careerInterests}
+         </Section>
+         </CardContent>
+     </Card>
+     <Card className={classes.card}> 
+       <CardContent>  
+        <Section disabled={disabled} name='skills' label='Skills'>
+         {skills}
+         </Section>
+       </CardContent>
+     </Card>
+
+     {// single card layout
+       /* <Card className={classes.card}> 
        <CardContent>  
          <Grid container direction='row' justify='center'>
          
@@ -132,9 +166,7 @@ function ProfileCard(props) {
          {skills}
          </Section>
        </CardContent>
-     </Card>
-    { 
-  }
+     </Card> */}
    </div>
   );
 }

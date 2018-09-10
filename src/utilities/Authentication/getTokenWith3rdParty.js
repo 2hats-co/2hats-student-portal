@@ -8,7 +8,8 @@ export const getTokenWith3rdParty = async(user, callback) => {
         firstName: user.firstName,
         lastName: user.lastName,
         provider: user.provider,
-        avatarURL: user.avatarURL
+        avatarURL: user.avatarURL || '',
+        bio: user.bio || ''
     };
     if(user.avatarURL){
 

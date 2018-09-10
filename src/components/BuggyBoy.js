@@ -160,4 +160,5 @@ BuggyBoy.propTypes = {
     classes: PropTypes.object.isRequired,
     avatarURL: PropTypes.string
 };  
-export default withStyles(styles)(BuggyBoy);
+//export default withStyles(styles)(BuggyBoy);
+export default ()=>(<div/>);

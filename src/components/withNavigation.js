@@ -347,7 +347,7 @@ export const withNavigation = (WrappedComponent) => {
            </div>
            }
           </main>
-          {(profile && user)&&(profile[0] && user[0])&&
+          {(profile && user)&&(profile[0] && user[0].stage==='pre-review')&&
           <div>
           <AccountInfoDailog
           user={user[0]}
@@ -358,7 +358,9 @@ export const withNavigation = (WrappedComponent) => {
            currentRoute= {this.state.currentRoute}
            onSubmit={this.props.onSubmit.bind(this)} 
            goTo={this.goTo} 
-           profile={profile[0]}/>}
+           profile={profile[0]}
+           status={user[0].status}/>}
+          
             <BuggyBoy userDoc={user[0]} profileDoc={profile[0]}/> 
            </div>
           }

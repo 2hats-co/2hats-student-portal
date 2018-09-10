@@ -89,7 +89,7 @@ disableNext(currentStep,profile){
   }
   handleBack(currentStep){
     const{profile,activeStep,updateHandler,backHandler} = this.props
-    if(!checkComplition(currentStep,profile)){
+    if(!checkComplition(currentStep,profile) || currentStep === 'Work Availability'){
      updateHandler(activeStep)
     }
     currentStep===ALL_STEPS.careerInterests?this.goToIntroduction():backHandler()
@@ -99,7 +99,7 @@ disableNext(currentStep,profile){
     {this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
   }
   handleSave(currentStep){
-    console.log(currentStep,profile)
+
     const{profile,activeStep,updateHandler} = this.props
     if(!checkComplition(currentStep,profile)){
       updateHandler(activeStep)
@@ -125,7 +125,9 @@ render(){
   const backButton = (<Button id={`back-${currentStep}`}
     className={classes.button}
     variant="outlined"
-    onClick={()=>{this.handleBack(currentStep)}}
+    onClick={()=>{
+      this.handleBack(currentStep)
+    }}
   >
     Back
   </Button>)

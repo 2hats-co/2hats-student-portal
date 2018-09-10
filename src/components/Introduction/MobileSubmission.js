@@ -50,7 +50,7 @@ return(
                 </Grid>
             <Grid item>
                 <Typography className={classes.body} variant='body1'>
-                Otherwise, we can help you build a resume using our quick and easy 5-step process!
+                Otherwise, we can help you build a resume using our quick and easy 6-step process!
                     </Typography>
                     </Grid>
             <Grid item style={{width:'100%'}}>

@@ -8,11 +8,11 @@ export const createUserWithPassword=(user,routeHandler,errorHandler)=>{
         authUser.user.updateProfile({
           displayName: `${firstName} ${lastName}`
         }).then(()=>{
-            console.log(authUser)
             const uid = authUser.user.uid
+            const normlizedEmail = email.toLowerCase()
             db.collection('users').doc(uid).set({
                 emailVerified: false,
-                email,
+                email:normlizedEmail,
                 firstName,
                 lastName,
                 createdAt: new Date(),
@@ -51,7 +51,6 @@ export const signInWithPassword = (user,routeHandler,errorHandler) =>{
     .then(async(authUser) => {
        db.collection('users').doc(authUser.user.uid).get().then((userDoc)=>{
         const doc = userDoc.data()
-        console.log(doc)
         if(doc.process ==='build' || doc.process==='upload'){
             //TODO: process constants
             routeHandler(DASHBOARD)
