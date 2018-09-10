@@ -52,7 +52,7 @@ const styles = theme => ({
   }
   
   function inputComponent({ inputRef, ...props }) {
-    return <div ref={inputRef} {...props} />;
+    return <div ref={inputRef} style={{height:30,marginTop:-1}} {...props} />;
   }
 
   function Option(props) {
@@ -132,6 +132,7 @@ const styles = theme => ({
       return (
         <TextField
           fullWidth
+
           label={this.props.hasLabel&&this.props.label}
           onFocus={()=>{this.setState({shrink:true})
           if(this.props.focusedField){
