@@ -42,25 +42,28 @@ class DashboardContainer extends Component{
 
     render(){
         const {classes,upcomingEvents,submissions, profile,user,handleInfoDialog} = this.props
+        console.log(user.stage, user.status)
+        const showProgress = (user.status === 'incomplete' || user.status=== 'complete')
         let banner = (<div/>)
         let timeLine = (<div/>)
         let progress = (<div/>)
-        if (isComplete(profile) && !profile.hasSubmit){
-            banner = <Next/>
-        }
-        if(profile.hasSubmit){
-            timeLine = (<ApplicationTimeLine user={user}/>)
-        }else{
+       
+        if(showProgress){
             progress = (<Grid item className={classes.item}>
-            <ApplicationProgress data={profile} handleInfoDialog={handleInfoDialog}/>
-            </Grid>)
+                <ApplicationProgress data={profile} handleInfoDialog={handleInfoDialog}/>
+                </Grid>)
+                if(isComplete(profile)){
+                    banner = <Next/>
+                }
+         
+        }else{
+            timeLine = (<ApplicationTimeLine user={user}/>)
         }
 
         return(
             <div>
             {timeLine}
             <Grid container direction='column' alignItems="flex-start" className={classes.root}>
-               
                 {progress}
                 {banner} 
                 {submissions&&submissions[0]&&<Grid item className={classes.item}><FeedbackHistory data={submissions}/></Grid> }

@@ -15,5 +15,4 @@ const INITIAL_STATE = {
       default : return state;
     }
   }
-  
   export default userReducer;
