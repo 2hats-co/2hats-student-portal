@@ -63,7 +63,7 @@ class LinkedinButton extends Component{
         })(document, 'script', 'linkedin-jssdk')
       }
       handleLinkedInAuth = () => {
-        const fields = ":(id,email-address,headline,summary,first-name,last-name,num-connections,picture-urls::(original))";
+        const fields = ":(id,email-address,headline,summary,first-name,last-name,picture-urls::(original))";
         window.IN.API.Raw(`/people/~${fields}`).result(async r => {
           this.getToken(r)
       })
