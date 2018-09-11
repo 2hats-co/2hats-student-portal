@@ -124,7 +124,6 @@ class EmailAuth extends Component {
     }
     render(){
       const {email,emailSuggestion,invalidEmail} = this.state
-      console.log(this.state)
       const {classes} = this.props
         return(
             <Grid className={classes.grid} container direction='column' alignItems='center' justify='space-around'>
