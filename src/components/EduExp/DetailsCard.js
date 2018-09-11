@@ -44,7 +44,7 @@ function EduExpCard(props) {
       alignItems="center" 
       justify="space-between">
           <Grid item xs={8} sm={9}>
-          <Typography variant='subheading'>{title}</Typography>
+          <Typography variant='subheading' style={{paddingTop:5}}>{title}</Typography>
           </Grid>
             {!disabled&&<Grid item xs={4} sm={3}>
             <Grid container direction='row' justify='flex-end'>
@@ -58,7 +58,7 @@ function EduExpCard(props) {
         </Grid>
         <Grid container direction="row" alignItems="center" justify="space-between">
             <Grid item xs={7} sm={8}>
-              <Typography variant="body1">{label}</Typography>
+              <Typography variant="body1" style={{fontWeight:700}}>{label}</Typography>
             </Grid>
             <Grid item xs={5} sm={4}>
               <Typography variant="body1" 
@@ -68,7 +68,7 @@ function EduExpCard(props) {
             </Grid>
         </Grid>
         <Grid item xs={12} style={{paddingLeft:0,paddingRight:0}}>
-        <Typography variant="body1" style={{whiteSpace:'pre'}}>{description}</Typography>
+        <Typography variant="body1" style={{whiteSpace:'pre-wrap'}}>{description}</Typography>
         </Grid>
       </Grid>
     </Card>

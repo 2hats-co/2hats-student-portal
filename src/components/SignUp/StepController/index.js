@@ -100,7 +100,7 @@ disableNext(currentStep,profile){
       alert('You are offline. This alert will be replaced later.');
       return;
     }
-    this.goToPreview(),this.props.nextHandler()}else{this.props.nextHandler()}
+    this.goToDashboard(),this.props.nextHandler()}else{this.props.nextHandler()}
   }
   handleSave(currentStep){
 
@@ -123,7 +123,7 @@ render(){
     variant="flat"
     onClick={()=>{this.handleNext(currentStep)}}
   >
-   {currentStep===ALL_STEPS.other?'Preview':'Next'}
+   {currentStep===ALL_STEPS.other?'Go to Dashboard':'Next'}
   </Button>)
  
   const backButton = (<Button id={`back-${currentStep}`}

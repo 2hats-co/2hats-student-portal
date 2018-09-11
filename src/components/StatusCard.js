@@ -9,6 +9,8 @@ import AlertIcon from '@material-ui/icons/Error'
 import DoneIcon from '@material-ui/icons/Done'
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
+import AnimateIcon from './AnimateIcon'
+import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
 
 import PopupSelector from './PopupSelector'
 
@@ -209,7 +211,7 @@ class StatusCard extends React.Component{
     const hideToaster = (currentRoute=== routes.PROFILE)
     return(
         <div>
-        <Card className={classes.root} style={hideToaster?{}:{display:'none'}}>
+        <Card className={classes.root} style={hideToaster?{backgroundColor:'#FFF4ED'}:{display:'none'}}>
             <Grid container 
             justify={isMobile?'flex-end':'space-between'} className={classes.grid} style={!isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' > 
                 <Grid  xs={12} sm={6} md={7} lg={9} item>
@@ -230,7 +232,9 @@ class StatusCard extends React.Component{
                         buttons.map(x=>{return(
               
                             <Button key={x.label} disabled={x.disabled} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
-                            {x.label}
+                            <div style={{display:'flex',marginLeft:12}}>
+                            <div style={{marginTop:0}}> {x.label}</div> <AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon> 
+                        </div>
                             </Button>
                         
                         )

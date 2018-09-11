@@ -36,19 +36,19 @@ function SupportFooter(props){
                     <Grid container direction='row' alignItems='center' justify='flex-end' style={{width:235, height:60}}>
                         <Grid item xs={12} style={{textAlign: 'right'}}>
                             <a href='https://intercom.help/2hats/faq' style={{textDecoration:'none'}} target='_blank'>
-                                <Typography variant='button' style={{color:'#fff', display:'inline'}} >
+                                <Typography variant='button' style={{color:'#fff', display:'inline',fontWeight:400}} >
                                     <HelpIcon style={{position:'relative',top:5}}/> Help Center
                                 </Typography>
                             </a>
                             <Typography variant='button' style={{color:'#fff',margin:'0 10px', display:'inline'}} >
                                 |
                             </Typography>
-                            <Typography onClick={()=>{window.Intercom('show')}} variant='button' style={{color:'#fff',cursor:'pointer', display:'inline'}}>
+                            <Typography onClick={()=>{window.Intercom('show')}} variant='button' style={{color:'#fff',cursor:'pointer', display:'inline',fontWeight:400}}>
                                <ChatIcon style={{position:'relative',top:5}}/> Live Chat
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
-                            <Typography  variant='caption' style={{color:'#fff',textAlign:'right', marginTop:10}}> 
+                            <Typography  variant='caption' style={{color:'#fff',textAlign:'right', fontSize:13,marginTop:10}}> 
                             &copy;&nbsp;2hats&nbsp;{new Date().getFullYear()}. All&nbsp;rights&nbsp;reserved.
                             </Typography>
                         </Grid>

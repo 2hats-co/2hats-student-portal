@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Typography,Button } from '@material-ui/core';
-import AnimateIcon from '../AnimateIcon'
 import { withStyles } from "@material-ui/core/styles";
+import AnimateIcon from '../AnimateIcon'
 import ArrowIcon from '@material-ui/icons/KeyboardArrowRight'
 import {withRouter} from 'react-router-dom'
 

@@ -37,7 +37,7 @@ function HeaderBar(props) {
           justify='space-between'
           onClick={()=>{if(!disabled){handler()}}} 
           >
-          <Typography variant="title" color='default' style={{color:'#000'}}
+          <Typography variant="title" color='primary'
           >
             {title}
           </Typography> 

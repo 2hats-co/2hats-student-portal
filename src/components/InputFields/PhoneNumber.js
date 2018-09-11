@@ -63,7 +63,7 @@ class PhoneNumber extends React.Component {
       style={{maxWidth}}
       label={hasLabel&&'Mobile Number'}
       className={classes.inputField}
-      placeholder='e.g. 0400 000 000'
+      placeholder='e.g. 0412 345 954 (optional)'
       value={number}
       //error
       onChange={this.handleChange('number')}

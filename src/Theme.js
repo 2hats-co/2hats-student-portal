@@ -89,7 +89,7 @@ export const Theme = createMuiTheme({
       },
       contained: { // Name of the rule
         color: BLACK,
-        backgroundColor:WHITE+'!important',
+        backgroundColor:WHITE,
         borderRadius:'2px',// should this be rounded
         //width:80,
         margin:5,
