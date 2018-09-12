@@ -395,11 +395,17 @@ export const withNavigation = (WrappedComponent) => {
       withHandlers({
         loadData: props => listenerSettings =>
           props.firestore.setListener(listenerSettings),
-          onSubmit: props => (data) =>
-          props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-          hasSubmit:true,
-          submittedAt: props.firestore.FieldValue.serverTimestamp()
-        })
+          onSubmit: props => (data) =>{
+            props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
+              hasSubmit:true,
+              submittedAt: props.firestore.FieldValue.serverTimestamp()
+            }),props.firestore.update({ collection: COLLECTIONS.users, doc: props.uid }, {
+              stage:'pre-review',
+              status:'in-review',
+              submittedAt: props.firestore.FieldValue.serverTimestamp()
+            }),window.Intercom('trackEvent', 'profile-submitted');
+          }
+          
       }),
       // Run functionality on component lifecycle
       lifecycle({
