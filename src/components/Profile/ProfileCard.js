@@ -119,7 +119,7 @@ function ProfileCard(props) {
          </Grid>
          </Grid>
         <Section disabled={disabled} name='bio' label='Personal Bio'>
-         <Typography variant='body1' style={{whiteSpace:'pre-wrap'}}> {bio}</Typography>
+         <Typography variant='body1'> {bio}</Typography>
          </Section> </CardContent>
      </Card>
           {process===PROCESS_TYPES.upload&& <Card className={classes.card}> 
