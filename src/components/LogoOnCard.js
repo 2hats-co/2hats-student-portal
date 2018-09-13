@@ -4,7 +4,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import DarkLogo from '../assets/images/Logo/DarkText.png';
 import {setBackground} from '../utilities/styling'
 import Tween from 'rc-tween-one';
 import { Grid } from '@material-ui/core';

@@ -1,11 +1,10 @@
 import React from 'react';
 import Dialog from './Dialog';
-import { withStyles } from '@material-ui/core/styles';
 
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
-import { connect } from 'react-redux';
+
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS } from "../constants/firestore";
 import WorkingRights from './InputFields/WorkingRights';
