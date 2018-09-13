@@ -108,7 +108,12 @@ class StatusCard extends React.Component{
           case 'submit':return {title:'Confirm Profile Submission',
           body:[`Are you sure you want to submit?`,`Once you click 'submit' your resume will be sent to the 2hats resume specialists for review.`],
           checkbox:{isChecked:false,label:'I understand I can not submit again until my resume has been reviewed.'},
-          confirm:{label:'Submit',action:()=>{this.props.goTo(routes.DASHBOARD),this.props.onSubmit()}}}
+          confirm:{label:'Submit',action:()=>{this.props.goTo(routes.DASHBOARD),
+            window.dataLayer.push({
+            'event':'VirtualPageview',
+            'virtualPageURL':'/virtual/Submit/',
+            'virtualPageTitle' : 'Submit Profile'
+            }),this.props.onSubmit()}}}
           case 'build':return {title:'Use Our Resume Builder Instead',
           body:['Are you sure you want to build a new resume instead?','All your previous progress will be saved, and you can always choose to upload an existing resume in the future.'],
           confirm:{label:'Build',action:()=>{

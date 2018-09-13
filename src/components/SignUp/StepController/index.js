@@ -95,6 +95,11 @@ disableNext(currentStep,profile){
     currentStep===ALL_STEPS.careerInterests?this.goToIntroduction():backHandler()
   }
   handleNext(currentStep){
+    window.dataLayer.push({
+      'event':'VirtualPageview',
+      'virtualPageURL':`/virtual/${currentStep}/`,
+      'virtualPageTitle' : currentStep
+      })
     if(currentStep===ALL_STEPS.other){
     if(!window.navigator.onLine && typeof window.navigator.onLine !== 'undefined'){
       alert('You are offline. This alert will be replaced later.');
