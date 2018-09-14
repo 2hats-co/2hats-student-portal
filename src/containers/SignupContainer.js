@@ -164,7 +164,7 @@ class ResumeBuilderContainer extends Component {
     switch (currentStep) {
       case ALL_STEPS.careerInterests:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <CareerInterests
               preSelectedList={careerInterests}
               changeHandler={this.handleChange}
@@ -173,7 +173,7 @@ class ResumeBuilderContainer extends Component {
         );
       case ALL_STEPS.bio:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <PersonalBio
               industry={this.state.profile.industry}
               bio={this.state.profile.bio}
@@ -183,7 +183,7 @@ class ResumeBuilderContainer extends Component {
         );
       case ALL_STEPS.skills:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <Skills
               interestKeys={this.state.profile.careerInterests.value}
               preSelectedList={this.state.profile.skills}
@@ -193,7 +193,7 @@ class ResumeBuilderContainer extends Component {
         );
       case ALL_STEPS.education:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <EduExp
               industry={industry}
               name="education"
@@ -205,7 +205,7 @@ class ResumeBuilderContainer extends Component {
         );
       case ALL_STEPS.experience:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <EduExp
               industry={industry}
               name="experience"
@@ -217,7 +217,7 @@ class ResumeBuilderContainer extends Component {
         );
       case ALL_STEPS.other:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <OtherInfo
               availableDays={this.state.profile.availableDays}
               phoneNumber={this.state.profile.phoneNumber}
@@ -228,7 +228,7 @@ class ResumeBuilderContainer extends Component {
         );
       case ALL_STEPS.currentUniversity:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <CurrentUniversity
               value={this.state.profile.currentUniversity}
               changeHandler={this.handleChange}
@@ -237,7 +237,7 @@ class ResumeBuilderContainer extends Component {
         );
       case ALL_STEPS.uploadResume:
         return (
-          <SectionWrapper width={750} height={320}>
+          <SectionWrapper width={750} height={340}>
             <ResumeLoader
               resumeFile={this.state.profile.resumeFile}
               changeHandler={this.handleChange}

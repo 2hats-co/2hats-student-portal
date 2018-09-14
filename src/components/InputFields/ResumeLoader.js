@@ -20,7 +20,7 @@ import { connect } from 'react-redux';
 
 const styles = theme => ({
     root: {
-        marginBottom:20,
+        marginBottom:0,
         marginTop:20,
         boxSizing: 'border-box',
         marginTop:5,
@@ -31,7 +31,7 @@ const styles = theme => ({
        
     },
     grid:{
-        height:270,
+        height:262,
         width:'100%',        
     },
     wrapper: {
