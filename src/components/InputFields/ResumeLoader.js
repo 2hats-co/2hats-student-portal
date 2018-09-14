@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Button, Grid } from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CloudDoneIcon from '@material-ui/icons/CloudDone';
 import Dropzone from 'react-dropzone'
 import {firebaseStorage} from '../../store'
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -75,8 +76,9 @@ class ResumeLoader extends React.Component {
     }
 
     handleDelete(){
+        console.log('delete')
         const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
-       // ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
+        ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:'',downloadURL:''}))
     }
     handleLoader(snapShot){
         firebaseStorage
@@ -146,61 +148,67 @@ class ResumeLoader extends React.Component {
             <div style={!theme.responsive.isMobile?{minWidth:420}:{}}>
             <InputWrapper
             title={!hideTitle&&'Resume Upload'}
-            hint={!hideTitle&&'Please upload in PDF format'}
+            hint={!hideTitle&&'Please upload your resume file in PDF format'}
             collapseTopMargin
             >
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
             accept="application/pdf"
+            style={{marginTop:10}}
             > 
             <Grid 
             className={classes.grid}
             container
             direction='column'
-            justify='space-around'
+            justify='center'
             alignItems='center'
             > 
-            <CloudUploadIcon style={{ fontSize: 66 }}/>
-            <Typography variant='button'>
-            {theme.responsive.isMobile?'Click to browse for your PDF resume':'Drag and drop your PDF resume'}
-            </Typography>
-            <Typography variant='subheading'>
-            OR
-            </Typography>
+            <Grid item style={{marginBottom:20,textAlign:'center'}}>
+                { !isUploading && resumeFile.name !== '' ?
+                    <CloudDoneIcon style={{ fontSize: 66 }}/> :
+                    <CloudUploadIcon style={{ fontSize: 66 }}/>
+                }
+                { isUploading ?
+                    <div style={{width:150}}>
+                        <Grid container justify="space-between" style={{marginBottom:5}}>
+                            <Grid item><Typography variant="body1">Uploading&hellip;</Typography></Grid>
+                            <Grid item><Typography variant="body1">{Math.round(this.state.uploadProgress)}%</Typography></Grid>
+                        </Grid>
+                        <LinearProgress value={this.state.uploadProgress} variant="determinate" className={classes.buttonProgress}/>
+                    </div>
+                :
+                    <Typography variant='button'>
+                        { resumeFile.name !== '' ?
+                            'Resume uploaded' :
+                            theme.responsive.isMobile?'Click to browse for your PDF resume':'Drag and drop your PDF resume'
+                        }
+                    </Typography>
+                }
+            </Grid>
             <div className={classes.wrapper}>
-          <Button
-            variant="flat"
-            color="primary"
-            className={buttonClassname}
-            disabled={isUploading}
-            onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
-          >
-          {resumeFile.name!==''? 'Upload New Resume':'Browse Files'}
-          </Button>
-          {resumeFile.name !== '' && 
-            <div className={classes.chipWrapper}>
-                <Chip
-                label={resumeFile.name} 
-                onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
-                onDelete={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
-                deleteIcon={<DownloadIcon />}
-                />
+                {resumeFile.name !== '' ?
+                    <div className={classes.chipWrapper}>
+                        <Chip
+                        label={resumeFile.name} 
+                        onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
+                        onDelete={this.handleDelete}
+                        avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
+                        />
+                    </div>
+                :
+                    <Button
+                        variant="flat"
+                        color="primary"
+                        className={buttonClassname}
+                        disabled={isUploading}
+                        onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
+                    >Select a file</Button>
+                }
             </div>
-          }
-            { isUploading && 
-                <div style={{margin:'15px auto',width:150}}>
-                <Grid container justify="space-between" style={{marginBottom:5}}>
-                    <Grid item><Typography variant="caption">Uploading&hellip;</Typography></Grid>
-                    <Grid item><Typography variant="caption">{Math.round(this.state.uploadProgress)}%</Typography></Grid>
-                </Grid>
-                    <LinearProgress value={this.state.uploadProgress} variant="determinate" className={classes.buttonProgress}/>
-                </div>
-            }
-        </div>
             </Grid>
             </Dropzone>
             </InputWrapper>
-            <MessageBar message="Please upload in PDF format" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
+            <MessageBar message="Please upload your resume file in PDF format" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
             </div>
             
         );

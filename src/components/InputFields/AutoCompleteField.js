@@ -26,7 +26,8 @@ import AddIcon from '@material-ui/icons/AddCircleOutline'
 const styles = theme => ({
   root:{
     width:'100%',
-    maxWidth:520
+    maxWidth:520,
+    marginTop:5,
   },
   textField:{
     marginTop:4,

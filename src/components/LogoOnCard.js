@@ -24,7 +24,7 @@ const styles = theme => ({
     },
   paper:{
     margin: 'auto',
-    marginBottom:20,
+    marginBottom:0,
  //   width:680,
    paddingLeft:'30px',
    paddingRight:'30px',
