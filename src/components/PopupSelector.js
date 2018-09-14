@@ -1,7 +1,8 @@
 import React from 'react'
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MoreIcon from '@material-ui/icons/MoreVert';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,23 +17,23 @@ render(){
     const {items,classes} = this.props
     return(
         <div>
-        <Button disableRipple
+        <IconButton
                   style={{backgroundColor:'#FFF4ED'}}
-                  variant='contained'
                   buttonRef={node => {
                     this.anchorEl = node;
                   }}
                   aria-owns={popperIsOpen ? 'switch-toggle' : null}
                   aria-haspopup="true"
                   onClick={()=>{this.setState({popperIsOpen:true})}}
-                > ... 
-                </Button>
-        <Popper style={{right:60}} open={popperIsOpen} anchorEl={this.anchorEl} transition disablePortal>
+                  style={{color:'#000'}}
+                ><MoreIcon />
+                </IconButton>
+        <Popper open={popperIsOpen} anchorEl={this.anchorEl} transition disablePortal placement="bottom-end">
         {({ TransitionProps, placement }) => (
           <Grow
             {...TransitionProps}
             id="switch-toggle"
-            style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+            style={{ transformOrigin: 'right center' }}
           >
             <Paper >
               <ClickAwayListener onClickAway={()=>{this.setState({popperIsOpen:false})}}>

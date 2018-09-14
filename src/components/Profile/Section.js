@@ -25,7 +25,7 @@ class Section extends React.Component{
                <Typography variant='subheading'>
                  {label}:
                </Typography>
-               <Grid item> 
+               <Grid item style={{position:'relative',left:16}}> 
                {!disabled&&
                   <IconButton onClick={()=>{this.setState({isOpen:true})}} 
                      aria-label={`edit ${label}`}>

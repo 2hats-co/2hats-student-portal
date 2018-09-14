@@ -47,15 +47,10 @@ const styles = theme => ({
       [theme.breakpoints.up('xs')]: {
         paddingRight:0
       },
-      [theme.breakpoints.up('sm')]: {
-        paddingRight:60
+      [theme.breakpoints.up(700)]: {
+        paddingRight:96
       },
-    [theme.breakpoints.up('md')]: {
-      paddingRight:40
     },
-     
-     
-      },
       actionGrid:{
         minWidth:375,
         maxWidth:400
@@ -219,7 +214,7 @@ class StatusCard extends React.Component{
         <Card className={classes.root} style={hideToaster?{backgroundColor:'#FFF4ED'}:{display:'none'}}>
             <Grid container 
             justify={isMobile?'flex-end':'space-between'} className={classes.grid} style={!isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' > 
-                <Grid  xs={12} sm={6} md={7} lg={9} item>
+                <Grid  xs={12} sm={6} md={7} lg={8} item>
                   <Grid container direction='row' justify='flex-start' alignItems='center'>
                     {icon}
                     <Grid item style={{flex: 1}}>
@@ -231,7 +226,7 @@ class StatusCard extends React.Component{
                
                 </Grid>
                 {
-                <Grid item xs={12} sm={6}  md={5} lg={3}>
+                <Grid item xs={12} sm={6}  md={5} lg={4}>
                   <Grid container direction='row' justify='flex-end' alignItems='center'>
                     {buttons&&
                         buttons.map(x=>{return(

@@ -93,7 +93,7 @@ const styles = theme => ({
     marginTop:0,
     marginBottom:0,
     flexGrow: 1,
-    overflow:'scroll',
+    overflowY:'scroll',
     width:'100%',
     backgroundColor: '#fff',
    // padding: theme.spacing.unit * 3,

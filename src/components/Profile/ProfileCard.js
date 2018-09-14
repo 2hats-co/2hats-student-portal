@@ -98,9 +98,8 @@ function ProfileCard(props) {
           key={resumeFile.fullPath}
           label={resumeFile.name}
           onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
-          onDelete={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
           className={classes.chip}
-          deleteIcon={<DownloadIcon />}
+          avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
         />}
           </div>
       }

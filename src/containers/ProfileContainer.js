@@ -22,7 +22,6 @@ const styles = theme => ({
   logo:{},
   greeting:{},
     grid: {
-     overflow: 'scroll'
     },
     item:{
       width:'98%',
