@@ -32,15 +32,27 @@ const styles = theme =>({
     },
     bigAvatar: {
         marginTop:30,
-        marginLeft:0,
         marginBottom:10,
-        width: 230,
-        height: 230,
+        marginLeft:'auto',
+        marginRight:'auto',
+        width: 180,
+        height: 180,
         fontSize:45
     },
     uploadButton:{  
         marginTop:10,
         width:230
+    },
+    link:{
+        display:'block',
+        width:'100%',
+        textAlign:'center',
+        marginTop:20,
+        color:deepOrange[600],
+        cursor:'pointer',
+        '&:hover': {
+            textDecoration:'underline',
+        },
     }
   });
   
@@ -93,8 +105,8 @@ class Avatar extends Component{
     render(){
         const {avatarURL,firstName,lastName,classes} = this.props
         const {isUploading,hasChanged,isOpen} = this.state
-        let avatar = (<MuiAvatar onClick={this.openDialog} scr={avatarURL} className={classNames(classes.avatar,classes.orangeAvatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
-        let bigAvatar = (<MuiAvatar src={avatarURL} className={classNames(classes.avatar,classes.bigAvatar,classes.orangeAvatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
+        let avatar = (<MuiAvatar onClick={this.openDialog} scr={avatarURL} className={classNames(classes.avatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
+        let bigAvatar = (<MuiAvatar src={avatarURL} className={classNames(classes.avatar,classes.bigAvatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
         if(avatarURL){
             avatar = (<MuiAvatar onClick={this.openDialog} 
                 alt={`${firstName} ${lastName}`}
@@ -126,9 +138,7 @@ class Avatar extends Component{
             accept="image/jpeg, image/png, image/jpg"
             > 
             {bigAvatar}
-            <Button variant='flat' className={classes.uploadButton}>
-            Upload Photo
-            </Button>
+            <a className={classes.link}>Select a File</a>
             </Dropzone>
             </Grid>
             </Dialog>

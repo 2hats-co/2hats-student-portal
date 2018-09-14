@@ -15,12 +15,15 @@ const styles = theme => ({
       paddingRight:0,
     },
     actions:{
-   
     },
     grid:{
       paddingLeft:40,
       paddingRight:40
-    }
+    },
+    loading:{
+      position:'absolute',
+      top:0,
+    },
   });
 
 function WebForm(props){
@@ -36,7 +39,7 @@ function WebForm(props){
         <LinearProgress className={classes.loading} 
                 style={isLoading?{}:{display:'none'}}
                 />
-      <DialogTitle style={{paddingLeft:40,paddingBottom:0}} id="form-dialog-title">{activity} {title}</DialogTitle>
+      <DialogTitle style={{paddingLeft:40,paddingBottom:0,paddingRight:40}} id="form-dialog-title">{activity} {title}</DialogTitle>
         <DialogContent className={classes.content}>
           <Grid
           container
@@ -48,15 +51,14 @@ function WebForm(props){
           {children}
           </Grid>
           </DialogContent>
-          <DialogActions>
+          <DialogActions style={{padding:10}}>
             <Button variant='contained' onClick={cancelHandler}>
               Cancel
             </Button>
-          <Button variant='contained'  disabled={disabled} style={{textTransform: 'capitalize'}}
+            <Button variant='contained'  disabled={disabled} style={{textTransform: 'capitalize'}}
               onClick={addHandler} >
               {activity==='Edit'?'Save':activity }
             </Button>
-            
           </DialogActions>
         </Dialog>
     )

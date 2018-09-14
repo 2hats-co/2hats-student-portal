@@ -60,7 +60,7 @@ function Step(props){
       justify='space-between' 
       alignItems='center' 
       className={classes.root} >
-        <Typography className={classes.label} onClick={()=>{goTo(route)}} variant='subheading' >
+        <Typography className={classes.label} onClick={()=>{goTo(route)}} variant='body1' >
         {label}
         </Typography>
         {isComplete? completedIndicator:incompletedIndicator}

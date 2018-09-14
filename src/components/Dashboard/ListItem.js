@@ -69,7 +69,7 @@ function ListItem(props){
                     <Typography variant='button'>
                         {month}
                     </Typography>
-                    <Typography variant='display1'>
+                    <Typography variant='display1' style={{color:'#000'}}>
                         {date}
                     </Typography>
                 </Grid>
