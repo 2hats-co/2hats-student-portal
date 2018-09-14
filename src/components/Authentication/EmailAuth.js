@@ -12,20 +12,22 @@ import Validator from 'mailgun-validate';
 
 const styles = theme => ({
   button: {
-    
     width: 120
   },
   grid:{
-    height:140
+    height:150,
+    paddingBottom:10,
   },
   text:{
-    paddingBottom:10
+    marginTop: -15,
+    width:'100%',
   },
   link:{
     color: theme.palette.primary.light,
     cursor:'pointer',
-    textDecoration: 'underline',
-
+    textDecoration: 'none',
+    marginRight: 10,
+    fontWeight:'bold',
     '&:hover':{
       textDecoration: 'underline'
     }
@@ -46,7 +48,7 @@ class EmailAuth extends Component {
     }
     handleInvalidEmail(){
       this.props.changeHandler('isLoading', false)
-      this.props.changeHandler('snackBar', {message:'invalid email address',variant:'error'})
+      this.props.changeHandler('snackBar', {message:'It looks like you entered your email address incorrectly.',variant:'warning'})
     }
     handleValidEmail(hasSuggestion){
       this.props.changeHandler('isLoading', false)
@@ -126,18 +128,25 @@ class EmailAuth extends Component {
       const {email,emailSuggestion,invalidEmail} = this.state
       const {classes} = this.props
         return(
-            <Grid className={classes.grid} container direction='column' alignItems='center' justify='space-around'>
-           <Email key="emailField" 
-           primaryAction={this.onNext}
-           value={email} 
-           changeHandler={this.handleChange}/>
-           {emailSuggestion&&<Typography variant='body1' className={classes.text}>
-    Do you mean: <b><a className={classes.link} 
-    onClick={()=>{ this.setState({email:emailSuggestion}),this.handleEmailCheck(emailSuggestion)}
-    }>{emailSuggestion}</a></b>{!invalidEmail&&<a className={classes.link} style={{color:'#000'}}
-    onClick={()=>{this.handleValidEmail(false)}
-    }>(Ignore)</a>}
-    </Typography>}
+          <Grid className={classes.grid} container direction='column' alignItems='center' justify='space-between'>
+            <div style={{width:'100%',marginTop: emailSuggestion ? -5 : 15}}>
+              <Email key="emailField" 
+              primaryAction={this.onNext}
+              value={email} 
+              changeHandler={this.handleChange}/>
+            </div>
+           {emailSuggestion&&
+           <Typography variant='body1' className={classes.text}>
+              Did you mean:<br/>
+              <a className={classes.link} 
+              onClick={()=>{ this.setState({email:emailSuggestion}),this.handleEmailCheck(emailSuggestion)}
+              }>{emailSuggestion}</a>
+              
+              {!invalidEmail&&<a className={classes.link} style={{color:'#000'}}
+              onClick={()=>{this.handleValidEmail(false)}
+              }>Ignore</a>}
+           </Typography>
+          }
           <Button key='check-button' 
             id='check-button' variant='flat'
             disabled={!validateEmail(email)}

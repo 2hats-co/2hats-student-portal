@@ -5,10 +5,8 @@ import {PRIMARY_COLOR} from '../../Theme'
 // 1. We define the styles.
 const styles = theme => ({
     root:{
-    paddingTop:5,
-        fontSize:'11px',
-    color: '#000',  
-    textAlign:'center'  
+    position: 'relative',
+    top: 20,
     },large:theme.typography.body1,
   link: {
     color: theme.palette.primary.light,
@@ -27,22 +25,22 @@ function Disclaimer(props) {
   const { classes} = props;
 
   return (
-      <div className={classes.large}>
-             {`By clicking Sign Up, you agree to our `}
-    <a
-     href="https://www.2hats.com.au/terms.html"
-     target="_blank"
-      className={classes.link}
-    >
-    Terms and Conditions
-    </a>{` and `}<a
-     href="https://www.2hats.com.au/privacy.html"
-     target="_blank"
-      className={classes.link}
-    >
-    Privacy Policy
-    </a>
-    </div>
+    <div className={classes.root}><div className={classes.large}>
+      {`By clicking Sign Up, you agree to our `}
+      <a
+      href="https://www.2hats.com.au/terms.html"
+      target="_blank"
+        className={classes.link}
+      >
+      Terms and Conditions
+      </a>{` and `}<a
+      href="https://www.2hats.com.au/privacy.html"
+      target="_blank"
+        className={classes.link}
+      >
+      Privacy Policy
+      </a>
+    </div></div>
   );
 }
 

@@ -436,13 +436,13 @@ class AuthenticationContainer extends React.Component {
       linkButton('go to Dashboard',routes.DASHBOARD)
     ]
     let loadedView = authView;
-    let gridHeight = 500;
+    let gridHeight = 510;
     let cardHeight = 300;
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = authView;
-        cardHeight = 500;
-        gridHeight = 340;
+        cardHeight = 510;
+        gridHeight = 350;
         break;
       case AUTHENTICATION_CONTAINER.google:
         loadedView = GoogleView;
