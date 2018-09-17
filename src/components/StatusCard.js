@@ -41,14 +41,12 @@ const styles = theme => ({
         },
     },
     grid:{
-      padding:10,
-      paddingTop:20,
-      paddingBottom:20,
+      padding: '26px 10px',
       [theme.breakpoints.up('xs')]: {
         paddingRight:0
       },
       [theme.breakpoints.up(700)]: {
-        paddingRight:96
+        paddingRight:84
       },
     },
       actionGrid:{
@@ -92,6 +90,12 @@ const styles = theme => ({
         right:0,
         bottom:20
       },
+      rightButtons: {
+        marginTop: 8,
+        [theme.breakpoints.up('sm')]: {
+          marginTop: 0,
+        },
+      }
 
   });
 class StatusCard extends React.Component{
@@ -226,22 +230,22 @@ class StatusCard extends React.Component{
                
                 </Grid>
                 {
-                <Grid item xs={12} sm={6}  md={5} lg={4}>
+                <Grid item xs={12} sm={6}  md={5} lg={4} className={classes.rightButtons}>
                   <Grid container direction='row' justify='flex-end' alignItems='center'>
                     {buttons&&
                         buttons.map(x=>{return(
-              
-                            <Button key={x.label} disabled={x.disabled} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
+                        <Grid item xs sm="auto">
+                            <Button key={x.label} disabled={x.disabled} style={{width:'100%'}} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
                             <div style={{display:'flex',marginLeft:12,marginRight:12}}>
                         <div style={{marginTop:0}}> {x.label}</div> {!x.disabled&&<AnimateIcon> <ArrowIcon style={{marginRight:-18,marginTop:-1}}/><ArrowIcon style={{marginRight:-8,marginTop:-1}}/> </AnimateIcon>} 
                         </div>
                             </Button>
-                        
+                        </Grid>
                         )
                     })
-                    }{link&&<div>
+                    }{link&&<Grid item style={{marginLeft:8,marginRight:8}}>
                       <PopupSelector items={[{label:link.label,action:link.action}]}/>
-                    </div>}
+                    </Grid>}
                   </Grid>
                 </Grid>
                 }

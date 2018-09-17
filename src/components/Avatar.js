@@ -125,8 +125,9 @@ class Avatar extends Component{
            isLoading={isUploading}
             
             unChanged={!hasChanged}
-            title={'Your Profile Photo'}
+            title={'Profile Photo'}
             activity='Update'
+            hideActivityFromTitle
             disabled={isUploading||!hasChanged}
             addHandler={this.saveHandler} 
             cancelHandler={this.cancelHandler}

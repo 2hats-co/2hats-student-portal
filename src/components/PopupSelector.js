@@ -18,6 +18,7 @@ render(){
     return(
         <div>
         <IconButton
+                  color="primary"
                   style={{backgroundColor:'#FFF4ED'}}
                   buttonRef={node => {
                     this.anchorEl = node;

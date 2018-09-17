@@ -39,7 +39,7 @@ function Next(props){
         <div  className={classes.root}><Grid className={classes.grid} container direction='column' justify='space-around'>
                 <Grid item>
                     <Typography variant='display1'>
-                        What's Next
+                        What’s Next
                     </Typography>
                 </Grid>
                 <Grid item>

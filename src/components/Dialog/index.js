@@ -34,7 +34,9 @@ function Dialog(props){
             addHandler={addHandler} 
             disabled={disabled} 
             cancelHandler={cancelHandler}
-            width={width}>
+            width={width}
+            hideActivityFromTitle={props.hideActivityFromTitle}
+            >
             {children}
               </WebForm>
         )

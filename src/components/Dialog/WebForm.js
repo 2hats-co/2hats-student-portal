@@ -39,7 +39,7 @@ function WebForm(props){
         <LinearProgress className={classes.loading} 
                 style={isLoading?{}:{display:'none'}}
                 />
-      <DialogTitle style={{paddingLeft:40,paddingBottom:0,paddingRight:40}} id="form-dialog-title">{activity} {title}</DialogTitle>
+      <DialogTitle style={{paddingLeft:40,paddingBottom:0,paddingRight:40}} id="form-dialog-title">{props.hideActivityFromTitle ? null : activity} {title}</DialogTitle>
         <DialogContent className={classes.content}>
           <Grid
           container
