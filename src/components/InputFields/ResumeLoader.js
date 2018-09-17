@@ -78,7 +78,10 @@ class ResumeLoader extends React.Component {
     handleDelete(){
         console.log('delete')
         const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
-        ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:'',downloadURL:''}))
+        ref.delete();/*.then(()=>{*/
+            this.props.changeHandler('resumeFile',{name:'',fullPath:'',downloadURL:''});
+            this.setState({isUploading:false});
+        //});
     }
     handleLoader(snapShot){
         firebaseStorage
@@ -188,12 +191,19 @@ class ResumeLoader extends React.Component {
             <div className={classes.wrapper}>
                 {resumeFile.name !== '' ?
                     <div className={classes.chipWrapper}>
-                        <Chip
-                        label={resumeFile.name} 
-                        onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
-                        onDelete={this.handleDelete}
-                        avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
-                        />
+                        {isUploading ?
+                            <Chip
+                            label={resumeFile.name.length > 50 ? resumeFile.name.substr(0,49) + "…" : resumeFile.name} 
+                            onDelete={this.handleDelete}
+                            />
+                        :
+                            <Chip
+                            label={resumeFile.name.length > 50 ? resumeFile.name.substr(0,49) + "…" : resumeFile.name}
+                            onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
+                            onDelete={this.handleDelete}
+                            avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
+                            />
+                        }
                     </div>
                 :
                     <Button
