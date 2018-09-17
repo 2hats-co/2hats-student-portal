@@ -232,8 +232,8 @@ class StatusCard extends React.Component{
                         buttons.map(x=>{return(
               
                             <Button key={x.label} disabled={x.disabled} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
-                            <div style={{display:'flex',marginLeft:12}}>
-                        <div style={{marginTop:0}}> {x.label}</div> {!x.disabled&&<AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon>} 
+                            <div style={{display:'flex',marginLeft:12,marginRight:12}}>
+                        <div style={{marginTop:0}}> {x.label}</div> {!x.disabled&&<AnimateIcon> <ArrowIcon style={{marginRight:-18,marginTop:-1}}/><ArrowIcon style={{marginRight:-8,marginTop:-1}}/> </AnimateIcon>} 
                         </div>
                             </Button>
                         
