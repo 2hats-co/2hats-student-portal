@@ -47,11 +47,12 @@ componentWillUnmount() {
   }
 }
   render() {
-  
+
     return (
       <MuiThemeProvider theme={this.state.theme}>
 
        <Router>
+     
     <div className="app"> 
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic/>} />
       <Route exact path={routes.LOG_OUT} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.logout}/>} />
