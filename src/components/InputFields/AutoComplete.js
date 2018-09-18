@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Select from 'react-select';
 import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
 import TextField from '@material-ui/core/TextField';
-import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
-import DownIcon from '@material-ui/icons/KeyboardArrowDown';
-
 import InputWrapper from "./InputWrapper";
 
 const styles = theme => ({

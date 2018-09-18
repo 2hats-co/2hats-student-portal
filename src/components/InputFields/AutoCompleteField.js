@@ -13,15 +13,9 @@ import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 
-import IconButton from '@material-ui/core/IconButton';
-import Input from '@material-ui/core/Input';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-
-import AddIcon from '@material-ui/icons/AddCircleOutline'
 
 const styles = theme => ({
   root:{
