@@ -9,6 +9,7 @@ import SnackBar from './SnackBar';
 
 import Background from '../assets/background/Colour.svg';
 
+
 const styles = theme => ({
   root:{
     display: 'table',

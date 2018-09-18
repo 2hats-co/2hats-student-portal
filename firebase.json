@@ -21,7 +21,7 @@
       "source" : "**/*.@(html|htm)",
       "headers" : [ {
         "key" : "Cache-Control",
-        "value" : "max-age=1"
+        "value" : "public, must-revalidate, proxy-revalidate, max-age=0"
       } ]
     }
      ], "cleanUrls": true,
