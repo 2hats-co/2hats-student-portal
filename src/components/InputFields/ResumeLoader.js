@@ -77,8 +77,9 @@ class ResumeLoader extends React.Component {
 
     handleDelete(){
         console.log('delete')
-        const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
-        ref.delete();/*.then(()=>{*/
+        // Don't delete resumes from storage, we need them to be accessable from the admin portal
+        ///const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
+       // ref.delete();/*.then(()=>{*/
             this.props.changeHandler('resumeFile',{name:'',fullPath:'',downloadURL:''});
             this.setState({isUploading:false});
         //});
