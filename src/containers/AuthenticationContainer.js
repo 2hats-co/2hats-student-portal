@@ -144,7 +144,7 @@ class AuthenticationContainer extends React.Component {
     this.setState({ isLoading: true });
     const { email, password } = this.state;
     const user = { email, password };
-    signInWithPassword(user, route => ()=>{this.goTo(route),this.handleGTevent('Signin')},this.handleError);
+    signInWithPassword(user, route =>{this.goTo(route),this.handleGTevent('Signin')},this.handleError);
   }
   handleError=(o)=>{ 
     this.setState({snackBar:{message:o.message,variant:'error'},isLoading:false})
@@ -157,7 +157,7 @@ class AuthenticationContainer extends React.Component {
         this.setState({isLoading:true})
       createUserWithPassword(
         user,
-        route => ()=>{this.goTo(route),this.handleGTevent('Signup')},
+        route => {console.log('going to '+ route);this.goTo(route);this.handleGTevent('Signup')},
         this.handleError
       );
       }else{

@@ -50,4 +50,3 @@ export const auth = firebase.auth();
 export const firebaseStorage = firebase.storage().ref();
 export const db = firebase.firestore();
 export const functions = firebase.functions();
-export const googleProvider = new firebase.auth.GoogleAuthProvider();

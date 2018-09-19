@@ -14,7 +14,7 @@ class PopupSelector extends React.Component{
    }
 render(){
     const {popperIsOpen} = this.state
-    const {items,classes} = this.props
+    const {items} = this.props
     return(
         <div>
         <IconButton

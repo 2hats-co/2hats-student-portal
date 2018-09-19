@@ -1,5 +1,4 @@
-import React from 'react'
-import FooterImage from '../assets/images/graphics/Footer.svg'  
+import React from 'react' 
 import Logo from '../assets/images/Logo/White2hats.svg'  
 import Typography from '@material-ui/core/Typography'
 import { Grid } from '@material-ui/core';
