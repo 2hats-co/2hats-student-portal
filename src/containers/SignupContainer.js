@@ -26,7 +26,7 @@ import { withFirestore } from "../utilities/withFirestore";
 import { withRouter } from "react-router-dom";
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
-import * as _ from "lodash";
+import {orderBy} from "lodash";
 import * as routes from "../constants/routes";
 import StepController from "../components/SignUp/StepController";
 import LoadingMessage from "../components/LoadingMessage";
@@ -99,9 +99,11 @@ class ResumeBuilderContainer extends Component {
     window.Intercom("hide");
 
     if (this.props.profile) {
-      _.forOwn(this.props.profile[0], (value, key) => {
-        this.handleChange(key, value);
-      });
+      for (const key in this.props.profile[0]) {
+        if (this.props.profile[0].hasOwnProperty(key)) {
+          this.handleChange(key, this.props.profile[0][key]);
+        }
+      }
     }
     if (this.props.history.location.pathname === routes.BUILD_RESUME) {
       let updatedProfile = Object.assign(
@@ -130,9 +132,11 @@ class ResumeBuilderContainer extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.profile !== this.props.profile) {
-      _.forOwn(this.props.profile[0], (value, key) => {
-        this.handleChange(key, value);
-      });
+      for (const key in this.props.profile[0]) {
+        if (this.props.profile[0].hasOwnProperty(key)) {
+          this.handleChange(key, this.props.profile[0][key]);
+        }
+      }
     }
     if (prevProps.user !== this.props.user) {
       const { profile, user, onProfileUpdate } = this.props;
@@ -291,7 +295,7 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.education:
         let currentUniversity = "";
         if (profile.education) {
-          const education = _.orderBy(
+          const education = orderBy(
             profile.education,
             "endDateValue",
             "desc"

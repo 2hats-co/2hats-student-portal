@@ -18,7 +18,8 @@ import  {withFirestore} from '../../utilities/withFirestore';
 import { COLLECTIONS } from "../../constants/firestore";
 import { PROCESS_TYPES } from "../../constants/signUpProcess";
 
-import * as _ from "lodash";
+import {forEach} from '../../utilities/ObjectsAndArrays'
+
 
 const styles = theme => ({
     root: {
@@ -49,14 +50,11 @@ class ProfileDialogForm extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
   componentWillMount(){
-    _.forEach(this.props.profile,(value,key)=>{
-      this.handleChange(key,value)
-     })
+    forEach(this.props.profile,this.handleChange)
+
   }
   handleCancel=() =>{
-    _.forEach(this.props.profile,(value,key)=>{
-      this.handleChange(key,value)
-     })
+    forEach(this.props.profile,this.handleChange)
      this.props.closeHandler()
   }
   handleSave = () => {

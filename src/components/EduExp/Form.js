@@ -6,7 +6,7 @@ import AutoComplete from '../InputFields/AutoComplete';
 import MultiLineTextField from '../InputFields/MultiLineTextField';
 import PropTypes from 'prop-types';
 import { INPUTS } from '../../constants/enums';
-import * as _ from 'lodash'
+import {map} from 'lodash'
 import Dialog from '../Dialog';
 
 function completed(field){
@@ -79,7 +79,7 @@ class DialogForm extends React.Component {
  
   }
   isDisabled(){
-  const completedRequired = _.map(this.state,completed)
+  const completedRequired = map(this.state,completed)
     return !completedRequired
     .reduce(function(a,b)
     {if(a=== false || b===false)

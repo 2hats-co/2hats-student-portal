@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 import DialogForm from "./Form";
 import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
-import * as _ from "lodash";
-
+import {orderBy} from "lodash";
+import {orderByInt} from '../../utilities/ObjectsAndArrays'
 import { withStyles } from "@material-ui/core/styles";
 
 import Grid from "@material-ui/core/Grid";
@@ -56,9 +56,15 @@ class EducationContainer extends React.Component {
 
   handleEditDialog(key, item) {
     let emptyForm = getFormFields(this.props.name, this.props.industry);
-    const prefilledForm = _.map(emptyForm, field =>
-      Object.assign(field, { value: item[field.name] })
-    );
+
+    let prefilledForm = emptyForm
+    for (const key in prefilledForm) {
+      if (prefilledForm.hasOwnProperty(key)) {
+        const name = prefilledForm[key].name;
+        prefilledForm[key].value = item[name]
+        console.log(name,key)
+      }
+    }
     this.setState({
       dialog: {key: key, fields: prefilledForm }
     });
@@ -114,7 +120,9 @@ class EducationContainer extends React.Component {
           return Object.assign({endMoment:moment(x.endDate,'MMM YYYY').valueOf()},x)
         }
       })
-      const orderedData = _.orderBy(datedData, 'endMoment','desc')
+
+      const orderedData = orderBy(datedData, 'endMoment','desc')
+      orderByInt(datedData, 'endMoment',false)
      items=orderedData.map(item=>{
       return (
                 <EduExpCard
