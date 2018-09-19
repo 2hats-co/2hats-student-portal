@@ -70,6 +70,8 @@ class ResumeLoader extends React.Component {
         this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this)
         this.handleProgress = this.handleProgress.bind(this)
         this.handleChange = this.handleChange.bind(this)
+
+        this.uploadTask;
     }
     handleCloseSnackbar(){
         this.setState({errorBar:false})
@@ -77,6 +79,7 @@ class ResumeLoader extends React.Component {
 
     handleDelete(){
         console.log('delete')
+        if (this.uploadTask) this.uploadTask.cancel();
         // Don't delete resumes from storage, we need them to be accessable from the admin portal
         ///const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
        // ref.delete();/*.then(()=>{*/
@@ -117,6 +120,7 @@ class ResumeLoader extends React.Component {
             this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`candidates/${uid}/resumes/${Date.now()}/${files[0].name}`, downloadURL:''})
             const documentRef = firebaseStorage.child(`candidates/${uid}/resumes/${Date.now()}/${files[0].name}`)
             let uploadTask = documentRef.put(files[0]);
+            this.uploadTask = uploadTask;
             this.handleProgress(uploadTask)
             uploadTask.then(this.handleLoader)
         }
