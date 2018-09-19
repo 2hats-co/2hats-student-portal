@@ -1,0 +1,13 @@
+import { auth } from '../../store/index'
+import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
+
+export const speedyAuth = (userInfo,router)=> cloudFunction(CLOUD_FUNCTIONS.SPEEDY_SIGNUP, userInfo
+    ,(result) => {
+        auth.signInWithCustomToken(result.data.token).then(()=>{
+            router(result.data.route);
+        });
+        console.log("success: ", result);
+    }
+    ,(error) => {
+        console.log("speedy error: ", error);
+    });
