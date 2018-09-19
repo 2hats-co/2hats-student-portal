@@ -1,7 +1,6 @@
 import React,{Component} from 'react'
 
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import MuiAvatar from '@material-ui/core/Avatar';
 import Dialog from './Dialog/index'
 import { Button, Grid } from '@material-ui/core';
@@ -10,10 +9,9 @@ import Dropzone from 'react-dropzone'
 import {db} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 import {uploader} from '../utilities/Uploader'
-import UAParser from 'ua-parser-js';
+//import UAParser from 'ua-parser-js';
 
 import buggyBoyImage from '../assets/images/buggyBoy.png'
-const minjieURL = 'https://firebasestorage.googleapis.com/v0/b/staging2hats.appspot.com/o/minjie.png?alt=media&token=bc25e10a-eba3-43af-b849-79bc67075138'
 const styles = theme =>({
     dropZone:{
         border:'none !important'
@@ -53,8 +51,8 @@ class BuggyBoy extends Component{
         this.handleChange = this.handleChange.bind(this)
     }
     componentWillMount(){
-        var parser = new UAParser();
-        this.setState({deviceData:parser.getResult()});
+        // var parser = new UAParser();
+        // this.setState({deviceData:parser.getResult()});
     }
     handleChange(name,value){
         this.setState({[name]:value,hasChanged:true})

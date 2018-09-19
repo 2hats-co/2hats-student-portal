@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { auth,db } from '../../store';
-import UAParser from 'ua-parser-js';
-const storeDeviceInfo = async(uid) =>{
-  console.log('uid',uid)
-  const user = await db.collection("users").doc(uid).get()
-  const userData = user.data()
-  console.log('userData',userData)
- var parser = new UAParser();
- console.log(parser.getResult());
-}
+//import UAParser from 'ua-parser-js';
+// const storeDeviceInfo = async(uid) =>{
+//   console.log('uid',uid)
+//   const user = await db.collection("users").doc(uid).get()
+//   const userData = user.data()
+//   console.log('userData',userData)
+//  var parser = new UAParser();
+//  console.log(parser.getResult());
+// }
 
 const withAuthentication = (Component) => {
   class WithAuthentication extends React.Component {
@@ -34,7 +34,7 @@ const withAuthentication = (Component) => {
       }
      window.intercomSettings =user;
 
-     storeDeviceInfo(authUser.uid)
+     //storeDeviceInfo(authUser.uid)
     }
     render() {
       return (
