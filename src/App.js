@@ -4,17 +4,6 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { Theme } from './Theme';
 // containers
 import withAuthentication from './utilities/Session/withAuthentication';
-import AuthenticationContainer from './containers/AuthenticationContainer'
-import SignupContainer from './containers/SignupContainer'
-import SpeedySignupContainer from './containers/SpeedySignupContainer'
-import SubmissionContainer from './containers/SubmissionContainer'
-import IntroductionContainer from './containers/IntroductionContainer';
-import SmartLinkContainer from './containers/SmartLinkContainer';
-import DashboardContainer from './containers/DashboardContainer';
-import JobBoardContainer from './containers/JobBoardContainer';
-import ProfileContainer from './containers/ProfileContainer';
-import RemoteLoggerContainer from './containers/RemoteLoggerContainer';
- 
 //routing
 import {
   BrowserRouter as Router,
@@ -25,7 +14,70 @@ import {AUTHENTICATION_CONTAINER, INTRODUCTION_CONTAINER} from './constants/view
 import Landing from './components/Landing';
 
 
+// loadable
+import Loadable from 'react-loadable';
 
+const AuthenticationContainer = Loadable({
+  loader: () => import('./containers/AuthenticationContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const SignupContainer = Loadable({
+  loader: () => import('./containers/SignupContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+
+const SpeedySignupContainer = Loadable({
+  loader: () => import('./containers/SpeedySignupContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const IntroductionContainer = Loadable({
+  loader: () => import('./containers/IntroductionContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const SmartLinkContainer = Loadable({
+  loader: () => import('./containers/SmartLinkContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const ProfileContainer = Loadable({
+  loader: () => import('./containers/ProfileContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const DashboardContainer = Loadable({
+  loader: () => import('./containers/DashboardContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const JobBoardContainer = Loadable({
+  loader: () => import('./containers/JobBoardContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const RemoteLoggerContainer = Loadable({
+  loader: () => import('./containers/RemoteLoggerContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
+const SubmissionContainer = Loadable({
+  loader: () => import('./containers/SubmissionContainer'),
+  loading() {
+    return <div>Please wait</div>
+  }
+});
 class App extends Component {
   constructor(props){
     super(props)

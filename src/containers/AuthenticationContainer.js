@@ -103,6 +103,7 @@ class AuthenticationContainer extends React.Component {
     this.handleSignin = this.handleSignin.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this);
+    this.handleGTevent = this.handleGTevent.bind(this)
   }
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL)
@@ -129,7 +130,13 @@ class AuthenticationContainer extends React.Component {
     });
     window.Intercom("hide");
   }
- 
+ handleGTevent(name){
+   window.dataLayer.push({
+    'event':'VirtualPageview',
+    'virtualPageURL':`/virtual/${name}-Success/`,
+    'virtualPageTitle' : `${name}-Success`
+    });
+ }
   goTo(route) {
     this.props.history.push(route);
   }
@@ -137,7 +144,7 @@ class AuthenticationContainer extends React.Component {
     this.setState({ isLoading: true });
     const { email, password } = this.state;
     const user = { email, password };
-    signInWithPassword(user, route => this.goTo(route),this.handleError);
+    signInWithPassword(user, route => ()=>{this.goTo(route),this.handleGTevent('Signin')},this.handleError);
   }
   handleError=(o)=>{ 
     this.setState({snackBar:{message:o.message,variant:'error'},isLoading:false})
@@ -150,7 +157,7 @@ class AuthenticationContainer extends React.Component {
         this.setState({isLoading:true})
       createUserWithPassword(
         user,
-        route => this.goTo(route),
+        route => ()=>{this.goTo(route),this.handleGTevent('Signup')},
         this.handleError
       );
       }else{
@@ -163,7 +170,7 @@ class AuthenticationContainer extends React.Component {
       const { password,smartKey } = this.state;
       updateUserPassword(
         password,
-        () => {this.goTo(route)
+        () => {this.goTo(route),
           cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
         },
        this.handleError
@@ -222,6 +229,7 @@ class AuthenticationContainer extends React.Component {
         key="google-button"
         id="google-button"
         style={{marginTop:10}}
+        GTevent={this.handleGTevent}
         action={onSignupRoute?'Sign up': 'Sign in'}
         changeHandler={this.handleChange}
       />
