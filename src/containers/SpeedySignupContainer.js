@@ -69,6 +69,7 @@ class SpeedySignupContainer extends Component {
         this.handleReset = this.handleReset.bind(this)
         this.goHome = this.goHome.bind(this)
         this.goTo = this.goTo.bind(this)
+        this.errorBar = this.errorBar.bind(this)
     }
     componentWillMount(){
         warmUp(CLOUD_FUNCTIONS.SPEEDY_SIGNUP)
@@ -90,7 +91,8 @@ class SpeedySignupContainer extends Component {
             currentUniversity:'',
             industry:'',
             view:SPEEDY_SIGNUP.form,
-            isLoading: false
+            isLoading: false,
+            snackBar: null,
         })
     }
     
@@ -105,7 +107,7 @@ class SpeedySignupContainer extends Component {
         };
 
         this.setState({ isLoading: true });
-        speedyAuth(userInfo,this.goTo)
+        speedyAuth(userInfo,this.goTo,this.errorBar)
 
         // cloudFunction(CLOUD_FUNCTIONS.SPEEDY_SIGNUP, userInfo
         //     ,(result) => {
@@ -124,7 +126,9 @@ class SpeedySignupContainer extends Component {
     goHome(){
         window.open('https://2hats.com.au','_self')
     }
-    
+    errorBar(e){
+        this.setState({snackBar:{message:e.message,variant:'error'},isLoading:false,link:'signin'})
+    }
     renderForm(){
         const {classes,theme} = this.props
         const isMobile = theme.responsive.isMobile
@@ -176,13 +180,13 @@ class SpeedySignupContainer extends Component {
         )
     }
      render(){
-         const {view,isLoading} = this.state
+         const {view,isLoading,snackBar} = this.state
          const {theme,classes} = this.props
          const isMobile = theme.responsive.isMobile
          return(
              <LogoInCard width={isMobile?350:755} height={520} isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
-             >
-            
+             snackBar={snackBar} 
+            >
                 <Grid container direction={isMobile?'column':'row'} alignItems='center' justify='space-around'>
                 {view === SPEEDY_SIGNUP.form? this.renderForm():this.renderCongrats()}
                 {!isMobile &&
