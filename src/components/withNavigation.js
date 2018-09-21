@@ -279,12 +279,12 @@ export const withNavigation = (WrappedComponent) => {
               >
                 { Array.isArray(user) && user[0] && user[0].firstName && `Hi ${user[0].firstName}` } <DownArrowIcon/>
               </Button>
-              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal style={{marginLeft:-10}}>
+              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal placement="bottom-end">
                 {({ TransitionProps, placement }) => (
                   <Grow
                     {...TransitionProps}
                     id="logout-toggle"
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                    style={{ transformOrigin: placement === 'bottom-end' ? 'center top' : 'center bottom' }}
                   >
                     <Paper>
                       <ClickAwayListener onClickAway={this.handleLogoutToggleClose}>

@@ -36,7 +36,8 @@ const styles = theme =>({
 function Next(props){
     const {classes} = props
     return(
-        <div  className={classes.root}><Grid className={classes.grid} container direction='column' justify='space-around'>
+        <div  className={classes.root}>
+            <Grid className={classes.grid} container direction='row' justify='flex-start'>
                 <Grid item>
                     <Typography variant='display1'>
                         What’s Next
