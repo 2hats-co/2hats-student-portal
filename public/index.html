@@ -39,6 +39,53 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         right: 16px !important;
       }
     </style>
+
+    <style>
+      .basic-spinner-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      .basic-spinner-svg {
+        width: 60px;
+        height: 60px;
+        animation: mui-progress-circular-rotate 1.4s linear infinite;
+      }
+
+      @keyframes mui-progress-circular-rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      .basic-spinner-circle {
+        animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
+        stroke-dasharray: 80px, 200px;
+        stroke-dashoffset: 0px;
+        stroke: #F15A29;
+      }
+
+      @keyframes mui-progress-circular-dash {
+        0% {
+          stroke-dasharray: 1px, 200px;
+          stroke-dashoffset: 0px;
+        }
+        50% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -15px;
+        }
+        100% {
+          stroke-dasharray: 100px, 200px;
+          stroke-dashoffset: -120px;
+        }
+      }
+    </style>
      
     <title>2hats</title>
   </head>
@@ -50,7 +97,13 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
-    <div id="root"></div>
+    <div id="root">
+      <div class="basic-spinner-container">
+          <svg class="basic-spinner-svg" viewBox="22 22 44 44">
+            <circle class="basic-spinner-circle" cx="44" cy="44" r="20.2" fill="none" stroke-width="3.6"></circle>
+          </svg>
+      </div>
+    </div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
