@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import LogoInCard from '../components/LogoInCard';
 import CurrentUniversity from '../components/InputFields/CurrentUniversity';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'

@@ -7,7 +7,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import {CAREER_INTERESTS,getIndustryFromInterests} from '../../constants/resumeBuilderPrompts'
 import TextField  from '@material-ui/core/TextField';

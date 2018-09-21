@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import EduExp from '../components/EduExp'
 import ProfileCard from '../components/Profile/ProfileCard'
 import {withRouter} from 'react-router-dom'
-import {withStyles  } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from '@material-ui/core/Grid';
 
 import { LISTENER, COLLECTIONS } from '../constants/firestore';

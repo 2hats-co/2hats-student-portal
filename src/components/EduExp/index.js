@@ -8,7 +8,7 @@ import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
 import orderBy from 'lodash.orderby'
 import {orderByInt} from '../../utilities/ObjectsAndArrays'
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";

@@ -1,5 +1,5 @@
 
-import { createMuiTheme } from '@material-ui/core/styles';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { inherits } from 'util';
 const PRIMARY_COLOR = '#F15A29'
 const primaryFontFamily = `"Helvetica Neue", Arial`

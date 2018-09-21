@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {withNavigation} from '../components/withNavigation';
 import Grid from '@material-ui/core/Grid';
-import {withStyles} from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import EduExp from '../components/EduExp/';
 import ProfileCard from '../components/Profile/ProfileCard';
 import PropTypes from "prop-types";

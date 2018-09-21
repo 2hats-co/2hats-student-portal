@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ApplicationTimeLine from '../components/Dashboard/ApplicationTimeLine'
 import ApplicationProgress from '../components/Dashboard/ApplicationProgress'
 import FeedbackHistory from '../components/Dashboard/FeedbackHistory'

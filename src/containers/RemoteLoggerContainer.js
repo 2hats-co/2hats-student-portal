@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore"; 
 import withAuthorisation from '../utilities/Session/withAuthorisation'
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import {remoteConsole} from '../utilities/remoteLogging'
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";

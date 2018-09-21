@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import ListItem from './ListItem'
 import LinkIcon from '@material-ui/icons/KeyboardArrowRight'
 import Divider from '@material-ui/core/Divider'
