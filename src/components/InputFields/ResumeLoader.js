@@ -38,6 +38,7 @@ const styles = theme => ({
         margin: theme.spacing.unit,
         position: 'relative',
         textAlign: 'center',
+        maxWidth: 'calc(100% - 20px)',
     },
     buttonSuccess: {
         //backgroundColor: green[500],
@@ -53,6 +54,13 @@ const styles = theme => ({
     chipWrapper: {
         marginTop: theme.spacing.unit,
         textAlign: 'center',
+    },
+
+
+    chiplabel: {
+        display: 'block',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     
 });
@@ -198,15 +206,19 @@ class ResumeLoader extends React.Component {
                     <div className={classes.chipWrapper}>
                         {isUploading ?
                             <Chip
-                            label={resumeFile.name.length > 50 ? resumeFile.name.substr(0,49) + "…" : resumeFile.name} 
+                            label={resumeFile.name} 
                             onDelete={this.handleDelete}
+                            style={{maxWidth:'100%'}}
+                            classes={{label:classes.chiplabel}}
                             />
                         :
                             <Chip
-                            label={resumeFile.name.length > 50 ? resumeFile.name.substr(0,49) + "…" : resumeFile.name}
+                            label={resumeFile.name}
                             onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
                             onDelete={this.handleDelete}
                             avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
+                            style={{maxWidth:'100%'}}
+                            classes={{label:classes.chiplabel}}
                             />
                         }
                     </div>

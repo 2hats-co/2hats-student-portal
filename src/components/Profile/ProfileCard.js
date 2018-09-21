@@ -30,6 +30,11 @@ const styles = theme => ({
   }
   ,
   chip:{mariginTop:10,marginRight:10, marginBottom:5},
+  chiplabel: {
+    display: 'block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -96,10 +101,13 @@ function ProfileCard(props) {
           {resumeFile.name&& 
           <Chip
           key={resumeFile.fullPath}
+          //label={resumeFile.name.length > 30 ? resumeFile.name.substr(0,29) + "…" : resumeFile.name}
           label={resumeFile.name}
           onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
           className={classes.chip}
           avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
+          style={{maxWidth:'100%'}}
+          classes={{label:classes.chiplabel}}
         />}
           </div>
       }
