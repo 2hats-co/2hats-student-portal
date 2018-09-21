@@ -26,6 +26,7 @@ import LinkedinButton from "../components/Authentication/LinkedinButton";
 import LogoInCard from "../components/LogoInCard";
 import ChangeAdpter from "../components/InputFields/ChangeAdapter";
 
+import NoPassword from '../components/Authentication/NoPassword'
 //utilities
 import {
   createUserWithPassword,
@@ -435,6 +436,11 @@ class AuthenticationContainer extends React.Component {
       passwordField('New password',this.handleUpdatePassword),
       createPasswordButton
     ];
+    const noPasswordView =[
+      backBar,
+     GreetingWithFirstName('Welcome back'),
+     (<NoPassword/>)
+    ]
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
       linkButton('Go to sign in',routes.SIGN_IN)
@@ -486,6 +492,11 @@ class AuthenticationContainer extends React.Component {
         loadedView = logoutView;
         cardHeight = 400;
         gridHeight = 250;
+        break;
+        case AUTHENTICATION_CONTAINER.noPassword:
+        loadedView = noPasswordView;
+        cardHeight = 320;
+        gridHeight = 150;
         break;
         case AUTHENTICATION_CONTAINER.validateEmail:
         loadedView = validateEmailView;

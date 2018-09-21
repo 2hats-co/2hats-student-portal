@@ -109,6 +109,7 @@ componentWillUnmount() {
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic/>} />
       <Route exact path={routes.LOG_OUT} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.logout}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic/>} />
+      <Route exact path={routes.NO_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.noPassword}/>}/>} />
       <Route exact path={routes.CREATE_PASSWORD} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.createPassword}/>} />   
       <Route exact path={routes.RESET_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.VALIDATE_EMAIL} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.validateEmail}/>} />

@@ -20,4 +20,5 @@ export const PROFILE = '/profile';
 export const JOB_BOARD = '/jobs';
 export const EMAIL_VERIFICATION = '/emailVerifications'
 export const CREATE_PASSWORD = '/createPassword'
+export const NO_PASSWORD = '/noPassword'
 export const SMART_LINK = '/smartLinks'
