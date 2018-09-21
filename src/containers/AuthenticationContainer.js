@@ -37,8 +37,6 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import {auth} from '../firebase';
 import { connect } from 'react-redux';
 import {actionTypes} from 'redux-firestore'
-
-import {db} from '../store'
 import BackIcon from "@material-ui/icons/KeyboardBackspace";
 const styles = theme => ({
   root: {
@@ -166,11 +164,7 @@ class AuthenticationContainer extends React.Component {
       }
     }
   }
-  async enablePassword(email){
-    const usersCollection = db.collection('users')
-    const query = await usersCollection.where("email", "==", email).get()
-     console.log(email,query)
-  }
+ 
   handleUpdatePassword(route) {
     return () => {
       const { password,smartKey } = this.state;
