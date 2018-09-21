@@ -41,12 +41,12 @@ const styles = theme => ({
         },
     },
     grid:{
-      padding: '26px 10px',
+      padding: '20px 10px',
       [theme.breakpoints.up('xs')]: {
         paddingRight:0
       },
       [theme.breakpoints.up(700)]: {
-        paddingRight:84
+        paddingRight:80
       },
     },
       actionGrid:{
