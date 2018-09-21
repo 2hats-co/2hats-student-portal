@@ -69,7 +69,7 @@ import AvailableDays from './InputFields/AvailableDays';
             return (
                 <Dialog activity='Update' 
                 unChanged={this.state.unChanged}
-                title='Account information' isOpen={isOpen} 
+                title='Account Information' isOpen={isOpen} 
                 addHandler={()=>{this.handleUpdate()}} 
                 disabled={!firstName || !lastName} 
                 cancelHandler={()=>{this.handleCancel()}}

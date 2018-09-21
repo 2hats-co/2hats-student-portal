@@ -82,8 +82,8 @@ class IntroductionContainer extends React.Component {
           title: "Get Assessed",
           image: intro2,
           description:
-            "We will assess your capability in our interview & assessment centre. You will be provided with feedback for improvement. ",
-          button: { label: `Let's start`, onClick: this.goToResumeOptions }
+            "We will assess your capability in our interview and assessment centre. You will be provided with feedback for improvement. ",
+          button: { label: `Let’s start`, onClick: this.goToResumeOptions }
         },
         {
           title: "Get an Offer",
@@ -104,7 +104,7 @@ class IntroductionContainer extends React.Component {
           button: { label: `I have a resume`, onClick: this.goToUploadResume }
         },
         {
-          title: `No, I don't`,
+          title: `No, I don’t`,
           image: BuildResume,
           description: `Don't worry! We will help you build a professional resume through our quick and easy 6-step process.`,
           button: {

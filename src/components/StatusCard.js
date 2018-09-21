@@ -41,12 +41,12 @@ const styles = theme => ({
         },
     },
     grid:{
-      padding: '26px 10px',
+      padding: '20px 10px',
       [theme.breakpoints.up('xs')]: {
         paddingRight:0
       },
       [theme.breakpoints.up(700)]: {
-        paddingRight:84
+        paddingRight:80
       },
     },
       actionGrid:{
@@ -215,7 +215,7 @@ class StatusCard extends React.Component{
     const hideToaster = (currentRoute=== routes.PROFILE)
     return(
         <div>
-        <Card className={classes.root} style={hideToaster?{backgroundColor:'#FFF4ED'}:{display:'none'}}>
+        <Card className={classes.root} style={hideToaster?{backgroundColor:'#FFF4ED'}:{display:'none'}} elevation={0}>
             <Grid container 
             justify={isMobile?'flex-end':'space-between'} className={classes.grid} style={!isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' > 
                 <Grid  xs={12} sm={6} md={7} lg={8} item>

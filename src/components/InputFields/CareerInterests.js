@@ -110,7 +110,7 @@ class CareerInterests extends React.Component {
       return(
         <div className={classes.root}>
         {!hideTitle&&<Typography variant="title" color="primary">
-         Career Interests - Custom
+         Career Interests — Custom
     </Typography> } 
    
         <TextField
@@ -140,7 +140,7 @@ class CareerInterests extends React.Component {
       return (
         <div className={classes.root}>
          {!hideTitle&&<Typography variant="title" color="primary">
-         Career Interests - {3-preSelectedList.value.length} remaining
+         Career Interests — {3-preSelectedList.value.length} remaining
     </Typography> }
             <Grid container direction='row' justify='space-between'>
             {CAREER_INTERESTS.map(list => this.renderCheckBoxGroup(list.label,list.items))}    

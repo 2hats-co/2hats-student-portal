@@ -72,7 +72,7 @@ class SubmissionContainer extends Component {
         }
         
         return(
-       <LoadingMessage message='Loading up your previous submission'/>
+       <LoadingMessage message='Loading your previous submission…'/>
         )
     }
 } 

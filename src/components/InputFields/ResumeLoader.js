@@ -218,7 +218,7 @@ class ResumeLoader extends React.Component {
                         disabled={isUploading}
                         onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
                         style={{textTransform:'none'}}
-                    >Select a File</Button>
+                    >Select a file</Button>
                 }
             </div>
             </Grid>

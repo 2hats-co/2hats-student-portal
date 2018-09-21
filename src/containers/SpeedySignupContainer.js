@@ -34,7 +34,7 @@ const styles = theme => ({
     },
     button:{
         width:180,
-        marginTop:20
+        marginTop:30
     },
     loading:{
         position:'relative',
@@ -184,7 +184,7 @@ class SpeedySignupContainer extends Component {
          const {theme,classes} = this.props
          const isMobile = theme.responsive.isMobile
          return(
-             <LogoInCard width={isMobile?350:755} height={520} isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
+             <LogoInCard width={isMobile?350:755} height={560} isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
              snackBar={snackBar} 
             >
                 <Grid container direction={isMobile?'column':'row'} alignItems='center' justify='space-around'>
