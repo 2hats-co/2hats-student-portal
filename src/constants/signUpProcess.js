@@ -17,14 +17,14 @@ export function checkComplition(currentStep,profile){
       case ALL_STEPS.education:return !education || education.length === 0 ;
       case ALL_STEPS.experience:return !experience || experience.length === 0 ;
       case ALL_STEPS.currentUniversity:return !currentUniversity || currentUniversity.length === 0;
-      case ALL_STEPS.other:return !workingRights|| workingRights.length === 0 // || phoneNumber.length !== 10;
+      case ALL_STEPS.other:return !workingRights|| workingRights.length === 0; // || phoneNumber.length !== 10;
       default:return false;
     }
   }
 export function isComplete(profile){
   if(profile){
       return STEP_LABELS[profile.process].map(step => {
-        return !checkComplition(step,profile)
+        return !checkComplition(step,profile);
       }).reduce((r,x)=>{
        return r*x
       })

@@ -42,7 +42,8 @@ function EduExpCard(props) {
       <Grid container 
       direction="row" 
       alignItems="center" 
-      justify="space-between">
+      justify="space-between"
+      style={{minHeight:48}}>
           <Grid item xs={8} sm={9}>
           <Typography variant='subheading' style={{paddingTop:5}}>{title}</Typography>
           </Grid>

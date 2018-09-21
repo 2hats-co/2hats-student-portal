@@ -7,6 +7,7 @@ import * as routes from '../constants/routes'
 import {isComplete} from '../constants/signUpProcess'
 import AlertIcon from '@material-ui/icons/Error'
 import DoneIcon from '@material-ui/icons/Done'
+import HelpIcon from '@material-ui/icons/Info'
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import AnimateIcon from './AnimateIcon'
@@ -42,6 +43,7 @@ const styles = theme => ({
     },
     grid:{
       padding: '20px 10px',
+      minHeight: 88,
       [theme.breakpoints.up('xs')]: {
         paddingRight:0
       },
@@ -78,6 +80,10 @@ const styles = theme => ({
         height:30,
         borderRadius:15,
         backgroundColor:green.A700
+      },
+      help:{
+        width: 36,
+        height: 36,
       },
       successIcon:{
         position:'relative',
@@ -147,13 +153,14 @@ class StatusCard extends React.Component{
         const inCompleteBuildMessage = 'It looks like you haven’t finished building your resume yet.'
         const inCompleteUploadMessage = 'It looks like you haven’t filled out all the necessary information yet.'
         const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
-        const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
+        const completeMessage = 'If you have completed your profile, click the Submit Profile button.'
         const inReviewMessage = 'Your profile is currently under review. We will notify you regarding the feedback.'
         const chanceMessage = 'Feedback received! Please review it and update your profile before submitting again.'
         const alterIcon =(<AlertIcon className={this.props.classes.alert}/>)
         const doneIcon =(<div className={this.props.classes.success}>
-        <DoneIcon className={this.props.classes.successIcon}/>
-        </div>)
+          <DoneIcon className={this.props.classes.successIcon}/>
+          </div>)
+        const helpIcon = (<HelpIcon className={this.props.classes.help} color="primary" />)
         if(profile.hasSubmit){
           console.log(this.props.status)
           if(this.props.status==='updating'){
@@ -174,14 +181,14 @@ class StatusCard extends React.Component{
               _message = chanceMessage
             }
             if(profile.process === PROCESS_TYPES.build){
-              return({icon:doneIcon,
+              return({icon:helpIcon,
                 message:_message,
                       buttons:[submitButton],
                       link:uploadLink})
             }else if(profile.process === PROCESS_TYPES.upload){
 
 
-              return({icon:doneIcon,
+              return({icon:helpIcon,
                   message:_message,
                       buttons:[submitButton],
                       link:buildLink})
@@ -234,7 +241,7 @@ class StatusCard extends React.Component{
                   <Grid container direction='row' justify='flex-end' alignItems='center'>
                     {buttons&&
                         buttons.map(x=>{return(
-                        <Grid item xs sm="auto">
+                        <Grid item xs sm="auto" style={{marginRight:16}}>
                             <Button key={x.label} disabled={x.disabled} style={{width:'100%'}} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
                             <div style={{display:'flex',marginLeft:12,marginRight:12}}>
                         <div style={{marginTop:0}}> {x.label}</div> {!x.disabled&&<AnimateIcon> <ArrowIcon style={{marginRight:-18,marginTop:-1}}/><ArrowIcon style={{marginRight:-8,marginTop:-1}}/> </AnimateIcon>} 
@@ -243,7 +250,7 @@ class StatusCard extends React.Component{
                         </Grid>
                         )
                     })
-                    }{link&&<Grid item style={{marginLeft:8,marginRight:8}}>
+                    }{link&&<Grid item style={{marginRight:8}}>
                       <PopupSelector items={[{label:link.label,action:link.action}]}/>
                     </Grid>}
                   </Grid>

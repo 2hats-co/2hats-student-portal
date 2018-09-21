@@ -54,7 +54,7 @@ goToIntroduction(){
 }
 goToDashboard(){
 
-  this.props.history.push(routes.DASHBOARD)
+  this.props.history.push(routes.PROFILE)
 }
 disableNext(currentStep,profile){
     const{careerInterests,
@@ -128,7 +128,7 @@ render(){
     variant="flat"
     onClick={()=>{this.handleNext(currentStep)}}
   >
-   {currentStep===ALL_STEPS.other?'Go to Dashboard':'Next'}
+   {currentStep===ALL_STEPS.other?'Preview Profile':'Next'}
   </Button>)
  
   const backButton = (<Button id={`back-${currentStep}`}
