@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 
 function NoPassword(props){
     return(<Typography variant='body1' style={{textAlign:'center'}}>
