@@ -8,6 +8,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import Validator from 'mailgun-validate';
+import { AUTHENTICATION_CONTAINER } from '../../constants/views';
 
 
 const styles = theme => ({
@@ -102,11 +103,17 @@ class EmailAuth extends Component {
         this.props.changeHandler('isLoading',true)
        
       checkEmail(email, (result) => {
-        const { firstName, provider } = result.data;
+        const { firstName, provider,noPassword} = result.data;
         this.props.changeHandler('isLoading', false)
         this.props.changeHandler('email',email)
         this.props.changeHandler('firstName', firstName)
-        this.props.changeHandler('view', provider)
+      
+        if(noPassword){
+        this.props.changeHandler('view', AUTHENTICATION_CONTAINER.noPassword)
+
+        }else{
+          this.props.changeHandler('view', provider)
+        }
         this.props.changeHandler('snackBar',null)
 
       }, (error) => {
