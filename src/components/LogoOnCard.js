@@ -78,9 +78,9 @@ function LogoOnCard(props) {
     return (
       <div className={classes.root}>
         <Grid container direction='column' justify='space-between' alignItems='center'
-        style={{minHeight:'100vh',paddingTop:40}}>
+        style={{minHeight:'100vh',paddingTop:0}}>
           <Grid item xs>
-            <Grid container style={{height: 'calc(100vh - 40px - 6vw - 120px)', minHeight:600}} alignItems="center">
+            <Grid container style={{height: 'calc(100vh - 120px)', minHeight:600, position:'relative', zIndex:9}} alignItems="center">
               <Tween animation={animation}>
                 <Paper className={classes.paper} style={style} elevation={15}>
                   {props.children}
@@ -89,7 +89,7 @@ function LogoOnCard(props) {
             </Grid>
           </Grid>
 
-          <Grid item style={{height: 'calc(6vw + 120px)', width: '100%', position: 'relative', paddingTop: '60px'}}>
+          <Grid item style={{height: 'calc(-3vw + 120px)', width: '100%', position: 'relative', paddingTop: '60px'}}>
             <SupportFooter mobile={false}/>
           </Grid>
         </Grid>
