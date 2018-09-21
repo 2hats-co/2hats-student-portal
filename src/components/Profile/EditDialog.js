@@ -97,7 +97,7 @@ const styles = theme => ({
             break;
         }
         return(
-          <Dialog activity={`update`} 
+          <Dialog activity={`Update`} 
           title={` ${label}`} isOpen={isOpen} 
           addHandler={this.handleSave} 
           disabled={this.disabledUpadate(name)} 

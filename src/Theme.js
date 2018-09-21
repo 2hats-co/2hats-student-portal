@@ -75,7 +75,6 @@ export const Theme = createMuiTheme({
         color: WHITE,
         backgroundColor:primaryColor,
         borderRadius:'20px',
-        textTransform: 'capitalize',
         '&:hover': {backgroundColor:'#d85125'},
         '&:disabled': {opacity: 0.4,color:WHITE},
       },
@@ -84,7 +83,6 @@ export const Theme = createMuiTheme({
         backgroundColor:WHITE,
         borderRadius:'20px',
         border: `1px solid ${BLACK}`,
-        textTransform: 'capitalize',   
         '&:hover': {backgroundColor:'#f5f5f5'}
       },
       contained: { // Name of the rule
@@ -135,7 +133,6 @@ export const Theme = createMuiTheme({
       fontSize: '20px',
       textAlign: 'left',
       color:inherits,
-      textTransform: 'capitalize',
     },
     
     subheading: {
@@ -195,4 +192,3 @@ export const Theme = createMuiTheme({
     
   },
 });
-

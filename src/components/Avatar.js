@@ -139,7 +139,7 @@ class Avatar extends Component{
             accept="image/jpeg, image/png, image/jpg"
             > 
             {bigAvatar}
-            <a className={classes.link}>Select a File</a>
+            <a className={classes.link}>Select a file</a>
             </Dropzone>
             </Grid>
             </Dialog>

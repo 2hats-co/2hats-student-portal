@@ -25,7 +25,7 @@ function LoadingMessage(props){
         <Typography 
             className={classes.msg}
             variant='headline'>
-       {message?message:'Your Future Starts Soon…'} 
+       {message?message:'Your future starts soon…'} 
         </Typography>
         <CircularProgress 
             color="primary"  

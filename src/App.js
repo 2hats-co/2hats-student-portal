@@ -20,62 +20,62 @@ import Loadable from 'react-loadable';
 const AuthenticationContainer = Loadable({
   loader: () => import('./containers/AuthenticationContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 const SignupContainer = Loadable({
   loader: () => import('./containers/SignupContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 
 const SpeedySignupContainer = Loadable({
   loader: () => import('./containers/SpeedySignupContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 const IntroductionContainer = Loadable({
   loader: () => import('./containers/IntroductionContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 const SmartLinkContainer = Loadable({
   loader: () => import('./containers/SmartLinkContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 const ProfileContainer = Loadable({
   loader: () => import('./containers/ProfileContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 const DashboardContainer = Loadable({
   loader: () => import('./containers/DashboardContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 const JobBoardContainer = Loadable({
   loader: () => import('./containers/JobBoardContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 const RemoteLoggerContainer = Loadable({
   loader: () => import('./containers/RemoteLoggerContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait……</div>
   }
 });
 const SubmissionContainer = Loadable({
   loader: () => import('./containers/SubmissionContainer'),
   loading() {
-    return <div>Please wait</div>
+    return <div>Please wait…</div>
   }
 });
 class App extends Component {
