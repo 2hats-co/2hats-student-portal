@@ -38,7 +38,7 @@ import {auth} from '../firebase';
 import { connect } from 'react-redux';
 import {actionTypes} from 'redux-firestore'
 
-
+import {db} from '../store'
 import BackIcon from "@material-ui/icons/KeyboardBackspace";
 const styles = theme => ({
   root: {
@@ -166,12 +166,19 @@ class AuthenticationContainer extends React.Component {
       }
     }
   }
+  async enablePassword(email){
+    const usersCollection = db.collection('users')
+    const query = await usersCollection.where("email", "==", email).get()
+     console.log(email,query)
+  }
   handleUpdatePassword(route) {
     return () => {
       const { password,smartKey } = this.state;
       updateUserPassword(
         password,
         () => {this.goTo(route),
+          // Create a reference to the cities collection
+          this.enablePassword(this.state.email)
           cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
         },
        this.handleError

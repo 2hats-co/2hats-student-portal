@@ -8,7 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import withMobileDialog from '@material-ui/core/withMobileDialog';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Typography } from '../../node_modules/@material-ui/core';
+import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 class ConfirmationDialog extends Component{
       render() {

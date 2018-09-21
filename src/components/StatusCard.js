@@ -1,5 +1,8 @@
 import React from 'react'
-import { Typography,Grid,Card,Button } from '@material-ui/core';
+import  Typography from '@material-ui/core/Typography';
+import  Grid from '@material-ui/core/Grid';
+import  Card from '@material-ui/core/Card';
+import  Button from '@material-ui/core/Button';
 import { withStyles } from "@material-ui/core/styles";
 import ConfirmationDialog from './ConfirmationDialog'
 import { PROCESS_TYPES,firstUnfinishedStep} from '../constants/signUpProcess';

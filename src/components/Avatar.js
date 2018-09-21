@@ -6,7 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MuiAvatar from '@material-ui/core/Avatar';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import Dialog from './Dialog/index'
-import { Button, Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 import Dropzone from 'react-dropzone'
 import {db} from '../store'

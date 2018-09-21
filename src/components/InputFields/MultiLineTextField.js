@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import InputWrapper from './InputWrapper';
-import { Typography } from '@material-ui/core';
 import {BLACK} from '../../Theme'
 const styles = theme => ({
     root: {

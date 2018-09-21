@@ -3,8 +3,8 @@ import Typography from '@material-ui/core/Typography'
 import { withStyles } from "@material-ui/core/styles";
 import ListItem from './ListItem';
 import LinkIcon from '@material-ui/icons/KeyboardArrowRight'
-import { Divider } from '../../../node_modules/@material-ui/core';
-import {orderBy} from 'lodash'
+import Divider from '../../../node_modules/@material-ui/core/Divider';
+import orderBy from 'lodash.orderby'
 
 const styles = theme => ({
     root: {

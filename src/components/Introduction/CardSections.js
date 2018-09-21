@@ -1,7 +1,7 @@
 import React from 'react';
 import CardSection from './CardSection'
 
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 
 

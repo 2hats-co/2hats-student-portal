@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
 import {CAREER_INTERESTS,getIndustryFromInterests} from '../../constants/resumeBuilderPrompts'
-import { TextField } from '@material-ui/core';
+import TextField  from '@material-ui/core/TextField';
 
 const INTERESTS_DATA_TYPE = {
   default:"default",

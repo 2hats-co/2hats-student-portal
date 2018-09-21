@@ -7,7 +7,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { withStyles } from '@material-ui/core/styles';
 import Checkbox from '@material-ui/core/Checkbox';
-import { Typography } from '../../../node_modules/@material-ui/core';
+import Typography  from '@material-ui/core/Typography/Typography';
 const styles = theme => ({
     content: {
       width:500,

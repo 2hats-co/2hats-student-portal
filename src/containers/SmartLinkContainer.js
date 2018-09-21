@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import LogoInCard from "../components/LogoInCard";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 
 import { auth,db } from "../store";
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';

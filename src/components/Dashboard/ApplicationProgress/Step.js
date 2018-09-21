@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Typography, Grid } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import DoneIcon from "@material-ui/icons/Done"
 import {STEP_LABELS,PROCESS_TYPES} from '../../../constants/signUpProcess'
 import {UPLOAD_RESUME,BUILD_RESUME, DASHBOARD} from '../../../constants/routes'

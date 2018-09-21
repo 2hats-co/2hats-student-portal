@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {withNavigation} from '../components/withNavigation';
-import {Grid} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import {withStyles} from '@material-ui/core/styles';
 import EduExp from '../components/EduExp/';
 import ProfileCard from '../components/Profile/ProfileCard';

@@ -4,7 +4,7 @@ import Stepper from '@material-ui/core/Stepper'
 import StepLabel from '@material-ui/core/StepLabel'
 import Step from '@material-ui/core/Step'
 import { withStyles } from "@material-ui/core/styles";
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 const STAGES = ['pre-review','resume','interview','assessment','placed']
 

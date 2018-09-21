@@ -7,7 +7,7 @@ import UpcomingEvents from '../components/Dashboard/UpcomingEvents'
 import Next from '../components/Dashboard/NextBanner'
 import { compose } from 'redux';
 import { withNavigation } from '../components/withNavigation';
-import { Grid } from '../../node_modules/@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import {isComplete} from '../constants/signUpProcess'
 
 const styles = theme => ({

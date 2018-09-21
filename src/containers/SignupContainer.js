@@ -25,8 +25,7 @@ import { withFirestore } from "../utilities/withFirestore";
 //routing
 import { withRouter } from "react-router-dom";
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
-
-import {orderBy} from "lodash";
+import orderBy from 'lodash.orderby'
 import * as routes from "../constants/routes";
 import StepController from "../components/SignUp/StepController";
 import LoadingMessage from "../components/LoadingMessage";

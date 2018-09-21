@@ -8,7 +8,8 @@ import { COLLECTIONS,LISTENER } from "../constants/firestore";
 import withAuthorisation from '../utilities/Session/withAuthorisation'
 import { withStyles } from '@material-ui/core/styles';
 import {remoteConsole} from '../utilities/remoteLogging'
-import { Button,Grid} from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import moment from 'moment'
 const styles = theme => ({})
 class RemoteLoggerContainer extends Component{

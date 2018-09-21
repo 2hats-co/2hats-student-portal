@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import AddIcon from '@material-ui/icons/Add'
 import IconButton from '@material-ui/core/IconButton';
 import {WHITE} from '../../Theme'
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 const styles = theme => {
   return({
   header: {

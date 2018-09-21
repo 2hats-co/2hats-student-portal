@@ -4,7 +4,9 @@ import { withStyles } from "@material-ui/core/styles";
 import ListItem from './ListItem'
 import LinkIcon from '@material-ui/icons/KeyboardArrowRight'
 import Divider from '@material-ui/core/Divider'
-import {forEach,sortBy} from 'lodash'
+import forEach from 'lodash.foreach'
+import sortBy from 'lodash.sortby'
+
 const styles = theme => ({
     root: {
       marginTop:20,

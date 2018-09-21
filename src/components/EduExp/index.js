@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import DialogForm from "./Form";
 import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
-import {orderBy} from "lodash";
+import orderBy from 'lodash.orderby'
 import {orderByInt} from '../../utilities/ObjectsAndArrays'
 import { withStyles } from "@material-ui/core/styles";
 

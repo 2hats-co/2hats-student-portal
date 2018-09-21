@@ -2,7 +2,8 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography'
 import { withStyles } from "@material-ui/core/styles";
 import { withRouter } from "react-router-dom";
-import { Grid,Button} from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import ProgressDial from './ProgressDial'
 import Step from './Step'
 import {PROCESS_TYPES, STEP_LABELS, checkComplition,isComplete,firstUnfinishedStep} from '../../../constants/signUpProcess'

@@ -1,6 +1,6 @@
 import React from 'react'
 import LoadingMessage from './LoadingMessage'
-import { Paper } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 function LoadingCard(props){
     console.log('loading...')
     return (
