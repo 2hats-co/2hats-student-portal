@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudDoneIcon from '@material-ui/icons/CloudDone';
 import Dropzone from 'react-dropzone'
-import {firebaseStorage} from '../../store'
+import {firebaseStorage} from '../../firebase/storage'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '@material-ui/core/Chip';
 import classNames from "classnames";

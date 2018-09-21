@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { auth,db } from '../../store';
+import { auth } from '../../store';
 //import UAParser from 'ua-parser-js';
 // const storeDeviceInfo = async(uid) =>{
 //   console.log('uid',uid)

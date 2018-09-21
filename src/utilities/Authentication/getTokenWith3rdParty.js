@@ -1,4 +1,4 @@
-import { auth } from '../../store/index'
+import {auth} from '../../store'
 import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
 export const getTokenWith3rdParty = async(user, callback) => {

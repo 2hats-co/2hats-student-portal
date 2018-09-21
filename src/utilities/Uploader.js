@@ -1,4 +1,5 @@
-import {firebaseStorage,auth} from '../store'
+import {firebaseStorage} from '../firebase/storage'
+import {auth} from '../store'
 const pica = require('./pica/index')();
 var img = new Image();
 var canvas = document.createElement('canvas');
