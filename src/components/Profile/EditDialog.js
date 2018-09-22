@@ -48,7 +48,10 @@ const styles = theme => ({
         this.handleChange = this.handleChange.bind(this)
       }
       componentWillMount(){
+        if(this.props.profile){
         forEach(Object.values(this.props.profile)[0],this.handleChange)
+
+        }
       }
       componentDidUpdate(prevProps, prevState){
         if(prevProps !== this.props){
