@@ -171,8 +171,6 @@ class AuthenticationContainer extends React.Component {
       updateUserPassword(
         password,
         () => {this.goTo(route),
-          // Create a reference to the cities collection
-          this.enablePassword(this.state.email)
           cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
         },
        this.handleError
