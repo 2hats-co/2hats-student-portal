@@ -366,7 +366,7 @@ class AuthenticationContainer extends React.Component {
     const createPasswordButton = (
       <Button disabled={isLoading} key='createPasswordButton' 
         className={classes.createButton}
-        onClick={this.handleUpdatePassword(routes.INTRODUCTION)}
+        onClick={this.handleUpdatePassword(routes.DASHBOARD)}
       >
         Create password
       </Button>
