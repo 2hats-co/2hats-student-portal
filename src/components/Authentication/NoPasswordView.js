@@ -6,7 +6,8 @@ import {PRIMARY_COLOR} from '../../Theme'
 
 import BackBar from './BackBar';
 import GreetingWithFirstName from './GreetingWithFirstName';
-class NoPassword extends React.Component{
+
+class NoPasswordView extends React.Component{
     constructor(){
         super()
         this.resendEmail = this.resendEmail.bind(this)
@@ -38,4 +39,5 @@ class NoPassword extends React.Component{
         )
     }
 }
-export default NoPassword
+
+export default NoPasswordView;

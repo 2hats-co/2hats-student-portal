@@ -27,12 +27,13 @@ const styles = theme => ({
     marginLeft:75,
     width:200,
     height:69,
-  
     },
     centeredLogo:{
-      marginTop:50,        
+      marginTop:40,        
       marginBottom:30, 
-      marginLeft:115,
+      marginLeft:'auto',
+      marginRight:'auto',
+      display:'block',
       width:117,
       height:42,
       },

@@ -26,7 +26,9 @@ import LinkedinButton from "../components/Authentication/LinkedinButton";
 import LogoInCard from "../components/LogoInCard";
 import ChangeAdpter from "../components/InputFields/ChangeAdapter";
 
-import NoPassword from '../components/Authentication/NoPassword'
+// Views
+import NoPasswordView from '../components/Authentication/NoPasswordView';
+
 //utilities
 import {
   createUserWithPassword,
@@ -40,9 +42,9 @@ import {actionTypes} from 'redux-firestore'
 import BackIcon from "@material-ui/icons/KeyboardBackspace";
 const styles = theme => ({
   root: {
-    paddingLeft: 50,
-    paddingRight: 50,
-    height: 500
+    paddingLeft: 35,
+    paddingRight: 35,
+    paddingBottom: 40,
   },
   button: {
     marginTop: 17,
@@ -446,7 +448,7 @@ class AuthenticationContainer extends React.Component {
     //  GreetingWithFirstName('Welcome back'),
     //  (<NoPassword changeHandler={this.handleChange} email={this.state.email}/>)
     // ]
-    const noPasswordView = <NoPassword isLoading={isLoading} email={email} backHandler={this.handleBack} firstName={firstName} />
+    const noPasswordView = <NoPasswordView isLoading={isLoading} email={email} backHandler={this.handleBack} firstName={firstName} />
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
       linkButton('Go to sign in',routes.SIGN_IN)
@@ -501,8 +503,8 @@ class AuthenticationContainer extends React.Component {
         break;
         case AUTHENTICATION_CONTAINER.noPassword:
         loadedView = noPasswordView;
-        cardHeight = 360;
-        gridHeight = 180;
+        // cardHeight = 360;
+        // gridHeight = 180;
         break;
         case AUTHENTICATION_CONTAINER.validateEmail:
         loadedView = validateEmailView;
@@ -513,11 +515,10 @@ class AuthenticationContainer extends React.Component {
         break;
     }
     return (
-      <LogoInCard width={350} height={cardHeight} isLoading={isLoading} snackBar={snackBar}  >
+      <LogoInCard width={320} height="auto" isLoading={isLoading} snackBar={snackBar}  >
         <Grid
           container
           className={classes.root}
-          style={{ height: gridHeight }}
           alignItems="center"
           direction="column"
           justify="space-between"
