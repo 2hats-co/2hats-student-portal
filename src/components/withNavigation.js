@@ -37,7 +37,7 @@ import { connect } from 'react-redux';
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS,LISTENER } from "../constants/firestore";
 
-import LightLogo from '../assets/images/Logo/WhiteText.png'
+import LightLogo from '../assets/images/Logo/WhiteText.svg'
 import UpdateIcon from '@material-ui/icons/Update'
 
 import LogoutIcon from '@material-ui/icons/ExitToApp'
@@ -59,7 +59,6 @@ const drawerWidth = 240;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height:theme.responsive.height,
     zIndex: 1,
     overflow: 'visible',
     position: 'relative',
@@ -97,8 +96,7 @@ const styles = theme => ({
     width:'100%',
     backgroundColor: '#fff',
    // padding: theme.spacing.unit * 3,
-    paddingBottom: 160,
-   
+    '-webkit-overflow-scrolling': 'touch',
   },logo:{
     width:150,
     marginLeft:45,
@@ -225,7 +223,7 @@ export const withNavigation = (WrappedComponent) => {
        
        const drawer = (
         <div>
-          <img className={classes.logo} alt='light2hatsLogo' src={LightLogo}/>
+          <img className={classes.logo} src={LightLogo}/>
           <div className={classes.toolbar} />
         
           <NavigationButton isSelected={(pathName===routes.DASHBOARD)} 
@@ -345,7 +343,7 @@ export const withNavigation = (WrappedComponent) => {
             <div className={classes.toolbar}/>
             {
               this.state.isOffline ? <LoadingMessage message="You are offline. Trying to reconnect you…"/> :
-              (!profile || !user)?<LoadingMessage/>:<div>
+              (!profile || !user)?<LoadingMessage/>:<div style={{marginBottom:120}}>
                       <WrappedComponent
                         {...this.props}
                         profile={profile[0]}

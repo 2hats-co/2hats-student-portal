@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
-import DarkLogo from '../assets/images/Logo/DarkText.png'
+import DarkLogo from '../assets/images/Logo/DarkText.svg'
 import {setBackground} from '../utilities/styling'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SnackBar from './SnackBar';
