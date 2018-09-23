@@ -11,7 +11,7 @@ class NoPassword extends React.Component{
     resendEmail(){
         const {email,changeHandler} = this.props
         const request = {email:email}
-        cloudFunction(CLOUD_FUNCTIONS.CREATE_PASSWORD,request,changeHandler('snackBar',{variant:'success',message:'We will resend you the email shortly'}),(e)=>{changeHandler('snackBar',{variant:'error',message:'An error has occured please try agian soon'});console.log(e)})
+        cloudFunction(CLOUD_FUNCTIONS.CREATE_PASSWORD,request,changeHandler('snackBar',{variant:'success',message:'A confirmation email is sent to you.'}),(e)=>{changeHandler('snackBar',{variant:'error',message:'An error has occured please try agian soon'});console.log(e)})
     }
     render(){
         return(
