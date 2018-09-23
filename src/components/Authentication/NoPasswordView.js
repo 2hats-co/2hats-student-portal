@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../../utilities/CloudFunctions';
 import {PRIMARY_COLOR} from '../../Theme'
 
 import BackBar from './BackBar';
-import GreetingWithFirstName from './GreetingWithFirstName';
+import Header from './Header';
 
 class NoPasswordView extends React.Component{
     constructor(){
@@ -23,7 +23,7 @@ class NoPasswordView extends React.Component{
         return(
         <React.Fragment>
             <BackBar isLoading={isLoading} email={email} backHandler={backHandler} />
-            <GreetingWithFirstName greeting="Welcome back" firstName={firstName} />
+            <Header greeting="Welcome back" name={firstName} />
             <Grid container style={{height:105}} direction='column' justify='space-between'>
                 <Typography variant='body1'>
                 We’ve sent you a confirmation email, please check your mailbox.

@@ -27,6 +27,7 @@ import LogoInCard from "../components/LogoInCard";
 import ChangeAdpter from "../components/InputFields/ChangeAdapter";
 
 // Views
+import AuthView from '../components/Authentication/AuthView';
 import NoPasswordView from '../components/Authentication/NoPasswordView';
 
 //utilities
@@ -199,7 +200,7 @@ class AuthenticationContainer extends React.Component {
       email,
       view
     } = this.state;
-    const onSignupRoute = this.props.history.location.pathname=== routes.SIGN_UP
+    const onSignupRoute = this.props.history.location.pathname === routes.SIGN_UP
     const backBar = (
       <Grid key="back-bar"
         style={{ width: "100%", 
@@ -396,12 +397,13 @@ class AuthenticationContainer extends React.Component {
                                             {onSignup? 'Sign Up':'Sign In'}
                                     </Typography>)
     
-    let authView = [routeLabel(onSignupRoute),
+    let authViewOld = [routeLabel(onSignupRoute),
       googleButton,
        linkedinButton,
        orLabel,
       emailAuth,
       switchLink(onSignupRoute)];
+    const authView = <AuthView onSignupRoute={onSignupRoute} isLoading={isLoading} handleGTevent={this.handleGTevent} changeHandler={this.handleChange} />;
     const GoogleView = [backBar,
       GreetingWithFirstName('Welcome back,'),
       serviceMessage('Google'),
@@ -448,7 +450,7 @@ class AuthenticationContainer extends React.Component {
     //  GreetingWithFirstName('Welcome back'),
     //  (<NoPassword changeHandler={this.handleChange} email={this.state.email}/>)
     // ]
-    const noPasswordView = <NoPasswordView isLoading={isLoading} email={email} backHandler={this.handleBack} firstName={firstName} />
+    const noPasswordView = <NoPasswordView isLoading={isLoading} email={email} backHandler={this.handleBack} firstName={firstName} />;
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
       linkButton('Go to sign in',routes.SIGN_IN)
