@@ -284,7 +284,7 @@ class AuthenticationContainer extends React.Component {
             (result) => {
               this.setState({
                 snackBar: { 
-                  message: "We set you an email to reset your password.",
+                  message: "A reset password email is sent to you.",
                   variant: 'success'
                 },
                 isLoading: false
