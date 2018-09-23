@@ -438,7 +438,7 @@ class AuthenticationContainer extends React.Component {
     const noPasswordView =[
       backBar,
      GreetingWithFirstName('Welcome back'),
-     (<NoPassword/>)
+     (<NoPassword changeHandler={this.handleChange} email={this.state.email}/>)
     ]
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
@@ -494,8 +494,8 @@ class AuthenticationContainer extends React.Component {
         break;
         case AUTHENTICATION_CONTAINER.noPassword:
         loadedView = noPasswordView;
-        cardHeight = 320;
-        gridHeight = 150;
+        cardHeight = 360;
+        gridHeight = 180;
         break;
         case AUTHENTICATION_CONTAINER.validateEmail:
         loadedView = validateEmailView;
