@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 
 //material ui
 import Typography from "@material-ui/core/Typography";
@@ -26,6 +26,7 @@ import LinkedinButton from "../components/Authentication/LinkedinButton";
 import LogoInCard from "../components/LogoInCard";
 import ChangeAdpter from "../components/InputFields/ChangeAdapter";
 
+import NoPassword from '../components/Authentication/NoPassword'
 //utilities
 import {
   createUserWithPassword,
@@ -36,8 +37,6 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import {auth} from '../firebase';
 import { connect } from 'react-redux';
 import {actionTypes} from 'redux-firestore'
-
-
 import BackIcon from "@material-ui/icons/KeyboardBackspace";
 const styles = theme => ({
   root: {
@@ -103,6 +102,7 @@ class AuthenticationContainer extends React.Component {
     this.handleSignin = this.handleSignin.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this);
+    this.handleGTevent = this.handleGTevent.bind(this)
   }
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL)
@@ -129,7 +129,13 @@ class AuthenticationContainer extends React.Component {
     });
     window.Intercom("hide");
   }
- 
+ handleGTevent(name){
+   window.dataLayer.push({
+    'event':'VirtualPageview',
+    'virtualPageURL':`/virtual/${name}-Success/`,
+    'virtualPageTitle' : `${name}-Success`
+    });
+ }
   goTo(route) {
     this.props.history.push(route);
   }
@@ -137,7 +143,7 @@ class AuthenticationContainer extends React.Component {
     this.setState({ isLoading: true });
     const { email, password } = this.state;
     const user = { email, password };
-    signInWithPassword(user, route => this.goTo(route),this.handleError);
+    signInWithPassword(user, route =>{this.goTo(route),this.handleGTevent('Signin')},this.handleError);
   }
   handleError=(o)=>{ 
     this.setState({snackBar:{message:o.message,variant:'error'},isLoading:false})
@@ -150,7 +156,7 @@ class AuthenticationContainer extends React.Component {
         this.setState({isLoading:true})
       createUserWithPassword(
         user,
-        route => this.goTo(route),
+        route => {console.log('going to '+ route);this.goTo(route);this.handleGTevent('Signup')},
         this.handleError
       );
       }else{
@@ -158,12 +164,13 @@ class AuthenticationContainer extends React.Component {
       }
     }
   }
+ 
   handleUpdatePassword(route) {
     return () => {
       const { password,smartKey } = this.state;
       updateUserPassword(
         password,
-        () => {this.goTo(route)
+        () => {this.goTo(route),
           cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
         },
        this.handleError
@@ -222,6 +229,7 @@ class AuthenticationContainer extends React.Component {
         key="google-button"
         id="google-button"
         style={{marginTop:10}}
+        GTevent={this.handleGTevent}
         action={onSignupRoute?'Sign up': 'Sign in'}
         changeHandler={this.handleChange}
       />
@@ -276,7 +284,7 @@ class AuthenticationContainer extends React.Component {
             (result) => {
               this.setState({
                 snackBar: { 
-                  message: "An email for resetting password is sent to you.",
+                  message: "We set you an email to reset your password.",
                   variant: 'success'
                 },
                 isLoading: false
@@ -295,7 +303,7 @@ class AuthenticationContainer extends React.Component {
       };
       return (
         <StyledLink key='forgot-password' onClick={callback}>
-         Forget Password?
+         Forgot password?
         </StyledLink>
       );
     };
@@ -317,18 +325,18 @@ class AuthenticationContainer extends React.Component {
     const newAccountMessage =(isHidden)=> {
       if(!isHidden){
         return <Typography key='newAccountMessage' style={{marginBottom:10}} variant="body1">
-            It look likes we don't have an account with this email address.
+            It looks like we don’t have an account with this email address.
           </Typography>
       }
     }
     const createPasswordMessage = (
       <Typography key='createPasswordMessage'  variant="subheading">
-        It looks like you don't have a password yet.
+        It looks like you don’t have a password yet.
       </Typography>
     );
     const resetPasswordMessage = (
       <Typography  key='resetPasswordMessage' variant="subheading">
-        Please enter in a new password to reset.
+        Please type a new password below.
       </Typography>
     );
     const passwordField = (label,action)=>(
@@ -338,7 +346,7 @@ class AuthenticationContainer extends React.Component {
     );
     const signUpButton = (
       <Button disabled={isLoading} key='signUpButton' className={classes.button} onClick={this.handleSignup}>
-        Sign Up
+        Sign up
       </Button>
     );
     const resetPasswordButton = (
@@ -350,15 +358,15 @@ class AuthenticationContainer extends React.Component {
     const signInButton = (
       <Button disabled={isLoading} key='signInButton' 
        className={classes.button} onClick={this.handleSignin}>
-        Sign In
+        Sign in
       </Button>
     );
     const createPasswordButton = (
       <Button disabled={isLoading} key='createPasswordButton' 
         className={classes.createButton}
-        onClick={this.handleUpdatePassword(routes.INTRODUCTION)}
+        onClick={this.handleUpdatePassword(routes.DASHBOARD)}
       >
-        Create Password
+        Create password
       </Button>
     );
     const titleMessage =(message)=> ( <Typography key='logoutMessage'  variant='title' style={{textAlign:'center', textTransform:'none'}}>{message}</Typography>)
@@ -367,7 +375,7 @@ class AuthenticationContainer extends React.Component {
       if(onSignup){
         return footerLink(`Already have an account?`,routes.SIGN_IN,'Sign in')
       }else{
-        return footerLink(`Don't have an account?`,routes.SIGN_UP,'Sign up')
+        return footerLink(`Don’t have an account?`,routes.SIGN_UP,'Sign up')
       }
     }
     let routeLabel =(onSignup) => (<Typography key={`routeLabel-${onSignup? 'Sign-up':'sign-in'}`}
@@ -377,7 +385,7 @@ class AuthenticationContainer extends React.Component {
                                             marginBottom:5,
                                             //marginTop:5,
                                             }}>
-                                            {onSignup? 'Sign up':'sign in'}
+                                            {onSignup? 'Sign Up':'Sign In'}
                                     </Typography>)
     
     let authView = [routeLabel(onSignupRoute),
@@ -387,13 +395,13 @@ class AuthenticationContainer extends React.Component {
       emailAuth,
       switchLink(onSignupRoute)];
     const GoogleView = [backBar,
-      GreetingWithFirstName('Welcome back'),
+      GreetingWithFirstName('Welcome back,'),
       serviceMessage('Google'),
       googleButton];
     const LinkedinView = [
       backBar,
-      GreetingWithFirstName('Welcome back'),,
-      serviceMessage('Linkedin'),
+      GreetingWithFirstName('Welcome back,'),,
+      serviceMessage('LinkedIn'),
       linkedinButton
     ];
     let signupView = [
@@ -407,7 +415,7 @@ class AuthenticationContainer extends React.Component {
     ];
     const passwordView = [
       backBar,
-      GreetingWithFirstName('Welcome back'),
+      GreetingWithFirstName('Welcome back,'),
       passwordField('Password',this.handleSignin),
       signInBar,
       
@@ -415,34 +423,39 @@ class AuthenticationContainer extends React.Component {
     const resetPasswordView = [
       GreetingWithFirstName('Hi'),
       resetPasswordMessage,
-      passwordField('New Password',this.handleUpdatePassword),
+      passwordField('New password',this.handleUpdatePassword),
       resetPasswordButton
     ];
     const createPasswordView = [
-      GreetingWithFirstName('Welcome back'),
+      GreetingWithFirstName('Welcome back,'),
       createPasswordMessage,
       googleButton,
       linkedinButton,
       orLabel,
-      passwordField('New Password',this.handleUpdatePassword),
+      passwordField('New password',this.handleUpdatePassword),
       createPasswordButton
     ];
+    const noPasswordView =[
+      backBar,
+     GreetingWithFirstName('Welcome back'),
+     (<NoPassword changeHandler={this.handleChange} email={this.state.email}/>)
+    ]
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
       linkButton('Go to sign in',routes.SIGN_IN)
     ]
     const validateEmailView =[doneIcon,
       titleMessage('Thank you, we have validated your email'),
-      linkButton('go to Dashboard',routes.DASHBOARD)
+      linkButton('Go to dashboard',routes.DASHBOARD)
     ]
     let loadedView = authView;
-    let gridHeight = 500;
+    let gridHeight = 510;
     let cardHeight = 300;
     switch (view) {
       case AUTHENTICATION_CONTAINER.auth:
         loadedView = authView;
-        cardHeight = 500;
-        gridHeight = 340;
+        cardHeight = 510;
+        gridHeight = 350;
         break;
       case AUTHENTICATION_CONTAINER.google:
         loadedView = GoogleView;
@@ -478,6 +491,11 @@ class AuthenticationContainer extends React.Component {
         loadedView = logoutView;
         cardHeight = 400;
         gridHeight = 250;
+        break;
+        case AUTHENTICATION_CONTAINER.noPassword:
+        loadedView = noPasswordView;
+        cardHeight = 360;
+        gridHeight = 180;
         break;
         case AUTHENTICATION_CONTAINER.validateEmail:
         loadedView = validateEmailView;

@@ -1,6 +1,6 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import Grid  from "@material-ui/core/Grid";
 import IconButton  from "@material-ui/core/IconButton";
 
@@ -69,7 +69,7 @@ function ListItem(props){
                     <Typography variant='button'>
                         {month}
                     </Typography>
-                    <Typography variant='display1'>
+                    <Typography variant='display1' style={{color:'#000'}}>
                         {date}
                     </Typography>
                 </Grid>

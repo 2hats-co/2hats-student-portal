@@ -2,7 +2,7 @@ import React from 'react'
 import WebForm from './WebForm'
 import MobileForm from './MobileForm'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
     root: {
@@ -34,7 +34,9 @@ function Dialog(props){
             addHandler={addHandler} 
             disabled={disabled} 
             cancelHandler={cancelHandler}
-            width={width}>
+            width={width}
+            hideActivityFromTitle={props.hideActivityFromTitle}
+            >
             {children}
               </WebForm>
         )

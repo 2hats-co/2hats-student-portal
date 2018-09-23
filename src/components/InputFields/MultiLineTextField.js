@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import InputWrapper from './InputWrapper';
-import { Typography } from '@material-ui/core';
 import {BLACK} from '../../Theme'
 const styles = theme => ({
     root: {
@@ -72,12 +71,12 @@ class MultiLineTextField extends React.Component {
     
   }
   render(){
-    const { hasLabel,classes,title,hint,placeholder} = this.props;
+    const { hasLabel,classes,title,hint,placeholder,hideTitle } = this.props;
     return(
       <div style={{width:'100%'}}>
       <InputWrapper
       hasLabel={hasLabel}
-      title={title}
+      title={hideTitle ? '' : title}
       hint={hint}
       tip={`For Example: \n ${placeholder}`}
       characterCounter={this.state.characterCountValue}

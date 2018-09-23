@@ -3,7 +3,6 @@ import { reduxFirestore } from 'redux-firestore'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import 'firebase/storage'
 import 'firebase/functions'
 //import logger from 'redux-logger'
 
@@ -47,7 +46,6 @@ export function configureStore(initialState, history) {
 	return store;
 }
 export const auth = firebase.auth();
-export const firebaseStorage = firebase.storage().ref();
+
 export const db = firebase.firestore();
 export const functions = firebase.functions();
-export const googleProvider = new firebase.auth.GoogleAuthProvider();

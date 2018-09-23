@@ -3,7 +3,8 @@ import React,{Component} from 'react'
 import PropTypes from 'prop-types';
 import MuiAvatar from '@material-ui/core/Avatar';
 import Dialog from './Dialog/index'
-import { Button, Grid } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import MultiLineTextField from './InputFields/MultiLineTextField'
 import Dropzone from 'react-dropzone'
 import {db} from '../store'
@@ -12,7 +13,24 @@ import {uploader} from '../utilities/Uploader'
 //import UAParser from 'ua-parser-js';
 
 import buggyBoyImage from '../assets/images/buggyBoy.png'
-
+const styles = theme =>({
+    dropZone:{
+        border:'none !important'
+    },
+    avatar: {
+     position:'absolute',
+     zIndex:2000,
+     bottom:300,
+     right:10,
+     width:80,height:80
+    },
+ 
+    uploadButton:{  
+        marginTop:10,
+        width:230
+    }
+  });
+  
 class BuggyBoy extends Component{
     state= { isOpen:false,
         isUploading:false,
@@ -34,8 +52,8 @@ class BuggyBoy extends Component{
         this.handleChange = this.handleChange.bind(this)
     }
     componentWillMount(){
-        
-       // this.setState({deviceData:parser.getResult()});
+        // var parser = new UAParser();
+        // this.setState({deviceData:parser.getResult()});
     }
     handleChange(name,value){
         this.setState({[name]:value,hasChanged:true})

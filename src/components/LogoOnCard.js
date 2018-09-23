@@ -2,11 +2,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import {setBackground} from '../utilities/styling'
 import Tween from 'rc-tween-one';
-import { Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 import Background from '../assets/background/BW.svg';
 
@@ -23,7 +23,7 @@ const styles = theme => ({
     },
   paper:{
     margin: 'auto',
-    marginBottom:20,
+    marginBottom:0,
  //   width:680,
    paddingLeft:'30px',
    paddingRight:'30px',
@@ -78,17 +78,18 @@ function LogoOnCard(props) {
     return (
       <div className={classes.root}>
         <Grid container direction='column' justify='space-between' alignItems='center'
-        style={{minHeight:'100vh',paddingTop:40}}>
-          <Grid item>
-       
-            <Tween animation={animation}>
-              <Paper className={classes.paper} style={style} elevation={15}>
-                {props.children}
-              </Paper>
-            </Tween>
+        style={{minHeight:'100vh',paddingTop:0}}>
+          <Grid item xs>
+            <Grid container style={{height: 'calc(100vh - 120px)', minHeight:600, position:'relative', zIndex:9}} alignItems="center">
+              <Tween animation={animation}>
+                <Paper className={classes.paper} style={style} elevation={15}>
+                  {props.children}
+                </Paper>
+              </Tween>
+            </Grid>
           </Grid>
 
-          <Grid item style={{height: 'calc(6vw + 120px)', width: '100%', position: 'relative', paddingTop: '60px'}}>
+          <Grid item style={{height: 'calc(-3vw + 120px)', width: '100%', position: 'relative', paddingTop: '60px'}}>
             <SupportFooter mobile={false}/>
           </Grid>
         </Grid>

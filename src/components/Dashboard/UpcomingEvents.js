@@ -1,10 +1,12 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import ListItem from './ListItem'
 import LinkIcon from '@material-ui/icons/KeyboardArrowRight'
 import Divider from '@material-ui/core/Divider'
-import * as _ from 'lodash'
+import forEach from 'lodash.foreach'
+import sortBy from 'lodash.sortby'
+
 const styles = theme => ({
     root: {
       marginTop:20,
@@ -19,8 +21,8 @@ const styles = theme => ({
 function UpcomingEvents(props){
   let items = []
     const {classes,data} = props
-    const orderedData = _.sortBy(data,['startDate'])
-    _.forEach(orderedData,(event,key)=>{
+    const orderedData = sortBy(data,['startDate'])
+    forEach(orderedData,(event,key)=>{
       const timestamp = event.startDate
       const title = event.name
       const body = event.location

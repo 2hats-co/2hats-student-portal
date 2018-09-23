@@ -1,10 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography'
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import ListItem from './ListItem';
 import LinkIcon from '@material-ui/icons/KeyboardArrowRight'
-import { Divider } from '../../../node_modules/@material-ui/core';
-import * as _ from 'lodash'
+import Divider from '../../../node_modules/@material-ui/core/Divider';
+import orderBy from 'lodash.orderby'
 
 const styles = theme => ({
     root: {
@@ -25,7 +25,7 @@ function FeedbackHistory(props){
      // (${x.submissionContent.process})
       return({title:`Resume Submission`,body:'Under Review',timestamp:x.createdAt,key:x.id})
    })
-   items = _.orderBy(items, 'timestamp','asc')
+   items = orderBy(items, 'timestamp','asc')
    }  
      
     return(<div className={classes.root}><Typography className={classes.title} variant='display1'>

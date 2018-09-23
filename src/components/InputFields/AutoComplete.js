@@ -1,15 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Select from 'react-select';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-
 import TextField from '@material-ui/core/TextField';
-import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
-import DownIcon from '@material-ui/icons/KeyboardArrowDown';
-
 import InputWrapper from "./InputWrapper";
 
 const styles = theme => ({
@@ -62,7 +57,7 @@ const styles = theme => ({
         selected={props.isFocused}
         component="div"
         style={{
-          fontWeight: props.isSelected ? 500 : 400,
+          fontWeight: props.isSelected ? 400 : 400,
         }}
         {...props.innerProps}
       >

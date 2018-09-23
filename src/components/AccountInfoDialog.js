@@ -4,7 +4,6 @@ import Dialog from './Dialog';
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
-
 import  {withFirestore} from '../utilities/withFirestore';
 import { COLLECTIONS } from "../constants/firestore";
 import WorkingRights from './InputFields/WorkingRights';
@@ -70,7 +69,7 @@ import AvailableDays from './InputFields/AvailableDays';
             return (
                 <Dialog activity='Update' 
                 unChanged={this.state.unChanged}
-                title='Account information' isOpen={isOpen} 
+                title='Account Information' isOpen={isOpen} 
                 addHandler={()=>{this.handleUpdate()}} 
                 disabled={!firstName || !lastName} 
                 cancelHandler={()=>{this.handleCancel()}}

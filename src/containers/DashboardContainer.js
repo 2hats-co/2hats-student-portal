@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ApplicationTimeLine from '../components/Dashboard/ApplicationTimeLine'
 import ApplicationProgress from '../components/Dashboard/ApplicationProgress'
 import FeedbackHistory from '../components/Dashboard/FeedbackHistory'
@@ -7,7 +7,7 @@ import UpcomingEvents from '../components/Dashboard/UpcomingEvents'
 import Next from '../components/Dashboard/NextBanner'
 import { compose } from 'redux';
 import { withNavigation } from '../components/withNavigation';
-import { Grid } from '../../node_modules/@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import {isComplete} from '../constants/signUpProcess'
 
 const styles = theme => ({

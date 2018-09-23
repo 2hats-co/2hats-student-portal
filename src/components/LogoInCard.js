@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.png'
 import {setBackground} from '../utilities/styling'
 import LinearProgress from '@material-ui/core/LinearProgress';
-import SnackBar from './SnackBar'
+import SnackBar from './SnackBar';
+
+import Background from '../assets/background/Colour.svg';
+
 
 const styles = theme => ({
   root:{
@@ -46,16 +49,19 @@ const styles = theme => ({
       marginRight: 'auto',
       overflowY:'visible',
       overflowX:'hidden',
-    },loading:{
       position:'relative',
+    },loading:{
+      position:'absolute',
       top:0,
+      width:'100%',
     }
 });
 
 function LogoInCard(props) {
   const { classes,width,height,theme,isLoading,logoClass,snackBar} = props;
   const {isMobile} = theme.responsive
-  setBackground('#FA5E4E','https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94',isMobile)
+  // setBackground('#FA5E4E','https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94',isMobile)
+  setBackground('#FA5E4E', Background, isMobile)
   return (
     <div className={classes.root}>
       <div className={classes.middle}>

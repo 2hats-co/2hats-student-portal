@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import { Typography, Grid } from "@material-ui/core";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 import DoneIcon from "@material-ui/icons/Done"
 import {STEP_LABELS,PROCESS_TYPES} from '../../../constants/signUpProcess'
 import {UPLOAD_RESUME,BUILD_RESUME, DASHBOARD} from '../../../constants/routes'
@@ -9,6 +10,7 @@ const styles = theme => ({
   root:{
     height:30,
     width:215,
+    cursor: 'pointer',
     [theme.breakpoints.up('md')]: {
       width:215,
     },
@@ -20,7 +22,6 @@ const styles = theme => ({
     margin: theme.spacing.unit * 2
   },
   label:{
-    cursor: 'pointer',
     '&hover':{
    
     }
@@ -51,16 +52,21 @@ function Step(props){
     const incompletedIndicator = (<div className={classes.incomplete}></div>)
    let route = DASHBOARD+'#basic'
     if(process){
-   route = `${process === PROCESS_TYPES.build? BUILD_RESUME:UPLOAD_RESUME}?step=${STEP_LABELS[props.process].indexOf(label)}`
-
+      if (process === "submit") {
+        route = '/profile';
+      } else {
+        route = `${process === PROCESS_TYPES.build? BUILD_RESUME:UPLOAD_RESUME}?step=${STEP_LABELS[props.process].indexOf(label)}`
+      }
     }
     return (
       <Grid container 
       direction='row'
       justify='space-between' 
       alignItems='center' 
-      className={classes.root} >
-        <Typography className={classes.label} onClick={()=>{goTo(route)}} variant='subheading' >
+      className={classes.root}
+      onClick={()=>{goTo(route)}}
+      >
+        <Typography className={classes.label} variant='subheading' >
         {label}
         </Typography>
         {isComplete? completedIndicator:incompletedIndicator}

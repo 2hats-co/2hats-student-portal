@@ -1,7 +1,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Card from '@material-ui/core/Card';
 
 import CardContent from '@material-ui/core/CardContent';
@@ -30,6 +30,11 @@ const styles = theme => ({
   }
   ,
   chip:{mariginTop:10,marginRight:10, marginBottom:5},
+  chiplabel: {
+    display: 'block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -96,11 +101,13 @@ function ProfileCard(props) {
           {resumeFile.name&& 
           <Chip
           key={resumeFile.fullPath}
+          //label={resumeFile.name.length > 30 ? resumeFile.name.substr(0,29) + "…" : resumeFile.name}
           label={resumeFile.name}
           onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
-          onDelete={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
           className={classes.chip}
-          deleteIcon={<DownloadIcon />}
+          avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
+          style={{maxWidth:'100%'}}
+          classes={{label:classes.chiplabel}}
         />}
           </div>
       }
@@ -119,7 +126,7 @@ function ProfileCard(props) {
          </Grid>
          </Grid>
         <Section disabled={disabled} name='bio' label='Personal Bio'>
-         <Typography variant='body1'> {bio}</Typography>
+         <Typography variant='body1' style={{whiteSpace:'pre-wrap',opacity: bio ? 1 : 0.8}}>{bio ? bio : 'Write your personal bio by clicking the edit button on the right.'}</Typography>
          </Section> </CardContent>
      </Card>
           {process===PROCESS_TYPES.upload&& <Card className={classes.card}> 
@@ -141,31 +148,6 @@ function ProfileCard(props) {
          </Section>
        </CardContent>
      </Card>
-
-     {// single card layout
-       /* <Card className={classes.card}> 
-       <CardContent>  
-         <Grid container direction='row' justify='center'>
-         
-         <Grid item><Typography variant='display1' style={{textAlign:'center'}}>
-         {name}
-         </Typography>
-         </Grid>
-         </Grid>
-         {process===PROCESS_TYPES.build&& <Section disabled={disabled} name='bio' label='Personal Bio'>
-         <Typography className={classes.bio} variant='body1'> {bio}</Typography>
-         </Section>}
-          {process===PROCESS_TYPES.upload&& <Section disabled={disabled} name='resumeFile' label='Resume'>
-         {resume}
-         </Section>}
-         <Section disabled={disabled} name='careerInterests' label='Career Interests'>
-         {careerInterests}
-         </Section>
-        <Section disabled={disabled} name='skills' label='Skills'>
-         {skills}
-         </Section>
-       </CardContent>
-     </Card> */}
    </div>
   );
 }

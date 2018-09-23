@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import LogoInCard from '../components/LogoInCard';
 import CurrentUniversity from '../components/InputFields/CurrentUniversity';
-import { withStyles, withTheme } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
@@ -16,8 +16,9 @@ import celebratingMan from '../assets/images/graphics/congratsMan.svg'
 import Industy from '../components/InputFields/Industry';
 import {SPEEDY_SIGNUP} from '../constants/views'
 import { withRouter } from "react-router-dom";
-import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
+import { CLOUD_FUNCTIONS } from '../utilities/CloudFunctions';
 import {warmUp} from '../utilities/Authentication/warmUp'
+import {speedyAuth} from '../utilities/Authentication/speedySignup'
 const styles = theme => ({
     root: {
       paddingLeft: 50,
@@ -33,7 +34,7 @@ const styles = theme => ({
     },
     button:{
         width:180,
-        marginTop:20
+        marginTop:30
     },
     loading:{
         position:'relative',
@@ -58,7 +59,7 @@ class SpeedySignupContainer extends Component {
             firstName:'',
             lastName:'',
             email:'',
-            currentUniversity:'University of Technology Sydney',
+            currentUniversity:'',
             industry:'',
             view:SPEEDY_SIGNUP.form,
             isPublic:true,
@@ -67,25 +68,31 @@ class SpeedySignupContainer extends Component {
         this.createUser = this.createUser.bind(this)
         this.handleReset = this.handleReset.bind(this)
         this.goHome = this.goHome.bind(this)
+        this.goTo = this.goTo.bind(this)
+        this.errorBar = this.errorBar.bind(this)
     }
     componentWillMount(){
         warmUp(CLOUD_FUNCTIONS.SPEEDY_SIGNUP)
-        if(this.props.history.location.hash ==='#UTS'){
-            this.setState({isPublic:false})
-        }
-        window.Intercom('update',{
-            'hide_default_launcher': true
-        })
+        // if(this.props.history.location.hash ==='#UTS'){
+        //     this.setState({isPublic:false})
+        // }
+        // window.Intercom('update',{
+        //     'hide_default_launcher': true
+        // })
+    }
+    goTo(route){
+       this.props.history.replace(route) 
     }
     handleReset(){
         this.setState({
             firstName:'',
             lastName:'',
             email:'',
-            currentUniversity:'University of Technology Sydney',
+            currentUniversity:'',
             industry:'',
             view:SPEEDY_SIGNUP.form,
-            isLoading: false
+            isLoading: false,
+            snackBar: null,
         })
     }
     
@@ -100,15 +107,17 @@ class SpeedySignupContainer extends Component {
         };
 
         this.setState({ isLoading: true });
-        cloudFunction(CLOUD_FUNCTIONS.SPEEDY_SIGNUP, userInfo
-            ,(result) => {
-                this.setState({ isLoading: false })
-                this.setState({ view: SPEEDY_SIGNUP.success })
-                console.log("Call speedySignup success: ", result);
-            }
-            ,(error) => {
-                console.log("Call speedySignup error: ", error);
-            });
+        speedyAuth(userInfo,this.goTo,this.errorBar)
+
+        // cloudFunction(CLOUD_FUNCTIONS.SPEEDY_SIGNUP, userInfo
+        //     ,(result) => {
+        //         this.setState({ isLoading: false })
+        //         this.setState({ view: SPEEDY_SIGNUP.success })
+        //         console.log("Call speedySignup success: ", result);
+        //     }
+        //     ,(error) => {
+        //         console.log("Call speedySignup error: ", error);
+        //     });
     }
     handleChange = (name,value) => {
        this.setState({[name]:value})
@@ -117,15 +126,17 @@ class SpeedySignupContainer extends Component {
     goHome(){
         window.open('https://2hats.com.au','_self')
     }
-    
+    errorBar(e){
+        this.setState({snackBar:{message:e.message,variant:'error'},isLoading:false,link:'signin'})
+    }
     renderForm(){
         const {classes,theme} = this.props
         const isMobile = theme.responsive.isMobile
         const {firstName,lastName,email,currentUniversity,industry,isLoading} = this.state
         return(<Grid className={isMobile? classes.mobileForm:classes.webForm} container  direction='column'>
                 <Grid className={classes.header} item>
-                <Typography variant={isMobile?'subheading':'title'} style={isMobile?{textAlign:'center'}:{}}>Welcome to the UTS Career Fair!</Typography>
-                <Typography variant={isMobile?'body1':'subheading'} style={isMobile?{textAlign:'center'}:{}}>Sign up below to get ahead on your professional career</Typography>
+                <Typography variant={isMobile?'subheading':'title'} style={isMobile?{textAlign:'center'}:{}}>Welcome to 2hats!</Typography>
+                <Typography variant={isMobile?'body1':'subheading'} style={isMobile?{textAlign:'center'}:{}}>Sign up to get paid placements and kickstart your professional career</Typography>
                    </Grid>
                     <ChangeAdpter changeHandler={this.handleChange}>
                         <Name firstName={firstName} lastName={lastName}/>
@@ -169,13 +180,13 @@ class SpeedySignupContainer extends Component {
         )
     }
      render(){
-         const {view,isLoading} = this.state
+         const {view,isLoading,snackBar} = this.state
          const {theme,classes} = this.props
          const isMobile = theme.responsive.isMobile
          return(
-             <LogoInCard width={isMobile?350:755} height={520} isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
-             >
-            
+             <LogoInCard width={isMobile?350:755} height={560} isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
+             snackBar={snackBar} 
+            >
                 <Grid container direction={isMobile?'column':'row'} alignItems='center' justify='space-around'>
                 {view === SPEEDY_SIGNUP.form? this.renderForm():this.renderCongrats()}
                 {!isMobile &&

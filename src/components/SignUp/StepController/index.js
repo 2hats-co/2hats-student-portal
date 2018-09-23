@@ -3,7 +3,7 @@ import Button from "@material-ui/core/Button";
 
 import WebStepper from './WebStepper'
 import Grid from "@material-ui/core/Grid";
-import { withStyles } from "@material-ui/core/styles";
+import withStyles from "@material-ui/core/styles/withStyles";
 import {withRouter} from 'react-router-dom'
 import {PROCESS_TYPES,ALL_STEPS,STEP_LABELS,checkComplition} from '../../../constants/signUpProcess'
 import StyledLink from '../../StyledLink'
@@ -54,7 +54,7 @@ goToIntroduction(){
 }
 goToDashboard(){
 
-  this.props.history.push(routes.DASHBOARD)
+  this.props.history.push(routes.PROFILE)
 }
 disableNext(currentStep,profile){
     const{careerInterests,
@@ -128,7 +128,7 @@ render(){
     variant="flat"
     onClick={()=>{this.handleNext(currentStep)}}
   >
-   {currentStep===ALL_STEPS.other?'Go to Dashboard':'Next'}
+   {currentStep===ALL_STEPS.other?'Preview Profile':'Next'}
   </Button>)
  
   const backButton = (<Button id={`back-${currentStep}`}

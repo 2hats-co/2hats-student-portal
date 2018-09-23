@@ -1,7 +1,7 @@
 import React from 'react';
 //Material UI
 import Dialog from '../Dialog';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
@@ -9,12 +9,15 @@ import  {withFirestore} from '../../utilities/withFirestore';
 import { COLLECTIONS } from "../../constants/firestore";
 import { PROCESS_TYPES } from "../../constants/signUpProcess";
 import { connect } from 'react-redux';
-import * as _ from "lodash";
+
 //input fields
 import CareerInterests from '../InputFields/CareerInterests'
 import PersonalBio from '../InputFields/PersonalBio'
 import Skills from '../InputFields/Skills'
 import ResumeLoader from '../InputFields/ResumeLoader'
+
+import {forEach} from '../../utilities/ObjectsAndArrays'
+
 const styles = theme => ({
     root: {
      padding:25,
@@ -45,22 +48,20 @@ const styles = theme => ({
         this.handleChange = this.handleChange.bind(this)
       }
       componentWillMount(){
-        _.forEach(this.props.profile,(value,key)=>{
-          this.handleChange(key,value)
-         })
+        if(this.props.profile){
+        forEach(Object.values(this.props.profile)[0],this.handleChange)
+
+        }
       }
       componentDidUpdate(prevProps, prevState){
         if(prevProps !== this.props){
-
-          _.forEach(Object.values(this.props.profile)[0],(value,key)=>{
-            this.handleChange(key,value)
-           })
+          forEach(Object.values(this.props.profile)[0],this.handleChange)
         }     
       }
       handleCancel=() =>{
-        _.forEach(this.props.profile,(value,key)=>{
-          this.handleChange(key,value)
-         })
+        console.log('cancelling')
+        console.log()
+        forEach(Object.values(this.props.profile)[0],this.handleChange)
          this.props.closeHandler()
       }
       handleSave = () => {
@@ -99,7 +100,7 @@ const styles = theme => ({
             break;
         }
         return(
-          <Dialog activity={`update`} 
+          <Dialog activity={`Update`} 
           title={` ${label}`} isOpen={isOpen} 
           addHandler={this.handleSave} 
           disabled={this.disabledUpadate(name)} 

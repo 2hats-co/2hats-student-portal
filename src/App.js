@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
 // material UI
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import  MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { Theme } from './Theme';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // containers
 import withAuthentication from './utilities/Session/withAuthentication';
-import AuthenticationContainer from './containers/AuthenticationContainer'
-import SignupContainer from './containers/SignupContainer'
-import SpeedySignupContainer from './containers/SpeedySignupContainer'
-import SubmissionContainer from './containers/SubmissionContainer'
-import IntroductionContainer from './containers/IntroductionContainer';
-import SmartLinkContainer from './containers/SmartLinkContainer';
-import DashboardContainer from './containers/DashboardContainer';
-import JobBoardContainer from './containers/JobBoardContainer';
-import ProfileContainer from './containers/ProfileContainer';
-import RemoteLoggerContainer from './containers/RemoteLoggerContainer';
- 
 //routing
 import {
   BrowserRouter as Router,
@@ -25,7 +16,71 @@ import {AUTHENTICATION_CONTAINER, INTRODUCTION_CONTAINER} from './constants/view
 import Landing from './components/Landing';
 
 
+// loadable
+import Loadable from 'react-loadable';
 
+
+const AuthenticationContainer = Loadable({
+  loader: () => import('./containers/AuthenticationContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const SignupContainer = Loadable({
+  loader: () => import('./containers/SignupContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+
+const SpeedySignupContainer = Loadable({
+  loader: () => import('./containers/SpeedySignupContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const IntroductionContainer = Loadable({
+  loader: () => import('./containers/IntroductionContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const SmartLinkContainer = Loadable({
+  loader: () => import('./containers/SmartLinkContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const ProfileContainer = Loadable({
+  loader: () => import('./containers/ProfileContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const DashboardContainer = Loadable({
+  loader: () => import('./containers/DashboardContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const JobBoardContainer = Loadable({
+  loader: () => import('./containers/JobBoardContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const RemoteLoggerContainer = Loadable({
+  loader: () => import('./containers/RemoteLoggerContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
+const SubmissionContainer = Loadable({
+  loader: () => import('./containers/SubmissionContainer'),
+  loading() {
+    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+  }
+});
 class App extends Component {
   constructor(props){
     super(props)
@@ -47,15 +102,17 @@ componentWillUnmount() {
   }
 }
   render() {
-  
+
     return (
       <MuiThemeProvider theme={this.state.theme}>
 
        <Router>
+     
     <div className="app"> 
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic/>} />
       <Route exact path={routes.LOG_OUT} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.logout}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic/>} />
+      <Route exact path={routes.NO_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.noPassword}/>} />
       <Route exact path={routes.CREATE_PASSWORD} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.createPassword}/>} />   
       <Route exact path={routes.RESET_PASSWORD} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.resetPassword}/>} />
       <Route exact path={routes.VALIDATE_EMAIL} component={() =>  <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.validateEmail}/>} />

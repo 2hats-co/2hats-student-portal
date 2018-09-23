@@ -1,12 +1,16 @@
 import React from 'react'
-import { Typography,Grid,Card,Button } from '@material-ui/core';
-import { withStyles } from "@material-ui/core/styles";
+import  Typography from '@material-ui/core/Typography';
+import  Grid from '@material-ui/core/Grid';
+import  Card from '@material-ui/core/Card';
+import  Button from '@material-ui/core/Button';
+import withStyles from "@material-ui/core/styles/withStyles";
 import ConfirmationDialog from './ConfirmationDialog'
 import { PROCESS_TYPES,firstUnfinishedStep} from '../constants/signUpProcess';
 import * as routes from '../constants/routes'
 import {isComplete} from '../constants/signUpProcess'
 import AlertIcon from '@material-ui/icons/Error'
 import DoneIcon from '@material-ui/icons/Done'
+import HelpIcon from '@material-ui/icons/Info'
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import AnimateIcon from './AnimateIcon'
@@ -41,21 +45,15 @@ const styles = theme => ({
         },
     },
     grid:{
-      padding:10,
-      paddingTop:20,
-      paddingBottom:20,
+      padding: '20px 10px',
+      minHeight: 88,
       [theme.breakpoints.up('xs')]: {
         paddingRight:0
       },
-      [theme.breakpoints.up('sm')]: {
-        paddingRight:60
+      [theme.breakpoints.up(700)]: {
+        paddingRight:80
       },
-    [theme.breakpoints.up('md')]: {
-      paddingRight:40
     },
-     
-     
-      },
       actionGrid:{
         minWidth:375,
         maxWidth:400
@@ -86,6 +84,10 @@ const styles = theme => ({
         borderRadius:15,
         backgroundColor:green.A700
       },
+      help:{
+        width: 36,
+        height: 36,
+      },
       successIcon:{
         position:'relative',
         color:'#fff',
@@ -97,6 +99,12 @@ const styles = theme => ({
         right:0,
         bottom:20
       },
+      rightButtons: {
+        marginTop: 8,
+        [theme.breakpoints.up('sm')]: {
+          marginTop: 0,
+        },
+      }
 
   });
 class StatusCard extends React.Component{
@@ -148,13 +156,14 @@ class StatusCard extends React.Component{
         const inCompleteBuildMessage = 'It looks like you haven’t finished building your resume yet.'
         const inCompleteUploadMessage = 'It looks like you haven’t filled out all the necessary information yet.'
         const noUploadMessage = 'It looks like you haven’t uploaded your resume yet.'
-        const completeMessage = 'Congratulations! Your profile is ready to be reviewed.'
+        const completeMessage = 'If you have completed your profile, click the Submit Profile button.'
         const inReviewMessage = 'Your profile is currently under review. We will notify you regarding the feedback.'
         const chanceMessage = 'Feedback received! Please review it and update your profile before submitting again.'
         const alterIcon =(<AlertIcon className={this.props.classes.alert}/>)
         const doneIcon =(<div className={this.props.classes.success}>
-        <DoneIcon className={this.props.classes.successIcon}/>
-        </div>)
+          <DoneIcon className={this.props.classes.successIcon}/>
+          </div>)
+        const helpIcon = (<HelpIcon className={this.props.classes.help} color="primary" />)
         if(profile.hasSubmit){
           console.log(this.props.status)
           if(this.props.status==='updating'){
@@ -175,14 +184,14 @@ class StatusCard extends React.Component{
               _message = chanceMessage
             }
             if(profile.process === PROCESS_TYPES.build){
-              return({icon:doneIcon,
+              return({icon:helpIcon,
                 message:_message,
                       buttons:[submitButton],
                       link:uploadLink})
             }else if(profile.process === PROCESS_TYPES.upload){
 
 
-              return({icon:doneIcon,
+              return({icon:helpIcon,
                   message:_message,
                       buttons:[submitButton],
                       link:buildLink})
@@ -216,10 +225,10 @@ class StatusCard extends React.Component{
     const hideToaster = (currentRoute=== routes.PROFILE)
     return(
         <div>
-        <Card className={classes.root} style={hideToaster?{backgroundColor:'#FFF4ED'}:{display:'none'}}>
+        <Card className={classes.root} style={hideToaster?{backgroundColor:'#FFF4ED'}:{display:'none'}} elevation={0}>
             <Grid container 
             justify={isMobile?'flex-end':'space-between'} className={classes.grid} style={!isMobile?{paddingLeft:40}:{}}direction='row' alignItems='center' > 
-                <Grid  xs={12} sm={6} md={7} lg={9} item>
+                <Grid  xs={12} sm={6} md={7} lg={8} item>
                   <Grid container direction='row' justify='flex-start' alignItems='center'>
                     {icon}
                     <Grid item style={{flex: 1}}>
@@ -231,22 +240,22 @@ class StatusCard extends React.Component{
                
                 </Grid>
                 {
-                <Grid item xs={12} sm={6}  md={5} lg={3}>
+                <Grid item xs={12} sm={6}  md={5} lg={4} className={classes.rightButtons}>
                   <Grid container direction='row' justify='flex-end' alignItems='center'>
                     {buttons&&
                         buttons.map(x=>{return(
-              
-                            <Button key={x.label} disabled={x.disabled} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
-                            <div style={{display:'flex',marginLeft:12}}>
-                        <div style={{marginTop:0}}> {x.label}</div> {!x.disabled&&<AnimateIcon> <ArrowIcon style={{marginRight:-18}}/><ArrowIcon /> </AnimateIcon>} 
+                        <Grid item xs sm="auto" style={{marginRight:16}}>
+                            <Button key={x.label} disabled={x.disabled} style={{width:'100%'}} id={`${x.label}-toaster-button`} onClick={x.action} className={classes.button} variant='flat'>
+                            <div style={{display:'flex',marginLeft:12,marginRight:12}}>
+                        <div style={{marginTop:0}}> {x.label}</div> {!x.disabled&&<AnimateIcon> <ArrowIcon style={{marginRight:-18,marginTop:-1}}/><ArrowIcon style={{marginRight:-8,marginTop:-1}}/> </AnimateIcon>} 
                         </div>
                             </Button>
-                        
+                        </Grid>
                         )
                     })
-                    }{link&&<div>
+                    }{link&&<Grid item style={{marginRight:8}}>
                       <PopupSelector items={[{label:link.label,action:link.action}]}/>
-                    </div>}
+                    </Grid>}
                   </Grid>
                 </Grid>
                 }

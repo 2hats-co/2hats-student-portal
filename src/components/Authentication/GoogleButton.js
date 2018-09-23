@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import {GOOGLE_CID_STAGING,GOOGLE_CID_PRODUCTION} from '../../config/auth';
 import GoogleIcon from '../../assets/images/social/google.svg';
@@ -78,7 +78,7 @@ class GoogleButton extends Component{
               className={classes.socialButton}>
               <div className={classes.socialIcon} >
                 <img alt={'google-logo'} src={GoogleIcon} />
-              </div> {action||'sign in'} with google
+              </div> {action||'Sign in'} with Google
             </Button>
           )}
         />

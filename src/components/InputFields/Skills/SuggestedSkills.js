@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Chip from '@material-ui/core/Chip'
 import Typography from '@material-ui/core/Typography'
 import {getSkills} from '../../../constants/resumeBuilderPrompts'
@@ -65,7 +65,7 @@ class SuggestedSkills extends React.Component {
        })
         return(
             <div>
-                {(suggestedSkills.length > 0)&& <Typography variant='subheading' style={{margin:'16px 0 8px'}}>
+                {(suggestedSkills.length > 0)&& <Typography variant='body1' style={{margin:'16px 0 8px'}}>
                 Suggested skills based on your interests:
                 </Typography>}
                 {chips}

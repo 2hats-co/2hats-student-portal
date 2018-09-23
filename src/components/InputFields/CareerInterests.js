@@ -7,10 +7,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import {CAREER_INTERESTS,getIndustryFromInterests} from '../../constants/resumeBuilderPrompts'
-import { TextField } from '@material-ui/core';
+import TextField  from '@material-ui/core/TextField';
 
 const INTERESTS_DATA_TYPE = {
   default:"default",
@@ -110,7 +110,7 @@ class CareerInterests extends React.Component {
       return(
         <div className={classes.root}>
         {!hideTitle&&<Typography variant="title" color="primary">
-         Career Interests - Custom
+         Career Interests — Custom
     </Typography> } 
    
         <TextField
@@ -140,7 +140,7 @@ class CareerInterests extends React.Component {
       return (
         <div className={classes.root}>
          {!hideTitle&&<Typography variant="title" color="primary">
-         Career Interests - {3-preSelectedList.value.length} remaining
+         Career Interests — {3-preSelectedList.value.length} remaining
     </Typography> }
             <Grid container direction='row' justify='space-between'>
             {CAREER_INTERESTS.map(list => this.renderCheckBoxGroup(list.label,list.items))}    

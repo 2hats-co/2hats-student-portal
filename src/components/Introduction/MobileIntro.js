@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SwipeableViews from 'react-swipeable-views';
-import {setBackground} from '../../utilities/styling'
-import StepsIndecator from './StepsIndecator'
+import {setBackground} from '../../utilities/styling';
+import StepsIndecator from './StepsIndecator';
+import Background from '../../assets/background/BW.svg';
 const styles = theme => ({
   root: {
     
@@ -50,7 +51,8 @@ class MobileIntro extends React.Component{
   render() {
     const { classes, theme,tutorialSteps,startHandler} = this.props;
     const { activeStep } = this.state;
-    setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad',true)
+    // setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad',true)
+    setBackground("#E1E1E1",Background,true)
     const maxSteps = tutorialSteps.length;
 
     return (

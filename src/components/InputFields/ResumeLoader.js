@@ -1,10 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { Typography, Button, Grid } from '@material-ui/core';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CloudDoneIcon from '@material-ui/icons/CloudDone';
 import Dropzone from 'react-dropzone'
-import {firebaseStorage} from '../../store'
+import {firebaseStorage} from '../../firebase/storage'
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Chip from '@material-ui/core/Chip';
 import classNames from "classnames";
@@ -19,7 +22,7 @@ import { connect } from 'react-redux';
 
 const styles = theme => ({
     root: {
-        marginBottom:20,
+        marginBottom:0,
         marginTop:20,
         boxSizing: 'border-box',
         marginTop:5,
@@ -30,13 +33,14 @@ const styles = theme => ({
        
     },
     grid:{
-        height:270,
+        height:262,
         width:'100%',        
     },
     wrapper: {
         margin: theme.spacing.unit,
         position: 'relative',
         textAlign: 'center',
+        maxWidth: 'calc(100% - 20px)',
     },
     buttonSuccess: {
         //backgroundColor: green[500],
@@ -52,6 +56,13 @@ const styles = theme => ({
     chipWrapper: {
         marginTop: theme.spacing.unit,
         textAlign: 'center',
+    },
+
+
+    chiplabel: {
+        display: 'block',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
     },
     
 });
@@ -69,14 +80,22 @@ class ResumeLoader extends React.Component {
         this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this)
         this.handleProgress = this.handleProgress.bind(this)
         this.handleChange = this.handleChange.bind(this)
+
+        this.uploadTask;
     }
     handleCloseSnackbar(){
         this.setState({errorBar:false})
     }
 
     handleDelete(){
-        const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
-       // ref.delete().then(this.props.changeHandler('resumeFile',{name:'',fullPath:''}))
+        console.log('delete')
+        if (this.uploadTask) this.uploadTask.cancel();
+        // Don't delete resumes from storage, we need them to be accessable from the admin portal
+        ///const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
+       // ref.delete();/*.then(()=>{*/
+            this.props.changeHandler('resumeFile',{name:'',fullPath:'',downloadURL:''});
+            this.setState({isUploading:false});
+        //});
     }
     handleLoader(snapShot){
         firebaseStorage
@@ -111,6 +130,7 @@ class ResumeLoader extends React.Component {
             this.props.changeHandler('resumeFile',{name:files[0].name,fullPath:`candidates/${uid}/resumes/${Date.now()}/${files[0].name}`, downloadURL:''})
             const documentRef = firebaseStorage.child(`candidates/${uid}/resumes/${Date.now()}/${files[0].name}`)
             let uploadTask = documentRef.put(files[0]);
+            this.uploadTask = uploadTask;
             this.handleProgress(uploadTask)
             uploadTask.then(this.handleLoader)
         }
@@ -146,61 +166,79 @@ class ResumeLoader extends React.Component {
             <div style={!theme.responsive.isMobile?{minWidth:420}:{}}>
             <InputWrapper
             title={!hideTitle&&'Resume Upload'}
-            hint={!hideTitle&&'Please upload in PDF format'}
+            hint={!hideTitle&&'Please upload your resume file in PDF format'}
             collapseTopMargin
             >
             <Dropzone className={classes.root}
             onDrop={this.onDrop.bind(this)}
             accept="application/pdf"
+            style={{marginTop:10}}
             > 
             <Grid 
             className={classes.grid}
             container
             direction='column'
-            justify='space-around'
+            justify='center'
             alignItems='center'
             > 
-            <CloudUploadIcon style={{ fontSize: 66 }}/>
-            <Typography variant='button'>
-            {theme.responsive.isMobile?'Click to browse for your PDF resume':'Drag and drop your PDF resume'}
-            </Typography>
-            <Typography variant='subheading'>
-            OR
-            </Typography>
+            <Grid item style={{marginBottom:20,textAlign:'center'}}>
+                { !isUploading && resumeFile.name !== '' ?
+                    <CloudDoneIcon style={{ fontSize: 66 }}/> :
+                    <CloudUploadIcon style={{ fontSize: 66 }}/>
+                }
+                { isUploading ?
+                    <div style={{width:150}}>
+                        <Grid container justify="space-between" style={{marginBottom:5}}>
+                            <Grid item><Typography variant="body1">Uploading&hellip;</Typography></Grid>
+                            <Grid item><Typography variant="body1">{Math.round(this.state.uploadProgress)}%</Typography></Grid>
+                        </Grid>
+                        <LinearProgress value={this.state.uploadProgress} variant="determinate" className={classes.buttonProgress}/>
+                    </div>
+                :
+                    <Typography variant='button'>
+                        { resumeFile.name !== '' ?
+                            'Resume uploaded' :
+                            theme.responsive.isMobile?'Click to browse for your PDF resume':'Drag and drop your PDF resume'
+                        }
+                    </Typography>
+                }
+            </Grid>
             <div className={classes.wrapper}>
-          <Button
-            variant="flat"
-            color="primary"
-            className={buttonClassname}
-            disabled={isUploading}
-            onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
-          >
-          {resumeFile.name!==''? 'Upload New Resume':'Browse Files'}
-          </Button>
-          {resumeFile.name !== '' && 
-            <div className={classes.chipWrapper}>
-                <Chip
-                label={resumeFile.name} 
-                onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
-                onDelete={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
-                deleteIcon={<DownloadIcon />}
-                />
+                {resumeFile.name !== '' ?
+                    <div className={classes.chipWrapper}>
+                        {isUploading ?
+                            <Chip
+                            label={resumeFile.name} 
+                            onDelete={this.handleDelete}
+                            style={{maxWidth:'100%'}}
+                            classes={{label:classes.chiplabel}}
+                            />
+                        :
+                            <Chip
+                            label={resumeFile.name}
+                            onClick={()=>{ window.open(resumeFile.downloadURL, '_blank');}}
+                            onDelete={this.handleDelete}
+                            avatar={<DownloadIcon style={{transform:'scale(0.8)',marginRight:-12}} />}
+                            style={{maxWidth:'100%'}}
+                            classes={{label:classes.chiplabel}}
+                            />
+                        }
+                    </div>
+                :
+                    <Button
+                        variant="flat"
+                        color="primary"
+                        className={buttonClassname}
+                        disabled={isUploading}
+                        onClick={() =>{resumeFile.name!==''? null: this.handleDelete()}}
+                        style={{textTransform:'none'}}
+                    >Select a file</Button>
+                }
             </div>
-          }
-            { isUploading && 
-                <div style={{margin:'15px auto',width:150}}>
-                <Grid container justify="space-between" style={{marginBottom:5}}>
-                    <Grid item><Typography variant="caption">Uploading&hellip;</Typography></Grid>
-                    <Grid item><Typography variant="caption">{Math.round(this.state.uploadProgress)}%</Typography></Grid>
-                </Grid>
-                    <LinearProgress value={this.state.uploadProgress} variant="determinate" className={classes.buttonProgress}/>
-                </div>
-            }
-        </div>
             </Grid>
             </Dropzone>
             </InputWrapper>
-            <MessageBar message="Please upload in PDF format" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
+            <MessageBar message="Please upload your resume file in PDF format" isOpen={this.state.errorBar} duration={4000} variant='error' closeHandler={this.handleCloseSnackbar}/>
             </div>
             
         );

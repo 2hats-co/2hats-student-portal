@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -93,7 +93,7 @@ const styles = theme => ({
     marginTop:0,
     marginBottom:0,
     flexGrow: 1,
-    overflow:'scroll',
+    overflowY:'scroll',
     width:'100%',
     backgroundColor: '#fff',
    // padding: theme.spacing.unit * 3,
@@ -279,12 +279,12 @@ export const withNavigation = (WrappedComponent) => {
               >
                 { Array.isArray(user) && user[0] && user[0].firstName && `Hi ${user[0].firstName}` } <DownArrowIcon/>
               </Button>
-              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal style={{marginLeft:-10}}>
+              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal placement="bottom-end">
                 {({ TransitionProps, placement }) => (
                   <Grow
                     {...TransitionProps}
                     id="logout-toggle"
-                    style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
+                    style={{ transformOrigin: placement === 'bottom-end' ? 'center top' : 'center bottom' }}
                   >
                     <Paper>
                       <ClickAwayListener onClickAway={this.handleLogoutToggleClose}>

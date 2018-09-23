@@ -21,11 +21,11 @@ class Section extends React.Component{
         const {isOpen} = this.state
         return(
            <div>
-        <Grid container direction='row' justify='space-between' alignItems='center' >
+        <Grid container direction='row' justify='space-between' alignItems='center' style={{minHeight:48}} >
                <Typography variant='subheading'>
                  {label}:
                </Typography>
-               <Grid item> 
+               <Grid item style={{position:'relative',left:16}}> 
                {!disabled&&
                   <IconButton onClick={()=>{this.setState({isOpen:true})}} 
                      aria-label={`edit ${label}`}>

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // 1. We define the styles.
 const styles = theme => ({
   root: {
-    fontSize:'12px',
+    fontSize:'13px',
     color: theme.palette.primary.light,
     textDecoration: 'inherit',
     '&:hover': {

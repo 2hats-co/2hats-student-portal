@@ -2,11 +2,11 @@ import React,{Component} from 'react'
 
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import MuiAvatar from '@material-ui/core/Avatar';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import Dialog from './Dialog/index'
-import { Button, Grid } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 
 import Dropzone from 'react-dropzone'
 import {db} from '../store'
@@ -32,15 +32,27 @@ const styles = theme =>({
     },
     bigAvatar: {
         marginTop:30,
-        marginLeft:0,
         marginBottom:10,
-        width: 230,
-        height: 230,
+        marginLeft:'auto',
+        marginRight:'auto',
+        width: 180,
+        height: 180,
         fontSize:45
     },
     uploadButton:{  
         marginTop:10,
         width:230
+    },
+    link:{
+        display:'block',
+        width:'100%',
+        textAlign:'center',
+        marginTop:20,
+        color:deepOrange[600],
+        cursor:'pointer',
+        '&:hover': {
+            textDecoration:'underline',
+        },
     }
   });
   
@@ -93,8 +105,8 @@ class Avatar extends Component{
     render(){
         const {avatarURL,firstName,lastName,classes} = this.props
         const {isUploading,hasChanged,isOpen} = this.state
-        let avatar = (<MuiAvatar onClick={this.openDialog} scr={avatarURL} className={classNames(classes.avatar,classes.orangeAvatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
-        let bigAvatar = (<MuiAvatar src={avatarURL} className={classNames(classes.avatar,classes.bigAvatar,classes.orangeAvatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
+        let avatar = (<MuiAvatar onClick={this.openDialog} scr={avatarURL} className={classNames(classes.avatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
+        let bigAvatar = (<MuiAvatar src={avatarURL} className={classNames(classes.avatar,classes.bigAvatar)}>{firstName[0]}{lastName[0]}</MuiAvatar>)
         if(avatarURL){
             avatar = (<MuiAvatar onClick={this.openDialog} 
                 alt={`${firstName} ${lastName}`}
@@ -113,8 +125,9 @@ class Avatar extends Component{
            isLoading={isUploading}
             
             unChanged={!hasChanged}
-            title={'Your Profile Photo'}
+            title={'Profile Photo'}
             activity='Update'
+            hideActivityFromTitle
             disabled={isUploading||!hasChanged}
             addHandler={this.saveHandler} 
             cancelHandler={this.cancelHandler}
@@ -126,9 +139,7 @@ class Avatar extends Component{
             accept="image/jpeg, image/png, image/jpg"
             > 
             {bigAvatar}
-            <Button variant='flat' className={classes.uploadButton}>
-            Upload Photo
-            </Button>
+            <a className={classes.link}>Select a file</a>
             </Dropzone>
             </Grid>
             </Dialog>

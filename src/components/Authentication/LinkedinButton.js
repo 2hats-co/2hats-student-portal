@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { withStyles } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button'
 import LinkedinIcon from '../../assets/images/social/linkedin.svg'
 import {LINKEDIN_CID} from '../../config/auth'
@@ -80,7 +80,7 @@ class LinkedinButton extends Component{
           className={classes.socialButton}>
           <div className={classes.socialIcon} >
             <img alt={'linkedinLogo'} src={LinkedinIcon} />
-          </div> {action||'sign in'} with Linkedin
+          </div> {action||'sign in'} with LinkedIn
         </Button>
         )
     }

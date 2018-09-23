@@ -6,6 +6,7 @@ export const CLOUD_FUNCTIONS = {
     CHECK_EMAIL: "restApiCheckEmail",
     SMART_LINK: "restApiSmartLink",
     RESET_PASSWORD: "restApiResetPassword",
+    CREATE_PASSWORD: "restApiCreatePassword",
     VALIDATE_EMAIL:'restApiVaildateEmail',
     DISABLE_SMART_LINK:'restApiDisableSmartLink'
 };
