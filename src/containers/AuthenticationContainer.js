@@ -102,7 +102,8 @@ class AuthenticationContainer extends React.Component {
     this.handleSignin = this.handleSignin.bind(this);
     this.handleError = this.handleError.bind(this);
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this);
-    this.handleGTevent = this.handleGTevent.bind(this)
+    this.handleGTevent = this.handleGTevent.bind(this);
+    this.handleBack = this.handleBack.bind(this);
   }
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL)
@@ -180,6 +181,11 @@ class AuthenticationContainer extends React.Component {
   handleChange = (name, value) => {
     this.setState({ [name]: value });
   };
+
+  handleBack() {
+    this.setState({ view: AUTHENTICATION_CONTAINER.auth });
+  }
+
   render() {
     const { classes } = this.props;
     const {
@@ -435,11 +441,12 @@ class AuthenticationContainer extends React.Component {
       passwordField('New password',this.handleUpdatePassword),
       createPasswordButton
     ];
-    const noPasswordView =[
-      backBar,
-     GreetingWithFirstName('Welcome back'),
-     (<NoPassword changeHandler={this.handleChange} email={this.state.email}/>)
-    ]
+    // const noPasswordView =[
+    //   backBar,
+    //  GreetingWithFirstName('Welcome back'),
+    //  (<NoPassword changeHandler={this.handleChange} email={this.state.email}/>)
+    // ]
+    const noPasswordView = <NoPassword isLoading={isLoading} email={email} backHandler={this.handleBack} firstName={firstName} />
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
       linkButton('Go to sign in',routes.SIGN_IN)
