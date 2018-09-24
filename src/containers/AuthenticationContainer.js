@@ -132,7 +132,6 @@ class AuthenticationContainer extends React.Component {
   }
  
   handleUpdatePassword(route) {
-    alert('handleUpdatePassword ' + route);
     const { password,smartKey } = this.state;
     updateUserPassword(
       password,
@@ -220,7 +219,7 @@ class AuthenticationContainer extends React.Component {
         loadedView = <PasswordView
         isLoading={isLoading} email={email} backHandler={this.handleBack}
         changeHandler={this.handleChange} firstName={firstName}
-        password={password} passwordAction={this.handleUpdatePassword}
+        password={password} passwordAction={this.handleSignin}
         forgotPasswordHandler={this.handleForgotPassword} />;
         break;
 
