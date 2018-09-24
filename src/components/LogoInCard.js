@@ -47,6 +47,8 @@ const styles = theme => ({
       borderRadius:3,
       marginLeft: 'auto',
       marginRight: 'auto',
+      marginTop: 10,
+      marginBottom: 10,
       overflowY:'visible',
       overflowX:'hidden',
       position:'relative',

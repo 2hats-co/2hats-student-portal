@@ -27,14 +27,17 @@ const styles = theme => ({
     },
     webForm:{
         width:350,
-        minHeight:350
+        minHeight:350,
+        marginLeft:50,
+        marginRight:50,
     },
     mobileForm:{
         width:280,
     },
     button:{
         width:180,
-        marginTop:30
+        marginTop:0,
+        marginBottom:50,
     },
     loading:{
         position:'relative',
@@ -43,7 +46,8 @@ const styles = theme => ({
     mobileButton:{
         width:180,
         marginTop:20,
-        margin:'auto'
+        marginBottom:50,
+        margin:'auto',
     },img:{
         marginRight:20,
         marginBottom:50
@@ -164,13 +168,13 @@ class SpeedySignupContainer extends Component {
             <Grid className={isMobile? classes.mobileForm:classes.webForm} container direction='column' alignItems={isMobile?'center':'flex-start'} justify='space-between'>
             {!isMobile&& <Grid item/>}
             <Grid item>
-            <Grid container style={{height:100}} justify='space-between'>
-            <Typography variant='title' style={isMobile?{textAlign:'center'}:{}}>Congratulations, You’re Almost There!</Typography>
+            <Grid container>
+            <Typography variant='title' style={isMobile?{textAlign:'center'}:{}}>Congratulations, you’re almost there!</Typography>
             <Typography variant='body1' style={isMobile?{textAlign:'center'}:{}}>We’ve sent you an email to finish the sign up process.</Typography> 
             <Typography variant='body1' style={isMobile?{textAlign:'center'}:{}}>When you’re ready, submit your information to access job opporunties.</Typography>
             </Grid>
             </Grid>
-            {isMobile &&<Grid item>
+            {isMobile &&<Grid item style={{marginTop:20}}>
                     <img src={celebratingMan}/>
                 </Grid>}
             <Button className={isMobile?classes.mobileButton:classes.button} 
@@ -184,11 +188,11 @@ class SpeedySignupContainer extends Component {
          const {theme,classes} = this.props
          const isMobile = theme.responsive.isMobile
          return(
-             <LogoInCard width={isMobile?350:755} height={560} isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
+             <LogoInCard width={isMobile?320:680} height="auto" isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
              snackBar={snackBar} 
             >
-                <Grid container direction={isMobile?'column':'row'} alignItems='center' justify='space-around'>
-                {view === SPEEDY_SIGNUP.form? this.renderForm():this.renderCongrats()}
+                <Grid container direction={isMobile?'column':'row'} alignItems='center'>
+                {view === SPEEDY_SIGNUP.form? this.renderCongrats():this.renderCongrats()}
                 {!isMobile &&
                 <Grid item>
                     <img className={classes.img} src={view === SPEEDY_SIGNUP.success? celebratingMan:girlWithLaptop}/>
