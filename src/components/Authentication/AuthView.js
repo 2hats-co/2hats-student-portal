@@ -10,7 +10,7 @@ import EmailAuth from './EmailAuth';
 import StyledLink from '../StyledLink';
 
 function AuthView(props) {
-    const { onSignupRoute, isLoading, handleGTevent, changeHandler } = props;
+    const { onSignupRoute, isLoading, GTeventHandler, changeHandler } = props;
 
     return(
     <React.Fragment>
@@ -20,7 +20,7 @@ function AuthView(props) {
             disabled={isLoading}
             key="google-button"
             id="google-button"
-            GTevent={handleGTevent}
+            GTevent={GTeventHandler}
             action={ onSignupRoute ? 'Sign up' : 'Sign in' }
             changeHandler={changeHandler}
         />

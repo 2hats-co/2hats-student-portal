@@ -29,6 +29,12 @@ import ChangeAdpter from "../components/InputFields/ChangeAdapter";
 // Views
 import AuthView from '../components/Authentication/AuthView';
 import NoPasswordView from '../components/Authentication/NoPasswordView';
+import SocialView from '../components/Authentication/SocialView';
+import SignUpView from '../components/Authentication/SignUpView';
+import PasswordView from "../components/Authentication/PasswordView";
+import ResetPasswordView from '../components/Authentication/ResetPasswordView';
+import CreatePasswordView from '../components/Authentication/CreatePasswordView';
+import MessageView from '../components/Authentication/MessageView';
 
 //utilities
 import {
@@ -107,6 +113,7 @@ class AuthenticationContainer extends React.Component {
     this.handleUpdatePassword = this.handleUpdatePassword.bind(this);
     this.handleGTevent = this.handleGTevent.bind(this);
     this.handleBack = this.handleBack.bind(this);
+    this.handleForgotPassword = this.handleForgotPassword.bind(this);
   }
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL)
@@ -170,16 +177,15 @@ class AuthenticationContainer extends React.Component {
   }
  
   handleUpdatePassword(route) {
-    return () => {
-      const { password,smartKey } = this.state;
-      updateUserPassword(
-        password,
-        () => {this.goTo(route),
-          cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
-        },
-       this.handleError
-      );
-    };
+    alert('handleUpdatePassword ' + route);
+    const { password,smartKey } = this.state;
+    updateUserPassword(
+      password,
+      () => {this.goTo(route),
+        cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK,{slKey:smartKey,reason:'This link has already been used'})        
+      },
+      this.handleError
+    );
   }
   handleChange = (name, value) => {
     this.setState({ [name]: value });
@@ -188,6 +194,33 @@ class AuthenticationContainer extends React.Component {
   handleBack() {
     this.setState({ view: AUTHENTICATION_CONTAINER.auth });
   }
+
+  handleForgotPassword = () => {
+    const {isLoading, email} = this.state;
+    if(!isLoading){
+      const request = { email: email };
+      this.setState({isLoading:true});
+      cloudFunction(CLOUD_FUNCTIONS.RESET_PASSWORD, request,
+        (result) => {
+          this.setState({
+            snackBar: { 
+              message: "We set you an email to reset your password.",
+              variant: 'success'
+            },
+            isLoading: false
+          });
+        },
+      (error) => {
+        this.setState({
+          snackBar: {
+            message: error.message,
+            variant: 'error'
+          },
+          isLoading: false
+        })
+      });
+    }
+  };
 
   render() {
     const { classes } = this.props;
@@ -358,11 +391,11 @@ class AuthenticationContainer extends React.Component {
         Sign up
       </Button>
     );
-    const resetPasswordButton = (
+    /*const resetPasswordButton = (
       <Button disabled={isLoading} key='resetPasswordButton' className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
         Update
       </Button>
-    );
+    );*/
 
     const signInButton = (
       <Button disabled={isLoading} key='signInButton' 
@@ -373,7 +406,7 @@ class AuthenticationContainer extends React.Component {
     const createPasswordButton = (
       <Button disabled={isLoading} key='createPasswordButton' 
         className={classes.createButton}
-        onClick={this.handleUpdatePassword(routes.DASHBOARD)}
+        onClick={() => {this.handleUpdatePassword(routes.DASHBOARD)}}
       >
         Create password
       </Button>
@@ -396,39 +429,12 @@ class AuthenticationContainer extends React.Component {
                                             }}>
                                             {onSignup? 'Sign Up':'Sign In'}
                                     </Typography>)
-    
-    let authViewOld = [routeLabel(onSignupRoute),
-      googleButton,
-       linkedinButton,
-       orLabel,
-      emailAuth,
-      switchLink(onSignupRoute)];
-    const authView = <AuthView onSignupRoute={onSignupRoute} isLoading={isLoading} handleGTevent={this.handleGTevent} changeHandler={this.handleChange} />;
-    const GoogleView = [backBar,
-      GreetingWithFirstName('Welcome back,'),
-      serviceMessage('Google'),
-      googleButton];
-    const LinkedinView = [
-      backBar,
-      GreetingWithFirstName('Welcome back,'),,
-      serviceMessage('LinkedIn'),
-      linkedinButton
-    ];
-    let signupView = [
-      backBar,
-      routeLabel(true),
-      newAccountMessage(onSignupRoute),
-      nameFields,
-      passwordField('Password',this.handleSignup),
-      disclaimer,
-      signUpButton
-    ];
+  /*
     const passwordView = [
       backBar,
       GreetingWithFirstName('Welcome back,'),
       passwordField('Password',this.handleSignin),
       signInBar,
-      
     ];
     const resetPasswordView = [
       GreetingWithFirstName('Hi'),
@@ -445,75 +451,82 @@ class AuthenticationContainer extends React.Component {
       passwordField('New password',this.handleUpdatePassword),
       createPasswordButton
     ];
-    // const noPasswordView =[
-    //   backBar,
-    //  GreetingWithFirstName('Welcome back'),
-    //  (<NoPassword changeHandler={this.handleChange} email={this.state.email}/>)
-    // ]
-    const noPasswordView = <NoPasswordView isLoading={isLoading} email={email} backHandler={this.handleBack} firstName={firstName} />;
+
     const logoutView =[doneIcon,
       titleMessage('You have successfully logged out'),
       linkButton('Go to sign in',routes.SIGN_IN)
-    ]
+    ]*/
     const validateEmailView =[doneIcon,
       titleMessage('Thank you, we have validated your email'),
       linkButton('Go to dashboard',routes.DASHBOARD)
     ]
-    let loadedView = authView;
-    let gridHeight = 510;
-    let cardHeight = 300;
+
+    let loadedView;
+
     switch (view) {
-      case AUTHENTICATION_CONTAINER.auth:
-        loadedView = authView;
-        cardHeight = 510;
-        gridHeight = 350;
-        break;
       case AUTHENTICATION_CONTAINER.google:
-        loadedView = GoogleView;
-        cardHeight = 350;
-        gridHeight = 200;
+        loadedView = <SocialView type="Google"
+        isLoading={isLoading} email={email} backHandler={this.handleBack}
+        firstName={firstName} GTeventHandler={this.handleGTevent}
+        onSignupRoute={onSignupRoute} changeHandler={this.handleChange} />;
         break;
+
       case AUTHENTICATION_CONTAINER.linkedin:
-        loadedView = LinkedinView;
-        cardHeight = 350;
-        gridHeight = 200;
+        loadedView = <SocialView type="LinkedIn"
+        isLoading={isLoading} email={email} backHandler={this.handleBack}
+        firstName={firstName}
+        onSignupRoute={onSignupRoute} changeHandler={this.handleChange} />;
         break;
+
       case AUTHENTICATION_CONTAINER.signup:
-        loadedView = signupView;
-        cardHeight = (onSignupRoute? 500:540);
-        gridHeight = (onSignupRoute? 350:400);
+        loadedView = <SignUpView
+        isLoading={isLoading} email={email} backHandler={this.handleBack}
+        onSignupRoute={onSignupRoute} changeHandler={this.handleChange}
+        firstName={firstName} lastName={lastName} password={password}
+        passwordAction={this.handleSignup} />;
         break;
+
       case AUTHENTICATION_CONTAINER.password:
-        loadedView = passwordView;
-        cardHeight = 450;
-        gridHeight = 300;
+        loadedView = <PasswordView
+        isLoading={isLoading} email={email} backHandler={this.handleBack}
+        changeHandler={this.handleChange} firstName={firstName}
+        password={password} passwordAction={this.handleUpdatePassword}
+        forgotPasswordHandler={this.handleForgotPassword} />;
         break;
+
       case AUTHENTICATION_CONTAINER.resetPassword:
-        loadedView = resetPasswordView;
-        cardHeight = 450;
-        gridHeight = 300;
+        loadedView = <ResetPasswordView
+        firstName={firstName} changeHandler={this.handleChange} password={password}
+        passwordAction={this.handleUpdatePassword} isLoading={isLoading} />;
         break;
+
       case AUTHENTICATION_CONTAINER.createPassword:
-        loadedView = createPasswordView;
-        cardHeight = 550;
-        gridHeight = 400;
+        loadedView = <CreatePasswordView
+        onSignupRoute={onSignupRoute} isLoading={isLoading} firstName={firstName}
+        handleGTevent={this.handleGTevent} changeHandler={this.handleChange}
+        password={password} passwordAction={this.handleUpdatePassword} />;
         break;
-        case AUTHENTICATION_CONTAINER.logout:
-        loadedView = logoutView;
-        cardHeight = 400;
-        gridHeight = 250;
+
+      case AUTHENTICATION_CONTAINER.logout:
+        loadedView = <MessageView message="You have successfully logged out"
+        destination={routes.SIGN_IN} destinationName="sign in" />;
         break;
-        case AUTHENTICATION_CONTAINER.noPassword:
-        loadedView = noPasswordView;
-        // cardHeight = 360;
-        // gridHeight = 180;
+
+      case AUTHENTICATION_CONTAINER.noPassword:
+        loadedView = <NoPasswordView
+        isLoading={isLoading} email={email} backHandler={this.handleBack}
+        firstName={firstName} />;
         break;
-        case AUTHENTICATION_CONTAINER.validateEmail:
-        loadedView = validateEmailView;
-        cardHeight = 400;
-        gridHeight = 250;
+
+      case AUTHENTICATION_CONTAINER.validateEmail:
+        loadedView = <MessageView message="Thank you, we have validated your email"
+        destination={routes.DASHBOARD} destinationName="dashboard" />;
         break;
+
       default:
+        loadedView = <AuthView
+        onSignupRoute={onSignupRoute} isLoading={isLoading}
+        handleGTevent={this.handleGTevent} changeHandler={this.handleChange} />;
         break;
     }
     return (
