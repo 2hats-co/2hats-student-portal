@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.svg'
@@ -27,12 +26,13 @@ const styles = theme => ({
     marginLeft:75,
     width:200,
     height:69,
-  
     },
     centeredLogo:{
-      marginTop:50,        
+      marginTop:40,        
       marginBottom:30, 
-      marginLeft:115,
+      marginLeft:'auto',
+      marginRight:'auto',
+      display:'block',
       width:117,
       height:42,
       },
@@ -83,11 +83,7 @@ function LogoInCard(props) {
     </div>
   );
 }
-LogoInCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-};
+
 LogoInCard.defaultProps = {
   width: 350,
   height: 500
