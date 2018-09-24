@@ -85,7 +85,7 @@ function LogoInCard(props) {
 }
 
 LogoInCard.defaultProps = {
-  width: 350,
+  width: 320,
   height: 500
 };
 
