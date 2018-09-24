@@ -192,7 +192,7 @@ class SpeedySignupContainer extends Component {
              snackBar={snackBar} 
             >
                 <Grid container direction={isMobile?'column':'row'} alignItems='center'>
-                {view === SPEEDY_SIGNUP.form? this.renderCongrats():this.renderCongrats()}
+                {view === SPEEDY_SIGNUP.form? this.renderForm():this.renderCongrats()}
                 {!isMobile &&
                 <Grid item>
                     <img className={classes.img} src={view === SPEEDY_SIGNUP.success? celebratingMan:girlWithLaptop}/>
