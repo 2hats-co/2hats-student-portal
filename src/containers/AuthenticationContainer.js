@@ -2,29 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-//material ui
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import Grid from "@material-ui/core/Grid";
-import StyledLink from "../components/StyledLink";
 
-import DoneIcon from '@material-ui/icons/Done'
 //routing
 import * as routes from "../constants/routes";
 import { withRouter } from "react-router-dom";
 import { AUTHENTICATION_CONTAINER } from "../constants/views";
 
 import {warmUp} from '../utilities/Authentication/warmUp'
-//authentication components
-import Name from "../components/InputFields/Name";
-import Password from "../components/InputFields/Password";
-import Disclaimer from "../components/Authentication/Disclaimer";
-import EmailAuth from "../components/Authentication/EmailAuth";
-import GoogleButton from "../components/Authentication/GoogleButton";
-import LinkedinButton from "../components/Authentication/LinkedinButton";
+
 import LogoInCard from "../components/LogoInCard";
-import ChangeAdpter from "../components/InputFields/ChangeAdapter";
 
 // Views
 import AuthView from '../components/Authentication/AuthView';
@@ -46,45 +33,13 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import {auth} from '../firebase';
 import { connect } from 'react-redux';
 import {actionTypes} from 'redux-firestore'
-import BackIcon from "@material-ui/icons/KeyboardBackspace";
+
 const styles = theme => ({
   root: {
     paddingLeft: 35,
     paddingRight: 35,
     paddingBottom: 40,
   },
-  button: {
-    marginTop: 17,
-    marginBottom: 17,
-    width: 120
-  },
-  createButton: {
-    marginTop: 17,
-    marginBottom: 17,
-    width: 180
-  },
-  resetButton: {
-    width: 100
-  },
-  socialButton: {
-    margin: 5,
-    width: 250,
-    height: 40,
-    color: "#fff"
-  },
-  socialIcon: {
-    marginRight: 17
-  },
-  or: {
-    marginTop: 15
-  },
-  footerLink: {
-    display: "inline",
-    marginRight: 5
-  },
-  iconButton: {
-    fontColor: "#000"
-  }
 });
 const INITIAL_STATE = {
   firstName: "",
@@ -233,233 +188,8 @@ class AuthenticationContainer extends React.Component {
       email,
       view
     } = this.state;
-    const onSignupRoute = this.props.history.location.pathname === routes.SIGN_UP
-    const backBar = (
-      <Grid key="back-bar"
-        style={{ width: "100%", 
-        borderStyle:'solid',
-        borderRadius:30,
-        height:38,
-        borderWidth:0.5,
-        borderColor:'#aeaeae',
-    
-       }}
-        container
-        direction="row"
-        alignItems="center"
-        justify="flex-start"
-      >
-        <IconButton
-          disabled={isLoading}  
-          aria-label="back"
-          style={{marginLeft:4,width:32,height:32}}
-          id="back-to-email"
-          onClick={() => {
-            this.setState({ view: AUTHENTICATION_CONTAINER.auth });
-          }}
-        >
-          <BackIcon className={classes.iconButton} />
-        </IconButton>{" "}
-        <Typography variant={email.length < 30?"body1":'caption'} style={{marginLeft:5,color:'#000',maxWidth:'75%',whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
-          {email}
-        </Typography>
-      </Grid>
-    );
-    const googleButton = (
-      <GoogleButton
-        disabled={isLoading}
-        key="google-button"
-        id="google-button"
-        style={{marginTop:10}}
-        GTevent={this.handleGTevent}
-        action={onSignupRoute?'Sign up': 'Sign in'}
-        changeHandler={this.handleChange}
-      />
-    );
-    const linkedinButton = (
-      <LinkedinButton
-        disabled={isLoading}
-        key="linkedin-button"
-        id="linkedin-button"
-        action={onSignupRoute?'Sign up': 'Sign in'}
-        changeHandler={this.handleChange}
-      />
-    );
-    const emailAuth = <EmailAuth key='EmailAuth' changeHandler={this.handleChange} />;
-    let linkButton = (label, link) => (
-      <StyledLink key={`${label}${link}`} href={link}>
-        {label}
-      </StyledLink>
-    );
-    const nameFields = (
-      <ChangeAdpter  key="namefield" changeHandler={this.handleChange}>
-        <Name firstName={firstName} lastName={lastName} />
-      </ChangeAdpter>
-    );
-    const orLabel = (
-      <Typography
-        key="or"
-        className={classes.or}
-        variant="subheading"
-        gutterBottom
-      >
-        OR
-      </Typography>
-    );
-    let footerLink = (label, link, linkLabel) => (
-      <div key={`${label + link}`}>
-        <Typography className={classes.footerLink} variant="body1">
-          {label}
-        </Typography>
-        {linkButton(linkLabel, link)}
-      </div>
-    );
 
-    const forgetPasswordLink = () => {
-      const callback = () => {
-        if(!isLoading){
-          const request = {
-            email: email
-          };
-          this.setState({isLoading:true});
-          cloudFunction(CLOUD_FUNCTIONS.RESET_PASSWORD, request,
-            (result) => {
-              this.setState({
-                snackBar: { 
-                  message: "We set you an email to reset your password.",
-                  variant: 'success'
-                },
-                isLoading: false
-              });
-            },
-          (error) => {
-            this.setState({
-              snackBar: {
-                message: error.message,
-                variant: 'error'
-              },
-              isLoading: false
-            })
-          });
-        }
-      };
-      return (
-        <StyledLink key='forgot-password' onClick={callback}>
-         Forgot password?
-        </StyledLink>
-      );
-    };
-
-    const disclaimer = <Disclaimer key='Disclaimer'  />;
-    const doneIcon = (<DoneIcon key='logout-icon' style={{fontSize:120, color:'#00E676'}}/>)
-
-    const GreetingWithFirstName =(greeting)=> (
-      <Typography key='welcomeGreeting'  variant="title" color="primary" style={{ width: "100%" ,textAlign:'center'}}>
-       {greeting} {firstName}
-      </Typography>
-    );
-    const serviceMessage =(service)=> (
-      <Typography key='serviceMessage' variant="body1">
-        It looks like your account is created with {service}.
-      </Typography>
-    );
-   
-    const newAccountMessage =(isHidden)=> {
-      if(!isHidden){
-        return <Typography key='newAccountMessage' style={{marginBottom:10}} variant="body1">
-            It looks like we don’t have an account with this email address.
-          </Typography>
-      }
-    }
-    const createPasswordMessage = (
-      <Typography key='createPasswordMessage'  variant="subheading">
-        It looks like you don’t have a password yet.
-      </Typography>
-    );
-    const resetPasswordMessage = (
-      <Typography  key='resetPasswordMessage' variant="subheading">
-        Please type a new password below.
-      </Typography>
-    );
-    const passwordField = (label,action)=>(
-      <ChangeAdpter key='passwordFieldAdapter' changeHandler={this.handleChange}>
-        <Password primaryAction={action} label={label} password={password} />
-      </ChangeAdpter>
-    );
-    const signUpButton = (
-      <Button disabled={isLoading} key='signUpButton' className={classes.button} onClick={this.handleSignup}>
-        Sign up
-      </Button>
-    );
-    /*const resetPasswordButton = (
-      <Button disabled={isLoading} key='resetPasswordButton' className={classes.button} onClick={this.handleUpdatePassword(routes.DASHBOARD)}>
-        Update
-      </Button>
-    );*/
-
-    const signInButton = (
-      <Button disabled={isLoading} key='signInButton' 
-       className={classes.button} onClick={this.handleSignin}>
-        Sign in
-      </Button>
-    );
-    const createPasswordButton = (
-      <Button disabled={isLoading} key='createPasswordButton' 
-        className={classes.createButton}
-        onClick={() => {this.handleUpdatePassword(routes.DASHBOARD)}}
-      >
-        Create password
-      </Button>
-    );
-    const titleMessage =(message)=> ( <Typography key='logoutMessage'  variant='title' style={{textAlign:'center', textTransform:'none'}}>{message}</Typography>)
-    const signInBar = (<Grid key= 'signInBar'  container='row' alignItems='center' justify='space-between'>{signInButton} {forgetPasswordLink()}</Grid>)
-    let switchLink = (onSignup) =>{
-      if(onSignup){
-        return footerLink(`Already have an account?`,routes.SIGN_IN,'Sign in')
-      }else{
-        return footerLink(`Don’t have an account?`,routes.SIGN_UP,'Sign up')
-      }
-    }
-    let routeLabel =(onSignup) => (<Typography key={`routeLabel-${onSignup? 'Sign-up':'sign-in'}`}
-                                            variant='title' color='primary' 
-                                            style={{width:'100%',
-                                            textAlign:'center',
-                                            marginBottom:5,
-                                            //marginTop:5,
-                                            }}>
-                                            {onSignup? 'Sign Up':'Sign In'}
-                                    </Typography>)
-  /*
-    const passwordView = [
-      backBar,
-      GreetingWithFirstName('Welcome back,'),
-      passwordField('Password',this.handleSignin),
-      signInBar,
-    ];
-    const resetPasswordView = [
-      GreetingWithFirstName('Hi'),
-      resetPasswordMessage,
-      passwordField('New password',this.handleUpdatePassword),
-      resetPasswordButton
-    ];
-    const createPasswordView = [
-      GreetingWithFirstName('Welcome back,'),
-      createPasswordMessage,
-      googleButton,
-      linkedinButton,
-      orLabel,
-      passwordField('New password',this.handleUpdatePassword),
-      createPasswordButton
-    ];
-
-    const logoutView =[doneIcon,
-      titleMessage('You have successfully logged out'),
-      linkButton('Go to sign in',routes.SIGN_IN)
-    ]*/
-    const validateEmailView =[doneIcon,
-      titleMessage('Thank you, we have validated your email'),
-      linkButton('Go to dashboard',routes.DASHBOARD)
-    ]
+    const onSignupRoute = this.props.history.location.pathname === routes.SIGN_UP;
 
     let loadedView;
 

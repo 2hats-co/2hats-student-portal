@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.svg'
@@ -84,11 +83,7 @@ function LogoInCard(props) {
     </div>
   );
 }
-LogoInCard.propTypes = {
-  classes: PropTypes.object.isRequired,
-  width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
-};
+
 LogoInCard.defaultProps = {
   width: 350,
   height: 500
