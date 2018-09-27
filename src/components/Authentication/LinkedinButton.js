@@ -18,10 +18,10 @@ const styles = theme => ({
       height: 40,
       color: '#fff',
       backgroundColor: '#0077B5',
+      padding: 0,
     },
     socialIcon: {
-      marginTop:2,
-      marginRight: 17
+      marginRight: 16
     },
   });
 class LinkedinButton extends Component{
@@ -78,9 +78,8 @@ class LinkedinButton extends Component{
           onClick={this.authorize}
           style={{ backgroundColor: '#0077B5' }}
           className={classes.socialButton}>
-          <div className={classes.socialIcon} >
-            <img alt={'linkedinLogo'} src={LinkedinIcon} />
-          </div> {action||'sign in'} with LinkedIn
+            <img alt={'linkedinLogo'} src={LinkedinIcon} className={classes.socialIcon} />
+            {action||'sign in'} with LinkedIn
         </Button>
         )
     }
