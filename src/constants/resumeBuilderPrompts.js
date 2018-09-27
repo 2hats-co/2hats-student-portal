@@ -30,7 +30,7 @@ Liaised with team members from the marketing team to deliver aesthetically-pleas
 const INDUSTRIES = ['Business','Marketing','Design','IT']
 const businessList = [{key:'B2B',label:'B2B Sales'},{key:'RM',label:'Relationship Management'},{key:'LG',label:'Lead Generation'}]
 const marketingList = [{key:'CW',label:'Content Writing'},{key:'SMM',label:'Social Media Marketing'},{key:'SEO',label:'SEO'}]
-const DesignList = [{key:'GI',label:'Graphic/Illustration'},{key:'UX',label:'User Experience'},{key:'UI',label:'User Interface'}]
+const DesignList = [{key:'GI',label:'Graphic Design'},{key:'UX',label:'User Experience'},{key:'UI',label:'User Interface'}]
 const ITList = [{key:'APP',label:'App Development'},{key:'WEB',label:'Web Development'},{key:'DA',label:'Data Analytics'}]
 const ALL_INTERESTS = [].concat(marketingList,DesignList).concat(businessList,ITList)
 export function getInterestByKey(key){
@@ -81,7 +81,7 @@ const SKILLS ={
     CW:['Wordpress','Word','Hemingway'],
     SMM:['Facebook AD','Google Analytics/Adword','SEO','MailChimp','Canva'],
     SEO:['SEMrush','SE Ranking','Google Analytics/Adword'],
-    GI:['Adobe Photoshop','Adobe Illustrator','Adobe InDesign'],
+    GI:['Illustration','Adobe Photoshop','Adobe Illustrator','Adobe InDesign'],
     UI:['Sketch','Adobe XD','Adobe Photoshop','Adobe Illustrator','Framer'],
     UX:['Sketch','InVision','Adobe XD','Balsamiq','Framer'],
     APP:['Java','Swift','C++','Objective-c','React Native','Kotlin'],
