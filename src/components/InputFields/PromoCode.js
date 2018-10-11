@@ -29,26 +29,28 @@ class PromoCode extends React.Component{
     handleChange(e){
         const value = e.target.value.toUpperCase()
         const {changeHandler} = this.props
-        if(value.length <= 12){
+        if(value.length < 13){
             this.setState({code:value})
+            if(codes.includes(value)){
+                this.setState({isValid:true})
+              changeHandler('promoCode',value)
+            }else{
+                this.setState({isValid:false})
+            }
         }
         
-        if(codes.includes(value)){
-            this.setState({isValid:true})
-          changeHandler('promoCode',value)
-        }else{
-            this.setState({isValid:false})
-        }
+        
     }
     render(){
         const {isValid,code} = this.state
+        const comment = (isValid? 'accepted':'invalid')
         return(
         <FormControl style={{width:'100%'}}
         id="promoCode"
         key="promoCode"
         error = {!isValid && code.length > 11}
          aria-describedby="component-error-text">
-          <InputLabel htmlFor="component-error">{(!isValid && code.length > 11)?'Promo Code(invalid)':'Promo Code'}</InputLabel>
+          <InputLabel htmlFor="component-error">{code.length > 11? `Promo Code (${comment})`:'Promo Code'}</InputLabel>
           <Input id="component-error" value={code} onChange={this.handleChange} />
         </FormControl>
         )
