@@ -13,7 +13,7 @@ import {db} from '../store'
 import { COLLECTIONS } from '../constants/firestore';
 
 import {blobAvatarUploader} from '../utilities/Uploader'
-import {remoteConsole} from '../utilities/remoteLogging'
+
 
 const styles = theme =>({
     dropZone:{

@@ -63,7 +63,7 @@ class BuggyBoy extends Component{
         this.setState({isOpen:true})
     }
     closeDialog(){
-        this.setState({isOpen:false,isOpen:false,
+        this.setState({isOpen:false,
             isUploading:false,
             screenshotURL:'',
             hasChanged:false,

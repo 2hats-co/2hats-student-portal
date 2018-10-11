@@ -283,6 +283,4 @@ function mapDispatchToProps(dispatch) {
       clearData: () => {dispatch({ type: actionTypes.CLEAR_DATA, preserve: { data: false, ordered: false }})}
   })
 }
-
-
 export default withRouter(withStyles(styles)(connect(mapDispatchToProps)(AuthenticationContainer)));
