@@ -32,6 +32,7 @@ import { INTRODUCTION_CONTAINER } from "../constants/views";
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
 import * as action from "../actions/AuthenticationContainerActions";
+import ReactPixel from 'react-facebook-pixel';
 
 const styles = theme => ({
   root: {
@@ -53,7 +54,11 @@ class IntroductionContainer extends React.Component {
     this.goToUploadResume = this.goToUploadResume.bind(this);
     this.goToBuildResume = this.goToBuildResume.bind(this);
   }
-
+  componentWillMount(){
+    ReactPixel.init('2178522349094498', {}, { debug: true, autoConfig: false });
+    ReactPixel.pageView();
+    ReactPixel.fbq('track', 'CompleteRegistration');
+  }
   goToBuildResume() {
     this.props.history.push(routes.BUILD_RESUME);
   }
