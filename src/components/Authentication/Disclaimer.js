@@ -4,8 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
     root:{
-    position: 'relative',
-    top: 20,
+      marginTop: 30,
+      marginBottom: 10,
     },large:theme.typography.body1,
   link: {
     color: theme.palette.primary.light,

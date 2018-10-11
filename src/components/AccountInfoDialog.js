@@ -12,6 +12,7 @@ import CurrentUniversity from './InputFields/CurrentUniversity';
 import Name from './InputFields/Name';
 import ChangeAdpter from './InputFields/ChangeAdapter'
 import AvailableDays from './InputFields/AvailableDays';
+import PromoCode from './InputFields/PromoCode';
 
 
  class AccountInfoDialog extends React.Component{
@@ -34,13 +35,14 @@ import AvailableDays from './InputFields/AvailableDays';
     }
     loadData(){
         if(this.props.user){
-        const {firstName,lastName,phoneNumber,workingRights,currentUniversity,availableDays} = this.props.user
+        const {firstName,lastName,phoneNumber,workingRights,currentUniversity,availableDays,promoCode} = this.props.user
             this.handleChange('firstName',firstName)
             this.handleChange('lastName',lastName)
            this.handleChange('phoneNumber',phoneNumber)
            this.handleChange('workingRights',workingRights)
            this.handleChange('currentUniversity',currentUniversity)
            this.handleChange('availableDays',availableDays)
+           this.handleChange('promoCode',promoCode)
            this.setState({unChanged:true})
         }
     }
@@ -56,7 +58,9 @@ import AvailableDays from './InputFields/AvailableDays';
         this.props.closeHandler()
     }
     handleChange(name,value){
+        
         if(value){
+            console.log(name,value)
             this.setState({[name]:value}) 
             this.setState({unChanged:false})
         }
@@ -65,7 +69,7 @@ import AvailableDays from './InputFields/AvailableDays';
       const {isOpen} = this.props
  
         if(this.state){
-        const {firstName,lastName,phoneNumber,workingRights,currentUniversity,availableDays} = this.state
+        const {firstName,lastName,phoneNumber,workingRights,currentUniversity,availableDays,promoCode} = this.state
             return (
                 <Dialog activity='Update' 
                 unChanged={this.state.unChanged}
@@ -82,6 +86,7 @@ import AvailableDays from './InputFields/AvailableDays';
                    <div style={{marginTop:6}}><WorkingRights hasLabel value={workingRights} changeHandler={this.handleChange}/></div>
                    <div style={{marginTop:6}}><AvailableDays hasLabel value={availableDays} changeHandler={this.handleChange}/></div>
                    <div style={{marginTop:8}}><PhoneNumber hasLabel value={phoneNumber} changeHandler={this.handleChange}/></div>
+                   <div style={{marginTop:8}}><PromoCode hasLabel value={promoCode} changeHandler={this.handleChange}/></div>
                    </div>
                 </Dialog>
             )

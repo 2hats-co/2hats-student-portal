@@ -1,4 +1,5 @@
 import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
@@ -7,7 +8,14 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
 import {withOnEnter} from './withOnEnter'
+
+const styles = {
+  input: {
+    height: 'auto',
+  },
+}
 
 class Password extends React.Component{
     
@@ -20,7 +28,7 @@ class Password extends React.Component{
           this.setState({showPassword:!this.state.showPassword})
       } 
     render(){
-        const {changeHandler,value,label,handleKeyPress} = this.props
+        const {classes,changeHandler,value,label,handleKeyPress} = this.props
     return(
       
 
@@ -46,11 +54,11 @@ class Password extends React.Component{
                 </IconButton>
               </InputAdornment>
             }
+            classes={{input:classes.input}}
           />
         </FormControl>
 
     )
     } 
 }
-export default withOnEnter(Password)
-
+export default withStyles(styles)(withOnEnter(Password));

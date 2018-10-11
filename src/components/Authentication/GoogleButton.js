@@ -18,11 +18,11 @@ const styles = theme => ({
       width: 250,
       height: 40,
       color: '#fff',
-      backgroundColor: '#0077B5' 
+      backgroundColor: '#0077B5',
+      padding: 0,
     },
     socialIcon: {
-      marginTop:2,
-      marginRight: 17
+      marginRight: 16
     },
   });
 class GoogleButton extends Component{
@@ -75,10 +75,10 @@ class GoogleButton extends Component{
               key={`google-button`}
               style={{ backgroundColor: '#E05449' }}
               onClick={renderProps.onClick}
-              className={classes.socialButton}>
-              <div className={classes.socialIcon} >
-                <img alt={'google-logo'} src={GoogleIcon} />
-              </div> {action||'Sign in'} with Google
+              className={classes.socialButton}
+            >
+                <img alt={'google-logo'} src={GoogleIcon} className={classes.socialIcon} />
+                {action||'Sign in'} with Google
             </Button>
           )}
         />
