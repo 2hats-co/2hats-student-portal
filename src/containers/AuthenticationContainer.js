@@ -242,7 +242,7 @@ class AuthenticationContainer extends React.Component {
         break;
 
       case AUTHENTICATION_CONTAINER.noPassword:
-        loadedView = <NoPasswordView
+        loadedView = <NoPasswordView changeHandler={this.handleChange}
         isLoading={isLoading} email={email} backHandler={this.handleBack}
         firstName={firstName} />;
         break;
