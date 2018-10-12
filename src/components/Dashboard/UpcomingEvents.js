@@ -29,19 +29,27 @@ function UpcomingEvents(props){
       const link = event.url
      items.push({key,timestamp,title,body,link})
     })
+
+    if (items.length == 0) return(
+      <div className={classes.root}>
+        <Typography className={classes.title} variant='display1'>
+          Upcoming Events
+        </Typography>
+        <Typography variant='subheading'>
+          There are not upcoming events at the moment — check again later!
+        </Typography>
+      </div>
+    );
+
     return(<div className={classes.root}><Typography className={classes.title} variant='display1'>
      Upcoming Events
     </Typography>
     <Divider/>
     {items.map(x=> (<div key={x.key}><ListItem title={x.title} timestamp={x.timestamp} body={x.body} link={x.link} actionIcon={<LinkIcon style={{fontSize:38}}/>}/><Divider/></div>)
     )}
-  
     
     <Divider/>
-   </div>)
+   </div>);
 }
 
 export default withStyles(styles)(UpcomingEvents)
-
-
-
