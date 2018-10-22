@@ -56,7 +56,6 @@ class IntroductionContainer extends React.Component {
   }
   componentWillMount(){
     ReactPixel.init('2178522349094498', {}, { debug: true, autoConfig: false });
-    ReactPixel.pageView();
     ReactPixel.fbq('track', 'CompleteRegistration');
   }
   goToBuildResume() {
