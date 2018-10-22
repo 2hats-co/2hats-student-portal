@@ -2,14 +2,14 @@ import React from 'react'
 import InputLabel from '@material-ui/core/InputLabel'
 import Input from '@material-ui/core/Input'
 import FormControl from '@material-ui/core/FormControl'
-import FormHelperText from '@material-ui/core/FormHelperText'
+
 const codes = ['UNSWAISOC123','UTSMEDICAL12',
 'BUSINESSONE1','USYDNETWORK1','UNSWYOUNGEN1',
 'UNSWSTARTUPS','USYDJAMMINGS','UNSWMEDREVUE',
 'USYDKOREANCA','UNSWLAWREVUE','USYDBUSINESS',
 'MUMUBSOCIETY','UNSWREALSOCS','UNSWMANAGESO',
 'UNSWINVESTSO','UNSWBUSINESS','UNSWBITSASOC',
-'UNSWASOCIETY']
+'UNSWASOCIETY','UNSWBITSASOC']
 class PromoCode extends React.Component{
  constructor(props){
         super(props)
@@ -38,8 +38,7 @@ class PromoCode extends React.Component{
                 this.setState({isValid:false})
             }
         }
-        
-        
+
     }
     render(){
         const {isValid,code} = this.state

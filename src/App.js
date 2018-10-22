@@ -18,68 +18,68 @@ import Landing from './components/Landing';
 
 // loadable
 import Loadable from 'react-loadable';
-
+const loadingCard = (<Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>)
 
 const AuthenticationContainer = Loadable({
   loader: () => import('./containers/AuthenticationContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+    return loadingCard
   }
 });
 const SignupContainer = Loadable({
   loader: () => import('./containers/SignupContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+    }
 });
 
 const SpeedySignupContainer = Loadable({
   loader: () => import('./containers/SpeedySignupContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+    }
 });
 const IntroductionContainer = Loadable({
   loader: () => import('./containers/IntroductionContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+     }
 });
 const SmartLinkContainer = Loadable({
   loader: () => import('./containers/SmartLinkContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+   }
 });
 const ProfileContainer = Loadable({
   loader: () => import('./containers/ProfileContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+    }
 });
 const DashboardContainer = Loadable({
   loader: () => import('./containers/DashboardContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
+    return loadingCard
   }
 });
 const JobBoardContainer = Loadable({
   loader: () => import('./containers/JobBoardContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+      }
 });
 const RemoteLoggerContainer = Loadable({
   loader: () => import('./containers/RemoteLoggerContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+   }
 });
 const SubmissionContainer = Loadable({
   loader: () => import('./containers/SubmissionContainer'),
   loading() {
-    return <Grid container alignItems="center" justify="center" style={{height:'100%',position:'absolute',top:0,left:0}}><CircularProgress color="primary" size={60}/></Grid>
-  }
+    return loadingCard
+ }
 });
 class App extends Component {
   constructor(props){
