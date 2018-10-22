@@ -58,7 +58,7 @@ class AutoCompleteField extends React.Component {
     showList: false,
   };
   handleAdd(){
-    const skill = this.state.skillValue;
+    const skill = this.state.skillValue.replace(',', '');
     if (skill !== "") {
       this.handleClose(skill);
     }
@@ -142,8 +142,9 @@ class AutoCompleteField extends React.Component {
                 placeholder={placeholder}
                 className={classes.textField}
                 onChange={this.handleChange("skillValue")}
-                onKeyPress={e => {
-                  if (e.key === "Enter") {
+                onKeyUp={e => {
+                  console.log(e.key)
+                  if (e.key === "Enter" || e.key === ",") {
                     this.handleAdd()
                   }
                 }}
