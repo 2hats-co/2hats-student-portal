@@ -1,6 +1,7 @@
 import { functions } from "../store";
 
 export const CLOUD_FUNCTIONS = {
+    TAG_TRACKER:'restApiEventTracker',
     SPEEDY_SIGNUP: "restApiSpeedySignup",
     AUTHENTICATE_3RD_PARTY: "restApiAuthenticate3rdParty",
     CHECK_EMAIL: "restApiCheckEmail",

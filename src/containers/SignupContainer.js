@@ -491,7 +491,7 @@ export default enhance(
   withRouter(
     compose(
       withAuthorisation(authCondition)(
-        withStyles(styles, { withTheme: true })(ResumeBuilderContainer)
+        withStyles(styles,{withTheme:true})(ResumeBuilderContainer)
       )
     )
   )

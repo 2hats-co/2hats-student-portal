@@ -14,7 +14,7 @@ import {
 import * as routes from './constants/routes';
 import {AUTHENTICATION_CONTAINER, INTRODUCTION_CONTAINER} from './constants/views'
 import Landing from './components/Landing';
-
+import TagTracker from "./components/TagTracker";
 
 // loadable
 import Loadable from 'react-loadable';
@@ -109,6 +109,7 @@ componentWillUnmount() {
        <Router>
      
     <div className="app"> 
+      <TagTracker/>
       <Route exact path={routes.SIGN_UP} component={() => <AuthenticationContainer isPublic/>} />
       <Route exact path={routes.LOG_OUT} component={() => <AuthenticationContainer isPublic view={AUTHENTICATION_CONTAINER.logout}/>} />
       <Route exact path={routes.SIGN_IN} component={() =>  <AuthenticationContainer isPublic/>} />
