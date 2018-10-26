@@ -8,7 +8,7 @@ class TagTracker extends Component {
         const {location} = this.props.history
         const tracker = location.hash;
         if(tracker){
-            cloudFunction(CLOUD_FUNCTIONS.TAG_TRACKER, {type:'Links',name:tracker.replace('#','')} ,(o)=>{console.log(o)}, (e)=>{console.log(e)})
+            cloudFunction(CLOUD_FUNCTIONS.TAG_TRACKER, {type:'link',name:tracker.replace('#','')} ,(o)=>{console.log(o)}, (e)=>{console.log(e)})
         }
     }
     render(){
