@@ -47,7 +47,7 @@ function SignUpIntro(props) {
     return(
     <Grid item className={classes.copy}>
         <Typography variant="display1">We bridge the gap between startups and students</Typography>
-        <Typography className={classes.subtitle} variant="title">The simplest way to get access to meaningful work experience!</Typography>
+        <Typography className={classes.subtitle} variant="title">The simplest way to get access to meaningful work experience</Typography>
         
         <Grid container style={{marginTop:40}}>
         <Grid item><img src={womanGraphic} className={classes.womanGraphic} /></Grid>
