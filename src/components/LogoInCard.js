@@ -11,14 +11,10 @@ import Background from '../assets/background/Colour.svg';
 
 const styles = theme => ({
   root:{
-    display: 'table',
-    position: 'absolute',
     height: '100%',
     width: '100%',
   },
   middle:{
-    display: 'table-cell',
-    verticalAlign: 'middle'
   },
   logo:{
     paddingTop:40,        
@@ -45,8 +41,6 @@ const styles = theme => ({
       },
     paper:{
       borderRadius:3,
-      marginLeft: 'auto',
-      marginRight: 'auto',
       overflowY:'visible',
       overflowX:'hidden',
       position:'relative',

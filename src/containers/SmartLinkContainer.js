@@ -1,6 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import LogoInCard from "../components/LogoInCard";
+import Grid from '@material-ui/core/Grid';
 import Typography from "@material-ui/core/Typography";
 
 import { auth,db } from "../store";
@@ -61,9 +62,13 @@ class SmartLinkContainer extends React.Component{
 		const {isLoading,errorMessage} = this.state
 
 	return (
+		<Grid container style={{height:'100vh'}} alignItems="center" justify="center">
+                <Grid item>
 		<LogoInCard isLoading={isLoading} height={330}>
 			<Typography variant='title' style={{ paddingTop:50,width: '100%', textAlign: 'center' }}>{isLoading?'Hold on to your hat 🤠':errorMessage}</Typography>
 		</LogoInCard>
+		</Grid>
+		</Grid>
 	);
 
 

@@ -12,6 +12,9 @@ import { AUTHENTICATION_CONTAINER } from "../constants/views";
 import {warmUp} from '../utilities/Authentication/warmUp'
 
 import LogoInCard from "../components/LogoInCard";
+import SignUpIntro from '../components/Authentication/SignUpIntro';
+
+
 
 // Views
 import AuthView from '../components/Authentication/AuthView';
@@ -36,6 +39,9 @@ import {actionTypes} from 'redux-firestore'
 
 const styles = theme => ({
   root: {
+    height: '100vh',
+  },
+  logoInCardGrid: {
     paddingLeft: 35,
     paddingRight: 35,
     paddingBottom: 40,
@@ -177,7 +183,7 @@ class AuthenticationContainer extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, theme } = this.props;
     const {
       firstName,
       lastName,
@@ -187,7 +193,7 @@ class AuthenticationContainer extends React.Component {
       email,
       view
     } = this.state;
-
+    console.log(theme)
     const onSignupRoute = this.props.history.location.pathname === routes.SIGN_UP;
 
     let loadedView;
@@ -258,19 +264,25 @@ class AuthenticationContainer extends React.Component {
         handleGTevent={this.handleGTevent} changeHandler={this.handleChange} />;
         break;
     }
-    return (
-      <LogoInCard width={320} height="auto" isLoading={isLoading} snackBar={snackBar}  >
-        <Grid
-          container
-          className={classes.root}
-          alignItems="center"
-          direction="column"
-          justify="space-between"
-        >
-          {[loadedView]}
-        </Grid>
-      </LogoInCard>
-    );
+
+    return (<Grid container className={classes.root} alignItems="center" justify="center">
+      { theme.responsive.isLessThan840 ? null :
+        view !== AUTHENTICATION_CONTAINER.auth ? null : <SignUpIntro />
+      }
+      <Grid item>
+        <LogoInCard width={320} height="auto" isLoading={isLoading} snackBar={snackBar}  >
+          <Grid
+            container
+            className={classes.logoInCardGrid}
+            alignItems="center"
+            direction="column"
+            justify="space-between"
+          >
+            {[loadedView]}
+          </Grid>
+        </LogoInCard>
+      </Grid>
+    </Grid>);
   }
 }
 
@@ -283,4 +295,4 @@ function mapDispatchToProps(dispatch) {
       clearData: () => {dispatch({ type: actionTypes.CLEAR_DATA, preserve: { data: false, ordered: false }})}
   })
 }
-export default withRouter(withStyles(styles)(connect(mapDispatchToProps)(AuthenticationContainer)));
+export default withRouter(withStyles(styles, { withTheme: true })(connect(mapDispatchToProps)(AuthenticationContainer)));

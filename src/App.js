@@ -97,8 +97,16 @@ componentWillUnmount() {
 }
  updateWindowDimensions() {
    const isMobile = window.innerWidth<700
+   const isLessThan840 = window.innerWidth<840
+
    if(isMobile !== this.state.theme.responsive.isMobile){
-    this.setState({theme:Object.assign(Theme,{responsive:{width: window.innerWidth, height: window.innerHeight,isMobile }})});
+    this.setState({theme:Object.assign(Theme,{responsive:{width: window.innerWidth, height: window.innerHeight,isMobile,isLessThan840 }})});
+  }
+
+  
+   
+   if(isLessThan840 !== this.state.theme.responsive.isLessThan840){
+    this.setState({theme:Object.assign(Theme,{responsive:{width: window.innerWidth, height: window.innerHeight,isMobile,isLessThan840 }})});
   }
 }
   render() {

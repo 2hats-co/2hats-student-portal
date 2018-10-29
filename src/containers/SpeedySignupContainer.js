@@ -21,9 +21,7 @@ import {warmUp} from '../utilities/Authentication/warmUp'
 import {speedyAuth} from '../utilities/Authentication/speedySignup'
 const styles = theme => ({
     root: {
-      paddingLeft: 50,
-      paddingRight: 50,
-      height: 500
+        height: '100vh',
     },
     webForm:{
         width:350,
@@ -188,6 +186,8 @@ class SpeedySignupContainer extends Component {
          const {theme,classes} = this.props
          const isMobile = theme.responsive.isMobile
          return(
+            <Grid container className={classes.root} alignItems="center" justify="center">
+                <Grid item>
              <LogoInCard width={isMobile?320:680} height="auto" isLoading={isLoading} logoClass={isMobile?'centeredLogo':'miniLogo'}
              snackBar={snackBar} 
             >
@@ -199,6 +199,8 @@ class SpeedySignupContainer extends Component {
                 </Grid>}
                 </Grid>
              </LogoInCard>
+             </Grid>
+            </Grid>
          )
      }
 }
