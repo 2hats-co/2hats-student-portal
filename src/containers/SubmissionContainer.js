@@ -3,7 +3,16 @@ import EduExp from '../components/EduExp'
 import ProfileCard from '../components/Profile/ProfileCard'
 import {withRouter} from 'react-router-dom'
 import withStyles from "@material-ui/core/styles/withStyles";
+
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+
+import {setBackground} from '../utilities/styling';
+import Background from '../assets/background/BW.svg';
+
+import PersonDetails from '../components/SubmissionDetails/PersonDetails';
+import SubmissionDetails from '../components/SubmissionDetails';
 
 import { LISTENER, COLLECTIONS } from '../constants/firestore';
 //Redux
@@ -16,15 +25,40 @@ import LoadingMessage from '../components/LoadingMessage';
 
 
 const styles = theme => ({
-    grid: {
-        overflow: 'scroll'
-       },
-       item:{
-         width:'98%',
-         maxWidth:750,
-       },
-
+    paper: {
+        width: 'calc(100vw - 20px)',
+        boxSizing: 'border-box',
+        maxWidth: 900,
+        margin: '20px auto',
+        padding: '24px 28px',
+    },
+    headline: {
+        textAlign: 'left',
+    },
+    subheading: {
+        marginTop: 20,
+        fontWeight: 700,
+        '&:first-of-type': {
+            marginTop: 8,
+        },
+    },
+    ul: {
+        margin: 0,
+        padding: 0,
+        paddingLeft: 16,
+    },
 });
+const sampleFeedback = undefined;
+// const sampleFeedback = [
+//     {
+//         title: 'Profesionally focussed',
+//         body: ['Your resume shows a clear link...']
+//     },
+//     {
+//         title: 'Written communication',
+//         body: ['Your have used bullet points...', 'Your rseume is conscise', 'Your resume is in English']
+//     },
+// ];
 
 class SubmissionContainer extends Component {
   
@@ -33,42 +67,40 @@ class SubmissionContainer extends Component {
        this.props.loadSubmission(submissionKey)
     }
     render(){
-        const {classes,submission} = this.props
+        const {classes,submission} = this.props;
+        const feedback = sampleFeedback;
+
+        setBackground("#E1E1E1",Background,false);
+
+        let feedbackContent;
+        if (feedback) {
+            feedbackContent = feedback.map(x =>
+                <React.Fragment>
+                    <Typography className={classes.subheading} variant="subheading">{x.title}</Typography>
+                    <Typography variant="body1"><ul className={classes.ul}>
+                        { x.body.map(y => <li>{y}</li>) }
+                    </ul></Typography>
+                </React.Fragment>
+            );
+        }
+
         if(submission){
-            const profile = submission[0].submissionContent
-        return(
-    
-                <Grid container
-                    className={classes.grid}
-                    alignItems='center'
-                    direction='column'
-                  >
-                  <Grid item className={classes.item}>
-                  <ProfileCard 
-                  process = {profile.process}
-                  skillsList={profile.skills}
-                  bio={profile.bio}
-                  name={submission[0].displayName}
-                  resumeFile={profile.process === PROCESS_TYPES.upload&& profile.resumeFile}
-                  interestsList={profile.careerInterests}
-                  disabled/>
-                    </Grid>
-                  {profile.process === PROCESS_TYPES.build&&
-                    <Grid item className={classes.item}>
-                    <EduExp industry={profile.industry} 
-                    name='education' disabled 
-                    data = {profile.education}
-                    width={750}/>   
-                    <EduExp 
-                    industry={profile.industry} 
-                    name='experience' 
-                    data={profile.experience} 
-                    width={750} disabled/>
-                    </Grid>  
-                }
-                </Grid>  
-                
-            )
+            const profile = submission[0];
+            console.log(profile);
+            return(<React.Fragment>
+                <Paper className={classes.paper} elevation={2}>
+                    <PersonDetails submission={profile} />
+                </Paper>
+
+                {feedback && feedback.length > 0 && <Paper className={classes.paper} elevation={2}>
+                    <Typography variant="headline" className={classes.headline}>Resume Feedback</Typography>
+                    { feedbackContent }
+                </Paper>}
+
+                <Paper className={classes.paper} elevation={2}>
+                    <SubmissionDetails submission={profile} />
+                </Paper>
+            </React.Fragment>);
         }
         
         return(
