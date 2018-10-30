@@ -11,7 +11,8 @@ export const AUTHENTICATION_CONTAINER = {
     signup:'signup',
     logout:'logout',
     resetPassword:'resetPassword',
-    createPassword:'createPassword'
+    createPassword:'createPassword',
+    intro:'intro'
 }
 export const INTRODUCTION_CONTAINER = {
     process:'process',

@@ -260,6 +260,7 @@ class AuthenticationContainer extends React.Component {
 
       default:
         loadedView = <AuthView
+        isLessThan840 = {theme.responsive.isLessThan840}
         onSignupRoute={onSignupRoute} isLoading={isLoading}
         handleGTevent={this.handleGTevent} changeHandler={this.handleChange} />;
         break;
@@ -270,7 +271,7 @@ class AuthenticationContainer extends React.Component {
         view !== AUTHENTICATION_CONTAINER.auth ? null : <SignUpIntro />
       }
       <Grid item>
-        <LogoInCard width={320} height="auto" isLoading={isLoading} snackBar={snackBar}  >
+        <LogoInCard width={350} height="auto" isLoading={isLoading} snackBar={snackBar}  >
           <Grid
             container
             className={classes.logoInCardGrid}

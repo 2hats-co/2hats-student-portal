@@ -8,14 +8,37 @@ import GoogleButton from './GoogleButton';
 import LinkedinButton from './LinkedinButton';
 import EmailAuth from './EmailAuth';
 import StyledLink from '../StyledLink';
+import withStyles from '@material-ui/core/styles/withStyles';
 
+import womanGraphic from '../../assets/images/graphics/SignUpWoman.svg';
+import { Grid } from '@material-ui/core';
+
+
+const styles = theme => ({
+    root: {
+      height: '100vh',
+    },womanGraphic: {
+        width: 100,
+        height: 100,
+        marginLeft: -5,
+      },
+  });
 function AuthView(props) {
-    const { onSignupRoute, isLoading, GTeventHandler, changeHandler } = props;
-
+    const { onSignupRoute, isLoading, GTeventHandler, changeHandler,isLessThan840,classes} = props;
+    
+    let header = (<Header greeting={ onSignupRoute ? 'Sign Up' : 'Sign In' } />)
+    console.log('auth theme',props)
+    if(isLessThan840 && onSignupRoute){
+        header = (<Grid container direction='row' alignItems='center' justify='space-between' style={{height:150}}> 
+        <Grid item xs={3}><img src={womanGraphic} className={classes.womanGraphic} /></Grid> 
+        <Grid item xs={7}><Typography variant='display1' style={{fontSize:19,marginRight:-10}}>The simplest way to get access to meaningful work experience</Typography></Grid>
+        </Grid>)
+    }
     return(
     <React.Fragment>
-        <Header greeting={ onSignupRoute ? 'Sign Up' : 'Sign In' } />
-
+        
+        {header}
+       
         <GoogleButton
             disabled={isLoading}
             key="google-button"
@@ -48,4 +71,4 @@ function AuthView(props) {
     );
 }
 
-export default AuthView;
+export default withStyles(styles)(AuthView);
