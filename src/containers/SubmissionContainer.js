@@ -13,6 +13,7 @@ import Background from '../assets/background/BW.svg';
 
 import PersonDetails from '../components/SubmissionDetails/PersonDetails';
 import SubmissionDetails from '../components/SubmissionDetails';
+import PrettyProfile from '../components/Profile/PrettyProfile';
 
 import { LISTENER, COLLECTIONS } from '../constants/firestore';
 //Redux
@@ -28,7 +29,7 @@ const styles = theme => ({
     paper: {
         width: 'calc(100vw - 20px)',
         boxSizing: 'border-box',
-        maxWidth: 900,
+        maxWidth: 710,
         margin: '20px auto',
         padding: '24px 28px',
     },
@@ -85,9 +86,14 @@ class SubmissionContainer extends Component {
                     { feedbackContent }
                 </Paper>}
 
-                <Paper className={classes.paper} elevation={2}>
-                    <SubmissionDetails submission={profile} />
-                </Paper>
+                { profile.submissionContent.process === 'build' &&
+                    <PrettyProfile profile={profile.submissionContent} user={{firstName:profile.displayName}} />
+                }
+                { profile.submissionContent.process === 'upload' &&
+                    <Paper className={classes.paper} elevation={2}>
+                        <SubmissionDetails submission={profile} />
+                    </Paper>
+                }
             </React.Fragment>);
         }
         
