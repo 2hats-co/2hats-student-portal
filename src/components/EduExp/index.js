@@ -128,7 +128,7 @@ class EducationContainer extends React.Component {
                 <EduExpCard
                   disabled={disabled}
                   key={item.key}
-                  title={name === EDU ? (item.major?(item.degree+' - '+item.major):item.degree) : item.title}
+                  title={name === EDU ? (item.major?(item.degree+' — '+item.major):item.degree) : item.title}
                   label={name === EDU ? item.university : (item.organisation+' / '+item.type) }
                   startDate={item.startDate}
                   endDate={item.endDate}
