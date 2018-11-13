@@ -1,10 +1,17 @@
 import React, {Component} from 'react';
 import {withNavigation} from '../components/withNavigation';
-import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+
+import EditIcon from '@material-ui/icons/Edit';
+import DoneIcon from '@material-ui/icons/Done';
+
 import EduExp from '../components/EduExp/';
 import ProfileCard from '../components/Profile/ProfileCard';
 import PropTypes from "prop-types";
+import PrettyProfile from '../components/Profile/PrettyProfile';
 //Redux
 import {compose} from 'redux';
 import {withHandlers} from 'recompose'
@@ -13,34 +20,48 @@ import {COLLECTIONS} from "../constants/firestore";
 import {PROCESS_TYPES} from "../constants/signUpProcess";
 
 const styles = theme => ({
-  root:{},
-  navIconHide:{},
-  appBar:{},
-  toolbar:{},
-  drawerPaper:{},
-  content:{},
-  logo:{},
-  greeting:{},
-    grid: {
-    },
-    item:{
-      width:'98%',
-      maxWidth:750,
-    }
+  item: {
+    width: '98%',
+    maxWidth: 750,
+  },
+  editButton: {
+    position: 'absolute',
+    right: 16,
+    top: 64 + 16,
+    zIndex: 99,
+  },
 });
 class ProfileContainer extends Component{
     constructor(props){
       super(props);
       this.state = {
-        profileEditorDailog:false,
+        profileEditorDailog: false,
+        editMode: false,
       }
     }
     render(){
-        const {classes, profile,user} = this.props
-        const disabled = (user.status === 'in-review')
+        const {classes, profile, user} = this.props;
+        const disabled = (user.status === 'in-review');
+
+        if (profile.process === PROCESS_TYPES.build && !this.state.editMode)
+        return(<React.Fragment>
+          <Button variant="extendedFab" className={classes.editButton}
+          onClick={() => {this.setState({ editMode: true })}}
+          >
+            <EditIcon style={{marginRight:8}} />Edit
+          </Button>
+          <PrettyProfile profile={profile} user={user} />
+        </React.Fragment>);
+
         return(
        <div>
-               <Grid
+              {this.state.editMode && <Button variant="extendedFab" className={classes.editButton}
+                    onClick={() => {this.setState({ editMode: false })}} color="primary"
+                    >
+                <DoneIcon style={{marginRight:8}} />Done
+              </Button>}
+
+              <Grid
                 container
                 className={classes.grid}
                 alignItems='center'

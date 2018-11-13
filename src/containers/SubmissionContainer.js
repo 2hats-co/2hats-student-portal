@@ -13,6 +13,7 @@ import Background from '../assets/background/BW.svg';
 
 import PersonDetails from '../components/SubmissionDetails/PersonDetails';
 import SubmissionDetails from '../components/SubmissionDetails';
+import PrettyProfile from '../components/Profile/PrettyProfile';
 
 import { LISTENER, COLLECTIONS } from '../constants/firestore';
 //Redux
@@ -22,13 +23,13 @@ import {withHandlers} from 'recompose'
 import  {withFirestore} from '../utilities/withFirestore';
 import {PROCESS_TYPES} from "../constants/signUpProcess";
 import LoadingMessage from '../components/LoadingMessage';
-
+import {feedbackSections} from '../constants/feedbackSections';
 
 const styles = theme => ({
     paper: {
         width: 'calc(100vw - 20px)',
         boxSizing: 'border-box',
-        maxWidth: 900,
+        maxWidth: 710,
         margin: '20px auto',
         padding: '24px 28px',
     },
@@ -37,7 +38,6 @@ const styles = theme => ({
     },
     subheading: {
         marginTop: 20,
-        fontWeight: 700,
         '&:first-of-type': {
             marginTop: 8,
         },
@@ -48,17 +48,6 @@ const styles = theme => ({
         paddingLeft: 16,
     },
 });
-const sampleFeedback = undefined;
-// const sampleFeedback = [
-//     {
-//         title: 'Profesionally focussed',
-//         body: ['Your resume shows a clear link...']
-//     },
-//     {
-//         title: 'Written communication',
-//         body: ['Your have used bullet points...', 'Your rseume is conscise', 'Your resume is in English']
-//     },
-// ];
 
 class SubmissionContainer extends Component {
   
@@ -68,38 +57,43 @@ class SubmissionContainer extends Component {
     }
     render(){
         const {classes,submission} = this.props;
-        const feedback = sampleFeedback;
-
         setBackground("#E1E1E1",Background,false);
 
-        let feedbackContent;
-        if (feedback) {
-            feedbackContent = feedback.map(x =>
-                <React.Fragment>
-                    <Typography className={classes.subheading} variant="subheading">{x.title}</Typography>
-                    <Typography variant="body1"><ul className={classes.ul}>
-                        { x.body.map(y => <li>{y}</li>) }
-                    </ul></Typography>
-                </React.Fragment>
-            );
-        }
-
-        if(submission){
+        if (submission) {
             const profile = submission[0];
-            console.log(profile);
+            
+            const feedback = submission[0].feedbackContent;
+
+            let feedbackContent;
+            if (feedback) {
+                feedbackContent = feedback.map((x, i) =>
+                    <React.Fragment key={i}>
+                        <Typography className={classes.subheading} variant="body2">{feedbackSections[x.id]}</Typography>
+                        <ul className={classes.ul}>
+                            <li><Typography variant="body1">{x.content}</Typography></li>
+                        </ul>
+                    </React.Fragment>
+                );
+            }
+
             return(<React.Fragment>
                 <Paper className={classes.paper} elevation={2}>
                     <PersonDetails submission={profile} />
                 </Paper>
 
                 {feedback && feedback.length > 0 && <Paper className={classes.paper} elevation={2}>
-                    <Typography variant="headline" className={classes.headline}>Resume Feedback</Typography>
+                    <Typography variant="headline" className={classes.headline}>Career Readiness Feedback</Typography>
                     { feedbackContent }
                 </Paper>}
 
-                <Paper className={classes.paper} elevation={2}>
-                    <SubmissionDetails submission={profile} />
-                </Paper>
+                { profile.submissionContent.process === 'build' &&
+                    <PrettyProfile profile={profile.submissionContent} user={{firstName:profile.displayName}} />
+                }
+                { profile.submissionContent.process === 'upload' &&
+                    <Paper className={classes.paper} elevation={2}>
+                        <SubmissionDetails submission={profile} />
+                    </Paper>
+                }
             </React.Fragment>);
         }
         

@@ -7,6 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import PersonIcon from '@material-ui/icons/Person';
 
+import {getInterestByKey} from '../../constants/resumeBuilderPrompts';
+
 const styles = theme => ({
     avatar: {
         width: 56,
@@ -27,7 +29,8 @@ function PersonDetails(props) {
     let interests = '';
     if (submission.submissionContent.careerInterests.value) {
         for (let i = 0; i < submission.submissionContent.careerInterests.value.length; i++) {
-            interests += submission.submissionContent.careerInterests.value[i];
+            const interestKey = submission.submissionContent.careerInterests.value[i];
+            interests += getInterestByKey(interestKey)[0].label;
             if (i < submission.submissionContent.careerInterests.value.length - 1) interests += ', ';
         }
     }

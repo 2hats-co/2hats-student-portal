@@ -68,7 +68,7 @@ function EduExpCard(props) {
             <Grid item xs={5} sm={4}>
               <Typography variant="body1" 
               style={{textAlign:'right'}}>
-                {startDate} - {endDate}
+                {startDate} – {endDate}
               </Typography>
             </Grid>
         </Grid>
