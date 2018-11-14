@@ -158,7 +158,7 @@ class AuthenticationContainer extends React.Component {
   handleForgotPassword = () => {
     const {isLoading, email} = this.state;
     if(!isLoading){
-      const request = { email: email };
+      const request = { email: email.toLowerCase() };
       this.setState({isLoading:true});
       cloudFunction(CLOUD_FUNCTIONS.RESET_PASSWORD, request,
         (result) => {
