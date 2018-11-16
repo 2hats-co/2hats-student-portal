@@ -38,7 +38,11 @@ var validator = new Validator('pubkey-39aac6f76384240d4c4b3a2b1afeaf02');
 class EmailAuth extends Component {
     constructor(props){
         super(props)
-        this.state ={email:'',invalidEmail:false}
+        this.state = {
+          email: this.props.urlParams.indexOf('email=') > -1 ?
+            this.props.urlParams.substr(7) : '',
+          invalidEmail: false
+        };
         this.onNext = this.onNext.bind(this)
         this.handleChange = this.handleChange.bind(this);
         this.handleEmailCheck = this.handleEmailCheck.bind(this)
