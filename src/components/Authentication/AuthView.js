@@ -24,7 +24,7 @@ const styles = theme => ({
       },
   });
 function AuthView(props) {
-    const { onSignupRoute, isLoading, GTeventHandler, changeHandler,isLessThan840,classes} = props;
+    const { onSignupRoute, isLoading, GTeventHandler, changeHandler,isLessThan840,classes, urlParams} = props;
     
     let header = (<Header greeting={ onSignupRoute ? 'Sign Up' : 'Sign In' } />)
     console.log('auth theme',props)
@@ -57,7 +57,7 @@ function AuthView(props) {
 
         <Typography variant="subheading" style={{marginTop:15}}>OR</Typography>
 
-        <EmailAuth changeHandler={changeHandler} />
+        <EmailAuth changeHandler={changeHandler} urlParams={urlParams} />
 
         <div>
             <Typography variant="body1" style={{display:'inline', marginRight:5}}>

@@ -262,7 +262,8 @@ class AuthenticationContainer extends React.Component {
         loadedView = <AuthView
         isLessThan840 = {theme.responsive.isLessThan840}
         onSignupRoute={onSignupRoute} isLoading={isLoading}
-        handleGTevent={this.handleGTevent} changeHandler={this.handleChange} />;
+        handleGTevent={this.handleGTevent} changeHandler={this.handleChange}
+        urlParams={this.props.location.search} />;
         break;
     }
 
