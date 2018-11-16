@@ -40,7 +40,7 @@ class EmailAuth extends Component {
         super(props)
         this.state = {
           email: this.props.urlParams.indexOf('email=') > -1 ?
-            this.props.urlParams.substr(7) : '',
+            decodeURI(this.props.urlParams.substr(7)).replace('%40','@') : '',
           invalidEmail: false
         };
         this.onNext = this.onNext.bind(this)
