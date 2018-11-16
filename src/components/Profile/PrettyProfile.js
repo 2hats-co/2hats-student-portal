@@ -72,7 +72,7 @@ function PrettyProfile(props) {
 
     const interests = profile.careerInterests.value.map((x, i) => (
         <Typography key={i} variant="subheading">
-            {getInterestByKey(x)[0].label}
+            {getInterestByKey(x).length > 0 ? getInterestByKey(x)[0].label : null}
         </Typography>
     ));
 
