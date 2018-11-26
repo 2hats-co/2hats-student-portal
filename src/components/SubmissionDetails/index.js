@@ -31,7 +31,7 @@ const styles = theme => ({
     },
     pdfDocument: {
         width: 'calc(100vw - 20px - 28px - 28px)',
-        maxWidth: 844,
+        maxWidth:650,
     },
     pdfPage: {
         boxShadow: '0 0 0 1px rgba(0,0,0,.1)',
@@ -57,7 +57,7 @@ class submissionDetails extends Component {
         const pages = [];
         for (let i = 0; i < numPages; i++) {
             pages.push(<Page pageNumber={i + 1} key={i}
-            width={window.innerWidth > 920 ? 844 : window.innerWidth - 20 - 28*2}
+            width={window.innerWidth > 920 ? 650 : window.innerWidth - 20 - 28*2}
             className={classes.pdfPage} />);
         }
 
