@@ -23,7 +23,9 @@ function FeedbackHistory(props){
    items= data.map(x=>{
 
      // (${x.submissionContent.process})
-      return({title:`Resume Submission`,body:'Under Review',timestamp:x.createdAt,key:x.id})
+     const feedbackStatus = (x.reviewed?'Check you feedback':'Under Review')
+     const submissionStatus = (x.reviewed?'Profile Reviewed':'Profile Submitted')
+      return({title:submissionStatus,body:feedbackStatus,timestamp:x.createdAt,key:x.id})
    })
    items = orderBy(items, 'timestamp','asc')
    }  
