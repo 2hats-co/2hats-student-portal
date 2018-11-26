@@ -14,7 +14,7 @@ class NoPasswordView extends React.Component{
     }
     resendEmail(){
         const {email,changeHandler} = this.props
-        const request = {email:email}
+        const request = {email: email.toLowerCase()}
         cloudFunction(CLOUD_FUNCTIONS.CREATE_PASSWORD,request,
         changeHandler('snackBar',{variant:'success',message:'We will resend you the email shortly'}),
         (e)=>{

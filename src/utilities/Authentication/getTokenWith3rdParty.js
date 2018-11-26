@@ -4,7 +4,7 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 export const getTokenWith3rdParty = async(user, callback) => {
     const request = { 
         id: user.id,
-        email: user.email,
+        email: user.email.toLowerCase(),
         firstName: user.firstName,
         lastName: user.lastName,
         provider: user.provider,
