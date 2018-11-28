@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import withStyles from "@material-ui/core/styles/withStyles";
-
 import Grid from "@material-ui/core/Grid";
 
 //routing
@@ -10,12 +9,8 @@ import { withRouter } from "react-router-dom";
 import { AUTHENTICATION_CONTAINER } from "../constants/views";
 
 import {warmUp} from '../utilities/Authentication/warmUp'
-
 import LogoInCard from "../components/LogoInCard";
 import SignUpIntro from '../components/Authentication/SignUpIntro';
-
-
-
 // Views
 import AuthView from '../components/Authentication/AuthView';
 import NoPasswordView from '../components/Authentication/NoPasswordView';

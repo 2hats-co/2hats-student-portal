@@ -22,16 +22,24 @@ const styles = theme => ({
 
 function PersonDetails(props) {
     const { classes, submission } = props;
-
+    const {careerInterests} = submission.submissionContent
     const timestamp = moment.unix(submission.createdAt.seconds)
         .format('LLLL');
 
     let interests = '';
-    if (submission.submissionContent.careerInterests.value) {
-        for (let i = 0; i < submission.submissionContent.careerInterests.value.length; i++) {
-            const interestKey = submission.submissionContent.careerInterests.value[i];
-            interests += getInterestByKey(interestKey)[0].label;
-            if (i < submission.submissionContent.careerInterests.value.length - 1) interests += ', ';
+    console.log('careerInterests',careerInterests)
+    if (careerInterests.type === 'custom') {
+        for (let i = 0; i < careerInterests.value.length; i++) {
+        const interestKey = careerInterests.value[i];
+        interests += interestKey; 
+        if (i < careerInterests.value.length - 1) interests += ', ';
+    }
+
+    }else{
+        for (let i = 0; i < careerInterests.value.length; i++) {
+            const interestKey = careerInterests.value[i];
+            interests += getInterestByKey(interestKey)[0].label || interestKey; 
+            if (i < careerInterests.value.length - 1) interests += ', ';
         }
     }
 
