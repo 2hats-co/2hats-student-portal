@@ -1,452 +1,547 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import withStyles from "@material-ui/core/styles/withStyles";
+import Drawer from "@material-ui/core/Drawer";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
 
-import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
-import MenuIcon from '@material-ui/icons/Menu';
-import PersonIcon from '@material-ui/icons/Person'
-import DashboardIcon from '@material-ui/icons/Dashboard'
+import IconButton from "@material-ui/core/IconButton";
+import Hidden from "@material-ui/core/Hidden";
+import MenuIcon from "@material-ui/icons/Menu";
+import PersonIcon from "@material-ui/icons/Person";
+import DashboardIcon from "@material-ui/icons/Dashboard";
 
 // Logout toggle
-import Button from '@material-ui/core/Button';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
-import Grow from '@material-ui/core/Grow';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
+import Button from "@material-ui/core/Button";
+import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import Grow from "@material-ui/core/Grow";
+import Paper from "@material-ui/core/Paper";
+import Popper from "@material-ui/core/Popper";
+import MenuItem from "@material-ui/core/MenuItem";
+import MenuList from "@material-ui/core/MenuList";
 
-import NavigationButton from './NavigationButton'
+import NavigationButton from "./NavigationButton";
 
-import withAuthorisation from '../utilities/Session/withAuthorisation'
+import withAuthorisation from "../utilities/Session/withAuthorisation";
 
-import JobIcon from '@material-ui/icons/Work'
-import LiveHelp from '@material-ui/icons/LiveHelp'
+import JobIcon from "@material-ui/icons/Work";
+import LiveHelp from "@material-ui/icons/LiveHelp";
 
-import {withRouter} from 'react-router-dom'
-import * as routes from '../constants/routes'
+import { withRouter } from "react-router-dom";
+import * as routes from "../constants/routes";
 
 //Redux
-import { compose } from 'recompose';
-import { withHandlers, lifecycle } from 'recompose'
-import { connect } from 'react-redux';
-import  {withFirestore} from '../utilities/withFirestore';
-import { COLLECTIONS,LISTENER } from "../constants/firestore";
+import { compose } from "recompose";
+import { withHandlers, lifecycle } from "recompose";
+import { connect } from "react-redux";
+import { withFirestore } from "../utilities/withFirestore";
+import { COLLECTIONS, LISTENER } from "../constants/firestore";
 
-import LightLogo from '../assets/images/Logo/WhiteText.svg'
-import UpdateIcon from '@material-ui/icons/Update'
+import LightLogo from "../assets/images/Logo/WhiteText.svg";
+import UpdateIcon from "@material-ui/icons/Update";
 
-import LogoutIcon from '@material-ui/icons/ExitToApp'
-import DownArrowIcon from '@material-ui/icons/ArrowDropDown'
-import AccountInfoDailog from './AccountInfoDialog'
+import LogoutIcon from "@material-ui/icons/ExitToApp";
+import DownArrowIcon from "@material-ui/icons/ArrowDropDown";
+import AccountInfoDailog from "./AccountInfoDialog";
 
-import LoadingMessage from './LoadingMessage'
-import StatusCard from './StatusCard'
-import {actionTypes} from 'redux-firestore'
-import Avatar from './Avatar';
+import LoadingMessage from "./LoadingMessage";
+import StatusCard from "./StatusCard";
+import { actionTypes } from "redux-firestore";
+import Avatar from "./Avatar";
 
-import BuggyBoy from './BuggyBoy'
-import {setBackground} from '../utilities/styling'
-
+import BuggyBoy from "./BuggyBoy";
+import { setBackground } from "../utilities/styling";
 
 const drawerWidth = 240;
-
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
     zIndex: 1,
-    overflow: 'visible',
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
+    overflow: "visible",
+    position: "relative",
+    display: "flex",
+    width: "100%"
   },
   appBar: {
-    backgroundColor:theme.palette.grey[100],    
-    position: 'absolute',
+    backgroundColor: theme.palette.grey[100],
+    position: "absolute",
     marginLeft: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+    [theme.breakpoints.up("md")]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    }
   },
   navIconHide: {
-  //  color:'#000',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
+    //  color:'#000',
+    [theme.breakpoints.up("md")]: {
+      display: "none"
+    }
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    backgroundColor:'#2c2c2c',
+    backgroundColor: "#2c2c2c",
     width: drawerWidth,
-    [theme.breakpoints.up('md')]: {
-      position: 'relative',
-    },
+    [theme.breakpoints.up("md")]: {
+      position: "relative"
+    }
   },
   content: {
-    margin:'auto',
-    marginTop:0,
-    marginBottom:0,
+    margin: "auto",
+    marginTop: 0,
+    marginBottom: 0,
     flexGrow: 1,
-    overflowY:'scroll',
-    width:'100%',
-    backgroundColor: '#fff',
-   // padding: theme.spacing.unit * 3,
-    '-webkit-overflow-scrolling': 'touch',
-  },logo:{
-    width:150,
-    marginLeft:45,
-    marginBottom:-60,
-    marginTop:20
-  
-    },
-    userActions:{
-      display:'flex',
-      position: 'absolute',
-      right: 10,
-      top: 10,
-    },
-    
-    dropDown:{
-      marginTop:-1,
-      paddingLeft: 15,
-      paddingRight: 0,
-      textAlign: 'center',
-      backgroundColor: 'rgba(0,0,0,0) !important'
-    },
+    overflowY: "scroll",
+    width: "100%",
+    backgroundColor: "#fff",
+    // padding: theme.spacing.unit * 3,
+    "-webkit-overflow-scrolling": "touch"
+  },
+  logo: {
+    width: 150,
+    marginLeft: 45,
+    marginBottom: -60,
+    marginTop: 20
+  },
+  userActions: {
+    display: "flex",
+    position: "absolute",
+    right: 10,
+    top: 10
+  },
+
+  dropDown: {
+    marginTop: -1,
+    paddingLeft: 15,
+    paddingRight: 0,
+    textAlign: "center",
+    backgroundColor: "rgba(0,0,0,0) !important"
+  }
 });
 
-export const withNavigation = (WrappedComponent) => {
-  
+export const withNavigation = WrappedComponent => {
   class WithNavigation extends Component {
     static contextTypes = {
-      store: PropTypes.object.isRequired,
-  //    location: React.PropTypes.object.isRequired
-  }
+      store: PropTypes.object.isRequired
+      //    location: React.PropTypes.object.isRequired
+    };
     constructor(props) {
-        super(props);
-        this.goTo = this.goTo.bind(this)
-        this.handleInfoDialog = this.handleInfoDialog.bind(this)
-        this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
-      }
-      state = {
-        mobileOpen: false,
-        infoDialog:false,
-        height:window.innerHeight,
-        logoutToggleOpen: false,
-        currentRoute:null,
-        isOffline:false,
-      };
+      super(props);
+      this.goTo = this.goTo.bind(this);
+      this.handleInfoDialog = this.handleInfoDialog.bind(this);
+      this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    }
+    state = {
+      mobileOpen: false,
+      infoDialog: false,
+      height: window.innerHeight,
+      logoutToggleOpen: false,
+      currentRoute: null,
+      isOffline: false
+    };
 
-      componentWillMount(){
-        setBackground('#fff')
-      if(!this.props.theme.responsive.isMobile){
-        window.Intercom('update',{
-          'hide_default_launcher': false
-        })
+    componentWillMount() {
+      setBackground("#fff");
+      if (!this.props.theme.responsive.isMobile) {
+        window.Intercom("update", {
+          hide_default_launcher: false
+        });
       }
-        window.Intercom('hide')
-        this.updateWindowDimensions();
-        window.addEventListener('resize', this.updateWindowDimensions);
-        //set currentRoute
-       this.setState({currentRoute:this.props.history.location.pathname})
-
-
-
+      window.Intercom("hide");
+      this.updateWindowDimensions();
+      window.addEventListener("resize", this.updateWindowDimensions);
+      //set currentRoute
+      this.setState({ currentRoute: this.props.history.location.pathname });
+    }
+    componentDidMount() {
+      if (!this.props.theme.responsive.isMobile) {
+        window.Intercom("update", {
+          hide_default_launcher: false
+        });
       }
-      componentDidMount(){
-        if(!this.props.theme.responsive.isMobile){
-          window.Intercom('update',{
-            'hide_default_launcher': false
-          })
-        }
+    }
+    componentWillUnmount() {
+      window.removeEventListener("resize", this.updateWindowDimensions);
+    }
+    updateWindowDimensions() {
+      this.setState({ height: window.innerHeight });
+      if (this.props.theme.responsive.isMobile) {
+        window.Intercom("update", {
+          hide_default_launcher: true
+        });
+      } else {
+        window.Intercom("update", {
+          hide_default_launcher: false
+        });
       }
-      componentWillUnmount() {
-        window.removeEventListener('resize', this.updateWindowDimensions);
-      }
-      updateWindowDimensions() {
-       this.setState({height: window.innerHeight});
-       if(this.props.theme.responsive.isMobile){
-        window.Intercom('update',{
-          'hide_default_launcher': true
-        })
-       }else{
-        window.Intercom('update',{
-          'hide_default_launcher': false
-        })
-       }
-     }
-       componentDidUpdate(prevProps,prevState){
-         if(prevProps.user !== this.props.profile){
-            if(this.props.profile.length === 0) {
-              if (!this.state.isOffline) this.setState({isOffline:true});
-              return;
-            } else if (this.state.isOffline) {
-              this.setState({isOffline:false});
-            }
-            if(!this.props.profile[0].completedStep){
-              this.goTo(routes.INTRODUCTION)
-            }
-         }
-      }
-       
-      handleDrawerToggle = () => {
-        this.setState(state => ({ mobileOpen: !state.mobileOpen }));
-      };
-      goTo(route){
-        this.props.history.push(route)
-      }
-      handleInfoDialog(isOpen){
-        this.setState({infoDialog:isOpen})
-      }
-
-      // Handle logout toggle
-      handleLogoutToggle = () => {
-        this.setState(state => ({ logoutToggleOpen: !state.logoutToggleOpen }));
-      };  
-      handleLogoutToggleClose = event => { 
-        if (this.anchorEl.contains(event.target)) {
+    }
+    componentDidUpdate(prevProps, prevState) {
+      if (prevProps.user !== this.props.profile) {
+        if (this.props.profile.length === 0) {
+          if (!this.state.isOffline) this.setState({ isOffline: true });
           return;
+        } else if (this.state.isOffline) {
+          this.setState({ isOffline: false });
         }
+        if (!this.props.profile[0].completedStep) {
+          this.goTo(routes.INTRODUCTION);
+        }
+      }
+    }
 
-        this.setState({ logoutToggleOpen: false });
-      };
-    
-      render(){
-      const {classes,theme,history,profile,user} = this.props    
+    handleDrawerToggle = () => {
+      this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+    };
+    goTo(route) {
+      this.props.history.push(route);
+    }
+    handleInfoDialog(isOpen) {
+      this.setState({ infoDialog: isOpen });
+    }
+
+    // Handle logout toggle
+    handleLogoutToggle = () => {
+      this.setState(state => ({ logoutToggleOpen: !state.logoutToggleOpen }));
+    };
+    handleLogoutToggleClose = event => {
+      if (this.anchorEl.contains(event.target)) {
+        return;
+      }
+
+      this.setState({ logoutToggleOpen: false });
+    };
+
+    render() {
+      const { classes, theme, history, profile, user } = this.props;
       const { logoutToggleOpen } = this.state;
-      const pathName = history.location.pathname
-       
-       const drawer = (
+      const pathName = history.location.pathname;
+
+      const drawer = (
         <div>
-          <img className={classes.logo} src={LightLogo}/>
+          <img className={classes.logo} src={LightLogo} />
           <div className={classes.toolbar} />
-        
-          <NavigationButton isSelected={(pathName===routes.DASHBOARD)} 
-          name='Dashboard' icon={<DashboardIcon style={{color:'#fff'}}/>} 
-          route={()=>{this.goTo(routes.DASHBOARD)}}/>
 
-          <NavigationButton isSelected={(pathName===routes.PROFILE)} 
-          name='Profile' icon={<PersonIcon style={{color:'#fff'}}/>} 
-          route={()=>{this.goTo(routes.PROFILE)}}/>
+          <NavigationButton
+            isSelected={pathName === routes.DASHBOARD}
+            name="Dashboard"
+            icon={<DashboardIcon style={{ color: "#fff" }} />}
+            route={() => {
+              this.goTo(routes.DASHBOARD);
+            }}
+          />
 
-          <NavigationButton isSelected={(pathName===routes.JOB_BOARD)} 
-          name='Job Board' icon={<JobIcon style={{color:'#fff'}}/>} 
-          route={()=>{this.goTo(routes.JOB_BOARD)}}/>
+          <NavigationButton
+            isSelected={pathName === routes.PROFILE}
+            name="Profile"
+            icon={<PersonIcon style={{ color: "#fff" }} />}
+            route={() => {
+              this.goTo(routes.PROFILE);
+            }}
+          />
 
-          <NavigationButton isSelected={false} name='Support' 
-          icon={<LiveHelp style={{color:'#fff'}}/>}
-          route={()=>{window.Intercom('show');}}/>         
+          <NavigationButton
+            isSelected={pathName === routes.JOB_BOARD}
+            name="Job Board"
+            icon={<JobIcon style={{ color: "#fff" }} />}
+            route={() => {
+              this.goTo(routes.JOB_BOARD);
+            }}
+          />
+
+          <NavigationButton
+            isSelected={false}
+            name="Support"
+            icon={<LiveHelp style={{ color: "#fff" }} />}
+            route={() => {
+              window.Intercom("show");
+            }}
+          />
         </div>
       );
 
       return (
-        <div className={classes.root} 
-        style={{height:this.state.height}}
-        >
-          
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="primary"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.navIconHide}
-            >
-              <MenuIcon/>
-            </IconButton>
-            {this.props.user&&<div
-                className={classes.userActions}            
-            > <Avatar uid={this.props.uid}firstName={this.props.user[0]?this.props.user[0].firstName:''}
-              lastName={this.props.user[0]?this.props.user[0].lastName:''}
-              avatarURL={this.props.user[0]?this.props.user[0].avatarURL:''}
-            />
-              <Button
-                className={classes.dropDown}
-                variant='contained'
-                buttonRef={node => {
-                  this.anchorEl = node;
-                }}
-                aria-owns={logoutToggleOpen ? 'logout-toggle' : null}
-                aria-haspopup="true"
-                onClick={this.handleLogoutToggle}
+        <div className={classes.root} style={{ height: this.state.height }}>
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="primary"
+                aria-label="Open drawer"
+                onClick={this.handleDrawerToggle}
+                className={classes.navIconHide}
               >
-                { Array.isArray(user) && user[0] && user[0].firstName && `Hi ${user[0].firstName}` } <DownArrowIcon/>
-              </Button>
-              <Popper open={logoutToggleOpen} anchorEl={this.anchorEl} transition disablePortal placement="bottom-end">
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    id="logout-toggle"
-                    style={{ transformOrigin: placement === 'bottom-end' ? 'center top' : 'center bottom' }}
+                <MenuIcon />
+              </IconButton>
+              {this.props.user && (
+                <div className={classes.userActions}>
+                  {" "}
+                  <Avatar
+                    uid={this.props.uid}
+                    firstName={
+                      this.props.user[0] ? this.props.user[0].firstName : ""
+                    }
+                    lastName={
+                      this.props.user[0] ? this.props.user[0].lastName : ""
+                    }
+                    avatarURL={
+                      this.props.user[0] ? this.props.user[0].avatarURL : ""
+                    }
+                  />
+                  <Button
+                    className={classes.dropDown}
+                    variant="contained"
+                    buttonRef={node => {
+                      this.anchorEl = node;
+                    }}
+                    aria-owns={logoutToggleOpen ? "logout-toggle" : null}
+                    aria-haspopup="true"
+                    onClick={this.handleLogoutToggle}
                   >
-                    <Paper>
-                      <ClickAwayListener onClickAway={this.handleLogoutToggleClose}>
-                        <MenuList>
-                          <MenuItem value="Account" onClick={() => {
-                            this.setState({ logoutToggleOpen: false });
-                            
-                            this.handleInfoDialog(true);
-                          }}>
-                            <UpdateIcon style={{marginRight:8}}/> My account
-                          </MenuItem>
-                          <MenuItem value="Logout" onClick={async() => {
-                            this.setState({ logoutToggleOpen: false });
-                            this.goTo(routes.LOG_OUT);
-                            this.props.clearData();
-
-                          }}>
-                            <LogoutIcon style={{marginRight:8}}/> Log out
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
-            </div>}
-          </Toolbar>
-        </AppBar>
-        <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, 
-              // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-          <main className={classes.content} style={theme.responsive.isMobile?{paddingRight:0,paddingLeft:0}:{}}>
-            <div className={classes.toolbar}/>
-            {
-              this.state.isOffline ? <LoadingMessage message="You are offline. Trying to reconnect you…"/> :
-              (!profile || !user)?<LoadingMessage/>:<div style={{marginBottom:120}}>
-                      <WrappedComponent
-                        {...this.props}
-                        profile={profile[0]}
-                        user={user[0]}
-                        handleInfoDialog={() => {
-                          this.handleInfoDialog(true);
+                    {Array.isArray(user) &&
+                      user[0] &&
+                      user[0].firstName &&
+                      `Hi ${user[0].firstName}`}{" "}
+                    <DownArrowIcon />
+                  </Button>
+                  <Popper
+                    open={logoutToggleOpen}
+                    anchorEl={this.anchorEl}
+                    transition
+                    disablePortal
+                    placement="bottom-end"
+                  >
+                    {({ TransitionProps, placement }) => (
+                      <Grow
+                        {...TransitionProps}
+                        id="logout-toggle"
+                        style={{
+                          transformOrigin:
+                            placement === "bottom-end"
+                              ? "center top"
+                              : "center bottom"
                         }}
-                        />
-           </div>
-           }
+                      >
+                        <Paper>
+                          <ClickAwayListener
+                            onClickAway={this.handleLogoutToggleClose}
+                          >
+                            <MenuList>
+                              <MenuItem
+                                value="Account"
+                                onClick={() => {
+                                  this.setState({ logoutToggleOpen: false });
+
+                                  this.handleInfoDialog(true);
+                                }}
+                              >
+                                <UpdateIcon style={{ marginRight: 8 }} /> My
+                                account
+                              </MenuItem>
+                              <MenuItem
+                                value="Logout"
+                                onClick={async () => {
+                                  this.setState({ logoutToggleOpen: false });
+                                  this.goTo(routes.LOG_OUT);
+                                  this.props.clearData();
+                                }}
+                              >
+                                <LogoutIcon style={{ marginRight: 8 }} /> Log
+                                out
+                              </MenuItem>
+                            </MenuList>
+                          </ClickAwayListener>
+                        </Paper>
+                      </Grow>
+                    )}
+                  </Popper>
+                </div>
+              )}
+            </Toolbar>
+          </AppBar>
+          <Hidden mdUp>
+            <Drawer
+              variant="temporary"
+              anchor={theme.direction === "rtl" ? "right" : "left"}
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper
+              }}
+              ModalProps={{
+                keepMounted: true
+                // Better open performance on mobile.
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden smDown implementation="css">
+            <Drawer
+              variant="permanent"
+              open
+              classes={{
+                paper: classes.drawerPaper
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <main
+            className={classes.content}
+            style={
+              theme.responsive.isMobile
+                ? { paddingRight: 0, paddingLeft: 0 }
+                : {}
+            }
+          >
+            <div className={classes.toolbar} />
+            {this.state.isOffline ? (
+              <LoadingMessage message="You are offline. Trying to reconnect you…" />
+            ) : !profile || !user ? (
+              <LoadingMessage />
+            ) : (
+              <div style={{ marginBottom: 120 }}>
+                <WrappedComponent
+                  {...this.props}
+                  profile={profile[0]}
+                  user={user[0]}
+                  handleInfoDialog={() => {
+                    this.handleInfoDialog(true);
+                  }}
+                />
+              </div>
+            )}
           </main>
-          {(profile && user)&&(profile[0])&&
-          <div>
-          <AccountInfoDailog
-          user={user[0]}
-           isOpen={this.state.infoDialog} 
-           closeHandler={this.handleInfoDialog}/>
-           { user[0].stage==='pre-review'&&
-           <StatusCard
-           currentRoute= {this.state.currentRoute}
-           onSubmit={this.props.onSubmit.bind(this)} 
-           goTo={this.goTo} 
-           profile={profile[0]}
-           status={user[0].status}/>}
-          
-            <BuggyBoy userDoc={user[0]} profileDoc={profile[0]}/> 
-           </div>
-          }
-            
+          {profile && user && profile[0] && (
+            <div>
+              <AccountInfoDailog
+                user={user[0]}
+                isOpen={this.state.infoDialog}
+                closeHandler={this.handleInfoDialog}
+              />
+              {user[0].stage === "pre-review" && (
+                <StatusCard
+                  currentRoute={this.state.currentRoute}
+                  onSubmit={this.props.onSubmit.bind(this)}
+                  goTo={this.goTo}
+                  profile={profile[0]}
+                  status={user[0].status}
+                />
+              )}
+
+              <BuggyBoy userDoc={user[0]} profileDoc={profile[0]} />
+            </div>
+          )}
         </div>
       );
     }
-    }
-    
-    WithNavigation.propTypes = {
-      classes: PropTypes.object.isRequired,
-    };
-    function mapDispatchToProps(dispatch) {
-      return({
-          clearData: () => {dispatch({ type: actionTypes.CLEAR_DATA, preserve: { data: false, ordered: false }})}
-      })
   }
-    const enhance = compose(
-      // add redux store (from react context) as a prop
-      withFirestore,
-      // Handler functions as props
-      withHandlers({
-        loadData: props => listenerSettings =>
-          props.firestore.setListener(listenerSettings),
-          onSubmit: props => (data) =>{
-            props.firestore.update({ collection: COLLECTIONS.profiles, doc: props.uid }, {
-              hasSubmit:true,
-              submittedAt: props.firestore.FieldValue.serverTimestamp()
-            }),props.firestore.update({ collection: COLLECTIONS.users, doc: props.uid }, {
-              stage:'pre-review',
-              status:'in-review',
-              submittedAt: props.firestore.FieldValue.serverTimestamp()
-            }),window.Intercom('trackEvent', 'profile-submitted');
+
+  WithNavigation.propTypes = {
+    classes: PropTypes.object.isRequired
+  };
+  function mapDispatchToProps(dispatch) {
+    return {
+      clearData: () => {
+        dispatch({
+          type: actionTypes.CLEAR_DATA,
+          preserve: { data: false, ordered: false }
+        });
+      }
+    };
+  }
+  const enhance = compose(
+    // add redux store (from react context) as a prop
+    withFirestore,
+    // Handler functions as props
+    withHandlers({
+      loadData: props => listenerSettings =>
+        props.firestore.setListener(listenerSettings),
+      onSubmit: props => data => {
+        props.firestore.update(
+          { collection: COLLECTIONS.profiles, doc: props.uid },
+          {
+            //  hasSubmit:true,
+            submittedAt: props.firestore.FieldValue.serverTimestamp()
           }
-          
-      }),
-      // Run functionality on component lifecycle
-      lifecycle({
-        // Load data when component mounts
-        componentWillMount() {
-          if(this.props.uid){
-        
-          const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
+        ),
+          props.firestore.update(
+            { collection: COLLECTIONS.users, doc: props.uid },
+            {
+              stage: "pre-review",
+              status: "in-review",
+              submittedAt: props.firestore.FieldValue.serverTimestamp()
+            }
+          ),
+          window.Intercom("trackEvent", "profile-submitted");
+      }
+    }),
+    // Run functionality on component lifecycle
+    lifecycle({
+      // Load data when component mounts
+      componentWillMount() {
+        if (this.props.uid) {
+          const profileListenerSettings = LISTENER(
+            COLLECTIONS.profiles,
+            this.props.uid
+          );
           this.props.loadData(profileListenerSettings);
-          const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
+          const usersListenerSettings = LISTENER(
+            COLLECTIONS.users,
+            this.props.uid
+          );
           this.props.loadData(usersListenerSettings);
-          const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
+          const upcomingEventsListenerSettings = {
+            collection: COLLECTIONS.upcomingEvents
+          };
           this.props.loadData(upcomingEventsListenerSettings);
-          const submissionsListenerSettings = {collection:COLLECTIONS.submissions, where: ['UID', '==',this.props.uid]}
-            this.props.loadData(submissionsListenerSettings);
-          }
-        },
-        componentDidUpdate(prevProps,prevState){
-          if(prevProps.uid !== this.props.uid){
-         
-            const profileListenerSettings = LISTENER(COLLECTIONS.profiles,this.props.uid)
-            this.props.loadData(profileListenerSettings);
-            const usersListenerSettings = LISTENER(COLLECTIONS.users,this.props.uid)        
-            this.props.loadData(usersListenerSettings);
-            const upcomingEventsListenerSettings = {collection:COLLECTIONS.upcomingEvents}
-            this.props.loadData(upcomingEventsListenerSettings);
-            const submissionsListenerSettings = {collection:COLLECTIONS.submissions, where: ['UID', '==',this.props.uid]}
-            this.props.loadData(submissionsListenerSettings);
-          }
-        },
+          const submissionsListenerSettings = {
+            collection: COLLECTIONS.submissions,
+            where: ["UID", "==", this.props.uid]
+          };
+          this.props.loadData(submissionsListenerSettings);
+        }
+      },
+      componentDidUpdate(prevProps, prevState) {
+        if (prevProps.uid !== this.props.uid) {
+          const profileListenerSettings = LISTENER(
+            COLLECTIONS.profiles,
+            this.props.uid
+          );
+          this.props.loadData(profileListenerSettings);
+          const usersListenerSettings = LISTENER(
+            COLLECTIONS.users,
+            this.props.uid
+          );
+          this.props.loadData(usersListenerSettings);
+          const upcomingEventsListenerSettings = {
+            collection: COLLECTIONS.upcomingEvents
+          };
+          this.props.loadData(upcomingEventsListenerSettings);
+          const submissionsListenerSettings = {
+            collection: COLLECTIONS.submissions,
+            where: ["UID", "==", this.props.uid]
+          };
+          this.props.loadData(submissionsListenerSettings);
+        }
+      }
+    }),
+    connect(
+      ({ firestore }) => ({
+        profile: firestore.ordered.profiles,
+        user: firestore.ordered.users,
+        upcomingEvents: firestore.data.upcomingEvents,
+        submissions: firestore.ordered.submissions
       }),
-      connect(({ firestore }) => ({
-         profile: firestore.ordered.profiles,
-         user: firestore.ordered.users, 
-         upcomingEvents: firestore.data.upcomingEvents, 
-         submissions:firestore.ordered.submissions
-      }), mapDispatchToProps)
-      
+      mapDispatchToProps
     )
-    const authCondition = (authUser) => !!authUser;
-   return enhance(
-      withRouter(
+  );
+  const authCondition = authUser => !!authUser;
+  return enhance(
+    withRouter(
       compose(
-        withAuthorisation(authCondition)(withStyles(styles,{ withTheme: true })(WithNavigation))
-      )))
-}
+        withAuthorisation(authCondition)(
+          withStyles(styles, { withTheme: true })(WithNavigation)
+        )
+      )
+    )
+  );
+};

@@ -25,13 +25,13 @@ import { withFirestore } from "../utilities/withFirestore";
 //routing
 import { withRouter } from "react-router-dom";
 import { COLLECTIONS, LISTENER } from "../constants/firestore";
-import orderBy from 'lodash.orderby'
+import orderBy from "lodash.orderby";
 import * as routes from "../constants/routes";
 import StepController from "../components/SignUp/StepController";
 import LoadingMessage from "../components/LoadingMessage";
 import withAuthorisation from "../utilities/Session/withAuthorisation";
 import CurrentUniversity from "../components/InputFields/CurrentUniversity";
-import BuggyBoy from '../components/BuggyBoy'
+import BuggyBoy from "../components/BuggyBoy";
 const styles = theme => ({
   root: {
     height: 800
@@ -52,15 +52,15 @@ const styles = theme => ({
   }
 });
 let INITIAL_PROFILE = {
-  careerInterests: {type:'defualt',value:[]},
+  careerInterests: { type: "defualt", value: [] },
   currentStep: ALL_STEPS.careerInterests,
   bio: "",
   currentUniversity: "",
   skills: [],
   workingRights: "",
-  workRestricted:-1,
+  workRestricted: -1,
   availableDays: "",
-  availableDaysNum:-1,
+  availableDaysNum: -1,
   phoneNumber: "",
   industry: "IT",
   education: [],
@@ -69,12 +69,11 @@ let INITIAL_PROFILE = {
 };
 const INITIAL_STATE = {
   activeStep: 0,
-  isLoading:false,
+  isLoading: false,
   profile: {},
   error: null,
-  isOffline:false
+  isOffline: false
 };
-
 
 class ResumeBuilderContainer extends Component {
   constructor(props) {
@@ -111,8 +110,8 @@ class ResumeBuilderContainer extends Component {
       );
       this.setState({ profile: updatedProfile });
       this.props.onProfileUpdate({
-        process: PROCESS_TYPES.build,
-        hasSubmit: false
+        process: PROCESS_TYPES.build
+        //   hasSubmit: false
       });
       this.props.onUserUpdate({ process: PROCESS_TYPES.build });
     } else if (this.props.history.location.pathname === routes.UPLOAD_RESUME) {
@@ -122,8 +121,8 @@ class ResumeBuilderContainer extends Component {
       );
       this.setState({ profile: updatedProfile });
       this.props.onProfileUpdate({
-        process: PROCESS_TYPES.upload,
-        hasSubmit: false
+        process: PROCESS_TYPES.upload
+        //    hasSubmit: false
       });
       this.props.onUserUpdate({ process: PROCESS_TYPES.upload });
     }
@@ -139,11 +138,11 @@ class ResumeBuilderContainer extends Component {
     }
     if (prevProps.user !== this.props.user) {
       const { profile, user, onProfileUpdate } = this.props;
-      if (user.length ===0){
-        this.setState({isOffline:true});
+      if (user.length === 0) {
+        this.setState({ isOffline: true });
         return;
-      }else{
-        this.setState({isOffline:false});
+      } else {
+        this.setState({ isOffline: false });
       }
       if (
         user[0].currentUniversity &&
@@ -154,13 +153,12 @@ class ResumeBuilderContainer extends Component {
     }
   }
   handleChange(name, value) {
-    if(name ==='isLoading'){
-      this.setState({isLoading:value})
-    }else{
+    if (name === "isLoading") {
+      this.setState({ isLoading: value });
+    } else {
       const newProfile = Object.assign(this.state.profile, { [name]: value });
       this.setState({ profile: newProfile });
     }
-
   }
   getStepContent(currentStep, profile) {
     const { careerInterests, industry } = profile;
@@ -260,7 +258,6 @@ class ResumeBuilderContainer extends Component {
   };
 
   handleUpdate = activeStep => {
-  
     const { profile } = this.state;
     const currentStep = STEP_LABELS[profile.process][activeStep];
     switch (currentStep) {
@@ -294,11 +291,7 @@ class ResumeBuilderContainer extends Component {
       case ALL_STEPS.education:
         let currentUniversity = "";
         if (profile.education) {
-          const education = orderBy(
-            profile.education,
-            "endDateValue",
-            "desc"
-          );
+          const education = orderBy(profile.education, "endDateValue", "desc");
           currentUniversity = education[0].university;
         }
         this.props.onProfileUpdate({
@@ -353,19 +346,20 @@ class ResumeBuilderContainer extends Component {
     });
   };
   render() {
-    const { classes, theme,user } = this.props;
-    const { activeStep, profile,isLoading } = this.state;
+    const { classes, theme, user } = this.props;
+    const { activeStep, profile, isLoading } = this.state;
 
     if (this.state.isOffline) {
       return (
         <LogoOnCard height={520} width={900}>
           <SectionWrapper height={420} width={900}>
             <div style={{ padding: 30 }}>
-              <LoadingMessage message={`You are offline.
-              Trying to reconnect you…`} />
+              <LoadingMessage
+                message={`You are offline.
+              Trying to reconnect you…`}
+              />
             </div>
           </SectionWrapper>
-        
         </LogoOnCard>
       );
     }
@@ -391,7 +385,7 @@ class ResumeBuilderContainer extends Component {
               {this.getStepContent(currentStep, profile)}
             </StepController>
           </div>
-          <BuggyBoy userDoc={user[0]} profileDoc={profile}/> 
+          <BuggyBoy userDoc={user[0]} profileDoc={profile} />
         </LogoOnCard>
       );
     } else {
@@ -402,7 +396,6 @@ class ResumeBuilderContainer extends Component {
               <LoadingMessage message={`Hold onto your hat!`} />
             </div>
           </SectionWrapper>
-        
         </LogoOnCard>
       );
     }
@@ -491,7 +484,7 @@ export default enhance(
   withRouter(
     compose(
       withAuthorisation(authCondition)(
-        withStyles(styles,{withTheme:true})(ResumeBuilderContainer)
+        withStyles(styles, { withTheme: true })(ResumeBuilderContainer)
       )
     )
   )
