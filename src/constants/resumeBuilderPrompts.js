@@ -34,7 +34,13 @@ const DesignList = [{key:'GI',label:'Graphic Design'},{key:'UX',label:'User Expe
 const ITList = [{key:'APP',label:'App Development'},{key:'WEB',label:'Web Development'},{key:'DA',label:'Data Analytics'}]
 const ALL_INTERESTS = [].concat(marketingList,DesignList).concat(businessList,ITList)
 export function getInterestByKey(key){
-    return ALL_INTERESTS.filter(x => x.key === key)
+    let interest =  ALL_INTERESTS.filter(x => x.key === key)
+    if (interest){
+        return interest
+    }else{
+        //custom interests dont have labels, so the key is the label
+        return({label:key})
+    }
 }
 export const CAREER_INTERESTS = [{label:'Business',items: businessList},{label:'Marketing',items:marketingList},{label:'Design',items:DesignList},{label:'IT',items:ITList}]
 
@@ -49,7 +55,10 @@ export function getPrompts(field){
     }
   
 }
-
+/**
+ * calculates the most relavent industry based on interest
+ * @param {*} interests 
+ */
 export function getIndustryFromInterests(interests){
     let count={Business:0, Marketing:0,Design:0,IT:0}
   
@@ -88,7 +97,9 @@ const SKILLS ={
     WEB:['JavaScript','HTML/CSS','JQuery','React','PHP','Node.JS','Vue.js','AngularJS'],
     DA:['Python','SQL','R','Excel','Matlab']
 }
-
+/**
+ * combines all the defined skills into a single array to make it searchable 
+ */
 export const ALL_SKILLS = Object.values(SKILLS).reduce((r,interest)=>{
     let newSkills = []
     interest.forEach(skill=>{

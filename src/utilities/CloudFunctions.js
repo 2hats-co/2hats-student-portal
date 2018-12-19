@@ -2,6 +2,7 @@ import { functions } from "../store";
 
 export const CLOUD_FUNCTIONS = {
     TAG_TRACKER:'restApiEventTracker',
+    RESUME_SCRAPER:'callablesAlgoliaResumes',
     SPEEDY_SIGNUP: "restApiSpeedySignup",
     AUTHENTICATE_3RD_PARTY: "restApiAuthenticate3rdParty",
     CHECK_EMAIL: "restApiCheckEmail",

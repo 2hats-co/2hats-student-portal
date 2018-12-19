@@ -14,7 +14,7 @@ import classNames from "classnames";
 import InputWrapper from './InputWrapper'
 import MessageBar from '../MessageBar';
 import DownloadIcon from '@material-ui/icons/ArrowDownward';
-
+import {cloudFunction,CLOUD_FUNCTIONS} from '../../utilities/CloudFunctions'
 
 import { connect } from 'react-redux';
 
@@ -101,15 +101,18 @@ class ResumeLoader extends React.Component {
         firebaseStorage
         .child(snapShot.metadata.fullPath)
         .getDownloadURL()
-        .then(url => 
-        this.props.changeHandler(
-            'resumeFile',{
-                name:this.props.resumeFile.name,
-                fullPath:snapShot.metadata.fullPath,
-                downloadURL:url,
-                createdAt:new Date(Date.now())
-            }
-            )
+        .then(url => {
+            cloudFunction(CLOUD_FUNCTIONS.RESUME_SCRAPER)
+            this.props.changeHandler(
+                'resumeFile',{
+                    name:this.props.resumeFile.name,
+                    fullPath:snapShot.metadata.fullPath,
+                    downloadURL:url,
+                    createdAt:new Date(Date.now())
+                }
+                )
+        }
+        
     )
         this.setState({isUploading:false})
         this.props.changeHandler('isLoading',false)
