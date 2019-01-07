@@ -1,6 +1,6 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import Typography from 'sp2-material-ui/core/Typography';
+import Grid from 'sp2-material-ui/core/Grid';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../../utilities/CloudFunctions';
 import {PRIMARY_COLOR} from '../../Theme'
 

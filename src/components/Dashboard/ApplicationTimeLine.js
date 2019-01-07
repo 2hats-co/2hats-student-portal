@@ -1,10 +1,10 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography'
-import Stepper from '@material-ui/core/Stepper'
-import StepLabel from '@material-ui/core/StepLabel'
-import Step from '@material-ui/core/Step'
-import withStyles from "@material-ui/core/styles/withStyles";
-import Grid from '@material-ui/core/Grid';
+import Typography from 'sp2-material-ui/core/Typography'
+import Stepper from 'sp2-material-ui/core/Stepper'
+import StepLabel from 'sp2-material-ui/core/StepLabel'
+import Step from 'sp2-material-ui/core/Step'
+import withStyles from "sp2-material-ui/core/styles/withStyles";
+import Grid from 'sp2-material-ui/core/Grid';
 
 const STAGES = ['pre-review','resume','interview','assessment','placed']
 

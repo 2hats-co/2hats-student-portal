@@ -1,5 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from 'sp2-material-ui/core/Typography';
 
 import * as routes from "../../constants/routes";
 
@@ -8,10 +8,10 @@ import GoogleButton from './GoogleButton';
 import LinkedinButton from './LinkedinButton';
 import EmailAuth from './EmailAuth';
 import StyledLink from '../StyledLink';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
 
 import womanGraphic from '../../assets/images/graphics/SignUpWoman.svg';
-import { Grid } from '@material-ui/core';
+import { Grid } from 'sp2-material-ui/core';
 
 
 const styles = theme => ({

@@ -2,10 +2,10 @@ import React from "react";
 
 import PropTypes from "prop-types";
 
-import withStyles from "@material-ui/core/styles/withStyles";
-import Grid from "@material-ui/core/Grid";
-import Switch from '@material-ui/core/Switch';
-import Typography from '@material-ui/core/Typography';
+import withStyles from "sp2-material-ui/core/styles/withStyles";
+import Grid from "sp2-material-ui/core/Grid";
+import Switch from 'sp2-material-ui/core/Switch';
+import Typography from 'sp2-material-ui/core/Typography';
 import moment from 'moment'
 
 import Calendar from './Calendar';

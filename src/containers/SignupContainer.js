@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 //material
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
 //child components
 import LogoOnCard from "../components/LogoOnCard";
 //form sections

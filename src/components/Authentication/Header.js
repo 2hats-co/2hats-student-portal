@@ -1,5 +1,5 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from 'sp2-material-ui/core/Typography';
 
 function Header(props) {
     const { greeting, name } = props;

@@ -1,11 +1,11 @@
 import React from 'react';
 //Material UI
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import withStyles from '@material-ui/core/styles/withStyles';
+import Button from 'sp2-material-ui/core/Button';
+import Dialog from 'sp2-material-ui/core/Dialog';
+import DialogActions from 'sp2-material-ui/core/DialogActions';
+import DialogContent from 'sp2-material-ui/core/DialogContent';
+import DialogTitle from 'sp2-material-ui/core/DialogTitle';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
 //inputs
 import CareerInterests from '../InputFields/CareerInterests'
 import Skills from '../InputFields/Skills';

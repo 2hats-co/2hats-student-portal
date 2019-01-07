@@ -1,8 +1,8 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography'
-import withStyles from "@material-ui/core/styles/withStyles";
-import Grid  from "@material-ui/core/Grid";
-import IconButton  from "@material-ui/core/IconButton";
+import Typography from 'sp2-material-ui/core/Typography'
+import withStyles from "sp2-material-ui/core/styles/withStyles";
+import Grid  from "sp2-material-ui/core/Grid";
+import IconButton  from "sp2-material-ui/core/IconButton";
 
 const styles = theme => ({
     root: {

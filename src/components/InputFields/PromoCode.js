@@ -1,7 +1,7 @@
 import React from 'react'
-import InputLabel from '@material-ui/core/InputLabel'
-import Input from '@material-ui/core/Input'
-import FormControl from '@material-ui/core/FormControl'
+import InputLabel from 'sp2-material-ui/core/InputLabel'
+import Input from 'sp2-material-ui/core/Input'
+import FormControl from 'sp2-material-ui/core/FormControl'
 
 const codes = ['UNSWAISOC123','UTSMEDICAL12',
 'BUSINESSONE1','USYDNETWORK1','UNSWYOUNGEN1',

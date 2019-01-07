@@ -2,11 +2,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import Paper from 'sp2-material-ui/core/Paper';
 import {setBackground} from '../utilities/styling'
 import Tween from 'rc-tween-one';
-import Grid from '@material-ui/core/Grid';
+import Grid from 'sp2-material-ui/core/Grid';
 
 import Background from '../assets/background/BW.svg';
 

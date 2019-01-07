@@ -1,9 +1,9 @@
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import Paper from 'sp2-material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.svg'
 import {setBackground} from '../utilities/styling'
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from 'sp2-material-ui/core/LinearProgress';
 import SnackBar from './SnackBar';
 
 import Background from '../assets/background/Colour.svg';

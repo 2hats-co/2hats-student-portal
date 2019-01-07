@@ -1,13 +1,13 @@
 import React from 'react'
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Grid from '@material-ui/core/Grid';
-import withStyles from '@material-ui/core/styles/withStyles';
+import Button from 'sp2-material-ui/core/Button';
+import Dialog from 'sp2-material-ui/core/Dialog';
+import DialogActions from 'sp2-material-ui/core/DialogActions';
+import DialogContent from 'sp2-material-ui/core/DialogContent';
+import DialogTitle from 'sp2-material-ui/core/DialogTitle';
+import Grid from 'sp2-material-ui/core/Grid';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import LinearProgress from 'sp2-material-ui/core/LinearProgress';
 const styles = theme => ({
     root:{
     },content:{

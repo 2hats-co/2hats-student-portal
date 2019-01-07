@@ -1,10 +1,10 @@
 import React,{Component} from 'react'
 
 import PropTypes from 'prop-types';
-import MuiAvatar from '@material-ui/core/Avatar';
+import MuiAvatar from 'sp2-material-ui/core/Avatar';
 import Dialog from './Dialog/index'
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
+import Button from 'sp2-material-ui/core/Button';
+import Grid from 'sp2-material-ui/core/Grid';
 import MultiLineTextField from './InputFields/MultiLineTextField'
 import Dropzone from 'react-dropzone'
 import {db} from '../store'

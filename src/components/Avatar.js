@@ -2,11 +2,11 @@ import React,{Component} from 'react'
 
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import withStyles from '@material-ui/core/styles/withStyles';
-import MuiAvatar from '@material-ui/core/Avatar';
-import deepOrange from '@material-ui/core/colors/deepOrange';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import MuiAvatar from 'sp2-material-ui/core/Avatar';
+import deepOrange from 'sp2-material-ui/core/colors/deepOrange';
 import Dialog from './Dialog/index'
-import Grid from '@material-ui/core/Grid';
+import Grid from 'sp2-material-ui/core/Grid';
 
 import Dropzone from 'react-dropzone'
 import {db} from '../store'

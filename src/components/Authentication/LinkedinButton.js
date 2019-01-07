@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "@material-ui/core/Button";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
+import Button from "sp2-material-ui/core/Button";
 import LinkedinIcon from "../../assets/images/social/linkedin.svg";
 import { LINKEDIN_CID } from "../../config/auth";
 import { getTokenWith3rdParty } from "../../utilities/Authentication/getTokenWith3rdParty";

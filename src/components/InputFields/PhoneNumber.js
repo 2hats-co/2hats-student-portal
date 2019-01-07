@@ -3,8 +3,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
-import TextField from '@material-ui/core/TextField'
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import TextField from 'sp2-material-ui/core/TextField'
 import InputWrapper from './InputWrapper'
 import NumberFormat from 'react-number-format';
 const styles = theme => ({

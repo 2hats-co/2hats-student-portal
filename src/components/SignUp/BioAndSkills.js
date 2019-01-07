@@ -2,7 +2,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Grid from '@material-ui/core/Grid'
+import Grid from 'sp2-material-ui/core/Grid'
 import PersonalBio from "../InputFields/PersonalBio";
 import Skills from "../InputFields/Skills";
 function BioAndSkills(props){

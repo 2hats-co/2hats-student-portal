@@ -1,9 +1,9 @@
 import React from 'react'
-import withStyles from '@material-ui/core/styles/withStyles';
-import  Grid from '@material-ui/core/Grid';
-import  Typography from '@material-ui/core/Typography';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import  Grid from 'sp2-material-ui/core/Grid';
+import  Typography from 'sp2-material-ui/core/Typography';
 
-import CircularProgress from '@material-ui/core/CircularProgress'
+import CircularProgress from 'sp2-material-ui/core/CircularProgress'
 
 const styles = theme => ({
    root:{

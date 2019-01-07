@@ -1,8 +1,8 @@
 import React from 'react';
 
-import withStyles from "@material-ui/core/styles/withStyles";
-import Grid from "@material-ui/core/Grid";
-import Typography from '@material-ui/core/Typography';
+import withStyles from "sp2-material-ui/core/styles/withStyles";
+import Grid from "sp2-material-ui/core/Grid";
+import Typography from 'sp2-material-ui/core/Typography';
 
 import womanGraphic from '../../assets/images/graphics/SignUpWoman.svg';
 import Tick from '../../assets/images/graphics/Tick.svg';

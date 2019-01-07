@@ -2,11 +2,11 @@ import React,{Component} from 'react'
 
 import Email from '../InputFields/Email'
 import {checkEmail} from '../../utilities/Authentication/emailCheck'
-import Button from '@material-ui/core/Button'
+import Button from 'sp2-material-ui/core/Button'
 import { validateEmail } from '../../utilities/validators';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography'
-import Grid from '@material-ui/core/Grid'
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import Typography from 'sp2-material-ui/core/Typography'
+import Grid from 'sp2-material-ui/core/Grid'
 import Validator from 'mailgun-validate';
 import { AUTHENTICATION_CONTAINER } from '../../constants/views';
 

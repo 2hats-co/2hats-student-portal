@@ -1,9 +1,9 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
+import Button from "sp2-material-ui/core/Button";
 
 import WebStepper from './WebStepper'
-import Grid from "@material-ui/core/Grid";
-import withStyles from "@material-ui/core/styles/withStyles";
+import Grid from "sp2-material-ui/core/Grid";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
 import {withRouter} from 'react-router-dom'
 import {PROCESS_TYPES,ALL_STEPS,STEP_LABELS,checkComplition} from '../../../constants/signUpProcess'
 import StyledLink from '../../StyledLink'

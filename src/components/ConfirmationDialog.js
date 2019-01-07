@@ -1,15 +1,15 @@
 import React,{Component} from 'react';
 import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import withMobileDialog from '@material-ui/core/withMobileDialog';
-import Checkbox from '@material-ui/core/Checkbox';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid'
+import Button from 'sp2-material-ui/core/Button';
+import Dialog from 'sp2-material-ui/core/Dialog';
+import DialogActions from 'sp2-material-ui/core/DialogActions';
+import DialogContent from 'sp2-material-ui/core/DialogContent';
+import DialogTitle from 'sp2-material-ui/core/DialogTitle';
+import withMobileDialog from 'sp2-material-ui/core/withMobileDialog';
+import Checkbox from 'sp2-material-ui/core/Checkbox';
+import FormControlLabel from 'sp2-material-ui/core/FormControlLabel';
+import Typography from 'sp2-material-ui/core/Typography';
+import Grid from 'sp2-material-ui/core/Grid'
 class ConfirmationDialog extends Component{
       render() {
         const { dialog,closeHandler,checkHandler} = this.props;

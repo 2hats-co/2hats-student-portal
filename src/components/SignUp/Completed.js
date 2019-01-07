@@ -2,8 +2,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Grid from '@material-ui/core/Grid'
-import Typography from "@material-ui/core/Typography";
+import Grid from 'sp2-material-ui/core/Grid'
+import Typography from "sp2-material-ui/core/Typography";
  const completedMessage = {
   build:'You have filled all mandatory fields to build your resume using our guided processes.',
   upload:'You have filled all mandatory fields to upload your resume.'

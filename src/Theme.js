@@ -1,5 +1,5 @@
 
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import createMuiTheme from 'sp2-material-ui/core/styles/createMuiTheme';
 import { inherits } from 'util';
 export const PRIMARY_COLOR = '#F15A29'
 const primaryFontFamily = `"Helvetica Neue", Arial`

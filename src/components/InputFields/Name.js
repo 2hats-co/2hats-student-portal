@@ -1,6 +1,6 @@
 import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import TextField from '@material-ui/core/TextField'
+import Grid from 'sp2-material-ui/core/Grid'
+import TextField from 'sp2-material-ui/core/TextField'
 
 
 function Name(props){

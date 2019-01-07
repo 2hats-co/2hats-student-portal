@@ -1,16 +1,16 @@
 import React from 'react';
-import FormLabel from '@material-ui/core/FormLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import FormLabel from 'sp2-material-ui/core/FormLabel';
+import FormControl from 'sp2-material-ui/core/FormControl';
+import FormGroup from 'sp2-material-ui/core/FormGroup';
+import FormControlLabel from 'sp2-material-ui/core/FormControlLabel';
+import Checkbox from 'sp2-material-ui/core/Checkbox';
+import Typography from 'sp2-material-ui/core/Typography';
+import Grid from 'sp2-material-ui/core/Grid';
 import PropTypes from 'prop-types';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
 
 import {CAREER_INTERESTS,getIndustryFromInterests} from '../../constants/resumeBuilderPrompts'
-import TextField  from '@material-ui/core/TextField';
+import TextField  from 'sp2-material-ui/core/TextField';
 
 const INTERESTS_DATA_TYPE = {
   default:"default",

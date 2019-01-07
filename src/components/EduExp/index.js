@@ -8,11 +8,11 @@ import DeleteDialog from "./DeleteDialog";
 import { EDU, getFormFields } from "../../constants/dialogFormFields";
 import orderBy from 'lodash.orderby'
 import {orderByInt} from '../../utilities/ObjectsAndArrays'
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
 
-import Grid from "@material-ui/core/Grid";
-import Card from "@material-ui/core/Card";
-import Typography from "@material-ui/core/Typography";
+import Grid from "sp2-material-ui/core/Grid";
+import Card from "sp2-material-ui/core/Card";
+import Typography from "sp2-material-ui/core/Typography";
 import moment from 'moment'
 
 const styles = theme => ({

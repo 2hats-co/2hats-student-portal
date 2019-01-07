@@ -1,5 +1,5 @@
 import React from 'react';
-import TextField from '@material-ui/core/TextField';
+import TextField from 'sp2-material-ui/core/TextField';
 import DropDown from '../InputFields/DropDown';
 import MonthPicker from '../InputFields/MonthPicker';
 import AutoComplete from '../InputFields/AutoComplete';

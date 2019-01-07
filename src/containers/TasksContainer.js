@@ -1,7 +1,6 @@
 import React from "react";
 
-const ProfileContainer = props => {
-  console.log(props);
+const ProfileContainer = () => {
   return <div>delet</div>;
 };
 

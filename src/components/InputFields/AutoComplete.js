@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import withStyles from '@material-ui/core/styles/withStyles';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import Typography from 'sp2-material-ui/core/Typography';
+import TextField from 'sp2-material-ui/core/TextField';
+import MenuItem from 'sp2-material-ui/core/MenuItem';
 import InputWrapper from "./InputWrapper";
 
 const styles = theme => ({

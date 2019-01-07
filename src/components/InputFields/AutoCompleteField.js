@@ -1,21 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
 import InputWrapper from "./InputWrapper";
 
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
+import Grow from "sp2-material-ui/core/Grow";
+import Paper from "sp2-material-ui/core/Paper";
+import MenuItem from "sp2-material-ui/core/MenuItem";
+import MenuList from "sp2-material-ui/core/MenuList";
 
 import classNames from "classnames";
 import { Manager, Target, Popper } from "react-popper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import ClickAwayListener from "sp2-material-ui/core/ClickAwayListener";
 
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
+import Button from 'sp2-material-ui/core/Button';
+import Grid from 'sp2-material-ui/core/Grid';
+import TextField from 'sp2-material-ui/core/TextField';
 
 const styles = theme => ({
   root:{

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import withStyles from "@material-ui/core/styles/withStyles";
-import Button from "@material-ui/core/Button";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
+import Button from "sp2-material-ui/core/Button";
 import { GOOGLE_CID_STAGING, GOOGLE_CID_PRODUCTION } from "../../config/auth";
 import GoogleIcon from "../../assets/images/social/google.svg";
 import GoogleLogin from "../../utilities/Authentication/GoogleLogin.js";

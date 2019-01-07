@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import withStyles from "@material-ui/core/styles/withStyles";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
 
-import Typography from "@material-ui/core/Typography";
-import Card from "@material-ui/core/Card";
-import Grid from "@material-ui/core/Grid";
+import Typography from "sp2-material-ui/core/Typography";
+import Card from "sp2-material-ui/core/Card";
+import Grid from "sp2-material-ui/core/Grid";
 
 const styles = theme => ({
   root:{

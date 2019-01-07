@@ -1,8 +1,8 @@
 import React from 'react'
-import withStyles from "@material-ui/core/styles/withStyles";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
+import withStyles from "sp2-material-ui/core/styles/withStyles";
+import Stepper from "sp2-material-ui/core/Stepper";
+import Step from "sp2-material-ui/core/Step";
+import StepLabel from "sp2-material-ui/core/StepLabel";
 
 const styles = theme => ({
   stepper:{

@@ -1,7 +1,7 @@
 import React from 'react';
 //Material UI
 import Dialog from '../Dialog';
-import withStyles from '@material-ui/core/styles/withStyles';
+import withStyles from 'sp2-material-ui/core/styles/withStyles';
 //Redux
 import { compose } from 'redux';
 import { withHandlers } from 'recompose'
