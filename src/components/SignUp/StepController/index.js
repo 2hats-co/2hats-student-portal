@@ -156,7 +156,7 @@ class StepController extends React.Component {
     const currentStep = STEP_LABELS[profile.process][activeStep];
     const nextButton = (
       <Button
-        id={`next-${currentStep}`}
+        id={`next-${currentStep.split(' ')[0]}`}
         className={classes.button}
         disabled={checkComplition(currentStep, profile)}
         variant="text"

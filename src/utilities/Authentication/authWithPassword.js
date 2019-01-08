@@ -1,5 +1,5 @@
 import { auth, db } from '../../store/index';
-import { INTRODUCTION, DASHBOARD } from '../../constants/routes';
+import { UPLOAD_RESUME, DASHBOARD } from '../../constants/routes';
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
 
@@ -47,7 +47,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               hasSubmit: false,
               createdAt: Date.now(),
             });
-          routeHandler(INTRODUCTION);
+          routeHandler(UPLOAD_RESUME);
         });
     })
     .catch(error => {
@@ -69,7 +69,7 @@ export const signInWithPassword = (user, routeHandler, errorHandler) => {
             //TODO: process constants
             routeHandler(DASHBOARD);
           } else {
-            routeHandler(INTRODUCTION);
+            routeHandler(UPLOAD_RESUME);
           }
         });
     })

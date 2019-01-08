@@ -38,6 +38,7 @@ class DropDown extends React.Component {
     } = this.props;
     const InputField = (
       <FormControl
+        id={name}
         className={classes.inputField}
         style={{ maxWidth: maxWidth }}
       >

@@ -11,12 +11,14 @@ function otherInfo(props) {
   return (
     <Grid container direction="row" justify="space-between">
       <AvailableDays
+        id="AvailableDays"
         value={availableDays}
         maxWidth={400}
         changeHandler={changeHandler}
       />
       <div style={{ marginTop: 20 }}>
         <WorkingRights
+          id="workingRights"
           value={workingRights}
           maxWidth={400}
           changeHandler={changeHandler}

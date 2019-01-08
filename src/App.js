@@ -10,10 +10,7 @@ import withAuthentication from './utilities/Session/withAuthentication';
 //routing
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as routes from './constants/routes';
-import {
-  AUTHENTICATION_CONTAINER,
-  // INTRODUCTION_CONTAINER
-} from './constants/views';
+import { AUTHENTICATION_CONTAINER } from './constants/views';
 import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
 
