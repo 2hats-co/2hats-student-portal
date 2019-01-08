@@ -1,36 +1,36 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-import Typography from "sp2-material-ui/core/Typography";
-import Card from "sp2-material-ui/core/Card";
-import Grid from "sp2-material-ui/core/Grid";
-import IconButton from "sp2-material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+import Typography from '@material-ui/core/Typography';
+import Card from '@material-ui/core/Card';
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: '100%',
   },
   card: {
-    width: "calc(100%0)",
+    width: 'calc(100%0)',
     paddingTop: 35,
     paddingBottom: 30,
     marginBottom: 20,
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up('xs')]: {
       paddingLeft: 30,
-      paddingRight: 30
+      paddingRight: 30,
     },
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       paddingLeft: 40,
-      paddingRight: 40
+      paddingRight: 40,
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       paddingLeft: 50,
-      paddingRight: 50
-    }
-  }
+      paddingRight: 50,
+    },
+  },
 });
 function EduExpCard(props) {
   const {
@@ -43,7 +43,7 @@ function EduExpCard(props) {
     startDate,
     endDate,
     editHandler,
-    deleteHandler
+    deleteHandler,
   } = props;
   return (
     <div key={key} className={classes.root}>
@@ -96,13 +96,13 @@ function EduExpCard(props) {
               </Typography>
             </Grid>
             <Grid item xs={5} sm={4}>
-              <Typography variant="body1" style={{ textAlign: "right" }}>
+              <Typography variant="body1" style={{ textAlign: 'right' }}>
                 {startDate} – {endDate}
               </Typography>
             </Grid>
           </Grid>
           <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
-            <Typography variant="body1" style={{ whiteSpace: "pre-wrap" }}>
+            <Typography variant="body1" style={{ whiteSpace: 'pre-wrap' }}>
               {description}
             </Typography>
           </Grid>
@@ -120,7 +120,7 @@ EduExpCard.propTypes = {
   placeholder: PropTypes.string,
   numberOfLines: PropTypes.number,
   characterLimit: PropTypes.number,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(EduExpCard);

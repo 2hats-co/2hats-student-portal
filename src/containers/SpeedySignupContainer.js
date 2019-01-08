@@ -1,72 +1,72 @@
-import React, { Component } from "react";
-import LogoInCard from "../components/LogoInCard";
-import CurrentUniversity from "../components/InputFields/CurrentUniversity";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
+import React, { Component } from 'react';
+import LogoInCard from '../components/LogoInCard';
+import CurrentUniversity from '../components/InputFields/CurrentUniversity';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-import Grid from "sp2-material-ui/core/Grid";
-import Typography from "sp2-material-ui/core/Typography";
-import Email from "../components/InputFields/Email";
-import Disclaimer from "../components/Authentication/Disclaimer";
-import Name from "../components/InputFields/Name";
-import Button from "sp2-material-ui/core/Button";
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Email from '../components/InputFields/Email';
+import Disclaimer from '../components/Authentication/Disclaimer';
+import Name from '../components/InputFields/Name';
+import Button from '@material-ui/core/Button';
 
-import ChangeAdpter from "../components/InputFields/ChangeAdapter";
-import girlWithLaptop from "../assets/images/graphics/girlWithLaptop.png";
-import celebratingMan from "../assets/images/graphics/congratsMan.svg";
-import Industy from "../components/InputFields/Industry";
-import { SPEEDY_SIGNUP } from "../constants/views";
-import { withRouter } from "react-router-dom";
-import { CLOUD_FUNCTIONS } from "../utilities/CloudFunctions";
-import { warmUp } from "../utilities/Authentication/warmUp";
-import { speedyAuth } from "../utilities/Authentication/speedySignup";
+import ChangeAdpter from '../components/InputFields/ChangeAdapter';
+import girlWithLaptop from '../assets/images/graphics/girlWithLaptop.png';
+import celebratingMan from '../assets/images/graphics/congratsMan.svg';
+import Industy from '../components/InputFields/Industry';
+import { SPEEDY_SIGNUP } from '../constants/views';
+import { withRouter } from 'react-router-dom';
+import { CLOUD_FUNCTIONS } from '../utilities/CloudFunctions';
+import { warmUp } from '../utilities/Authentication/warmUp';
+import { speedyAuth } from '../utilities/Authentication/speedySignup';
 const styles = theme => ({
   root: {
-    height: "100vh"
+    height: '100vh',
   },
   webForm: {
     width: 350,
     minHeight: 350,
     marginLeft: 50,
-    marginRight: 50
+    marginRight: 50,
   },
   mobileForm: {
-    width: 280
+    width: 280,
   },
   button: {
     width: 180,
     marginTop: 0,
-    marginBottom: 50
+    marginBottom: 50,
   },
   loading: {
-    position: "relative",
-    bottom: -39
+    position: 'relative',
+    bottom: -39,
   },
   mobileButton: {
     width: 180,
     marginTop: 20,
     marginBottom: 50,
-    margin: "auto"
+    margin: 'auto',
   },
   img: {
     marginRight: 20,
-    marginBottom: 50
+    marginBottom: 50,
   },
   header: {
-    marginBottom: 10
-  }
+    marginBottom: 10,
+  },
 });
 class SpeedySignupContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "",
-      lastName: "",
-      email: "",
-      currentUniversity: "",
-      industry: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      currentUniversity: '',
+      industry: '',
       view: SPEEDY_SIGNUP.form,
       isPublic: true,
-      isLoading: false
+      isLoading: false,
     };
     this.createUser = this.createUser.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -88,14 +88,14 @@ class SpeedySignupContainer extends Component {
   }
   handleReset() {
     this.setState({
-      firstName: "",
-      lastName: "",
-      email: "",
-      currentUniversity: "",
-      industry: "",
+      firstName: '',
+      lastName: '',
+      email: '',
+      currentUniversity: '',
+      industry: '',
       view: SPEEDY_SIGNUP.form,
       isLoading: false,
-      snackBar: null
+      snackBar: null,
     });
   }
 
@@ -105,14 +105,14 @@ class SpeedySignupContainer extends Component {
       lastName,
       email,
       currentUniversity,
-      industry
+      industry,
     } = this.state;
     const userInfo = {
       firstName: firstName,
       lastName: lastName,
       email: email.toLowerCase(),
       currentUniversity: currentUniversity,
-      industry: industry
+      industry: industry,
     };
 
     this.setState({ isLoading: true });
@@ -133,13 +133,13 @@ class SpeedySignupContainer extends Component {
   };
 
   goHome() {
-    window.open("https://2hats.com.au", "_self");
+    window.open('https://2hats.com.au', '_self');
   }
   errorBar(e) {
     this.setState({
-      snackBar: { message: e.message, variant: "error" },
+      snackBar: { message: e.message, variant: 'error' },
       isLoading: false,
-      link: "signin"
+      link: 'signin',
     });
   }
   renderForm() {
@@ -151,7 +151,7 @@ class SpeedySignupContainer extends Component {
       email,
       currentUniversity,
       industry,
-      isLoading
+      isLoading,
     } = this.state;
     return (
       <Grid
@@ -161,14 +161,14 @@ class SpeedySignupContainer extends Component {
       >
         <Grid className={classes.header} item>
           <Typography
-            variant={isMobile ? "subheading" : "title"}
-            style={isMobile ? { textAlign: "center" } : {}}
+            variant={isMobile ? 'subheading' : 'title'}
+            style={isMobile ? { textAlign: 'center' } : {}}
           >
             Welcome to 2hats!
           </Typography>
           <Typography
-            variant={isMobile ? "body1" : "subheading"}
-            style={isMobile ? { textAlign: "center" } : {}}
+            variant={isMobile ? 'body1' : 'subheading'}
+            style={isMobile ? { textAlign: 'center' } : {}}
           >
             Sign up to get paid placements and kickstart your professional
             career
@@ -212,7 +212,7 @@ class SpeedySignupContainer extends Component {
         className={isMobile ? classes.mobileForm : classes.webForm}
         container
         direction="column"
-        alignItems={isMobile ? "center" : "flex-start"}
+        alignItems={isMobile ? 'center' : 'flex-start'}
         justify="space-between"
       >
         {!isMobile && <Grid item />}
@@ -220,19 +220,19 @@ class SpeedySignupContainer extends Component {
           <Grid container>
             <Typography
               variant="title"
-              style={isMobile ? { textAlign: "center" } : {}}
+              style={isMobile ? { textAlign: 'center' } : {}}
             >
               Congratulations, you’re almost there!
             </Typography>
             <Typography
               variant="body1"
-              style={isMobile ? { textAlign: "center" } : {}}
+              style={isMobile ? { textAlign: 'center' } : {}}
             >
               We’ve sent you an email to finish the sign up process.
             </Typography>
             <Typography
               variant="body1"
-              style={isMobile ? { textAlign: "center" } : {}}
+              style={isMobile ? { textAlign: 'center' } : {}}
             >
               When you’re ready, submit your information to access job
               opporunties.
@@ -270,12 +270,12 @@ class SpeedySignupContainer extends Component {
             width={isMobile ? 320 : 680}
             height="auto"
             isLoading={isLoading}
-            logoClass={isMobile ? "centeredLogo" : "miniLogo"}
+            logoClass={isMobile ? 'centeredLogo' : 'miniLogo'}
             snackBar={snackBar}
           >
             <Grid
               container
-              direction={isMobile ? "column" : "row"}
+              direction={isMobile ? 'column' : 'row'}
               alignItems="center"
             >
               {view === SPEEDY_SIGNUP.form

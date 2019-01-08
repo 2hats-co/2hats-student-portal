@@ -1,26 +1,26 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import Chip from "sp2-material-ui/core/Chip";
-import Typography from "sp2-material-ui/core/Typography";
-import { getSkills } from "../../../constants/resumeBuilderPrompts";
-import AddIcon from "@material-ui/icons/AddCircle";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Chip from '@material-ui/core/Chip';
+import Typography from '@material-ui/core/Typography';
+import { getSkills } from '../../../constants/resumeBuilderPrompts';
+import AddIcon from '@material-ui/icons/AddCircle';
 
 const styles = theme => ({
   root: {},
   chip: {
     margin: theme.spacing.unit / 2,
-    backgroundColor: "#FAEDE4",
-    "&:hover": {
-      backgroundColor: "#FAEDE4"
-    }
+    backgroundColor: '#FAEDE4',
+    '&:hover': {
+      backgroundColor: '#FAEDE4',
+    },
   },
   addIcon: {
     color: theme.palette.primary.light,
-    "&:hover": {
-      color: theme.palette.primary.light
-    }
-  }
+    '&:hover': {
+      color: theme.palette.primary.light,
+    },
+  },
 });
 class SuggestedSkills extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class SuggestedSkills extends React.Component {
   }
   handleAdd(skill) {
     this.setState({
-      suggestedSkills: this.state.suggestedSkills.filter(x => x !== skill)
+      suggestedSkills: this.state.suggestedSkills.filter(x => x !== skill),
     });
     this.props.onAdd(skill);
   }
@@ -73,7 +73,7 @@ class SuggestedSkills extends React.Component {
     return (
       <div>
         {suggestedSkills.length > 0 && (
-          <Typography variant="body1" style={{ margin: "16px 0 8px" }}>
+          <Typography variant="body1" style={{ margin: '16px 0 8px' }}>
             Suggested skills based on your interests:
           </Typography>
         )}
@@ -87,7 +87,7 @@ SuggestedSkills.propTypes = {
   classes: PropTypes.object.isRequired,
   interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   onAdd: PropTypes.func.isRequired,
-  preSelectedList: PropTypes.arrayOf(PropTypes.string)
+  preSelectedList: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default withStyles(styles)(SuggestedSkills);

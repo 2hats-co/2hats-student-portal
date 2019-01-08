@@ -1,14 +1,14 @@
-import React from "react";
-import EditIcon from "@material-ui/icons/Edit";
-import Grid from "sp2-material-ui/core/Grid";
-import Typography from "sp2-material-ui/core/Typography";
-import IconButton from "sp2-material-ui/core/IconButton";
-import EditDialog from "./EditDialog";
+import React from 'react';
+import EditIcon from '@material-ui/icons/Edit';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import EditDialog from './EditDialog';
 class Section extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
     this.handleClose = this.handleClose.bind(this);
   }
@@ -29,7 +29,7 @@ class Section extends React.Component {
           style={{ minHeight: 48 }}
         >
           <Typography variant="subheading">{label}:</Typography>
-          <Grid item style={{ position: "relative", left: 16 }}>
+          <Grid item style={{ position: 'relative', left: 16 }}>
             {!disabled && (
               <IconButton
                 onClick={() => {

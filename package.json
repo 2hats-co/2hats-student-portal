@@ -40,7 +40,6 @@
     "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0",
     "source-map-explorer": "^1.6.0",
-    "sp2-material-ui/core": "npm:@material-ui/core@1.4.3",
     "webworkify": "^1.5.0"
   },
   "scripts": {

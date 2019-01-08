@@ -1,60 +1,60 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import Grid from "sp2-material-ui/core/Grid";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
 
 //routing
-import * as routes from "../constants/routes";
-import { withRouter } from "react-router-dom";
-import { AUTHENTICATION_CONTAINER } from "../constants/views";
+import * as routes from '../constants/routes';
+import { withRouter } from 'react-router-dom';
+import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
-import { warmUp } from "../utilities/Authentication/warmUp";
-import LogoInCard from "../components/LogoInCard";
-import SignUpIntro from "../components/Authentication/SignUpIntro";
+import { warmUp } from '../utilities/Authentication/warmUp';
+import LogoInCard from '../components/LogoInCard';
+import SignUpIntro from '../components/Authentication/SignUpIntro';
 // Views
-import AuthView from "../components/Authentication/AuthView";
-import NoPasswordView from "../components/Authentication/NoPasswordView";
-import SocialView from "../components/Authentication/SocialView";
-import SignUpView from "../components/Authentication/SignUpView";
-import PasswordView from "../components/Authentication/PasswordView";
-import ResetPasswordView from "../components/Authentication/ResetPasswordView";
-import CreatePasswordView from "../components/Authentication/CreatePasswordView";
-import MessageView from "../components/Authentication/MessageView";
+import AuthView from '../components/Authentication/AuthView';
+import NoPasswordView from '../components/Authentication/NoPasswordView';
+import SocialView from '../components/Authentication/SocialView';
+import SignUpView from '../components/Authentication/SignUpView';
+import PasswordView from '../components/Authentication/PasswordView';
+import ResetPasswordView from '../components/Authentication/ResetPasswordView';
+import CreatePasswordView from '../components/Authentication/CreatePasswordView';
+import MessageView from '../components/Authentication/MessageView';
 
 //utilities
 import {
   createUserWithPassword,
   signInWithPassword,
-  updateUserPassword
-} from "../utilities/Authentication/authWithPassword";
-import { CLOUD_FUNCTIONS, cloudFunction } from "../utilities/CloudFunctions";
-import { auth } from "../firebase";
-import { connect } from "react-redux";
-import { actionTypes } from "redux-firestore";
+  updateUserPassword,
+} from '../utilities/Authentication/authWithPassword';
+import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
+import { auth } from '../firebase';
+import { connect } from 'react-redux';
+import { actionTypes } from 'redux-firestore';
 
 const styles = theme => ({
   root: {
-    height: "100vh"
+    height: '100vh',
   },
   logoInCardGrid: {
     paddingLeft: 35,
     paddingRight: 35,
-    paddingBottom: 40
-  }
+    paddingBottom: 40,
+  },
 });
 const INITIAL_STATE = {
-  firstName: "",
-  lastName: "",
-  password: "",
+  firstName: '',
+  lastName: '',
+  password: '',
   isMounted: true,
-  confirmPassword: "",
-  email: "",
+  confirmPassword: '',
+  email: '',
   error: null,
   view: AUTHENTICATION_CONTAINER.auth,
   isLoading: false,
   progress: 10,
   snackBar: null,
-  timeStamp: ""
+  timeStamp: '',
 };
 
 class AuthenticationContainer extends React.Component {
@@ -74,13 +74,13 @@ class AuthenticationContainer extends React.Component {
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL);
     warmUp(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY);
-    const linkParams = ["firstName", "smartKey"];
+    const linkParams = ['firstName', 'smartKey'];
     linkParams.forEach(x => {
       if (this.props.history.location.search.includes(x)) {
         this.setState({
           [x]: this.props.history.location.search
             .split(`${x}=`)[1]
-            .split("?")[0]
+            .split('?')[0],
         });
       }
     });
@@ -93,16 +93,16 @@ class AuthenticationContainer extends React.Component {
       this.setState({ view: AUTHENTICATION_CONTAINER.logout });
       this.goTo(routes.LOG_OUT);
     }
-    window.Intercom("update", {
-      hide_default_launcher: true
+    window.Intercom('update', {
+      hide_default_launcher: true,
     });
-    window.Intercom("hide");
+    window.Intercom('hide');
   }
   handleGTevent(name) {
     window.dataLayer.push({
-      event: "VirtualPageview",
+      event: 'VirtualPageview',
       virtualPageURL: `/virtual/${name}-Success/`,
-      virtualPageTitle: `${name}-Success`
+      virtualPageTitle: `${name}-Success`,
     });
   }
   goTo(route) {
@@ -115,39 +115,39 @@ class AuthenticationContainer extends React.Component {
     signInWithPassword(
       user,
       route => {
-        this.goTo(route), this.handleGTevent("Signin");
+        this.goTo(route), this.handleGTevent('Signin');
       },
       this.handleError
     );
   }
   handleError = o => {
     this.setState({
-      snackBar: { message: o.message, variant: "error" },
-      isLoading: false
+      snackBar: { message: o.message, variant: 'error' },
+      isLoading: false,
     });
   };
   handleSignup() {
     if (!this.state.isLoading) {
       const { firstName, lastName, email, password } = this.state;
-      if (firstName !== "" || lastName !== "") {
+      if (firstName !== '' || lastName !== '') {
         const user = { firstName, lastName, email, password };
         this.setState({ isLoading: true });
         createUserWithPassword(
           user,
           route => {
-            console.log("going to " + route);
+            console.log('going to ' + route);
             this.goTo(route);
-            this.handleGTevent("Signup");
+            this.handleGTevent('Signup');
           },
           this.handleError
         );
       } else {
         this.setState({
           snackBar: {
-            message: "Please enter you first and last name",
-            variant: "error"
+            message: 'Please enter you first and last name',
+            variant: 'error',
           },
-          isLoading: false
+          isLoading: false,
         });
       }
     }
@@ -161,7 +161,7 @@ class AuthenticationContainer extends React.Component {
         this.goTo(route),
           cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK, {
             slKey: smartKey,
-            reason: "This link has already been used"
+            reason: 'This link has already been used',
           });
       },
       this.handleError
@@ -186,19 +186,19 @@ class AuthenticationContainer extends React.Component {
         result => {
           this.setState({
             snackBar: {
-              message: "We set you an email to reset your password.",
-              variant: "success"
+              message: 'We set you an email to reset your password.',
+              variant: 'success',
             },
-            isLoading: false
+            isLoading: false,
           });
         },
         error => {
           this.setState({
             snackBar: {
               message: error.message,
-              variant: "error"
+              variant: 'error',
             },
-            isLoading: false
+            isLoading: false,
           });
         }
       );
@@ -214,7 +214,7 @@ class AuthenticationContainer extends React.Component {
       isLoading,
       snackBar,
       email,
-      view
+      view,
     } = this.state;
     console.log(theme);
     const onSignupRoute =
@@ -390,7 +390,7 @@ class AuthenticationContainer extends React.Component {
 }
 
 AuthenticationContainer.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -398,9 +398,9 @@ function mapDispatchToProps(dispatch) {
     clearData: () => {
       dispatch({
         type: actionTypes.CLEAR_DATA,
-        preserve: { data: false, ordered: false }
+        preserve: { data: false, ordered: false },
       });
-    }
+    },
   };
 }
 export default withRouter(

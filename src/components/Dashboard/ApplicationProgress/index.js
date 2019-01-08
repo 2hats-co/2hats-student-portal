@@ -1,46 +1,46 @@
-import React from "react";
-import Typography from "sp2-material-ui/core/Typography";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import { withRouter } from "react-router-dom";
-import Grid from "sp2-material-ui/core/Grid";
-import Button from "sp2-material-ui/core/Button";
-import ProgressDial from "./ProgressDial";
-import Step from "./Step";
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { withRouter } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
+import ProgressDial from './ProgressDial';
+import Step from './Step';
 import {
   PROCESS_TYPES,
   STEP_LABELS,
   checkComplition,
   isComplete,
-  firstUnfinishedStep
-} from "../../../constants/signUpProcess";
-import ArrowIcon from "@material-ui/icons/KeyboardArrowRight";
-import * as routes from "../../../constants/routes";
-import AnimateIcon from "../../AnimateIcon";
+  firstUnfinishedStep,
+} from '../../../constants/signUpProcess';
+import ArrowIcon from '@material-ui/icons/KeyboardArrowRight';
+import * as routes from '../../../constants/routes';
+import AnimateIcon from '../../AnimateIcon';
 
 const styles = theme => ({
   root: {
-    width: "100%",
-    maxWidth: 600
+    width: '100%',
+    maxWidth: 600,
   },
   ProgressGrid: {
-    width: "100%",
-    maxWidth: 600
+    width: '100%',
+    maxWidth: 600,
   },
   button: {
-    alignItems: "top !important",
+    alignItems: 'top !important',
     marginTop: 10,
     marginBottom: 20,
     width: 230,
-    height: 35
+    height: 35,
   },
   stepItem: {
-    width: 230
+    width: 230,
   },
   header: {},
   mobileHeader: {
-    width: "100%",
-    textAlign: "center !important"
-  }
+    width: '100%',
+    textAlign: 'center !important',
+  },
 });
 function orderByComplete(steps) {
   let orignalOrder = steps.slice(0);
@@ -124,7 +124,7 @@ class ApplicationProgress extends React.Component {
           className={classes.ProgressGrid}
           container
           alignItems="center"
-          direction={isMobile ? "column" : "row"}
+          direction={isMobile ? 'column' : 'row'}
           justify="space-around"
         >
           <Grid item xs={12} sm={12}>
@@ -151,22 +151,22 @@ class ApplicationProgress extends React.Component {
                   variant="flat"
                   onClick={this.handleContinue}
                 >
-                  <div style={{ display: "flex", marginLeft: 12 }}>
+                  <div style={{ display: 'flex', marginLeft: 12 }}>
                     <div style={{ marginTop: 0 }}>
-                      {" "}
+                      {' '}
                       {`Continue Application`}
-                    </div>{" "}
+                    </div>{' '}
                     <AnimateIcon>
-                      {" "}
+                      {' '}
                       <ArrowIcon style={{ marginRight: -18 }} />
-                      <ArrowIcon />{" "}
+                      <ArrowIcon />{' '}
                     </AnimateIcon>
                   </div>
                 </Button>
               )}
             </Grid>
           </Grid>
-          <Grid style={{ width: "100%" }} item xs={12} sm={12} md={6} lg={6}>
+          <Grid style={{ width: '100%' }} item xs={12} sm={12} md={6} lg={6}>
             {steps}
           </Grid>
         </Grid>

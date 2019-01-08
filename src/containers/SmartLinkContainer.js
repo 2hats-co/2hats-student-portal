@@ -1,15 +1,15 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
-import LogoInCard from "../components/LogoInCard";
-import Grid from "sp2-material-ui/core/Grid";
-import Typography from "sp2-material-ui/core/Typography";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
+import LogoInCard from '../components/LogoInCard';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
-import { auth, db } from "../store";
-import { CLOUD_FUNCTIONS, cloudFunction } from "../utilities/CloudFunctions";
-import * as routes from "../constants/routes";
-import { COLLECTIONS } from "../constants/firestore";
+import { auth, db } from '../store';
+import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
+import * as routes from '../constants/routes';
+import { COLLECTIONS } from '../constants/firestore';
 class SmartLinkContainer extends React.Component {
-  state = { isLoading: true, errorMessage: "" };
+  state = { isLoading: true, errorMessage: '' };
 
   componentDidMount() {
     this.handleKey();
@@ -18,14 +18,14 @@ class SmartLinkContainer extends React.Component {
     const { history } = this.props;
     const queryStr = history.location.search;
     if (queryStr) {
-      const slKeyName = "?slKey=";
+      const slKeyName = '?slKey=';
 
       if (queryStr.indexOf(slKeyName) !== -1) {
         const slKey = queryStr.slice(slKeyName.length, queryStr.length);
 
-        if (slKey !== "") {
+        if (slKey !== '') {
           const request = {
-            slKey: slKey
+            slKey: slKey,
           };
 
           cloudFunction(
@@ -41,7 +41,7 @@ class SmartLinkContainer extends React.Component {
                   route === routes.CREATE_PASSWORD ||
                   route === routes.RESET_PASSWORD
                 ) {
-                  const firstName = authUser.user.displayName.split(" ")[[0]];
+                  const firstName = authUser.user.displayName.split(' ')[[0]];
                   history.replace(
                     route + `?firstName=${firstName}?smartKey=${slKey}`
                   );
@@ -57,7 +57,7 @@ class SmartLinkContainer extends React.Component {
             },
             error => {
               // Getting the Error details.
-              console.log("Call smartLink error: ", error.message);
+              console.log('Call smartLink error: ', error.message);
               this.setState({ errorMessage: error.message, isLoading: false });
             }
           );
@@ -71,7 +71,7 @@ class SmartLinkContainer extends React.Component {
     return (
       <Grid
         container
-        style={{ height: "100vh" }}
+        style={{ height: '100vh' }}
         alignItems="center"
         justify="center"
       >
@@ -79,9 +79,9 @@ class SmartLinkContainer extends React.Component {
           <LogoInCard isLoading={isLoading} height={330}>
             <Typography
               variant="title"
-              style={{ paddingTop: 50, width: "100%", textAlign: "center" }}
+              style={{ paddingTop: 50, width: '100%', textAlign: 'center' }}
             >
-              {isLoading ? "Hold on to your hat 🤠" : errorMessage}
+              {isLoading ? 'Hold on to your hat 🤠' : errorMessage}
             </Typography>
           </LogoInCard>
         </Grid>

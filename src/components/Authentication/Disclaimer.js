@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
-    root:{
-      marginTop: 30,
-      marginBottom: 10,
-    },large:theme.typography.body1,
+  root: {
+    marginTop: 30,
+    marginBottom: 10,
+  },
+  large: theme.typography.body1,
   link: {
     color: theme.palette.primary.light,
     textDecoration: 'inherit',
     '&:hover': {
       textDecoration: 'underline',
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
   },
   primary: {
@@ -21,25 +22,29 @@ const styles = theme => ({
 });
 
 function Disclaimer(props) {
-  const { classes} = props;
+  const { classes } = props;
 
   return (
-    <div className={classes.root}><div className={classes.large}>
-      {`By clicking Sign Up, you agree to our `}
-      <a
-      href="https://www.2hats.com.au/terms.html"
-      target="_blank"
-        className={classes.link}
-      >
-      Terms and Conditions
-      </a>{` and `}<a
-      href="https://www.2hats.com.au/privacy.html"
-      target="_blank"
-        className={classes.link}
-      >
-      Privacy Policy
-      </a>
-    </div></div>
+    <div className={classes.root}>
+      <div className={classes.large}>
+        {`By clicking Sign Up, you agree to our `}
+        <a
+          href="https://www.2hats.com.au/terms.html"
+          target="_blank"
+          className={classes.link}
+        >
+          Terms and Conditions
+        </a>
+        {` and `}
+        <a
+          href="https://www.2hats.com.au/privacy.html"
+          target="_blank"
+          className={classes.link}
+        >
+          Privacy Policy
+        </a>
+      </div>
+    </div>
   );
 }
 

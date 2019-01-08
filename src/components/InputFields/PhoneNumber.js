@@ -1,20 +1,19 @@
 //props: onChangeBind!
-//TODO: digits only 
+//TODO: digits only
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import withStyles from 'sp2-material-ui/core/styles/withStyles';
-import TextField from 'sp2-material-ui/core/TextField'
-import InputWrapper from './InputWrapper'
+import withStyles from '@material-ui/core/styles/withStyles';
+import TextField from '@material-ui/core/TextField';
+import InputWrapper from './InputWrapper';
 import NumberFormat from 'react-number-format';
 const styles = theme => ({
-  root:{
-     width:'100%',
+  root: {
+    width: '100%',
   },
-  inputField:{
-    width:'100%'
-  }
-
+  inputField: {
+    width: '100%',
+  },
 });
 
 function NumberFormatCustom(props) {
@@ -38,57 +37,61 @@ function NumberFormatCustom(props) {
 }
 
 class PhoneNumber extends React.Component {
-  state = { number: '',};
-  componentWillMount(){
-    const {value}= this.props
-    if(value){
-      this.setState({number:value})
+  state = { number: '' };
+  componentWillMount() {
+    const { value } = this.props;
+    if (value) {
+      this.setState({ number: value });
     }
   }
-  componentDidUpdate(prevProps, prevState){
-    if(prevState !== this.state){
-    this.props.changeHandler('phoneNumber',this.state.number)
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState !== this.state) {
+      this.props.changeHandler('phoneNumber', this.state.number);
     }
-}
+  }
   handleChange = name => event => {
     this.setState({
       [name]: event.target.value,
     });
   };
-  render(){
-  const { classes ,hasLabel,maxWidth} = this.props;
-  const { number } = this.state;
+  render() {
+    const { classes, hasLabel, maxWidth } = this.props;
+    const { number } = this.state;
     const InputField = (
       <TextField
-      style={{maxWidth}}
-      label={hasLabel&&'Mobile Number'}
-      className={classes.inputField}
-      placeholder='e.g. 0412 345 954 (optional)'
-      value={number}
-      //error
-      onChange={this.handleChange('number')}
-      id="phoneNumber"
-      InputProps={{
-        inputComponent: NumberFormatCustom,
-      }}
-    />)
-  return (
-   <div
-  className={classes.root}
-   >
-    <InputWrapper 
-  title={!hasLabel?'mobile number':''}
-  hint={!hasLabel?'We highly recommend you to provide us your mobile number so that we can contact you throughout the application process.':''}
-  collapseTopMargin
-  >{InputField}
-  </InputWrapper> 
-  </div> 
-  );
-}
+        style={{ maxWidth }}
+        label={hasLabel && 'Mobile Number'}
+        className={classes.inputField}
+        placeholder="e.g. 0412 345 954 (optional)"
+        value={number}
+        //error
+        onChange={this.handleChange('number')}
+        id="phoneNumber"
+        InputProps={{
+          inputComponent: NumberFormatCustom,
+        }}
+      />
+    );
+    return (
+      <div className={classes.root}>
+        <InputWrapper
+          title={!hasLabel ? 'mobile number' : ''}
+          hint={
+            !hasLabel
+              ? 'We highly recommend you to provide us your mobile number so that we can contact you throughout the application process.'
+              : ''
+          }
+          collapseTopMargin
+        >
+          {InputField}
+        </InputWrapper>
+      </div>
+    );
+  }
 }
 PhoneNumber.propTypes = {
   hasLabel: PropTypes.bool,
   classes: PropTypes.object.isRequired,
-  changeHandler: PropTypes.func.isRequired
+  changeHandler: PropTypes.func.isRequired,
 };
 export default withStyles(styles)(PhoneNumber);

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Grid from "sp2-material-ui/core/Grid";
-import IconButton from "sp2-material-ui/core/IconButton";
-import Typography from "sp2-material-ui/core/Typography";
+import Grid from '@material-ui/core/Grid';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 
-import BackIcon from "@material-ui/icons/ArrowBack";
+import BackIcon from '@material-ui/icons/ArrowBack';
 
 function BackBar(props) {
   const { isLoading, email, backHandler } = props;
@@ -13,13 +13,13 @@ function BackBar(props) {
     <Grid
       key="back-bar"
       style={{
-        width: "100%",
-        borderStyle: "solid",
+        width: '100%',
+        borderStyle: 'solid',
         borderRadius: 30,
         height: 40,
         borderWidth: 0.5,
-        borderColor: "#aeaeae",
-        marginBottom: 20
+        borderColor: '#aeaeae',
+        marginBottom: 20,
       }}
       container
       direction="row"
@@ -36,14 +36,14 @@ function BackBar(props) {
         <BackIcon />
       </IconButton>
       <Typography
-        variant={email.length < 30 ? "body1" : "caption"}
+        variant={email.length < 30 ? 'body1' : 'caption'}
         style={{
           marginLeft: 5,
-          color: "#000",
-          maxWidth: "75%",
-          whiteSpace: "nowrap",
-          overflow: "hidden",
-          textOverflow: "ellipsis"
+          color: '#000',
+          maxWidth: '75%',
+          whiteSpace: 'nowrap',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
         }}
       >
         {email}

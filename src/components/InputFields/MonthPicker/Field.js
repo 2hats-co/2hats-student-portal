@@ -1,15 +1,15 @@
-import React from "react";
+import React from 'react';
 
-import Grid from "sp2-material-ui/core/Grid";
-import FormControl from "sp2-material-ui/core/FormControl";
-import Input from "sp2-material-ui/core/Input";
-import InputLabel from "sp2-material-ui/core/InputLabel";
-import InputAdornment from "sp2-material-ui/core/InputAdornment";
-import IconButton from "sp2-material-ui/core/IconButton";
-import DownIcon from "@material-ui/icons/KeyboardArrowDown";
+import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import FormHelperText from "sp2-material-ui/core/FormHelperText";
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 const styles = theme => ({
   //
@@ -23,7 +23,7 @@ function Field(props) {
     name,
     focusedField,
     errorMessage,
-    openCalendar
+    openCalendar,
   } = props;
   const isOpen = name === focusedField;
   console.log(errorMessage);
@@ -36,13 +36,13 @@ function Field(props) {
       direction="column"
       style={{ marginTop: 10 }}
     >
-      <FormControl style={{ width: "100%" }}>
+      <FormControl style={{ width: '100%' }}>
         <InputLabel htmlFor="passwordField">{label}</InputLabel>
         <Input
           type="text"
           value={value}
           fullWidth
-          error={errorMessage && errorMessage !== ""}
+          error={errorMessage && errorMessage !== ''}
           endAdornment={
             <InputAdornment position="end">
               <IconButton
@@ -53,10 +53,10 @@ function Field(props) {
               </IconButton>
             </InputAdornment>
           }
-          style={{ caretColor: "transparent" }}
+          style={{ caretColor: 'transparent' }}
         />
-        {errorMessage && errorMessage !== "" && (
-          <FormHelperText id="name-error-text" style={{ color: "#f00" }}>
+        {errorMessage && errorMessage !== '' && (
+          <FormHelperText id="name-error-text" style={{ color: '#f00' }}>
             {errorMessage}
           </FormHelperText>
         )}

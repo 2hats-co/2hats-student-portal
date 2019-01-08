@@ -1,19 +1,19 @@
-import React from "react";
-import Typography from "sp2-material-ui/core/Typography";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import ListItem from "./ListItem";
-import LinkIcon from "@material-ui/icons/KeyboardArrowRight";
-import Divider from "../../../node_modules/sp2-material-ui/core/Divider";
-import orderBy from "lodash.orderby";
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
+import ListItem from './ListItem';
+import LinkIcon from '@material-ui/icons/KeyboardArrowRight';
+import Divider from '../../../node_modules/@material-ui/core/Divider';
+import orderBy from 'lodash.orderby';
 
 const styles = theme => ({
   root: {
-    width: "100%",
-    maxWidth: 500
+    width: '100%',
+    maxWidth: 500,
   },
   title: {
-    marginBottom: 15
-  }
+    marginBottom: 15,
+  },
 });
 function FeedbackHistory(props) {
   const { classes, data } = props;
@@ -22,18 +22,18 @@ function FeedbackHistory(props) {
   if (data) {
     items = data.map(x => {
       // (${x.submissionContent.process})
-      const feedbackStatus = x.reviewed ? "Check you feedback" : "Under Review";
+      const feedbackStatus = x.reviewed ? 'Check you feedback' : 'Under Review';
       const submissionStatus = x.reviewed
-        ? "Profile Reviewed"
-        : "Profile Submitted";
+        ? 'Profile Reviewed'
+        : 'Profile Submitted';
       return {
         title: submissionStatus,
         body: feedbackStatus,
         timestamp: x.createdAt,
-        key: x.id
+        key: x.id,
       };
     });
-    items = orderBy(items, "timestamp", "asc");
+    items = orderBy(items, 'timestamp', 'asc');
   }
 
   return (
