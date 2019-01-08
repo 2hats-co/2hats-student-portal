@@ -40,7 +40,6 @@ class LinkedinButton extends Component {
   getToken(r) {
     this.props.changeHandler("isLoading", true);
     let user = {};
-    console.log(r); //See whats in response
     user.email = r.emailAddress;
     user.firstName = r.firstName;
     user.lastName = r.lastName;
