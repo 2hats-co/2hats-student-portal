@@ -19,7 +19,7 @@ const styles = theme => ({
   subtitle: {
     marginTop: 10,
     lineHeight: 1.3,
-    fontStyle: 'italic',
+    // fontStyle: 'italic',
   },
   womanGraphic: {
     width: 148,
@@ -28,6 +28,7 @@ const styles = theme => ({
   },
   tickGrid: {
     height: 148,
+    '& > *': { width: '100%' },
   },
   tick: {
     height: 32,

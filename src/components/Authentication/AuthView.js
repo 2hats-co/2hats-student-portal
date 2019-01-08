@@ -46,7 +46,11 @@ function AuthView(props) {
         style={{ height: 150 }}
       >
         <Grid item xs={3}>
-          <img src={womanGraphic} className={classes.womanGraphic} />
+          <img
+            src={womanGraphic}
+            className={classes.womanGraphic}
+            alt="2hats"
+          />
         </Grid>
         <Grid item xs={7}>
           <Typography
