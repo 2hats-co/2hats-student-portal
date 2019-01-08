@@ -49,11 +49,11 @@ function PersonDetails(props) {
         </Avatar>
       </Grid>
       <Grid item xs>
-        <Typography variant="headline" className={classes.name}>
+        <Typography variant="h5" className={classes.name}>
           {submission.displayName}
         </Typography>
-        <Typography variant="body2">{interests}</Typography>
-        <Typography variant="body1">Submitted on {timestamp}</Typography>
+        <Typography variant="body1">{interests}</Typography>
+        <Typography variant="body2">Submitted on {timestamp}</Typography>
       </Grid>
     </Grid>
   );

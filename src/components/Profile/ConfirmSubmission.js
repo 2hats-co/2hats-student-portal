@@ -35,7 +35,7 @@ function ConfirmSubmission(props) {
         {'Confirm Resume Submission'}
       </DialogTitle>
       <DialogContent className={classes.content}>
-        <Typography variant="body1">
+        <Typography variant="body2">
           Since you won’t be able to submit another resume until receiving the
           feedback for this one, please make sure you have checked all your
           inputs in this submission. We are looking forward to reviewing your

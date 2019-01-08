@@ -28,7 +28,7 @@ class Section extends React.Component {
           alignItems="center"
           style={{ minHeight: 48 }}
         >
-          <Typography variant="subheading">{label}:</Typography>
+          <Typography variant="subtitle1">{label}:</Typography>
           <Grid item style={{ position: 'relative', left: 16 }}>
             {!disabled && (
               <IconButton

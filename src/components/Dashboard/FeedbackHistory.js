@@ -38,7 +38,7 @@ function FeedbackHistory(props) {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title} variant="display1">
+      <Typography className={classes.title} variant="h4">
         Feedback History
       </Typography>
       <Divider />

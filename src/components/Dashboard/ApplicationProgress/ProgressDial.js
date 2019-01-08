@@ -35,7 +35,7 @@ function ProgressDial(props) {
   const { classes, percentage } = props;
   return (
     <div className={classes.root}>
-      <Typography className={classes.label} variant="display2">
+      <Typography className={classes.label} variant="h3">
         {percentage}%
       </Typography>
       <CircularProgress

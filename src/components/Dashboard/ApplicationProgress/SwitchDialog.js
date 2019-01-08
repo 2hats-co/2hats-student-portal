@@ -60,7 +60,7 @@ function SwitchDialog(props) {
         {newProcess.title}
       </DialogTitle>
       <DialogContent className={classes.content}>
-        <Typography variant="body1">{newProcess.body}</Typography>
+        <Typography variant="body2">{newProcess.body}</Typography>
       </DialogContent>
       <DialogActions>
         <Button

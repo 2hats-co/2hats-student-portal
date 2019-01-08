@@ -29,7 +29,7 @@ function SignUpView(props) {
       <Header greeting="Sign Up" />
 
       {onSignupRoute ? null : (
-        <Typography variant="body1">
+        <Typography variant="body2">
           It looks like we don’t have an account with this email address.
         </Typography>
       )}

@@ -209,12 +209,12 @@ class ResumeLoader extends React.Component {
                       style={{ marginBottom: 5 }}
                     >
                       <Grid item>
-                        <Typography variant="body1">
+                        <Typography variant="body2">
                           Uploading&hellip;
                         </Typography>
                       </Grid>
                       <Grid item>
-                        <Typography variant="body1">
+                        <Typography variant="body2">
                           {Math.round(this.state.uploadProgress)}%
                         </Typography>
                       </Grid>

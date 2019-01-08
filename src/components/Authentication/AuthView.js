@@ -53,10 +53,7 @@ function AuthView(props) {
           />
         </Grid>
         <Grid item xs={7}>
-          <Typography
-            variant="display1"
-            style={{ fontSize: 19, marginRight: -10 }}
-          >
+          <Typography variant="h4" style={{ fontSize: 19, marginRight: -10 }}>
             The simplest way to get access to meaningful work experience
           </Typography>
         </Grid>
@@ -83,7 +80,7 @@ function AuthView(props) {
         changeHandler={changeHandler}
       />
 
-      <Typography variant="subheading" style={{ marginTop: 15 }}>
+      <Typography variant="subtitle1" style={{ marginTop: 15 }}>
         OR
       </Typography>
 
@@ -91,7 +88,7 @@ function AuthView(props) {
 
       <div>
         <Typography
-          variant="body1"
+          variant="body2"
           style={{ display: 'inline', marginRight: 5 }}
         >
           {onSignupRoute

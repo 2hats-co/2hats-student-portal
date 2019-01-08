@@ -6,7 +6,7 @@ function Header(props) {
 
   return (
     <Typography
-      variant="title"
+      variant="h6"
       color="primary"
       style={{ width: '100%', textAlign: 'center', marginBottom: 10 }}
     >

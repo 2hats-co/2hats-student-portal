@@ -89,7 +89,7 @@ function Months(props) {
                     }
                   >
                     <Typography
-                      variant="body1"
+                      variant="body2"
                       style={isSelected ? { color: '#fff' } : { color: '#000' }}
                     >
                       {month}

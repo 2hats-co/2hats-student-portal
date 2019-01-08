@@ -73,7 +73,7 @@ class SuggestedSkills extends React.Component {
     return (
       <div>
         {suggestedSkills.length > 0 && (
-          <Typography variant="body1" style={{ margin: '16px 0 8px' }}>
+          <Typography variant="body2" style={{ margin: '16px 0 8px' }}>
             Suggested skills based on your interests:
           </Typography>
         )}

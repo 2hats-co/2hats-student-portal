@@ -147,14 +147,14 @@ function ProfileCard(props) {
         <CardContent>
           <Grid container direction="row" justify="center">
             <Grid item>
-              <Typography variant="display1" style={{ textAlign: 'center' }}>
+              <Typography variant="h4" style={{ textAlign: 'center' }}>
                 {name}
               </Typography>
             </Grid>
           </Grid>
           <Section disabled={disabled} name="bio" label="Personal Bio">
             <Typography
-              variant="body1"
+              variant="body2"
               style={{ whiteSpace: 'pre-wrap', opacity: bio ? 1 : 0.8 }}
             >
               {bio

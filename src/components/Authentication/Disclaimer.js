@@ -7,7 +7,7 @@ const styles = theme => ({
     marginTop: 30,
     marginBottom: 10,
   },
-  large: theme.typography.body1,
+  large: theme.typography.body2,
   link: {
     color: theme.palette.primary.light,
     textDecoration: 'inherit',

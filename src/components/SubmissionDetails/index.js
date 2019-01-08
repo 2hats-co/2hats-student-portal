@@ -9,7 +9,7 @@ import { Document, Page } from 'react-pdf';
 import EduExpCard from './EduExpCard';
 
 const styles = theme => ({
-  subheading: {
+  subtitle1: {
     marginTop: 40,
     marginBottom: 10,
     fontWeight: 700,
@@ -70,14 +70,14 @@ class submissionDetails extends Component {
 
     return (
       <React.Fragment>
-        <Typography className={classes.subheading} variant="subheading">
+        <Typography className={classes.subtitle1} variant="subtitle1">
           Bio:
         </Typography>
-        <Typography variant="body1">
+        <Typography variant="body2">
           {submission.submissionContent.bio}
         </Typography>
 
-        <Typography className={classes.subheading} variant="subheading">
+        <Typography className={classes.subtitle1} variant="subtitle1">
           Skills:
         </Typography>
         {submission.submissionContent.skills.map(x => (
@@ -86,7 +86,7 @@ class submissionDetails extends Component {
 
         {submission.submissionContent.process === 'build' && (
           <div>
-            <Typography className={classes.subheading} variant="subheading">
+            <Typography className={classes.subtitle1} variant="subtitle1">
               education
             </Typography>
             {submission.submissionContent.education.map(x => (
@@ -98,7 +98,7 @@ class submissionDetails extends Component {
                 endDate={x.endDate}
               />
             ))}
-            <Typography className={classes.subheading} variant="subheading">
+            <Typography className={classes.subtitle1} variant="subtitle1">
               experince
             </Typography>
             {submission.submissionContent.experience.map(x => (
@@ -113,7 +113,7 @@ class submissionDetails extends Component {
           </div>
         )}
 
-        <Typography className={classes.subheading} variant="subheading">
+        <Typography className={classes.subtitle1} variant="subtitle1">
           {submission.submissionContent.process === 'upload'
             ? 'Resume'
             : 'profile'}

@@ -22,7 +22,7 @@ function SocialView(props) {
     <React.Fragment>
       <BackBar isLoading={isLoading} email={email} backHandler={backHandler} />
       <Header greeting="Welcome back" name={firstName} />
-      <Typography variant="body1" style={{ marginBottom: 10 }}>
+      <Typography variant="body2" style={{ marginBottom: 10 }}>
         It looks like your account was created with {type}.
       </Typography>
 

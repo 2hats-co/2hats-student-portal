@@ -42,7 +42,7 @@ function HeaderBar(props) {
           }
         }}
       >
-        <Typography variant="title" color="primary">
+        <Typography variant="h6" color="primary">
           {title}
         </Typography>
         {!disabled && (

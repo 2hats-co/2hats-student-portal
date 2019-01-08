@@ -98,7 +98,7 @@ function ListItem(props) {
             justify="center"
           >
             <Typography variant="button">{month}</Typography>
-            <Typography variant="display1" style={{ color: '#000' }}>
+            <Typography variant="h4" style={{ color: '#000' }}>
               {date}
             </Typography>
           </Grid>
@@ -108,8 +108,8 @@ function ListItem(props) {
             direction="column"
             justify="center"
           >
-            <Typography variant={'title'}>{title}</Typography>
-            <Typography variant="body1" className={classes.description}>
+            <Typography variant={'h6'}>{title}</Typography>
+            <Typography variant="body2" className={classes.description}>
               {body}
             </Typography>
           </Grid>

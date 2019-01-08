@@ -31,7 +31,7 @@ class ConfirmationDialog extends Component {
             >
               {body.map(x => (
                 <Grid style={{ paddingBottom: 2 }} item sx={12}>
-                  <Typography variant="body1">{x}</Typography>
+                  <Typography variant="body2">{x}</Typography>
                 </Grid>
               ))}
             </Grid>

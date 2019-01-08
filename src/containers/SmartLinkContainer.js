@@ -78,7 +78,7 @@ class SmartLinkContainer extends React.Component {
         <Grid item>
           <LogoInCard isLoading={isLoading} height={330}>
             <Typography
-              variant="title"
+              variant="h6"
               style={{ paddingTop: 50, width: '100%', textAlign: 'center' }}
             >
               {isLoading ? 'Hold on to your hat 🤠' : errorMessage}

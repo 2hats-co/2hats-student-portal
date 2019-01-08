@@ -39,20 +39,20 @@ function MobileSubmission(props) {
         justify="space-between"
       >
         <Grid item>
-          <Typography variant="headline">{headLine}</Typography>
+          <Typography variant="h5">{headLine}</Typography>
         </Grid>
         <Grid item>
           <img className={classes.img} src={UploadMan} alt="uploadMan" />
         </Grid>
         <Grid item>
-          <Typography className={classes.body} variant="body1">
+          <Typography className={classes.body} variant="body2">
             If you do, you will be asked to upload your resume near the end of
             the sign-up process. You can save your progress and upload your
             resume later, too!
           </Typography>
         </Grid>
         <Grid item>
-          <Typography className={classes.body} variant="body1">
+          <Typography className={classes.body} variant="body2">
             Otherwise, we can help you build a resume using our quick and easy
             6-step process!
           </Typography>

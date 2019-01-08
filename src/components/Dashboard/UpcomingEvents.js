@@ -33,10 +33,10 @@ function UpcomingEvents(props) {
   if (items.length == 0)
     return (
       <div className={classes.root}>
-        <Typography className={classes.title} variant="display1">
+        <Typography className={classes.title} variant="h4">
           Upcoming Events
         </Typography>
-        <Typography variant="subheading">
+        <Typography variant="subtitle1">
           There are not upcoming events at the moment — check again later!
         </Typography>
       </div>
@@ -44,7 +44,7 @@ function UpcomingEvents(props) {
 
   return (
     <div className={classes.root}>
-      <Typography className={classes.title} variant="display1">
+      <Typography className={classes.title} variant="h4">
         Upcoming Events
       </Typography>
       <Divider />

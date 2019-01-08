@@ -48,11 +48,11 @@ class NoPasswordView extends React.Component {
           direction="column"
           justify="space-between"
         >
-          <Typography variant="body1">
+          <Typography variant="body2">
             We’ve sent you a confirmation email, please check your mailbox.
           </Typography>
 
-          <Typography variant="body1">
+          <Typography variant="body2">
             Didn’t receive the email? You can request a resend&nbsp;
             <a
               onClick={this.resendEmail}
