@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import withStyles from 'sp2-material-ui/core/styles/withStyles';
+import withStyles from '@material-ui/core/styles/withStyles';
 
 // 1. We define the styles.
 const styles = theme => ({
   root: {
-    fontSize:'13px',
+    fontSize: '13px',
     color: theme.palette.primary.light,
     textDecoration: 'inherit',
     '&:hover': {
       textDecoration: 'underline',
-      cursor: 'pointer'
+      cursor: 'pointer',
     },
   },
   primary: {
@@ -29,7 +29,7 @@ function StyledLink(props) {
         {
           [classes.primary]: variant === 'primary',
         },
-        className,
+        className
       )}
       {...other}
     >

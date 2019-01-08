@@ -1,5 +1,5 @@
-const { SELECTORS, CRED } = require("./constants");
-const FILEPATH = "./testResume.pdf";
+const { SELECTORS, CRED } = require('./constants');
+const FILEPATH = './testResume.pdf';
 
 const selectCareerInterests = async page => {
   //Career Interests
@@ -19,8 +19,8 @@ const selectCareerInterests = async page => {
 
 const selectRelevantSkills = async page => {
   await page.waitForSelector(SELECTORS.uploadResume.skillInput);
-  await page.type(SELECTORS.uploadResume.skillInput, "JavaScript", {
-    delay: 10
+  await page.type(SELECTORS.uploadResume.skillInput, 'JavaScript', {
+    delay: 10,
   });
   await page.click(SELECTORS.uploadResume.addButton, { delay: 10 });
   await page.waitForSelector(SELECTORS.uploadResume.nextRS);
@@ -50,18 +50,22 @@ const selectUploadResume = async page => {
 const selectWorkAvaliability = async page => {
   await page.waitForSelector(SELECTORS.uploadResume.selectWorkHeader);
   //Click the two input fields
-  const availableDaysInput = await page.$("#availableDays");
-  const workConditionInput = await page.$("#workingRights");
+  const availableDaysInput = await page.$(
+    SELECTORS.uploadResume.availableDaysInput
+  );
+  const workConditionInput = await page.$(
+    SELECTORS.uploadResume.workConditionInput
+  );
   //Select items
   availableDaysInput.click({ delay: 10 });
   await page.waitFor(1000);
-  availableDaysInput.press("ArrowDown", { delay: 20 });
-  availableDaysInput.press("Enter", { delay: 20 });
+  availableDaysInput.press('ArrowDown', { delay: 20 });
+  availableDaysInput.press('Enter', { delay: 20 });
   await page.waitFor(2000);
   workConditionInput.click({ delay: 10 });
   await page.waitFor(1000);
-  workConditionInput.press("ArrowDown", { delay: 20 });
-  workConditionInput.press("Enter", { delay: 20 });
+  workConditionInput.press('ArrowDown', { delay: 20 });
+  workConditionInput.press('Enter', { delay: 20 });
 
   await page.waitForSelector(SELECTORS.uploadResume.nextWA);
   await page.waitFor(1000);
@@ -74,7 +78,7 @@ const testUploadResume = async page => {
   await selectCurrentUniversity(page); //Problem with this one
   await selectUploadResume(page);
   await selectWorkAvaliability(page);
-  console.log("testedResume");
+  console.log('testedResume');
 };
 
 module.exports = { testUploadResume };

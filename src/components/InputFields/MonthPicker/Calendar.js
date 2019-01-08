@@ -1,26 +1,26 @@
-import React from "react";
+import React from 'react';
 
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import Grid from "sp2-material-ui/core/Grid";
-import Typography from "sp2-material-ui/core/Typography";
+import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 
-import IconButton from "sp2-material-ui/core/IconButton";
-import BackIcon from "@material-ui/icons/ArrowBack";
-import NextIcon from "@material-ui/icons/ArrowForward";
+import IconButton from '@material-ui/core/IconButton';
+import BackIcon from '@material-ui/icons/ArrowBack';
+import NextIcon from '@material-ui/icons/ArrowForward';
 
-import Months from "./Months";
+import Months from './Months';
 
 const styles = theme => ({
   calendar: {
     paddingLeft: 5,
     marginRight: 40,
-    width: "calc(100% - 85px)",
+    width: 'calc(100% - 85px)',
     height: 140,
-    border: "1px solid #9B9B9B",
-    backgroundColor: "#fff",
-    position: "absolute",
-    zIndex: 100
-  }
+    border: '1px solid #9B9B9B',
+    backgroundColor: '#fff',
+    position: 'absolute',
+    zIndex: 100,
+  },
 });
 
 function Calendar(props) {

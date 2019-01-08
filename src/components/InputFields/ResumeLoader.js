@@ -1,49 +1,49 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import Typography from "sp2-material-ui/core/Typography";
-import Button from "sp2-material-ui/core/Button";
-import Grid from "sp2-material-ui/core/Grid";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import CloudDoneIcon from "@material-ui/icons/CloudDone";
-import Dropzone from "react-dropzone";
-import { firebaseStorage } from "../../firebase/storage";
-import LinearProgress from "sp2-material-ui/core/LinearProgress";
-import Chip from "sp2-material-ui/core/Chip";
-import classNames from "classnames";
-import InputWrapper from "./InputWrapper";
-import MessageBar from "../MessageBar";
-import DownloadIcon from "@material-ui/icons/ArrowDownward";
-import { cloudFunction, CLOUD_FUNCTIONS } from "../../utilities/CloudFunctions";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CloudDoneIcon from '@material-ui/icons/CloudDone';
+import Dropzone from 'react-dropzone';
+import { firebaseStorage } from '../../firebase/storage';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import Chip from '@material-ui/core/Chip';
+import classNames from 'classnames';
+import InputWrapper from './InputWrapper';
+import MessageBar from '../MessageBar';
+import DownloadIcon from '@material-ui/icons/ArrowDownward';
+import { cloudFunction, CLOUD_FUNCTIONS } from '../../utilities/CloudFunctions';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 const styles = theme => ({
   root: {
     marginBottom: 0,
     marginTop: 20,
-    boxSizing: "border-box",
+    boxSizing: 'border-box',
     marginTop: 5,
-    width: "100%",
-    height: "100%",
-    border: "3px dashed #979797",
-    borderRadius: 5
+    width: '100%',
+    height: '100%',
+    border: '3px dashed #979797',
+    borderRadius: 5,
   },
   grid: {
     height: 262,
-    width: "100%"
+    width: '100%',
   },
   wrapper: {
     margin: theme.spacing.unit,
-    position: "relative",
-    textAlign: "center",
-    maxWidth: "calc(100% - 20px)"
+    position: 'relative',
+    textAlign: 'center',
+    maxWidth: 'calc(100% - 20px)',
   },
   buttonSuccess: {
     //backgroundColor: green[500],
-    "&:hover": {
+    '&:hover': {
       //  backgroundColor: green[700],
-    }
+    },
   },
 
   buttonProgress: {
@@ -52,14 +52,14 @@ const styles = theme => ({
 
   chipWrapper: {
     marginTop: theme.spacing.unit,
-    textAlign: "center"
+    textAlign: 'center',
   },
 
   chiplabel: {
-    display: "block",
-    overflow: "hidden",
-    textOverflow: "ellipsis"
-  }
+    display: 'block',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 });
 
 class ResumeLoader extends React.Component {
@@ -67,7 +67,7 @@ class ResumeLoader extends React.Component {
     super(props);
     this.state = {
       isUploading: false,
-      uploadProgress: 0
+      uploadProgress: 0,
     };
     this.handleLoader = this.handleLoader.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -83,15 +83,15 @@ class ResumeLoader extends React.Component {
   }
 
   handleDelete() {
-    console.log("delete");
+    console.log('delete');
     if (this.uploadTask) this.uploadTask.cancel();
     // Don't delete resumes from storage, we need them to be accessable from the admin portal
     ///const ref = firebaseStorage.child(this.props.resumeFile.fullPath)
     // ref.delete();/*.then(()=>{*/
-    this.props.changeHandler("resumeFile", {
-      name: "",
-      fullPath: "",
-      downloadURL: ""
+    this.props.changeHandler('resumeFile', {
+      name: '',
+      fullPath: '',
+      downloadURL: '',
     });
     this.setState({ isUploading: false });
     //});
@@ -112,32 +112,32 @@ class ResumeLoader extends React.Component {
             console.log(o);
           }
         );
-        this.props.changeHandler("resumeFile", {
+        this.props.changeHandler('resumeFile', {
           name: this.props.resumeFile.name,
           fullPath: snapShot.metadata.fullPath,
           downloadURL: url,
-          createdAt: new Date(Date.now())
+          createdAt: new Date(Date.now()),
         });
       });
     this.setState({ isUploading: false });
-    this.props.changeHandler("isLoading", false);
+    this.props.changeHandler('isLoading', false);
   }
 
   onDrop(files) {
-    if (files[0].type !== "application/pdf") {
+    if (files[0].type !== 'application/pdf') {
       this.setState({ errorBar: true });
     } else {
       const uid = this.props.authUser.uid;
 
-      if (this.props.resumeFile.name !== "") {
+      if (this.props.resumeFile.name !== '') {
         this.handleDelete();
       }
       this.setState({ isUploading: true });
-      this.props.changeHandler("isLoading", true);
-      this.props.changeHandler("resumeFile", {
+      this.props.changeHandler('isLoading', true);
+      this.props.changeHandler('resumeFile', {
         name: files[0].name,
         fullPath: `candidates/${uid}/resumes/${Date.now()}/${files[0].name}`,
-        downloadURL: ""
+        downloadURL: '',
       });
       const documentRef = firebaseStorage.child(
         `candidates/${uid}/resumes/${Date.now()}/${files[0].name}`
@@ -153,18 +153,18 @@ class ResumeLoader extends React.Component {
   }
   handleProgress(uploadTask) {
     let _changeHandler = this.handleChange;
-    uploadTask.on("state_changed", function(snapshot) {
+    uploadTask.on('state_changed', function(snapshot) {
       // Observe state change events such as progress, pause, and resume
       // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
       var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-      console.log("Upload is " + progress + "% done");
-      _changeHandler("uploadProgress", progress);
+      console.log('Upload is ' + progress + '% done');
+      _changeHandler('uploadProgress', progress);
       switch (snapshot.state) {
-        case "paused": // or
-          console.log("Upload is paused");
+        case 'paused': // or
+          console.log('Upload is paused');
           break;
-        case "running": // or 'running'
-          console.log("Upload is running");
+        case 'running': // or 'running'
+          console.log('Upload is running');
           break;
       }
     });
@@ -173,13 +173,13 @@ class ResumeLoader extends React.Component {
     const { classes, resumeFile, theme, hideTitle } = this.props;
     const { isUploading } = this.state;
     const buttonClassname = classNames({
-      [classes.buttonSuccess]: true
+      [classes.buttonSuccess]: true,
     });
     return (
       <div style={!theme.responsive.isMobile ? { minWidth: 420 } : {}}>
         <InputWrapper
-          title={!hideTitle && "Resume Upload"}
-          hint={!hideTitle && "Please upload your resume file in PDF format"}
+          title={!hideTitle && 'Resume Upload'}
+          hint={!hideTitle && 'Please upload your resume file in PDF format'}
           collapseTopMargin
         >
           <Dropzone
@@ -195,8 +195,8 @@ class ResumeLoader extends React.Component {
               justify="center"
               alignItems="center"
             >
-              <Grid item style={{ marginBottom: 20, textAlign: "center" }}>
-                {!isUploading && resumeFile.name !== "" ? (
+              <Grid item style={{ marginBottom: 20, textAlign: 'center' }}>
+                {!isUploading && resumeFile.name !== '' ? (
                   <CloudDoneIcon style={{ fontSize: 66 }} />
                 ) : (
                   <CloudUploadIcon style={{ fontSize: 66 }} />
@@ -227,40 +227,40 @@ class ResumeLoader extends React.Component {
                   </div>
                 ) : (
                   <Typography variant="button">
-                    {resumeFile.name !== ""
-                      ? "Resume uploaded"
+                    {resumeFile.name !== ''
+                      ? 'Resume uploaded'
                       : theme.responsive.isMobile
-                      ? "Click to browse for your PDF resume"
-                      : "Drag and drop your PDF resume"}
+                      ? 'Click to browse for your PDF resume'
+                      : 'Drag and drop your PDF resume'}
                   </Typography>
                 )}
               </Grid>
               <div className={classes.wrapper}>
-                {resumeFile.name !== "" ? (
+                {resumeFile.name !== '' ? (
                   <div className={classes.chipWrapper}>
                     {isUploading ? (
                       <Chip
                         label={resumeFile.name}
                         onDelete={this.handleDelete}
-                        style={{ maxWidth: "100%" }}
+                        style={{ maxWidth: '100%' }}
                         classes={{ label: classes.chiplabel }}
                       />
                     ) : (
                       <Chip
                         label={resumeFile.name}
                         onClick={() => {
-                          window.open(resumeFile.downloadURL, "_blank");
+                          window.open(resumeFile.downloadURL, '_blank');
                         }}
                         onDelete={this.handleDelete}
                         avatar={
                           <DownloadIcon
                             style={{
-                              transform: "scale(0.8)",
-                              marginRight: -12
+                              transform: 'scale(0.8)',
+                              marginRight: -12,
                             }}
                           />
                         }
-                        style={{ maxWidth: "100%" }}
+                        style={{ maxWidth: '100%' }}
                         classes={{ label: classes.chiplabel }}
                       />
                     )}
@@ -272,9 +272,9 @@ class ResumeLoader extends React.Component {
                     className={buttonClassname}
                     disabled={isUploading}
                     onClick={() => {
-                      resumeFile.name !== "" ? null : this.handleDelete();
+                      resumeFile.name !== '' ? null : this.handleDelete();
                     }}
-                    style={{ textTransform: "none" }}
+                    style={{ textTransform: 'none' }}
                   >
                     Select a file
                   </Button>
@@ -300,13 +300,13 @@ ResumeLoader.propTypes = {
   changeHandler: PropTypes.func.isRequired,
   resumeFile: PropTypes.shape({
     name: PropTypes.string,
-    fullPath: PropTypes.string
-  })
+    fullPath: PropTypes.string,
+  }),
 };
 
 function mapStateToProps(state) {
   return {
-    authUser: state.sessionState.authUser
+    authUser: state.sessionState.authUser,
   };
 }
 

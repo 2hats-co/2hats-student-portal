@@ -1,52 +1,52 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import Typography from "sp2-material-ui/core/Typography";
-import Grid from "sp2-material-ui/core/Grid";
-import DoneIcon from "@material-ui/icons/Done";
-import { STEP_LABELS, PROCESS_TYPES } from "../../../constants/signUpProcess";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import DoneIcon from '@material-ui/icons/Done';
+import { STEP_LABELS, PROCESS_TYPES } from '../../../constants/signUpProcess';
 import {
   UPLOAD_RESUME,
   BUILD_RESUME,
-  DASHBOARD
-} from "../../../constants/routes";
+  DASHBOARD,
+} from '../../../constants/routes';
 const styles = theme => ({
   root: {
     height: 30,
     width: 215,
-    cursor: "pointer",
-    [theme.breakpoints.up("md")]: {
-      width: 215
+    cursor: 'pointer',
+    [theme.breakpoints.up('md')]: {
+      width: 215,
     },
-    [theme.breakpoints.up("xs")]: {
-      width: "90%"
-    }
+    [theme.breakpoints.up('xs')]: {
+      width: '90%',
+    },
   },
   progress: {
-    margin: theme.spacing.unit * 2
+    margin: theme.spacing.unit * 2,
   },
   label: {
-    "&hover": {}
+    '&hover': {},
   },
   incomplete: {
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: "#D8D8D8"
+    backgroundColor: '#D8D8D8',
   },
   complete: {
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: theme.palette.primary.light
+    backgroundColor: theme.palette.primary.light,
   },
   doneIcon: {
     paddingTop: 2,
     paddingLeft: 1,
-    marign: "auto",
+    marign: 'auto',
     fontSize: 17,
-    color: "#fff"
-  }
+    color: '#fff',
+  },
 });
 function Step(props) {
   const { classes, label, process, goTo, isComplete } = props;
@@ -56,10 +56,10 @@ function Step(props) {
     </div>
   );
   const incompletedIndicator = <div className={classes.incomplete} />;
-  let route = DASHBOARD + "#basic";
+  let route = DASHBOARD + '#basic';
   if (process) {
-    if (process === "submit") {
-      route = "/profile";
+    if (process === 'submit') {
+      route = '/profile';
     } else {
       route = `${
         process === PROCESS_TYPES.build ? BUILD_RESUME : UPLOAD_RESUME
@@ -86,7 +86,7 @@ function Step(props) {
 }
 
 Step.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles)(Step);

@@ -1,10 +1,10 @@
-const { SELECTORS, CRED } = require("./constants");
+const { SELECTORS, CRED } = require('./constants');
 
 const loginEmail = async page => {
   //Select Email Address form
   await page.waitForSelector(SELECTORS.signIn.emailInput);
   await page.type(SELECTORS.signIn.emailInput, CRED.signIn.email, {
-    delay: 10
+    delay: 10,
   });
   //Select next button
   await page.waitForSelector(SELECTORS.signIn.emailButton);
@@ -12,10 +12,12 @@ const loginEmail = async page => {
   //Fill in password and click signin
   await page.waitForSelector(SELECTORS.signIn.emailPassword);
   await page.type(SELECTORS.signIn.emailPassword, CRED.signIn.password, {
-    delay: 10
+    delay: 10,
   });
-  await page.click(SELECTORS.signIn.emailSignIn, { delay: 10 });
-  await page.waitForNavigation({ waitUntil: "networkidle2" });
+  const signInButtons = await page.$$(SELECTORS.signIn.emailSignIn);
+  const signInButton = signInButtons[2];
+  signInButton.click({ delay: 10 });
+  await page.waitForNavigation({ waitUntil: 'networkidle2' });
   //Should be signed in from here
   return page;
 };
@@ -24,7 +26,7 @@ const signUpEmail = async page => {
   //Select Email Address form
   await page.waitForSelector(SELECTORS.signIn.emailInput);
   await page.type(SELECTORS.signIn.emailInput, CRED.signIn.email, {
-    delay: 10
+    delay: 10,
   });
   //Select next button
   await page.waitForSelector(SELECTORS.signIn.emailButton);
@@ -33,13 +35,13 @@ const signUpEmail = async page => {
   //Fill in the forms and click sign up
   await page.waitForSelector(SELECTORS.signUp.firstName);
   await page.type(SELECTORS.signUp.firstName, CRED.signUp.firstName, {
-    delay: 10
+    delay: 10,
   });
   await page.type(SELECTORS.signUp.lastName, CRED.signUp.lastName, {
-    delay: 10
+    delay: 10,
   });
   await page.type(SELECTORS.signUp.password, CRED.signIn.password, {
-    delay: 10
+    delay: 10,
   });
   await page.click(SELECTORS.signUp.signUpButton, { delay: 10 });
 
@@ -55,7 +57,7 @@ const loginGoogle = async page => {
   //Type in email
   await page.waitForSelector(SELECTORS.signIn.googleEmail);
   await page.type(SELECTORS.signIn.googleEmail, CRED.signIn.googleEmail, {
-    delay: 10
+    delay: 10,
   });
 
   return page;

@@ -1,44 +1,44 @@
-import React from "react";
-import Button from "sp2-material-ui/core/Button";
+import React from 'react';
+import Button from '@material-ui/core/Button';
 
-import WebStepper from "./WebStepper";
-import Grid from "sp2-material-ui/core/Grid";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import { withRouter } from "react-router-dom";
+import WebStepper from './WebStepper';
+import Grid from '@material-ui/core/Grid';
+import withStyles from '@material-ui/core/styles/withStyles';
+import { withRouter } from 'react-router-dom';
 import {
   PROCESS_TYPES,
   ALL_STEPS,
   STEP_LABELS,
-  checkComplition
-} from "../../../constants/signUpProcess";
-import StyledLink from "../../StyledLink";
-import * as routes from "../../../constants/routes";
-import DotMobileStepper from "./MobileStepper";
+  checkComplition,
+} from '../../../constants/signUpProcess';
+import StyledLink from '../../StyledLink';
+import * as routes from '../../../constants/routes';
+import DotMobileStepper from './MobileStepper';
 const styles = theme => ({
   root: {
-    width: "100%",
-    marginTop: 10
+    width: '100%',
+    marginTop: 10,
   },
   button: {
     marginRight: 20,
     height: 35,
     //  width: 140
     paddingLeft: 40,
-    paddingRight: 40
+    paddingRight: 40,
   },
   webContent: {},
   mobileContent: {
-    padding: 10
+    padding: 10,
     // merginLeft:-40,
   },
   finishLabel: {
-    color: "#888",
-    width: "100%",
-    textAlign: "right",
+    color: '#888',
+    width: '100%',
+    textAlign: 'right',
     fontSize: 15,
-    marginBottom: 20
+    marginBottom: 20,
     //  textDecoration:'underline',
-  }
+  },
 });
 
 class StepController extends React.Component {
@@ -68,7 +68,7 @@ class StepController extends React.Component {
       currentUniversity,
       resumeFile,
       education,
-      experience
+      experience,
     } = profile;
     switch (currentStep) {
       case ALL_STEPS.careerInterests:
@@ -114,7 +114,7 @@ class StepController extends React.Component {
     const { profile, activeStep, updateHandler, backHandler } = this.props;
     if (
       !checkComplition(currentStep, profile) ||
-      currentStep === "Work Availability"
+      currentStep === 'Work Availability'
     ) {
       updateHandler(activeStep);
     }
@@ -124,16 +124,16 @@ class StepController extends React.Component {
   }
   handleNext(currentStep) {
     window.dataLayer.push({
-      event: "VirtualPageview",
+      event: 'VirtualPageview',
       virtualPageURL: `/virtual/${currentStep}/`,
-      virtualPageTitle: currentStep
+      virtualPageTitle: currentStep,
     });
     if (currentStep === ALL_STEPS.other) {
       if (
         !window.navigator.onLine &&
-        typeof window.navigator.onLine !== "undefined"
+        typeof window.navigator.onLine !== 'undefined'
       ) {
-        alert("You are offline. This alert will be replaced later.");
+        alert('You are offline. This alert will be replaced later.');
         return;
       }
       this.goToDashboard(), this.props.nextHandler();
@@ -156,7 +156,7 @@ class StepController extends React.Component {
     const currentStep = STEP_LABELS[profile.process][activeStep];
     const nextButton = (
       <Button
-        id={`next-${currentStep.split(" ")[0]}`}
+        id={`next-${currentStep.split(' ')[0]}`}
         className={classes.button}
         disabled={checkComplition(currentStep, profile)}
         variant="flat"
@@ -164,7 +164,7 @@ class StepController extends React.Component {
           this.handleNext(currentStep);
         }}
       >
-        {currentStep === ALL_STEPS.other ? "Preview Profile" : "Next"}
+        {currentStep === ALL_STEPS.other ? 'Preview Profile' : 'Next'}
       </Button>
     );
 
@@ -216,7 +216,7 @@ class StepController extends React.Component {
               {currentStep && nextButton}
             </Grid>
           </Grid>
-          <Grid item sm={2} style={{ textAlign: "right" }}>
+          <Grid item sm={2} style={{ textAlign: 'right' }}>
             {saveButtonWithConditions}
           </Grid>
         </Grid>
@@ -251,7 +251,7 @@ class StepController extends React.Component {
           {isMobile && (
             <Grid
               container
-              style={{ width: "90%" }}
+              style={{ width: '90%' }}
               direction="row"
               justify="flex-end"
             >

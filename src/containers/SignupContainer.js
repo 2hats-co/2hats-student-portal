@@ -1,78 +1,78 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 //material
-import withStyles from "sp2-material-ui/core/styles/withStyles";
+import withStyles from '@material-ui/core/styles/withStyles';
 //child components
-import LogoOnCard from "../components/LogoOnCard";
+import LogoOnCard from '../components/LogoOnCard';
 //form sections
-import SectionWrapper from "../components/SectionWrapper";
+import SectionWrapper from '../components/SectionWrapper';
 import {
   PROCESS_TYPES,
   STEP_LABELS,
-  ALL_STEPS
-} from "../constants/signUpProcess";
-import CareerInterests from "../components/InputFields/CareerInterests";
-import EduExp from "../components/EduExp";
-import OtherInfo from "../components/SignUp/OtherInfo";
-import PersonalBio from "../components/InputFields/PersonalBio";
-import Skills from "../components/InputFields/Skills";
-import ResumeLoader from "../components/InputFields/ResumeLoader";
+  ALL_STEPS,
+} from '../constants/signUpProcess';
+import CareerInterests from '../components/InputFields/CareerInterests';
+import EduExp from '../components/EduExp';
+import OtherInfo from '../components/SignUp/OtherInfo';
+import PersonalBio from '../components/InputFields/PersonalBio';
+import Skills from '../components/InputFields/Skills';
+import ResumeLoader from '../components/InputFields/ResumeLoader';
 //Redux
-import { compose } from "redux";
-import { withHandlers, lifecycle } from "recompose";
-import { connect } from "react-redux";
-import { withFirestore } from "../utilities/withFirestore";
+import { compose } from 'redux';
+import { withHandlers, lifecycle } from 'recompose';
+import { connect } from 'react-redux';
+import { withFirestore } from '../utilities/withFirestore';
 //routing
-import { withRouter } from "react-router-dom";
-import { COLLECTIONS, LISTENER } from "../constants/firestore";
-import orderBy from "lodash.orderby";
-import * as routes from "../constants/routes";
-import StepController from "../components/SignUp/StepController";
-import LoadingMessage from "../components/LoadingMessage";
-import withAuthorisation from "../utilities/Session/withAuthorisation";
-import CurrentUniversity from "../components/InputFields/CurrentUniversity";
-import BuggyBoy from "../components/BuggyBoy";
+import { withRouter } from 'react-router-dom';
+import { COLLECTIONS, LISTENER } from '../constants/firestore';
+import orderBy from 'lodash.orderby';
+import * as routes from '../constants/routes';
+import StepController from '../components/SignUp/StepController';
+import LoadingMessage from '../components/LoadingMessage';
+import withAuthorisation from '../utilities/Session/withAuthorisation';
+import CurrentUniversity from '../components/InputFields/CurrentUniversity';
+import BuggyBoy from '../components/BuggyBoy';
 const styles = theme => ({
   root: {
-    height: 800
+    height: 800,
   },
   mobileContainer: {
-    width: "100%"
+    width: '100%',
   },
   webContainer: {
-    width: "90%",
+    width: '90%',
     padding: 35,
-    paddingTop: 45
+    paddingTop: 45,
   },
   footerContainer: {
-    width: 320
+    width: 320,
   },
   footerButton: {
-    width: 140
-  }
+    width: 140,
+  },
 });
 let INITIAL_PROFILE = {
-  careerInterests: { type: "defualt", value: [] },
+  careerInterests: { type: 'defualt', value: [] },
   currentStep: ALL_STEPS.careerInterests,
-  bio: "",
-  currentUniversity: "",
+  bio: '',
+  currentUniversity: '',
   skills: [],
-  workingRights: "",
+  workingRights: '',
   workRestricted: -1,
-  availableDays: "",
+  availableDays: '',
   availableDaysNum: -1,
-  phoneNumber: "",
-  industry: "IT",
+  phoneNumber: '',
+  industry: 'IT',
   education: [],
-  resumeFile: { name: "", fullPath: "", downloadURL: "" },
-  experience: []
+  resumeFile: { name: '', fullPath: '', downloadURL: '' },
+  experience: [],
 };
 const INITIAL_STATE = {
   activeStep: 0,
   isLoading: false,
   profile: {},
   error: null,
-  isOffline: false
+  isOffline: false,
 };
 
 class ResumeBuilderContainer extends Component {
@@ -85,16 +85,16 @@ class ResumeBuilderContainer extends Component {
     this.handleUpdate = this.handleUpdate.bind(this);
   }
   componentWillMount() {
-    if (this.props.history.location.search.includes("step")) {
+    if (this.props.history.location.search.includes('step')) {
       this.setState({
-        activeStep: parseInt(this.props.history.location.search.split("=")[1])
+        activeStep: parseInt(this.props.history.location.search.split('=')[1]),
       });
     }
 
-    window.Intercom("update", {
-      hide_default_launcher: true
+    window.Intercom('update', {
+      hide_default_launcher: true,
     });
-    window.Intercom("hide");
+    window.Intercom('hide');
 
     if (this.props.profile) {
       for (const key in this.props.profile[0]) {
@@ -110,7 +110,7 @@ class ResumeBuilderContainer extends Component {
       );
       this.setState({ profile: updatedProfile });
       this.props.onProfileUpdate({
-        process: PROCESS_TYPES.build
+        process: PROCESS_TYPES.build,
         //   hasSubmit: false
       });
       this.props.onUserUpdate({ process: PROCESS_TYPES.build });
@@ -121,7 +121,7 @@ class ResumeBuilderContainer extends Component {
       );
       this.setState({ profile: updatedProfile });
       this.props.onProfileUpdate({
-        process: PROCESS_TYPES.upload
+        process: PROCESS_TYPES.upload,
         //    hasSubmit: false
       });
       this.props.onUserUpdate({ process: PROCESS_TYPES.upload });
@@ -153,7 +153,7 @@ class ResumeBuilderContainer extends Component {
     }
   }
   handleChange(name, value) {
-    if (name === "isLoading") {
+    if (name === 'isLoading') {
       this.setState({ isLoading: value });
     } else {
       const newProfile = Object.assign(this.state.profile, { [name]: value });
@@ -246,14 +246,14 @@ class ResumeBuilderContainer extends Component {
           </SectionWrapper>
         );
       default:
-        return "Unknown step";
+        return 'Unknown step';
     }
   }
   handleNext = () => {
     const { activeStep } = this.state;
     this.handleUpdate(activeStep);
     this.setState({
-      activeStep: activeStep + 1
+      activeStep: activeStep + 1,
     });
   };
 
@@ -265,52 +265,52 @@ class ResumeBuilderContainer extends Component {
         this.props.onProfileUpdate({
           careerInterests: profile.careerInterests,
           industry: profile.industry,
-          completedStep: currentStep
+          completedStep: currentStep,
         });
         break;
       case ALL_STEPS.bio:
         this.props.onProfileUpdate({
           bio: profile.bio,
-          completedStep: currentStep
+          completedStep: currentStep,
         });
       case ALL_STEPS.skills:
         this.props.onProfileUpdate({
           skills: profile.skills,
-          completedStep: currentStep
+          completedStep: currentStep,
         });
         break;
       case ALL_STEPS.currentUniversity:
         this.props.onProfileUpdate({
           currentUniversity: profile.currentUniversity,
-          completedStep: currentStep
+          completedStep: currentStep,
         });
         this.props.onUserUpdate({
-          currentUniversity: profile.currentUniversity
+          currentUniversity: profile.currentUniversity,
         });
         break;
       case ALL_STEPS.education:
-        let currentUniversity = "";
+        let currentUniversity = '';
         if (profile.education) {
-          const education = orderBy(profile.education, "endDateValue", "desc");
+          const education = orderBy(profile.education, 'endDateValue', 'desc');
           currentUniversity = education[0].university;
         }
         this.props.onProfileUpdate({
           education: profile.education,
-          completedStep: currentStep
+          completedStep: currentStep,
         });
         this.props.onUserUpdate({ currentUniversity: currentUniversity });
         break;
       case ALL_STEPS.experience:
         this.props.onProfileUpdate({
           experience: profile.experience,
-          completedStep: currentStep
+          completedStep: currentStep,
         });
         break;
       case ALL_STEPS.uploadResume:
         this.props.onProfileUpdate({
           resumeFile: profile.resumeFile,
           bio: profile.bio,
-          completedStep: currentStep
+          completedStep: currentStep,
         });
         break;
       case ALL_STEPS.other:
@@ -318,14 +318,14 @@ class ResumeBuilderContainer extends Component {
           completedStep: currentStep,
           phoneNumber: profile.phoneNumber,
           workingRights: profile.workingRights,
-          availableDays: profile.availableDays
+          availableDays: profile.availableDays,
         });
         this.props.onUserUpdate({
           phoneNumber: profile.phoneNumber,
           workingRights: profile.workingRights,
           availableDays: profile.availableDays,
           availableDaysNum: profile.availableDaysNum,
-          workRestricted: profile.workRestricted
+          workRestricted: profile.workRestricted,
         });
         break;
       default:
@@ -336,13 +336,13 @@ class ResumeBuilderContainer extends Component {
     const { activeStep } = this.state;
     if (activeStep !== 0) {
       this.setState({
-        activeStep: activeStep - 1
+        activeStep: activeStep - 1,
       });
     }
   };
   handleReset = () => {
     this.setState({
-      activeStep: 0
+      activeStep: 0,
     });
   };
   render() {
@@ -404,8 +404,8 @@ class ResumeBuilderContainer extends Component {
 ResumeBuilderContainer.propTypes = {
   classes: PropTypes.object,
   store: PropTypes.shape({
-    firestore: PropTypes.object
-  })
+    firestore: PropTypes.object,
+  }),
 };
 
 const enhance = compose(
@@ -420,7 +420,7 @@ const enhance = compose(
         { collection: COLLECTIONS.profiles, doc: props.uid },
         {
           ...data,
-          updatedAt: props.firestore.FieldValue.serverTimestamp()
+          updatedAt: props.firestore.FieldValue.serverTimestamp(),
         }
       ),
     onUserUpdate: props => data =>
@@ -428,9 +428,9 @@ const enhance = compose(
         { collection: COLLECTIONS.users, doc: props.uid },
         {
           ...data,
-          updatedAt: props.firestore.FieldValue.serverTimestamp()
+          updatedAt: props.firestore.FieldValue.serverTimestamp(),
         }
-      )
+      ),
   }),
   // Run functionality on component lifecycle
   lifecycle({
@@ -471,12 +471,12 @@ const enhance = compose(
       this.props.firestore.unsetListener(profileListenerSettings);
       const usersListenerSettings = LISTENER(COLLECTIONS.users, this.props.uid);
       this.props.firestore.unsetListener(usersListenerSettings);
-    }
+    },
   }),
   // Connect todos from redux state to props.todos
   connect(({ firestore }) => ({
     profile: firestore.ordered.profiles, // document data by id
-    user: firestore.ordered.users // document data by id
+    user: firestore.ordered.users, // document data by id
   }))
 );
 const authCondition = authUser => !!authUser;

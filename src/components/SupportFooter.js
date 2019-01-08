@@ -1,24 +1,24 @@
-import React from "react";
-import Logo from "../assets/images/Logo/White2hats.svg";
-import Typography from "sp2-material-ui/core/Typography";
-import Grid from "sp2-material-ui/core/Grid";
-import Footer from "../assets/images/graphics/Footer.svg";
-import FooterMobile from "../assets/images/graphics/FooterMobile.svg";
-import ChatIcon from "@material-ui/icons/QuestionAnswer";
-import HelpIcon from "@material-ui/icons/HelpOutline";
+import React from 'react';
+import Logo from '../assets/images/Logo/White2hats.svg';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import Footer from '../assets/images/graphics/Footer.svg';
+import FooterMobile from '../assets/images/graphics/FooterMobile.svg';
+import ChatIcon from '@material-ui/icons/QuestionAnswer';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 function SupportFooter(props) {
-  window.Intercom("update", {
-    hide_default_launcher: true
+  window.Intercom('update', {
+    hide_default_launcher: true,
   });
 
   const FooterStyle = props.mobile
     ? {
-        padding: "7.5%",
-        backgroundImage: `url(${FooterMobile})`
+        padding: '7.5%',
+        backgroundImage: `url(${FooterMobile})`,
       }
     : {
-        padding: "4.37%",
-        backgroundImage: `url(${Footer})`
+        padding: '4.37%',
+        backgroundImage: `url(${Footer})`,
       };
 
   return (
@@ -27,34 +27,34 @@ function SupportFooter(props) {
       direction="column"
       justify="flex-end"
       alignItems="center"
-      style={{ position: "absolute", bottom: 0 }}
+      style={{ position: 'absolute', bottom: 0 }}
     >
       <Grid
         item
         style={{
-          width: "100%",
+          width: '100%',
           fontSize: 0,
           height: 0,
-          backgroundSize: "103% 103%",
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "top center",
-          ...FooterStyle
+          backgroundSize: '103% 103%',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'top center',
+          ...FooterStyle,
         }}
       />
-      <Grid item style={{ backgroundColor: "#ef5b34", width: "100%" }}>
+      <Grid item style={{ backgroundColor: '#ef5b34', width: '100%' }}>
         <Grid
           container
           direction="row"
           justify="space-between"
           alignItems="flex-start"
           style={{
-            width: "85%",
+            width: '85%',
             paddingBottom: 30,
             paddingTop: 0,
-            margin: "calc(-4vw + 20px) auto 0"
+            margin: 'calc(-4vw + 20px) auto 0',
           }}
         >
-          <img style={{ maxWidth: 150, width: "25vw" }} src={Logo} />
+          <img style={{ maxWidth: 150, width: '25vw' }} src={Logo} />
 
           <Grid
             container
@@ -63,49 +63,49 @@ function SupportFooter(props) {
             justify="flex-end"
             style={{ width: 235, height: 60 }}
           >
-            <Grid item xs={12} style={{ textAlign: "right" }}>
+            <Grid item xs={12} style={{ textAlign: 'right' }}>
               <a
                 href="https://intercom.help/2hats/faq"
-                style={{ textDecoration: "none" }}
+                style={{ textDecoration: 'none' }}
                 target="_blank"
               >
                 <Typography
                   variant="button"
-                  style={{ color: "#fff", display: "inline", fontWeight: 400 }}
+                  style={{ color: '#fff', display: 'inline', fontWeight: 400 }}
                 >
-                  <HelpIcon style={{ position: "relative", top: 5 }} /> Help
+                  <HelpIcon style={{ position: 'relative', top: 5 }} /> Help
                   Center
                 </Typography>
               </a>
               <Typography
                 variant="button"
-                style={{ color: "#fff", margin: "0 10px", display: "inline" }}
+                style={{ color: '#fff', margin: '0 10px', display: 'inline' }}
               >
                 |
               </Typography>
               <Typography
                 onClick={() => {
-                  window.Intercom("show");
+                  window.Intercom('show');
                 }}
                 variant="button"
                 style={{
-                  color: "#fff",
-                  cursor: "pointer",
-                  display: "inline",
-                  fontWeight: 400
+                  color: '#fff',
+                  cursor: 'pointer',
+                  display: 'inline',
+                  fontWeight: 400,
                 }}
               >
-                <ChatIcon style={{ position: "relative", top: 5 }} /> Live Chat
+                <ChatIcon style={{ position: 'relative', top: 5 }} /> Live Chat
               </Typography>
             </Grid>
             <Grid item xs={12}>
               <Typography
                 variant="caption"
                 style={{
-                  color: "#fff",
-                  textAlign: "right",
+                  color: '#fff',
+                  textAlign: 'right',
                   fontSize: 13,
-                  marginTop: 10
+                  marginTop: 10,
                 }}
               >
                 &copy;&nbsp;2hats&nbsp;{new Date().getFullYear()}.

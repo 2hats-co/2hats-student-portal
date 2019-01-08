@@ -1,19 +1,19 @@
-import React from "react";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import PropTypes from "prop-types";
-import MobileStepper from "sp2-material-ui/core/MobileStepper";
-import Button from "sp2-material-ui/core/Button";
-import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
-import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
+import React from 'react';
+import withStyles from '@material-ui/core/styles/withStyles';
+import PropTypes from 'prop-types';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import Button from '@material-ui/core/Button';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: '100%',
     padding: 0,
-    overflowX: "hidden",
+    overflowX: 'hidden',
     maxWidth: 750,
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 });
 
 function DotMobileStepper(props) {
@@ -24,7 +24,7 @@ function DotMobileStepper(props) {
     handleNext,
     handleBack,
     theme,
-    nextDisabler
+    nextDisabler,
   } = props;
   return (
     <MobileStepper
@@ -40,9 +40,9 @@ function DotMobileStepper(props) {
           onClick={handleNext}
           disabled={nextDisabler}
         >
-          {activeStep === steps.length - 1 ? "Preview" : "Next"}
+          {activeStep === steps.length - 1 ? 'Preview' : 'Next'}
           {activeStep !== steps.length - 1 &&
-            (theme.direction === "rtl" ? (
+            (theme.direction === 'rtl' ? (
               <KeyboardArrowLeft />
             ) : (
               <KeyboardArrowRight />
@@ -51,7 +51,7 @@ function DotMobileStepper(props) {
       }
       backButton={
         <Button variant="contained" size="small" onClick={handleBack}>
-          {theme.direction === "rtl" ? (
+          {theme.direction === 'rtl' ? (
             <KeyboardArrowRight />
           ) : (
             <KeyboardArrowLeft />
@@ -64,7 +64,7 @@ function DotMobileStepper(props) {
 }
 DotMobileStepper.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+  theme: PropTypes.object.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(DotMobileStepper);

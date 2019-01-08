@@ -1,75 +1,74 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 // material UI
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
-import { Theme } from "./Theme";
-import Grid from "@material-ui/core/Grid";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { LinkedInPopUp } from "react-linkedin-login-oauth2";
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { Theme } from './Theme';
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 // containers
-import withAuthentication from "./utilities/Session/withAuthentication";
+import withAuthentication from './utilities/Session/withAuthentication';
 //routing
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import * as routes from "./constants/routes";
-import { AUTHENTICATION_CONTAINER } from "./constants/views";
-import Landing from "./components/Landing";
-import TagTracker from "./components/TagTracker";
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import * as routes from './constants/routes';
+import { AUTHENTICATION_CONTAINER } from './constants/views';
+import Landing from './components/Landing';
+import TagTracker from './components/TagTracker';
 
 // loadable
-import Loadable from "react-loadable";
+import Loadable from 'react-loadable';
 const loadingCard = (
   <Grid
     container
     alignItems="center"
     justify="center"
-    style={{ height: "100%", position: "absolute", top: 0, left: 0 }}
+    style={{ height: '100%', position: 'absolute', top: 0, left: 0 }}
   >
     <CircularProgress color="primary" size={60} />
   </Grid>
 );
 
 const AuthenticationContainer = Loadable({
-  loader: () => import("./containers/AuthenticationContainer"),
+  loader: () => import('./containers/AuthenticationContainer'),
   loading() {
     return loadingCard;
-  }
+  },
 });
 const SignupContainer = Loadable({
-  loader: () => import("./containers/SignupContainer"),
+  loader: () => import('./containers/SignupContainer'),
   loading() {
     return loadingCard;
-  }
+  },
 });
 
 const SpeedySignupContainer = Loadable({
-  loader: () => import("./containers/SpeedySignupContainer"),
+  loader: () => import('./containers/SpeedySignupContainer'),
   loading() {
     return loadingCard;
-  }
+  },
 });
-
 const SmartLinkContainer = Loadable({
-  loader: () => import("./containers/SmartLinkContainer"),
+  loader: () => import('./containers/SmartLinkContainer'),
   loading() {
     return loadingCard;
-  }
+  },
 });
 const ProfileContainer = Loadable({
-  loader: () => import("./containers/ProfileContainer"),
+  loader: () => import('./containers/ProfileContainer'),
   loading() {
     return loadingCard;
-  }
+  },
 });
 const DashboardContainer = Loadable({
-  loader: () => import("./containers/DashboardContainer"),
+  loader: () => import('./containers/DashboardContainer'),
   loading() {
     return loadingCard;
-  }
+  },
 });
 const JobBoardContainer = Loadable({
-  loader: () => import("./containers/JobBoardContainer"),
+  loader: () => import('./containers/JobBoardContainer'),
   loading() {
     return loadingCard;
-  }
+  },
 });
 
 class App extends Component {
@@ -81,10 +80,10 @@ class App extends Component {
 
   componentDidMount() {
     this.updateWindowDimensions();
-    window.addEventListener("resize", this.updateWindowDimensions);
+    window.addEventListener('resize', this.updateWindowDimensions);
   }
   componentWillUnmount() {
-    window.removeEventListener("resize", this.updateWindowDimensions);
+    window.removeEventListener('resize', this.updateWindowDimensions);
   }
   updateWindowDimensions() {
     const isMobile = window.innerWidth < 700;
@@ -97,9 +96,9 @@ class App extends Component {
             width: window.innerWidth,
             height: window.innerHeight,
             isMobile,
-            isLessThan840
-          }
-        })
+            isLessThan840,
+          },
+        }),
       });
     }
 
@@ -110,9 +109,9 @@ class App extends Component {
             width: window.innerWidth,
             height: window.innerHeight,
             isMobile,
-            isLessThan840
-          }
-        })
+            isLessThan840,
+          },
+        }),
       });
     }
   }
@@ -202,7 +201,22 @@ class App extends Component {
               path={routes.JOB_BOARD}
               component={() => <JobBoardContainer />}
             />
-
+            {/* <Route
+              exact
+              path={routes.INTRODUCTION}
+              component={() => (
+                <IntroductionContainer view={INTRODUCTION_CONTAINER.process} />
+              )}
+            /> */}
+            {/* <Route
+              exact
+              path={routes.SUBMISSION}
+              component={() => (
+                <IntroductionContainer
+                  view={INTRODUCTION_CONTAINER.submission}
+                />
+              )}
+            /> */}
             <Route
               exact
               path={routes.BUILD_RESUME}
@@ -213,15 +227,23 @@ class App extends Component {
               path={routes.UPLOAD_RESUME}
               component={() => <SignupContainer />}
             />
-
+            {/* <Route
+              exact
+              path={routes.PREVIOUS_SUBMISSION}
+              component={() => <SubmissionContainer />}
+            /> */}
             <Route
               exact
               path={routes.SMART_LINK}
               component={() => <SmartLinkContainer />}
             />
             <Route exact path="/linkedin" component={LinkedInPopUp} />
-
-            <Route exact path={"/"} component={() => <Landing />} />
+            {/* <Route
+              exact
+              path={"/remoteLogs"}
+              component={() => <RemoteLoggerContainer />}
+            /> */}
+            <Route exact path={'/'} component={() => <Landing />} />
           </div>
         </Router>
       </MuiThemeProvider>

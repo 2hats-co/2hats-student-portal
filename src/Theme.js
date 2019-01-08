@@ -1,184 +1,183 @@
-
-import createMuiTheme from 'sp2-material-ui/core/styles/createMuiTheme';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { inherits } from 'util';
-export const PRIMARY_COLOR = '#F15A29'
-const primaryFontFamily = `"Helvetica Neue", Arial`
-export const WHITE = '#fff'
-export const BLACK = '#2c2c2c'
-export const GREY = '#EDEDED'
-const primaryColor = PRIMARY_COLOR
+export const PRIMARY_COLOR = '#F15A29';
+const primaryFontFamily =
+  '"Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
+export const WHITE = '#fff';
+export const BLACK = '#2c2c2c';
+export const GREY = '#EDEDED';
+const primaryColor = PRIMARY_COLOR;
 export const Theme = createMuiTheme({
-  
-  responsive:{
-    isMobile:true
+  responsive: {
+    isMobile: true,
   },
   overrides: {
-    MuiStepIcon:{
-      root:{
-        color:GREY,
+    MuiStepIcon: {
+      root: {
+        color: GREY,
       },
     },
-    MuiStepLabel:{
-       label:{
-          fontSize: '12px',
-          fontWeight:500 
-
-        }
+    MuiStepLabel: {
+      label: {
+        fontSize: '12px',
+        fontWeight: 500,
+      },
     },
 
-    MuiInput:{
-      opacity:1,
-      borderBottom:'#000 !important'
+    MuiInput: {
+      opacity: 1,
+      borderBottom: '#000 !important',
     },
-    MuiInputLabel:{
-      root:{
-      fontSize: '14px',
-      fontWeight: 400,
-      fontColor:'rgba(0,0,0,1) !important',
-      fontFamily:primaryFontFamily,
-      letterSpacing: '0.06px',
-    }
+    MuiInputLabel: {
+      root: {
+        fontSize: '14px',
+        fontWeight: 400,
+        fontColor: 'rgba(0,0,0,1) !important',
+        fontFamily: primaryFontFamily,
+        letterSpacing: '0.06px',
+      },
     },
-    MuiFormControlLabel:{
-      root:{
-      fontSize:'20px'
-      }
-    }
-    ,
-    MuiInput:{
-      root:{
-      fontSize:'14px'
-      }
+    MuiFormControlLabel: {
+      root: {
+        fontSize: '20px',
+      },
     },
-    MuiFormLabel:{
-      root:{
-        height:30
-      }
+    MuiInput: {
+      root: {
+        fontSize: '14px',
+      },
     },
-    MuiFormControlLabel:{
-      root:{
-        height:35
-      }
+    MuiFormLabel: {
+      root: {
+        height: 30,
+      },
     },
-    MuiDialog:{
-      root:{
-        overflowY:'visible'
-      }
+    MuiFormControlLabel: {
+      root: {
+        height: 35,
+      },
     },
-    MuiDialogTitle:{
-      root:{
-        color:primaryColor+'!important',
-      }
+    MuiDialog: {
+      root: {
+        overflowY: 'visible',
+      },
     },
-    MuiButton: { 
-      flat: { // Name of the rule
+    MuiDialogTitle: {
+      root: {
+        color: primaryColor + '!important',
+      },
+    },
+    MuiButton: {
+      flat: {
+        // Name of the rule
         color: WHITE,
-        backgroundColor:primaryColor,
-        borderRadius:'20px',
-        '&:hover': {backgroundColor:'#d85125'},
-        '&:disabled': {opacity: 0.4,color:WHITE},
+        backgroundColor: primaryColor,
+        borderRadius: '20px',
+        '&:hover': { backgroundColor: '#d85125' },
+        '&:disabled': { opacity: 0.4, color: WHITE },
       },
-      outlined: { // Name of the rule
-        color: BLACK+'!important',
-        backgroundColor:WHITE,
-        borderRadius:'20px',
+      outlined: {
+        // Name of the rule
+        color: BLACK + '!important',
+        backgroundColor: WHITE,
+        borderRadius: '20px',
         border: `1px solid ${BLACK}`,
-        '&:hover': {backgroundColor:'#f5f5f5'}
+        '&:hover': { backgroundColor: '#f5f5f5' },
       },
-      contained: { // Name of the rule
+      contained: {
+        // Name of the rule
         color: BLACK,
-        backgroundColor:WHITE,
-        borderRadius:'2px',// should this be rounded
+        backgroundColor: WHITE,
+        borderRadius: '2px', // should this be rounded
         //width:80,
-        margin:5,
-        height:36,
+        margin: 5,
+        height: 36,
         '&:hover': {
           backgroundColor: WHITE,
           // Reset on touch devices, it doesn't add specificity
           '@media (hover: none)': {
-            backgroundColor: GREY
-          }
+            backgroundColor: GREY,
+          },
         },
-       '&:active': {
-        boxShadow: GREY
+        '&:active': {
+          boxShadow: GREY,
+        },
+        boxShadow: 'none',
       },
-       boxShadow:'none'
-      },    
     },
   },
   typography: {
     display2: {
       fontSize: '42px',
       fontFamily: primaryFontFamily,
-      color:'#000',
+      color: '#000',
       fontWeight: 'bold',
-      textAlign: 'left'
+      textAlign: 'left',
     },
     display1: {
       fontSize: '30px',
       fontFamily: primaryFontFamily,
-      color:BLACK,
+      color: BLACK,
       fontWeight: 'bold',
-      textAlign: 'left'
+      textAlign: 'left',
     },
     headline: {
       fontSize: '24px',
       fontFamily: primaryFontFamily,
       fontWeight: 'medium',
-      textAlign: 'center'
+      textAlign: 'center',
     },
     title: {
-      fontFamily:primaryFontFamily,
+      fontFamily: primaryFontFamily,
       fontWeight: 400,
       fontSize: '20px',
       textAlign: 'left',
-      color:inherits,
+      color: inherits,
     },
-    
+
     subheading: {
-      fontFamily:primaryFontFamily,
+      fontFamily: primaryFontFamily,
       fontWeight: 400,
       fontSize: '16px',
-      letterSpacing: '0.08px'
+      letterSpacing: '0.08px',
     },
     body1: {
       fontSize: '13px',
       fontWeight: 400,
-      fontFamily:primaryFontFamily,
-      letterSpacing: '0.06px'
-
-    },button:{
+      fontFamily: primaryFontFamily,
+      letterSpacing: '0.06px',
+    },
+    button: {
       fontSize: '15px',
       fontWeight: 'bold',
       textAlign: 'center',
-      fontFamily:primaryFontFamily,
+      fontFamily: primaryFontFamily,
       textTransform: 'none',
-      color:'#000'
+      color: '#000',
     },
     caption: {
       fontSize: '12px',
       fontWeight: 'regular',
-      fontFamily:primaryFontFamily,
+      fontFamily: primaryFontFamily,
       color: '#9B9B9B',
       letterSpacing: '0.05px',
       lineHeight: '13px',
-    }, Button: {
-      fontFamily:primaryFontFamily,
+    },
+    Button: {
+      fontFamily: primaryFontFamily,
       fontWeight: 'bold',
       fontSize: '15px',
       letterSpacing: '0.1px',
-      textAlign: 'center'
+      textAlign: 'center',
     },
-    fontFamily: [
-      primaryFontFamily,
-    ].join(','),
+    fontFamily: [primaryFontFamily].join(','),
   },
   palette: {
     primary: {
-      light: primaryColor,//
-      main: primaryColor,// button
-      dark: primaryColor,//textfield label
-      contrastText: WHITE,//button text
+      light: primaryColor, //
+      main: primaryColor, // button
+      dark: primaryColor, //textfield label
+      contrastText: WHITE, //button text
     },
     secondary: {
       //TODO , purple?
@@ -186,9 +185,9 @@ export const Theme = createMuiTheme({
       main: '#f44336',
       dark: '#ba000d',
       contrastText: BLACK,
-    },action:{
-      disabled:'#ABABAB',
     },
-    
+    action: {
+      disabled: '#ABABAB',
+    },
   },
 });

@@ -1,38 +1,38 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import AutoCompleteField from "../AutoCompleteField";
-import Chip from "sp2-material-ui/core/Chip";
-import SuggestedSkills from "./SuggestedSkills";
-import { ALL_SKILLS } from "../../../constants/resumeBuilderPrompts";
-import CancelIcon from "@material-ui/icons/Cancel";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import AutoCompleteField from '../AutoCompleteField';
+import Chip from '@material-ui/core/Chip';
+import SuggestedSkills from './SuggestedSkills';
+import { ALL_SKILLS } from '../../../constants/resumeBuilderPrompts';
+import CancelIcon from '@material-ui/icons/Cancel';
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: '100%',
     maxWidth: 850,
-    marginTop: -20
+    marginTop: -20,
   },
   chip: {
-    color: "#fff",
+    color: '#fff',
     marginTop: 10,
     margin: 4,
     backgroundColor: theme.palette.primary.light,
-    "&:hover": {
-      backgroundColor: theme.palette.primary.light
-    }
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+    },
   },
   cancelIcon: {
-    color: "#fff",
-    "&:hover": {
-      color: "#fff"
-    }
-  }
+    color: '#fff',
+    '&:hover': {
+      color: '#fff',
+    },
+  },
 });
 class Skills extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedList: []
+      selectedList: [],
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.addNewSkill = this.addNewSkill.bind(this);
@@ -45,7 +45,7 @@ class Skills extends React.Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (prevState !== this.state) {
-      this.props.changeHandler("skills", this.state.selectedList);
+      this.props.changeHandler('skills', this.state.selectedList);
     }
   }
   handleDelete = val => {
@@ -76,7 +76,7 @@ class Skills extends React.Component {
     return (
       <div className={classes.root}>
         <AutoCompleteField
-          title={!hideTitle ? "Skills" : ""}
+          title={!hideTitle ? 'Skills' : ''}
           hint="Please address your chosen skills in your tertiary education and practical experience. "
           placeholder="Enter your relevant practical skills (10 max) e.g. Adobe Photoshop"
           list={list}
@@ -112,6 +112,6 @@ Skills.propTypes = {
   changeHandler: PropTypes.func.isRequired,
   hideSuggestions: PropTypes.bool,
   interestKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
-  preSelectedList: PropTypes.arrayOf(PropTypes.string)
+  preSelectedList: PropTypes.arrayOf(PropTypes.string),
 };
 export default withStyles(styles)(Skills);

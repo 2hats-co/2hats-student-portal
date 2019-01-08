@@ -1,21 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-import withStyles from "sp2-material-ui/core/styles/withStyles";
-import FormControl from "sp2-material-ui/core/FormControl";
-import Select from "sp2-material-ui/core/Select";
-import MenuItem from "sp2-material-ui/core/MenuItem";
-import InputWrapper from "./InputWrapper";
-import InputLabel from "sp2-material-ui/core/InputLabel";
-import DownIcon from "@material-ui/icons/KeyboardArrowDown";
+import React from 'react';
+import PropTypes from 'prop-types';
+import withStyles from '@material-ui/core/styles/withStyles';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import InputWrapper from './InputWrapper';
+import InputLabel from '@material-ui/core/InputLabel';
+import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 const styles = theme => ({
   root: {},
   inputField: {
-    width: "100%"
+    width: '100%',
   },
   placeHolderItem: {
-    height: 0
-  }
+    height: 0,
+  },
 });
 class DropDown extends React.Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class DropDown extends React.Component {
       title,
       hint,
       label,
-      maxWidth
+      maxWidth,
     } = this.props;
     const InputField = (
       <FormControl
@@ -46,7 +46,7 @@ class DropDown extends React.Component {
           <InputLabel
             htmlFor={`${name}dropDown`}
             id={`${name}dropDown`}
-            style={{ textTransform: "capitalize", marginTop: 1 }}
+            style={{ textTransform: 'capitalize', marginTop: 1 }}
             shrink={value || this.state.open}
           >
             {label}
@@ -65,10 +65,10 @@ class DropDown extends React.Component {
               onClick={() => this.setState({ open: true })}
               style={{
                 opacity: 0.3,
-                position: "absolute",
+                position: 'absolute',
                 bottom: 2,
                 right: 3,
-                cursor: "pointer"
+                cursor: 'pointer',
               }}
             />
           )}
@@ -83,8 +83,8 @@ class DropDown extends React.Component {
     );
     return (
       <InputWrapper
-        title={!hasLabel ? title : ""}
-        hint={!hasLabel ? hint : ""}
+        title={!hasLabel ? title : ''}
+        hint={!hasLabel ? hint : ''}
         collapseTopMargin={true}
       >
         {InputField}
@@ -101,6 +101,6 @@ DropDown.propTypes = {
   value: PropTypes.string,
   changeHandler: PropTypes.func.isRequired,
   list: PropTypes.arrayOf(PropTypes.string).isRequired,
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 export default withStyles(styles)(DropDown);

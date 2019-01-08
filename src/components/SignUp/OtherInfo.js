@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Grid from "sp2-material-ui/core/Grid";
-import PhoneNumber from "../InputFields/PhoneNumber";
-import WorkingRights from "../InputFields/WorkingRights";
-import AvailableDays from "../InputFields/AvailableDays";
+import Grid from '@material-ui/core/Grid';
+import PhoneNumber from '../InputFields/PhoneNumber';
+import WorkingRights from '../InputFields/WorkingRights';
+import AvailableDays from '../InputFields/AvailableDays';
 
 function otherInfo(props) {
   const { workingRights, availableDays, phoneNumber, changeHandler } = props;
@@ -38,6 +38,6 @@ function otherInfo(props) {
 otherInfo.propTypes = {
   changeHandler: PropTypes.func.isRequired,
   workingRights: PropTypes.string,
-  phoneNumber: PropTypes.string
+  phoneNumber: PropTypes.string,
 };
 export default otherInfo;
