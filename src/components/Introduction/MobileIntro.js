@@ -87,7 +87,7 @@ class MobileIntro extends React.Component {
         <Button
           className={classes.button}
           onClick={startHandler}
-          variant="flat"
+          variant="text"
           color="primary"
         >
           {' '}

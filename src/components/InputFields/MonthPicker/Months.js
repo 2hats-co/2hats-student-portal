@@ -67,7 +67,6 @@ function Months(props) {
             key={`${label}-season-${i}`}
             //style={{width:250}}
             direction="row"
-            alignItems="center"
             justify="space-around"
           >
             {season.map((month, n) => {

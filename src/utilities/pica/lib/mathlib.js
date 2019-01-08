@@ -3,7 +3,6 @@
 // 1. Combine components together
 // 2. Has async init to load wasm modules
 //
-'use strict';
 
 const inherits = require('inherits');
 const Multimath = require('multimath');

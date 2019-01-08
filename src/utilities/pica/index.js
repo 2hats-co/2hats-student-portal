@@ -1,5 +1,3 @@
-'use strict';
-
 const assign = require('object-assign');
 const webworkify = require('webworkify');
 

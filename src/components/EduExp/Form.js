@@ -39,7 +39,7 @@ class DialogForm extends React.Component {
   componentDidUpdate(prevProps) {
     const { fields } = this.props;
     if (prevProps !== this.props) {
-      this.state = initialState;
+      // this.state = initialState;
       this.setState(initialState);
       fields.forEach(field => {
         this.setState({
@@ -88,12 +88,12 @@ class DialogForm extends React.Component {
     let completedRequired = [];
     for (const field in this.state) {
       if (this.state.hasOwnProperty(field)) {
-        console.log(this.state[field]);
+        // console.log(this.state[field]);
         const element = completed(this.state[field]);
         completedRequired.push(element);
       }
     }
-    console.log(completedRequired);
+    // console.log(completedRequired);
     return !completedRequired.reduce(function(a, b) {
       if (a === false || b === false) {
         return false;
@@ -195,7 +195,7 @@ class DialogForm extends React.Component {
             />
           );
         default:
-          break;
+          return null;
       }
     });
 

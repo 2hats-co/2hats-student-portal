@@ -31,13 +31,13 @@ function InputWrapper(props) {
     title,
     hint,
     characterCounter,
-    headerColor,
+    // headerColor,
     tip,
   } = props;
   const header = (
     <Grid container direction="row" justify="flex-start">
       <Typography
-        variant={hasLabel ? 'caption' : 'title'}
+        variant={hasLabel ? 'caption' : 'h6'}
         style={
           hasLabel
             ? { marginLeft: 1, marginTop: 10, textTransform: 'capitalize' }

@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, compose } from 'redux';
+import { createStore, compose } from 'redux';
 import { reduxFirestore } from 'redux-firestore';
 import firebase from 'firebase/app';
 import 'firebase/auth';

@@ -6,16 +6,17 @@ import AuthenticationContainer from '../containers/AuthenticationContainer';
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 class Landing extends React.Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props) {
     super(props);
   }
   componentWillMount() {
-    if (this.props.authUser == !null) {
+    if (this.props.authUser === !null) {
       this.props.history.push(routes.DASHBOARD);
     }
   }
   componentDidMount() {
-    if (this.props.authUser == !null) {
+    if (this.props.authUser === !null) {
       this.props.history.push(routes.DASHBOARD);
     }
   }

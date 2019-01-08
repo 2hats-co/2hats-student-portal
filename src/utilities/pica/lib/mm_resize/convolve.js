@@ -1,6 +1,5 @@
 // Resize convolvers, pure JS implementation
 //
-'use strict';
 
 // Precision of fixed FP values
 //var FIXED_FRAC_BITS = 14;

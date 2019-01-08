@@ -44,7 +44,7 @@ function WebForm(props) {
     <Dialog
       className={classes.root}
       open={isOpen}
-      onClose={unChanged && cancelHandler}
+      onClose={unChanged ? cancelHandler : () => {}}
       aria-labelledby="form-dialog-title"
     >
       <LinearProgress
@@ -74,6 +74,7 @@ function WebForm(props) {
         </Button>
         <Button
           variant="contained"
+          color="primary"
           disabled={disabled}
           style={{ textTransform: 'capitalize' }}
           onClick={addHandler}

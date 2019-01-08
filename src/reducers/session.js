@@ -18,7 +18,6 @@ function sessionReducer(state = INITIAL_STATE, action) {
         ...state,
         userCompleteInitialSteps: action.payload,
       };
-      break;
     default:
       return state;
   }

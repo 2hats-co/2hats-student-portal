@@ -50,7 +50,7 @@ function CardSection(props) {
           <Button
             className={classes.button}
             onClick={button.onClick}
-            variant="flat"
+            variant="text"
             color="primary"
           >
             {button.label}

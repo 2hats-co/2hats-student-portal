@@ -7,7 +7,6 @@
 // - length - filter length (in src points)
 // - data - filter values sequence
 //
-'use strict';
 
 var FILTER_INFO = require('./resize_filter_info');
 

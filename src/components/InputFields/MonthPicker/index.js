@@ -30,9 +30,9 @@ function getMonthName(n) {
 }
 
 function getMoment(m, y) {
-  let dateSting = `${m}` + `${y}`;
+  let dateSting = `${m}${y}`;
   if (m < 10) {
-    dateSting = `0${m}` + `${y}`;
+    dateSting = `0${m}${y}`;
   }
   return moment(dateSting, 'MMYYYY');
 }

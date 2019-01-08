@@ -115,7 +115,8 @@ class AuthenticationContainer extends React.Component {
     signInWithPassword(
       user,
       route => {
-        this.goTo(route), this.handleGTevent('Signin');
+        this.goTo(route);
+        this.handleGTevent('Signin');
       },
       this.handleError
     );
@@ -158,11 +159,11 @@ class AuthenticationContainer extends React.Component {
     updateUserPassword(
       password,
       () => {
-        this.goTo(route),
-          cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK, {
-            slKey: smartKey,
-            reason: 'This link has already been used',
-          });
+        this.goTo(route);
+        cloudFunction(CLOUD_FUNCTIONS.DISABLE_SMART_LINK, {
+          slKey: smartKey,
+          reason: 'This link has already been used',
+        });
       },
       this.handleError
     );
@@ -216,7 +217,6 @@ class AuthenticationContainer extends React.Component {
       email,
       view,
     } = this.state;
-    console.log(theme);
     const onSignupRoute =
       this.props.history.location.pathname === routes.SIGN_UP;
 
@@ -380,7 +380,7 @@ class AuthenticationContainer extends React.Component {
               direction="column"
               justify="space-between"
             >
-              {[loadedView]}
+              {loadedView}
             </Grid>
           </LogoInCard>
         </Grid>

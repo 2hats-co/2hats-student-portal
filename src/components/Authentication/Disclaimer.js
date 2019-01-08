@@ -31,6 +31,7 @@ function Disclaimer(props) {
         <a
           href="https://www.2hats.com.au/terms.html"
           target="_blank"
+          rel="noopener noreferrer"
           className={classes.link}
         >
           Terms and Conditions
@@ -39,6 +40,7 @@ function Disclaimer(props) {
         <a
           href="https://www.2hats.com.au/privacy.html"
           target="_blank"
+          rel="noopener noreferrer"
           className={classes.link}
         >
           Privacy Policy

@@ -140,7 +140,6 @@ class AutoCompleteField extends React.Component {
                       className={classes.textField}
                       onChange={this.handleChange('skillValue')}
                       onKeyUp={e => {
-                        console.log(e.key);
                         if (e.key === 'Enter' || e.key === ',') {
                           this.handleAdd();
                         }
@@ -149,7 +148,7 @@ class AutoCompleteField extends React.Component {
                   </Grid>
                   <Grid item xs={2}>
                     <Button
-                      variant="flat"
+                      variant="text"
                       style={{ marginLeft: 5, height: 12, borderRadius: 5 }}
                       onClick={this.handleAdd}
                     >

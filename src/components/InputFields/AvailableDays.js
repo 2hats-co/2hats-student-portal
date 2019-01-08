@@ -3,7 +3,7 @@ import DropDown from '../InputFields/DropDown';
 
 function AvailableDaysConverter(string) {
   const days = string;
-  let number = parseInt(days);
+  let number = parseInt(days, 10);
   if (days.includes('½')) {
     number = number + 0.5;
   }

@@ -148,7 +148,7 @@ class ApplicationProgress extends React.Component {
               {!isComplete(data) && (
                 <Button
                   className={classes.button}
-                  variant="flat"
+                  variant="text"
                   onClick={this.handleContinue}
                 >
                   <div style={{ display: 'flex', marginLeft: 12 }}>

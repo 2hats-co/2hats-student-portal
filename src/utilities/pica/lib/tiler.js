@@ -3,8 +3,6 @@
 // parallel processing of multiple tiles at a time.
 //
 
-'use strict';
-
 /*
  * pixelFloor and pixelCeil are modified versions of Math.floor and Math.ceil
  * functions which take into account floating point arithmetic errors.

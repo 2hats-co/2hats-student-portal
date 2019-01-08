@@ -1,5 +1,3 @@
-'use strict';
-
 const createFilters = require('./resize_filter_gen');
 
 function resetAlpha(dst, width, height) {

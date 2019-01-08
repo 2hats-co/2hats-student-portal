@@ -21,19 +21,19 @@ export function orderByInt(objectsArray, field, asc) {
     });
   }
 
-  console.log('fieldValues', fieldValues);
+  // console.log('fieldValues', fieldValues);
   let sortedObjects = [];
-  clonedArray.forEach(x => {
-    console.log(fieldValues.indexOf(x[field]));
-  });
+  // clonedArray.forEach(x => {
+  //   console.log(fieldValues.indexOf(x[field]));
+  // });
 
   return sortedObjects;
 }
 
-function isBigger(a, b) {
-  if (a < b) {
-    return false;
-  } else {
-    return true;
-  }
-}
+// function isBigger(a, b) {
+//   if (a < b) {
+//     return false;
+//   } else {
+//     return true;
+//   }
+// }

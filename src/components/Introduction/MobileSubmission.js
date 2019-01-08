@@ -61,7 +61,7 @@ function MobileSubmission(props) {
           <Button
             className={classes.button}
             onClick={uploadHandler}
-            variant="flat"
+            variant="text"
             color="primary"
           >
             I Have a Resume

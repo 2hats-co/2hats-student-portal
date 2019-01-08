@@ -35,7 +35,6 @@ function AuthView(props) {
   } = props;
 
   let header = <Header greeting={onSignupRoute ? 'Sign Up' : 'Sign In'} />;
-  console.log('auth theme', props);
   if (isLessThan840 && onSignupRoute) {
     header = (
       <Grid

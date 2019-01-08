@@ -370,7 +370,7 @@ class StatusCard extends React.Component {
                             id={`${x.label}-toaster-button`}
                             onClick={x.action}
                             className={classes.button}
-                            variant="flat"
+                            variant="text"
                           >
                             <div
                               style={{

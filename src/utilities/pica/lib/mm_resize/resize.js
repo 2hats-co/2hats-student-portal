@@ -1,5 +1,3 @@
-'use strict';
-
 const createFilters = require('./resize_filter_gen');
 const convolveHorizontally = require('./convolve').convolveHorizontally;
 const convolveVertically = require('./convolve').convolveVertically;

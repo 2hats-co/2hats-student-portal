@@ -54,7 +54,7 @@ function SupportFooter(props) {
             margin: 'calc(-4vw + 20px) auto 0',
           }}
         >
-          <img style={{ maxWidth: 150, width: '25vw' }} src={Logo} />
+          <img style={{ maxWidth: 150, width: '25vw' }} src={Logo} alt="Logo" />
 
           <Grid
             container
@@ -68,6 +68,7 @@ function SupportFooter(props) {
                 href="https://intercom.help/2hats/faq"
                 style={{ textDecoration: 'none' }}
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <Typography
                   variant="button"

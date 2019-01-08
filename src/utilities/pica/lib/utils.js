@@ -1,5 +1,3 @@
-'use strict';
-
 function objClass(obj) {
   return Object.prototype.toString.call(obj);
 }
@@ -60,8 +58,9 @@ module.exports.cib_quality_name = function cib_quality_name(num) {
       return 'low';
     case 2:
       return 'medium';
+    default:
+      return 'high';
   }
-  return 'high';
 };
 
 module.exports.cib_support = function cib_support() {

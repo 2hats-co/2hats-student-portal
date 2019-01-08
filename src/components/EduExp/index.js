@@ -65,7 +65,7 @@ class EducationContainer extends React.Component {
       if (prefilledForm.hasOwnProperty(key)) {
         const name = prefilledForm[key].name;
         prefilledForm[key].value = item[name];
-        console.log(name, key);
+        // console.log(name, key);
       }
     }
     this.setState({

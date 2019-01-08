@@ -80,10 +80,11 @@ function Placeholder(props) {
   );
 }
 
+// eslint-disable-next-line no-extend-native
 Array.prototype.findReg = function(match) {
   var reg = new RegExp(match, 'i');
   return this.filter(function(item) {
-    return typeof item == 'string' && item.match(reg);
+    return typeof item === 'string' && item.match(reg);
   });
 };
 function optionsGenerator(list, input) {

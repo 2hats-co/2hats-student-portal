@@ -21,7 +21,7 @@ import { connect } from 'react-redux';
 const styles = theme => ({
   root: {
     marginBottom: 0,
-    marginTop: 20,
+    // marginTop: 20,
     boxSizing: 'border-box',
     marginTop: 5,
     width: '100%',
@@ -76,7 +76,7 @@ class ResumeLoader extends React.Component {
     this.handleProgress = this.handleProgress.bind(this);
     this.handleChange = this.handleChange.bind(this);
 
-    this.uploadTask;
+    this.uploadTask = null;
   }
   handleCloseSnackbar() {
     this.setState({ errorBar: false });
@@ -165,6 +165,9 @@ class ResumeLoader extends React.Component {
           break;
         case 'running': // or 'running'
           console.log('Upload is running');
+          break;
+        default:
+          console.log('Upload state unknown. This is the default case');
           break;
       }
     });
@@ -267,12 +270,12 @@ class ResumeLoader extends React.Component {
                   </div>
                 ) : (
                   <Button
-                    variant="flat"
+                    variant="text"
                     color="primary"
                     className={buttonClassname}
                     disabled={isUploading}
                     onClick={() => {
-                      resumeFile.name !== '' ? null : this.handleDelete();
+                      if (resumeFile.name === '') this.handleDelete();
                     }}
                     style={{ textTransform: 'none' }}
                   >

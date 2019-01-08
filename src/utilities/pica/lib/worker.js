@@ -1,7 +1,5 @@
 // Web Worker wrapper for image resize function
 
-'use strict';
-
 module.exports = function() {
   const MathLib = require('./mathlib');
 

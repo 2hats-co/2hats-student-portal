@@ -56,30 +56,34 @@ function SignUpIntro(props) {
 
       <Grid container style={{ marginTop: 40 }}>
         <Grid item>
-          <img src={womanGraphic} className={classes.womanGraphic} />
+          <img
+            src={womanGraphic}
+            className={classes.womanGraphic}
+            alt="2hats"
+          />
         </Grid>
         <Grid item xs>
           <Grid container justify="space-between" className={classes.tickGrid}>
             <Grid item>
-              <img src={Tick} className={classes.tick} />
+              <img src={Tick} className={classes.tick} alt="Tick" />
               <Typography className={classes.tickText} variant="h6">
                 One-time signup
               </Typography>
             </Grid>
             <Grid item>
-              <img src={Tick} className={classes.tick} />
+              <img src={Tick} className={classes.tick} alt="Tick" />
               <Typography className={classes.tickText} variant="h6">
                 Resume review
               </Typography>
             </Grid>
             <Grid item>
-              <img src={Tick} className={classes.tick} />
+              <img src={Tick} className={classes.tick} alt="Tick" />
               <Typography className={classes.tickText} variant="h6">
                 Career guidance
               </Typography>
             </Grid>
             <Grid item>
-              <img src={Tick} className={classes.tick} />
+              <img src={Tick} className={classes.tick} alt="Tick" />
               <Typography className={classes.tickText} variant="h6">
                 Free for Uni students
               </Typography>

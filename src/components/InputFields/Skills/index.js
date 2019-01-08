@@ -60,7 +60,7 @@ class Skills extends React.Component {
     let newSelectedList = this.state.selectedList;
     if (newSelectedList.length < 10) {
       let newItem = true;
-      newSelectedList.map(x => {
+      newSelectedList.forEach(x => {
         if (x.toUpperCase() === val.toUpperCase()) {
           newItem = false;
         }

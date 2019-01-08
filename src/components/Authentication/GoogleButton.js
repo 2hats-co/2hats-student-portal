@@ -4,10 +4,7 @@ import Button from '@material-ui/core/Button';
 import { GOOGLE_CID_STAGING, GOOGLE_CID_PRODUCTION } from '../../config/auth';
 import GoogleIcon from '../../assets/images/social/google.svg';
 import GoogleLogin from '../../utilities/Authentication/GoogleLogin.js';
-import {
-  getTokenWith3rdParty,
-  getTokenWithGoogle,
-} from '../../utilities/Authentication/getTokenWith3rdParty';
+import { getTokenWithGoogle } from '../../utilities/Authentication/getTokenWith3rdParty';
 import { withRouter } from 'react-router-dom';
 
 const styles = theme => ({
@@ -71,7 +68,7 @@ class GoogleButton extends Component {
         onFailure={this.handleGoogleAuthFail}
         render={renderProps => (
           <Button
-            variant="flat"
+            variant="text"
             key={`google-button`}
             style={{ backgroundColor: '#E05449' }}
             onClick={renderProps.onClick}

@@ -79,7 +79,7 @@ class LinkedinButton extends Component {
     return (
       <Button
         key={`linkedin-button`}
-        variant="flat"
+        variant="text"
         onClick={this.authorize}
         style={{ backgroundColor: '#0077B5' }}
         className={classes.socialButton}

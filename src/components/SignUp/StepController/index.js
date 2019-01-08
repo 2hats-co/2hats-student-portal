@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { withRouter } from 'react-router-dom';
 import {
-  PROCESS_TYPES,
   ALL_STEPS,
   STEP_LABELS,
   checkComplition,
@@ -136,7 +135,8 @@ class StepController extends React.Component {
         alert('You are offline. This alert will be replaced later.');
         return;
       }
-      this.goToDashboard(), this.props.nextHandler();
+      this.goToDashboard();
+      this.props.nextHandler();
     } else {
       this.props.nextHandler();
     }
@@ -159,7 +159,7 @@ class StepController extends React.Component {
         id={`next-${currentStep}`}
         className={classes.button}
         disabled={checkComplition(currentStep, profile)}
-        variant="flat"
+        variant="text"
         onClick={() => {
           this.handleNext(currentStep);
         }}
@@ -239,8 +239,13 @@ class StepController extends React.Component {
         )}
         {!isMobile && <WebStepper steps={steps} activeStep={activeStep} />}
 
-        <Grid container direction="column" justify="space-between">
-          <Grid item>
+        <Grid
+          container
+          direction="column"
+          justify="space-between"
+          style={{ height: '100%' }}
+        >
+          <Grid item xs>
             <div
               className={isMobile ? classes.mobileContent : classes.webContent}
             >

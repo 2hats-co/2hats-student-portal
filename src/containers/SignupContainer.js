@@ -87,7 +87,10 @@ class ResumeBuilderContainer extends Component {
   componentWillMount() {
     if (this.props.history.location.search.includes('step')) {
       this.setState({
-        activeStep: parseInt(this.props.history.location.search.split('=')[1]),
+        activeStep: parseInt(
+          this.props.history.location.search.split('=')[1],
+          10
+        ),
       });
     }
 
@@ -273,6 +276,7 @@ class ResumeBuilderContainer extends Component {
           bio: profile.bio,
           completedStep: currentStep,
         });
+        break;
       case ALL_STEPS.skills:
         this.props.onProfileUpdate({
           skills: profile.skills,

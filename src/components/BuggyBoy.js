@@ -13,24 +13,24 @@ import { uploader } from '../utilities/Uploader';
 //import UAParser from 'ua-parser-js';
 
 import buggyBoyImage from '../assets/images/buggyBoy.png';
-const styles = theme => ({
-  dropZone: {
-    border: 'none !important',
-  },
-  avatar: {
-    position: 'absolute',
-    zIndex: 2000,
-    bottom: 300,
-    right: 10,
-    width: 80,
-    height: 80,
-  },
+// const styles = theme => ({
+//   dropZone: {
+//     border: 'none !important',
+//   },
+//   avatar: {
+//     position: 'absolute',
+//     zIndex: 2000,
+//     bottom: 300,
+//     right: 10,
+//     width: 80,
+//     height: 80,
+//   },
 
-  uploadButton: {
-    marginTop: 10,
-    width: 230,
-  },
-});
+//   uploadButton: {
+//     marginTop: 10,
+//     width: 230,
+//   },
+// });
 
 class BuggyBoy extends Component {
   state = {
@@ -144,7 +144,7 @@ class BuggyBoy extends Component {
               className={classes.dropZone}
               accept="image/jpeg, image/png, image/jpg"
             >
-              <Button variant="flat" className={classes.uploadButton}>
+              <Button variant="text" className={classes.uploadButton}>
                 {screenshotURL === ''
                   ? 'Upload screenshotURL'
                   : 'Upload Successful'}

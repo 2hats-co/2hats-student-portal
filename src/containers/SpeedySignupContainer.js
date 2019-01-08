@@ -195,7 +195,7 @@ class SpeedySignupContainer extends Component {
         <Button
           className={isMobile ? classes.mobileButton : classes.button}
           disabled={isLoading}
-          variant="flat"
+          variant="text"
           onClick={this.createUser}
         >
           Sign up!
@@ -241,12 +241,12 @@ class SpeedySignupContainer extends Component {
         </Grid>
         {isMobile && (
           <Grid item style={{ marginTop: 20 }}>
-            <img src={celebratingMan} />
+            <img src={celebratingMan} alt="2hats" />
           </Grid>
         )}
         <Button
           className={isMobile ? classes.mobileButton : classes.button}
-          variant="flat"
+          variant="text"
           onClick={isPublic ? this.goHome : this.handleReset}
         >
           {isPublic ? `Visit Website` : `Reset Form`}
@@ -290,6 +290,7 @@ class SpeedySignupContainer extends Component {
                         ? celebratingMan
                         : girlWithLaptop
                     }
+                    alt="2hats"
                   />
                 </Grid>
               )}

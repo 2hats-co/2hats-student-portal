@@ -1,5 +1,3 @@
-'use strict';
-
 const GC_INTERVAL = 100;
 
 function Pool(create, idle) {

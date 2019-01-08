@@ -22,7 +22,7 @@ function otherInfo(props) {
           changeHandler={changeHandler}
         />
       </div>
-      <div style={{ marginTop: 20 }}>
+      <div style={{ marginTop: 20, marginBottom: 60 }}>
         <PhoneNumber
           value={phoneNumber}
           maxWidth={400}

@@ -52,7 +52,7 @@ export const Theme = createMuiTheme({
     },
     h6: {
       fontFamily: primaryFontFamily,
-      fontWeight: 500,
+      fontWeight: 400,
       fontSize: '20px',
       textAlign: 'left',
       color: inherits,
@@ -96,6 +96,9 @@ export const Theme = createMuiTheme({
     },
     fontFamily: primaryFontFamily,
   },
+  shape: {
+    borderRadius: 10,
+  },
   overrides: {
     MuiStepIcon: {
       root: {
@@ -110,8 +113,11 @@ export const Theme = createMuiTheme({
     },
 
     MuiInput: {
-      opacity: 1,
-      borderBottom: '#000 !important',
+      // opacity: 1,
+      // borderBottom: '#000 !important',
+      root: {
+        fontSize: '14px',
+      },
     },
     MuiInputLabel: {
       root: {
@@ -125,21 +131,12 @@ export const Theme = createMuiTheme({
     MuiFormControlLabel: {
       root: {
         fontSize: '20px',
-      },
-    },
-    MuiInput: {
-      root: {
-        fontSize: '14px',
+        height: 35,
       },
     },
     MuiFormLabel: {
       root: {
         height: 30,
-      },
-    },
-    MuiFormControlLabel: {
-      root: {
-        height: 35,
       },
     },
     MuiDialog: {
@@ -153,11 +150,11 @@ export const Theme = createMuiTheme({
       },
     },
     MuiButton: {
-      flat: {
+      text: {
         // Name of the rule
         color: WHITE,
         backgroundColor: primaryColor,
-        borderRadius: '20px',
+        borderRadius: 20,
         '&:hover': { backgroundColor: '#d85125' },
         '&:disabled': { opacity: 0.4, color: WHITE },
       },
@@ -165,7 +162,7 @@ export const Theme = createMuiTheme({
         // Name of the rule
         color: BLACK + '!important',
         backgroundColor: WHITE,
-        borderRadius: '20px',
+        borderRadius: 20,
         border: `1px solid ${BLACK}`,
         '&:hover': { backgroundColor: '#f5f5f5' },
       },
@@ -173,7 +170,7 @@ export const Theme = createMuiTheme({
         // Name of the rule
         color: BLACK,
         backgroundColor: WHITE,
-        borderRadius: '2px', // should this be rounded
+        borderRadius: 20,
         //width:80,
         margin: 5,
         height: 36,

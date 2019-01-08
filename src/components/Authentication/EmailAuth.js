@@ -64,7 +64,6 @@ class EmailAuth extends Component {
     this.props.changeHandler('email', this.state.email);
     this.setState({ invalidEmail: false });
     if (!hasSuggestion) {
-      this.ha;
       this.props.changeHandler('view', 'signup');
     }
   }
@@ -170,8 +169,8 @@ class EmailAuth extends Component {
             <a
               className={classes.link}
               onClick={() => {
-                this.setState({ email: emailSuggestion }),
-                  this.handleEmailCheck(emailSuggestion);
+                this.setState({ email: emailSuggestion });
+                this.handleEmailCheck(emailSuggestion);
               }}
             >
               {emailSuggestion}
@@ -192,7 +191,7 @@ class EmailAuth extends Component {
         <Button
           key="check-button"
           id="check-button"
-          variant="flat"
+          variant="text"
           disabled={!validateEmail(email)}
           onClick={this.onNext}
           className={classes.button}

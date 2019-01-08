@@ -46,7 +46,7 @@ class DropDown extends React.Component {
             htmlFor={`${name}dropDown`}
             id={`${name}dropDown`}
             style={{ textTransform: 'capitalize', marginTop: 1 }}
-            shrink={value || this.state.open}
+            shrink={value || this.state.open ? true : false}
           >
             {label}
           </InputLabel>

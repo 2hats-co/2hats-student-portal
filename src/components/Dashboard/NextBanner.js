@@ -57,7 +57,7 @@ function Next(props) {
         <Grid item>
           <Button
             className={classes.button}
-            variant="flat"
+            variant="text"
             onClick={() => {
               props.history.push(routes.PROFILE);
             }}

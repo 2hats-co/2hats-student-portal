@@ -8,25 +8,25 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 
-import withStyles from '@material-ui/core/styles/withStyles';
+// import withStyles from '@material-ui/core/styles/withStyles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
-const styles = theme => ({
-  //
-});
+// const styles = theme => ({
+//
+// });
 
 function Field(props) {
   const {
     label,
     value,
-    classes,
+    // classes,
     name,
     focusedField,
     errorMessage,
     openCalendar,
   } = props;
-  const isOpen = name === focusedField;
-  console.log(errorMessage);
+  // const isOpen = name === focusedField;
+  // console.log(errorMessage);
   return (
     <Grid
       container
@@ -46,7 +46,7 @@ function Field(props) {
           endAdornment={
             <InputAdornment position="end">
               <IconButton
-                style={{ width: 30, height: 30 }}
+                style={{ width: 30, height: 30, padding: 0 }}
                 aria-label="Dropdown"
               >
                 <DownIcon style={{ opacity: 0.5 }} />
@@ -65,4 +65,5 @@ function Field(props) {
   );
 }
 
-export default withStyles(styles)(Field);
+// export default withStyles(styles)(Field);
+export default Field;
