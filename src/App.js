@@ -49,12 +49,6 @@ const SpeedySignupContainer = Loadable({
     return loadingCard;
   },
 });
-// const IntroductionContainer = Loadable({
-//   loader: () => import("./containers/IntroductionContainer"),
-//   loading() {
-//     return loadingCard;
-//   }
-// });
 const SmartLinkContainer = Loadable({
   loader: () => import('./containers/SmartLinkContainer'),
   loading() {
@@ -75,18 +69,6 @@ const DashboardContainer = Loadable({
 });
 const JobBoardContainer = Loadable({
   loader: () => import('./containers/JobBoardContainer'),
-  loading() {
-    return loadingCard;
-  },
-});
-const RemoteLoggerContainer = Loadable({
-  loader: () => import('./containers/RemoteLoggerContainer'),
-  loading() {
-    return loadingCard;
-  },
-});
-const SubmissionContainer = Loadable({
-  loader: () => import('./containers/SubmissionContainer'),
   loading() {
     return loadingCard;
   },
@@ -248,11 +230,11 @@ class App extends Component {
               path={routes.UPLOAD_RESUME}
               component={() => <SignupContainer />}
             />
-            <Route
+            {/* <Route
               exact
               path={routes.PREVIOUS_SUBMISSION}
               component={() => <SubmissionContainer />}
-            />
+            /> */}
             <Route
               exact
               path={routes.SMART_LINK}
