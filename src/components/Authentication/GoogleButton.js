@@ -4,7 +4,10 @@ import Button from "sp2-material-ui/core/Button";
 import { GOOGLE_CID_STAGING, GOOGLE_CID_PRODUCTION } from "../../config/auth";
 import GoogleIcon from "../../assets/images/social/google.svg";
 import GoogleLogin from "../../utilities/Authentication/GoogleLogin.js";
-import { getTokenWith3rdParty } from "../../utilities/Authentication/getTokenWith3rdParty";
+import {
+  getTokenWith3rdParty,
+  getTokenWithGoogle
+} from "../../utilities/Authentication/getTokenWith3rdParty";
 import { withRouter } from "react-router-dom";
 
 const styles = theme => ({
@@ -53,12 +56,8 @@ class GoogleButton extends Component {
     this.props.changeHandler("isLoading", true);
     console.log(r); //See whats in the response
     let user = {};
-    user.email = r.profileObj.email;
-    user.firstName = r.profileObj.givenName;
-    user.lastName = r.profileObj.familyName;
-    user.provider = { service: "google", id: r.profileObj.googleId };
-    user.avatarURL = r.profileObj.photo || "";
-    getTokenWith3rdParty(user, this.handleRouting);
+    user.jwtToken = r.tokenId;
+    getTokenWithGoogle(user, this.handleRouting);
   }
   render() {
     const { classes, action } = this.props;
