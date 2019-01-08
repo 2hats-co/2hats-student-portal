@@ -1,22 +1,19 @@
-import {auth} from '../store';
+import { auth } from '../store';
 
 // Sign Up
 export const doCreateUserWithEmailAndPassword = (email, password) =>
   auth.createUserWithEmailAndPassword(email, password);
 // Sign In
-export const doSignInWithEmailAndPassword = (email, password,displayName) =>
-  auth.signInWithEmailAndPassword(email, password)
-  
+export const doSignInWithEmailAndPassword = (email, password, displayName) =>
+  auth.signInWithEmailAndPassword(email, password);
 
-export const doSignInWithCustomToken = (token) =>
- auth.signInWithCustomToken(token);
+export const doSignInWithCustomToken = token =>
+  auth.signInWithCustomToken(token);
 // Sign out
-export const doSignOut = () =>
-  auth.signOut();
+export const doSignOut = () => auth.signOut();
 // Password Reset
-export const doPasswordReset = (email) =>
-  auth.sendPasswordResetEmail(email);
+export const doPasswordReset = email => auth.sendPasswordResetEmail(email);
 
 // Password Change
-export const doPasswordUpdate = (password) =>
+export const doPasswordUpdate = password =>
   auth.currentUser.updatePassword(password);

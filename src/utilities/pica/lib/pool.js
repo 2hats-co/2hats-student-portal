@@ -1,8 +1,6 @@
 'use strict';
 
-
 const GC_INTERVAL = 100;
-
 
 function Pool(create, idle) {
   this.create = create;
@@ -15,8 +13,7 @@ function Pool(create, idle) {
   this.idle = idle || 2000;
 }
 
-
-Pool.prototype.acquire = function () {
+Pool.prototype.acquire = function() {
   let resource;
 
   if (this.available.length !== 0) {
@@ -30,8 +27,7 @@ Pool.prototype.acquire = function () {
   return resource;
 };
 
-
-Pool.prototype.release = function (resource) {
+Pool.prototype.release = function(resource) {
   delete this.acquired[resource.id];
 
   resource.lastUsed = Date.now();
@@ -42,8 +38,7 @@ Pool.prototype.release = function (resource) {
   }
 };
 
-
-Pool.prototype.gc = function () {
+Pool.prototype.gc = function() {
   const now = Date.now();
 
   this.available = this.available.filter(resource => {
@@ -60,6 +55,5 @@ Pool.prototype.gc = function () {
     this.timeoutId = 0;
   }
 };
-
 
 module.exports = Pool;

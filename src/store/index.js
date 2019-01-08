@@ -1,20 +1,20 @@
-import { applyMiddleware, createStore, compose } from "redux";
-import { reduxFirestore } from "redux-firestore";
-import firebase from "firebase/app";
-import "firebase/auth";
-import "firebase/firestore";
-import "firebase/functions";
+import { applyMiddleware, createStore, compose } from 'redux';
+import { reduxFirestore } from 'redux-firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import 'firebase/functions';
 //import logger from 'redux-logger'
 
-import { productionConfig, stagingConfig } from "../config/firebase";
+import { productionConfig, stagingConfig } from '../config/firebase';
 
-import rootReducer from "../reducers";
+import rootReducer from '../reducers';
 
-if (process.env.REACT_APP_ENV === "PRODUCTION") {
-  console.log("production");
+if (process.env.REACT_APP_ENV === 'PRODUCTION') {
+  console.log('production');
   firebase.initializeApp(productionConfig);
 } else {
-  console.log("staging");
+  console.log('staging');
   firebase.initializeApp(stagingConfig);
 }
 
@@ -24,7 +24,7 @@ export function configureStore(initialState, history) {
   firebase.firestore().settings({ timestampsInSnapshots: true });
   // Dev tools store enhancer
   const devToolsExtension = window.devToolsExtension;
-  if (typeof devToolsExtension === "function") {
+  if (typeof devToolsExtension === 'function') {
     enhancers.push(devToolsExtension());
   }
 
@@ -47,4 +47,4 @@ export function configureStore(initialState, history) {
 export const auth = firebase.auth();
 
 export const db = firebase.firestore();
-export const functions = firebase.app().functions("asia-northeast1");
+export const functions = firebase.app().functions('asia-northeast1');

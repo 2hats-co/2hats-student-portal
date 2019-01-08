@@ -6,8 +6,7 @@ import { withRouter } from 'react-router-dom';
 import { auth } from '../../store';
 import * as routes from '../../constants/routes';
 
-
-const withAuthorisation = (condition) => (Component) => {
+const withAuthorisation = condition => Component => {
   class WithAuthorisation extends React.Component {
     componentDidMount() {
       auth.onAuthStateChanged(authUser => {
@@ -18,18 +17,18 @@ const withAuthorisation = (condition) => (Component) => {
     }
 
     render() {
-      return this.props.authUser ? <Component {...this.props} />: null;
+      return this.props.authUser ? <Component {...this.props} /> : null;
     }
   }
 
-  const mapStateToProps = (state) => ({
+  const mapStateToProps = state => ({
     authUser: state.sessionState.authUser,
   });
 
   return compose(
     withRouter,
-    connect(mapStateToProps),
+    connect(mapStateToProps)
   )(WithAuthorisation);
-}
+};
 
 export default withAuthorisation;

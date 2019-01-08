@@ -1,18 +1,18 @@
-import { functions } from "../store";
+import { functions } from '../store';
 
 export const CLOUD_FUNCTIONS = {
-  TAG_TRACKER: "restApiEventTracker",
-  RESUME_SCRAPER: "callablesAlgoliaResumes",
-  SPEEDY_SIGNUP: "restApiSpeedySignup",
-  AUTHENTICATE_3RD_PARTY: "restApiAuthenticate3rdParty",
-  AUTHENTICATE_GOOGLE: "restApiAuthenticateGoogle",
-  AUTHENTICATE_LINKEDIN: "restApiAuthenticateLinkedIn",
-  CHECK_EMAIL: "restApiCheckEmail",
-  SMART_LINK: "restApiSmartLink",
-  RESET_PASSWORD: "restApiResetPassword",
-  CREATE_PASSWORD: "restApiCreatePassword",
-  VALIDATE_EMAIL: "restApiVaildateEmail",
-  DISABLE_SMART_LINK: "restApiDisableSmartLink"
+  TAG_TRACKER: 'restApiEventTracker',
+  RESUME_SCRAPER: 'callablesAlgoliaResumes',
+  SPEEDY_SIGNUP: 'restApiSpeedySignup',
+  AUTHENTICATE_3RD_PARTY: 'restApiAuthenticate3rdParty',
+  AUTHENTICATE_GOOGLE: 'restApiAuthenticateGoogle',
+  AUTHENTICATE_LINKEDIN: 'restApiAuthenticateLinkedIn',
+  CHECK_EMAIL: 'restApiCheckEmail',
+  SMART_LINK: 'restApiSmartLink',
+  RESET_PASSWORD: 'restApiResetPassword',
+  CREATE_PASSWORD: 'restApiCreatePassword',
+  VALIDATE_EMAIL: 'restApiVaildateEmail',
+  DISABLE_SMART_LINK: 'restApiDisableSmartLink',
 };
 
 export const cloudFunction = (name, input, success, fail) => {

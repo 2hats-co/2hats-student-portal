@@ -1,26 +1,25 @@
 'use strict';
 
-
 const createFilters = require('./resize_filter_gen');
 
-
 function resetAlpha(dst, width, height) {
-  let ptr = 3, len = (width * height * 4)|0;
-  while (ptr < len) { dst[ptr] = 0xFF; ptr = (ptr + 4)|0; }
+  let ptr = 3,
+    len = (width * height * 4) | 0;
+  while (ptr < len) {
+    dst[ptr] = 0xff;
+    ptr = (ptr + 4) | 0;
+  }
 }
-
 
 function asUint8Array(src) {
   return new Uint8Array(src.buffer, 0, src.byteLength);
 }
 
-
 let IS_LE = true;
 // should not crash everything on module load in old browsers
 try {
-  IS_LE = ((new Uint32Array((new Uint8Array([ 1, 0, 0, 0 ])).buffer))[0] === 1);
+  IS_LE = new Uint32Array(new Uint8Array([1, 0, 0, 0]).buffer)[0] === 1;
 } catch (__) {}
-
 
 function copyInt16asLE(src, target, target_offset) {
   if (IS_LE) {
@@ -30,35 +29,37 @@ function copyInt16asLE(src, target, target_offset) {
 
   for (let ptr = target_offset, i = 0; i < src.length; i++) {
     let data = src[i];
-    target[ptr++] = data & 0xFF;
-    target[ptr++] = (data >> 8) & 0xFF;
+    target[ptr++] = data & 0xff;
+    target[ptr++] = (data >> 8) & 0xff;
   }
 }
 
 module.exports = function resize_wasm(options) {
-  const src     = options.src;
-  const srcW    = options.width;
-  const srcH    = options.height;
-  const destW   = options.toWidth;
-  const destH   = options.toHeight;
-  const scaleX  = options.scaleX || options.toWidth / options.width;
-  const scaleY  = options.scaleY || options.toHeight / options.height;
+  const src = options.src;
+  const srcW = options.width;
+  const srcH = options.height;
+  const destW = options.toWidth;
+  const destH = options.toHeight;
+  const scaleX = options.scaleX || options.toWidth / options.width;
+  const scaleY = options.scaleY || options.toHeight / options.height;
   const offsetX = options.offsetX || 0.0;
   const offsetY = options.offsetY || 0.0;
-  const dest    = options.dest || new Uint8Array(destW * destH * 4);
+  const dest = options.dest || new Uint8Array(destW * destH * 4);
   const quality = typeof options.quality === 'undefined' ? 3 : options.quality;
-  const alpha   = options.alpha || false;
+  const alpha = options.alpha || false;
 
   const filtersX = createFilters(quality, srcW, destW, scaleX, offsetX),
-        filtersY = createFilters(quality, srcH, destH, scaleY, offsetY);
+    filtersY = createFilters(quality, srcH, destH, scaleY, offsetY);
 
   // destination is 0 too.
-  const src_offset      = 0;
+  const src_offset = 0;
   // buffer between convolve passes
-  const tmp_offset      = this.__align(src_offset + Math.max(src.byteLength, dest.byteLength));
+  const tmp_offset = this.__align(
+    src_offset + Math.max(src.byteLength, dest.byteLength)
+  );
   const filtersX_offset = this.__align(tmp_offset + srcH * destW * 4);
   const filtersY_offset = this.__align(filtersX_offset + filtersX.byteLength);
-  const alloc_bytes     = filtersY_offset + filtersY.byteLength;
+  const alloc_bytes = filtersY_offset + filtersY.byteLength;
 
   const instance = this.__instance('resize', alloc_bytes);
 
@@ -66,7 +67,7 @@ module.exports = function resize_wasm(options) {
   // Fill memory block with data to process
   //
 
-  const mem   = new Uint8Array(this.__memory.buffer);
+  const mem = new Uint8Array(this.__memory.buffer);
   const mem32 = new Uint32Array(this.__memory.buffer);
 
   // 32-bit copy is much faster in chrome
