@@ -129,7 +129,7 @@ class ApplicationProgress extends React.Component {
         >
           <Grid item xs={12} sm={12}>
             <Typography
-              variant="display1"
+              variant="h4"
               className={isMobile ? classes.mobileHeader : classes.header}
             >
               Application Progress

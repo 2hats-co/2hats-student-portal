@@ -161,13 +161,13 @@ class SpeedySignupContainer extends Component {
       >
         <Grid className={classes.header} item>
           <Typography
-            variant={isMobile ? 'subheading' : 'title'}
+            variant={isMobile ? 'subtitle1' : 'h6'}
             style={isMobile ? { textAlign: 'center' } : {}}
           >
             Welcome to 2hats!
           </Typography>
           <Typography
-            variant={isMobile ? 'body1' : 'subheading'}
+            variant={isMobile ? 'body2' : 'subtitle1'}
             style={isMobile ? { textAlign: 'center' } : {}}
           >
             Sign up to get paid placements and kickstart your professional
@@ -219,19 +219,19 @@ class SpeedySignupContainer extends Component {
         <Grid item>
           <Grid container>
             <Typography
-              variant="title"
+              variant="h6"
               style={isMobile ? { textAlign: 'center' } : {}}
             >
               Congratulations, you’re almost there!
             </Typography>
             <Typography
-              variant="body1"
+              variant="body2"
               style={isMobile ? { textAlign: 'center' } : {}}
             >
               We’ve sent you an email to finish the sign up process.
             </Typography>
             <Typography
-              variant="body1"
+              variant="body2"
               style={isMobile ? { textAlign: 'center' } : {}}
             >
               When you’re ready, submit your information to access job

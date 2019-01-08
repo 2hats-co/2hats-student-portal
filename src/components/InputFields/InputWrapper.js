@@ -58,7 +58,7 @@ function InputWrapper(props) {
       justify="space-between"
     >
       <Grid item xs={characterCounter ? 10 : 11} md={11}>
-        <Typography variant="body1">{hint}</Typography>
+        <Typography variant="body2">{hint}</Typography>
       </Grid>
       <Grid item xs={characterCounter ? 2 : 1} md={1}>
         <Grid container direction="column" alignItems="center" justify="center">

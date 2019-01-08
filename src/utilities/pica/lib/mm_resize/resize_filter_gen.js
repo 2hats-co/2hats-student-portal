@@ -9,46 +9,58 @@
 //
 'use strict';
 
-
 var FILTER_INFO = require('./resize_filter_info');
 
 // Precision of fixed FP values
 var FIXED_FRAC_BITS = 14;
 
-
 function toFixedPoint(num) {
   return Math.round(num * ((1 << FIXED_FRAC_BITS) - 1));
 }
 
-
-module.exports = function resizeFilterGen(quality, srcSize, destSize, scale, offset) {
-
+module.exports = function resizeFilterGen(
+  quality,
+  srcSize,
+  destSize,
+  scale,
+  offset
+) {
   var filterFunction = FILTER_INFO[quality].filter;
 
   var scaleInverted = 1.0 / scale;
-  var scaleClamped  = Math.min(1.0, scale); // For upscale
+  var scaleClamped = Math.min(1.0, scale); // For upscale
 
   // Filter window (averaging interval), scaled to src image
   var srcWindow = FILTER_INFO[quality].win / scaleClamped;
 
-  var destPixel, srcPixel, srcFirst, srcLast, filterElementSize,
-      floatFilter, fxpFilter, total, pxl, idx, floatVal, filterTotal, filterVal;
+  var destPixel,
+    srcPixel,
+    srcFirst,
+    srcLast,
+    filterElementSize,
+    floatFilter,
+    fxpFilter,
+    total,
+    pxl,
+    idx,
+    floatVal,
+    filterTotal,
+    filterVal;
   var leftNotEmpty, rightNotEmpty, filterShift, filterSize;
 
   var maxFilterElementSize = Math.floor((srcWindow + 1) * 2);
-  var packedFilter    = new Int16Array((maxFilterElementSize + 2) * destSize);
+  var packedFilter = new Int16Array((maxFilterElementSize + 2) * destSize);
   var packedFilterPtr = 0;
 
   var slowCopy = !packedFilter.subarray || !packedFilter.set;
 
   // For each destination pixel calculate source range and built filter values
   for (destPixel = 0; destPixel < destSize; destPixel++) {
-
     // Scaling should be done relative to central pixel point
     srcPixel = (destPixel + 0.5) * scaleInverted + offset;
 
     srcFirst = Math.max(0, Math.floor(srcPixel - srcWindow));
-    srcLast  = Math.min(srcSize - 1, Math.ceil(srcPixel + srcWindow));
+    srcLast = Math.min(srcSize - 1, Math.ceil(srcPixel + srcWindow));
 
     filterElementSize = srcLast - srcFirst + 1;
     floatFilter = new Float32Array(filterElementSize);
@@ -58,7 +70,7 @@ module.exports = function resizeFilterGen(quality, srcSize, destSize, scale, off
 
     // Fill filter values for calculated range
     for (pxl = srcFirst, idx = 0; pxl <= srcLast; pxl++, idx++) {
-      floatVal = filterFunction(((pxl + 0.5) - srcPixel) * scaleClamped);
+      floatVal = filterFunction((pxl + 0.5 - srcPixel) * scaleClamped);
       total += floatVal;
       floatFilter[idx] = floatVal;
     }
@@ -102,7 +114,10 @@ module.exports = function resizeFilterGen(quality, srcSize, destSize, scale, off
       packedFilter[packedFilterPtr++] = filterSize; // size
 
       if (!slowCopy) {
-        packedFilter.set(fxpFilter.subarray(leftNotEmpty, rightNotEmpty + 1), packedFilterPtr);
+        packedFilter.set(
+          fxpFilter.subarray(leftNotEmpty, rightNotEmpty + 1),
+          packedFilterPtr
+        );
         packedFilterPtr += filterSize;
       } else {
         // fallback for old IE < 11, without subarray/set methods

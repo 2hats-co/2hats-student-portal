@@ -64,7 +64,7 @@ function MobileForm(props) {
           >
             <CloseIcon />
           </IconButton>
-          <Typography variant="title" color="inherit" className={classes.flex}>
+          <Typography variant="h6" color="inherit" className={classes.flex}>
             {title}
           </Typography>
           <Button color="inherit" onClick={addHandler} disabled={disabled}>

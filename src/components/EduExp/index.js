@@ -181,7 +181,7 @@ class EducationContainer extends React.Component {
           ) : (
             <Card style={{ width: '100%', height: 80, marginBottom: 20 }}>
               <Typography
-                variant="body1"
+                variant="body2"
                 style={{ textAlign: 'left', marginTop: 40, marginLeft: 40 }}
               >
                 Press ‘+’ or{' '}

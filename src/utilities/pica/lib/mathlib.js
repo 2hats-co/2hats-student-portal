@@ -5,36 +5,32 @@
 //
 'use strict';
 
-
-const inherits  = require('inherits');
+const inherits = require('inherits');
 const Multimath = require('multimath');
 
 const mm_unsharp_mask = require('multimath/lib/unsharp_mask');
-const mm_resize       = require('./mm_resize');
-
+const mm_resize = require('./mm_resize');
 
 function MathLib(requested_features) {
   const __requested_features = requested_features || [];
 
   let features = {
-    js:   __requested_features.indexOf('js') >= 0,
-    wasm: __requested_features.indexOf('wasm') >= 0
+    js: __requested_features.indexOf('js') >= 0,
+    wasm: __requested_features.indexOf('wasm') >= 0,
   };
 
   Multimath.call(this, features);
 
   this.features = {
-    js:   features.js,
-    wasm: features.wasm && this.has_wasm
+    js: features.js,
+    wasm: features.wasm && this.has_wasm,
   };
 
   this.use(mm_unsharp_mask);
   this.use(mm_resize);
 }
 
-
 inherits(MathLib, Multimath);
-
 
 MathLib.prototype.resizeAndUnsharp = function resizeAndUnsharp(options, cache) {
   let result = this.resize(options, cache);
@@ -52,6 +48,5 @@ MathLib.prototype.resizeAndUnsharp = function resizeAndUnsharp(options, cache) {
 
   return result;
 };
-
 
 module.exports = MathLib;

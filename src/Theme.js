@@ -11,6 +11,91 @@ export const Theme = createMuiTheme({
   responsive: {
     isMobile: true,
   },
+  palette: {
+    primary: {
+      light: primaryColor, //
+      main: primaryColor, // button
+      dark: primaryColor, //textfield label
+      contrastText: WHITE, //button text
+    },
+    secondary: {
+      light: primaryColor, //
+      main: primaryColor, // button
+      dark: primaryColor, //textfield label
+      contrastText: WHITE, //button text
+    },
+    action: {
+      disabled: '#ABABAB',
+    },
+  },
+  typography: {
+    useNextVariants: true,
+    h3: {
+      fontSize: '42px',
+      fontFamily: primaryFontFamily,
+      color: '#000',
+      fontWeight: 'bold',
+      textAlign: 'left',
+    },
+    h4: {
+      fontSize: '30px',
+      fontFamily: primaryFontFamily,
+      color: BLACK,
+      fontWeight: 'bold',
+      textAlign: 'left',
+    },
+    h5: {
+      fontSize: '24px',
+      fontFamily: primaryFontFamily,
+      fontWeight: 'medium',
+      textAlign: 'center',
+    },
+    h6: {
+      fontFamily: primaryFontFamily,
+      fontWeight: 500,
+      fontSize: '20px',
+      textAlign: 'left',
+      color: inherits,
+    },
+
+    subtitle1: {
+      fontFamily: primaryFontFamily,
+      fontWeight: 400,
+      fontSize: '16px',
+      letterSpacing: '0.08px',
+      lineHeight: 1.5,
+    },
+    body2: {
+      fontSize: '13px',
+      fontWeight: 400,
+      fontFamily: primaryFontFamily,
+      letterSpacing: '0.06px',
+    },
+    button: {
+      fontSize: '15px',
+      fontWeight: 'bold',
+      textAlign: 'center',
+      fontFamily: primaryFontFamily,
+      textTransform: 'none',
+      color: '#000',
+    },
+    caption: {
+      fontSize: '12px',
+      fontWeight: 'regular',
+      fontFamily: primaryFontFamily,
+      color: '#9B9B9B',
+      letterSpacing: '0.05px',
+      lineHeight: '13px',
+    },
+    Button: {
+      fontFamily: primaryFontFamily,
+      fontWeight: 'bold',
+      fontSize: '15px',
+      letterSpacing: '0.1px',
+      textAlign: 'center',
+    },
+    fontFamily: primaryFontFamily,
+  },
   overrides: {
     MuiStepIcon: {
       root: {
@@ -104,90 +189,6 @@ export const Theme = createMuiTheme({
         },
         boxShadow: 'none',
       },
-    },
-  },
-  typography: {
-    display2: {
-      fontSize: '42px',
-      fontFamily: primaryFontFamily,
-      color: '#000',
-      fontWeight: 'bold',
-      textAlign: 'left',
-    },
-    display1: {
-      fontSize: '30px',
-      fontFamily: primaryFontFamily,
-      color: BLACK,
-      fontWeight: 'bold',
-      textAlign: 'left',
-    },
-    headline: {
-      fontSize: '24px',
-      fontFamily: primaryFontFamily,
-      fontWeight: 'medium',
-      textAlign: 'center',
-    },
-    title: {
-      fontFamily: primaryFontFamily,
-      fontWeight: 400,
-      fontSize: '20px',
-      textAlign: 'left',
-      color: inherits,
-    },
-
-    subheading: {
-      fontFamily: primaryFontFamily,
-      fontWeight: 400,
-      fontSize: '16px',
-      letterSpacing: '0.08px',
-    },
-    body1: {
-      fontSize: '13px',
-      fontWeight: 400,
-      fontFamily: primaryFontFamily,
-      letterSpacing: '0.06px',
-    },
-    button: {
-      fontSize: '15px',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      fontFamily: primaryFontFamily,
-      textTransform: 'none',
-      color: '#000',
-    },
-    caption: {
-      fontSize: '12px',
-      fontWeight: 'regular',
-      fontFamily: primaryFontFamily,
-      color: '#9B9B9B',
-      letterSpacing: '0.05px',
-      lineHeight: '13px',
-    },
-    Button: {
-      fontFamily: primaryFontFamily,
-      fontWeight: 'bold',
-      fontSize: '15px',
-      letterSpacing: '0.1px',
-      textAlign: 'center',
-    },
-    fontFamily: [primaryFontFamily].join(','),
-  },
-  palette: {
-    primary: {
-      light: primaryColor, //
-      main: primaryColor, // button
-      dark: primaryColor, //textfield label
-      contrastText: WHITE, //button text
-    },
-    secondary: {
-      //TODO , purple?
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: BLACK,
-    },
-    action: {
-      disabled: '#ABABAB',
     },
   },
 });

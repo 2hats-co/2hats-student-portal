@@ -33,15 +33,15 @@ function CardSection(props) {
         direction="column"
         justify="space-around"
       >
-        {step && <Typography variant="title">Step {step}</Typography>}
-        <Typography variant="title">{title}</Typography>
+        {step && <Typography variant="h6">Step {step}</Typography>}
+        <Typography variant="h6">{title}</Typography>
         <Grid container style={{ height: 240 }} alignItems="center">
           <img src={image} alt={title} />
         </Grid>
         <Grid item style={{ flex: 1 }}>
           <Typography
             style={{ width: 245, textAlign: 'center' }}
-            variant="body1"
+            variant="body2"
           >
             {description}
           </Typography>

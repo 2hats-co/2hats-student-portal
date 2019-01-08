@@ -26,7 +26,7 @@ function CreatePasswordView(props) {
     <React.Fragment>
       <Header greeting="Welcome back" name={firstName} />
 
-      <Typography variant="subheading" style={{ marginBottom: 10 }}>
+      <Typography variant="subtitle1" style={{ marginBottom: 10 }}>
         It looks like you don’t have a password yet.
       </Typography>
 
@@ -47,7 +47,7 @@ function CreatePasswordView(props) {
       />
 
       <Typography
-        variant="subheading"
+        variant="subtitle1"
         style={{ marginTop: 15, marginBottom: 20 }}
       >
         OR

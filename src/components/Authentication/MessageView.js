@@ -12,7 +12,7 @@ function MessageView(props) {
       <DoneIcon style={{ fontSize: 120, color: '#00E676' }} />
 
       <Typography
-        variant="title"
+        variant="h6"
         style={{
           textAlign: 'center',
           textTransform: 'none',

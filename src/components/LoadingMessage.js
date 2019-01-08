@@ -23,7 +23,7 @@ function LoadingMessage(props) {
       direction="column"
       alignItems="center"
     >
-      <Typography className={classes.msg} variant="headline">
+      <Typography className={classes.msg} variant="h5">
         {message ? message : 'Your future starts soon…'}
       </Typography>
       <CircularProgress color="primary" size={60} />

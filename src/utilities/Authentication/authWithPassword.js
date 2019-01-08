@@ -1,5 +1,5 @@
-import { auth, db } from "../../store/index";
-import { UPLOAD_RESUME, DASHBOARD } from "../../constants/routes";
+import { auth, db } from '../../store/index';
+import { UPLOAD_RESUME, DASHBOARD } from '../../constants/routes';
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
 
@@ -8,12 +8,12 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
     .then(authUser => {
       authUser.user
         .updateProfile({
-          displayName: `${firstName} ${lastName}`
+          displayName: `${firstName} ${lastName}`,
         })
         .then(() => {
           const uid = authUser.user.uid;
           const normlizedEmail = email.toLowerCase();
-          db.collection("users")
+          db.collection('users')
             .doc(uid)
             .set({
               emailVerified: false,
@@ -21,31 +21,31 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               firstName,
               lastName,
               createdAt: new Date(),
-              providers: [{ service: "password", id: uid }],
-              signupMethod: "password",
-              stage: "pre-review", // TODO use stage and status constants
-              status: "incomplete",
+              providers: [{ service: 'password', id: uid }],
+              signupMethod: 'password',
+              stage: 'pre-review', // TODO use stage and status constants
+              status: 'incomplete',
               history: [
                 {
-                  stage: "pre-review",
-                  status: "incomplete",
-                  createdAt: new Date()
-                }
-              ]
+                  stage: 'pre-review',
+                  status: 'incomplete',
+                  createdAt: new Date(),
+                },
+              ],
             });
-          db.collection("profiles")
+          db.collection('profiles')
             .doc(uid)
             .set({
               education: [],
               experience: [],
-              industry: "OTHER",
-              bio: "",
-              careerInterests: { type: "defualt", value: [] },
+              industry: 'OTHER',
+              bio: '',
+              careerInterests: { type: 'defualt', value: [] },
               skills: [],
-              resumeFile: { name: "", fullPath: "", downloadURL: "" },
+              resumeFile: { name: '', fullPath: '', downloadURL: '' },
               isComplete: false,
               hasSubmit: false,
-              createdAt: Date.now()
+              createdAt: Date.now(),
             });
           routeHandler(UPLOAD_RESUME);
         });
@@ -60,12 +60,12 @@ export const signInWithPassword = (user, routeHandler, errorHandler) => {
   auth
     .signInWithEmailAndPassword(email, password)
     .then(async authUser => {
-      db.collection("users")
+      db.collection('users')
         .doc(authUser.user.uid)
         .get()
         .then(userDoc => {
           const doc = userDoc.data();
-          if (doc.process === "build" || doc.process === "upload") {
+          if (doc.process === 'build' || doc.process === 'upload') {
             //TODO: process constants
             routeHandler(DASHBOARD);
           } else {

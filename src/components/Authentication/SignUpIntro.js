@@ -47,10 +47,10 @@ function SignUpIntro(props) {
 
   return (
     <Grid item className={classes.copy}>
-      <Typography variant="display1">
+      <Typography variant="h4">
         We bridge the gap between startups and students
       </Typography>
-      <Typography className={classes.subtitle} variant="title">
+      <Typography className={classes.subtitle} variant="h6">
         The simplest way to get access to meaningful work experience
       </Typography>
 
@@ -62,25 +62,25 @@ function SignUpIntro(props) {
           <Grid container justify="space-between" className={classes.tickGrid}>
             <Grid item>
               <img src={Tick} className={classes.tick} />
-              <Typography className={classes.tickText} variant="title">
+              <Typography className={classes.tickText} variant="h6">
                 One-time signup
               </Typography>
             </Grid>
             <Grid item>
               <img src={Tick} className={classes.tick} />
-              <Typography className={classes.tickText} variant="title">
+              <Typography className={classes.tickText} variant="h6">
                 Resume review
               </Typography>
             </Grid>
             <Grid item>
               <img src={Tick} className={classes.tick} />
-              <Typography className={classes.tickText} variant="title">
+              <Typography className={classes.tickText} variant="h6">
                 Career guidance
               </Typography>
             </Grid>
             <Grid item>
               <img src={Tick} className={classes.tick} />
-              <Typography className={classes.tickText} variant="title">
+              <Typography className={classes.tickText} variant="h6">
                 Free for Uni students
               </Typography>
             </Grid>

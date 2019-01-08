@@ -336,7 +336,7 @@ class StatusCard extends React.Component {
                 <Grid item style={{ flex: 1 }}>
                   <Typography
                     className={classes.prompt}
-                    variant="subheading"
+                    variant="subtitle1"
                     style={{ marginLeft: 10, textAlign: 'left' }}
                   >
                     {message}

@@ -77,7 +77,7 @@ function Step(props) {
         goTo(route);
       }}
     >
-      <Typography className={classes.label} variant="subheading">
+      <Typography className={classes.label} variant="subtitle1">
         {label}
       </Typography>
       {isComplete ? completedIndicator : incompletedIndicator}

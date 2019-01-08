@@ -21,7 +21,7 @@ function ResetPasswordView(props) {
   return (
     <React.Fragment>
       <Header greeting="Hello" name={firstName} />
-      <Typography variant="subheading">
+      <Typography variant="subtitle1">
         Please type a new password below.
       </Typography>
 

@@ -148,7 +148,7 @@ class CareerInterests extends React.Component {
       return (
         <div className={classes.root}>
           {!hideTitle && (
-            <Typography variant="title" color="primary">
+            <Typography variant="h6" color="primary">
               Career Interests — Custom
             </Typography>
           )}
@@ -174,13 +174,13 @@ class CareerInterests extends React.Component {
             margin="normal"
             color="primary"
           />
-          <Typography variant="body1" className={classes.text}>
+          <Typography variant="body2" className={classes.text}>
             Note: We can't guarantee that we will be able to find you a career
             placement in your specific field of interest, but we will do our
             best.
           </Typography>
 
-          <Typography variant="body1" className={classes.text}>
+          <Typography variant="body2" className={classes.text}>
             Want to check career interests from 2hats again?{' '}
             <a
               className={classes.link}
@@ -195,7 +195,7 @@ class CareerInterests extends React.Component {
       return (
         <div className={classes.root}>
           {!hideTitle && (
-            <Typography variant="title" color="primary">
+            <Typography variant="h6" color="primary">
               Career Interests — {3 - preSelectedList.value.length} remaining
             </Typography>
           )}
@@ -204,7 +204,7 @@ class CareerInterests extends React.Component {
               this.renderCheckBoxGroup(list.label, list.items)
             )}
           </Grid>
-          <Typography variant="body1" className={classes.text}>
+          <Typography variant="body2" className={classes.text}>
             Don't see your career interest?{' '}
             <a className={classes.link} onClick={this.switchToOther.bind(this)}>
               Click here

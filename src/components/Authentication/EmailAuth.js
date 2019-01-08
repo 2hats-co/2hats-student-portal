@@ -164,7 +164,7 @@ class EmailAuth extends Component {
           />
         </div>
         {emailSuggestion && (
-          <Typography variant="body1" className={classes.text}>
+          <Typography variant="body2" className={classes.text}>
             Did you mean:
             <br />
             <a

@@ -45,10 +45,10 @@ function Next(props) {
         justify="flex-start"
       >
         <Grid item>
-          <Typography variant="display1">What’s Next</Typography>
+          <Typography variant="h4">What’s Next</Typography>
         </Grid>
         <Grid item>
-          <Typography variant="body1">
+          <Typography variant="body2">
             We would like to review your profile and provide you a set of
             tailored feedback. Simply preview your profile and submit it to us
             when you are ready.

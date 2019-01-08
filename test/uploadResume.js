@@ -3,7 +3,7 @@ const FILEPATH = './testResume.pdf';
 
 const selectCareerInterests = async page => {
   //Career Interests
-  await page.waitForSelector(SELECTORS.uploadResume.careerInterestsHeader);
+  await page.waitForSelector(SELECTORS.uploadResume.nextCI);
   await page.waitFor(1000);
   try {
     await page.click(SELECTORS.uploadResume.appInput, { delay: 10 });
@@ -13,7 +13,6 @@ const selectCareerInterests = async page => {
     //console.log(error);
   }
   await page.waitFor(1000);
-  await page.waitForSelector(SELECTORS.uploadResume.nextCI);
   await page.click(SELECTORS.uploadResume.nextCI, { delay: 10 });
 };
 
@@ -28,9 +27,8 @@ const selectRelevantSkills = async page => {
 };
 
 const selectCurrentUniversity = async page => {
-  await page.waitForSelector(SELECTORS.uploadResume.selectUniversityHeader);
-  //Click the university container here (not working yet)
   await page.waitForSelector(SELECTORS.uploadResume.nextSU);
+  //Click the university container here (not working yet)
   await page.waitFor(1000);
   await page.click(SELECTORS.uploadResume.nextSU);
 };
@@ -48,7 +46,7 @@ const selectUploadResume = async page => {
 };
 
 const selectWorkAvaliability = async page => {
-  await page.waitForSelector(SELECTORS.uploadResume.selectWorkHeader);
+  await page.waitForSelector(SELECTORS.uploadResume.nextWA);
   //Click the two input fields
   const availableDaysInput = await page.$(
     SELECTORS.uploadResume.availableDaysInput
@@ -67,7 +65,6 @@ const selectWorkAvaliability = async page => {
   workConditionInput.press('ArrowDown', { delay: 20 });
   workConditionInput.press('Enter', { delay: 20 });
 
-  await page.waitForSelector(SELECTORS.uploadResume.nextWA);
   await page.waitFor(1000);
   await page.click(SELECTORS.uploadResume.nextWA);
 };

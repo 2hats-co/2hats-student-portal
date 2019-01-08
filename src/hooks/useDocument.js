@@ -1,5 +1,5 @@
-import { firestore } from "../store";
-import { useEffect, useReducer } from "react";
+import { firestore } from '../store';
+import { useEffect, useReducer } from 'react';
 
 const documentReducer = (prevState, newProps) => {
   return { ...prevState, ...newProps };
@@ -8,13 +8,13 @@ const documentIntialState = {
   path: null,
   prevPath: null,
   doc: null,
-  loading: true
+  loading: true,
 };
 
 const useDocument = intialOverrides => {
   const [documentState, documentDispatch] = useReducer(documentReducer, {
     ...documentIntialState,
-    ...intialOverrides
+    ...intialOverrides,
   });
   const setDocumentListner = () => {
     documentDispatch({ prevPath: documentState.path });
@@ -25,7 +25,7 @@ const useDocument = intialOverrides => {
         const doc = { ...data, id };
         documentDispatch({
           doc,
-          loading: false
+          loading: false,
         });
       }
     });

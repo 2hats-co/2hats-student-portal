@@ -29,14 +29,14 @@ function BackBar(props) {
       <IconButton
         disabled={isLoading}
         aria-label="back"
-        style={{ marginLeft: 4, width: 32, height: 32 }}
+        style={{ marginLeft: 4, width: 32, height: 32, padding: 0 }}
         id="back-to-email"
         onClick={backHandler}
       >
         <BackIcon />
       </IconButton>
       <Typography
-        variant={email.length < 30 ? 'body1' : 'caption'}
+        variant={email.length < 30 ? 'body2' : 'caption'}
         style={{
           marginLeft: 5,
           color: '#000',

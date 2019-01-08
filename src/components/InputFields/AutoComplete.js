@@ -117,7 +117,7 @@ class AutoComplete extends React.Component {
   SingleValue(props) {
     return (
       <Typography
-        variant="body1"
+        variant="body2"
         {...props.innerProps}
         style={{ fontSize: '12px !important' }}
       >

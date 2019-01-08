@@ -72,11 +72,11 @@ class MobileIntro extends React.Component {
                 alignItems="center"
                 justify="space-around"
               >
-                <Typography variant="title">Step {index + 1}</Typography>
-                <Typography variant="headline">{step.title}</Typography>
+                <Typography variant="h6">Step {index + 1}</Typography>
+                <Typography variant="h5">{step.title}</Typography>
                 <img className={classes.img} src={step.image} alt="uploadMan" />
 
-                <Typography className={classes.body} variant="body1">
+                <Typography className={classes.body} variant="body2">
                   {step.description}
                 </Typography>
                 <StepsIndecator index={index} />

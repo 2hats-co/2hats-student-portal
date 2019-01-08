@@ -2,13 +2,13 @@
 
 'use strict';
 
-module.exports = function () {
+module.exports = function() {
   const MathLib = require('./mathlib');
 
   let mathLib;
 
   /* eslint-disable no-undef */
-  onmessage = function (ev) {
+  onmessage = function(ev) {
     let opts = ev.data.opts;
 
     if (!mathLib) mathLib = new MathLib(ev.data.features);
@@ -17,6 +17,6 @@ module.exports = function () {
     // because polyfills are not propagated to webworker.
     let result = mathLib.resizeAndUnsharp(opts);
 
-    postMessage({ result }, [ result.buffer ]);
+    postMessage({ result }, [result.buffer]);
   };
 };

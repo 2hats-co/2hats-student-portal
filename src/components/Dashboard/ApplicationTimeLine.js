@@ -57,7 +57,7 @@ function ApplicationTimeLine(props) {
       justify="flex-start"
     >
       <Grid item>
-        <Typography variant="display1" className={classes.title}>
+        <Typography variant="h4" className={classes.title}>
           Application Timeline
         </Typography>
       </Grid>

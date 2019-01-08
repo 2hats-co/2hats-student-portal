@@ -58,7 +58,7 @@ const styles = theme => ({
       color: '#fff !important',
     },
   },
-  headline: {
+  h5: {
     color: theme.palette.primary.main,
     textAlign: 'left',
     marginTop: 40,
@@ -72,7 +72,7 @@ function PrettyProfile(props) {
   const { classes, profile, user } = props;
 
   const interests = profile.careerInterests.value.map((x, i) => (
-    <Typography key={i} variant="subheading">
+    <Typography key={i} variant="subtitle1">
       {getInterestByKey(x).length > 0 ? getInterestByKey(x)[0].label : null}
     </Typography>
   ));
@@ -84,7 +84,7 @@ function PrettyProfile(props) {
       alignItems="flex-start"
       style={{ marginBottom: 16 }}
     >
-      <Typography variant="subheading" style={{ fontWeight: 700 }}>
+      <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
         {x.major ? x.degree + ' — ' + x.major : x.degree}
       </Typography>
       <Grid
@@ -94,18 +94,18 @@ function PrettyProfile(props) {
         justify="space-between"
       >
         <Grid item xs={7} sm={8}>
-          <Typography variant="body1" style={{ fontWeight: 500 }}>
+          <Typography variant="body2" style={{ fontWeight: 500 }}>
             {x.university}
           </Typography>
         </Grid>
         <Grid item xs={5} sm={4}>
-          <Typography variant="body1" style={{ textAlign: 'right' }}>
+          <Typography variant="body2" style={{ textAlign: 'right' }}>
             {x.startDate} – {x.endDate}
           </Typography>
         </Grid>
       </Grid>
       <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
-        <Typography variant="body1" style={{ whiteSpace: 'pre-wrap' }}>
+        <Typography variant="body2" style={{ whiteSpace: 'pre-wrap' }}>
           {x.description}
         </Typography>
       </Grid>
@@ -119,7 +119,7 @@ function PrettyProfile(props) {
       alignItems="flex-start"
       style={{ marginBottom: 16 }}
     >
-      <Typography variant="subheading" style={{ fontWeight: 700 }}>
+      <Typography variant="subtitle1" style={{ fontWeight: 700 }}>
         {x.title}
       </Typography>
       <Grid
@@ -129,18 +129,18 @@ function PrettyProfile(props) {
         justify="space-between"
       >
         <Grid item xs={7} sm={8}>
-          <Typography variant="body1" style={{ fontWeight: 500 }}>
+          <Typography variant="body2" style={{ fontWeight: 500 }}>
             {x.organisation}
           </Typography>
         </Grid>
         <Grid item xs={5} sm={4}>
-          <Typography variant="body1" style={{ textAlign: 'right' }}>
+          <Typography variant="body2" style={{ textAlign: 'right' }}>
             {x.startDate} - {x.endDate}
           </Typography>
         </Grid>
       </Grid>
       <Grid item xs={12} style={{ paddingLeft: 0, paddingRight: 0 }}>
-        <Typography variant="body1" style={{ whiteSpace: 'pre-wrap' }}>
+        <Typography variant="body2" style={{ whiteSpace: 'pre-wrap' }}>
           {x.description}
         </Typography>
       </Grid>
@@ -151,23 +151,23 @@ function PrettyProfile(props) {
     <Grid container className={classes.root}>
       <Grid item xs={12} sm={8} className={classes.leftCol}>
         <div className={classes.personBar}>
-          <Typography variant="display1">
+          <Typography variant="h4">
             {user.firstName} {user.lastName}
           </Typography>
           {interests}
         </div>
 
-        <Typography variant="headline" className={classes.headline}>
+        <Typography variant="h5" className={classes.h5}>
           About
         </Typography>
-        <Typography variant="subheading">{profile.bio}</Typography>
+        <Typography variant="subtitle1">{profile.bio}</Typography>
 
-        <Typography variant="headline" className={classes.headline}>
+        <Typography variant="h5" className={classes.h5}>
           Education
         </Typography>
         {education}
 
-        <Typography variant="headline" className={classes.headline}>
+        <Typography variant="h5" className={classes.h5}>
           Work Experience
         </Typography>
         {experience}
@@ -179,18 +179,18 @@ function PrettyProfile(props) {
             className={classes.avatar}
           />
         )}
-        <Typography variant="headline" className={classes.headline}>
+        <Typography variant="h5" className={classes.h5}>
           Skills
         </Typography>
         {profile.skills.map((x, i) => (
-          <Typography key={i} variant="subheading">
+          <Typography key={i} variant="subtitle1">
             {x}
           </Typography>
         ))}
-        <Typography variant="headline" className={classes.headline}>
+        <Typography variant="h5" className={classes.h5}>
           Available Days
         </Typography>
-        <Typography variant="subheading">{profile.availableDays}</Typography>
+        <Typography variant="subtitle1">{profile.availableDays}</Typography>
       </Grid>
     </Grid>
   );

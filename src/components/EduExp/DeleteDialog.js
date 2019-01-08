@@ -21,9 +21,9 @@ function DeleteDialog(props) {
           Delete {name === EDU ? 'Tertiary Education' : 'Practical Experience'}
         </DialogTitle>
         <DialogContent>
-          <Typography variant="subheading">{heading}</Typography>
-          <Typography variant="body1">{subheading}</Typography>
-          <Typography variant="body1">
+          <Typography variant="subtitle1">{heading}</Typography>
+          <Typography variant="body2">{subheading}</Typography>
+          <Typography variant="body2">
             You are about to delete all information associated with the above{' '}
             {name === EDU ? 'degree/course.' : 'position/job title.'}
           </Typography>
