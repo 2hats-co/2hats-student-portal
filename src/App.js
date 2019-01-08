@@ -10,10 +10,7 @@ import withAuthentication from "./utilities/Session/withAuthentication";
 //routing
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import * as routes from "./constants/routes";
-import {
-  AUTHENTICATION_CONTAINER,
-  INTRODUCTION_CONTAINER
-} from "./constants/views";
+import { AUTHENTICATION_CONTAINER } from "./constants/views";
 import Landing from "./components/Landing";
 import TagTracker from "./components/TagTracker";
 
@@ -49,12 +46,7 @@ const SpeedySignupContainer = Loadable({
     return loadingCard;
   }
 });
-const IntroductionContainer = Loadable({
-  loader: () => import("./containers/IntroductionContainer"),
-  loading() {
-    return loadingCard;
-  }
-});
+
 const SmartLinkContainer = Loadable({
   loader: () => import("./containers/SmartLinkContainer"),
   loading() {
@@ -75,18 +67,6 @@ const DashboardContainer = Loadable({
 });
 const JobBoardContainer = Loadable({
   loader: () => import("./containers/JobBoardContainer"),
-  loading() {
-    return loadingCard;
-  }
-});
-const RemoteLoggerContainer = Loadable({
-  loader: () => import("./containers/RemoteLoggerContainer"),
-  loading() {
-    return loadingCard;
-  }
-});
-const SubmissionContainer = Loadable({
-  loader: () => import("./containers/SubmissionContainer"),
   loading() {
     return loadingCard;
   }
@@ -222,22 +202,7 @@ class App extends Component {
               path={routes.JOB_BOARD}
               component={() => <JobBoardContainer />}
             />
-            <Route
-              exact
-              path={routes.INTRODUCTION}
-              component={() => (
-                <IntroductionContainer view={INTRODUCTION_CONTAINER.process} />
-              )}
-            />
-            <Route
-              exact
-              path={routes.SUBMISSION}
-              component={() => (
-                <IntroductionContainer
-                  view={INTRODUCTION_CONTAINER.submission}
-                />
-              )}
-            />
+
             <Route
               exact
               path={routes.BUILD_RESUME}
@@ -248,22 +213,14 @@ class App extends Component {
               path={routes.UPLOAD_RESUME}
               component={() => <SignupContainer />}
             />
-            <Route
-              exact
-              path={routes.PREVIOUS_SUBMISSION}
-              component={() => <SubmissionContainer />}
-            />
+
             <Route
               exact
               path={routes.SMART_LINK}
               component={() => <SmartLinkContainer />}
             />
             <Route exact path="/linkedin" component={LinkedInPopUp} />
-            <Route
-              exact
-              path={"/remoteLogs"}
-              component={() => <RemoteLoggerContainer />}
-            />
+
             <Route exact path={"/"} component={() => <Landing />} />
           </div>
         </Router>
