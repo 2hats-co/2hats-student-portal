@@ -1,4 +1,5 @@
 const { SELECTORS, CRED } = require('./constants');
+const { takeScreenshot } = require('./screenshotUtil');
 const FILEPATH = './testResume.pdf';
 
 const selectCareerInterests = async page => {
@@ -12,6 +13,7 @@ const selectCareerInterests = async page => {
   } catch (error) {
     //console.log(error);
   }
+  await takeScreenshot(page, 'selectCareerInterests');
   await page.waitFor(1000);
   await page.click(SELECTORS.uploadResume.nextCI, { delay: 10 });
 };
@@ -22,6 +24,7 @@ const selectRelevantSkills = async page => {
     delay: 10,
   });
   await page.click(SELECTORS.uploadResume.addButton, { delay: 10 });
+  await takeScreenshot(page, 'selectRelevantSkills');
   await page.waitForSelector(SELECTORS.uploadResume.nextRS);
   await page.click(SELECTORS.uploadResume.nextRS, { delay: 10 });
 };
@@ -29,6 +32,7 @@ const selectRelevantSkills = async page => {
 const selectCurrentUniversity = async page => {
   await page.waitForSelector(SELECTORS.uploadResume.nextSU);
   //Click the university container here (not working yet)
+  await takeScreenshot(page, 'selectCurrentUniversity');
   await page.waitFor(1000);
   await page.click(SELECTORS.uploadResume.nextSU);
 };
@@ -39,8 +43,9 @@ const selectUploadResume = async page => {
   const uploadButton = await page.$(SELECTORS.uploadResume.uploadResumeField);
   await uploadButton.uploadFile(FILEPATH);
 
-  await page.waitFor(3000);
+  await page.waitFor(1000);
   await page.waitForSelector(SELECTORS.uploadResume.nextUR);
+  await takeScreenshot(page, 'selectUploadResume');
   await page.waitFor(1000);
   await page.click(SELECTORS.uploadResume.nextUR);
 };
@@ -65,6 +70,7 @@ const selectWorkAvaliability = async page => {
   workConditionInput.press('ArrowDown', { delay: 20 });
   workConditionInput.press('Enter', { delay: 20 });
 
+  await takeScreenshot(page, 'selectWorkAvailability');
   await page.waitFor(1000);
   await page.click(SELECTORS.uploadResume.nextWA);
 };

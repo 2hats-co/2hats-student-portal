@@ -1,0 +1,9 @@
+{
+  "lastGitTag": "testbd3a164",
+  "gitTag": "bd3a164",
+  "timestamp": 1547009602630,
+  "viewport": { "width": 1200, "height": 800 },
+  "screenshotDir": "./test/screenshots/bd3a164",
+  "lastScreenshotDir": "./test/screenshots/testbd3a164",
+  "diffDir": "./test/screenshots/diff-testbd3a164-bd3a164"
+}

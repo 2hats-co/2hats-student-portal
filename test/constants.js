@@ -47,7 +47,8 @@ const CRED = {
 };
 
 const CONST = {
-  screenshotPath: './screenshots',
+  screenshotPath: './test/screenshots',
+  testPath: './test',
 };
 
 module.exports = { SELECTORS, CRED, CONST };
