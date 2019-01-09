@@ -43,13 +43,17 @@ const compareScreenshots = async (path1, path2, diffPath) => {
 
 const compareAllScreenshots = async () => {
   const currShots = fs.readdirSync(CONFIG.screenshotDir).sort();
-  const prevShots = fs.readdirSync(CONFIG.lastScreenshotDir).sort();
+  let count = 0;
   for (i = 0; i < currShots.length; i++) {
-    const currentSnapPath = `${CONFIG.screenshotDir}/${currShots[i]}`;
-    const lastSnapPath = `${CONFIG.lastScreenshotDir}/${prevShots[i]}`;
     const diffPath = `${CONFIG.diffDir}/${currShots[i]}`;
-    await compareScreenshots(currentSnapPath, lastSnapPath, diffPath);
+    const currentSnapPath = `${CONFIG.screenshotDir}/${currShots[i]}`;
+    const lastSnapPath = `${CONFIG.lastScreenshotDir}/${currShots[i]}`;
+    if (fs.existsSync(lastSnapPath)) {
+      await compareScreenshots(currentSnapPath, lastSnapPath, diffPath);
+      count++;
+    }
   }
+  console.log('Compared screenshots:', count);
 };
 
 module.exports = { compareAllScreenshots, takeScreenshot };
