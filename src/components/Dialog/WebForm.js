@@ -72,7 +72,7 @@ function WebForm(props) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={cancelHandler}>
+        <Button color="primary" onClick={cancelHandler}>
           Cancel
         </Button>
         <Button

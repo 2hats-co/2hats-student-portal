@@ -205,15 +205,13 @@ export default function withNavigation(WrappedComponent) {
                 </Grid>
               </Grid>
             </Drawer>
-            {showAccountInfo && (
-              <AccountInfoDialog
-                user={user}
-                open={showAccountInfo}
-                closeHandler={() => {
-                  setShowAccountInfo(false);
-                }}
-              />
-            )}
+            <AccountInfoDialog
+              user={user}
+              open={showAccountInfo}
+              closeHandler={() => {
+                setShowAccountInfo(false);
+              }}
+            />
           </Grid>
 
           <Grid item xs>

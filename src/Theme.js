@@ -64,25 +64,25 @@ export const Theme = createMuiTheme({
     MuiInput: {
       // opacity: 1,
       // borderBottom: '#000 !important',
-      root: {
-        fontSize: '14px',
-      },
+      // root: {
+      //   fontSize: '14px',
+      // },
       underline: {
         '&::after': { borderBottomColor: primaryColor },
       },
     },
-    MuiFormControlLabel: {
-      root: {
-        fontSize: '20px',
-        height: 35,
-      },
-      '&$focused': { color: `${primaryColor} !important` },
-    },
-    MuiFormLabel: {
-      root: {
-        height: 30,
-      },
-    },
+    // MuiFormControlLabel: {
+    //   root: {
+    //     fontSize: '20px',
+    //     height: 35,
+    //   },
+    //   '&$focused': { color: `${primaryColor} !important` },
+    // },
+    // MuiFormLabel: {
+    //   root: {
+    //     height: 30,
+    //   },
+    // },
     // MuiDialog: {
     //   root: {
     //     overflowY: 'auto',
@@ -90,50 +90,53 @@ export const Theme = createMuiTheme({
     // },
     MuiDialogTitle: {
       root: {
-        color: primaryColor + '!important',
+        '& *': { color: primaryColor + ' !important' },
       },
     },
     MuiButton: {
-      text: {
-        // Name of the rule
-        color: WHITE,
-        backgroundColor: primaryColor,
-        borderRadius: 20,
-        '&:hover': { backgroundColor: '#d85125' },
-        '&:disabled': { opacity: 0.4, color: WHITE },
-      },
-      outlined: {
-        // Name of the rule
-        color: BLACK + '!important',
-        backgroundColor: WHITE,
-        borderRadius: 20,
-        border: `1px solid ${BLACK}`,
-        '&:hover': { backgroundColor: '#f5f5f5' },
-      },
       contained: {
-        // Name of the rule
-        color: BLACK,
-        backgroundColor: WHITE,
-        borderRadius: 20,
-        //width:80,
-        margin: 5,
-        height: 36,
-        '&:hover': {
-          backgroundColor: WHITE,
-          // Reset on touch devices, it doesn't add specificity
-          '@media (hover: none)': {
-            backgroundColor: GREY,
-          },
-        },
-        '&:active': {
-          boxShadow: GREY,
-        },
         boxShadow: 'none',
       },
+      // text: {
+      //   // Name of the rule
+      //   // color: WHITE,
+      //   // backgroundColor: primaryColor,
+      //   // borderRadius: 20,
+      //   // '&:hover': { backgroundColor: '#d85125' },
+      //   // '&:disabled': { opacity: 0.4, color: WHITE },
+      // },
+      // outlined: {
+      //   // Name of the rule
+      //   color: BLACK + '!important',
+      //   backgroundColor: WHITE,
+      //   borderRadius: 20,
+      //   border: `1px solid ${BLACK}`,
+      //   '&:hover': { backgroundColor: '#f5f5f5' },
+      // },
+      // contained: {
+      //   // Name of the rule
+      //   color: BLACK,
+      //   backgroundColor: WHITE,
+      //   borderRadius: 20,
+      //   //width:80,
+      //   margin: 5,
+      //   height: 36,
+      //   '&:hover': {
+      //     backgroundColor: WHITE,
+      //     // Reset on touch devices, it doesn't add specificity
+      //     '@media (hover: none)': {
+      //       backgroundColor: GREY,
+      //     },
+      //   },
+      //   '&:active': {
+      //     boxShadow: GREY,
+      //   },
+      //   boxShadow: 'none',
+      // },
       label: {
         '& svg': { marginRight: 8 },
       },
-      containedPrimary: { color: '#fff' },
+      // containedPrimary: { color: '#fff' },
     },
     // ADMIN PORTAL OVERRIDES
     MuiToggleButtonGroup: {

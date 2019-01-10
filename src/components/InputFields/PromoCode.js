@@ -34,7 +34,7 @@ class PromoCode extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
   componentWillMount() {
-    console.log(this.props);
+    // console.log(this.props);
     if (this.props.value) {
       this.setState({ code: this.props.value });
     }

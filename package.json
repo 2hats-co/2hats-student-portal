@@ -49,7 +49,7 @@
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "node generate-build-id.js && react-scripts build",
     "test": "node test/authenticate",
     "eject": "react-scripts eject"
   },

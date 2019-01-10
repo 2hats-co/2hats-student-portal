@@ -7,6 +7,8 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputWrapper from './InputWrapper';
 
+import DropdownIcon from '@material-ui/icons/KeyboardArrowDown';
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -24,13 +26,14 @@ const styles = theme => ({
     fontSize: 16,
     padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
   },
-  singleValue: {
-    fontSize: 12,
-  },
   placeholder: {
     position: 'absolute',
     left: 2,
     fontSize: 12,
+  },
+  dropdownIndicator: {
+    opacity: 0.33,
+    padding: '0px 3px',
   },
 });
 
@@ -48,7 +51,7 @@ function NoOptionsMessage(props) {
 
 function inputComponent({ inputRef, ...props }) {
   return (
-    <div ref={inputRef} style={{ height: 30, marginTop: -1 }} {...props} />
+    <div {...props} ref={inputRef} style={{ height: 30, marginTop: -1 }} />
   );
 }
 
@@ -114,11 +117,12 @@ class AutoComplete extends React.Component {
     };
     this.ValueContainer = this.ValueContainer.bind(this);
     this.Control = this.Control.bind(this);
+    this.DropdownIndicator = this.DropdownIndicator.bind(this);
   }
   SingleValue(props) {
     return (
       <Typography
-        variant="body2"
+        variant="body1"
         {...props.innerProps}
         style={{ fontSize: '12px !important' }}
       >
@@ -162,6 +166,10 @@ class AutoComplete extends React.Component {
       />
     );
   }
+
+  DropdownIndicator(props) {
+    return <DropdownIcon className={this.props.classes.dropdownIndicator} />;
+  }
   handleChange = name => value => {
     this.props.changeHandler(
       name,
@@ -182,6 +190,7 @@ class AutoComplete extends React.Component {
       Placeholder,
       SingleValue: this.SingleValue,
       ValueContainer: this.ValueContainer,
+      DropdownIndicator: this.DropdownIndicator,
     };
     return (
       <div className={classes.root} style={{ marginTop: -20 }}>

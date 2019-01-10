@@ -7,8 +7,12 @@ import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 import ReactPixel from 'react-facebook-pixel';
 
+import metadata from './metadata.json';
+console.log('Build', metadata.hash, '\n', metadata.date.replace('T', ' '));
+
 ReactPixel.init('2178522349094498', {}, { debug: true, autoConfig: false });
 ReactPixel.pageView();
+
 const store = configureStore();
 ReactDOM.render(
   <Provider store={store}>
