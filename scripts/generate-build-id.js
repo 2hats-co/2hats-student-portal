@@ -8,7 +8,7 @@ const metadata = {
   date: new Date(),
 };
 
-fs.writeFile('../src/metadata.json', JSON.stringify(metadata), function(err) {
+fs.writeFile('./src/metadata.json', JSON.stringify(metadata), function(err) {
   if (err) throw err;
   console.log('Current build hash: ' + metadata.hash);
 });
