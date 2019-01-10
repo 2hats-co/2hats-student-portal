@@ -38,7 +38,6 @@ const styles = theme => ({
     height: 42,
   },
   paper: {
-    borderRadius: 3,
     overflowY: 'visible',
     overflowX: 'hidden',
     position: 'relative',

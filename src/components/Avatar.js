@@ -10,10 +10,11 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 
+import ButtonLink from './ButtonLink';
+
 import Dropzone from 'react-dropzone';
 import { db } from '../store';
 import { COLLECTIONS } from '../constants/firestore';
-
 import { blobAvatarUploader } from '../utilities/Uploader';
 
 const styles = theme => ({
@@ -52,11 +53,6 @@ const styles = theme => ({
     width: '100%',
     textAlign: 'center',
     marginTop: 20,
-    color: deepOrange[600],
-    cursor: 'pointer',
-    '&:hover': {
-      textDecoration: 'underline',
-    },
   },
 
   spinner: {
@@ -193,7 +189,7 @@ class SuperAvatarPlus extends Component {
               accept="image/jpeg, image/png, image/jpg"
             >
               {bigAvatar}
-              <a className={classes.link}>Select a file</a>
+              <ButtonLink className={classes.link}>Select a file</ButtonLink>
             </Dropzone>
           </Grid>
         </Dialog>

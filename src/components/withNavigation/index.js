@@ -14,16 +14,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ProfileIcon from '@material-ui/icons/Person';
 import JobsIcon from '@material-ui/icons/BusinessCenter';
 import AssessmentsIcon from '@material-ui/icons/Assignment';
-import EducationIcon from '@material-ui/icons/School';
+import CoursesIcon from '@material-ui/icons/School';
 
 import ContactIcon from '@material-ui/icons/Forum';
 import FaqIcon from '@material-ui/icons/Help';
-import SettingsIcon from '@material-ui/icons/Settings';
+import AccountInfoIcon from '@material-ui/icons/Edit';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import { setBackground } from '../../utilities/styling';
-import ROUTES from '../../constants/routes';
+import * as ROUTES from '../../constants/routes';
 
 import logo from '../../assets/images/Logo/DarkText.svg';
 import User from './User';
@@ -49,12 +49,12 @@ const styles = theme => ({
     width: 0,
     overflowY: 'auto',
   },
-  drawerPaper: {
-    width: DRAWER_WIDTH,
+  drawerPaper: { width: DRAWER_WIDTH },
+  drawerBorder: {
+    boxShadow: `-1px 0 0 ${theme.palette.divider} inset`,
+    borderRight: 'none',
   },
-  nav: {
-    height: '100%',
-  },
+  nav: { height: '100%' },
 
   logoButton: {
     width: '100%',
@@ -64,9 +64,7 @@ const styles = theme => ({
     transitionLength: theme.transitions.duration.shortest,
     '&:hover': { backgroundColor: theme.palette.action.hover },
   },
-  logo: {
-    width: 100,
-  },
+  logo: { width: 100 },
   userWrapper: {
     padding: theme.spacing.unit * 2,
     paddingBottom: 0,
@@ -75,12 +73,8 @@ const styles = theme => ({
   listWrapper: {
     marginTop: theme.spacing.unit * 3,
   },
-  listItemTextRoot: {
-    padding: 0,
-  },
-  divider: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-  },
+  listItemTextRoot: { padding: 0 },
+  divider: { margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px` },
 
   selected: {
     color: theme.palette.primary.main,
@@ -103,7 +97,7 @@ export default function withNavigation(WrappedComponent) {
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [navOpen, setNavOpen] = useState(false);
-    const [showSettings, setShowSettings] = useState(false);
+    const [showAccountInfo, setShowAccountInfo] = useState(false);
     const [userState] = useDocument({
       path: `${COLLECTIONS.users}/${authUser.uid}`,
     });
@@ -116,9 +110,13 @@ export default function withNavigation(WrappedComponent) {
     const MAIN_NAV_ITEMS = [
       { label: 'Profile', icon: <ProfileIcon />, route: ROUTES.PROFILE },
       { type: 'divider' },
-      { label: 'Jobs', icon: <JobsIcon /> },
-      { label: 'Assessments', icon: <AssessmentsIcon /> },
-      { label: 'Education', icon: <EducationIcon /> },
+      { label: 'Jobs', icon: <JobsIcon />, route: ROUTES.JOBS },
+      {
+        label: 'Assessments',
+        icon: <AssessmentsIcon />,
+        route: ROUTES.ASSESSMENTS,
+      },
+      { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES },
     ];
     const BOTTOM_NAV_ITEMS = [
       {
@@ -136,10 +134,10 @@ export default function withNavigation(WrappedComponent) {
       },
       { type: 'divider' },
       {
-        label: 'Settings',
-        icon: <SettingsIcon />,
+        label: 'Edit Account Info',
+        icon: <AccountInfoIcon />,
         onClick: () => {
-          setShowSettings(true);
+          setShowAccountInfo(true);
         },
       },
       { label: 'Log out', icon: <LogOutIcon />, route: ROUTES.LOG_OUT },
@@ -160,7 +158,10 @@ export default function withNavigation(WrappedComponent) {
               onClose={() => {
                 if (isMobile) setNavOpen(false);
               }}
-              classes={{ paper: classes.drawerPaper }}
+              classes={{
+                paper: classes.drawerPaper,
+                paperAnchorDockedLeft: classes.drawerBorder,
+              }}
             >
               <Grid
                 container
@@ -198,28 +199,30 @@ export default function withNavigation(WrappedComponent) {
                 <Grid item className={classes.listWrapper}>
                   <List>
                     {BOTTOM_NAV_ITEMS.map((x, i) => (
-                      <NavItem
-                        data={x}
-                        key={i}
-                        selected={path === x.route}
-                        goTo={goTo}
-                      />
+                      <NavItem data={x} key={i} goTo={goTo} />
                     ))}
                   </List>
                 </Grid>
               </Grid>
             </Drawer>
-            <AccountInfoDialog
-              user={user}
-              open={showSettings}
-              closeHandler={() => {
-                setShowSettings(false);
-              }}
-            />
+            {showAccountInfo && (
+              <AccountInfoDialog
+                user={user}
+                open={showAccountInfo}
+                closeHandler={() => {
+                  setShowAccountInfo(false);
+                }}
+              />
+            )}
           </Grid>
 
           <Grid item xs>
-            <WrappedComponent {...props} classes={null} isMobile={isMobile} />
+            <WrappedComponent
+              {...props}
+              classes={null}
+              isMobile={isMobile}
+              user={user}
+            />
             {isMobile && (
               <Fab
                 onClick={() => {

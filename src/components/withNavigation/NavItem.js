@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
@@ -65,5 +66,12 @@ function NavItem(props) {
       );
   }
 }
+
+NavItem.propTypes = {
+  classes: PropTypes.object,
+  data: PropTypes.object.isRequired,
+  selected: PropTypes.bool,
+  goTo: PropTypes.func,
+};
 
 export default withStyles(styles)(NavItem);

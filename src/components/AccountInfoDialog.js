@@ -66,7 +66,7 @@ class AccountInfoDialog extends React.Component {
   }
   handleChange(name, value) {
     if (value) {
-      console.log(name, value);
+      // console.log(name, value);
       this.setState({ [name]: value });
       this.setState({ unChanged: false });
     }
@@ -86,7 +86,7 @@ class AccountInfoDialog extends React.Component {
       } = this.state;
       return (
         <Dialog
-          activity="Update"
+          activity="Edit"
           unChanged={this.state.unChanged}
           title="Account Information"
           open={open}

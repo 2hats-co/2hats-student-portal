@@ -2,72 +2,72 @@ import React, { Component } from 'react';
 // material UI
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { Theme } from './Theme';
-import Grid from '@material-ui/core/Grid';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import { LinkedInPopUp } from 'react-linkedin-login-oauth2';
 // containers
 import withAuthentication from './utilities/Session/withAuthentication';
 //routing
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import * as routes from './constants/routes';
+import * as ROUTES from './constants/routes';
 import { AUTHENTICATION_CONTAINER } from './constants/views';
 import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
 
 // loadable
 import Loadable from 'react-loadable';
-const loadingCard = (
-  <Grid
-    container
-    alignItems="center"
-    justify="center"
-    style={{ height: '100%', position: 'absolute', top: 0, left: 0 }}
-  >
-    <CircularProgress color="primary" size={60} />
-  </Grid>
-);
+import LoadingScreen from './components/LoadingScreen';
 
 const AuthenticationContainer = Loadable({
   loader: () => import('./containers/AuthenticationContainer'),
   loading() {
-    return loadingCard;
+    return <LoadingScreen />;
   },
 });
 const SignupContainer = Loadable({
   loader: () => import('./containers/SignupContainer'),
   loading() {
-    return loadingCard;
+    return <LoadingScreen />;
   },
 });
-
 const SpeedySignupContainer = Loadable({
   loader: () => import('./containers/SpeedySignupContainer'),
   loading() {
-    return loadingCard;
+    return <LoadingScreen />;
   },
 });
 const SmartLinkContainer = Loadable({
   loader: () => import('./containers/SmartLinkContainer'),
   loading() {
-    return loadingCard;
-  },
-});
-const ProfileContainer = Loadable({
-  loader: () => import('./containers/ProfileContainer'),
-  loading() {
-    return loadingCard;
+    return <LoadingScreen />;
   },
 });
 const DashboardContainer = Loadable({
   loader: () => import('./containers/DashboardContainer'),
   loading() {
-    return loadingCard;
+    return <LoadingScreen />;
   },
 });
-const JobBoardContainer = Loadable({
-  loader: () => import('./containers/JobBoardContainer'),
+const ProfileContainer = Loadable({
+  loader: () => import('./containers/ProfileContainer'),
   loading() {
-    return loadingCard;
+    return <LoadingScreen />;
+  },
+});
+const JobsContainer = Loadable({
+  loader: () => import('./containers/JobsContainer'),
+  loading() {
+    return <LoadingScreen />;
+  },
+});
+const AssessmentsContainer = Loadable({
+  loader: () => import('./containers/AssessmentsContainer'),
+  loading() {
+    return <LoadingScreen />;
+  },
+});
+const CoursesContainer = Loadable({
+  loader: () => import('./containers/CoursesContainer'),
+  loading() {
+    return <LoadingScreen />;
   },
 });
 
@@ -124,12 +124,12 @@ class App extends Component {
             <Switch>
               <Route
                 exact
-                path={routes.SIGN_UP}
+                path={ROUTES.SIGN_UP}
                 component={() => <AuthenticationContainer isPublic />}
               />
               <Route
                 exact
-                path={routes.LOG_OUT}
+                path={ROUTES.LOG_OUT}
                 component={() => (
                   <AuthenticationContainer
                     isPublic
@@ -139,12 +139,12 @@ class App extends Component {
               />
               <Route
                 exact
-                path={routes.SIGN_IN}
+                path={ROUTES.SIGN_IN}
                 component={() => <AuthenticationContainer isPublic />}
               />
               <Route
                 exact
-                path={routes.NO_PASSWORD}
+                path={ROUTES.NO_PASSWORD}
                 component={() => (
                   <AuthenticationContainer
                     isPublic
@@ -154,7 +154,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path={routes.CREATE_PASSWORD}
+                path={ROUTES.CREATE_PASSWORD}
                 component={() => (
                   <AuthenticationContainer
                     isPublic
@@ -164,7 +164,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path={routes.RESET_PASSWORD}
+                path={ROUTES.RESET_PASSWORD}
                 component={() => (
                   <AuthenticationContainer
                     isPublic
@@ -174,7 +174,7 @@ class App extends Component {
               />
               <Route
                 exact
-                path={routes.VALIDATE_EMAIL}
+                path={ROUTES.VALIDATE_EMAIL}
                 component={() => (
                   <AuthenticationContainer
                     isPublic
@@ -184,66 +184,47 @@ class App extends Component {
               />
               <Route
                 exact
-                path={routes.SPEEDY_SIGN_UP}
+                path={ROUTES.SPEEDY_SIGN_UP}
                 component={() => <SpeedySignupContainer isPublic />}
               />
               <Route
                 exact
-                path={routes.DASHBOARD}
+                path={ROUTES.UPLOAD_RESUME}
+                component={() => <SignupContainer />}
+              />
+              <Route
+                exact
+                path={ROUTES.SMART_LINK}
+                component={() => <SmartLinkContainer />}
+              />
+
+              <Route
+                exact
+                path={ROUTES.DASHBOARD}
                 component={() => <DashboardContainer />}
               />
               <Route
                 exact
-                path={routes.PROFILE}
+                path={ROUTES.PROFILE}
                 component={() => <ProfileContainer />}
               />
               <Route
                 exact
-                path={routes.JOB_BOARD}
-                component={() => <JobBoardContainer />}
-              />
-              {/* <Route
-              exact
-              path={routes.INTRODUCTION}
-              component={() => (
-                <IntroductionContainer view={INTRODUCTION_CONTAINER.process} />
-              )}
-            /> */}
-              {/* <Route
-              exact
-              path={routes.SUBMISSION}
-              component={() => (
-                <IntroductionContainer
-                  view={INTRODUCTION_CONTAINER.submission}
-                />
-              )}
-            /> */}
-              <Route
-                exact
-                path={routes.BUILD_RESUME}
-                component={() => <SignupContainer />}
+                path={ROUTES.JOBS}
+                component={() => <JobsContainer />}
               />
               <Route
                 exact
-                path={routes.UPLOAD_RESUME}
-                component={() => <SignupContainer />}
+                path={ROUTES.ASSESSMENTS}
+                component={() => <AssessmentsContainer />}
               />
-              {/* <Route
-              exact
-              path={routes.PREVIOUS_SUBMISSION}
-              component={() => <SubmissionContainer />}
-            /> */}
               <Route
                 exact
-                path={routes.SMART_LINK}
-                component={() => <SmartLinkContainer />}
+                path={ROUTES.COURSES}
+                component={() => <CoursesContainer />}
               />
+
               <Route exact path="/linkedin" component={LinkedInPopUp} />
-              {/* <Route
-              exact
-              path={"/remoteLogs"}
-              component={() => <RemoteLoggerContainer />}
-            /> */}
               <Route exact path={'/'} component={() => <Landing />} />
               <Route component={() => <div>404</div>} />
             </Switch>

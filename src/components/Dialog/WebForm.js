@@ -4,6 +4,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Slide from '@material-ui/core/Slide';
 import Grid from '@material-ui/core/Grid';
 import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
@@ -24,6 +25,10 @@ const styles = theme => ({
     top: 0,
   },
 });
+
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
 
 function WebForm(props) {
   const {
@@ -46,6 +51,7 @@ function WebForm(props) {
       open={open}
       onClose={unChanged ? cancelHandler : () => {}}
       aria-labelledby="form-dialog-title"
+      TransitionComponent={Transition}
     >
       <LinearProgress
         className={classes.loading}

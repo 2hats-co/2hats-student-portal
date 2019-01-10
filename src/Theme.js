@@ -1,5 +1,5 @@
 import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import { inherits } from 'util';
+// import { inherits } from 'util';
 export const PRIMARY_COLOR = '#F15A29';
 export const PRIMARY_DARK_TEXT = 'hsl(15, 90%, 40%)';
 export const PRIMARY_LIGHT = 'hsl(15, 88%, 95%)';
@@ -38,71 +38,11 @@ export const Theme = createMuiTheme({
   },
   typography: {
     useNextVariants: true,
-    h3: {
-      fontSize: '42px',
-      fontFamily: primaryFontFamily,
-      color: '#000',
-      fontWeight: 'bold',
-      textAlign: 'left',
-    },
-    h4: {
-      fontSize: '30px',
-      fontFamily: primaryFontFamily,
-      color: BLACK,
-      fontWeight: 'bold',
-      textAlign: 'left',
-    },
-    h5: {
-      fontSize: '24px',
-      fontFamily: primaryFontFamily,
-      fontWeight: 'medium',
-      textAlign: 'center',
-    },
-    h6: {
-      fontFamily: primaryFontFamily,
-      fontWeight: 500,
-      fontSize: '20px',
-      textAlign: 'left',
-      color: inherits,
-    },
-
-    subtitle1: {
-      fontFamily: primaryFontFamily,
-      fontWeight: 500,
-      fontSize: '16px',
-      letterSpacing: '0.08px',
-      lineHeight: 1.5,
-    },
-    body2: {
-      fontSize: '13px',
-      fontWeight: 400,
-      fontFamily: primaryFontFamily,
-      letterSpacing: '0.06px',
-    },
-    button: {
-      fontSize: '15px',
-      fontWeight: 'bold',
-      textAlign: 'center',
-      fontFamily: primaryFontFamily,
-      textTransform: 'none',
-      color: '#000',
-    },
-    caption: {
-      fontSize: '12px',
-      fontWeight: 'regular',
-      fontFamily: primaryFontFamily,
-      color: '#9B9B9B',
-      letterSpacing: '0.05px',
-      lineHeight: '13px',
-    },
-    Button: {
-      fontFamily: primaryFontFamily,
-      fontWeight: 'bold',
-      fontSize: '15px',
-      letterSpacing: '0.1px',
-      textAlign: 'center',
-    },
     fontFamily: primaryFontFamily,
+    button: {
+      textTransform: 'none',
+      fontWeight: 700,
+    },
   },
   shape: {
     borderRadius: BORDER_RADIUS,
@@ -129,15 +69,6 @@ export const Theme = createMuiTheme({
       },
       underline: {
         '&::after': { borderBottomColor: primaryColor },
-      },
-    },
-    MuiInputLabel: {
-      root: {
-        fontSize: '14px',
-        fontWeight: 400,
-        fontColor: 'rgba(0,0,0,1) !important',
-        fontFamily: primaryFontFamily,
-        letterSpacing: '0.06px',
       },
     },
     MuiFormControlLabel: {
