@@ -1,4 +1,5 @@
 const { SELECTORS, CRED } = require('./constants');
+const { takeScreenshot } = require('./screenshotUtil');
 
 const loginEmail = async page => {
   //Select Email Address form
@@ -7,6 +8,7 @@ const loginEmail = async page => {
     delay: 10,
   });
   //Select next button
+  await takeScreenshot(page, 'loginEmail1');
   await page.waitForSelector(SELECTORS.signIn.emailButton);
   await page.click(SELECTORS.signIn.emailButton, { delay: 10 });
   //Fill in password and click signin
@@ -14,6 +16,7 @@ const loginEmail = async page => {
   await page.type(SELECTORS.signIn.emailPassword, CRED.signIn.password, {
     delay: 10,
   });
+  await takeScreenshot(page, 'loginEmail2');
   const signInButtons = await page.$$(SELECTORS.signIn.emailSignIn);
   const signInButton = signInButtons[2];
   signInButton.click({ delay: 10 });
