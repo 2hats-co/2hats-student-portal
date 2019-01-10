@@ -1,8 +1,9 @@
 import React from 'react';
 
+import withNavigation from '../components/withNavigation';
+
 const ProfileContainer = props => {
-  console.log(props);
   return <div>delet</div>;
 };
 
-export default ProfileContainer;
+export default withNavigation(ProfileContainer);

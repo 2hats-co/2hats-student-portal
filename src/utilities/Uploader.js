@@ -1,9 +1,11 @@
 import { firebaseStorage } from '../firebase/storage';
 import { auth } from '../store';
-const pica = require('./pica/index')();
+import Pica from 'pica';
+const pica = Pica();
 var img = new Image();
 var canvas = document.createElement('canvas');
 //takes in blob, callback returns download url
+
 export const blobAvatarUploader = (intialBlob, callback) => {
   img.crossOrigin = 'Anonymous'; //cors support
   img.src = intialBlob.preview || intialBlob;

@@ -3,7 +3,8 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 
-import SuperAvatar from '../SuperAvatar';
+import SuperAvatarPlus from '../Avatar';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = theme => ({
   avatar: {
@@ -15,15 +16,25 @@ const styles = theme => ({
 });
 
 function User(props) {
-  const { classes, name, avatarURL } = props;
+  const { classes, className, user } = props;
 
+  if (!user)
+    return (
+      <div className={className}>
+        <CircularProgress />
+      </div>
+    );
   return (
-    <div>
-      <SuperAvatar
-        className={classes.avatar}
-        data={{ avatarURL, displayName: name }}
+    <div className={className}>
+      <SuperAvatarPlus
+        uid={user && user.id}
+        firstName={user ? user.firstName : ''}
+        lastName={user ? user.lastName : ''}
+        avatarURL={user ? user.avatarURL : ''}
       />
-      <Typography variant="h6">{name}</Typography>
+      <Typography variant="h6">
+        {user && user.firstName} {user && user.lastName}
+      </Typography>
     </div>
   );
 }

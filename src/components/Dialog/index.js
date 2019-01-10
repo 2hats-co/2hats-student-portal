@@ -15,7 +15,7 @@ function Dialog(props) {
     title,
     unChanged,
     addHandler,
-    isOpen,
+    open,
     theme,
     children,
     disabled,
@@ -29,7 +29,7 @@ function Dialog(props) {
         isLoading={isLoading}
         activity={activity}
         title={title}
-        isOpen={isOpen}
+        open={open}
         addHandler={addHandler}
         disabled={disabled}
         cancelHandler={cancelHandler}
@@ -44,7 +44,7 @@ function Dialog(props) {
         activity={activity}
         unChanged={unChanged}
         title={title}
-        isOpen={isOpen}
+        open={open}
         addHandler={addHandler}
         disabled={disabled}
         cancelHandler={cancelHandler}
@@ -59,7 +59,7 @@ function Dialog(props) {
 Dialog.protoTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
-  isOpen: PropTypes.boolean,
+  open: PropTypes.boolean,
   activity: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };

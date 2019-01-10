@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 import {
   CAREER_INTERESTS,
   getIndustryFromInterests,

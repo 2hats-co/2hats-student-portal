@@ -16,8 +16,8 @@ const styles = theme => ({
   },
   actions: {},
   grid: {
-    paddingLeft: 40,
-    paddingRight: 40,
+    // paddingLeft: theme.spacing.unit * 3,
+    // paddingRight: theme.spacing.unit * 3,
   },
   loading: {
     position: 'absolute',
@@ -32,7 +32,7 @@ function WebForm(props) {
     activity,
     title,
     children,
-    isOpen,
+    open,
     addHandler,
     disabled,
     cancelHandler,
@@ -43,7 +43,7 @@ function WebForm(props) {
   return (
     <Dialog
       className={classes.root}
-      open={isOpen}
+      open={open}
       onClose={unChanged ? cancelHandler : () => {}}
       aria-labelledby="form-dialog-title"
     >
@@ -51,24 +51,21 @@ function WebForm(props) {
         className={classes.loading}
         style={isLoading ? {} : { display: 'none' }}
       />
-      <DialogTitle
-        style={{ paddingLeft: 40, paddingBottom: 0, paddingRight: 40 }}
-        id="form-dialog-title"
-      >
+      <DialogTitle id="form-dialog-title">
         {props.hideActivityFromTitle ? null : activity} {title}
       </DialogTitle>
-      <DialogContent className={classes.content}>
+      <DialogContent>
         <Grid
           container
           className={classes.grid}
-          style={{ maxWidth: width }}
+          style={width ? { maxWidth: width } : {}}
           direction="column"
           justify="flex-start"
         >
           {children}
         </Grid>
       </DialogContent>
-      <DialogActions style={{ padding: 10 }}>
+      <DialogActions>
         <Button variant="contained" onClick={cancelHandler}>
           Cancel
         </Button>
@@ -89,7 +86,7 @@ WebForm.protoTypes = {
   title: PropTypes.string.isRequired,
   activity: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  isOpen: PropTypes.boolean,
+  open: PropTypes.boolean,
 };
 
 export default withStyles(styles)(WebForm);

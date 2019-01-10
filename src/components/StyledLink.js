@@ -7,7 +7,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 const styles = theme => ({
   root: {
     fontSize: '13px',
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
     textDecoration: 'inherit',
     '&:hover': {
       textDecoration: 'underline',

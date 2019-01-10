@@ -3,10 +3,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
-import MuiAvatar from '@material-ui/core/Avatar';
+import Avatar from '@material-ui/core/Avatar';
 import deepOrange from '@material-ui/core/colors/deepOrange';
 import Dialog from './Dialog/index';
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
 
 import Dropzone from 'react-dropzone';
 import { db } from '../store';
@@ -18,11 +20,16 @@ const styles = theme => ({
   dropZone: {
     border: 'none !important',
   },
+  avatarButton: {
+    padding: 0,
+    marginBottom: theme.spacing.unit,
+  },
   avatar: {
     cursor: 'pointer',
-    marginTop: -1,
-    fontSize: 14,
     textTransform: 'uppercase',
+    width: theme.spacing.unit * 8,
+    height: theme.spacing.unit * 8,
+    fontSize: theme.spacing.unit * 4,
   },
 
   orangeAvatar: {
@@ -30,8 +37,6 @@ const styles = theme => ({
     backgroundColor: deepOrange[600],
   },
   bigAvatar: {
-    marginTop: 30,
-    marginBottom: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
     width: 180,
@@ -53,11 +58,16 @@ const styles = theme => ({
       textDecoration: 'underline',
     },
   },
+
+  spinner: {
+    position: 'absolute',
+    zIndex: 1,
+  },
 });
 
-class Avatar extends Component {
+class SuperAvatarPlus extends Component {
   state = {
-    isOpen: false,
+    open: false,
     isUploading: false,
     avatarURL: '',
     hasChanged: false,
@@ -77,10 +87,10 @@ class Avatar extends Component {
     }
   }
   openDialog() {
-    this.setState({ isOpen: true });
+    this.setState({ open: true });
   }
   closeDialog() {
-    this.setState({ isOpen: false });
+    this.setState({ open: false });
   }
   cancelHandler() {
     if (this.props.avatarURL) {
@@ -104,51 +114,61 @@ class Avatar extends Component {
     this.setState({ avatarURL: files[0].preview });
     blobAvatarUploader(files[0], this.handleUpload);
   }
+
   render() {
     const { avatarURL, firstName, lastName, classes } = this.props;
-    const { isUploading, hasChanged, isOpen } = this.state;
+    const { isUploading, hasChanged, open } = this.state;
     let avatar = (
-      <MuiAvatar
-        onClick={this.openDialog}
-        scr={avatarURL}
-        className={classNames(classes.avatar)}
-      >
-        {firstName[0]}
-        {lastName[0]}
-      </MuiAvatar>
+      <IconButton className={classes.avatarButton}>
+        <Avatar
+          onClick={this.openDialog}
+          src={avatarURL}
+          className={classNames(classes.avatar)}
+        >
+          {firstName[0]}
+          {lastName[0]}
+        </Avatar>
+      </IconButton>
     );
     let bigAvatar = (
-      <MuiAvatar
-        src={avatarURL}
-        className={classNames(classes.avatar, classes.bigAvatar)}
-      >
-        {firstName[0]}
-        {lastName[0]}
-      </MuiAvatar>
-    );
-    if (avatarURL) {
-      avatar = (
-        <MuiAvatar
-          onClick={this.openDialog}
-          alt={`${firstName} ${lastName}`}
+      <IconButton className={classes.avatarButton}>
+        <Avatar
           src={avatarURL}
-          className={classes.avatar}
-        />
+          className={classNames(classes.avatar, classes.bigAvatar)}
+        >
+          {firstName[0]}
+          {lastName[0]}
+        </Avatar>
+      </IconButton>
+    );
+    if (avatarURL || this.state.avatarURL) {
+      avatar = (
+        <IconButton className={classes.avatarButton}>
+          <Avatar
+            onClick={this.openDialog}
+            alt={`${firstName} ${lastName}`}
+            src={avatarURL}
+            className={classes.avatar}
+          />
+        </IconButton>
       );
 
       bigAvatar = (
-        <MuiAvatar
-          alt={`${firstName} ${lastName}`}
-          src={this.state.avatarURL}
-          className={classNames(classes.avatar, classes.bigAvatar)}
-        />
+        <IconButton className={classes.avatarButton}>
+          <Avatar
+            alt={`${firstName} ${lastName}`}
+            src={this.state.avatarURL}
+            className={classNames(classes.avatar, classes.bigAvatar)}
+          />
+        </IconButton>
       );
     }
+
     return (
       <div>
         {avatar}
         <Dialog
-          isOpen={isOpen}
+          open={open}
           isLoading={isUploading}
           unChanged={!hasChanged}
           title={'Profile Photo'}
@@ -164,6 +184,9 @@ class Avatar extends Component {
             alignItems="center"
             style={{ width: '100%' }}
           >
+            {isUploading && (
+              <CircularProgress className={classes.spinner} size={180} />
+            )}
             <Dropzone
               onDrop={this.onDrop.bind(this)}
               className={classes.dropZone}
@@ -179,8 +202,8 @@ class Avatar extends Component {
   }
 }
 
-Avatar.propTypes = {
+SuperAvatarPlus.propTypes = {
   classes: PropTypes.object.isRequired,
   avatarURL: PropTypes.string,
 };
-export default withStyles(styles)(Avatar);
+export default withStyles(styles)(SuperAvatarPlus);

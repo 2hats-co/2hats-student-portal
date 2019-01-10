@@ -152,11 +152,11 @@ export const Theme = createMuiTheme({
         height: 30,
       },
     },
-    MuiDialog: {
-      root: {
-        overflowY: 'visible',
-      },
-    },
+    // MuiDialog: {
+    //   root: {
+    //     overflowY: 'auto',
+    //   },
+    // },
     MuiDialogTitle: {
       root: {
         color: primaryColor + '!important',

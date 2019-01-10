@@ -42,7 +42,7 @@ function MobileForm(props) {
     activity,
     title,
     children,
-    isOpen,
+    open,
     addHandler,
     disabled,
     cancelHandler,
@@ -51,7 +51,7 @@ function MobileForm(props) {
   return (
     <Dialog
       fullScreen
-      open={isOpen}
+      open={open}
       onClose={cancelHandler}
       TransitionComponent={Transition}
     >
@@ -82,7 +82,7 @@ function MobileForm(props) {
 }
 MobileForm.protoTypes = {
   classes: PropTypes.object.isRequired,
-  isOpen: PropTypes.boolean,
+  open: PropTypes.boolean,
   activity: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };

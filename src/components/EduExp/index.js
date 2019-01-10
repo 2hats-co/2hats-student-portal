@@ -15,6 +15,8 @@ import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import moment from 'moment';
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 const styles = theme => ({
   link: {
     color: theme.palette.primary.light,

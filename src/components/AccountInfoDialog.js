@@ -72,7 +72,7 @@ class AccountInfoDialog extends React.Component {
     }
   }
   render() {
-    const { isOpen } = this.props;
+    const { open } = this.props;
 
     if (this.state) {
       const {
@@ -89,7 +89,7 @@ class AccountInfoDialog extends React.Component {
           activity="Update"
           unChanged={this.state.unChanged}
           title="Account Information"
-          isOpen={isOpen}
+          open={open}
           addHandler={() => {
             this.handleUpdate();
           }}
@@ -98,7 +98,7 @@ class AccountInfoDialog extends React.Component {
             this.handleCancel();
           }}
         >
-          <div style={{ paddingTop: 20, height: 300, minWidth: 300 }}>
+          <div style={{ minWidth: 300 }}>
             <ChangeAdpter changeHandler={this.handleChange}>
               <Name firstName={firstName} lastName={lastName} />
             </ChangeAdpter>

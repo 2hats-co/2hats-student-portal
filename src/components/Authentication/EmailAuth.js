@@ -10,6 +10,8 @@ import Grid from '@material-ui/core/Grid';
 import Validator from 'mailgun-validate';
 import { AUTHENTICATION_CONTAINER } from '../../constants/views';
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 const styles = theme => ({
   button: {
     width: 120,

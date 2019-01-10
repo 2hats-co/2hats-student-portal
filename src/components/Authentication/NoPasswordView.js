@@ -7,6 +7,8 @@ import { PRIMARY_COLOR } from '../../Theme';
 import BackBar from './BackBar';
 import Header from './Header';
 
+/* eslint-disable jsx-a11y/anchor-is-valid */
+
 class NoPasswordView extends React.Component {
   constructor() {
     super();

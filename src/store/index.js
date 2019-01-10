@@ -47,4 +47,5 @@ export function configureStore(initialState, history) {
 export const auth = firebase.auth();
 
 export const db = firebase.firestore();
+export const firestore = db;
 export const functions = firebase.app().functions('asia-northeast1');

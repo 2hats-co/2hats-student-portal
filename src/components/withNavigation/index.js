@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import withAuthorisation from '../../utilities/Session/withAuthorisation';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
 
@@ -21,7 +19,7 @@ import EducationIcon from '@material-ui/icons/School';
 import ContactIcon from '@material-ui/icons/Forum';
 import FaqIcon from '@material-ui/icons/Help';
 import SettingsIcon from '@material-ui/icons/Settings';
-import SignOutIcon from '@material-ui/icons/ExitToApp';
+import LogOutIcon from '@material-ui/icons/ExitToApp';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import { setBackground } from '../../utilities/styling';
@@ -29,6 +27,10 @@ import ROUTES from '../../constants/routes';
 
 import logo from '../../assets/images/Logo/DarkText.svg';
 import User from './User';
+import NavItem from './NavItem';
+import AccountInfoDialog from '../AccountInfoDialog';
+import useDocument from '../../hooks/useDocument';
+import { COLLECTIONS } from '../../constants/firestore';
 
 const DRAWER_WIDTH = 240;
 
@@ -67,6 +69,8 @@ const styles = theme => ({
   },
   userWrapper: {
     padding: theme.spacing.unit * 2,
+    paddingBottom: 0,
+    minHeight: theme.spacing.unit * 15,
   },
   listWrapper: {
     marginTop: theme.spacing.unit * 3,
@@ -75,7 +79,13 @@ const styles = theme => ({
     padding: 0,
   },
   divider: {
-    margin: `0 ${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+  },
+
+  selected: {
+    color: theme.palette.primary.main,
+    boxShadow: `-4px 0 0 ${theme.palette.primary.main} inset`,
+    '& *': { color: theme.palette.primary.main },
   },
 
   navFab: {
@@ -85,124 +95,151 @@ const styles = theme => ({
   },
 });
 
-const MAIN_NAV_ITEMS = [
-  { label: 'Profile', icon: <ProfileIcon /> },
-  { label: 'Jobs', icon: <JobsIcon /> },
-  { label: 'Assessments', icon: <AssessmentsIcon /> },
-  { label: 'Education', icon: <EducationIcon /> },
-];
-const BOTTOM_NAV_ITEMS = [
-  { label: 'Contact Us', icon: <ContactIcon /> },
-  { label: 'FAQ', icon: <FaqIcon /> },
-  { label: 'Divider' },
-  { label: 'Settings', icon: <SettingsIcon /> },
-  { label: 'Sign out', icon: <SignOutIcon /> },
-];
-
 export default function withNavigation(WrappedComponent) {
   function WithNavigation(props) {
-    const { classes, theme, history, location } = props;
+    const { classes, theme, history, location, authUser } = props;
 
     setBackground(theme.palette.background.default);
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [navOpen, setNavOpen] = useState(false);
-
-    const goTo = route => () => {
+    const [showSettings, setShowSettings] = useState(false);
+    const [userState] = useDocument({
+      path: `${COLLECTIONS.users}/${authUser.uid}`,
+    });
+    const user = userState.doc;
+    const goTo = route => {
       history.push(route);
     };
     const path = location.pathname;
 
-    return (
-      <Grid container className={classes.root} wrap="nowrap">
-        <Grid
-          item
-          className={
-            !isMobile ? classes.desktopNavWrapper : classes.mobileNavWrapper
-          }
-        >
-          <Drawer
-            variant={isMobile ? 'temporary' : 'permanent'}
-            open={navOpen || !isMobile}
-            onClose={() => {
-              if (isMobile) setNavOpen(false);
-            }}
-            classes={{ paper: classes.drawerPaper }}
-          >
-            <Grid
-              container
-              direction="column"
-              component="nav"
-              className={classes.nav}
-              wrap="nowrap"
-            >
-              <Grid item>
-                <ButtonBase
-                  onClick={goTo(ROUTES.dashboard)}
-                  className={classes.logoButton}
-                >
-                  <img src={logo} alt="2hats" className={classes.logo} />
-                </ButtonBase>
-                <Divider className={classes.divider} />
-              </Grid>
-              <Grid item className={classes.userWrapper}>
-                <User name="Rachel Mundo" avatarURL="" />
-              </Grid>
-              <Grid item xs className={classes.listWrapper}>
-                <List>
-                  {MAIN_NAV_ITEMS.map((x, i) => (
-                    <ListItem button key={x.label} onClick={goTo(x.route)}>
-                      <ListItemIcon>{x.icon}</ListItemIcon>
-                      <ListItemText
-                        primary={x.label}
-                        classes={{ root: classes.listItemTextRoot }}
-                      />
-                    </ListItem>
-                  ))}
-                </List>
-              </Grid>
-              <Grid item className={classes.listWrapper}>
-                <List>
-                  {BOTTOM_NAV_ITEMS.map((x, i) =>
-                    x.label === 'Divider' ? (
-                      <Divider className={classes.divider} />
-                    ) : (
-                      <ListItem
-                        button
-                        key={x.label}
-                        onClick={x.onClick ? x.onClick : goTo(x.route)}
-                      >
-                        <ListItemIcon>{x.icon}</ListItemIcon>
-                        <ListItemText
-                          primary={x.label}
-                          classes={{ root: classes.listItemTextRoot }}
-                        />
-                      </ListItem>
-                    )
-                  )}
-                </List>
-              </Grid>
-            </Grid>
-          </Drawer>
-        </Grid>
+    const MAIN_NAV_ITEMS = [
+      { label: 'Profile', icon: <ProfileIcon />, route: ROUTES.PROFILE },
+      { type: 'divider' },
+      { label: 'Jobs', icon: <JobsIcon /> },
+      { label: 'Assessments', icon: <AssessmentsIcon /> },
+      { label: 'Education', icon: <EducationIcon /> },
+    ];
+    const BOTTOM_NAV_ITEMS = [
+      {
+        label: 'Contact Us',
+        icon: <ContactIcon />,
+        onClick: () => {
+          window.Intercom('show');
+        },
+      },
+      {
+        label: 'FAQ',
+        icon: <FaqIcon />,
+        type: 'link',
+        href: 'https://intercom.help/2hats/faq-for-students',
+      },
+      { type: 'divider' },
+      {
+        label: 'Settings',
+        icon: <SettingsIcon />,
+        onClick: () => {
+          setShowSettings(true);
+        },
+      },
+      { label: 'Log out', icon: <LogOutIcon />, route: ROUTES.LOG_OUT },
+    ];
 
-        <Grid item xs>
-          <WrappedComponent {...props} classes={null} isMobile={isMobile} />
-          {isMobile && (
-            <Fab
-              onClick={() => {
-                setNavOpen(true);
+    return (
+      <>
+        <Grid container className={classes.root} wrap="nowrap">
+          <Grid
+            item
+            className={
+              !isMobile ? classes.desktopNavWrapper : classes.mobileNavWrapper
+            }
+          >
+            <Drawer
+              variant={isMobile ? 'temporary' : 'permanent'}
+              open={navOpen || !isMobile}
+              onClose={() => {
+                if (isMobile) setNavOpen(false);
               }}
-              color="primary"
-              className={classes.navFab}
+              classes={{ paper: classes.drawerPaper }}
             >
-              <MenuIcon />
-            </Fab>
-          )}
+              <Grid
+                container
+                direction="column"
+                component="nav"
+                className={classes.nav}
+                wrap="nowrap"
+              >
+                <Grid item>
+                  <ButtonBase
+                    onClick={() => {
+                      goTo(ROUTES.DASHBOARD);
+                    }}
+                    className={classes.logoButton}
+                  >
+                    <img src={logo} alt="2hats" className={classes.logo} />
+                  </ButtonBase>
+                  <Divider className={classes.divider} />
+                </Grid>
+                <Grid item className={classes.userWrapper}>
+                  <User user={user} />
+                </Grid>
+                <Grid item xs>
+                  <List>
+                    {MAIN_NAV_ITEMS.map((x, i) => (
+                      <NavItem
+                        data={x}
+                        key={i}
+                        selected={path === x.route}
+                        goTo={goTo}
+                      />
+                    ))}
+                  </List>
+                </Grid>
+                <Grid item className={classes.listWrapper}>
+                  <List>
+                    {BOTTOM_NAV_ITEMS.map((x, i) => (
+                      <NavItem
+                        data={x}
+                        key={i}
+                        selected={path === x.route}
+                        goTo={goTo}
+                      />
+                    ))}
+                  </List>
+                </Grid>
+              </Grid>
+            </Drawer>
+            <AccountInfoDialog
+              user={user}
+              open={showSettings}
+              closeHandler={() => {
+                setShowSettings(false);
+              }}
+            />
+          </Grid>
+
+          <Grid item xs>
+            <WrappedComponent {...props} classes={null} isMobile={isMobile} />
+            {isMobile && (
+              <Fab
+                onClick={() => {
+                  setNavOpen(true);
+                }}
+                color="primary"
+                className={classes.navFab}
+              >
+                <MenuIcon />
+              </Fab>
+            )}
+          </Grid>
         </Grid>
-      </Grid>
+      </>
     );
   }
-
-  return withRouter(withStyles(styles, { withTheme: true })(WithNavigation));
+  const authCondition = authUser => !!authUser;
+  return withRouter(
+    withAuthorisation(authCondition)(
+      withStyles(styles, { withTheme: true })(WithNavigation)
+    )
+  );
 }
