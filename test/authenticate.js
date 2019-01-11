@@ -22,7 +22,6 @@ const main = async () => {
   await page.goto('http://localhost:3000/profile');
   await testMainPortal(page);
   //Run through Edit Account Information (try deleting from DB?)
-
   browser.close();
   await compareAllScreenshots();
 };

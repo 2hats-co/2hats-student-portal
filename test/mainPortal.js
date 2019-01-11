@@ -113,7 +113,8 @@ const selectEditAccountInfo = async page => {
   await takeScreenshot(page, 'editAccInfo0');
   //Enter firstname
   await page.waitForSelector(SELECTORS.editAccInfo.fName);
-  await page.type(SELECTORS.editAccInfo.fName, 'Victor', {
+  const firstName = await page.$(SELECTORS.editAccInfo.fName);
+  firstName.type('Victor', {
     delay: 10,
   });
   await takeScreenshot(page, 'editAccInfo1');
@@ -187,6 +188,22 @@ function checkRedirect(page, url) {
   }
   return didRedirect;
 }
+
+//Idea scrapped?
+async function checkInputEmpty(page, selector) {
+  //Return the value inside input field for selector
+  const res = await page.evaluate(`async () => {
+    const element = document.querySelector("#firstName")
+    const value = document.querySelector("#firstName").value;
+    console.log(value);
+    console.log(element);
+    return {element,value}
+  }`);
+  console.log(res);
+  return res == '';
+}
+
+async function checkDbBefore() {}
 
 const testMainPortal = async page => {
   await selectHomeButton(page);
