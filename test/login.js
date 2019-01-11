@@ -25,6 +25,59 @@ const loginEmail = async page => {
   return page;
 };
 
+// const loginSteps = {
+//   steps: [
+//     { fn: 'waitForSelector', value: SELECTORS.signIn.emailInput },
+//     { fn: 'type', value: CRED.signIn.email },
+//   ],
+//   test: 'loginSteps',
+// };
+
+// /**
+//  *
+//  * @param {Object} testObj
+//  * @param {String} testObj.test
+//  * @param {Array} testObj.steps
+//  */
+// const runTest = async (page, testObj) => {
+//   const { steps, test } = testObj;
+//   let stepCount = 0;
+//   for await (const step of steps) {
+//     console.log(`Running step ${stepCount} of ${test}`);
+//     for await (const action of step) {
+//       switch (action.fn) {
+//         case 'waitForSelector':
+//           await page.waitForSelector(action.value);
+//           break;
+//         case 'takeScreenshot':
+//           await takeScreenshot(page, action.value);
+//           break;
+//         case 'click':
+//           await page.click(action.value, { delay: 10 });
+//           break;
+//         case 'type':
+//           await page.type(action.value[0], action.value[1], {
+//             delay: 10,
+//           });
+//           break;
+//         case 'waitForNavigation':
+//           await page.waitForNavigation({ waitUntil: 'networkidle2' });
+//           break;
+//         case 'waitForNavigation':
+//           await page.waitForNavigation({ waitUntil: 'networkidle2' });
+//           break;
+//         case 'waitForNavigation':
+//           await page.waitForNavigation({ waitUntil: 'networkidle2' });
+//           break;
+
+//         default:
+//           break;
+//       }
+//       await page.waitFor(500);
+//     }
+//   }
+// };
+
 const signUpEmail = async page => {
   //Select Email Address form
   await page.waitForSelector(SELECTORS.signIn.emailInput);
@@ -46,6 +99,7 @@ const signUpEmail = async page => {
   await page.type(SELECTORS.signUp.password, CRED.signIn.password, {
     delay: 10,
   });
+
   await page.click(SELECTORS.signUp.signUpButton, { delay: 10 });
 
   //Should be signed in from here

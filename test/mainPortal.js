@@ -1,5 +1,6 @@
 const { SELECTORS, CONST } = require('./constants');
 const { takeScreenshot } = require('./screenshotUtil');
+const { checkDb } = require('./dbUtil');
 
 const selectHomeButton = async page => {
   await page.waitForSelector(SELECTORS.portal.dashButton);
@@ -105,6 +106,8 @@ const selectEditAccountInfo = async page => {
   cancel.click({ delay: 10 });
   await page.waitFor(500);
   await takeScreenshot(page, 'editAccInfoCancel1');
+  //CHECK db beforehand
+  const beforeData = JSON.stringify(await checkDb());
   //Click the EditAccountInfo Button Again
   await page.waitForSelector(SELECTORS.portal.accountInfoButton);
   accountInfoButton = (await page.$$(SELECTORS.portal.accountInfoButton))[5];
@@ -162,6 +165,14 @@ const selectEditAccountInfo = async page => {
   save.click({ delay: 10 });
   await page.waitFor(500);
   await takeScreenshot(page, 'editAccInfo8');
+  //CHECK db after
+  await page.waitFor(1500);
+  const afterData = JSON.stringify(await checkDb());
+  if (afterData !== beforeData) {
+    console.log('Success: Db user data changed');
+  } else {
+    console.log('Failed: Db user data did not change');
+  }
 };
 
 const selectLogout = async page => {
@@ -202,8 +213,6 @@ async function checkInputEmpty(page, selector) {
   console.log(res);
   return res == '';
 }
-
-async function checkDbBefore() {}
 
 const testMainPortal = async page => {
   await selectHomeButton(page);

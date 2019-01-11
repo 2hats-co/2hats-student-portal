@@ -1,5 +1,6 @@
 const { SELECTORS, CRED } = require('./constants');
 const { takeScreenshot } = require('./screenshotUtil');
+const { checkDb } = require('./dbUtil');
 const FILEPATH = './testResume.pdf';
 
 const selectCareerInterests = async page => {
@@ -81,11 +82,21 @@ const selectWorkAvaliability = async page => {
 };
 
 const testUploadResume = async page => {
+  //CHECK db beforehand
+  const beforeData = JSON.stringify(await checkDb());
   await selectCareerInterests(page);
   await selectRelevantSkills(page);
   await selectCurrentUniversity(page); //Problem with this one
   await selectUploadResume(page);
   await selectWorkAvaliability(page);
+  //CHECK db after
+  await page.waitFor(1500);
+  const afterData = JSON.stringify(await checkDb());
+  if (afterData !== beforeData) {
+    console.log('Success: Db user data changed');
+  } else {
+    console.log('Failed: Db user data did not change');
+  }
   console.log('testedResume');
 };
 

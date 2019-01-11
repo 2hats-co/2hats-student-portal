@@ -78,6 +78,7 @@ const CONST = {
   screenshotPath: './test/screenshots',
   testPath: './test',
   sampleProfilePath: './test/passiveAngrey.jpg',
+  sampleUserId: 'TO4P3eMVGGOben7jgUbekwNylQh1',
 };
 
 module.exports = { SELECTORS, CRED, CONST };
