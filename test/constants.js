@@ -33,6 +33,34 @@ const SELECTORS = {
     availableDaysInput: '#availableDays',
     workConditionInput: '#workingRights',
   },
+  portal: {
+    dashButton: "button[type='button']", //0
+    profileButton: "button[type='button']", //1
+    profileImage: 'div>img',
+    profilePhoto: "button[type='button']", //2
+    profilePhotoCancel: "button[type='button']", //3
+    profilePhotoUpdate: "button[type='button']", //4
+    profilePhotoInput: "input[type='file']", //0
+    profileRouteButton: "div[role='button']", //0
+    jobsButton: "div[role='button']", //1
+    assessmentButton: "div[role='button']", //2
+    coursesButton: "div[role='button']", //3
+    contactUsButton: "div[role='button']", //4
+    FAQButton: "a[target='_blank']",
+    accountInfoButton: "div[role='button']", //5
+    logOutButton: "div[role='button']", //6
+  },
+  editAccInfo: {
+    fName: '#firstName',
+    lName: '#lastName',
+    currUni: "div[type='text']",
+    workCond: "div[role='button']", //7
+    availDays: "div[role='button']", //8
+    mobileNum: '#phoneNumber',
+    promoCode: '#component-error',
+    cancel: "button[type='button']", //2
+    save: "button[type='button']", //3
+  },
 };
 const CRED = {
   signIn: {
@@ -49,6 +77,7 @@ const CRED = {
 const CONST = {
   screenshotPath: './test/screenshots',
   testPath: './test',
+  sampleProfilePath: './test/passiveAngrey.jpg',
 };
 
 module.exports = { SELECTORS, CRED, CONST };
