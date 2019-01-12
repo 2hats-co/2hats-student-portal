@@ -42,6 +42,7 @@ const styles = theme => ({
   root: {
     width: '100vw',
     height: '100vh',
+    overflowX: 'hidden',
   },
 
   desktopNavWrapper: {
@@ -71,6 +72,7 @@ const styles = theme => ({
   userWrapper: {
     padding: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit / 2,
+    cursor: 'default',
   },
   listWrapper: {
     marginTop: theme.spacing.unit * 3,

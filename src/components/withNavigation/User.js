@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Typography from '@material-ui/core/Typography';
 
-import SuperAvatarPlus from '../Avatar';
+import SuperAvatarPlus from '../SuperAvatarPlus';
 import { CircularProgress } from '@material-ui/core';
 
 function User(props) {

@@ -4,12 +4,13 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
-import deepOrange from '@material-ui/core/colors/deepOrange';
 import Dialog from './Dialog/index';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
+
+import EditIcon from '@material-ui/icons/Edit';
 
 import Dropzone from 'react-dropzone';
 import { db } from '../store';
@@ -23,6 +24,8 @@ const styles = theme => ({
   avatarButton: {
     padding: 0,
     marginBottom: theme.spacing.unit,
+
+    '&:hover $editIcon': { opacity: 1 },
   },
   avatar: {
     cursor: 'pointer',
@@ -31,11 +34,19 @@ const styles = theme => ({
     height: theme.spacing.unit * 8,
     fontSize: theme.spacing.unit * 4,
   },
+  editIcon: {
+    opacity: 0,
+    position: 'absolute',
+    transition: theme.transitions.create('opacity', {
+      duration: theme.transitions.duration.shortest,
+    }),
 
-  orangeAvatar: {
     color: '#fff',
-    backgroundColor: deepOrange[600],
+    backgroundColor: 'rgba(0,0,0,.25)',
+    boxShadow: `0 0 0 ${theme.spacing.unit * 2.5}px rgba(0,0,0,.25)`,
+    borderRadius: '50%',
   },
+
   bigAvatar: {
     marginLeft: 'auto',
     marginRight: 'auto',
@@ -114,15 +125,12 @@ class SuperAvatarPlus extends Component {
     const { avatarURL, firstName, lastName, classes } = this.props;
     const { isUploading, hasChanged, open } = this.state;
     let avatar = (
-      <IconButton className={classes.avatarButton}>
-        <Avatar
-          onClick={this.openDialog}
-          src={avatarURL}
-          className={classNames(classes.avatar)}
-        >
+      <IconButton className={classes.avatarButton} onClick={this.openDialog}>
+        <Avatar src={avatarURL} className={classNames(classes.avatar)}>
           {firstName[0]}
           {lastName[0]}
         </Avatar>
+        <EditIcon className={classes.editIcon} />
       </IconButton>
     );
     let bigAvatar = (
@@ -138,13 +146,13 @@ class SuperAvatarPlus extends Component {
     );
     if (avatarURL || this.state.avatarURL) {
       avatar = (
-        <IconButton className={classes.avatarButton}>
+        <IconButton className={classes.avatarButton} onClick={this.openDialog}>
           <Avatar
-            onClick={this.openDialog}
             alt={`${firstName} ${lastName}`}
             src={avatarURL}
             className={classes.avatar}
           />
+          <EditIcon className={classes.editIcon} />
         </IconButton>
       );
 

@@ -158,6 +158,7 @@ export const Theme = createMuiTheme({
     },
     // NEW OVERRIDES
     MuiLink: {
+      root: { fontFamily: primaryFontFamily },
       button: { fontFamily: primaryFontFamily },
     },
   },

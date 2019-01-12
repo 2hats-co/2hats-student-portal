@@ -2,6 +2,7 @@ import React from 'react';
 import DoneIcon from '@material-ui/icons/Done';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Link from '@material-ui/core/Link';
 
 const styles = theme => ({
   doneIcon: {
@@ -32,9 +33,9 @@ function MessageView(props) {
         {message}
       </Typography>
 
-      <a href={destination} className={classes.link}>
+      <Link href={destination} className={classes.link}>
         Go to {destinationName}
-      </a>
+      </Link>
     </React.Fragment>
   );
 }
