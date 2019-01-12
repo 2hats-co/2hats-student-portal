@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 import withAuthorisation from '../../utilities/Session/withAuthorisation';
 
@@ -31,6 +31,7 @@ import NavItem from './NavItem';
 import AccountInfoDialog from '../AccountInfoDialog';
 import useDocument from '../../hooks/useDocument';
 import { COLLECTIONS } from '../../constants/firestore';
+import UserContext from '../../contexts/UserContext';
 
 const DRAWER_WIDTH = 240;
 
@@ -98,10 +99,14 @@ export default function withNavigation(WrappedComponent) {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [navOpen, setNavOpen] = useState(false);
     const [showAccountInfo, setShowAccountInfo] = useState(false);
+
+    const userContext = useContext(UserContext);
     const [userState] = useDocument({
       path: `${COLLECTIONS.users}/${authUser.uid}`,
     });
-    const user = userState.doc;
+    if (userState.doc && !userContext.user) userContext.setUser(userState.doc);
+    const user = userContext.user;
+
     const goTo = route => {
       history.push(route);
     };
