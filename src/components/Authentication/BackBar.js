@@ -17,7 +17,7 @@ function BackBar(props) {
         borderStyle: 'solid',
         borderRadius: 30,
         height: 40,
-        borderWidth: 0.5,
+        borderWidth: 1,
         borderColor: '#aeaeae',
         marginBottom: 20,
       }}

@@ -7,18 +7,21 @@ import { getSkills } from '../../../constants/resumeBuilderPrompts';
 import AddIcon from '@material-ui/icons/AddCircle';
 
 const styles = theme => ({
-  root: {},
+  title: {
+    marginTop: theme.spacing.unit * 3,
+    marginBottom: theme.spacing.unit,
+  },
   chip: {
-    margin: theme.spacing.unit / 2,
-    backgroundColor: '#FAEDE4',
-    '&:hover': {
-      backgroundColor: '#FAEDE4',
+    marginTop: theme.spacing.unit / 2,
+    backgroundColor: theme.palette.primary.light,
+    '&:hover, &:focus': {
+      backgroundColor: theme.palette.primary.light,
     },
   },
   addIcon: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
     '&:hover': {
-      color: theme.palette.primary.light,
+      color: theme.palette.primary.main,
     },
   },
 });
@@ -71,9 +74,9 @@ class SuggestedSkills extends React.Component {
       );
     });
     return (
-      <div>
+      <div className={classes.root}>
         {suggestedSkills.length > 0 && (
-          <Typography variant="body2" style={{ margin: '16px 0 8px' }}>
+          <Typography variant="body2" className={classes.title}>
             Suggested skills based on your interests:
           </Typography>
         )}

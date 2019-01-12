@@ -7,10 +7,9 @@ import { validateEmail } from '../../utilities/validators';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import Link from '@material-ui/core/Link';
 import Validator from 'mailgun-validate';
 import { AUTHENTICATION_CONTAINER } from '../../constants/views';
-
-/* eslint-disable jsx-a11y/anchor-is-valid */
 
 const styles = theme => ({
   button: {
@@ -25,7 +24,6 @@ const styles = theme => ({
     width: '100%',
   },
   link: {
-    color: theme.palette.primary.light,
     cursor: 'pointer',
     textDecoration: 'none',
     marginRight: 10,
@@ -168,7 +166,9 @@ class EmailAuth extends Component {
           <Typography variant="body2" className={classes.text}>
             Did you mean:
             <br />
-            <a
+            <Link
+              component="button"
+              variant="body2"
               className={classes.link}
               onClick={() => {
                 this.setState({ email: emailSuggestion });
@@ -176,9 +176,11 @@ class EmailAuth extends Component {
               }}
             >
               {emailSuggestion}
-            </a>
+            </Link>
             {!invalidEmail && (
-              <a
+              <Link
+                component="button"
+                variant="body2"
                 className={classes.link}
                 style={{ color: '#000' }}
                 onClick={() => {
@@ -186,14 +188,15 @@ class EmailAuth extends Component {
                 }}
               >
                 Ignore
-              </a>
+              </Link>
             )}
           </Typography>
         )}
         <Button
           key="check-button"
           id="check-button"
-          variant="text"
+          variant="contained"
+          color="primary"
           disabled={!validateEmail(email)}
           onClick={this.onNext}
           className={classes.button}

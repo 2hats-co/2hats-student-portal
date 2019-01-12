@@ -17,6 +17,7 @@ const styles = theme => ({
   },
   actions: {},
   grid: {
+    paddingTop: theme.spacing.unit / 2,
     // paddingLeft: theme.spacing.unit * 3,
     // paddingRight: theme.spacing.unit * 3,
   },

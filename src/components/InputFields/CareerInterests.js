@@ -8,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
-
-/* eslint-disable jsx-a11y/anchor-is-valid */
+import Link from '@material-ui/core/Link';
 
 import {
   CAREER_INTERESTS,
@@ -42,15 +41,8 @@ const styles = theme => ({
   text: {
     paddingTop: 10,
     paddingBottom: 10,
-  },
-  link: {
-    color: theme.palette.primary.light,
-    cursor: 'pointer',
-    textDecoration: 'underline',
-
-    '&:hover': {
-      textDecoration: 'underline',
-    },
+    marginRight: 8,
+    display: 'inline-block',
   },
 });
 class CareerInterests extends React.Component {
@@ -184,13 +176,15 @@ class CareerInterests extends React.Component {
 
           <Typography variant="body2" className={classes.text}>
             Want to check career interests from 2hats again?{' '}
-            <a
-              className={classes.link}
-              onClick={this.switchToOptions.bind(this)}
-            >
-              Click here
-            </a>
           </Typography>
+          <Link
+            component="button"
+            variant="body2"
+            className={classes.link}
+            onClick={this.switchToOptions.bind(this)}
+          >
+            Click here
+          </Link>
         </div>
       );
     } else {
@@ -208,10 +202,14 @@ class CareerInterests extends React.Component {
           </Grid>
           <Typography variant="body2" className={classes.text}>
             Don't see your career interest?{' '}
-            <a className={classes.link} onClick={this.switchToOther.bind(this)}>
-              Click here
-            </a>
           </Typography>
+          <Link
+            component="button"
+            variant="body2"
+            onClick={this.switchToOther.bind(this)}
+          >
+            Click here
+          </Link>
         </div>
       );
     }

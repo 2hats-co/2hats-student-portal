@@ -13,9 +13,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import moment from 'moment';
-
-/* eslint-disable jsx-a11y/anchor-is-valid */
 
 const styles = theme => ({
   link: {
@@ -187,10 +186,14 @@ class EducationContainer extends React.Component {
                 style={{ textAlign: 'left', marginTop: 40, marginLeft: 40 }}
               >
                 Press ‘+’ or{' '}
-                <a className={classes.link} onClick={this.handleNewItem}>
+                <Link
+                  component="button"
+                  className={classes.link}
+                  onClick={this.handleNewItem}
+                >
                   {' '}
                   here
-                </a>{' '}
+                </Link>{' '}
                 to get started
               </Typography>
             </Card>

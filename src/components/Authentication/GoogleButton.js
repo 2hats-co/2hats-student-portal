@@ -68,7 +68,7 @@ class GoogleButton extends Component {
         onFailure={this.handleGoogleAuthFail}
         render={renderProps => (
           <Button
-            variant="text"
+            variant="contained"
             key={`google-button`}
             style={{ backgroundColor: '#E05449' }}
             onClick={renderProps.onClick}

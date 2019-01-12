@@ -261,6 +261,7 @@ class ResumeLoader extends React.Component {
                               transform: 'scale(0.8)',
                               marginRight: -12,
                             }}
+                            childrenClassName={null}
                           />
                         }
                         style={{ maxWidth: '100%' }}

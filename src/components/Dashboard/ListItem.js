@@ -121,7 +121,12 @@ function ListItem(props) {
         //alignItems='center' justify='center'
       >
         <IconButton className={classes.button} component="span">
-          <a className={classes.link} href={link} target="_blank">
+          <a
+            className={classes.link}
+            href={link}
+            target="_blank"
+            rel="noreferrer noopener"
+          >
             {actionIcon}
           </a>
         </IconButton>

@@ -58,6 +58,8 @@ function CreatePasswordView(props) {
       </ChangeAdapter>
 
       <Button
+        variant="contained"
+        color="primary"
         disabled={isLoading}
         style={{ width: 180, marginTop: 40 }}
         onClick={() => {

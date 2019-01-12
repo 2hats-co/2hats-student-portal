@@ -1,31 +1,42 @@
 import React from 'react';
 import DoneIcon from '@material-ui/icons/Done';
 import Typography from '@material-ui/core/Typography';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-import StyledLink from '../StyledLink';
+const styles = theme => ({
+  doneIcon: {
+    fontSize: 120,
+    color: '#00E676',
+  },
+  message: {
+    textAlign: 'center',
+    textTransform: 'none',
+    marginTop: 10,
+    marginBottom: 40,
+  },
+  link: {
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': { textDecoration: 'underline' },
+  },
+});
 
 function MessageView(props) {
-  const { message, destination, destinationName } = props;
+  const { classes, message, destination, destinationName } = props;
 
   return (
     <React.Fragment>
-      <DoneIcon style={{ fontSize: 120, color: '#00E676' }} />
+      <DoneIcon className={classes.doneIcon} />
 
-      <Typography
-        variant="h6"
-        style={{
-          textAlign: 'center',
-          textTransform: 'none',
-          marginTop: 10,
-          marginBottom: 40,
-        }}
-      >
+      <Typography variant="h6" className={classes.message}>
         {message}
       </Typography>
 
-      <StyledLink href={destination}>Go to {destinationName}</StyledLink>
+      <a href={destination} className={classes.link}>
+        Go to {destinationName}
+      </a>
     </React.Fragment>
   );
 }
 
-export default MessageView;
+export default withStyles(styles)(MessageView);

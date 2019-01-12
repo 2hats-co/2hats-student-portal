@@ -40,6 +40,8 @@ function PasswordView(props) {
           disabled={isLoading}
           onClick={passwordAction}
           style={{ width: 120 }}
+          variant="contained"
+          color="primary"
         >
           Sign in
         </Button>

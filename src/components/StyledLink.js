@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Link from '@material-ui/core/Link';
 
 // 1. We define the styles.
 const styles = theme => ({
@@ -23,7 +24,8 @@ function StyledLink(props) {
   const { children, classes, className, variant, ...other } = props;
 
   return (
-    <a
+    <Link
+      component="button"
       className={classNames(
         classes.root,
         {
@@ -34,7 +36,7 @@ function StyledLink(props) {
       {...other}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 

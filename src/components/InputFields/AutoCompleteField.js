@@ -148,8 +148,9 @@ class AutoCompleteField extends React.Component {
                   </Grid>
                   <Grid item xs={2}>
                     <Button
-                      variant="text"
-                      style={{ marginLeft: 5, height: 12, borderRadius: 5 }}
+                      variant="outlined"
+                      color="primary"
+                      style={{ marginLeft: 8 }}
                       onClick={this.handleAdd}
                     >
                       Add

@@ -36,6 +36,8 @@ function ResetPasswordView(props) {
       </div>
 
       <Button
+        variant="contained"
+        color="primary"
         disabled={isLoading}
         style={{ width: 180, marginTop: 40 }}
         onClick={() => {

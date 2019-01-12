@@ -46,6 +46,8 @@ function SignUpView(props) {
       <Disclaimer />
 
       <Button
+        variant="contained"
+        color="primary"
         disabled={isLoading}
         onClick={passwordAction}
         style={{ width: 120 }}

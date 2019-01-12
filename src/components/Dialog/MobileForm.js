@@ -15,21 +15,22 @@ import Slide from '@material-ui/core/Slide';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-const styles = {
-  appBar: {
-    position: 'relative',
+const styles = theme => ({
+  toolbar: {
+    padding: `0 ${theme.spacing.unit / 2}px`,
   },
-  flex: {
+  title: {
     flex: 1,
+    paddingLeft: theme.spacing.unit * 1.5,
   },
   fields: {
-    paddingLeft: 40,
-    paddingRight: 40,
+    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 2}px`,
+    paddingTop: theme.spacing.unit * (3 + 7),
   },
   loading: {
     //position:'absolute',
   },
-};
+});
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -39,7 +40,7 @@ function MobileForm(props) {
   const {
     isLoading,
     classes,
-    activity,
+    // activity,
     title,
     children,
     open,
@@ -56,7 +57,7 @@ function MobileForm(props) {
       TransitionComponent={Transition}
     >
       <AppBar className={classes.appBar}>
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <IconButton
             color="inherit"
             onClick={cancelHandler}
@@ -64,11 +65,11 @@ function MobileForm(props) {
           >
             <CloseIcon />
           </IconButton>
-          <Typography variant="h6" color="inherit" className={classes.flex}>
+          <Typography variant="h6" color="inherit" className={classes.title}>
             {title}
           </Typography>
           <Button color="inherit" onClick={addHandler} disabled={disabled}>
-            {activity}
+            Save
           </Button>
         </Toolbar>
       </AppBar>

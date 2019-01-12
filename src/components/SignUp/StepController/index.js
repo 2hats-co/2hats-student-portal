@@ -159,7 +159,8 @@ class StepController extends React.Component {
         id={`next-${currentStep.split(' ')[0]}`}
         className={classes.button}
         disabled={checkComplition(currentStep, profile)}
-        variant="text"
+        variant="contained"
+        color="primary"
         onClick={() => {
           this.handleNext(currentStep);
         }}
@@ -173,6 +174,7 @@ class StepController extends React.Component {
         id={`back-${currentStep}`}
         className={classes.button}
         variant="outlined"
+        color="primary"
         onClick={() => {
           this.handleBack(currentStep);
         }}
@@ -256,7 +258,7 @@ class StepController extends React.Component {
           {isMobile && (
             <Grid
               container
-              style={{ width: '90%' }}
+              style={{ width: '100%', padding: '0 16px' }}
               direction="row"
               justify="flex-end"
             >

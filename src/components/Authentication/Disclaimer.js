@@ -9,7 +9,7 @@ const styles = theme => ({
   },
   large: theme.typography.body2,
   link: {
-    color: theme.palette.primary.light,
+    color: theme.palette.primary.main,
     textDecoration: 'inherit',
     '&:hover': {
       textDecoration: 'underline',

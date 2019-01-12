@@ -11,7 +11,7 @@ const styles = theme => ({
     width: '100%',
     padding: 0,
     overflowX: 'hidden',
-    maxWidth: 750,
+    // maxWidth: 750,
     flexGrow: 1,
   },
 });
@@ -35,26 +35,27 @@ function DotMobileStepper(props) {
       className={classes.root}
       nextButton={
         <Button
-          variant="contained"
+          variant="text"
           size="small"
           onClick={handleNext}
           disabled={nextDisabler}
+          color="primary"
         >
           {activeStep === steps.length - 1 ? 'Preview' : 'Next'}
           {activeStep !== steps.length - 1 &&
             (theme.direction === 'rtl' ? (
-              <KeyboardArrowLeft />
+              <KeyboardArrowLeft style={{ margin: 0 }} />
             ) : (
-              <KeyboardArrowRight />
+              <KeyboardArrowRight style={{ margin: 0 }} />
             ))}
         </Button>
       }
       backButton={
-        <Button variant="contained" size="small" onClick={handleBack}>
+        <Button variant="text" size="small" onClick={handleBack}>
           {theme.direction === 'rtl' ? (
-            <KeyboardArrowRight />
+            <KeyboardArrowRight style={{ margin: 0 }} />
           ) : (
-            <KeyboardArrowLeft />
+            <KeyboardArrowLeft style={{ margin: 0 }} />
           )}
           Back
         </Button>

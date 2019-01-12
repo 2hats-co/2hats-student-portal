@@ -12,20 +12,11 @@ const styles = theme => ({
     maxWidth: 850,
     marginTop: -20,
   },
-  chip: {
-    color: '#fff',
-    marginTop: 10,
-    margin: 4,
-    backgroundColor: theme.palette.primary.light,
-    '&:hover': {
-      backgroundColor: theme.palette.primary.light,
-    },
+  chipWrapper: {
+    marginTop: theme.spacing.unit,
   },
-  cancelIcon: {
-    color: '#fff',
-    '&:hover': {
-      color: '#fff',
-    },
+  chip: {
+    marginTop: theme.spacing.unit,
   },
 });
 class Skills extends React.Component {
@@ -82,20 +73,23 @@ class Skills extends React.Component {
           list={list}
           onComplete={this.addNewSkill}
         />
-        {this.state.selectedList.map(x => (
-          <Chip
-            key={x}
-            label={x}
-            className={classes.chip}
-            onClick={() => {
-              this.handleDelete(x);
-            }}
-            onDelete={() => {
-              this.handleDelete(x);
-            }}
-            deleteIcon={<CancelIcon className={classes.cancelIcon} />}
-          />
-        ))}
+        <div className={classes.chipWrapper}>
+          {this.state.selectedList.map(x => (
+            <Chip
+              key={x}
+              label={x}
+              color="primary"
+              onClick={() => {
+                this.handleDelete(x);
+              }}
+              onDelete={() => {
+                this.handleDelete(x);
+              }}
+              deleteIcon={<CancelIcon />}
+              className={classes.chip}
+            />
+          ))}
+        </div>
         {!hideSuggestions && (
           <SuggestedSkills
             preSelectedList={this.state.selectedList}

@@ -7,7 +7,6 @@ import Header from './Header';
 import GoogleButton from './GoogleButton';
 import LinkedinButton from './LinkedinButton';
 import EmailAuth from './EmailAuth';
-import StyledLink from '../StyledLink';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import womanGraphic from '../../assets/images/graphics/SignUpWoman.svg';
@@ -21,6 +20,12 @@ const styles = theme => ({
     width: 100,
     height: 100,
     marginLeft: -5,
+  },
+  link: {
+    marginLeft: theme.spacing.unit / 2,
+    color: theme.palette.primary.main,
+    textDecoration: 'none',
+    '&:hover': { textDecoration: 'underline' },
   },
 });
 function AuthView(props) {
@@ -93,10 +98,13 @@ function AuthView(props) {
           {onSignupRoute
             ? 'Already have an account?'
             : 'Don’t have an account?'}
+          <a
+            className={classes.link}
+            href={onSignupRoute ? routes.SIGN_IN : routes.SIGN_UP}
+          >
+            {onSignupRoute ? 'Sign in' : 'Sign up'}
+          </a>
         </Typography>
-        <StyledLink href={onSignupRoute ? routes.SIGN_IN : routes.SIGN_UP}>
-          {onSignupRoute ? 'Sign in' : 'Sign up'}
-        </StyledLink>
       </div>
     </React.Fragment>
   );

@@ -1,13 +1,10 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../../utilities/CloudFunctions';
-import { PRIMARY_COLOR } from '../../Theme';
 
 import BackBar from './BackBar';
 import Header from './Header';
-
-/* eslint-disable jsx-a11y/anchor-is-valid */
+import { Link } from '@material-ui/core';
 
 class NoPasswordView extends React.Component {
   constructor() {
@@ -44,31 +41,25 @@ class NoPasswordView extends React.Component {
           backHandler={backHandler}
         />
         <Header greeting="Welcome back" name={firstName} />
-        <Grid
-          container
-          style={{ height: 105 }}
-          direction="column"
-          justify="space-between"
-        >
-          <Typography variant="body2">
-            We’ve sent you a confirmation email, please check your mailbox.
-          </Typography>
+        <Typography variant="body2">
+          We’ve sent you a confirmation email, please check your mailbox.
+        </Typography>
 
-          <Typography variant="body2">
-            Didn’t receive the email? You can request a resend&nbsp;
-            <a
-              onClick={this.resendEmail}
-              style={{
-                color: PRIMARY_COLOR,
-                cursor: 'pointer',
-                textDecoration: 'underline',
-              }}
-            >
-              here
-            </a>
-            . Don’t forget to check your junk or spam folder.
-          </Typography>
-        </Grid>
+        <Typography variant="body2" style={{ marginTop: 8 }}>
+          Didn’t receive the email? You can request a resend&nbsp;
+          <Link
+            variant="body2"
+            component="button"
+            onClick={this.resendEmail}
+            style={{
+              textDecoration: 'underline',
+              verticalAlign: 'baseline',
+            }}
+          >
+            here
+          </Link>
+          . Don’t forget to check your junk or spam folder.
+        </Typography>
       </React.Fragment>
     );
   }
