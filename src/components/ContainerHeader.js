@@ -8,7 +8,8 @@ const styles = theme => ({
   root: {
     padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
     [theme.breakpoints.down('sm')]: {
-      paddingLeft: theme.spacing.unit * 10,
+      paddingLeft: theme.spacing.unit * 11,
+      paddingTop: theme.spacing.unit * 3.25,
     },
   },
   title: {
@@ -23,14 +24,14 @@ const styles = theme => ({
 });
 
 function ContainerHeader(props) {
-  const { classes, title, subtitle } = props;
+  const { classes, title, subtitle, isMobile } = props;
 
   return (
     <header className={classes.root}>
-      <Typography variant="h3" className={classes.title}>
+      <Typography variant={isMobile ? 'h4' : 'h3'} className={classes.title}>
         {title}
       </Typography>
-      <Typography variant="h5" className={classes.subtitle}>
+      <Typography variant={isMobile ? 'h6' : 'h5'} className={classes.subtitle}>
         {subtitle}
       </Typography>
     </header>
@@ -41,6 +42,7 @@ ContainerHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.node.isRequired,
   subtitle: PropTypes.node,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(ContainerHeader);

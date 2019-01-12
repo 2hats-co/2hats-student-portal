@@ -11,7 +11,7 @@ function User(props) {
 
   if (!user)
     return (
-      <div className={className}>
+      <div className={className} style={{ paddingBottom: 32 }}>
         <CircularProgress size={64} />
       </div>
     );

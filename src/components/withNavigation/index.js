@@ -1,5 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import classNames from 'classnames';
+import equals from 'ramda/es/equals';
+
 import withAuthorisation from '../../utilities/Session/withAuthorisation';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -61,22 +64,26 @@ const styles = theme => ({
     width: '100%',
     padding: theme.spacing.unit * 2,
     justifyContent: 'flex-start',
-    transition: theme.transitions.create('background-color'),
-    transitionLength: theme.transitions.duration.shortest,
+    transition: theme.transitions.create(['background-color', 'box-shadow']),
     '&:hover': { backgroundColor: theme.palette.action.hover },
   },
   logo: { width: 100 },
   userWrapper: {
     padding: theme.spacing.unit * 2,
-    paddingBottom: 0,
-    minHeight: theme.spacing.unit * 15,
+    paddingBottom: theme.spacing.unit / 2,
   },
   listWrapper: {
     marginTop: theme.spacing.unit * 3,
   },
+  listItemRoot: {
+    transition: theme.transitions.create([
+      'background-color',
+      'box-shadow',
+      'color',
+    ]),
+  },
   listItemTextRoot: { padding: 0 },
   divider: { margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px` },
-
   selected: {
     color: theme.palette.primary.main,
     boxShadow: `-4px 0 0 ${theme.palette.primary.main} inset`,
@@ -84,10 +91,17 @@ const styles = theme => ({
   },
 
   navFab: {
-    position: 'absolute',
-    top: theme.spacing.unit,
-    left: theme.spacing.unit,
+    position: 'fixed',
+    top: theme.spacing.unit * 2,
+    left: theme.spacing.unit * 2,
+
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.primary.main,
+    '&:hover': { backgroundColor: theme.palette.background.paper },
   },
+
+  wrappedComponentWrapper: { transition: theme.transitions.create('opacity') },
+  fadeOut: { opacity: 0 },
 });
 
 export default function withNavigation(WrappedComponent) {
@@ -98,19 +112,39 @@ export default function withNavigation(WrappedComponent) {
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const [navOpen, setNavOpen] = useState(false);
-    const [showAccountInfo, setShowAccountInfo] = useState(false);
+    const [fadeOut, setFadeOut] = useState(false);
+    const [selectedRoute, setSelectedRoute] = useState(location.pathname);
 
+    const [showAccountInfo, setShowAccountInfo] = useState(false);
     const userContext = useContext(UserContext);
     const [userState] = useDocument({
       path: `${COLLECTIONS.users}/${authUser.uid}`,
     });
-    if (userState.doc && !userContext.user) userContext.setUser(userState.doc);
+    useEffect(
+      () => {
+        if (userState.doc && !equals(userState.doc, userContext.user))
+          userContext.setUser(userState.doc);
+      },
+      [userState.doc]
+    );
     const user = userContext.user;
 
     const goTo = route => {
-      history.push(route);
+      setNavOpen(false);
+      setSelectedRoute(route);
+      if (route !== location.pathname) {
+        setFadeOut(true);
+        setTimeout(() => {
+          history.push(route);
+        }, 300);
+      }
     };
-    const path = location.pathname;
+
+    useEffect(() => {
+      window.Intercom('update', {
+        hide_default_launcher: false,
+      });
+    }, []);
 
     const MAIN_NAV_ITEMS = [
       { label: 'Profile', icon: <ProfileIcon />, route: ROUTES.PROFILE },
@@ -145,7 +179,7 @@ export default function withNavigation(WrappedComponent) {
           setShowAccountInfo(true);
         },
       },
-      { label: 'Log out', icon: <LogOutIcon />, route: ROUTES.LOG_OUT },
+      { label: 'Log Out', icon: <LogOutIcon />, route: ROUTES.LOG_OUT },
     ];
 
     return (
@@ -180,7 +214,10 @@ export default function withNavigation(WrappedComponent) {
                     onClick={() => {
                       goTo(ROUTES.DASHBOARD);
                     }}
-                    className={classes.logoButton}
+                    className={classNames(
+                      classes.logoButton,
+                      selectedRoute === ROUTES.DASHBOARD && classes.selected
+                    )}
                   >
                     <img src={logo} alt="2hats" className={classes.logo} />
                   </ButtonBase>
@@ -195,8 +232,9 @@ export default function withNavigation(WrappedComponent) {
                       <NavItem
                         data={x}
                         key={i}
-                        selected={path === x.route}
+                        selected={selectedRoute === x.route}
                         goTo={goTo}
+                        classes={classes}
                       />
                     ))}
                   </List>
@@ -204,7 +242,7 @@ export default function withNavigation(WrappedComponent) {
                 <Grid item className={classes.listWrapper}>
                   <List>
                     {BOTTOM_NAV_ITEMS.map((x, i) => (
-                      <NavItem data={x} key={i} goTo={goTo} />
+                      <NavItem data={x} key={i} goTo={goTo} classes={classes} />
                     ))}
                   </List>
                 </Grid>
@@ -219,25 +257,32 @@ export default function withNavigation(WrappedComponent) {
             />
           </Grid>
 
-          <Grid item xs>
+          <Grid
+            item
+            xs
+            className={classNames(
+              classes.wrappedComponentWrapper,
+              fadeOut && classes.fadeOut
+            )}
+          >
             <WrappedComponent
               {...props}
               classes={null}
               isMobile={isMobile}
               user={user}
             />
-            {isMobile && (
-              <Fab
-                onClick={() => {
-                  setNavOpen(true);
-                }}
-                color="primary"
-                className={classes.navFab}
-              >
-                <MenuIcon />
-              </Fab>
-            )}
           </Grid>
+
+          {isMobile && (
+            <Fab
+              onClick={() => {
+                setNavOpen(true);
+              }}
+              className={classes.navFab}
+            >
+              <MenuIcon />
+            </Fab>
+          )}
         </Grid>
       </>
     );

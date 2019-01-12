@@ -40,6 +40,7 @@ export const Theme = createMuiTheme({
     useNextVariants: true,
     fontFamily: primaryFontFamily,
     h4: { fontWeight: 500 },
+    h6: { lineHeight: 1.4 },
     button: {
       textTransform: 'none',
       fontWeight: 700,

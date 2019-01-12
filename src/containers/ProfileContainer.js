@@ -8,7 +8,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import ContainerHeader from '../components/ContainerHeader';
 
 const ProfileContainer = props => {
-  const { user } = props;
+  const { user, isMobile } = props;
 
   if (user)
     return (
@@ -16,6 +16,7 @@ const ProfileContainer = props => {
         <ContainerHeader
           title={`${user.firstName} ${user.lastName}`}
           subtitle="Edit your profile here"
+          isMobile={isMobile}
         />
       </Slide>
     );
@@ -24,6 +25,7 @@ const ProfileContainer = props => {
 
 ProfileContainer.propTypes = {
   user: PropTypes.object,
+  isMobile: PropTypes.bool.isRequired,
 };
 
 export default withNavigation(ProfileContainer);

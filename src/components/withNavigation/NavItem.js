@@ -1,25 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-
-const styles = theme => ({
-  divider: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
-  },
-  listItemTextRoot: {
-    padding: 0,
-  },
-  selected: {
-    color: theme.palette.primary.main,
-    boxShadow: `-4px 0 0 ${theme.palette.primary.main} inset`,
-    '& *': { color: theme.palette.primary.main },
-  },
-});
 
 function NavItem(props) {
   const { classes, data, selected, goTo } = props;
@@ -35,6 +20,7 @@ function NavItem(props) {
           href={data.href}
           target="_blank"
           rel="noopener noreferrer"
+          classes={{ root: classes.listItemRoot }}
           className={selected ? classes.selected : ''}
         >
           <ListItemIcon>{data.icon}</ListItemIcon>
@@ -55,6 +41,7 @@ function NavItem(props) {
                   goTo(data.route);
                 }
           }
+          classes={{ root: classes.listItemRoot }}
           className={selected ? classes.selected : ''}
         >
           <ListItemIcon>{data.icon}</ListItemIcon>
@@ -68,10 +55,10 @@ function NavItem(props) {
 }
 
 NavItem.propTypes = {
-  classes: PropTypes.object,
+  classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   selected: PropTypes.bool,
   goTo: PropTypes.func,
 };
 
-export default withStyles(styles)(NavItem);
+export default NavItem;
