@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 
 import EditIcon from '@material-ui/icons/Edit';
+import UploadIcon from '@material-ui/icons/CloudUpload';
 
 import Dropzone from 'react-dropzone';
 import { db } from '../store';
@@ -25,7 +26,7 @@ const styles = theme => ({
     padding: 0,
     marginBottom: theme.spacing.unit,
 
-    '&:hover $editIcon': { opacity: 1 },
+    '&:hover $editIcon,&:hover $uploadIcon': { opacity: 1 },
   },
   avatar: {
     cursor: 'pointer',
@@ -44,6 +45,19 @@ const styles = theme => ({
     color: '#fff',
     backgroundColor: 'rgba(0,0,0,.25)',
     boxShadow: `0 0 0 ${theme.spacing.unit * 2.5}px rgba(0,0,0,.25)`,
+    borderRadius: '50%',
+  },
+  uploadIcon: {
+    opacity: 0,
+    position: 'absolute',
+    fontSize: theme.spacing.unit * (96 / 8),
+    transition: theme.transitions.create('opacity', {
+      duration: theme.transitions.duration.shortest,
+    }),
+
+    color: '#fff',
+    backgroundColor: 'rgba(0,0,0,.25)',
+    boxShadow: `0 0 0 ${theme.spacing.unit * 5.25}px rgba(0,0,0,.25)`,
     borderRadius: '50%',
   },
 
@@ -142,6 +156,7 @@ class SuperAvatarPlus extends Component {
           {firstName[0]}
           {lastName[0]}
         </Avatar>
+        <UploadIcon className={classes.uploadIcon} />
       </IconButton>
     );
     if (avatarURL || this.state.avatarURL) {
@@ -163,6 +178,7 @@ class SuperAvatarPlus extends Component {
             src={this.state.avatarURL}
             className={classNames(classes.avatar, classes.bigAvatar)}
           />
+          <UploadIcon className={classes.uploadIcon} />
         </IconButton>
       );
     }

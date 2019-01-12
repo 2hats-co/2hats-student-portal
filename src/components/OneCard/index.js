@@ -15,10 +15,13 @@ import buggyBoy from '../../assets/images/buggyBoy.png';
 
 const styles = theme => ({
   root: {
-    transition: theme.transitions.create('box-shadow'),
+    transition: theme.transitions.create(['box-shadow', 'transform']),
     margin: theme.spacing.unit * 2,
 
-    '&:hover': { boxShadow: theme.shadows[24] },
+    '&:hover': {
+      boxShadow: theme.shadows[24],
+      transform: 'translateY(-4px)',
+    },
   },
   media: {
     height: 140,
