@@ -41,34 +41,35 @@ const SmartLinkContainer = Loadable({
     return <LoadingScreen />;
   },
 });
+
 const DashboardContainer = Loadable({
   loader: () => import('./containers/DashboardContainer'),
   loading() {
-    return <LoadingScreen />;
+    return <LoadingScreen showNav />;
   },
 });
 const ProfileContainer = Loadable({
   loader: () => import('./containers/ProfileContainer'),
   loading() {
-    return <LoadingScreen />;
+    return <LoadingScreen showNav />;
   },
 });
 const JobsContainer = Loadable({
   loader: () => import('./containers/JobsContainer'),
   loading() {
-    return <LoadingScreen />;
+    return <LoadingScreen showNav />;
   },
 });
 const AssessmentsContainer = Loadable({
   loader: () => import('./containers/AssessmentsContainer'),
   loading() {
-    return <LoadingScreen />;
+    return <LoadingScreen showNav />;
   },
 });
 const CoursesContainer = Loadable({
   loader: () => import('./containers/CoursesContainer'),
   loading() {
-    return <LoadingScreen />;
+    return <LoadingScreen showNav />;
   },
 });
 
