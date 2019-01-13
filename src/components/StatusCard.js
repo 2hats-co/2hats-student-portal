@@ -8,13 +8,13 @@ import ConfirmationDialog from './ConfirmationDialog';
 import { PROCESS_TYPES, firstUnfinishedStep } from '../constants/signUpProcess';
 import * as routes from '../constants/routes';
 import { isComplete } from '../constants/signUpProcess';
-import AlertIcon from '@material-ui/icons/Error';
-import DoneIcon from '@material-ui/icons/Done';
-import HelpIcon from '@material-ui/icons/Info';
+import AlertIcon from '@material-ui/icons/ErrorRounded';
+import DoneIcon from '@material-ui/icons/DoneRounded';
+import HelpIcon from '@material-ui/icons/InfoRounded';
 import red from '@material-ui/core/colors/red';
 import green from '@material-ui/core/colors/green';
 import AnimateIcon from './AnimateIcon';
-import ArrowIcon from '@material-ui/icons/KeyboardArrowRight';
+import ArrowIcon from '@material-ui/icons/KeyboardArrowRightRounded';
 
 import PopupSelector from './PopupSelector';
 
@@ -126,13 +126,13 @@ class StatusCard extends React.Component {
           confirm: {
             label: 'Submit',
             action: () => {
-              this.props.goTo(routes.DASHBOARD),
-                window.dataLayer.push({
-                  event: 'VirtualPageview',
-                  virtualPageURL: '/virtual/Submit/',
-                  virtualPageTitle: 'Submit Profile',
-                }),
-                this.props.onSubmit();
+              this.props.goTo(routes.DASHBOARD);
+              window.dataLayer.push({
+                event: 'VirtualPageview',
+                virtualPageURL: '/virtual/Submit/',
+                virtualPageTitle: 'Submit Profile',
+              });
+              this.props.onSubmit();
             },
           },
         };

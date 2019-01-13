@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 
-import BackIcon from '@material-ui/icons/ArrowBack';
+import BackIcon from '@material-ui/icons/ArrowBackRounded';
 
 function BackBar(props) {
   const { isLoading, email, backHandler } = props;
