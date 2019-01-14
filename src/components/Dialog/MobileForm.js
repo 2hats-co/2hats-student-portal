@@ -70,7 +70,7 @@ function MobileForm(props) {
             {title}
           </Typography>
           <Button
-            id="dialogue-save"
+            id={`dialog-save-${disabled}`}
             color="inherit"
             onClick={addHandler}
             disabled={disabled}

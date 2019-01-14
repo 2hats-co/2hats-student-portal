@@ -35,14 +35,14 @@ const SELECTORS = {
     profileImage: 'button#profile-button',
     profilePhoto: "button[type='button']",
     profilePhotoCancel: 'button#dialog-cancel',
-    profilePhotoUpdate: 'button#dialog-activity',
+    profilePhotoUpdate: 'button#dialog-save-false',
     profilePhotoInput: "input[type='file']",
     profileRouteButton: 'div#profile',
     jobsButton: 'div#jobs',
     assessmentButton: 'div#assessments',
     coursesButton: 'div#courses',
     contactUsButton: 'div#contactus',
-    contactUsClose: '.intercom-launcher',
+    contactUsClose: "div[role='button']",
     FAQButton: 'a#FAQ',
     accountInfoButton: 'div#editaccountinfo',
     logOutButton: 'div#logout',
@@ -50,13 +50,13 @@ const SELECTORS = {
   editAccInfo: {
     fName: '#firstName',
     lName: '#lastName',
-    currUni: "div[type='text']", //select
-    workCond: 'div#workingRights', //Used to be button
-    availDays: 'div#availableDays', //used to be button
+    currUni: "div[type='text']",
+    workCond: 'div#workingRights',
+    availDays: 'div#availableDays',
     mobileNum: '#phoneNumber',
     promoCode: '#component-error',
     cancel: 'button#dialog-cancel',
-    save: 'button#dialog-activity',
+    save: 'button#dialog-save-false',
   },
 };
 const CRED = {

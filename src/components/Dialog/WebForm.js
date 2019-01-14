@@ -77,7 +77,7 @@ function WebForm(props) {
           Cancel
         </Button>
         <Button
-          id="dialog-activity"
+          id={`dialog-save-${disabled}`}
           variant="contained"
           color="primary"
           disabled={disabled}

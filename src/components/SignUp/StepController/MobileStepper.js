@@ -5,7 +5,7 @@ import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeftRounded';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRightRounded';
-
+import { STEP_LABELS } from '../../../constants/signUpProcess';
 const styles = theme => ({
   root: {
     width: '100%',
@@ -40,6 +40,7 @@ function DotMobileStepper(props) {
           onClick={handleNext}
           disabled={nextDisabler}
           color="primary"
+          id={`next-${STEP_LABELS.upload[activeStep].split(' ')[0]}`}
         >
           {activeStep === steps.length - 1 ? 'Preview' : 'Next'}
           {activeStep !== steps.length - 1 &&
