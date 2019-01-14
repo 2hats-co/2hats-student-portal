@@ -73,6 +73,12 @@ const CoursesContainer = Loadable({
     return <LoadingScreen showNav />;
   },
 });
+const CourseRedirectContainer = Loadable({
+  loader: () => import('./containers/CourseRedirectContainer'),
+  loading() {
+    return <LoadingScreen showNav />;
+  },
+});
 
 class App extends Component {
   constructor(props) {
@@ -242,6 +248,12 @@ class App extends Component {
                   exact
                   path={ROUTES.COURSES}
                   component={() => <CoursesContainer />}
+                />
+
+                <Route
+                  exact
+                  path={ROUTES.COURSE_REDIRECT}
+                  component={() => <CourseRedirectContainer />}
                 />
 
                 <Route exact path="/linkedin" component={LinkedInPopUp} />

@@ -14,13 +14,14 @@ import Grid from '@material-ui/core/Grid';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
 
-const CARD_WIDTH = 320;
+export const CARD_WIDTH = 320;
+export const CARD_PADDING = 16;
 const MEDIA_HEIGHT = CARD_WIDTH * 0.5625;
 
 const styles = theme => ({
   root: {
     transition: theme.transitions.create(['box-shadow', 'transform']),
-    margin: theme.spacing.unit,
+    margin: CARD_PADDING / 2,
     width: CARD_WIDTH,
 
     '&:hover': {
@@ -78,11 +79,23 @@ const styles = theme => ({
 
   media: {
     width: '100%',
-    height: MEDIA_HEIGHT,
+    // height: MEDIA_HEIGHT,
+    height: 0,
+    paddingBottom: '56.25%',
+    position: 'relative',
+  },
+  iframe: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
   },
   gradient: {
     width: '100%',
-    height: MEDIA_HEIGHT,
+    // height: MEDIA_HEIGHT,
+    height: 0,
+    paddingBottom: '56.25%',
     backgroundImage: `linear-gradient(-15deg, #fa0, ${
       theme.palette.primary.main
     })`,
@@ -142,6 +155,7 @@ function OneCard(props) {
     secondaryText,
     primaryAction,
     route,
+    newTab,
     indicator,
     tertiaryText,
     banner,
@@ -154,14 +168,16 @@ function OneCard(props) {
   let media;
   if (video) {
     media = (
-      <iframe
-        src={video.indexOf('youtube') > -1 ? `${video}` : video}
-        className={classes.media}
-        title={title + ' video'}
-        frameBorder="none"
-        allow="accelerometer; encrypted-media; picture-in-picture"
-        allowFullScreen
-      />
+      <div className={classes.media}>
+        <iframe
+          src={video}
+          className={classes.iframe}
+          title={title + ' video'}
+          frameBorder="none"
+          allow="accelerometer; encrypted-media; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
     );
   } else if (image) {
     media = <CardMedia className={classes.media} image={image} />;
@@ -179,6 +195,7 @@ function OneCard(props) {
         classes={{ root: classes.cardActionArea }}
         focusVisibleClassName={classes.focusVisible}
         id={route}
+        target={newTab ? '_blank' : null}
       >
         {media}
 
@@ -196,13 +213,14 @@ function OneCard(props) {
           </Typography>
         )}
 
-        <div
-          className={classes.indicator}
-          style={!indicator ? { visibility: 'hidden' } : {}}
-          // indicator still needs to be rendered for layout
-        >
-          {indicator}
-        </div>
+        {indicator && (
+          <div
+            className={classes.indicator}
+            style={!indicator ? { visibility: 'hidden' } : {}}
+          >
+            {indicator}
+          </div>
+        )}
 
         <Grid
           container
@@ -252,6 +270,7 @@ OneCard.propTypes = {
   primaryAction: PropTypes.string.isRequired,
   route: PropTypes.string.isRequired,
 
+  newTab: PropTypes.bool,
   indicator: PropTypes.node,
   tertiaryText: PropTypes.array,
   banner: PropTypes.string,
