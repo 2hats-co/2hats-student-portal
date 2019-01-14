@@ -25,7 +25,16 @@ const DashboardContainer = props => {
             primaryAction="Learn more"
             route="https://en.wikipedia.org/wiki/Bony-eared_assfish"
             image="http://www.digitaljournal.com/img/8/4/3/0/8/3/i/2/8/7/o/assfish-4.JPG"
-            tertiaryText={['bony', 'eared', 'assfish']}
+            tertiaryText={[
+              'bony',
+              'eared',
+              'assfish',
+              'here',
+              'more',
+              'yes',
+              'even',
+              'more',
+            ]}
             indicator={<StarIcon />}
             banner="Really elusive"
             tertiaryIndicator={
@@ -41,7 +50,11 @@ const DashboardContainer = props => {
             secondaryText="Finland is not a real country. Not only is it not a real country but there is actually no landmass there at all, and the space between Sweden and Russia is actually empty ocean."
             primaryAction="Get #woke"
             route="https://www.reddit.com/r/finlandConspiracy/"
-            indicator={<WarningIcon />}
+            indicator={
+              <>
+                WATCH OUT <WarningIcon />
+              </>
+            }
             gradient="linear-gradient(-140deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)"
           />
 

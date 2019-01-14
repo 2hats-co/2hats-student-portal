@@ -30,6 +30,7 @@ const styles = theme => ({
   },
 
   cardActionArea: {
+    textAlign: 'right',
     height: '100%',
     transition: theme.transitions.create('background-color', {
       duration: theme.transitions.duration.shortest,
@@ -88,16 +89,16 @@ const styles = theme => ({
   },
 
   indicator: {
-    margin: `${-theme.spacing.unit * 3}px ${theme.spacing.unit}px`,
-    marginLeft: 'auto',
-    width: theme.spacing.unit * 6,
+    display: 'inline-block',
     height: theme.spacing.unit * 6,
     padding: theme.spacing.unit * 1.5,
     boxSizing: 'border-box',
-    position: 'relative',
+    position: 'absolute',
+    top: MEDIA_HEIGHT - theme.spacing.unit * 3,
+    right: theme.spacing.unit,
     zIndex: 1,
 
-    borderRadius: '50%',
+    borderRadius: theme.spacing.unit * 3,
     backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
@@ -105,9 +106,10 @@ const styles = theme => ({
   stretchGrid: {
     height: '100%',
     paddingTop: MEDIA_HEIGHT,
-    marginTop: -MEDIA_HEIGHT - 24,
+    marginTop: -MEDIA_HEIGHT,
   },
   cardContent: {
+    textAlign: 'left',
     paddingBottom: theme.spacing.unit,
     '&:last-child': { paddingBottom: theme.spacing.unit },
   },
@@ -176,6 +178,7 @@ function OneCard(props) {
         href={route}
         classes={{ root: classes.cardActionArea }}
         focusVisibleClassName={classes.focusVisible}
+        id={route}
       >
         {media}
 
@@ -201,7 +204,12 @@ function OneCard(props) {
           {indicator}
         </div>
 
-        <Grid container direction="column" className={classes.stretchGrid}>
+        <Grid
+          container
+          direction="column"
+          className={classes.stretchGrid}
+          wrap="nowrap"
+        >
           <Grid item xs>
             <CardContent classes={{ root: classes.cardContent }}>
               <Typography gutterBottom variant="h6">
