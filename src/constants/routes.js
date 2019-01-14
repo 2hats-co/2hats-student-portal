@@ -29,7 +29,5 @@ export const PROFILE = '/profile';
 export const JOBS = '/jobs';
 export const ASSESSMENTS = '/assessments';
 export const COURSES = '/courses';
-// SP3 DETAIL VIEWS
-export const JOB = '/job';
-export const ASSESSMENT = '/assessment';
-export const COURSE = '/course';
+// SP3 MORE VIEWS
+export const COURSE_REDIRECT = '/courseRedirect';
