@@ -37,7 +37,6 @@ async function checkDb() {
       .doc(CONST.sampleUserId)
       .get();
     const data = docRef.data();
-    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

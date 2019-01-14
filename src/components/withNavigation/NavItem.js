@@ -17,6 +17,7 @@ function NavItem(props) {
         <ListItem
           button
           component="a"
+          id={data.label.split(' ')[0]}
           href={data.href}
           target="_blank"
           rel="noopener noreferrer"
@@ -34,7 +35,7 @@ function NavItem(props) {
       return (
         <ListItem
           button
-          id={data.route && data.route.replace('/', '')}
+          id={data.label.replace(/ /g, '').toLowerCase()}
           onClick={
             data.onClick
               ? data.onClick

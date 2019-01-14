@@ -129,7 +129,11 @@ class SuperAvatarPlus extends Component {
     const { avatarURL, firstName, lastName, classes } = this.props;
     const { isUploading, hasChanged, open } = this.state;
     let avatar = (
-      <IconButton className={classes.avatarButton} onClick={this.openDialog}>
+      <IconButton
+        id="profile-button"
+        className={classes.avatarButton}
+        onClick={this.openDialog}
+      >
         <Avatar src={avatarURL} className={classNames(classes.avatar)}>
           {firstName[0]}
           {lastName[0]}
@@ -138,7 +142,7 @@ class SuperAvatarPlus extends Component {
       </IconButton>
     );
     let bigAvatar = (
-      <IconButton className={classes.avatarButton}>
+      <IconButton id="big-profile-button" className={classes.avatarButton}>
         <Avatar
           src={avatarURL}
           className={classNames(classes.avatar, classes.bigAvatar)}
@@ -153,7 +157,11 @@ class SuperAvatarPlus extends Component {
     );
     if (avatarURL || this.state.avatarURL) {
       avatar = (
-        <IconButton className={classes.avatarButton} onClick={this.openDialog}>
+        <IconButton
+          id="profile-button"
+          className={classes.avatarButton}
+          onClick={this.openDialog}
+        >
           <Avatar
             alt={`${firstName} ${lastName}`}
             src={avatarURL}
@@ -164,7 +172,7 @@ class SuperAvatarPlus extends Component {
       );
 
       bigAvatar = (
-        <IconButton className={classes.avatarButton}>
+        <IconButton id="big-profile-button" className={classes.avatarButton}>
           <Avatar
             alt={`${firstName} ${lastName}`}
             src={this.state.avatarURL}
