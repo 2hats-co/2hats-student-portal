@@ -13,16 +13,16 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
 
-import MenuIcon from '@material-ui/icons/Menu';
-import ProfileIcon from '@material-ui/icons/Person';
-import JobsIcon from '@material-ui/icons/BusinessCenter';
-import AssessmentsIcon from '@material-ui/icons/Assignment';
-import CoursesIcon from '@material-ui/icons/School';
+import MenuIcon from '@material-ui/icons/MenuRounded';
+import ProfileIcon from '@material-ui/icons/PersonRounded';
+import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
+import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
+import CoursesIcon from '@material-ui/icons/SchoolRounded';
 
-import ContactIcon from '@material-ui/icons/Forum';
-import FaqIcon from '@material-ui/icons/Help';
-import AccountInfoIcon from '@material-ui/icons/Edit';
-import LogOutIcon from '@material-ui/icons/ExitToApp';
+import ContactIcon from '@material-ui/icons/ForumRounded';
+import FaqIcon from '@material-ui/icons/HelpRounded';
+import AccountInfoIcon from '@material-ui/icons/EditRounded';
+import LogOutIcon from '@material-ui/icons/ExitToAppRounded';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import { setBackground } from '../../utilities/styling';
@@ -36,7 +36,7 @@ import useDocument from '../../hooks/useDocument';
 import { COLLECTIONS } from '../../constants/firestore';
 import UserContext from '../../contexts/UserContext';
 
-const DRAWER_WIDTH = 240;
+export const DRAWER_WIDTH = 240;
 
 const styles = theme => ({
   root: {
@@ -104,6 +104,12 @@ const styles = theme => ({
 
   wrappedComponentWrapper: { transition: theme.transitions.create('opacity') },
   fadeOut: { opacity: 0 },
+
+  wrappedComponent: {
+    backgroundColor: theme.palette.background.default,
+    boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
+      0px -24px 38px 3px rgba(0,0,0,0.07)`,
+  },
 });
 
 export default function withNavigation(WrappedComponent) {
@@ -271,6 +277,7 @@ export default function withNavigation(WrappedComponent) {
             <WrappedComponent
               {...props}
               classes={null}
+              className={classes.wrappedComponent}
               isMobile={isMobile}
               user={user}
             />

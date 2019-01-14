@@ -7,20 +7,23 @@ import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 
 const CoursesContainer = props => {
-  const { isMobile } = props;
+  const { className, isMobile } = props;
 
   return (
     <Slide direction="up" in>
-      <ContainerHeader
-        title="Courses"
-        subtitle="Can we call this courses instead of Education? Education kept on confusing me"
-        isMobile={isMobile}
-      />
+      <div className={className}>
+        <ContainerHeader
+          title="Courses"
+          subtitle="Can we call this courses instead of Education? Education kept on confusing me"
+          isMobile={isMobile}
+        />
+      </div>
     </Slide>
   );
 };
 
 CoursesContainer.propTypes = {
+  className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
 };
 

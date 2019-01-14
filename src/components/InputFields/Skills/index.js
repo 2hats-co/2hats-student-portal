@@ -5,7 +5,7 @@ import AutoCompleteField from '../AutoCompleteField';
 import Chip from '@material-ui/core/Chip';
 import SuggestedSkills from './SuggestedSkills';
 import { ALL_SKILLS } from '../../../constants/resumeBuilderPrompts';
-import CancelIcon from '@material-ui/icons/Cancel';
+import CancelIcon from '@material-ui/icons/CancelRounded';
 const styles = theme => ({
   root: {
     width: '100%',

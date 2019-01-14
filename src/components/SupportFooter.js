@@ -4,8 +4,8 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Footer from '../assets/images/graphics/Footer.svg';
 import FooterMobile from '../assets/images/graphics/FooterMobile.svg';
-import ChatIcon from '@material-ui/icons/QuestionAnswer';
-import HelpIcon from '@material-ui/icons/HelpOutline';
+import ChatIcon from '@material-ui/icons/QuestionAnswerRounded';
+import HelpIcon from '@material-ui/icons/HelpRounded';
 function SupportFooter(props) {
   window.Intercom('update', {
     hide_default_launcher: true,

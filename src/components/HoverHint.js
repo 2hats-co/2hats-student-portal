@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
-import HelpIcon from '@material-ui/icons/HelpOutline';
+import HelpIcon from '@material-ui/icons/HelpOutlineRounded';
 const styles = theme => ({
   lightTooltip: {
     background: theme.palette.common.white,

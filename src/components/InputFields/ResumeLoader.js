@@ -4,8 +4,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import CloudDoneIcon from '@material-ui/icons/CloudDone';
+import CloudUploadIcon from '@material-ui/icons/CloudUploadRounded';
+import CloudDoneIcon from '@material-ui/icons/CloudDoneRounded';
 import Dropzone from 'react-dropzone';
 import { firebaseStorage } from '../../firebase/storage';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -13,7 +13,8 @@ import Chip from '@material-ui/core/Chip';
 import classNames from 'classnames';
 import InputWrapper from './InputWrapper';
 import MessageBar from '../MessageBar';
-import DownloadIcon from '@material-ui/icons/ArrowDownward';
+import DownloadIcon from '@material-ui/icons/ArrowDownwardRounded';
+import CancelIcon from '@material-ui/icons/CancelRounded';
 import { cloudFunction, CLOUD_FUNCTIONS } from '../../utilities/CloudFunctions';
 
 import { connect } from 'react-redux';
@@ -245,6 +246,7 @@ class ResumeLoader extends React.Component {
                       <Chip
                         label={resumeFile.name}
                         onDelete={this.handleDelete}
+                        deleteIcon={<CancelIcon />}
                         style={{ maxWidth: '100%' }}
                         classes={{ label: classes.chiplabel }}
                       />
@@ -255,6 +257,7 @@ class ResumeLoader extends React.Component {
                           window.open(resumeFile.downloadURL, '_blank');
                         }}
                         onDelete={this.handleDelete}
+                        deleteIcon={<CancelIcon />}
                         avatar={
                           <DownloadIcon
                             style={{

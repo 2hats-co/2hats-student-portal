@@ -7,7 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputWrapper from './InputWrapper';
 
-import DropdownIcon from '@material-ui/icons/KeyboardArrowDown';
+import DropdownIcon from '@material-ui/icons/KeyboardArrowDownRounded';
 
 const styles = theme => ({
   root: {

@@ -10,6 +10,9 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Link from '@material-ui/core/Link';
 
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
+import CheckBoxIcon from '@material-ui/icons/CheckBoxRounded';
+
 import {
   CAREER_INTERESTS,
   getIndustryFromInterests,
@@ -107,6 +110,8 @@ class CareerInterests extends React.Component {
             )}`}
             onChange={this.handleChange(item.key)}
             value={item.label}
+            icon={<CheckBoxOutlineBlankIcon />}
+            checkedIcon={<CheckBoxIcon />}
           />
         }
         label={item.label}

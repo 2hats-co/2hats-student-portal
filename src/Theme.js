@@ -161,5 +161,8 @@ export const Theme = createMuiTheme({
       root: { fontFamily: primaryFontFamily },
       button: { fontFamily: primaryFontFamily },
     },
+    MuiCardActionArea: {
+      focusHighlight: { opacity: '0 !important' },
+    },
   },
 });
