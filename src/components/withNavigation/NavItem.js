@@ -34,6 +34,7 @@ function NavItem(props) {
       return (
         <ListItem
           button
+          id={data.route && data.route.replace('/', '')}
           onClick={
             data.onClick
               ? data.onClick

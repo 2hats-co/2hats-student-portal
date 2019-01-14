@@ -39,6 +39,7 @@ function PasswordView(props) {
         <Button
           disabled={isLoading}
           onClick={passwordAction}
+          id={`password-sign-in`}
           style={{ width: 120 }}
           variant="contained"
           color="primary"

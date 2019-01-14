@@ -79,6 +79,7 @@ class LinkedinButton extends Component {
     return (
       <Button
         key={`linkedin-button`}
+        id={`linkedin-button`}
         variant="contained"
         onClick={this.authorize}
         style={{ backgroundColor: '#0077B5' }}

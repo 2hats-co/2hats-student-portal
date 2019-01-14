@@ -70,6 +70,7 @@ class GoogleButton extends Component {
           <Button
             variant="contained"
             key={`google-button`}
+            id={`google-button`}
             style={{ backgroundColor: '#E05449' }}
             onClick={renderProps.onClick}
             className={classes.socialButton}
