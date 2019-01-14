@@ -59,6 +59,7 @@ function MobileForm(props) {
       <AppBar className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
           <IconButton
+            id="dialogue-close"
             color="inherit"
             onClick={cancelHandler}
             aria-label="Close"
@@ -68,7 +69,12 @@ function MobileForm(props) {
           <Typography variant="h6" color="inherit" className={classes.title}>
             {title}
           </Typography>
-          <Button color="inherit" onClick={addHandler} disabled={disabled}>
+          <Button
+            id="dialogue-save"
+            color="inherit"
+            onClick={addHandler}
+            disabled={disabled}
+          >
             Save
           </Button>
         </Toolbar>

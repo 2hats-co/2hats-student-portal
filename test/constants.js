@@ -1,11 +1,11 @@
 const SELECTORS = {
   signIn: {
-    google: '.GoogleButton-socialButton-185',
+    google: '#google-button',
     googleEmail: '#identifierId',
-    linkedIn: '',
+    linkedIn: '#linkedin-button',
     emailInput: '#email',
     emailButton: '#check-button',
-    emailSignIn: "button[type='button']",
+    emailSignIn: '#password-sign-in',
     emailPassword: '#passwordField',
   },
   signUp: {
@@ -15,7 +15,6 @@ const SELECTORS = {
     signUpButton: '.MuiButton-root-187', //Wont work, change later
   },
   uploadResume: {
-    careerInterestsHeader: 'h6',
     appInput: 'input#APP-checkbox-false',
     webInput: 'input#WEB-checkbox-false',
     dataInput: 'input#DA-checkbox-false',
@@ -24,42 +23,40 @@ const SELECTORS = {
     nextSU: 'button#next-Current',
     nextUR: 'button#next-Upload',
     nextWA: 'button#next-Work',
-    relevantSkillsHeader: 'h6',
     skillInput: "input[type='text']",
     addButton: "button[type='button']",
-    selectUniversityHeader: 'h6',
     uploadResumeField: "input[type='file']",
-    selectWorkHeader: 'h6',
     availableDaysInput: '#availableDays',
     workConditionInput: '#workingRights',
   },
   portal: {
-    dashButton: "button[type='button']", //0
-    profileButton: "button[type='button']", //1
-    profileImage: 'div>img',
-    profilePhoto: "button[type='button']", //2
-    profilePhotoCancel: "button[type='button']", //3
-    profilePhotoUpdate: "button[type='button']", //4
-    profilePhotoInput: "input[type='file']", //0
-    profileRouteButton: "div[role='button']", //0
-    jobsButton: "div[role='button']", //1
-    assessmentButton: "div[role='button']", //2
-    coursesButton: "div[role='button']", //3
-    contactUsButton: "div[role='button']", //4
-    FAQButton: "a[target='_blank']",
-    accountInfoButton: "div[role='button']", //5
-    logOutButton: "div[role='button']", //6
+    dashButton: 'button#logo-button',
+    profileButton: "button[type='button']",
+    profileImage: 'button#profile-button',
+    profilePhoto: "button[type='button']",
+    profilePhotoCancel: 'button#dialog-cancel',
+    profilePhotoUpdate: 'button#dialog-activity',
+    profilePhotoInput: "input[type='file']",
+    profileRouteButton: 'div#profile',
+    jobsButton: 'div#jobs',
+    assessmentButton: 'div#assessments',
+    coursesButton: 'div#courses',
+    contactUsButton: 'div#contactus',
+    contactUsClose: '.intercom-launcher',
+    FAQButton: 'a#FAQ',
+    accountInfoButton: 'div#editaccountinfo',
+    logOutButton: 'div#logout',
   },
   editAccInfo: {
     fName: '#firstName',
     lName: '#lastName',
-    currUni: "div[type='text']",
-    workCond: "div[role='button']", //7
-    availDays: "div[role='button']", //8
+    currUni: "div[type='text']", //select
+    workCond: 'div#workingRights', //Used to be button
+    availDays: 'div#availableDays', //used to be button
     mobileNum: '#phoneNumber',
     promoCode: '#component-error',
-    cancel: "button[type='button']", //2
-    save: "button[type='button']", //3
+    cancel: 'button#dialog-cancel',
+    save: 'button#dialog-activity',
   },
 };
 const CRED = {
@@ -79,6 +76,8 @@ const CONST = {
   testPath: './test',
   sampleProfilePath: './test/passiveAngrey.jpg',
   sampleUserId: 'TO4P3eMVGGOben7jgUbekwNylQh1',
+  urlPath: 'http://localhost:3000',
+  protectedRedirectPath: 'http://localhost:3000/signin',
 };
 
 module.exports = { SELECTORS, CRED, CONST };
