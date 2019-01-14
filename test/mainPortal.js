@@ -184,6 +184,7 @@ const selectLogout = async page => {
   await takeScreenshot(page, 'portal8b-selectLogoutButton');
   //Try navigate to dashboard (Should redirect to signin)
   await page.waitFor(500);
+  const protectedRoutes = ['dashboard', 'profile'];
   await page.goto('http://localhost:3000/dashboard');
   await page.waitFor(500);
   await takeScreenshot(page, 'portal8a-selectLogoutButton');
@@ -198,20 +199,6 @@ function checkRedirect(page, url) {
     console.log(`Failed redirect to: ${url}`);
   }
   return didRedirect;
-}
-
-//Idea scrapped?
-async function checkInputEmpty(page, selector) {
-  //Return the value inside input field for selector
-  const res = await page.evaluate(`async () => {
-    const element = document.querySelector("#firstName")
-    const value = document.querySelector("#firstName").value;
-    console.log(value);
-    console.log(element);
-    return {element,value}
-  }`);
-  console.log(res);
-  return res == '';
 }
 
 const testMainPortal = async page => {
