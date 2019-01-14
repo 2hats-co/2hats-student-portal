@@ -213,6 +213,7 @@ export default function withNavigation(WrappedComponent) {
               >
                 <Grid item>
                   <ButtonBase
+                    id="logo-button"
                     onClick={() => {
                       goTo(ROUTES.DASHBOARD);
                     }}
