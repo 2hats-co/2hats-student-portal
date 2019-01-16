@@ -5,17 +5,28 @@ import Slide from '@material-ui/core/Slide';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
+import useWindowSize from '../hooks/useWindowSize';
+import Cards, { getNumCards } from '../components/Cards';
+import { COLLECTIONS } from '../constants/firestore';
 
 const CoursesContainer = props => {
   const { className, isMobile } = props;
 
+  const windowSize = useWindowSize();
+  const cardsCols = getNumCards(windowSize.width, isMobile);
+
   return (
     <Slide direction="up" in>
       <div className={className}>
-        <ContainerHeader
-          title="Courses"
-          subtitle="Can we call this courses instead of Education? Education kept on confusing me"
-          isMobile={isMobile}
+        <ContainerHeader title="Courses" isMobile={isMobile} />
+        <Cards
+          title="All courses"
+          mapping="course"
+          cols={cardsCols}
+          useCollectionInit={{
+            path: COLLECTIONS.courses,
+            limit: cardsCols + 1,
+          }}
         />
       </div>
     </Slide>

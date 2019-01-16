@@ -76,7 +76,7 @@ const CoursesContainer = Loadable({
 const CourseRedirectContainer = Loadable({
   loader: () => import('./containers/CourseRedirectContainer'),
   loading() {
-    return <LoadingScreen showNav />;
+    return <LoadingScreen />;
   },
 });
 
