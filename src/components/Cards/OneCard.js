@@ -233,9 +233,13 @@ function OneCard(props) {
               <Typography gutterBottom variant="h6">
                 {title}
               </Typography>
-              <Typography component="p" className={classes.secondaryText}>
-                {secondaryText}
-              </Typography>
+              {typeof secondaryText === 'string' ? (
+                <Typography component="p" className={classes.secondaryText}>
+                  {secondaryText}
+                </Typography>
+              ) : (
+                secondaryText
+              )}
               {tertiaryText && (
                 <ul className={classes.tertiaryTextList}>
                   {tertiaryText.map((x, i) => (

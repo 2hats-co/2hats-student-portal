@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -16,26 +17,28 @@ import * as mappings from '../../constants/oneCardMappings';
 
 export const getNumCards = (width, isMobile) => {
   const navWidth = isMobile ? 0 : DRAWER_WIDTH;
-  return Math.floor(
+  const cols = Math.floor(
     (width - navWidth - CARD_PADDING) / (CARD_WIDTH + CARD_PADDING)
   );
+  return cols > 3 ? 3 : cols;
 };
-export const getCardsWidth = n => 320 * n + 16 * (n + 1);
+export const getCardsWidth = n => 320 * n + 16 * n;
 
 const styles = theme => ({
   root: {
     boxSizing: 'border-box',
-    padding: theme.spacing.unit,
+    // padding: theme.spacing.unit,
     marginLeft: 'auto',
     marginRight: 'auto',
-
-    textAlign: 'right',
+  },
+  inline: {
+    display: 'inline-block',
+    margin: 0,
   },
 
   title: {
     cursor: 'default',
     padding: theme.spacing.unit,
-    textAlign: 'left',
   },
 
   moreButton: {
@@ -45,7 +48,7 @@ const styles = theme => ({
 });
 
 function Cards(props) {
-  const { classes, cols, title, useCollectionInit, mapping } = props;
+  const { classes, cols, title, useCollectionInit, mapping, inline } = props;
 
   const [moreNum, setMoreNum] = useState(1);
 
@@ -57,7 +60,10 @@ function Cards(props) {
   };
 
   return (
-    <div className={classes.root} style={{ width: getCardsWidth(cols) }}>
+    <div
+      className={classNames(classes.root, inline && classes.inline)}
+      style={{ width: getCardsWidth(cols) }}
+    >
       <Typography variant="h5" className={classes.title}>
         {title}
       </Typography>
@@ -79,7 +85,7 @@ function Cards(props) {
           getMore();
         }}
       >
-        More {title}
+        More
         <MoreIcon className={classes.moreIcon} />
       </Button>
     </div>
@@ -92,6 +98,7 @@ Cards.propTypes = {
   title: PropTypes.string.isRequired,
   useCollectionInit: PropTypes.object.isRequired,
   mapping: PropTypes.string.isRequired,
+  inline: PropTypes.bool,
 };
 
 export default withStyles(styles)(Cards);
