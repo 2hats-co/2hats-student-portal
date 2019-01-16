@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import ChangeAdpter from '../components/InputFields/ChangeAdapter';
 import girlWithLaptop from '../assets/images/graphics/girlWithLaptop.png';
 import celebratingMan from '../assets/images/graphics/congratsMan.svg';
-import Industy from '../components/InputFields/Industry';
+import PhoneNumber from '../components/InputFields/PhoneNumber';
 import { SPEEDY_SIGNUP } from '../constants/views';
 import { withRouter } from 'react-router-dom';
 import { CLOUD_FUNCTIONS } from '../utilities/CloudFunctions';
@@ -63,9 +63,9 @@ class SpeedySignupContainer extends Component {
       lastName: '',
       email: '',
       currentUniversity: '',
-      industry: '',
+      phoneNumber: '',
       view: SPEEDY_SIGNUP.form,
-      isPublic: true,
+      isPublic: false,
       isLoading: false,
     };
     this.createUser = this.createUser.bind(this);
@@ -79,9 +79,9 @@ class SpeedySignupContainer extends Component {
     // if(this.props.history.location.hash ==='#UTS'){
     //     this.setState({isPublic:false})
     // }
-    // window.Intercom('update',{
-    //     'hide_default_launcher': true
-    // })
+    window.Intercom('update', {
+      hide_default_launcher: true,
+    });
   }
   goTo(route) {
     this.props.history.replace(route);
@@ -92,7 +92,7 @@ class SpeedySignupContainer extends Component {
       lastName: '',
       email: '',
       currentUniversity: '',
-      industry: '',
+      phoneNumber: '',
       view: SPEEDY_SIGNUP.form,
       isLoading: false,
       snackBar: null,
@@ -105,14 +105,14 @@ class SpeedySignupContainer extends Component {
       lastName,
       email,
       currentUniversity,
-      industry,
+      phoneNumber,
     } = this.state;
     const userInfo = {
       firstName: firstName,
       lastName: lastName,
       email: email.toLowerCase(),
       currentUniversity: currentUniversity,
-      industry: industry,
+      phoneNumber: phoneNumber,
     };
 
     this.setState({ isLoading: true });
@@ -150,7 +150,7 @@ class SpeedySignupContainer extends Component {
       lastName,
       email,
       currentUniversity,
-      industry,
+      phoneNumber,
       isLoading,
     } = this.state;
     return (
@@ -189,8 +189,12 @@ class SpeedySignupContainer extends Component {
           value={currentUniversity}
           changeHandler={this.handleChange}
         />
-        <Industy hasLabel value={industry} changeHandler={this.handleChange} />
-
+        <PhoneNumber
+          hasLabel
+          key="phoneNumber"
+          value={phoneNumber}
+          changeHandler={this.handleChange}
+        />
         <Disclaimer />
         <Button
           className={isMobile ? classes.mobileButton : classes.button}

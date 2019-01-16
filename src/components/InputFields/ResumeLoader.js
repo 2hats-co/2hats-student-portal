@@ -106,22 +106,23 @@ class ResumeLoader extends React.Component {
         cloudFunction(
           CLOUD_FUNCTIONS.RESUME_SCRAPER,
           { uid, url },
-          o => {
-            console.log(o);
+          response => {
+            console.log('success' + response.data.success);
+            this.props.changeHandler('isLoading', false);
+            this.props.changeHandler('resumeFile', {
+              name: this.props.resumeFile.name,
+              fullPath: snapShot.metadata.fullPath,
+              downloadURL: url,
+              createdAt: new Date(Date.now()),
+            });
           },
           o => {
             console.log(o);
           }
         );
-        this.props.changeHandler('resumeFile', {
-          name: this.props.resumeFile.name,
-          fullPath: snapShot.metadata.fullPath,
-          downloadURL: url,
-          createdAt: new Date(Date.now()),
-        });
       });
     this.setState({ isUploading: false });
-    this.props.changeHandler('isLoading', false);
+    // this.props.changeHandler('isLoading', false);
   }
 
   onDrop(files) {
