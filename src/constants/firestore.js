@@ -7,6 +7,11 @@ export const COLLECTIONS = {
   smartLinks: 'smartLinks',
   remoteLogs: 'remoteLogs',
   bugReports: 'bugReports',
+
+  jobs: 'jobs',
+  courses: 'courses',
+  assessments: 'assessments',
+  events: 'events',
 };
 
 export const LISTENER = (COLLECTION, UID) => {

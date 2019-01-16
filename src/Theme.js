@@ -3,8 +3,7 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 export const PRIMARY_COLOR = '#F15A29';
 export const PRIMARY_DARK_TEXT = 'hsl(15, 90%, 40%)';
 export const PRIMARY_LIGHT = 'hsl(15, 88%, 95%)';
-const primaryFontFamily =
-  '"Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
+const FONT_STACK = '"Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
 export const WHITE = '#fff';
 export const BLACK = '#2c2c2c';
 export const GREY = '#EDEDED';
@@ -38,7 +37,7 @@ export const Theme = createMuiTheme({
   },
   typography: {
     useNextVariants: true,
-    fontFamily: primaryFontFamily,
+    fontFamily: FONT_STACK,
     h4: { fontWeight: 500 },
     h6: { lineHeight: 1.4 },
     button: {
@@ -158,8 +157,8 @@ export const Theme = createMuiTheme({
     },
     // NEW OVERRIDES
     MuiLink: {
-      root: { fontFamily: primaryFontFamily },
-      button: { fontFamily: primaryFontFamily },
+      root: { fontFamily: FONT_STACK },
+      button: { fontFamily: FONT_STACK },
     },
     MuiCardActionArea: {
       focusHighlight: { opacity: '0 !important' },

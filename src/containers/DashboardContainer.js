@@ -8,6 +8,7 @@ import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards } from '../components/Cards';
+import { COLLECTIONS } from '../constants/firestore';
 
 const DashboardContainer = props => {
   const { className, isMobile } = props;
@@ -19,7 +20,36 @@ const DashboardContainer = props => {
     <Slide direction="up" in>
       <div className={className}>
         <ContainerHeader isMobile={isMobile} title="Dashboard" />
-        <Cards cols={cardsCols} title="Test cards" />
+
+        <Cards
+          cols={cardsCols}
+          title="Courses"
+          useCollectionInit={{
+            path: COLLECTIONS.courses,
+            limit: cardsCols + 1,
+          }}
+          mapping="course"
+        />
+
+        <Cards
+          cols={cardsCols}
+          title="Jobs"
+          useCollectionInit={{
+            path: COLLECTIONS.jobs,
+            limit: cardsCols + 1,
+          }}
+          mapping="job"
+        />
+
+        <Cards
+          cols={cardsCols}
+          title="Assessments"
+          useCollectionInit={{
+            path: COLLECTIONS.assessments,
+            limit: cardsCols + 1,
+          }}
+          mapping="assessment"
+        />
       </div>
     </Slide>
   );

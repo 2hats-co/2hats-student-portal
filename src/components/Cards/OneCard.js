@@ -266,7 +266,7 @@ OneCard.propTypes = {
   classes: PropTypes.object.isRequired,
 
   title: PropTypes.string.isRequired,
-  secondaryText: PropTypes.string.isRequired,
+  secondaryText: PropTypes.node.isRequired,
   primaryAction: PropTypes.string.isRequired,
   route: PropTypes.string.isRequired,
 
