@@ -13,7 +13,7 @@ import { AUTHENTICATION_CONTAINER } from './constants/views';
 import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
 
-import { CLOUD_FUNCTIONS, cloudFunction } from './utilities/CloudFunctions';
+// import { CLOUD_FUNCTIONS, cloudFunction } from './utilities/CloudFunctions';
 // loadable
 import Loadable from 'react-loadable';
 import LoadingScreen from './components/LoadingScreen';
@@ -88,16 +88,16 @@ class App extends Component {
   }
 
   componentDidMount() {
-    cloudFunction(
-      CLOUD_FUNCTIONS.LEARN_WORLD_SSO,
-      {},
-      o => {
-        console.log(o);
-      },
-      o => {
-        console.log(o);
-      }
-    );
+    // cloudFunction(
+    //   CLOUD_FUNCTIONS.LEARN_WORLD_SSO,
+    //   {},
+    //   o => {
+    //     console.log(o);
+    //   },
+    //   o => {
+    //     console.log(o);
+    //   }
+    // );
     this.updateWindowDimensions();
     window.addEventListener('resize', this.updateWindowDimensions);
   }

@@ -14,6 +14,7 @@ export const CLOUD_FUNCTIONS = {
   VALIDATE_EMAIL: 'restApiVaildateEmail',
   DISABLE_SMART_LINK: 'restApiDisableSmartLink',
   LEARN_WORLD_SSO: 'callablesLearnWorldSSO',
+  CHARGE_STRIPE_TOKEN: 'callablesChargeStripeToken',
 };
 
 export const cloudFunction = (name, input, success, fail) => {
