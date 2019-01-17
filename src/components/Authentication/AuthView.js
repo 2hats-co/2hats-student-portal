@@ -99,6 +99,7 @@ function AuthView(props) {
             ? 'Already have an account?'
             : 'Don’t have an account?'}
           <a
+            id={'signin-signup-toggle'}
             className={classes.link}
             href={onSignupRoute ? routes.SIGN_IN : routes.SIGN_UP}
           >

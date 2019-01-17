@@ -7,7 +7,7 @@ export const COLLECTIONS = {
   smartLinks: 'smartLinks',
   remoteLogs: 'remoteLogs',
   bugReports: 'bugReports',
-
+  candidates: 'candidates',
   jobs: 'jobs',
   courses: 'courses',
   assessments: 'assessments',

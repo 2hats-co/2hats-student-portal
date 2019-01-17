@@ -14,6 +14,7 @@ const PROJECT_KEY = {
   client_x509_cert_url:
     'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-x1z8t%40staging2hats.iam.gserviceaccount.com',
 };
+
 admin.initializeApp(
   {
     credential: admin.credential.cert(PROJECT_KEY),
@@ -26,9 +27,24 @@ admin
   .app(PROJECT)
   .firestore()
   .settings({ timestampsInSnapshots: true });
+
 const db = admin.app(PROJECT).firestore();
-//
+const auth = admin.app(PROJECT).auth();
 const { CONST } = require('./constants');
+
+const singleDocCollections = [
+  'candidates',
+  'users',
+  'profiles',
+  'algoliaCandidates',
+];
+const multiDocCollections = [
+  'mailchimp',
+  'smartLinks',
+  'submissions',
+  'emails',
+  'communications',
+];
 
 async function checkDb() {
   try {
@@ -44,4 +60,88 @@ async function checkDb() {
   }
 }
 
-module.exports = { checkDb };
+async function clearUserData(email) {
+  clearData: try {
+    const query = await db
+      .collection(`users`)
+      .where('email', '==', email)
+      .get();
+    if (query.empty) {
+      console.log(`UID for ${email} not found`);
+      break clearData;
+    }
+    query.docs.forEach(async doc => {
+      const UID = doc.id;
+      console.log(UID);
+      //Delete user from db/users db/candidates etc.
+      singleDocCollections.forEach(async collection => {
+        await deleteDoc(collection, UID);
+      });
+      const multiDocs = await getAllMultiDocs(UID);
+      multiDocs.forEach(async multiDoc => {
+        await deleteDoc(doc.collection, multiDoc.doc.id);
+      });
+      //Delete user from auth, intercom, algolia
+      await deleteAuth(UID);
+      await deleteAlgoliaRecord(UID);
+      await deleteIntercomCustomer(UID);
+    });
+  } catch (error) {
+    throw error;
+  }
+}
+
+const deleteDoc = (collection, docID) => {
+  db.collection(collection)
+    .doc(docID)
+    .delete()
+    .then(function() {
+      console.log(`Document successfully deleted: ${collection}-${docID}`);
+    })
+    .catch(function(error) {
+      console.error(`Error removing document: ${collection}-${docID}`, error);
+    });
+};
+
+const deleteAuth = async uid => {
+  console.log(`deleting Auth: ${uid}`);
+  try {
+    await auth.deleteUser(uid);
+    console.log('Successfully deleted user', uid);
+  } catch (error) {
+    console.log('Error deleting user:', error);
+  }
+};
+
+const getGetCollectionDocsOfUID = async (collection, UID) => {
+  // Create a reference to the collection
+  var collectionRef = db.collection(collection);
+  // Create a query against the collection.
+  var queryRef = collectionRef.where('UID', '==', UID);
+  let results = await queryRef.get();
+  let docs = results.docs.map(x => ({ collection, doc: x.id }));
+  return docs;
+};
+
+const getAllMultiDocs = async UID => {
+  let docs = [];
+  for (let i = 0; i < multiDocCollections; i++) {
+    const collection = multiDocCollections[i];
+    let collectionDocs = await getGetCollectionDocsOfUID(collection, UID);
+    collectionDocs.forEach(docRef => docs.push(docRef));
+  }
+  return docs;
+};
+
+const deleteIntercomCustomer = user_id => {
+  intercomClient.users.requestPermanentDeletionByParams(
+    { user_id: user_id },
+    callback
+  );
+};
+
+const deleteAlgoliaRecord = objectID => {
+  //return index.deleteObject(objectID); //NEED TO IMPORT INDEX
+};
+
+module.exports = { checkDb, clearUserData };

@@ -46,6 +46,7 @@ function SignUpView(props) {
       <Disclaimer />
 
       <Button
+        id="sign-up-button"
         variant="contained"
         color="primary"
         disabled={isLoading}
