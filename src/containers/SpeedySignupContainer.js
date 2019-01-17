@@ -98,7 +98,9 @@ class SpeedySignupContainer extends Component {
       snackBar: null,
     });
   }
-
+  handleSuccess = () => {
+    this.setState({ view: SPEEDY_SIGNUP.success, isLoading: false });
+  };
   createUser() {
     const {
       firstName,
@@ -116,7 +118,7 @@ class SpeedySignupContainer extends Component {
     };
 
     this.setState({ isLoading: true });
-    speedyAuth(userInfo, this.goTo, this.errorBar);
+    speedyAuth(userInfo, this.handleSuccess, this.errorBar);
 
     // cloudFunction(CLOUD_FUNCTIONS.SPEEDY_SIGNUP, userInfo
     //     ,(result) => {
@@ -197,9 +199,10 @@ class SpeedySignupContainer extends Component {
         />
         <Disclaimer />
         <Button
+          color="primary"
           className={isMobile ? classes.mobileButton : classes.button}
           disabled={isLoading}
-          variant="text"
+          variant="contained"
           onClick={this.createUser}
         >
           Sign up!
@@ -249,8 +252,9 @@ class SpeedySignupContainer extends Component {
           </Grid>
         )}
         <Button
+          color="primary"
           className={isMobile ? classes.mobileButton : classes.button}
-          variant="text"
+          variant="contained"
           onClick={isPublic ? this.goHome : this.handleReset}
         >
           {isPublic ? `Visit Website` : `Reset Form`}
