@@ -6,11 +6,13 @@ import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
 import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
 import CoursesIcon from '@material-ui/icons/SchoolRounded';
 
+import * as ROUTES from './routes';
+
 export const course = data => ({
   title: data.title,
   secondaryText: data.description,
   primaryAction: 'Get started',
-  route: `/courseRedirect?id=${data.id}`,
+  route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
 
   newTab: true,
   indicator: <CoursesIcon />,
@@ -23,7 +25,7 @@ export const assessment = data => ({
   title: data.title,
   secondaryText: data.description,
   primaryAction: 'Get started',
-  route: `#${data.id}`,
+  route: `${ROUTES.ASSESSMENTS}?id=${data.id}`,
 
   indicator: <AssessmentsIcon />,
   tertiaryText: [
@@ -32,7 +34,7 @@ export const assessment = data => ({
     ...data.links,
   ],
 
-  image: data.image,
+  image: data.image.url || data.image,
 });
 
 export const job = data => ({
@@ -46,7 +48,7 @@ export const job = data => ({
     </>
   ),
   primaryAction: 'Get started',
-  route: `#${data.id}`,
+  route: `${ROUTES.JOBS}?id=${data.id}`,
 
   indicator: <JobsIcon />,
   tertiaryText: [
@@ -56,5 +58,5 @@ export const job = data => ({
     ...data.skillsRequired,
   ],
 
-  image: data.image,
+  image: data.image.url || data.image,
 });

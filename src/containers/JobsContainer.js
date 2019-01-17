@@ -5,15 +5,19 @@ import Slide from '@material-ui/core/Slide';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
+
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards } from '../components/Cards';
 import { COLLECTIONS } from '../constants/firestore';
+import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
 const JobsContainer = props => {
-  const { className, isMobile } = props;
+  const { className, isMobile, location } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
+
+  const [docState] = useDocumentFromUrl(location, COLLECTIONS.jobs);
 
   return (
     <Slide direction="up" in>
@@ -23,15 +27,19 @@ const JobsContainer = props => {
           //subtitle="Here are our currently available jobs"
           isMobile={isMobile}
         />
-        <Cards
-          title="All jobs"
-          mapping="job"
-          cols={cardsCols}
-          useCollectionInit={{
-            path: COLLECTIONS.jobs,
-            limit: cardsCols + 1,
-          }}
-        />
+        {docState.doc ? (
+          <div>{JSON.stringify(docState.doc)}</div>
+        ) : (
+          <Cards
+            title="All jobs"
+            mapping="job"
+            cols={cardsCols}
+            useCollectionInit={{
+              path: COLLECTIONS.jobs,
+              limit: cardsCols + 1,
+            }}
+          />
+        )}
       </div>
     </Slide>
   );
@@ -40,6 +48,7 @@ const JobsContainer = props => {
 JobsContainer.propTypes = {
   className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
+  location: PropTypes.object.isRequired,
 };
 
 export default withNavigation(JobsContainer);

@@ -43,7 +43,7 @@ export function uploader(ref, blob, callback) {
       .child(snapShot.metadata.fullPath)
       .getDownloadURL()
       .then(url => {
-        callback(url);
+        callback(url, blob);
       });
   });
 }

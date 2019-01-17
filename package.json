@@ -50,7 +50,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
-    "start": "react-scripts start",
+    "start": "PORT=3333 react-scripts start",
     "build": "node scripts/generate-build-id.js && react-scripts build",
     "test": "node test/authenticate",
     "eject": "react-scripts eject"

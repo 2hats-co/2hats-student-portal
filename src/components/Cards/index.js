@@ -72,7 +72,13 @@ function Cards(props) {
         {cards &&
           cards
             .slice(0, cols * moreNum)
-            .map((x, i) => <OneCard key={i} {...mappings[mapping](x)} />)}
+            .map((x, i) => (
+              <OneCard
+                key={i}
+                {...mappings[mapping](x)}
+                primaryAction="See details"
+              />
+            ))}
       </Grid>
 
       <Button

@@ -11,6 +11,7 @@ const styles = theme => ({
       paddingLeft: theme.spacing.unit * 11,
       paddingTop: theme.spacing.unit * 3.25,
     },
+    margin: '0 auto',
   },
   title: {
     fontWeight: 500,
@@ -24,10 +25,10 @@ const styles = theme => ({
 });
 
 function ContainerHeader(props) {
-  const { classes, title, subtitle, isMobile } = props;
+  const { classes, title, subtitle, isMobile, maxWidth } = props;
 
   return (
-    <header className={classes.root}>
+    <header className={classes.root} style={{ maxWidth }}>
       <Typography variant={isMobile ? 'h4' : 'h3'} className={classes.title}>
         {title}
       </Typography>
@@ -43,6 +44,7 @@ ContainerHeader.propTypes = {
   title: PropTypes.node.isRequired,
   subtitle: PropTypes.node,
   isMobile: PropTypes.bool.isRequired,
+  maxWidth: PropTypes.number,
 };
 
 export default withStyles(styles)(ContainerHeader);

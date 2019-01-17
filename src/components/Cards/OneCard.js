@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -146,6 +147,9 @@ const styles = theme => ({
     marginRight: '0 !important',
     marginLeft: theme.spacing.unit / 2,
   },
+  primaryButton: {
+    '&:hover': { backgroundColor: 'transparent' },
+  },
 });
 
 function OneCard(props) {
@@ -155,7 +159,6 @@ function OneCard(props) {
     secondaryText,
     primaryAction,
     route,
-    newTab,
     indicator,
     tertiaryText,
     banner,
@@ -163,6 +166,7 @@ function OneCard(props) {
     image,
     video,
     gradient,
+    history,
   } = props;
 
   let media;
@@ -190,12 +194,12 @@ function OneCard(props) {
   return (
     <Card classes={{ root: classes.root }}>
       <CardActionArea
-        component="a"
-        href={route}
+        component="div"
+        onClick={() => {
+          history.push(route);
+        }}
         classes={{ root: classes.cardActionArea }}
         focusVisibleClassName={classes.focusVisible}
-        id={route}
-        target={newTab ? '_blank' : null}
       >
         {media}
 
@@ -254,7 +258,11 @@ function OneCard(props) {
 
           <Grid item>
             <CardActions className={classes.cardActions}>
-              <Button color="primary" className={classes.primaryButton}>
+              <Button
+                color="primary"
+                className={classes.primaryButton}
+                disableRipple
+              >
                 {primaryAction}
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Button>
@@ -270,7 +278,7 @@ OneCard.propTypes = {
   classes: PropTypes.object.isRequired,
 
   title: PropTypes.string.isRequired,
-  secondaryText: PropTypes.node.isRequired,
+  secondaryText: PropTypes.node,
   primaryAction: PropTypes.string.isRequired,
   route: PropTypes.string.isRequired,
 
@@ -285,4 +293,4 @@ OneCard.propTypes = {
   gradient: PropTypes.string,
 };
 
-export default withStyles(styles)(OneCard);
+export default withRouter(withStyles(styles)(OneCard));

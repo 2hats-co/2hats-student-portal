@@ -21,7 +21,7 @@ const CoursesContainer = props => {
     <Slide direction="up" in>
       <div className={className}>
         <ContainerHeader title="Courses" isMobile={isMobile} />
-        <Stripe user={user} amount={2} />
+        <Stripe user={user} amount={200} />
         <Cards
           title="All courses"
           mapping="course"

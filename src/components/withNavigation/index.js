@@ -90,6 +90,11 @@ const styles = theme => ({
   selected: {
     color: theme.palette.primary.main,
     boxShadow: `-4px 0 0 ${theme.palette.primary.main} inset`,
+    backgroundImage: `linear-gradient(to right, ${theme.palette.primary.light
+      .replace('hsl', 'hsla')
+      .replace(')', ',0)')} 25%, ${theme.palette.primary.light})`,
+
+    '&:hover': { backgroundColor: theme.palette.primary.light },
     '& *': { color: theme.palette.primary.main },
   },
 
@@ -141,8 +146,8 @@ export default function withNavigation(WrappedComponent) {
     const goTo = route => {
       setNavOpen(false);
       setSelectedRoute(route);
-      if (route !== location.pathname) {
-        setFadeOut(true);
+      if (route !== location.pathname || location.search) {
+        if (!location.search) setFadeOut(true);
         setTimeout(() => {
           history.push(route);
         }, 300);
@@ -282,6 +287,7 @@ export default function withNavigation(WrappedComponent) {
                 className={classes.wrappedComponent}
                 isMobile={isMobile}
                 user={user}
+                location={location}
               />
             ) : (
               <LoadingScreen showNav />
