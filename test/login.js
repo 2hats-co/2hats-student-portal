@@ -19,8 +19,37 @@ const login = [
   },
 ];
 
+const signup = [
+  {
+    name: 'signup-clickSignUp',
+    action: async page => {
+      await click(page, SELECTORS.signUp.toggleLink);
+    },
+  },
+  {
+    name: 'signup-enterEmail',
+    action: async page => {
+      await type(page, SELECTORS.signUp.emailInput, CRED.signUp.email);
+      await click(page, SELECTORS.signUp.emailButton);
+    },
+  },
+  {
+    name: 'signup-enterDetails',
+    action: async page => {
+      await type(page, SELECTORS.signUp.firstName, CRED.signUp.firstName);
+      await type(page, SELECTORS.signUp.lastName, CRED.signUp.lastName);
+      await type(page, SELECTORS.signUp.password, CRED.signUp.password);
+      await click(page, SELECTORS.signUp.signUpButton);
+    },
+  },
+];
+
 const loginEmail = async page => {
   await runSteps(page, login);
 };
 
-module.exports = { loginEmail };
+const signupEmail = async page => {
+  await runSteps(page, signup);
+};
+
+module.exports = { loginEmail, signupEmail };

@@ -9,10 +9,13 @@ const SELECTORS = {
     emailPassword: '#passwordField',
   },
   signUp: {
+    emailInput: '#email',
+    emailButton: '#check-button',
+    toggleLink: '#signin-signup-toggle',
     firstName: '#firstName',
     lastName: '#lastName',
     password: '#passwordField',
-    signUpButton: '.MuiButton-root-187', //Wont work, change later
+    signUpButton: '#sign-up-button',
   },
   uploadResume: {
     appInput: 'input#APP-checkbox-false',
@@ -62,12 +65,14 @@ const SELECTORS = {
 const CRED = {
   signIn: {
     googleEmail: 'test2hats@gmail.com',
-    email: 'test2hats5@gmail.com',
+    email: 'test2hats@gmail.com',
     password: '2hatsSpiderman',
   },
   signUp: {
     firstName: 'Victor',
     lastName: 'Chan',
+    email: 'test2hats@gmail.com',
+    password: '2hatsSpiderman',
   },
 };
 
