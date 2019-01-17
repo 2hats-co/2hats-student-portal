@@ -31,6 +31,7 @@ import * as ROUTES from '../../constants/routes';
 import logo from '../../assets/images/Logo/DarkText.svg';
 import User from './User';
 import NavItem from './NavItem';
+import LoadingScreen from '../LoadingScreen';
 import AccountInfoDialog from '../AccountInfoDialog';
 import useDocument from '../../hooks/useDocument';
 import { COLLECTIONS } from '../../constants/firestore';
@@ -274,13 +275,17 @@ export default function withNavigation(WrappedComponent) {
               fadeOut && classes.fadeOut
             )}
           >
-            <WrappedComponent
-              {...props}
-              classes={null}
-              className={classes.wrappedComponent}
-              isMobile={isMobile}
-              user={user}
-            />
+            {user ? (
+              <WrappedComponent
+                {...props}
+                classes={null}
+                className={classes.wrappedComponent}
+                isMobile={isMobile}
+                user={user}
+              />
+            ) : (
+              <LoadingScreen showNav />
+            )}
           </Grid>
 
           {isMobile && (
