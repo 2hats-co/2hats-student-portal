@@ -6,6 +6,7 @@ const { signupEmail, loginEmail } = require('./login');
 const { takeScreenshot, compareAllScreenshots } = require('./screenshotUtil');
 const { testUploadResume } = require('./uploadResume');
 const { testMainPortal } = require('./mainPortal');
+const { testCourses } = require('./courses');
 const { clearUserData } = require('./dbUtil');
 
 const main = async () => {
@@ -24,10 +25,12 @@ main();
 
 async function signupSteps(page) {
   await clearUserData('test2hats@gmail.com');
-  await page.goto('http://localhost:3000');
+  await page.goto('http://localhost:3333');
   await signupEmail(page);
-  //await page.goto('http://localhost:3000/uploadResume');
-  //await testUploadResume(page);
+  //await page.goto('http://localhost:3333/uploadResume');
+  await testUploadResume(page);
+  await page.goto('http://localhost:3333/courses');
+  await testCourses(page);
 }
 
 async function mainTestSteps(page) {

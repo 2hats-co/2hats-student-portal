@@ -47,6 +47,7 @@ const multiDocCollections = [
 ];
 
 async function checkDb() {
+  //
   try {
     const docRef = await db
       .collection('users')
@@ -83,8 +84,8 @@ async function clearUserData(email) {
       });
       //Delete user from auth, intercom, algolia
       await deleteAuth(UID);
-      await deleteAlgoliaRecord(UID);
-      await deleteIntercomCustomer(UID);
+      //await deleteAlgoliaRecord(UID);
+      //await deleteIntercomCustomer(UID);
     });
   } catch (error) {
     throw error;
@@ -96,20 +97,23 @@ const deleteDoc = (collection, docID) => {
     .doc(docID)
     .delete()
     .then(function() {
-      console.log(`Document successfully deleted: ${collection}-${docID}`);
+      console.log(`DB: Document successfully deleted: ${collection}-${docID}`);
     })
     .catch(function(error) {
-      console.error(`Error removing document: ${collection}-${docID}`, error);
+      console.error(
+        `DB: Error removing document: ${collection}-${docID}`,
+        error
+      );
     });
 };
 
 const deleteAuth = async uid => {
-  console.log(`deleting Auth: ${uid}`);
+  //console.log(`deleting Auth: ${uid}`);
   try {
     await auth.deleteUser(uid);
-    console.log('Successfully deleted user', uid);
+    console.log('AUTH: Successfully deleted user', uid);
   } catch (error) {
-    console.log('Error deleting user:', error);
+    console.log('AUTH: Error deleting user:', error);
   }
 };
 

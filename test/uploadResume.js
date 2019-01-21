@@ -31,19 +31,24 @@ const uploadResume = [
   {
     name: 'uploadResume-selectCU',
     action: async page => {
+      await selectDropDown(
+        page,
+        SELECTORS.uploadResume.currentUniversityInput,
+        1
+      );
       await click(page, SELECTORS.uploadResume.nextSU);
     },
   },
   {
-    name: 'uploadResume-selectUR', //Need to await file upload somehow
+    name: 'uploadResume-selectUR',
     action: async page => {
       await uploadFile(
         page,
         SELECTORS.uploadResume.uploadResumeField,
         FILEPATH
       );
-      await page.waitFor(5000);
-      await click(page, SELECTORS.uploadResume.nextUR);
+      await page.waitFor(8000);
+      await click(page, SELECTORS.uploadResume.nextUR); //Here it hangs
     },
   },
   {
