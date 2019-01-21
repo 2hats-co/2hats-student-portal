@@ -20,7 +20,9 @@ export const getNumCards = (width, isMobile) => {
   const cols = Math.floor(
     (width - navWidth - CARD_PADDING) / (CARD_WIDTH + CARD_PADDING)
   );
-  return cols > 3 ? 3 : cols;
+  if (cols > 3) return 3;
+  if (cols < 1) return 1;
+  return cols;
 };
 export const getCardsWidth = n => 320 * n + 16 * n;
 
@@ -30,6 +32,7 @@ const styles = theme => ({
     // padding: theme.spacing.unit,
     marginLeft: 'auto',
     marginRight: 'auto',
+    maxWidth: '100vw',
   },
   inline: {
     display: 'inline-block',
@@ -72,13 +75,7 @@ function Cards(props) {
         {cards &&
           cards
             .slice(0, cols * moreNum)
-            .map((x, i) => (
-              <OneCard
-                key={i}
-                {...mappings[mapping](x)}
-                primaryAction="See details"
-              />
-            ))}
+            .map((x, i) => <OneCard key={i} {...mappings[mapping](x)} />)}
       </Grid>
 
       <Button

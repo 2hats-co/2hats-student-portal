@@ -29,6 +29,8 @@ const styles = theme => ({
       boxShadow: theme.shadows[24],
       transform: 'translateY(-4px)',
     },
+
+    // '@media (max-width: 350px)': { width: CARD_WIDTH - 20 },
   },
 
   cardActionArea: {
@@ -101,6 +103,8 @@ const styles = theme => ({
       theme.palette.primary.main
     })`,
   },
+
+  titleWithIndicator: { paddingRight: theme.spacing.unit * 6 },
 
   indicator: {
     display: 'inline-block',
@@ -234,7 +238,11 @@ function OneCard(props) {
         >
           <Grid item xs>
             <CardContent classes={{ root: classes.cardContent }}>
-              <Typography gutterBottom variant="h6">
+              <Typography
+                gutterBottom
+                variant="h6"
+                className={indicator ? classes.titleWithIndicator : ''}
+              >
                 {title}
               </Typography>
               {typeof secondaryText === 'string' ? (

@@ -12,8 +12,11 @@ import ButtonBase from '@material-ui/core/ButtonBase';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import Fab from '@material-ui/core/Fab';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 
 import MenuIcon from '@material-ui/icons/MenuRounded';
+import NotificationsIcon from '@material-ui/icons/NotificationsRounded';
 import ProfileIcon from '@material-ui/icons/PersonRounded';
 import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
 import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
@@ -29,10 +32,15 @@ import { setBackground } from '../../utilities/styling';
 import * as ROUTES from '../../constants/routes';
 
 import logo from '../../assets/images/Logo/DarkText.svg';
+import blackLogo from '../../assets/images/Logo/Black.svg';
+import blackIconLogo from '../../assets/images/Logo/BlackIcon.svg';
+
 import User from './User';
 import NavItem from './NavItem';
 import LoadingScreen from '../LoadingScreen';
 import AccountInfoDialog from '../AccountInfoDialog';
+import Notifications from '../Notifications';
+
 import useDocument from '../../hooks/useDocument';
 import { COLLECTIONS } from '../../constants/firestore';
 import UserContext from '../../contexts/UserContext';
@@ -68,8 +76,17 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     transition: theme.transitions.create(['background-color', 'box-shadow']),
     '&:hover': { backgroundColor: theme.palette.action.hover },
+    '&$selected': { backgroundColor: 'transparent' },
   },
   logo: { width: 100 },
+
+  notificationsButton: {
+    position: 'absolute',
+    right: theme.spacing.unit * 2,
+    top: theme.spacing.unit * 1.25,
+  },
+  badge: { boxShadow: '0 0 0 2px #fff' },
+
   userWrapper: {
     padding: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit / 2,
@@ -90,9 +107,7 @@ const styles = theme => ({
   selected: {
     color: theme.palette.primary.main,
     boxShadow: `-4px 0 0 ${theme.palette.primary.main} inset`,
-    backgroundImage: `linear-gradient(to right, ${theme.palette.primary.light
-      .replace('hsl', 'hsla')
-      .replace(')', ',0)')} 25%, ${theme.palette.primary.light})`,
+    backgroundColor: theme.palette.primary.light,
 
     '&:hover': { backgroundColor: theme.palette.primary.light },
     '& *': { color: theme.palette.primary.main },
@@ -100,21 +115,61 @@ const styles = theme => ({
 
   navFab: {
     position: 'fixed',
-    top: theme.spacing.unit * 2,
+    bottom: theme.spacing.unit * 2,
     left: theme.spacing.unit * 2,
+
+    width: 60,
+    height: 60,
 
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.primary.main,
     '&:hover': { backgroundColor: theme.palette.background.paper },
+    '& svg': { fontSize: 35 },
+  },
+
+  notificationsFab: {
+    position: 'fixed',
+    bottom: theme.spacing.unit * 2,
+    left: theme.spacing.unit * 11,
+
+    width: 60,
+    height: 60,
+
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.secondary,
+    '&:hover': { backgroundColor: theme.palette.background.paper },
+    '& svg': { fontSize: 32 },
+
+    '& $badge': {
+      top: -7,
+      right: -7,
+    },
   },
 
   wrappedComponentWrapper: { transition: theme.transitions.create('opacity') },
+  wrappedComponentGrid: { minHeight: 'calc(100vh + 108px)' },
   fadeOut: { opacity: 0 },
 
   wrappedComponent: {
     backgroundColor: theme.palette.background.default,
     boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
       0px -24px 38px 3px rgba(0,0,0,0.07)`,
+  },
+
+  bottomLogo: {
+    width: 100,
+    height: 60,
+
+    display: 'block',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 2,
+    paddingLeft: 72,
+
+    opacity: 0.38,
+
+    '@media (max-width: 348px)': { width: 48 },
   },
 });
 
@@ -125,7 +180,9 @@ export default function withNavigation(WrappedComponent) {
     setBackground(theme.palette.background.default);
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const iconLogo = useMediaQuery('(max-width: 348px)');
     const [navOpen, setNavOpen] = useState(false);
+    const [notificationsOpen, setNotificationsOpen] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
     const [selectedRoute, setSelectedRoute] = useState(location.pathname);
 
@@ -236,6 +293,20 @@ export default function withNavigation(WrappedComponent) {
                   >
                     <img src={logo} alt="2hats" className={classes.logo} />
                   </ButtonBase>
+                  <IconButton
+                    className={classes.notificationsButton}
+                    onClick={() => {
+                      setNotificationsOpen(true);
+                    }}
+                  >
+                    <Badge
+                      color="primary"
+                      classes={{ badge: classes.badge }}
+                      badgeContent={2}
+                    >
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
                   <Divider className={classes.divider} />
                 </Grid>
                 <Grid item className={classes.userWrapper}>
@@ -281,28 +352,66 @@ export default function withNavigation(WrappedComponent) {
             )}
           >
             {user ? (
-              <WrappedComponent
-                {...props}
-                classes={null}
-                className={classes.wrappedComponent}
-                isMobile={isMobile}
-                user={user}
-                location={location}
-              />
+              <Grid
+                container
+                direction="column"
+                wrap="nowrap"
+                justify="space-between"
+                className={classes.wrappedComponentGrid}
+              >
+                <WrappedComponent
+                  {...props}
+                  classes={null}
+                  className={classes.wrappedComponent}
+                  isMobile={isMobile}
+                  user={user}
+                  location={location}
+                />
+                <img
+                  src={iconLogo ? blackIconLogo : blackLogo}
+                  alt="2hats"
+                  className={classes.bottomLogo}
+                />
+              </Grid>
             ) : (
               <LoadingScreen showNav />
             )}
           </Grid>
 
           {isMobile && (
-            <Fab
-              onClick={() => {
-                setNavOpen(true);
-              }}
-              className={classes.navFab}
-            >
-              <MenuIcon />
-            </Fab>
+            <>
+              <Fab
+                onClick={() => {
+                  setNavOpen(true);
+                }}
+                className={classes.navFab}
+                color="primary"
+              >
+                <MenuIcon />
+              </Fab>
+              <Fab
+                onClick={() => {
+                  setNotificationsOpen(true);
+                }}
+                className={classes.notificationsFab}
+              >
+                <Badge
+                  color="primary"
+                  classes={{ badge: classes.badge }}
+                  badgeContent={2}
+                >
+                  <NotificationsIcon />
+                </Badge>
+              </Fab>
+            </>
+          )}
+
+          {notificationsOpen && (
+            <Notifications
+              showDialog={notificationsOpen}
+              setShowDialog={setNotificationsOpen}
+              uid={user.id}
+            />
           )}
         </Grid>
       </>

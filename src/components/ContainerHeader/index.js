@@ -7,10 +7,6 @@ import Typography from '@material-ui/core/Typography';
 const styles = theme => ({
   root: {
     padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
-    [theme.breakpoints.down('sm')]: {
-      paddingLeft: theme.spacing.unit * 11,
-      paddingTop: theme.spacing.unit * 3.25,
-    },
     margin: '0 auto',
   },
   title: {
@@ -29,10 +25,10 @@ function ContainerHeader(props) {
 
   return (
     <header className={classes.root} style={{ maxWidth }}>
-      <Typography variant={isMobile ? 'h4' : 'h3'} className={classes.title}>
+      <Typography variant="h4" className={classes.title}>
         {title}
       </Typography>
-      <Typography variant={isMobile ? 'h6' : 'h5'} className={classes.subtitle}>
+      <Typography variant="h6" className={classes.subtitle}>
         {subtitle}
       </Typography>
     </header>

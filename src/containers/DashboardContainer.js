@@ -53,6 +53,16 @@ const DashboardContainer = props => {
       },
       inline: true,
     },
+    {
+      title: 'Events',
+      mapping: 'event',
+      cols: 1,
+      useCollectionInit: {
+        path: COLLECTIONS.events,
+        limit: 2,
+      },
+      inline: true,
+    },
   ];
 
   return (
@@ -71,6 +81,7 @@ const DashboardContainer = props => {
         >
           <Cards {...secondary[0]} />
           <Cards {...secondary[1]} />
+          <Cards {...secondary[2]} />
         </Grid>
       </div>
     </Slide>

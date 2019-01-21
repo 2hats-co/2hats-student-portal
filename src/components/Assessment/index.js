@@ -32,6 +32,8 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
   },
 
+  title: { fontWeight: 700 },
+
   section: {
     marginTop: theme.spacing.unit * 3,
   },
@@ -50,13 +52,11 @@ const styles = theme => ({
   },
 
   getStarted: {
-    fontSize: theme.spacing.unit * 3,
+    fontSize: theme.spacing.unit * 2,
     borderRadius: 200,
-    fontWeight: 500,
     marginLeft: -theme.spacing.unit / 2,
 
     '& svg': {
-      fontSize: theme.spacing.unit * 4,
       marginLeft: theme.spacing.unit / 2,
       marginRight: 0,
     },
@@ -79,16 +79,18 @@ const Assessment = props => {
           className={classes.coverImage}
         />
 
-        <Typography variant="h4">{data.title}</Typography>
+        <Typography variant="h5" className={classes.title}>
+          {data.title}
+        </Typography>
 
         <div className={classes.section}>
           <Typography variant="h6">Company information</Typography>
-          <Typography variant="body1">{data.companyDescription}</Typography>
+          <Typography variant="body2">{data.companyDescription}</Typography>
         </div>
 
         <div className={classes.section}>
           <Typography variant="h6">Your job</Typography>
-          <Typography variant="body1">{data.jobDescription}</Typography>
+          <Typography variant="body2">{data.jobDescription}</Typography>
         </div>
 
         {!gotStarted && (
