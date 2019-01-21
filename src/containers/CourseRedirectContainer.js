@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ErrorIcon from '@material-ui/icons/ErrorRounded';
-
+import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 const styles = theme => ({
   root: {
     background: theme.palette.background.default,
@@ -32,7 +32,22 @@ function CourseRedirectContainer(props) {
   const hasId =
     location.search.indexOf('?id=') > -1 &&
     location.search.replace('?id=', '').length > 0;
-
+  useEffect(
+    () => {
+      console.log(location, location.search.id);
+      cloudFunction(
+        CLOUD_FUNCTIONS.LEARN_WORLD_SSO,
+        { courseId: 'diy-car-service' },
+        o => {
+          window.location.href = o.data.url;
+        },
+        o => {
+          console.log(o);
+        }
+      );
+    },
+    [hasId]
+  );
   if (hasId)
     return (
       <Grid
