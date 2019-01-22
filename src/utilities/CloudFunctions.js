@@ -13,7 +13,7 @@ export const CLOUD_FUNCTIONS = {
   CREATE_PASSWORD: 'restApiCreatePassword',
   VALIDATE_EMAIL: 'restApiVaildateEmail',
   DISABLE_SMART_LINK: 'restApiDisableSmartLink',
-  LEARN_WORLD_SSO: 'callablesLearnWorldSSO',
+  LEARN_WORLD_SSO: 'callablesLwSingleSignOn',
   CHARGE_STRIPE_TOKEN: 'callablesChargeStripeToken',
   LW_SINGLE_SIGN_ON: 'callablesLwSingleSignOn',
 };

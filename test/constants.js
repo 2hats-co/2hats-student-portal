@@ -28,6 +28,7 @@ const SELECTORS = {
     nextWA: 'button#next-Work',
     skillInput: "input[type='text']",
     addButton: "button[type='button']",
+    currentUniversityInput: "div[type='text']",
     uploadResumeField: "input[type='file']",
     availableDaysInput: '#availableDays',
     workConditionInput: '#workingRights',
@@ -60,6 +61,10 @@ const SELECTORS = {
     promoCode: '#component-error',
     cancel: 'button#dialog-cancel',
     save: 'button#dialog-save-false',
+  },
+  courses: {
+    getStarted: 'button#button-sdfsdfsdfsf',
+    enrolledPageHeader: "h1[class='chapter-num']",
   },
 };
 const CRED = {
