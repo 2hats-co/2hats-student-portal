@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -18,6 +19,7 @@ const styles = theme => ({
 
     backgroundColor: theme.palette.background.default,
     textAlign: 'center',
+    zIndex: 1,
   },
 
   fakeNav: {
@@ -59,5 +61,11 @@ function LoadingScreen(props) {
     </Grid>
   );
 }
+
+LoadingScreen.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+  showNav: PropTypes.bool,
+};
 
 export default withStyles(styles, { withTheme: true })(LoadingScreen);

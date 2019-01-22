@@ -2,8 +2,9 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 // import { inherits } from 'util';
 export const PRIMARY_COLOR = '#F15A29';
 export const PRIMARY_DARK_TEXT = 'hsl(15, 90%, 40%)';
-export const PRIMARY_LIGHT = 'hsl(15, 88%, 95%)';
-const FONT_STACK = '"Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
+export const PRIMARY_LIGHT = 'hsl(15, 88%, 90%)';
+export const FONT_STACK =
+  '"Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
 export const WHITE = '#fff';
 export const BLACK = '#2c2c2c';
 export const GREY = '#EDEDED';

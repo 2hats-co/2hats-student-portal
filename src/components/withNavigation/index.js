@@ -16,7 +16,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 
 import MenuIcon from '@material-ui/icons/MenuRounded';
-import NotificationsIcon from '@material-ui/icons/NotificationsRounded';
+import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
 import ProfileIcon from '@material-ui/icons/PersonRounded';
 import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
 import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
@@ -39,7 +39,7 @@ import User from './User';
 import NavItem from './NavItem';
 import LoadingScreen from '../LoadingScreen';
 import AccountInfoDialog from '../AccountInfoDialog';
-import Notifications from '../Notifications';
+import ActivityLog from '../ActivityLog';
 
 import useDocument from '../../hooks/useDocument';
 import { COLLECTIONS } from '../../constants/firestore';
@@ -80,7 +80,7 @@ const styles = theme => ({
   },
   logo: { width: 100 },
 
-  notificationsButton: {
+  activityLogButton: {
     position: 'absolute',
     right: theme.spacing.unit * 2,
     top: theme.spacing.unit * 1.25,
@@ -127,7 +127,7 @@ const styles = theme => ({
     '& svg': { fontSize: 35 },
   },
 
-  notificationsFab: {
+  activityLogFab: {
     position: 'fixed',
     bottom: theme.spacing.unit * 2,
     left: theme.spacing.unit * 11,
@@ -154,6 +154,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
       0px -24px 38px 3px rgba(0,0,0,0.07)`,
+    minHeight: '100vh',
   },
 
   bottomLogo: {
@@ -182,7 +183,7 @@ export default function withNavigation(WrappedComponent) {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const iconLogo = useMediaQuery('(max-width: 348px)');
     const [navOpen, setNavOpen] = useState(false);
-    const [notificationsOpen, setNotificationsOpen] = useState(false);
+    const [activityLogOpen, setActivityLogOpen] = useState(true);
     const [fadeOut, setFadeOut] = useState(false);
     const [selectedRoute, setSelectedRoute] = useState(location.pathname);
 
@@ -294,9 +295,9 @@ export default function withNavigation(WrappedComponent) {
                     <img src={logo} alt="2hats" className={classes.logo} />
                   </ButtonBase>
                   <IconButton
-                    className={classes.notificationsButton}
+                    className={classes.activityLogButton}
                     onClick={() => {
-                      setNotificationsOpen(true);
+                      setActivityLogOpen(true);
                     }}
                   >
                     <Badge
@@ -304,7 +305,7 @@ export default function withNavigation(WrappedComponent) {
                       classes={{ badge: classes.badge }}
                       badgeContent={2}
                     >
-                      <NotificationsIcon />
+                      <ActivityLogIcon />
                     </Badge>
                   </IconButton>
                   <Divider className={classes.divider} />
@@ -391,25 +392,25 @@ export default function withNavigation(WrappedComponent) {
               </Fab>
               <Fab
                 onClick={() => {
-                  setNotificationsOpen(true);
+                  setActivityLogOpen(true);
                 }}
-                className={classes.notificationsFab}
+                className={classes.activityLogFab}
               >
                 <Badge
                   color="primary"
                   classes={{ badge: classes.badge }}
                   badgeContent={2}
                 >
-                  <NotificationsIcon />
+                  <ActivityLogIcon />
                 </Badge>
               </Fab>
             </>
           )}
 
-          {notificationsOpen && (
-            <Notifications
-              showDialog={notificationsOpen}
-              setShowDialog={setNotificationsOpen}
+          {activityLogOpen && user && (
+            <ActivityLog
+              showDialog={activityLogOpen}
+              setShowDialog={setActivityLogOpen}
               uid={user.id}
             />
           )}
