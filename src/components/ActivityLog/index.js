@@ -4,31 +4,30 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Fade from '@material-ui/core/Fade';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
+// import CircularProgress from '@material-ui/core/CircularProgress';
+// import Fade from '@material-ui/core/Fade';
+// import Tooltip from '@material-ui/core/Tooltip';
+// import IconButton from '@material-ui/core/IconButton';
+// import Badge from '@material-ui/core/Badge';
 
 import Paper from '@material-ui/core/Paper';
 import Modal from '@material-ui/core/Modal';
-import Slide from '@material-ui/core/Slide';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Avatar from '@material-ui/core/Avatar';
+import Grow from '@material-ui/core/Grow';
 import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import List from '@material-ui/core/List';
 
 import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
+import CloseIcon from '@material-ui/icons/CloseRounded';
 
-import ActivityIcon from './ActivityIcon';
+import ActivityItem from './ActivityItem';
 
 // import ScrollyRolly from './ScrollyRolly';
 // import useCollection from '../hooks/useCollection';
 // import { COLLECTIONS } from '../constants/firestore';
-import * as ROUTES from '../../constants/routes';
+// import * as ROUTES from '../../constants/routes';
 // import { markAsRead } from '../utilities/notifications';
 
 import moment from 'moment';
@@ -42,33 +41,68 @@ const styles = theme => ({
 
   paperRoot: {
     borderRadius: theme.shape.roundBorderRadius,
-    width: 360,
+    width: `calc(100% - ${theme.spacing.unit * 3}px)`,
+    maxWidth: 360,
     outline: 'none',
-    maxHeight: `calc(100vh - ${theme.spacing.unit * 3}px)`,
+    maxHeight: `calc(100% - ${theme.spacing.unit * 3}px)`,
+    overflowY: 'hidden',
+
     position: 'absolute',
+    top: theme.spacing.unit * 1.5,
+    bottom: 'auto',
+    left: theme.spacing.unit * 20.5,
+    transformOrigin: `${theme.spacing.unit * 4.5}px 0`,
+  },
+  paperRootMobile: {
+    left: theme.spacing.unit * 1.5,
+    transformOrigin: `${theme.spacing.unit * 27}px 0%`,
+  },
+  paperRootBottom: {
+    top: 'auto',
     bottom: theme.spacing.unit * 1.5,
-    left: theme.spacing.unit * 9,
-    overflowY: 'auto',
+    transformOrigin: `${theme.spacing.unit * 15}px 100%`,
   },
 
+  header: {
+    boxSizing: 'content-box',
+    height: theme.spacing.unit * 5,
+    padding: `${theme.spacing.unit * 2}px 0`,
+  },
   title: {
-    marginTop: theme.spacing.unit * 3,
-    marginBottom: theme.spacing.unit,
     fontWeight: 500,
-
     userSelect: 'none',
     cursor: 'default',
   },
   titleIcon: {
     verticalAlign: 'middle',
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit / 2 + 1,
+    marginLeft: theme.spacing.unit * 2,
+    marginRight: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit / 2 + 1,
+
+    padding: theme.spacing.unit,
+    borderRadius: '50%',
+    backgroundColor: theme.palette.divider,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: theme.spacing.unit * 1.5,
+    right: theme.spacing.unit * 0.75,
+  },
+  headerDivider: {
+    margin: `0 ${theme.spacing.unit * 2}px`,
+    position: 'relative',
+    top: theme.spacing.unit + 2,
   },
 
+  listWrapper: {
+    overflowY: 'auto',
+    '-webkit-overflow-scrolling': 'touch',
+    maxHeight: `calc(100vh - ${theme.spacing.unit * 3}px - ${theme.spacing
+      .unit * 9}px)`,
+  },
   timeline: {
     width: theme.spacing.unit / 4 + 1,
-    height: `calc(100% - ${theme.spacing.unit * 4.5}px)`,
+    height: `calc(100% - ${theme.spacing.unit * (4.5 * 2 + 13)}px)`,
     backgroundColor: theme.palette.primary.light,
 
     position: 'absolute',
@@ -76,25 +110,7 @@ const styles = theme => ({
     top: theme.spacing.unit * 4.5,
   },
 
-  listItemRoot: { alignItems: 'flex-start' },
-  listItemTextRoot: { paddingRight: 0 },
-  activityTitle: {
-    lineHeight: '1.25',
-    marginBottom: theme.spacing.unit / 2,
-  },
-  timestamp: {
-    color: theme.palette.text.secondary,
-  },
-  listItemSecondary: {
-    lineClamp: 2,
-    display: 'box',
-    boxOrient: 'vertical',
-    overflow: 'hidden',
-  },
-  unread: {
-    color: theme.palette.common.white,
-    backgroundColor: theme.palette.primary.main,
-  },
+  endOfList: { height: theme.spacing.unit * 13 },
 });
 
 const DUMMY_ACTIVITIES = [
@@ -104,10 +120,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983171,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'assessment-passed',
-    },
+    type: 'assessment-passed',
     title: 'Mailchimp and EDM composition',
     id: 'nI0cphLPlwAMqK5lGNl6z',
   },
@@ -117,10 +130,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983161,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'assessment-started',
-    },
+    type: 'assessment-started',
     title: 'Mailchimp and EDM composition',
     id: 'nI0cphLPlwAMqK5lGNl6y',
   },
@@ -130,10 +140,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'assessment-started',
-    },
+    type: 'assessment-started',
     title: 'Social media managemer',
     id: 'nI0cphLPlwAMqK5lGNl6x',
   },
@@ -143,12 +150,20 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'course-started',
-    },
+    type: 'course-started',
     title: 'LearnWorld it',
     id: 'nI0cphLPlwAMqK5lGNl6xa',
+  },
+  {
+    body: 'Book AC',
+    cta: { label: 'Book now', route: '#' },
+    createdAt: {
+      seconds: 1547983061,
+      nanoseconds: 149000000,
+    },
+    type: 'book-ac',
+    title: 'LearnWorld it',
+    id: 'nI0cphLPlwAMqK5lGNl6xi',
   },
   {
     body: 'Course completed',
@@ -156,10 +171,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'course-completed',
-    },
+    type: 'course-completed',
     title: 'LearnWorld beginners',
     id: 'nI0cphLPlwAMqK5lGNl6xb',
   },
@@ -169,10 +181,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'assessment-submitted',
-    },
+    type: 'assessment-submitted',
     title: 'LearnWorld it',
     id: 'nI0cphLPlwAMqK5lGNl6xc',
   },
@@ -182,10 +191,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'assessment-failed',
-    },
+    type: 'assessment-failed',
     title: 'LearnWorld it',
     id: 'nI0cphLPlwAMqK5lGNl6xd',
   },
@@ -195,10 +201,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'job-applied',
-    },
+    type: 'job-applied',
     title: 'LearnWorld it',
     id: 'nI0cphLPlwAMqK5lGNl6xe',
   },
@@ -208,10 +211,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'event-booked',
-    },
+    type: 'event-booked',
     title: 'LearnWorld it',
     id: 'nI0cphLPlwAMqK5lGNl6xf',
   },
@@ -221,10 +221,7 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'ac-booked',
-    },
+    type: 'ac-booked',
     title: 'LearnWorld it',
     id: 'nI0cphLPlwAMqK5lGNl6xg',
   },
@@ -234,34 +231,18 @@ const DUMMY_ACTIVITIES = [
       seconds: 1547983061,
       nanoseconds: 149000000,
     },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'ac-completed',
-    },
+    type: 'ac-completed',
     title: 'LearnWorld it',
     id: 'nI0cphLPlwAMqK5lGNl6xh',
-  },
-  {
-    body: 'Book AC',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    data: {
-      conversationId: 'BDp49hSTMVAjWvo9IfQV',
-      type: 'book-ac',
-    },
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xi',
   },
 ];
 
 function ActivityLog(props) {
-  const { classes, showDialog, setShowDialog, history, uid } = props;
-
+  const { classes, showDialog, setShowDialog, isMobile, history, user } = props;
+  // const uid = user.id
   moment.updateLocale('en', momentLocales);
 
-  const [slideIn, setSlideIn] = useState(true);
+  const [grow, setGrow] = useState(true);
 
   // const [unreadActivityLogsState] = useCollection({
   //   path: COLLECTIONS.notifications,
@@ -292,23 +273,23 @@ function ActivityLog(props) {
   // const notifications = notificationsState.documents;
 
   const handleClose = () => {
-    setSlideIn(false);
+    setGrow(false);
     setTimeout(() => {
       setShowDialog(false);
-    }, 100);
+    }, 400);
   };
 
   // useEffect(
   //   () => {
-  //     if (!showDialog) setSlideIn(true);
+  //     if (!showDialog) setGrow(true);
   //     else markAsRead(uid, notifications);
   //   },
   //   [showDialog]
   // );
 
-  const handleClick = data => {
-    if (data.conversationId) {
-      // history.push(`${ROUTES.conversations}?id=${data.conversationId}`);
+  const handleClick = route => {
+    if (route) {
+      history.push(route);
       handleClose();
     }
   };
@@ -318,70 +299,65 @@ function ActivityLog(props) {
   // if (notificationsState.loading)
   //   return <CircularProgress className={classes.loader} size={24} />;
 
-  if (showDialog)
+  if (!!showDialog)
     return (
-      <Modal open={showDialog} onClose={handleClose} disableAutoFocus>
-        <Slide in={slideIn} direction="up">
-          <Paper elevation={24} classes={{ root: classes.paperRoot }}>
-            <Typography variant="h5" className={classes.title}>
-              <ActivityLogIcon className={classes.titleIcon} />
-              Activity Log
-            </Typography>
-            {/* <ScrollyRolly
+      <Modal open={!!showDialog} onClose={handleClose} disableAutoFocus>
+        <Grow in={grow}>
+          <Paper
+            elevation={24}
+            classes={{
+              root: classNames(
+                classes.paperRoot,
+                isMobile && classes.paperRootMobile,
+                showDialog === 'bottom' && classes.paperRootBottom
+              ),
+            }}
+          >
+            <Grid container direction="column" wrap="nowrap">
+              <Grid item className={classes.header}>
+                <Typography variant="h5" className={classes.title}>
+                  <ActivityLogIcon className={classes.titleIcon} />
+                  Activity Log
+                </Typography>
+                <IconButton
+                  onClick={handleClose}
+                  className={classes.closeButton}
+                >
+                  <CloseIcon />
+                </IconButton>
+                <Divider className={classes.headerDivider} />
+              </Grid>
+
+              <Grid item xs>
+                <div className={classes.listWrapper}>
+                  {/* <ScrollyRolly
                 dataState={notificationsState}
                 dataDispatch={notificationsDispatch}
               > */}
-            <List>
-              <div className={classes.timeline} />
-              {x.map(x => (
-                <ListItem
-                  key={x.id}
-                  button
-                  onClick={() => {
-                    handleClick(x.data);
-                  }}
-                  classes={{ root: classes.listItemRoot }}
-                >
-                  <Avatar>
-                    <ActivityIcon type={x.data.type} />
-                  </Avatar>
-                  <ListItemText
-                    primary={
-                      <Grid
-                        container
-                        justify="space-between"
-                        alignItems="baseline"
-                      >
-                        <Grid item xs>
-                          <Typography
-                            variant="subtitle1"
-                            className={classes.activityTitle}
-                          >
-                            {x.title}
-                          </Typography>
-                        </Grid>
-                        <Grid>
-                          <Typography
-                            variant="body2"
-                            className={classes.timestamp}
-                          >
-                            {moment.unix(x.createdAt.seconds).fromNow()}
-                          </Typography>
-                        </Grid>
-                      </Grid>
-                    }
-                    secondary={x.body}
-                    classes={{
-                      root: classes.listItemTextRoot,
-                      secondary: classes.listItemSecondary,
-                    }}
-                  />
-                </ListItem>
-              ))}
-            </List>
-            {/* </ScrollyRolly> */}
+                  <List>
+                    <div className={classes.timeline} />
+                    {x.map(x => (
+                      <ActivityItem
+                        key={x.id}
+                        data={x}
+                        handleClick={handleClick}
+                      />
+                    ))}
+                    <ActivityItem
+                      data={{
+                        type: 'system',
+                        createdAt: user.createdAt,
+                        title: 'Signed up',
+                      }}
+                    />
+                    <div className={classes.endOfList} />
+                  </List>
+                  {/* </ScrollyRolly> */}
+                </div>
+              </Grid>
+            </Grid>
           </Paper>
-        </Slide>
+        </Grow>
       </Modal>
     );
 }
@@ -390,8 +366,9 @@ ActivityLog.propTypes = {
   classes: PropTypes.object.isRequired,
   showDialog: PropTypes.bool.isRequired,
   setShowDialog: PropTypes.func.isRequired,
+  isMobile: PropTypes.bool.isRequired,
   history: PropTypes.object.isRequired,
-  uid: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default withRouter(withStyles(styles)(ActivityLog));

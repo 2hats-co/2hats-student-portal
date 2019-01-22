@@ -17,6 +17,7 @@ import Badge from '@material-ui/core/Badge';
 
 import MenuIcon from '@material-ui/icons/MenuRounded';
 import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
+import DashboardIcon from '@material-ui/icons/DashboardRounded';
 import ProfileIcon from '@material-ui/icons/PersonRounded';
 import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
 import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
@@ -50,7 +51,7 @@ export const DRAWER_WIDTH = 240;
 const styles = theme => ({
   root: {
     width: '100vw',
-    height: '100vh',
+    minHeight: '100vh',
     overflowX: 'hidden',
   },
 
@@ -63,7 +64,9 @@ const styles = theme => ({
     width: 0,
     overflowY: 'auto',
   },
-  drawerPaper: { width: DRAWER_WIDTH },
+  drawerPaper: {
+    width: DRAWER_WIDTH,
+  },
   drawerBorder: {
     boxShadow: `-1px 0 0 ${theme.palette.divider} inset`,
     borderRight: 'none',
@@ -76,7 +79,6 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     transition: theme.transitions.create(['background-color', 'box-shadow']),
     '&:hover': { backgroundColor: theme.palette.action.hover },
-    '&$selected': { backgroundColor: 'transparent' },
   },
   logo: { width: 100 },
 
@@ -92,9 +94,7 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit / 2,
     cursor: 'default',
   },
-  listWrapper: {
-    marginTop: theme.spacing.unit * 3,
-  },
+  listWrapper: { marginTop: theme.spacing.unit * 3 },
   listItemRoot: {
     transition: theme.transitions.create([
       'background-color',
@@ -183,7 +183,7 @@ export default function withNavigation(WrappedComponent) {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const iconLogo = useMediaQuery('(max-width: 348px)');
     const [navOpen, setNavOpen] = useState(false);
-    const [activityLogOpen, setActivityLogOpen] = useState(true);
+    const [activityLogOpen, setActivityLogOpen] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
     const [selectedRoute, setSelectedRoute] = useState(location.pathname);
 
@@ -219,6 +219,7 @@ export default function withNavigation(WrappedComponent) {
     }, []);
 
     const MAIN_NAV_ITEMS = [
+      { label: 'Dashboard', icon: <DashboardIcon />, route: ROUTES.DASHBOARD },
       { label: 'Profile', icon: <ProfileIcon />, route: ROUTES.PROFILE },
       { type: 'divider' },
       { label: 'Jobs', icon: <JobsIcon />, route: ROUTES.JOBS },
@@ -287,10 +288,7 @@ export default function withNavigation(WrappedComponent) {
                     onClick={() => {
                       goTo(ROUTES.DASHBOARD);
                     }}
-                    className={classNames(
-                      classes.logoButton,
-                      selectedRoute === ROUTES.DASHBOARD && classes.selected
-                    )}
+                    className={classes.logoButton}
                   >
                     <img src={logo} alt="2hats" className={classes.logo} />
                   </ButtonBase>
@@ -392,7 +390,7 @@ export default function withNavigation(WrappedComponent) {
               </Fab>
               <Fab
                 onClick={() => {
-                  setActivityLogOpen(true);
+                  setActivityLogOpen('bottom');
                 }}
                 className={classes.activityLogFab}
               >
@@ -411,7 +409,8 @@ export default function withNavigation(WrappedComponent) {
             <ActivityLog
               showDialog={activityLogOpen}
               setShowDialog={setActivityLogOpen}
-              uid={user.id}
+              user={user}
+              isMobile={isMobile}
             />
           )}
         </Grid>

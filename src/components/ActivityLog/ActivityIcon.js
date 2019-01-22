@@ -142,6 +142,7 @@ const ActivityIcon = props => {
         </>
       );
 
+    case 'system':
     default:
       return <DefaultIcon />;
   }
