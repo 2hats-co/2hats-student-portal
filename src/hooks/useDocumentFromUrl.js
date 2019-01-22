@@ -21,8 +21,9 @@ const useDocumentFromUrl = (location, path) => {
               path: `${COLLECTIONS.users}/${userContext.user.id}/${path}/${
                 parsedQuery.id
               }`,
+              valid: true,
             });
-          else docDispatch({ path: `${path}/${parsedQuery.id}` });
+          else docDispatch({ path: `${path}/${parsedQuery.id}`, valid: true });
         } else {
           if (docState.unsubscribe) docState.unsubscribe();
         }

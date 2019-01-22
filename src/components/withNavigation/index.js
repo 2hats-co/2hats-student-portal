@@ -35,6 +35,7 @@ import * as ROUTES from '../../constants/routes';
 import logo from '../../assets/images/Logo/DarkText.svg';
 import blackLogo from '../../assets/images/Logo/Black.svg';
 import blackIconLogo from '../../assets/images/Logo/BlackIcon.svg';
+import greyBg from '../../assets/background/BW.svg';
 
 import User from './User';
 import NavItem from './NavItem';
@@ -84,8 +85,10 @@ const styles = theme => ({
 
   activityLogButton: {
     position: 'absolute',
-    right: theme.spacing.unit * 2,
-    top: theme.spacing.unit * 1.25,
+    right: theme.spacing.unit * 1,
+    top: theme.spacing.unit * 0.75,
+    color: theme.palette.primary,
+    '& svg': { fontSize: theme.spacing.unit * 4 },
   },
   badge: { boxShadow: '0 0 0 2px #fff' },
 
@@ -147,11 +150,17 @@ const styles = theme => ({
   },
 
   wrappedComponentWrapper: { transition: theme.transitions.create('opacity') },
-  wrappedComponentGrid: { minHeight: 'calc(100vh + 108px)' },
+  wrappedComponentGrid: {
+    minHeight: 'calc(100vh + 108px)',
+    backgroundColor: '#e1e1e1',
+  },
   fadeOut: { opacity: 0 },
 
   wrappedComponent: {
-    backgroundColor: theme.palette.background.default,
+    backgroundImage: `url(${greyBg})`,
+    backgroundSize: 'cover',
+    // backgroundColor: theme.palette.background.default,
+    backgroundColor: '#e1e1e1',
     boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
       0px -24px 38px 3px rgba(0,0,0,0.07)`,
     minHeight: '100vh',
@@ -166,11 +175,12 @@ const styles = theme => ({
     marginRight: 'auto',
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * 2,
-    paddingLeft: 72,
 
     opacity: 0.38,
 
-    '@media (max-width: 348px)': { width: 48 },
+    [theme.breakpoints.down('sm')]: { paddingLeft: 72 },
+
+    '@media (max-width: 348px)': { width: 44 },
   },
 });
 
@@ -301,7 +311,7 @@ export default function withNavigation(WrappedComponent) {
                     <Badge
                       color="primary"
                       classes={{ badge: classes.badge }}
-                      badgeContent={2}
+                      badgeContent="!"
                     >
                       <ActivityLogIcon />
                     </Badge>
@@ -397,7 +407,7 @@ export default function withNavigation(WrappedComponent) {
                 <Badge
                   color="primary"
                   classes={{ badge: classes.badge }}
-                  badgeContent={2}
+                  badgeContent="!"
                 >
                   <ActivityLogIcon />
                 </Badge>

@@ -7,6 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import { DRAWER_WIDTH } from './withNavigation';
+import greyBg from '../assets/background/BW.svg';
 
 const styles = theme => ({
   root: {
@@ -15,9 +16,12 @@ const styles = theme => ({
 
     position: 'absolute',
     top: 0,
-    left: 0,
+    right: 0,
+    bottom: 0,
 
-    backgroundColor: theme.palette.background.default,
+    backgroundImage: `url(${greyBg})`,
+    backgroundSize: 'cover',
+    backgroundColor: '#e1e1e1',
     textAlign: 'center',
     zIndex: 1,
   },
