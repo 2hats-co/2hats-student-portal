@@ -4,18 +4,14 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import CircularProgress from '@material-ui/core/CircularProgress';
-import Fade from '@material-ui/core/Fade';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-
 import Paper from '@material-ui/core/Paper';
 import Modal from '@material-ui/core/Modal';
 import Grow from '@material-ui/core/Grow';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import IconButton from '@material-ui/core/IconButton';
 
 import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
 import CloseIcon from '@material-ui/icons/CloseRounded';
@@ -25,8 +21,6 @@ import ActivityItem from './ActivityItem';
 import ScrollyRolly from '../ScrollyRolly';
 import useCollection from '../../hooks/useCollection';
 import { COLLECTIONS } from '../../constants/firestore';
-import * as ROUTES from '../../constants/routes';
-// import { markAsRead } from '../utilities/activityLog';
 
 import moment from 'moment';
 import { momentLocales } from '../../constants/momentLocales';
@@ -95,56 +89,52 @@ const styles = theme => ({
   listWrapper: {
     overflowY: 'auto',
     '-webkit-overflow-scrolling': 'touch',
-    maxHeight: `calc(100vh - ${theme.spacing.unit * 3}px - ${theme.spacing
-      .unit * 9}px)`,
+    maxHeight: `calc(${window.innerHeight}px - ${theme.spacing.unit *
+      3}px - ${theme.spacing.unit * 9}px)`,
   },
-  timeline: {
-    width: theme.spacing.unit / 4 + 1,
-    height: `calc(100% - ${theme.spacing.unit * (4.5 * 2 + 13 + 8)}px)`,
-    backgroundColor: theme.palette.primary.light,
+  scrollyRollyList: {
+    '&::before': {
+      content: '""',
+      width: theme.spacing.unit / 4 + 1,
+      height: '100%',
+      backgroundColor: theme.palette.primary.light,
 
-    position: 'absolute',
-    left: theme.spacing.unit * 4.5 - 1,
-    top: theme.spacing.unit * 12.5,
+      position: 'absolute',
+      left: theme.spacing.unit * 4.5 - 1,
+      top: theme.spacing.unit * 4,
+    },
   },
-
-  endOfList: { height: theme.spacing.unit * 13 },
 });
 
 function ActivityLog(props) {
-  const { classes, showDialog, setShowDialog, isMobile, history, user } = props;
-  // const uid = user.id
+  const {
+    classes,
+    theme,
+    showDialog,
+    setShowDialog,
+    isMobile,
+    history,
+    user,
+  } = props;
   moment.updateLocale('en', momentLocales);
 
   const [grow, setGrow] = useState(true);
+  const [height, setHeight] = useState(window.innerHeight);
 
-  // const [unreadActivityLogsState] = useCollection({
-  //   path: COLLECTIONS.activityLog,
-  //   sort: { field: 'createdAt', direction: 'desc' },
-  //   filters: [
-  //     {
-  //       field: 'unreadSubscribers',
-  //       operator: 'array-contains',
-  //       value: uid,
-  //     },
-  //   ],
-  // });
-  // const unreadActivityLogs = unreadActivityLogsState.documents
-  //   ? unreadActivityLogsState.documents.length
-  //   : 0;
+  const updateWindowDimensions = () => {
+    if (height !== window.innerHeight) setHeight(window.innerHeight);
+  };
+  useEffect(() => {
+    window.addEventListener('resize', updateWindowDimensions);
+    return () => {
+      window.removeEventListener('resize', updateWindowDimensions);
+    };
+  }, []);
 
   const [activityLogState, activityLogDispatch] = useCollection({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.activityLog}`,
     sort: { field: 'createdAt', direction: 'desc' },
-    // filters: [
-    //   {
-    //     field: 'subscribers',
-    //     operator: 'array-contains',
-    //     value: user.id,
-    //   },
-    // ],
   });
-  // const activityLog = activityLogState.documents;
 
   const handleClose = () => {
     setGrow(false);
@@ -153,23 +143,12 @@ function ActivityLog(props) {
     }, 400);
   };
 
-  // useEffect(
-  //   () => {
-  //     if (!showDialog) setGrow(true);
-  //     else markAsRead(uid, activityLog);
-  //   },
-  //   [showDialog]
-  // );
-
   const handleClick = route => {
     if (route) {
       history.push(route);
       handleClose();
     }
   };
-
-  // if (activityLogState.loading)
-  //   return <CircularProgress className={classes.loader} size={24} />;
 
   if (!!showDialog)
     return (
@@ -201,7 +180,13 @@ function ActivityLog(props) {
               </Grid>
 
               <Grid item xs>
-                <div className={classes.listWrapper}>
+                <div
+                  className={classes.listWrapper}
+                  style={{
+                    maxHeight: `calc(${window.innerHeight}px - ${theme.spacing
+                      .unit * 3}px - ${theme.spacing.unit * 9}px)`,
+                  }}
+                >
                   {activityLogState.loading ? (
                     <CircularProgress className={classes.spinner} />
                   ) : (
@@ -210,6 +195,7 @@ function ActivityLog(props) {
                       <ScrollyRolly
                         dataState={activityLogState}
                         dataDispatch={activityLogDispatch}
+                        classes={{ list: classes.scrollyRollyList }}
                       >
                         {x => (
                           <ActivityItem
@@ -224,9 +210,9 @@ function ActivityLog(props) {
                           type: 'system',
                           createdAt: user.createdAt,
                           title: 'Signed up',
+                          body: 'Welcome to 2hats!',
                         }}
                       />
-                      <div className={classes.endOfList} />
                     </>
                   )}
                 </div>
@@ -240,6 +226,7 @@ function ActivityLog(props) {
 
 ActivityLog.propTypes = {
   classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
   showDialog: PropTypes.bool.isRequired,
   setShowDialog: PropTypes.func.isRequired,
   isMobile: PropTypes.bool.isRequired,
@@ -247,4 +234,4 @@ ActivityLog.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(ActivityLog));
+export default withRouter(withStyles(styles, { withTheme: true })(ActivityLog));

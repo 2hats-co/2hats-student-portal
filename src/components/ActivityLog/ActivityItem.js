@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import ListItem from '@material-ui/core/ListItem';
@@ -14,6 +13,7 @@ import GoIcon from '@material-ui/icons/ArrowForwardRounded';
 import ActivityIcon from './ActivityIcon';
 
 import moment from 'moment';
+import { ACTIVITY_LOG_LABELS } from '../../constants/activityLog';
 
 const styles = theme => ({
   listItemRoot: {
@@ -21,7 +21,6 @@ const styles = theme => ({
     cursor: 'default',
     marginBottom: theme.spacing.unit,
   },
-  listItemRootCentred: { alignItems: 'center' },
 
   listItemTextRoot: { paddingRight: 0 },
   activityTitle: {
@@ -30,13 +29,9 @@ const styles = theme => ({
   },
   timestamp: {
     color: theme.palette.text.secondary,
+    marginLeft: theme.spacing.unit * 1.5,
   },
-  listItemSecondary: {
-    lineClamp: 2,
-    display: 'box',
-    boxOrient: 'vertical',
-    overflow: 'hidden',
-  },
+  activityLogLabel: { color: theme.palette.text.secondary },
 
   unread: {
     color: theme.palette.common.white,
@@ -58,14 +53,7 @@ const ActivityItem = props => {
   const { classes, data, handleClick } = props;
 
   return (
-    <ListItem
-      classes={{
-        root: classNames(
-          classes.listItemRoot,
-          !data.body && !data.cta && classes.listItemRootCentred
-        ),
-      }}
-    >
+    <ListItem classes={{ root: classes.listItemRoot }}>
       <Avatar>
         <ActivityIcon type={data.type} />
       </Avatar>
@@ -85,29 +73,26 @@ const ActivityItem = props => {
           </Grid>
         }
         secondary={
-          data.body || data.cta ? (
-            <>
-              <Typography>{data.body}</Typography>
-              {data.cta && data.cta.label && data.cta.route && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => {
-                    handleClick(data.cta.route);
-                  }}
-                  className={classes.ctaButton}
-                >
-                  {data.cta.label}
-                  <GoIcon />
-                </Button>
-              )}
-            </>
-          ) : null
+          <>
+            <Typography className={classes.activityLogLabel}>
+              {data.body || ACTIVITY_LOG_LABELS[data.type]}
+            </Typography>
+            {data.cta && data.cta.label && data.cta.route && (
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  handleClick(data.cta.route);
+                }}
+                className={classes.ctaButton}
+              >
+                {data.cta.label}
+                <GoIcon />
+              </Button>
+            )}
+          </>
         }
-        classes={{
-          root: classes.listItemTextRoot,
-          secondary: classes.listItemSecondary,
-        }}
+        classes={{ root: classes.listItemTextRoot }}
         disableTypography
       />
     </ListItem>
