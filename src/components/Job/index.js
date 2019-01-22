@@ -18,6 +18,10 @@ import ErrorIcon from '@material-ui/icons/ErrorOutlineRounded';
 
 import BackButton from '../ContainerHeader/BackButton';
 import SkillItem from './SkillItem';
+import Form from '../Form';
+import jobApplicationFields from '../../constants/forms/jobApplication';
+import { COLLECTIONS } from '../../constants/firestore';
+import { createDoc } from '../../utilities/firestore';
 
 const styles = theme => ({
   root: {
@@ -97,7 +101,7 @@ const styles = theme => ({
     fontSize: theme.spacing.unit * 3,
     fontWeight: 500,
     borderRadius: 200,
-    transition: theme.transitions.create('transform'),
+    transition: theme.transitions.create(['transform', 'box-shadow']),
 
     '& svg': {
       fontSize: theme.spacing.unit * 3.75,
@@ -108,12 +112,16 @@ const styles = theme => ({
     },
   },
   getStartedSection: {
-    transition: theme.transitions.create(['transform', 'margin-top']),
-    transformOrigin: '0 100%',
+    // transition: theme.transitions.create([
+    //   'transform',
+    //   'margin-top',
+    //   'box-shadow',
+    // ]),
+    // transformOrigin: '0 100%',
   },
   gotStarted: {
-    transform: 'scale(0)',
-    marginTop: -theme.spacing.unit * 5.5,
+    // transform: 'scale(0)',
+    // marginTop: -theme.spacing.unit * 5.5,
   },
 
   skillsWarning: {
@@ -131,15 +139,33 @@ const styles = theme => ({
 const Job = props => {
   const { classes, data, user } = props;
 
-  const [gotStarted, setGotStarted] = useState(false);
+  const [showDialog, setShowDialog] = useState(false);
 
   useEffect(
     () => {
-      if (data && data.submitted) setGotStarted(true);
-      else setGotStarted(false);
+      if (data && data.submitted) setShowDialog(true);
+      else setShowDialog(false);
     },
     [data]
   );
+
+  const applyForJob = o => {
+    if (!data.jobId) {
+      const { id, ...rest } = data;
+      createDoc(`${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`, {
+        ...rest,
+        UID: user.id,
+        outcome: '',
+        screened: false,
+        submissionContent: { ...o },
+        jobId: id,
+        submitted: true,
+      }).then(docRef => {
+        console.log('Created submission doc', docRef.id);
+        // setSubmissionId(docRef.id);
+      });
+    }
+  };
 
   const skillsNotAchieved = user.skills ? [] : [...data.skillsRequired];
   data.skillsRequired.forEach(x => {
@@ -179,7 +205,7 @@ const Job = props => {
             </Typography>
             <Typography variant="body1" className={classes.meta}>
               <EventIcon className={classes.adornmentIcon} />
-              Applications close {data.closingDate}
+              Closing {data.closingDate}
             </Typography>
 
             <Button
@@ -188,10 +214,10 @@ const Job = props => {
               className={classNames(
                 classes.apply,
                 classes.getStartedSection,
-                gotStarted && classes.gotStarted
+                showDialog && classes.gotStarted
               )}
               onClick={e => {
-                setGotStarted(true);
+                setShowDialog(true);
               }}
               disabled={skillsNotAchieved.length > 0}
             >
@@ -242,7 +268,7 @@ const Job = props => {
           className={classNames(
             classes.section,
             classes.getStartedSection,
-            gotStarted && classes.gotStarted
+            showDialog && classes.gotStarted
           )}
         >
           <Button
@@ -251,7 +277,7 @@ const Job = props => {
             size="large"
             className={classes.applyBig}
             onClick={e => {
-              setGotStarted(true);
+              setShowDialog(true);
             }}
             disabled={skillsNotAchieved.length > 0}
           >
@@ -266,6 +292,22 @@ const Job = props => {
             </Typography>
           )}
         </div>
+
+        <Form
+          action="apply"
+          actions={{
+            apply: data => {
+              applyForJob(data);
+              setShowDialog(false);
+            },
+            close: () => {
+              setShowDialog(false);
+            },
+          }}
+          open={showDialog}
+          data={jobApplicationFields()}
+          formTitle={`for ${data.title}`}
+        />
       </Paper>
     </div>
   );

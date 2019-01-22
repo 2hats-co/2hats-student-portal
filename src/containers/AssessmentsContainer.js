@@ -34,7 +34,7 @@ const AssessmentsContainer = props => {
               maxWidth={getCardsWidth(cardsCols)}
             />
             <Cards
-              title="Assessments you have started or completed or attempted or failed and/or all of the above"
+              title="Your assessments"
               mapping="assessmentYour"
               cols={cardsCols}
               useCollectionInit={{

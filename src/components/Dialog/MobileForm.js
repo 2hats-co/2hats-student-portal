@@ -19,6 +19,7 @@ const styles = theme => ({
   toolbar: {
     padding: `0 ${theme.spacing.unit / 2}px`,
   },
+  activity: { textTransform: 'capitalize' },
   title: {
     flex: 1,
     paddingLeft: theme.spacing.unit * 1.5,
@@ -40,7 +41,7 @@ function MobileForm(props) {
   const {
     isLoading,
     classes,
-    // activity,
+    activity,
     title,
     children,
     open,
@@ -67,7 +68,7 @@ function MobileForm(props) {
             <CloseIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.title}>
-            {title}
+            <span class={classes.activity}>{activity}</span> {title}
           </Typography>
           <Button
             id={`dialog-save-${disabled}`}
@@ -75,7 +76,7 @@ function MobileForm(props) {
             onClick={addHandler}
             disabled={disabled}
           >
-            Save
+            Done
           </Button>
         </Toolbar>
       </AppBar>

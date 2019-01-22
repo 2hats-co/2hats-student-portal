@@ -115,6 +115,7 @@ const styles = theme => ({
     top: MEDIA_HEIGHT - theme.spacing.unit * 3,
     right: theme.spacing.unit,
     zIndex: 1,
+    boxShadow: theme.shadows[4],
 
     borderRadius: theme.spacing.unit * 3,
     backgroundColor: theme.palette.primary.main,
@@ -288,7 +289,7 @@ OneCard.propTypes = {
 
   title: PropTypes.string.isRequired,
   secondaryText: PropTypes.node,
-  primaryAction: PropTypes.string.isRequired,
+  primaryAction: PropTypes.string,
   route: PropTypes.string.isRequired,
 
   newTab: PropTypes.bool,

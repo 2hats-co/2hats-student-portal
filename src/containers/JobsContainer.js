@@ -38,6 +38,15 @@ const JobsContainer = props => {
               isMobile={isMobile}
             />
             <Cards
+              title="Your jobs"
+              mapping="job"
+              cols={cardsCols}
+              useCollectionInit={{
+                path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
+                limit: cardsCols + 1,
+              }}
+            />
+            <Cards
               title="All jobs"
               mapping="job"
               cols={cardsCols}

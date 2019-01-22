@@ -82,7 +82,6 @@ class AccountInfoDialog extends React.Component {
         workingRights,
         currentUniversity,
         availableDays,
-        promoCode,
       } = this.state;
       return (
         <Dialog

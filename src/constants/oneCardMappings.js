@@ -56,15 +56,7 @@ export const assessmentYour = data => ({
 
 export const job = data => ({
   title: data.title,
-  secondaryText: (
-    <>
-      <Typography variant="subtitle2">About the role</Typography>
-      <Typography variant="body2">{data.roleDescription}</Typography>
-      <Typography variant="subtitle2">About the company</Typography>
-      <Typography variant="body2">{data.companyDescription}</Typography>
-    </>
-  ),
-  primaryAction: 'Get started',
+  primaryAction: 'Learn more',
   route: `${ROUTES.JOBS}?id=${data.id}`,
 
   indicator: <JobsIcon />,
@@ -72,7 +64,6 @@ export const job = data => ({
     `Closing ${data.closingDate}`,
     `Industry: ${data.industry}`,
     `Pay: ${data.pay}`,
-    ...data.skillsRequired,
   ],
 
   image: data.image.url || data.image,

@@ -15,6 +15,7 @@ const styles = theme => ({
     paddingLeft: 0,
     paddingRight: 0,
   },
+  activity: { textTransform: 'capitalize' },
   actions: {},
   grid: {
     paddingTop: theme.spacing.unit / 2,
@@ -59,7 +60,10 @@ function WebForm(props) {
         style={isLoading ? {} : { display: 'none' }}
       />
       <DialogTitle id="form-dialog-title">
-        {props.hideActivityFromTitle ? null : activity} {title}
+        {props.hideActivityFromTitle ? null : (
+          <span className={classes.activity}>{activity}</span>
+        )}{' '}
+        {title}
       </DialogTitle>
       <DialogContent>
         <Grid
