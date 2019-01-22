@@ -13,7 +13,7 @@ import { COLLECTIONS } from '../constants/firestore';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
 const AssessmentsContainer = props => {
-  const { className, isMobile, location } = props;
+  const { className, isMobile, location, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -32,6 +32,17 @@ const AssessmentsContainer = props => {
               //subtitle="Get yourself certified with these assessments"
               isMobile={isMobile}
               maxWidth={getCardsWidth(cardsCols)}
+            />
+            <Cards
+              title="Assessments you have started or completed or attempted or failed and/or all of the above"
+              mapping="assessmentYour"
+              cols={cardsCols}
+              useCollectionInit={{
+                path: `${COLLECTIONS.users}/${user.id}/${
+                  COLLECTIONS.assessments
+                }`,
+                limit: cardsCols + 1,
+              }}
             />
             <Cards
               title="All assessments"
@@ -53,6 +64,7 @@ AssessmentsContainer.propTypes = {
   className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default withNavigation(AssessmentsContainer);

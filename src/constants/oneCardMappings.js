@@ -38,6 +38,22 @@ export const assessment = data => ({
   image: data.image.url || data.image,
 });
 
+export const assessmentYour = data => ({
+  title: data.title,
+  secondaryText: data.description,
+  primaryAction: 'View',
+  route: `${ROUTES.ASSESSMENTS}?id=${data.id}&yours=true`,
+
+  indicator: <AssessmentsIcon />,
+  tertiaryText: [
+    `${data.duration} minutes`,
+    `Skill: ${data.skillAssociated}`,
+    ...data.links,
+  ],
+
+  image: data.image.url || data.image,
+});
+
 export const job = data => ({
   title: data.title,
   secondaryText: (

@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Fade from '@material-ui/core/Fade';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
 
@@ -55,19 +57,35 @@ const styles = theme => ({
     fontSize: theme.spacing.unit * 2,
     borderRadius: 200,
     marginLeft: -theme.spacing.unit / 2,
+    transition: theme.transitions.create('transform'),
 
     '& svg': {
       marginLeft: theme.spacing.unit / 2,
       marginRight: 0,
     },
   },
+  getStartedSection: {
+    transition: theme.transitions.create(['transform', 'margin-top']),
+    transformOrigin: '0 100%',
+  },
+  gotStarted: {
+    transform: 'scale(0)',
+    marginTop: -theme.spacing.unit * 5.5,
+  },
 });
 
 const Assessment = props => {
   const { classes, data } = props;
-  console.log(data);
 
   const [gotStarted, setGotStarted] = useState(false);
+
+  useEffect(
+    () => {
+      if (data && data.submitted) setGotStarted(true);
+      else setGotStarted(false);
+    },
+    [data]
+  );
 
   return (
     <Grid container wrap="nowrap" className={classes.root}>
@@ -93,22 +111,26 @@ const Assessment = props => {
           <Typography variant="body2">{data.jobDescription}</Typography>
         </div>
 
-        {!gotStarted && (
-          <div className={classes.section}>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              className={classes.getStarted}
-              onClick={() => {
-                setGotStarted(true);
-              }}
-            >
-              Get started
-              <ArrowForwardIcon />
-            </Button>
-          </div>
-        )}
+        <div
+          className={classNames(
+            classes.section,
+            classes.getStartedSection,
+            gotStarted && classes.gotStarted
+          )}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.getStarted}
+            onClick={e => {
+              setGotStarted(true);
+            }}
+          >
+            Get started
+            <ArrowForwardIcon />
+          </Button>
+        </div>
 
         {gotStarted && <AssessmentSubmission data={data} />}
       </Grid>
