@@ -1,18 +1,16 @@
 import { firestore } from '../store';
 
-export const updateProperties = (collection, docId, properties) => {
+export const updateProperties = (collection, docId, properties) =>
   firestore
     .collection(collection)
     .doc(docId)
     .update({ ...properties });
-};
 
-export const deleteDoc = (collection, docId) => {
+export const deleteDoc = (collection, docId) =>
   firestore
     .collection(collection)
     .doc(docId)
     .delete();
-};
 
 export const getfirstIdOfQuery = async (collectionPath, filters) => {
   let query = firestore.collection(collectionPath);

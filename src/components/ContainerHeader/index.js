@@ -21,7 +21,7 @@ const styles = theme => ({
 });
 
 function ContainerHeader(props) {
-  const { classes, title, subtitle, isMobile, maxWidth } = props;
+  const { classes, title, subtitle, maxWidth } = props;
 
   return (
     <header className={classes.root} style={{ maxWidth }}>
@@ -39,7 +39,7 @@ ContainerHeader.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.node.isRequired,
   subtitle: PropTypes.node,
-  isMobile: PropTypes.bool.isRequired,
+  // isMobile: PropTypes.bool.isRequired,
   maxWidth: PropTypes.number,
 };
 

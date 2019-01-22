@@ -16,7 +16,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 
 import MenuIcon from '@material-ui/icons/MenuRounded';
-import NotificationsIcon from '@material-ui/icons/NotificationsRounded';
+import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
+import DashboardIcon from '@material-ui/icons/DashboardRounded';
 import ProfileIcon from '@material-ui/icons/PersonRounded';
 import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
 import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
@@ -39,7 +40,7 @@ import User from './User';
 import NavItem from './NavItem';
 import LoadingScreen from '../LoadingScreen';
 import AccountInfoDialog from '../AccountInfoDialog';
-import Notifications from '../Notifications';
+import ActivityLog from '../ActivityLog';
 
 import useDocument from '../../hooks/useDocument';
 import { COLLECTIONS } from '../../constants/firestore';
@@ -50,7 +51,7 @@ export const DRAWER_WIDTH = 240;
 const styles = theme => ({
   root: {
     width: '100vw',
-    height: '100vh',
+    minHeight: '100vh',
     overflowX: 'hidden',
   },
 
@@ -63,7 +64,9 @@ const styles = theme => ({
     width: 0,
     overflowY: 'auto',
   },
-  drawerPaper: { width: DRAWER_WIDTH },
+  drawerPaper: {
+    width: DRAWER_WIDTH,
+  },
   drawerBorder: {
     boxShadow: `-1px 0 0 ${theme.palette.divider} inset`,
     borderRight: 'none',
@@ -76,11 +79,10 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     transition: theme.transitions.create(['background-color', 'box-shadow']),
     '&:hover': { backgroundColor: theme.palette.action.hover },
-    '&$selected': { backgroundColor: 'transparent' },
   },
   logo: { width: 100 },
 
-  notificationsButton: {
+  activityLogButton: {
     position: 'absolute',
     right: theme.spacing.unit * 2,
     top: theme.spacing.unit * 1.25,
@@ -92,9 +94,7 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit / 2,
     cursor: 'default',
   },
-  listWrapper: {
-    marginTop: theme.spacing.unit * 3,
-  },
+  listWrapper: { marginTop: theme.spacing.unit * 3 },
   listItemRoot: {
     transition: theme.transitions.create([
       'background-color',
@@ -127,7 +127,7 @@ const styles = theme => ({
     '& svg': { fontSize: 35 },
   },
 
-  notificationsFab: {
+  activityLogFab: {
     position: 'fixed',
     bottom: theme.spacing.unit * 2,
     left: theme.spacing.unit * 11,
@@ -154,6 +154,7 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.default,
     boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
       0px -24px 38px 3px rgba(0,0,0,0.07)`,
+    minHeight: '100vh',
   },
 
   bottomLogo: {
@@ -182,7 +183,7 @@ export default function withNavigation(WrappedComponent) {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const iconLogo = useMediaQuery('(max-width: 348px)');
     const [navOpen, setNavOpen] = useState(false);
-    const [notificationsOpen, setNotificationsOpen] = useState(false);
+    const [activityLogOpen, setActivityLogOpen] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
     const [selectedRoute, setSelectedRoute] = useState(location.pathname);
 
@@ -218,6 +219,7 @@ export default function withNavigation(WrappedComponent) {
     }, []);
 
     const MAIN_NAV_ITEMS = [
+      { label: 'Dashboard', icon: <DashboardIcon />, route: ROUTES.DASHBOARD },
       { label: 'Profile', icon: <ProfileIcon />, route: ROUTES.PROFILE },
       { type: 'divider' },
       { label: 'Jobs', icon: <JobsIcon />, route: ROUTES.JOBS },
@@ -286,17 +288,14 @@ export default function withNavigation(WrappedComponent) {
                     onClick={() => {
                       goTo(ROUTES.DASHBOARD);
                     }}
-                    className={classNames(
-                      classes.logoButton,
-                      selectedRoute === ROUTES.DASHBOARD && classes.selected
-                    )}
+                    className={classes.logoButton}
                   >
                     <img src={logo} alt="2hats" className={classes.logo} />
                   </ButtonBase>
                   <IconButton
-                    className={classes.notificationsButton}
+                    className={classes.activityLogButton}
                     onClick={() => {
-                      setNotificationsOpen(true);
+                      setActivityLogOpen(true);
                     }}
                   >
                     <Badge
@@ -304,7 +303,7 @@ export default function withNavigation(WrappedComponent) {
                       classes={{ badge: classes.badge }}
                       badgeContent={2}
                     >
-                      <NotificationsIcon />
+                      <ActivityLogIcon />
                     </Badge>
                   </IconButton>
                   <Divider className={classes.divider} />
@@ -391,26 +390,27 @@ export default function withNavigation(WrappedComponent) {
               </Fab>
               <Fab
                 onClick={() => {
-                  setNotificationsOpen(true);
+                  setActivityLogOpen('bottom');
                 }}
-                className={classes.notificationsFab}
+                className={classes.activityLogFab}
               >
                 <Badge
                   color="primary"
                   classes={{ badge: classes.badge }}
                   badgeContent={2}
                 >
-                  <NotificationsIcon />
+                  <ActivityLogIcon />
                 </Badge>
               </Fab>
             </>
           )}
 
-          {notificationsOpen && (
-            <Notifications
-              showDialog={notificationsOpen}
-              setShowDialog={setNotificationsOpen}
-              uid={user.id}
+          {activityLogOpen && user && (
+            <ActivityLog
+              showDialog={activityLogOpen}
+              setShowDialog={setActivityLogOpen}
+              user={user}
+              isMobile={isMobile}
             />
           )}
         </Grid>

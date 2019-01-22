@@ -8,7 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ErrorIcon from '@material-ui/icons/ErrorRounded';
+
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
+
 const styles = theme => ({
   root: {
     background: theme.palette.background.default,
@@ -27,28 +29,24 @@ const styles = theme => ({
 });
 
 function CourseRedirectContainer(props) {
-  const { classes, location } = props;
+  const { classes, location, history } = props;
 
   const hasId =
     location.search.indexOf('?id=') > -1 &&
     location.search.replace('?id=', '').length > 0;
-  useEffect(
-    () => {
-      console.log(location, location.search.id);
-      cloudFunction(
-        CLOUD_FUNCTIONS.LEARN_WORLD_SSO,
-        { courseId: 'diy-car-service' },
-        o => {
-          window.location.href = o.data.url;
-        },
-        o => {
-          console.log(o);
-        }
-      );
-    },
-    [hasId]
-  );
-  if (hasId)
+
+  if (hasId) {
+    cloudFunction(
+      CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
+      {},
+      res => {
+        window.location.href = res.data.url;
+      },
+      err => {
+        console.log(err);
+      }
+    );
+
     return (
       <Grid
         container
@@ -64,6 +62,7 @@ function CourseRedirectContainer(props) {
         </Grid>
       </Grid>
     );
+  }
 
   return (
     <Grid
