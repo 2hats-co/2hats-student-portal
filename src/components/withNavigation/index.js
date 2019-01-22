@@ -95,6 +95,7 @@ const styles = theme => ({
   userWrapper: {
     padding: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit / 2,
+    marginBottom: theme.spacing.unit,
     cursor: 'default',
   },
   listWrapper: { marginTop: theme.spacing.unit * 3 },
@@ -192,6 +193,8 @@ export default function withNavigation(WrappedComponent) {
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const iconLogo = useMediaQuery('(max-width: 348px)');
+    const showBottomDivider = useMediaQuery('(max-height: 680px)');
+
     const [navOpen, setNavOpen] = useState(false);
     const [activityLogOpen, setActivityLogOpen] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
@@ -322,7 +325,7 @@ export default function withNavigation(WrappedComponent) {
                   <User user={user} />
                 </Grid>
                 <Grid item xs>
-                  <List>
+                  <List disablePadding>
                     {MAIN_NAV_ITEMS.map((x, i) => (
                       <NavItem
                         data={x}
@@ -334,8 +337,11 @@ export default function withNavigation(WrappedComponent) {
                     ))}
                   </List>
                 </Grid>
-                <Grid item className={classes.listWrapper}>
-                  <List>
+                <Grid item>
+                  <List disablePadding>
+                    {showBottomDivider && (
+                      <Divider className={classes.divider} />
+                    )}
                     {BOTTOM_NAV_ITEMS.map((x, i) => (
                       <NavItem data={x} key={i} goTo={goTo} classes={classes} />
                     ))}
