@@ -12,6 +12,7 @@ export const COLLECTIONS = {
   courses: 'courses',
   assessments: 'assessments',
   events: 'events',
+  activityLog: 'activityLog',
 };
 
 export const LISTENER = (COLLECTION, UID) => {

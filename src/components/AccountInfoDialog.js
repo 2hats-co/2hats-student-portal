@@ -128,13 +128,6 @@ class AccountInfoDialog extends React.Component {
                 changeHandler={this.handleChange}
               />
             </div>
-            <div style={{ marginTop: 8 }}>
-              <PromoCode
-                hasLabel
-                value={promoCode}
-                changeHandler={this.handleChange}
-              />
-            </div>
           </div>
         </Dialog>
       );

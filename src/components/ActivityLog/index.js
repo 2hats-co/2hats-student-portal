@@ -4,11 +4,11 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-// import CircularProgress from '@material-ui/core/CircularProgress';
-// import Fade from '@material-ui/core/Fade';
-// import Tooltip from '@material-ui/core/Tooltip';
-// import IconButton from '@material-ui/core/IconButton';
-// import Badge from '@material-ui/core/Badge';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import Fade from '@material-ui/core/Fade';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
+import Badge from '@material-ui/core/Badge';
 
 import Paper from '@material-ui/core/Paper';
 import Modal from '@material-ui/core/Modal';
@@ -16,27 +16,25 @@ import Grow from '@material-ui/core/Grow';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
 
 import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
 import CloseIcon from '@material-ui/icons/CloseRounded';
 
 import ActivityItem from './ActivityItem';
 
-// import ScrollyRolly from './ScrollyRolly';
-// import useCollection from '../hooks/useCollection';
-// import { COLLECTIONS } from '../constants/firestore';
-// import * as ROUTES from '../../constants/routes';
-// import { markAsRead } from '../utilities/notifications';
+import ScrollyRolly from '../ScrollyRolly';
+import useCollection from '../../hooks/useCollection';
+import { COLLECTIONS } from '../../constants/firestore';
+import * as ROUTES from '../../constants/routes';
+// import { markAsRead } from '../utilities/activityLog';
 
 import moment from 'moment';
 import { momentLocales } from '../../constants/momentLocales';
 
 const styles = theme => ({
-  loader: {
-    color: 'rgba(255,255,255,.87)',
-    padding: theme.spacing.unit * 1.5,
+  spinner: {
+    display: 'block',
+    margin: `${theme.spacing.unit * 2}px auto`,
   },
 
   paperRoot: {
@@ -102,140 +100,16 @@ const styles = theme => ({
   },
   timeline: {
     width: theme.spacing.unit / 4 + 1,
-    height: `calc(100% - ${theme.spacing.unit * (4.5 * 2 + 13)}px)`,
+    height: `calc(100% - ${theme.spacing.unit * (4.5 * 2 + 13 + 8)}px)`,
     backgroundColor: theme.palette.primary.light,
 
     position: 'absolute',
     left: theme.spacing.unit * 4.5 - 1,
-    top: theme.spacing.unit * 4.5,
+    top: theme.spacing.unit * 12.5,
   },
 
   endOfList: { height: theme.spacing.unit * 13 },
 });
-
-const DUMMY_ACTIVITIES = [
-  {
-    body: 'Assessment passed',
-    createdAt: {
-      seconds: 1547983171,
-      nanoseconds: 149000000,
-    },
-    type: 'assessment-passed',
-    title: 'Mailchimp and EDM composition',
-    id: 'nI0cphLPlwAMqK5lGNl6z',
-  },
-  {
-    body: 'Assessment started',
-    createdAt: {
-      seconds: 1547983161,
-      nanoseconds: 149000000,
-    },
-    type: 'assessment-started',
-    title: 'Mailchimp and EDM composition',
-    id: 'nI0cphLPlwAMqK5lGNl6y',
-  },
-  {
-    body: 'Assessment started',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'assessment-started',
-    title: 'Social media managemer',
-    id: 'nI0cphLPlwAMqK5lGNl6x',
-  },
-  {
-    body: 'Course started',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'course-started',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xa',
-  },
-  {
-    body: 'Book AC',
-    cta: { label: 'Book now', route: '#' },
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'book-ac',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xi',
-  },
-  {
-    body: 'Course completed',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'course-completed',
-    title: 'LearnWorld beginners',
-    id: 'nI0cphLPlwAMqK5lGNl6xb',
-  },
-  {
-    body: 'Assessment submitted',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'assessment-submitted',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xc',
-  },
-  {
-    body: 'Assessment failed',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'assessment-failed',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xd',
-  },
-  {
-    body: 'Job applied',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'job-applied',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xe',
-  },
-  {
-    body: 'Event booked',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'event-booked',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xf',
-  },
-  {
-    body: 'Assessment centre booked',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'ac-booked',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xg',
-  },
-  {
-    body: 'Assessment centre completed',
-    createdAt: {
-      seconds: 1547983061,
-      nanoseconds: 149000000,
-    },
-    type: 'ac-completed',
-    title: 'LearnWorld it',
-    id: 'nI0cphLPlwAMqK5lGNl6xh',
-  },
-];
 
 function ActivityLog(props) {
   const { classes, showDialog, setShowDialog, isMobile, history, user } = props;
@@ -245,7 +119,7 @@ function ActivityLog(props) {
   const [grow, setGrow] = useState(true);
 
   // const [unreadActivityLogsState] = useCollection({
-  //   path: COLLECTIONS.notifications,
+  //   path: COLLECTIONS.activityLog,
   //   sort: { field: 'createdAt', direction: 'desc' },
   //   filters: [
   //     {
@@ -259,18 +133,18 @@ function ActivityLog(props) {
   //   ? unreadActivityLogsState.documents.length
   //   : 0;
 
-  // const [notificationsState, notificationsDispatch] = useCollection({
-  //   path: COLLECTIONS.notifications,
-  //   sort: { field: 'createdAt', direction: 'desc' },
-  //   filters: [
-  //     {
-  //       field: 'subscribers',
-  //       operator: 'array-contains',
-  //       value: uid,
-  //     },
-  //   ],
-  // });
-  // const notifications = notificationsState.documents;
+  const [activityLogState, activityLogDispatch] = useCollection({
+    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.activityLog}`,
+    sort: { field: 'createdAt', direction: 'desc' },
+    // filters: [
+    //   {
+    //     field: 'subscribers',
+    //     operator: 'array-contains',
+    //     value: user.id,
+    //   },
+    // ],
+  });
+  // const activityLog = activityLogState.documents;
 
   const handleClose = () => {
     setGrow(false);
@@ -282,7 +156,7 @@ function ActivityLog(props) {
   // useEffect(
   //   () => {
   //     if (!showDialog) setGrow(true);
-  //     else markAsRead(uid, notifications);
+  //     else markAsRead(uid, activityLog);
   //   },
   //   [showDialog]
   // );
@@ -294,9 +168,7 @@ function ActivityLog(props) {
     }
   };
 
-  const x = DUMMY_ACTIVITIES;
-
-  // if (notificationsState.loading)
+  // if (activityLogState.loading)
   //   return <CircularProgress className={classes.loader} size={24} />;
 
   if (!!showDialog)
@@ -330,29 +202,33 @@ function ActivityLog(props) {
 
               <Grid item xs>
                 <div className={classes.listWrapper}>
-                  {/* <ScrollyRolly
-                dataState={notificationsState}
-                dataDispatch={notificationsDispatch}
-              > */}
-                  <List>
-                    <div className={classes.timeline} />
-                    {x.map(x => (
+                  {activityLogState.loading ? (
+                    <CircularProgress className={classes.spinner} />
+                  ) : (
+                    <>
+                      <div className={classes.timeline} />
+                      <ScrollyRolly
+                        dataState={activityLogState}
+                        dataDispatch={activityLogDispatch}
+                      >
+                        {x => (
+                          <ActivityItem
+                            key={x.id}
+                            data={x}
+                            handleClick={handleClick}
+                          />
+                        )}
+                      </ScrollyRolly>
                       <ActivityItem
-                        key={x.id}
-                        data={x}
-                        handleClick={handleClick}
+                        data={{
+                          type: 'system',
+                          createdAt: user.createdAt,
+                          title: 'Signed up',
+                        }}
                       />
-                    ))}
-                    <ActivityItem
-                      data={{
-                        type: 'system',
-                        createdAt: user.createdAt,
-                        title: 'Signed up',
-                      }}
-                    />
-                    <div className={classes.endOfList} />
-                  </List>
-                  {/* </ScrollyRolly> */}
+                      <div className={classes.endOfList} />
+                    </>
+                  )}
                 </div>
               </Grid>
             </Grid>

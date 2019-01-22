@@ -46,6 +46,7 @@ const ActivityIcon = props => {
           <AddIcon className={classes.badgeIcon} />
         </>
       );
+    case 'learn-world-certificate':
     case 'course-completed':
       return (
         <>
