@@ -1,7 +1,5 @@
 import React from 'react';
 
-import Typography from '@material-ui/core/Typography';
-
 import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
 import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
 import CoursesIcon from '@material-ui/icons/SchoolRounded';

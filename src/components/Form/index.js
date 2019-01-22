@@ -2,9 +2,6 @@ import React, { useEffect } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Dialog from '../Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';

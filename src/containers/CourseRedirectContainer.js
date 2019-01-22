@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -29,7 +29,7 @@ const styles = theme => ({
 });
 
 function CourseRedirectContainer(props) {
-  const { classes, location, history } = props;
+  const { classes, location } = props;
 
   const hasId =
     location.search.indexOf('?id=') > -1 &&

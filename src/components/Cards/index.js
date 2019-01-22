@@ -42,6 +42,7 @@ const styles = theme => ({
   title: {
     cursor: 'default',
     padding: theme.spacing.unit,
+    fontWeight: 500,
   },
 
   moreButton: {

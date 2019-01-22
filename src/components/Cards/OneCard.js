@@ -287,10 +287,10 @@ function OneCard(props) {
 OneCard.propTypes = {
   classes: PropTypes.object.isRequired,
 
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   secondaryText: PropTypes.node,
   primaryAction: PropTypes.string,
-  route: PropTypes.string.isRequired,
+  route: PropTypes.string,
 
   newTab: PropTypes.bool,
   indicator: PropTypes.node,

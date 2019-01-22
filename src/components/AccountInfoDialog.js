@@ -12,7 +12,6 @@ import CurrentUniversity from './InputFields/CurrentUniversity';
 import Name from './InputFields/Name';
 import ChangeAdpter from './InputFields/ChangeAdapter';
 import AvailableDays from './InputFields/AvailableDays';
-import PromoCode from './InputFields/PromoCode';
 
 class AccountInfoDialog extends React.Component {
   constructor(props) {
