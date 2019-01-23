@@ -37,11 +37,12 @@ const AssessmentsContainer = props => {
               title="Your assessments"
               mapping="assessment"
               cols={cardsCols}
+              setFilter
               useCollectionInit={{
                 path: `${COLLECTIONS.users}/${user.id}/${
                   COLLECTIONS.assessments
                 }`,
-                limit: cardsCols + 1,
+                limit: cardsCols,
               }}
             />
             <Cards
@@ -50,8 +51,9 @@ const AssessmentsContainer = props => {
               cols={cardsCols}
               useCollectionInit={{
                 path: COLLECTIONS.assessments,
-                limit: cardsCols + 1,
+                limit: cardsCols,
               }}
+              filterIds={['G2n24Mfe8kQLxCcR50X3', 'YHOz7MEOmBs2a6X4uevK']}
             />
           </>
         )}

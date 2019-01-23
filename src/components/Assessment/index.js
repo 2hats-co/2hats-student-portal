@@ -92,7 +92,11 @@ const Assessment = props => {
         <BackButton className={classes.backButton} />
 
         <div
-          style={{ backgroundImage: `url(${data.image.url})` }}
+          style={
+            data.image && data.image.url
+              ? { backgroundImage: `url(${data.image.url})` }
+              : {}
+          }
           className={classes.coverImage}
         />
 

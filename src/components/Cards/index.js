@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -6,13 +6,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import MoreIcon from '@material-ui/icons/ExpandMore';
 
 import OneCard from './OneCard';
 import { DRAWER_WIDTH } from '../withNavigation';
 import { CARD_WIDTH, CARD_PADDING } from './OneCard';
-import useCollection from '../../hooks/useCollection';
+import useMore from '../../hooks/useMore';
 import * as mappings from '../../constants/oneCardMappings';
 
 export const getNumCards = (width, isMobile) => {
@@ -49,6 +50,11 @@ const styles = theme => ({
     margin: theme.spacing.unit,
   },
   moreIcon: { marginRight: `-${theme.spacing.unit * 0.75}px !important` },
+
+  loading: {
+    position: 'absolute',
+    '& svg': { margin: 0 },
+  },
 });
 
 function Cards(props) {
@@ -60,16 +66,16 @@ function Cards(props) {
     mapping,
     inline,
     mappingOverrides,
+    filterIds,
   } = props;
 
-  const [moreNum, setMoreNum] = useState(1);
+  const [rows, setRows] = useState(1);
+  const [loading, setLoading] = useState(true);
 
-  const [dataState, dataDispatch] = useCollection(useCollectionInit);
-  const cards = dataState.documents;
+  const [cards, getMore, noMore] = useMore(useCollectionInit, cols, filterIds);
 
-  const getMore = () => {
-    dataDispatch({ type: 'more' });
-  };
+  if (cards.length === cols * rows && loading) setLoading(false);
+  if (noMore && loading) setLoading(false);
 
   return (
     <div
@@ -82,28 +88,28 @@ function Cards(props) {
 
       <Grid container>
         {cards &&
-          cards
-            .slice(0, cols * moreNum)
-            .map((x, i) => (
-              <OneCard
-                key={i}
-                {...mappings[mapping]({ ...x, ...mappingOverrides })}
-              />
-            ))}
+          cards.map((x, i) => (
+            <OneCard
+              key={i}
+              {...mappings[mapping]({ ...x, ...mappingOverrides })}
+            />
+          ))}
       </Grid>
 
       <Button
         color="primary"
         variant="outlined"
         className={classes.moreButton}
-        disabled={cards ? cols * moreNum >= cards.length : true}
+        disabled={cards.length < cols * rows}
         onClick={() => {
-          setMoreNum(moreNum + 2);
-          getMore();
+          setRows(rows + 1);
+          getMore(cols);
+          setLoading(true);
         }}
       >
         More
         <MoreIcon className={classes.moreIcon} />
+        {loading && <CircularProgress className={classes.loading} />}
       </Button>
     </div>
   );
@@ -116,6 +122,8 @@ Cards.propTypes = {
   useCollectionInit: PropTypes.object.isRequired,
   mapping: PropTypes.string.isRequired,
   inline: PropTypes.bool,
+  mappingOverrides: PropTypes.object,
+  filterIds: PropTypes.array,
 };
 
 export default withStyles(styles)(Cards);

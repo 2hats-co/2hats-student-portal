@@ -19,7 +19,7 @@ const collectionReducer = (prevState, newProps) => {
   }
 };
 const collectionIntialState = {
-  documents: null,
+  documents: [],
   prevFilters: null,
   prevPath: null,
   path: null,

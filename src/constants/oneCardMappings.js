@@ -18,7 +18,7 @@ export const course = data => ({
 
   newTab: true,
   indicator: <CoursesIcon />,
-  tertiaryText: [`${data.duration} hours`, ...data.skillsAssociated],
+  tertiaryText: [data.duration, ...data.skillsAssociated],
 
   video: data.videoUrl,
 });
