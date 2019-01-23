@@ -38,7 +38,7 @@ function CourseRedirectContainer(props) {
   if (hasId) {
     cloudFunction(
       CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
-      {},
+      { courseId: location.search.replace('?id=', '') },
       res => {
         window.location.href = res.data.url;
       },
