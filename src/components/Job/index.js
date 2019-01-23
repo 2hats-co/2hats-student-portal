@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 import IndustryIcon from '@material-ui/icons/BusinessRounded';
 import PayIcon from '@material-ui/icons/AttachMoneyRounded';
@@ -14,13 +16,17 @@ import TimeIcon from '@material-ui/icons/AccessTimeRounded';
 import EventIcon from '@material-ui/icons/EventRounded';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
 import ErrorIcon from '@material-ui/icons/ErrorOutlineRounded';
+import CheckIcon from '@material-ui/icons/CheckRounded';
+import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import BackButton from '../ContainerHeader/BackButton';
 import SkillItem from './SkillItem';
 import Form from '../Form';
 import jobApplicationFields from '../../constants/forms/jobApplication';
+import * as ROUTES from '../../constants/routes';
 import { COLLECTIONS } from '../../constants/firestore';
 import { createDoc } from '../../utilities/firestore';
+import { CircularProgress } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -78,11 +84,21 @@ const styles = theme => ({
 
   skillsWrapper: {
     marginTop: theme.spacing.unit / 2,
-    marginBottom: -theme.spacing.unit * 2,
+    // marginBottom: -theme.spacing.unit * 2,
   },
   skillWrapper: {
     paddingRight: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit * 2,
+  },
+  upskill: {
+    '& svg': {
+      verticalAlign: 'bottom',
+      marginLeft: theme.spacing.unit / 2,
+    },
+    '& > svg': {
+      marginLeft: 0,
+      marginRight: theme.spacing.unit,
+    },
   },
 
   apply: {
@@ -110,18 +126,6 @@ const styles = theme => ({
       top: theme.spacing.unit / 4,
     },
   },
-  getStartedSection: {
-    // transition: theme.transitions.create([
-    //   'transform',
-    //   'margin-top',
-    //   'box-shadow',
-    // ]),
-    // transformOrigin: '0 100%',
-  },
-  gotStarted: {
-    // transform: 'scale(0)',
-    // marginTop: -theme.spacing.unit * 5.5,
-  },
 
   skillsWarning: {
     marginTop: theme.spacing.unit,
@@ -133,17 +137,25 @@ const styles = theme => ({
     },
     '$applyBig + &': { textAlign: 'center' },
   },
+
+  loading: {
+    position: 'absolute',
+    '& svg': {
+      margin: 0,
+      position: 'static',
+    },
+  },
 });
 
 const Job = props => {
-  const { classes, data, user } = props;
+  const { classes, data, user, history } = props;
 
   const [showDialog, setShowDialog] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(
     () => {
-      if (data && data.submitted) setShowDialog(true);
-      else setShowDialog(false);
+      setLoading(false);
     },
     [data]
   );
@@ -151,6 +163,7 @@ const Job = props => {
   const applyForJob = o => {
     if (!data.jobId) {
       const { id, ...rest } = data;
+      setLoading(true);
       createDoc(`${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`, {
         ...rest,
         UID: user.id,
@@ -161,6 +174,7 @@ const Job = props => {
         submitted: true,
       }).then(docRef => {
         console.log('Created submission doc', docRef.id);
+        history.push(`${ROUTES.JOBS}?id=${docRef.id}&yours=true`);
         // setSubmissionId(docRef.id);
       });
     }
@@ -200,7 +214,7 @@ const Job = props => {
             </Typography>
             <Typography variant="body1" className={classes.meta}>
               <PayIcon className={classes.adornmentIcon} />
-              {data.pay}
+              {data.payRate}/{data.payUnits}
             </Typography>
             <Typography variant="body1" className={classes.meta}>
               <EventIcon className={classes.adornmentIcon} />
@@ -218,10 +232,22 @@ const Job = props => {
               onClick={e => {
                 setShowDialog(true);
               }}
-              disabled={skillsNotAchieved.length > 0}
+              disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
             >
-              Apply
-              <ArrowForwardIcon />
+              {loading && (
+                <CircularProgress className={classes.loading} size={32} />
+              )}
+              {data.jobId ? (
+                <>
+                  Applied
+                  <CheckIcon />
+                </>
+              ) : (
+                <>
+                  Apply
+                  <ArrowForwardIcon />
+                </>
+              )}
             </Button>
             {skillsNotAchieved.length > 0 && (
               <Typography variant="body2" className={classes.skillsWarning}>
@@ -251,6 +277,16 @@ const Job = props => {
               </Grid>
             ))}
           </Grid>
+          {skillsNotAchieved.length > 0 && (
+            <Typography variant="body1" className={classes.upskill}>
+              <InfoIcon />
+              Get your skills approved through our{' '}
+              <Link href={ROUTES.ASSESSMENTS} target="_blank" rel="noopener">
+                Assessments
+                <ArrowForwardIcon />
+              </Link>
+            </Typography>
+          )}
         </div>
 
         <div className={classes.section}>
@@ -278,10 +314,22 @@ const Job = props => {
             onClick={e => {
               setShowDialog(true);
             }}
-            disabled={skillsNotAchieved.length > 0}
+            disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
           >
-            Apply
-            <ArrowForwardIcon />
+            {loading && (
+              <CircularProgress className={classes.loading} size={48} />
+            )}
+            {data.jobId ? (
+              <>
+                Applied
+                <CheckIcon />
+              </>
+            ) : (
+              <>
+                Apply
+                <ArrowForwardIcon />
+              </>
+            )}
           </Button>
           {skillsNotAchieved.length > 0 && (
             <Typography variant="body2" className={classes.skillsWarning}>
@@ -304,7 +352,7 @@ const Job = props => {
             },
           }}
           open={showDialog}
-          data={jobApplicationFields()}
+          data={jobApplicationFields({ 'pay-calcVal': data.payRate })}
           formTitle={`for ${data.title}`}
         />
       </Paper>
@@ -316,6 +364,7 @@ Job.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Job);
+export default withRouter(withStyles(styles)(Job));

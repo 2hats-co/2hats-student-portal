@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Dropzone from 'react-dropzone';
-import { blobImageUploader } from '../../../utilities/imageUploader';
+import { uploader } from '../../../utilities/Uploader';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import Chip from '@material-ui/core/Chip';
 
@@ -67,10 +67,10 @@ const Uploader = props => {
             ...values,
             [name]: { name: files[0].name },
           });
-          blobImageUploader(files[0], path, (url, fileName) => {
+          uploader(path, files[0], (url, blob) => {
             setValues({
               ...values,
-              [name]: { name: fileName, url },
+              [name]: { name: blob.name, url },
             });
           });
         }}
