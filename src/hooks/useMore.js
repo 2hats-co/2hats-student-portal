@@ -11,20 +11,17 @@ const useMore = (intialCollection, initialNum, filterIds) => {
   const [noMore, setNoMore] = useState(false);
 
   const getMore = toAdd => {
-    console.log('getMore', toAdd);
     if (toAdd > 0) setNum(num + toAdd);
   };
 
   useEffect(
     () => {
-      console.log('new num', num);
       if (
         filteredDocs.length > 0 &&
         filteredDocs.length < num &&
         num > initialNum
       ) {
         collectionDispatch({ type: 'more' });
-        console.warn('loading more');
       }
     },
     [num]
@@ -32,14 +29,12 @@ const useMore = (intialCollection, initialNum, filterIds) => {
 
   useEffect(
     () => {
-      console.log('useEffect');
       if (collectionState.documents) {
         if (filterIds)
           setFilteredDocs(
             collectionState.documents.filter(x => !filterIds.includes(x.id))
           );
         else setFilteredDocs(collectionState.documents);
-        console.log('updated filteredDocs');
       }
     },
     [num, collectionState.documents]
@@ -54,8 +49,6 @@ const useMore = (intialCollection, initialNum, filterIds) => {
     },
     [collectionState.documents.length]
   );
-
-  console.log('useMore', num, filteredDocs, collectionState);
 
   return [filteredDocs.slice(0, num), getMore, noMore];
 };
