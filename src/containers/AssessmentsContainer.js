@@ -35,7 +35,7 @@ const AssessmentsContainer = props => {
             />
             <Cards
               title="Your assessments"
-              mapping="assessmentYour"
+              mapping="assessment"
               cols={cardsCols}
               useCollectionInit={{
                 path: `${COLLECTIONS.users}/${user.id}/${

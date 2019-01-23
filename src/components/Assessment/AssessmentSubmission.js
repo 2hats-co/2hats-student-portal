@@ -84,6 +84,8 @@ const AssessmentSubmission = props => {
         `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
         submissionId,
         {
+          outcome: '',
+          screened: false,
           submissionContent: {
             fileUrl: file.url,
             fileType: 'pdf',

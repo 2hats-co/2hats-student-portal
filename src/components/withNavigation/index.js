@@ -51,8 +51,8 @@ export const DRAWER_WIDTH = 240;
 
 const styles = theme => ({
   root: {
-    width: '100vw',
-    minHeight: '100vh',
+    width: '100%',
+    minHeight: '100%',
     overflowX: 'hidden',
   },
 

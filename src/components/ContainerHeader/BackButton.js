@@ -8,7 +8,7 @@ import BackIcon from '@material-ui/icons/ArrowBackRounded';
 const BackButton = props => (
   <Button
     onClick={() => {
-      props.history.goBack();
+      props.history.push(props.location.pathName);
     }}
     color="primary"
     className={props.className}

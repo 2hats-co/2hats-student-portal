@@ -80,7 +80,7 @@ const Assessment = props => {
 
   useEffect(
     () => {
-      if (data && data.submitted) setGotStarted(true);
+      if (data && data.assessmentId) setGotStarted(true);
       else setGotStarted(false);
     },
     [data]

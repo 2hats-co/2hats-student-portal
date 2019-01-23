@@ -52,7 +52,15 @@ const styles = theme => ({
 });
 
 function Cards(props) {
-  const { classes, cols, title, useCollectionInit, mapping, inline } = props;
+  const {
+    classes,
+    cols,
+    title,
+    useCollectionInit,
+    mapping,
+    inline,
+    mappingOverrides,
+  } = props;
 
   const [moreNum, setMoreNum] = useState(1);
 
@@ -76,7 +84,12 @@ function Cards(props) {
         {cards &&
           cards
             .slice(0, cols * moreNum)
-            .map((x, i) => <OneCard key={i} {...mappings[mapping](x)} />)}
+            .map((x, i) => (
+              <OneCard
+                key={i}
+                {...mappings[mapping]({ ...x, ...mappingOverrides })}
+              />
+            ))}
       </Grid>
 
       <Button
