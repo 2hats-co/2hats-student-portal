@@ -100,7 +100,7 @@ const jobApplicationFields = initialData => {
       suggestions: WORK_RESTRICTIONS,
       validation: yup
         .object({
-          value: yup.number().required('Work restriction info is required'),
+          value: yup.string().required('Work restriction info is required'),
           label: yup.string(),
         })
         .required('Work restriction info is required'),

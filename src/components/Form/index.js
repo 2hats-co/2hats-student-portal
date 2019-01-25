@@ -44,6 +44,7 @@ const styles = theme => ({
   wrapperGrid: {
     marginTop: theme.spacing.unit,
     overflowX: 'hidden',
+    paddingBottom: theme.spacing.unit,
   },
 
   capitalise: {
