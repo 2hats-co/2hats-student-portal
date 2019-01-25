@@ -41,14 +41,17 @@ const styles = theme => ({
       right: theme.spacing.unit * 3,
     },
   },
-  wrapperGrid: { marginTop: theme.spacing.unit },
+  wrapperGrid: {
+    marginTop: theme.spacing.unit,
+    overflowX: 'hidden',
+  },
 
   capitalise: {
     '&::first-letter': { textTransform: 'uppercase' },
   },
 
   sectionTitle: {
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing.unit * 1.5,
   },
 
   dialogActions: {
@@ -171,7 +174,6 @@ function Form(props) {
             setValues({ ...values, [item]: '' });
           }
         };
-        console.log(values);
 
         const validator = name =>
           errors[name] &&

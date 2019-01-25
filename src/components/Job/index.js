@@ -359,7 +359,10 @@ const Job = props => {
             },
           }}
           open={showDialog}
-          data={jobApplicationFields({ 'pay-calcVal': data.payRate })}
+          data={jobApplicationFields({
+            'pay-calcVal': data.payRate,
+            'pay-units': data.payUnits,
+          })}
           formTitle={`for ${data.title}`}
           formHeader={
             <Grid container spacing={24}>

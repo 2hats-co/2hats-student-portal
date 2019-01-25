@@ -72,7 +72,9 @@ const jobApplicationFields = initialData => {
       units: 'dollarydoos',
       value: initialData['pay'] || 100,
       calcValueLabel: val =>
-        `$${((val / 100) * initialData['pay-calcVal']).toFixed(2)} (${val}%)`,
+        `$${((val / 100) * initialData['pay-calcVal']).toFixed(2)}/${
+          initialData['pay-units']
+        } (${val}%)`,
       sliderThumbLabel: '%',
       min: 80,
       max: 120,
