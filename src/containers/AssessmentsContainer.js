@@ -53,7 +53,7 @@ const AssessmentsContainer = props => {
                 path: COLLECTIONS.assessments,
                 limit: cardsCols,
               }}
-              filterIds={['G2n24Mfe8kQLxCcR50X3', 'YHOz7MEOmBs2a6X4uevK']}
+              filterIds={user.touchedAssessments}
             />
           </>
         )}

@@ -72,6 +72,12 @@ const AssessmentSubmission = props => {
       }).then(docRef => {
         console.log('Created submission doc', docRef.id);
         setSubmissionId(docRef.id);
+
+        const newTouchedAssessments = user.touchedAssessments || [];
+        newTouchedAssessments.push(data.id);
+        updateProperties(COLLECTIONS.users, user.id, {
+          touchedAssessments: newTouchedAssessments,
+        });
       });
     } else {
       setSubmissionId(data.id);

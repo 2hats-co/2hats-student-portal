@@ -25,7 +25,7 @@ import Form from '../Form';
 import jobApplicationFields from '../../constants/forms/jobApplication';
 import * as ROUTES from '../../constants/routes';
 import { COLLECTIONS } from '../../constants/firestore';
-import { createDoc } from '../../utilities/firestore';
+import { createDoc, updateProperties } from '../../utilities/firestore';
 import { CircularProgress } from '@material-ui/core';
 
 const styles = theme => ({
@@ -174,6 +174,13 @@ const Job = props => {
         submitted: true,
       }).then(docRef => {
         console.log('Created submission doc', docRef.id);
+
+        const newTouchedJobs = user.touchedJobs || [];
+        newTouchedJobs.push(data.id);
+        updateProperties(COLLECTIONS.users, user.id, {
+          touchedAssessments: newTouchedJobs,
+        });
+
         history.push(`${ROUTES.JOBS}?id=${docRef.id}&yours=true`);
         // setSubmissionId(docRef.id);
       });
@@ -354,6 +361,36 @@ const Job = props => {
           open={showDialog}
           data={jobApplicationFields({ 'pay-calcVal': data.payRate })}
           formTitle={`for ${data.title}`}
+          formHeader={
+            <Grid container spacing={24}>
+              <Grid item xs={12} sm={5}>
+                <div
+                  style={{ backgroundImage: `url(${data.image.url})` }}
+                  className={classes.coverImage}
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={7}>
+                <Typography variant="subtitle1" className={classes.subtitle}>
+                  <IndustryIcon className={classes.adornmentIcon} />
+                  {data.industry}
+                </Typography>
+
+                <Typography variant="body1" className={classes.meta}>
+                  <TimeIcon className={classes.adornmentIcon} />
+                  {data.commitment}
+                </Typography>
+                <Typography variant="body1" className={classes.meta}>
+                  <PayIcon className={classes.adornmentIcon} />
+                  {data.payRate}/{data.payUnits}
+                </Typography>
+                <Typography variant="body1" className={classes.meta}>
+                  <EventIcon className={classes.adornmentIcon} />
+                  Closing {data.closingDate}
+                </Typography>
+              </Grid>
+            </Grid>
+          }
         />
       </Paper>
     </div>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import useCollection from './useCollection';
 
-const useMore = (intialCollection, initialNum, filterIds) => {
+const useMore = (intialCollection, initialNum, initialFilterIds) => {
   const [collectionState, collectionDispatch] = useCollection({
     limit: initialNum,
     ...intialCollection,
@@ -9,6 +9,7 @@ const useMore = (intialCollection, initialNum, filterIds) => {
   const [filteredDocs, setFilteredDocs] = useState([]);
   const [num, setNum] = useState(initialNum);
   const [noMore, setNoMore] = useState(false);
+  const [filterIds, setFilterIds] = useState(initialFilterIds);
 
   const getMore = toAdd => {
     if (toAdd > 0) setNum(num + toAdd);
@@ -30,7 +31,7 @@ const useMore = (intialCollection, initialNum, filterIds) => {
   useEffect(
     () => {
       if (collectionState.documents) {
-        if (filterIds)
+        if (Array.isArray(filterIds))
           setFilteredDocs(
             collectionState.documents.filter(x => !filterIds.includes(x.id))
           );
@@ -50,7 +51,7 @@ const useMore = (intialCollection, initialNum, filterIds) => {
     [collectionState.documents.length]
   );
 
-  return [filteredDocs.slice(0, num), getMore, noMore];
+  return [filteredDocs.slice(0, num), getMore, noMore, setFilterIds];
 };
 
 export default useMore;

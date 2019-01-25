@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -72,7 +72,17 @@ function Cards(props) {
   const [rows, setRows] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const [cards, getMore, noMore] = useMore(useCollectionInit, cols, filterIds);
+  const [cards, getMore, noMore, setFilterIds] = useMore(
+    useCollectionInit,
+    cols,
+    filterIds
+  );
+  useEffect(
+    () => {
+      setFilterIds(filterIds);
+    },
+    [filterIds]
+  );
 
   if (cards.length === cols * rows && loading) setLoading(false);
   if (noMore && loading) setLoading(false);

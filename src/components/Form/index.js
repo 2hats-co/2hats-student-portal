@@ -16,6 +16,7 @@ import Slider from './Fields/Slider';
 import DateTime from './Fields/DateTime';
 import Uploader from './Fields/Uploader';
 import Select from './Fields/Select';
+import Checkbox from './Fields/Checkbox';
 
 const styles = theme => ({
   paperRoot: {
@@ -94,7 +95,17 @@ const validationReducer = (obj, item) => (
 );
 
 function Form(props) {
-  const { classes, action, actions, open, data, formTitle, justForm } = props;
+  const {
+    classes,
+    action,
+    actions,
+    open,
+    data,
+    formTitle,
+    justForm,
+    formHeader,
+    formFooter,
+  } = props;
 
   let initialValues = data.reduce(initialValuesReducer, {});
   let hasNewData = true;
@@ -160,6 +171,7 @@ function Form(props) {
             setValues({ ...values, [item]: '' });
           }
         };
+        console.log(values);
 
         const validator = name =>
           errors[name] &&
@@ -266,6 +278,17 @@ function Form(props) {
                     />
                   );
 
+                case FIELDS.checkbox:
+                  return (
+                    <Checkbox
+                      key={x.name}
+                      formikProps={formikProps}
+                      label={x.label}
+                      name={x.name}
+                      validator={validator}
+                    />
+                  );
+
                 default:
                   return null;
               }
@@ -288,7 +311,9 @@ function Form(props) {
           <form onSubmit={handleSubmit}>
             {justForm ? (
               <Grid container>
+                {formHeader}
                 {Fields}
+                {formFooter}
                 {PrimaryButton}
               </Grid>
             ) : (
@@ -301,7 +326,9 @@ function Form(props) {
                 addHandler={handleSubmit}
                 cancelHandler={actions.close}
               >
+                {formHeader}
                 {Fields}
+                {formFooter}
               </Dialog>
             )}
           </form>
