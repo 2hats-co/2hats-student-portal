@@ -1,4 +1,4 @@
-const SKILLS = [
+export const SKILLS = [
   { label: 'Graphic design', value: 'graphicDesign' },
   { label: 'Social media management', value: 'socialMediaManagement' },
   { label: 'Copywriting', value: 'copywriting' },
@@ -13,5 +13,3 @@ const SKILLS = [
   { label: 'Google Analytics', value: 'googleAnalytics' },
   { label: 'SEO', value: 'SEO' },
 ];
-
-export default SKILLS;

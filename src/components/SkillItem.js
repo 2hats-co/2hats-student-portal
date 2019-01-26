@@ -10,7 +10,7 @@ import AchievedIcon from '@material-ui/icons/CheckCircleRounded';
 import green from '@material-ui/core/colors/green';
 
 import SkillBG from '../assets/images/SkillBG.svg';
-import SKILLS from '../constants/skills';
+import { SKILLS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   root: {

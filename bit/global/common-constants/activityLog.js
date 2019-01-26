@@ -1,4 +1,4 @@
-const ACTIVITY_LOG_TYPES = [
+export const ACTIVITY_LOG_TYPES = [
   'course-started',
   'learn-world-certificate',
   'course-completed',
@@ -31,5 +31,3 @@ export const ACTIVITY_LOG_LABELS = ACTIVITY_LOG_TYPES.reduce((a, v) => {
 
   return { ...a, [v]: label, system: '' };
 }, {});
-
-export default ACTIVITY_LOG_TYPES;

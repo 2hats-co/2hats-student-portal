@@ -1,0 +1,8 @@
+{
+  "env": {},
+  "dependencies": {
+    "sidney2hats.2hats/global/common-constants": "0.0.4"
+  },
+  "componentsDefaultDirectory": "bit/{namespace}/{name}",
+  "packageManager": "yarn"
+}
