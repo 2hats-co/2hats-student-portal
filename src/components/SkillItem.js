@@ -9,8 +9,8 @@ import SkillIcon from '@material-ui/icons/Rowing';
 import AchievedIcon from '@material-ui/icons/CheckCircleRounded';
 import green from '@material-ui/core/colors/green';
 
-import SkillBG from '../../assets/images/SkillBG.svg';
-import SKILLS from '../../constants/skills';
+import SkillBG from '../assets/images/SkillBG.svg';
+import SKILLS from '../constants/skills';
 
 const styles = theme => ({
   root: {

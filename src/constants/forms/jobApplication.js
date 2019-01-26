@@ -8,11 +8,11 @@ const transformValue = (value, arr) =>
   value ? arr.filter(x => x.value === value)[0] : null;
 
 const START_WEEKS = [
-  { value: 0, label: 'Immediate' },
-  { value: 1, label: '1 week' },
-  { value: 2, label: '2 week' },
-  { value: 3, label: '3 week' },
-  { value: 4, label: '4+ weeks' },
+  { value: 0, label: 'Immediately' },
+  { value: 1, label: 'in 1 week' },
+  { value: 2, label: 'in 2 weeks' },
+  { value: 3, label: 'in 3 weeks' },
+  { value: 4, label: 'in 4+ weeks' },
 ];
 
 const WORK_RESTRICTIONS = [

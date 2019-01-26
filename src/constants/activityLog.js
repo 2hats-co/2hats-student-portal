@@ -7,8 +7,8 @@ const ACTIVITY_LOG_TYPES = [
 
   'assessment-started',
   'assessment-submitted',
-  'assessment-passed',
-  'assessment-failed',
+  'assessment-pass',
+  'assessment-fail',
 
   'job-applied',
 

@@ -54,6 +54,7 @@ const JobsContainer = props => {
                 path: COLLECTIONS.jobs,
                 limit: cardsCols + 1,
               }}
+              filterIds={user.touchedJobs}
             />
           </>
         )}

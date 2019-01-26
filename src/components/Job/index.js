@@ -20,7 +20,7 @@ import CheckIcon from '@material-ui/icons/CheckRounded';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import BackButton from '../ContainerHeader/BackButton';
-import SkillItem from './SkillItem';
+import SkillItem from '../SkillItem';
 import Form from '../Form';
 import jobApplicationFields from '../../constants/forms/jobApplication';
 import * as ROUTES from '../../constants/routes';
@@ -178,7 +178,7 @@ const Job = props => {
         const newTouchedJobs = user.touchedJobs || [];
         newTouchedJobs.push(data.id);
         updateProperties(COLLECTIONS.users, user.id, {
-          touchedAssessments: newTouchedJobs,
+          touchedJobs: newTouchedJobs,
         });
 
         history.push(`${ROUTES.JOBS}?id=${docRef.id}&yours=true`);

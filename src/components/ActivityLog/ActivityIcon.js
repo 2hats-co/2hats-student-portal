@@ -74,14 +74,14 @@ const ActivityIcon = props => {
           />
         </>
       );
-    case 'assessment-passed':
+    case 'assessment-pass':
       return (
         <>
           <AssessmentIcon />
           <CheckIcon className={classes.badgeIcon} />
         </>
       );
-    case 'assessment-failed':
+    case 'assessment-fail':
       return (
         <>
           <AssessmentIcon />

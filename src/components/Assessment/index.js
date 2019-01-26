@@ -7,10 +7,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
+import IndustryIcon from '@material-ui/icons/BusinessRounded';
+import TimeIcon from '@material-ui/icons/AccessTimeRounded';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
 
 import BackButton from '../ContainerHeader/BackButton';
 import AssessmentSubmission from './AssessmentSubmission';
+import SkillItem from '../SkillItem';
 
 const styles = theme => ({
   root: {
@@ -50,6 +53,12 @@ const styles = theme => ({
     backgroundImage: `linear-gradient(-15deg, #fa0, ${
       theme.palette.primary.main
     })`,
+  },
+
+  renderedHtml: {
+    ...theme.typography.body2,
+
+    '& p': { margin: 0 },
   },
 
   getStarted: {
@@ -104,14 +113,34 @@ const Assessment = props => {
           {data.title}
         </Typography>
 
+        <SkillItem value={data.skillAssociated} />
+        <Grid container alignItems="flex-end" style={{ marginTop: 8 }}>
+          <IndustryIcon
+            style={{ marginLeft: 12, marginRight: 20, opacity: 0.67 }}
+          />
+          <Typography variant="body1">{data.category}</Typography>
+        </Grid>
+        <Grid container alignItems="flex-end" style={{ marginTop: 4 }}>
+          <TimeIcon
+            style={{ marginLeft: 12, marginRight: 20, opacity: 0.67 }}
+          />
+          <Typography variant="body1">{data.duration}</Typography>
+        </Grid>
+
         <div className={classes.section}>
           <Typography variant="h6">Company information</Typography>
-          <Typography variant="body2">{data.companyDescription}</Typography>
+          <div
+            className={classes.renderedHtml}
+            dangerouslySetInnerHTML={{ __html: data.companyDescription }}
+          />
         </div>
 
         <div className={classes.section}>
           <Typography variant="h6">Your job</Typography>
-          <Typography variant="body2">{data.jobDescription}</Typography>
+          <div
+            className={classes.renderedHtml}
+            dangerouslySetInnerHTML={{ __html: data.jobDescription }}
+          />
         </div>
 
         <div
