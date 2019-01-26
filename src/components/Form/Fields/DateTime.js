@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
 import { DatePicker, DateTimePicker } from 'material-ui-pickers';
-import { momentFormats } from '../../../constants/momentLocales';
+import { MOMENT_FORMATS } from '@bit/sidney2hats.2hats.global.common-constants';
 import moment from 'moment';
 import FIELDS from '../../../constants/forms/fields';
 
@@ -23,15 +23,17 @@ const DateTime = props => {
           <DateTimePicker
             label={label}
             value={
-              values[name] ? moment(values[name], momentFormats.dateTime) : null
+              values[name]
+                ? moment(values[name], MOMENT_FORMATS.dateTime)
+                : null
             }
             onChange={dt => {
               setValues({
                 ...values,
-                [name]: dt.format(momentFormats.dateTime),
+                [name]: dt.format(MOMENT_FORMATS.dateTime),
               });
             }}
-            format={momentFormats.dateTime}
+            format={MOMENT_FORMATS.dateTime}
             showTodayButton
             className={classes.dateTimePicker}
             variant="filled"
@@ -44,15 +46,15 @@ const DateTime = props => {
           <DatePicker
             label={label}
             value={
-              values[name] ? moment(values[name], momentFormats.date) : null
+              values[name] ? moment(values[name], MOMENT_FORMATS.date) : null
             }
             onChange={dt => {
               setValues({
                 ...values,
-                [name]: dt.format(momentFormats.date),
+                [name]: dt.format(MOMENT_FORMATS.date),
               });
             }}
-            format={momentFormats.date}
+            format={MOMENT_FORMATS.date}
             showTodayButton
             className={classes.dateTimePicker}
             variant="filled"

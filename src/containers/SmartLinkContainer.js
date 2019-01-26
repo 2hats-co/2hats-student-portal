@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { auth, db } from '../store';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import * as routes from '../constants/routes';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 class SmartLinkContainer extends React.Component {
   state = { isLoading: true, errorMessage: '' };
 

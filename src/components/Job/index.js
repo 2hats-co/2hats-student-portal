@@ -24,7 +24,7 @@ import SkillItem from '../SkillItem';
 import Form from '../Form';
 import jobApplicationFields from '../../constants/forms/jobApplication';
 import * as ROUTES from '../../constants/routes';
-import { COLLECTIONS } from '../../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import { createDoc, updateProperties } from '../../utilities/firestore';
 import { CircularProgress } from '@material-ui/core';
 

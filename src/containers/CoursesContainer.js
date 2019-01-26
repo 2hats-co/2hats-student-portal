@@ -9,7 +9,7 @@ import Stripe from '../components/Stripe';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards } from '../components/Cards';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const CoursesContainer = props => {
   const { className, isMobile, user } = props;

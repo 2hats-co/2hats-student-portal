@@ -5,7 +5,7 @@ import Dialog from './Dialog';
 import { compose } from 'redux';
 import { withHandlers } from 'recompose';
 import { withFirestore } from '../utilities/withFirestore';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import WorkingRights from './InputFields/WorkingRights';
 import PhoneNumber from './InputFields/PhoneNumber';
 import CurrentUniversity from './InputFields/CurrentUniversity';

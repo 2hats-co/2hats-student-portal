@@ -14,7 +14,7 @@ import EditIcon from '@material-ui/icons/EditRounded';
 
 import Dropzone from 'react-dropzone';
 import { db } from '../store';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import { blobAvatarUploader } from '../utilities/Uploader';
 
 const styles = theme => ({

@@ -24,7 +24,8 @@ import { connect } from 'react-redux';
 import { withFirestore } from '../utilities/withFirestore';
 //routing
 import { withRouter } from 'react-router-dom';
-import { COLLECTIONS, LISTENER } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { LISTENER } from '../constants/firestore';
 import orderBy from 'lodash.orderby';
 import * as routes from '../constants/routes';
 import StepController from '../components/SignUp/StepController';

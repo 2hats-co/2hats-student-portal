@@ -9,7 +9,7 @@ import Assessment from '../components/Assessment';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
 const AssessmentsContainer = props => {

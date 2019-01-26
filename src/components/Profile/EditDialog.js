@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import { compose } from 'redux';
 import { withHandlers } from 'recompose';
 import { withFirestore } from '../../utilities/withFirestore';
-import { COLLECTIONS } from '../../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import { PROCESS_TYPES } from '../../constants/signUpProcess';
 import { connect } from 'react-redux';
 

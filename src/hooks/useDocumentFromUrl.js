@@ -1,7 +1,7 @@
 import { useEffect, useContext } from 'react';
 import queryString from 'query-string';
 
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocument from './useDocument';
 import UserContext from '../contexts/UserContext';
 

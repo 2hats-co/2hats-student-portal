@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import MultiLineTextField from './InputFields/MultiLineTextField';
 import Dropzone from 'react-dropzone';
 import { db } from '../store';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import { uploader } from '../utilities/Uploader';
 //import UAParser from 'ua-parser-js';
 

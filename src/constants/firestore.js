@@ -1,19 +1,4 @@
-export const COLLECTIONS = {
-  users: 'users',
-  submissions: 'submissions',
-  upcomingEvents: 'upcomingEvents',
-  profiles: 'profiles',
-  emailVerifications: 'emailVerifications',
-  smartLinks: 'smartLinks',
-  remoteLogs: 'remoteLogs',
-  bugReports: 'bugReports',
-  candidates: 'candidates',
-  jobs: 'jobs',
-  courses: 'courses',
-  assessments: 'assessments',
-  events: 'events',
-  activityLog: 'activityLog',
-};
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 export const LISTENER = (COLLECTION, UID) => {
   switch (COLLECTION) {

@@ -20,10 +20,10 @@ import ActivityItem from './ActivityItem';
 
 import ScrollyRolly from '../ScrollyRolly';
 import useCollection from '../../hooks/useCollection';
-import { COLLECTIONS } from '../../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import moment from 'moment';
-import { momentLocales } from '../../constants/momentLocales';
+import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   spinner: {
@@ -116,7 +116,7 @@ function ActivityLog(props) {
     history,
     user,
   } = props;
-  moment.updateLocale('en', momentLocales);
+  moment.updateLocale('en', MOMENT_LOCALES);
 
   const [grow, setGrow] = useState(true);
   const [height, setHeight] = useState(window.innerHeight);

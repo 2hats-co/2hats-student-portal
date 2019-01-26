@@ -18,7 +18,7 @@ import Question from './Question';
 import UserContext from '../../contexts/UserContext';
 import { uploader } from '../../utilities/Uploader';
 import * as ROUTES from '../../constants/routes';
-import { COLLECTIONS } from '../../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import { createDoc, updateProperties } from '../../utilities/firestore';
 
 const styles = theme => ({

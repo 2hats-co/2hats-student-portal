@@ -13,7 +13,7 @@ import GoIcon from '@material-ui/icons/ArrowForwardRounded';
 import ActivityIcon from './ActivityIcon';
 
 import moment from 'moment';
-import { ACTIVITY_LOG_LABELS } from '../../constants/activityLog';
+import { ACTIVITY_LOG_LABELS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   listItemRoot: {

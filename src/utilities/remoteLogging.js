@@ -1,5 +1,5 @@
 import { db, auth } from '../store';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 function start() {
   console.log('starting remote logging');

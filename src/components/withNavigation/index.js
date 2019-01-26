@@ -44,7 +44,7 @@ import AccountInfoDialog from '../AccountInfoDialog';
 import ActivityLog from '../ActivityLog';
 
 import useDocument from '../../hooks/useDocument';
-import { COLLECTIONS } from '../../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import UserContext from '../../contexts/UserContext';
 
 export const DRAWER_WIDTH = 240;

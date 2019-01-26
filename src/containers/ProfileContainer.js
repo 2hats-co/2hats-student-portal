@@ -11,7 +11,7 @@ import withNavigation from '../components/withNavigation';
 import LoadingScreen from '../components/LoadingScreen';
 import SuperAvatarPlus from '../components/SuperAvatarPlus';
 
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocument from '../hooks/useDocument';
 
 const styles = theme => ({

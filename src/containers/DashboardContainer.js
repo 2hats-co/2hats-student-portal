@@ -9,7 +9,7 @@ import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
-import { COLLECTIONS } from '../constants/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   secondaryCardsWrapper: {
