@@ -19,30 +19,8 @@ import Select from './Fields/Select';
 import Checkbox from './Fields/Checkbox';
 
 const styles = theme => ({
-  paperRoot: {
-    width: `calc(100% - ${theme.spacing.unit * 4}px)`,
-    maxWidth: 600,
-    margin: theme.spacing.unit * 2,
-    maxHeight: `calc(100% - ${theme.spacing.unit * 4}px)`,
-  },
-
-  dialogTitle: {
-    paddingTop: theme.spacing.unit * 2.5,
-    paddingBottom: theme.spacing.unit * 2,
-    position: 'relative',
-    '&::after': {
-      content: '""',
-      display: 'block',
-      height: 1,
-      position: 'absolute',
-      background: theme.palette.divider,
-      bottom: 0,
-      left: theme.spacing.unit * 3,
-      right: theme.spacing.unit * 3,
-    },
-  },
   wrapperGrid: {
-    marginTop: theme.spacing.unit,
+    // marginTop: theme.spacing.unit,
     overflowX: 'hidden',
     paddingBottom: theme.spacing.unit,
   },
@@ -53,20 +31,6 @@ const styles = theme => ({
 
   sectionTitle: {
     marginLeft: theme.spacing.unit * 1.5,
-  },
-
-  dialogActions: {
-    position: 'relative',
-    '&::before': {
-      content: '""',
-      display: 'block',
-      height: 1,
-      position: 'absolute',
-      background: theme.palette.divider,
-      top: -theme.spacing.unit,
-      left: theme.spacing.unit * 2.5,
-      right: theme.spacing.unit * 2.5,
-    },
   },
 });
 

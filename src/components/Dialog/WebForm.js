@@ -26,6 +26,41 @@ const styles = theme => ({
     position: 'absolute',
     top: 0,
   },
+
+  dialogContent: {
+    paddingBottom: 0,
+    position: 'relative',
+    zIndex: 1,
+    background: `${theme.palette.background.paper} no-repeat`,
+    backgroundImage:
+      theme.palette.type === 'dark'
+        ? 'linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,0)), linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,0))'
+        : 'linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,0)), linear-gradient(to top, rgba(0,0,0,.1), rgba(0,0,0,0))',
+    backgroundPosition: `-${theme.spacing.unit * 3}px 0, -${theme.spacing.unit *
+      3}px 100%`,
+    backgroundSize: `calc(100% + ${theme.spacing.unit * 3}px) ${theme.spacing
+      .unit * 2}px`,
+
+    '&::before, &::after': {
+      content: '""',
+      position: 'relative',
+      zIndex: -1,
+      display: 'block',
+      height: theme.spacing.unit * 4,
+      margin: `0 -${theme.spacing.unit * 3}px -${theme.spacing.unit * 4}px`,
+      background: `linear-gradient(to bottom, ${
+        theme.palette.background.paper
+      }, ${theme.palette.background.paper} 30%, rgba(255, 255, 255, 0))`,
+    },
+
+    '&::after': {
+      marginTop: -theme.spacing.unit * 4,
+      marginBottom: 0,
+      background: `linear-gradient(to bottom, rgba(255, 255, 255, 0), ${
+        theme.palette.background.paper
+      } 70%, ${theme.palette.background.paper})`,
+    },
+  },
 });
 
 function Transition(props) {
@@ -65,7 +100,7 @@ function WebForm(props) {
         )}{' '}
         {title}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent classes={{ root: classes.dialogContent }}>
         <Grid
           container
           className={classes.grid}

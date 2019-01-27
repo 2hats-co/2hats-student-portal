@@ -145,6 +145,8 @@ const styles = theme => ({
       position: 'static',
     },
   },
+
+  formHeaderGrid: { marginBottom: theme.spacing.unit },
 });
 
 const Job = props => {
@@ -365,7 +367,7 @@ const Job = props => {
           })}
           formTitle={`for ${data.title}`}
           formHeader={
-            <Grid container spacing={24}>
+            <Grid container spacing={24} className={classes.formHeaderGrid}>
               <Grid item xs={12} sm={5}>
                 <div
                   style={{ backgroundImage: `url(${data.image.url})` }}
