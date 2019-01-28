@@ -155,6 +155,7 @@ const styles = theme => ({
   wrappedComponentGrid: {
     minHeight: 'calc(100vh + 108px)',
     backgroundColor: '#e1e1e1',
+    overflow: 'hidden',
   },
   fadeOut: { opacity: 0 },
 
