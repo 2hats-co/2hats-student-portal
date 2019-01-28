@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Slide from '@material-ui/core/Slide';
@@ -20,6 +20,13 @@ const JobsContainer = props => {
   const cardsCols = getNumCards(windowSize.width, isMobile);
 
   const [docState] = useDocumentFromUrl(location, COLLECTIONS.jobs);
+
+  useEffect(
+    () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    },
+    [docState.doc]
+  );
 
   if (location.search && docState.valid) {
     if (docState.doc)

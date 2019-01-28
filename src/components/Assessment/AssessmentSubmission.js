@@ -207,4 +207,10 @@ const AssessmentSubmission = props => {
   );
 };
 
+AssessmentSubmission.propTypes = {
+  classes: PropTypes.object.isRequired,
+  data: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+};
+
 export default withRouter(withStyles(styles)(AssessmentSubmission));
