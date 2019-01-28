@@ -145,8 +145,9 @@ const styles = theme => ({
     '& svg': { fontSize: 32 },
 
     '& $badge': {
-      top: -7,
-      right: -7,
+      top: -theme.spacing.unit * 2,
+      right: -theme.spacing.unit * 2,
+      boxShadow: theme.shadows[1],
     },
   },
 
@@ -315,6 +316,7 @@ export default function withNavigation(WrappedComponent) {
                       color="primary"
                       classes={{ badge: classes.badge }}
                       badgeContent="!"
+                      invisible
                     >
                       <ActivityLogIcon />
                     </Badge>
@@ -414,6 +416,7 @@ export default function withNavigation(WrappedComponent) {
                   color="primary"
                   classes={{ badge: classes.badge }}
                   badgeContent="!"
+                  invisible
                 >
                   <ActivityLogIcon />
                 </Badge>

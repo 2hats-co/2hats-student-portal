@@ -35,8 +35,8 @@ const Stripe = props => {
       locale="en"
     >
       <Button variant="contained" color="primary">
-        <PaymentIcon />
         Checkout
+        <PaymentIcon style={{ marginRight: 0 }} />
       </Button>
     </StripeCheckout>
   ) : null;
