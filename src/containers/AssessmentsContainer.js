@@ -5,6 +5,7 @@ import Slide from '@material-ui/core/Slide';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
+import LoadingScreen from '../components/LoadingScreen';
 import Assessment from '../components/Assessment';
 
 import useWindowSize from '../hooks/useWindowSize';
@@ -20,43 +21,45 @@ const AssessmentsContainer = props => {
 
   const [docState] = useDocumentFromUrl(location, COLLECTIONS.assessments);
 
+  if (location.search && docState.doc) {
+    if (docState.doc)
+      return (
+        <div className={className}>
+          <Assessment data={docState.doc} />
+        </div>
+      );
+    return <LoadingScreen showNav />;
+  }
+
   return (
     <Slide direction="up" in>
       <div className={className}>
-        {location.search && docState.doc ? (
-          <Assessment data={docState.doc} />
-        ) : (
-          <>
-            <ContainerHeader
-              title="Assessments"
-              //subtitle="Get yourself certified with these assessments"
-              isMobile={isMobile}
-              maxWidth={getCardsWidth(cardsCols)}
-            />
-            <Cards
-              title="Your assessments"
-              mapping="assessment"
-              cols={cardsCols}
-              setFilter
-              useCollectionInit={{
-                path: `${COLLECTIONS.users}/${user.id}/${
-                  COLLECTIONS.assessments
-                }`,
-                limit: cardsCols,
-              }}
-            />
-            <Cards
-              title="All assessments"
-              mapping="assessment"
-              cols={cardsCols}
-              useCollectionInit={{
-                path: COLLECTIONS.assessments,
-                limit: cardsCols,
-              }}
-              filterIds={user.touchedAssessments}
-            />
-          </>
-        )}
+        <ContainerHeader
+          title="Assessments"
+          //subtitle="Get yourself certified with these assessments"
+          isMobile={isMobile}
+          maxWidth={getCardsWidth(cardsCols)}
+        />
+        <Cards
+          title="Your assessments"
+          mapping="assessment"
+          cols={cardsCols}
+          setFilter
+          useCollectionInit={{
+            path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+            limit: cardsCols,
+          }}
+        />
+        <Cards
+          title="All assessments"
+          mapping="assessment"
+          cols={cardsCols}
+          useCollectionInit={{
+            path: COLLECTIONS.assessments,
+            limit: cardsCols,
+          }}
+          filterIds={user.touchedAssessments}
+        />
       </div>
     </Slide>
   );

@@ -1,16 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import SkillIcon from '@material-ui/icons/Rowing';
+import SkillIcon from '@material-ui/icons/Star';
 import AchievedIcon from '@material-ui/icons/CheckCircleRounded';
 import green from '@material-ui/core/colors/green';
 
 import SkillBG from '../assets/images/SkillBG.svg';
 import { SKILLS } from '@bit/sidney2hats.2hats.global.common-constants';
+
+import UserContext from '../contexts/UserContext';
 
 const styles = theme => ({
   root: {
@@ -53,19 +56,33 @@ const styles = theme => ({
   label: {
     lineHeight: '1.25',
   },
+  header: {
+    display: 'block',
+    fontWeight: 500,
+  },
 });
 
 const SkillItem = props => {
-  const { classes, value, icon, achieved } = props;
+  const { classes, className, value, icon, header } = props;
+
+  const userContext = useContext(UserContext);
+
+  const achieved =
+    userContext.user.skills && userContext.user.skills.includes(value);
 
   return (
-    <Grid container className={classes.root} alignItems="center">
+    <Grid
+      container
+      className={classNames(classes.root, className)}
+      alignItems="center"
+    >
       <Grid item className={classes.skillIcon}>
         {icon || <SkillIcon />}
         {achieved && <AchievedIcon className={classes.achievedIcon} />}
       </Grid>
       <Grid item xs>
         <Typography variant="body1" className={classes.label}>
+          <span className={classes.header}>{header}</span>
           {SKILLS.filter(x => x.value === value)[0].label}
         </Typography>
       </Grid>
@@ -75,9 +92,10 @@ const SkillItem = props => {
 
 SkillItem.propTypes = {
   classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
   value: PropTypes.string.isRequired,
   icon: PropTypes.node,
-  achieved: PropTypes.bool,
+  header: PropTypes.node,
 };
 
 export default withStyles(styles)(SkillItem);

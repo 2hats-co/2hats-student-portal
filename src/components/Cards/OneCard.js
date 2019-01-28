@@ -76,6 +76,7 @@ const styles = theme => ({
 
     '& svg': {
       margin: theme.spacing.unit / 2,
+      marginLeft: theme.spacing.unit / 4,
       verticalAlign: 'bottom',
     },
   },

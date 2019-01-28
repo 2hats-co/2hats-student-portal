@@ -21,43 +21,43 @@ const JobsContainer = props => {
 
   const [docState] = useDocumentFromUrl(location, COLLECTIONS.jobs);
 
+  if (location.search && docState.valid) {
+    if (docState.doc)
+      return (
+        <div className={className}>
+          <Job data={docState.doc} user={user} />
+        </div>
+      );
+    return <LoadingScreen showNav />;
+  }
+
   return (
     <Slide direction="up" in>
       <div className={className}>
-        {location.search && docState.valid ? (
-          docState.doc ? (
-            <Job data={docState.doc} user={user} />
-          ) : (
-            <LoadingScreen showNav />
-          )
-        ) : (
-          <>
-            <ContainerHeader
-              title="Jobs"
-              //subtitle="Here are our currently available jobs"
-              isMobile={isMobile}
-            />
-            <Cards
-              title="Your jobs"
-              mapping="job"
-              cols={cardsCols}
-              useCollectionInit={{
-                path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
-                limit: cardsCols + 1,
-              }}
-            />
-            <Cards
-              title="All jobs"
-              mapping="job"
-              cols={cardsCols}
-              useCollectionInit={{
-                path: COLLECTIONS.jobs,
-                limit: cardsCols + 1,
-              }}
-              filterIds={user.touchedJobs}
-            />
-          </>
-        )}
+        <ContainerHeader
+          title="Jobs"
+          //subtitle="Here are our currently available jobs"
+          isMobile={isMobile}
+        />
+        <Cards
+          title="Your jobs"
+          mapping="job"
+          cols={cardsCols}
+          useCollectionInit={{
+            path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
+            limit: cardsCols + 1,
+          }}
+        />
+        <Cards
+          title="All jobs"
+          mapping="job"
+          cols={cardsCols}
+          useCollectionInit={{
+            path: COLLECTIONS.jobs,
+            limit: cardsCols + 1,
+          }}
+          filterIds={user.touchedJobs}
+        />
       </div>
     </Slide>
   );

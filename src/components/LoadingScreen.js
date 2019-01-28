@@ -21,6 +21,7 @@ const styles = theme => ({
 
     backgroundImage: `url(${greyBg})`,
     backgroundSize: 'cover',
+    backgroundPosition: 'center top',
     backgroundColor: '#e1e1e1',
     textAlign: 'center',
     zIndex: 1,

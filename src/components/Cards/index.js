@@ -48,8 +48,10 @@ const styles = theme => ({
 
   moreButton: {
     margin: theme.spacing.unit,
+    '& svg': {
+      marginLeft: theme.spacing.unit / 4,
+    },
   },
-  moreIcon: { marginRight: `-${theme.spacing.unit * 0.75}px !important` },
 
   loading: {
     position: 'absolute',

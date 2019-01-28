@@ -14,6 +14,7 @@ import Slide from '@material-ui/core/Slide';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 const styles = theme => ({
+  appBar: { backgroundColor: theme.palette.common.white },
   toolbar: {
     paddingLeft: theme.spacing.unit / 2,
     paddingRight: theme.spacing.unit * 1.5,
@@ -68,7 +69,7 @@ function MobileForm(props) {
       onClose={cancelHandler}
       TransitionComponent={Transition}
     >
-      <AppBar color="default">
+      <AppBar color="default" classes={{ root: classes.appBar }}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             id="dialogue-close"

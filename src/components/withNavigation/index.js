@@ -158,13 +158,13 @@ const styles = theme => ({
   fadeOut: { opacity: 0 },
 
   wrappedComponent: {
-    backgroundImage: `url(${greyBg})`,
-    backgroundSize: 'cover',
-    // backgroundColor: theme.palette.background.default,
-    backgroundColor: '#e1e1e1',
     boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
       0px -24px 38px 3px rgba(0,0,0,0.07)`,
     minHeight: '100vh',
+    backgroundImage: `url(${greyBg})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center top',
+    // backgroundColor: theme.palette.background.default,
   },
 
   bottomLogo: {
@@ -189,7 +189,7 @@ export default function withNavigation(WrappedComponent) {
   function WithNavigation(props) {
     const { classes, theme, history, location, authUser } = props;
 
-    setBackground(theme.palette.background.default);
+    setBackground('#e1e1e1');
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const iconLogo = useMediaQuery('(max-width: 348px)');

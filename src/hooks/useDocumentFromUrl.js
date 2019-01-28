@@ -31,6 +31,8 @@ const useDocumentFromUrl = (location, path) => {
         return () => {
           if (docState.unsubscribe) docState.unsubscribe();
         };
+      } else {
+        docDispatch({ doc: null });
       }
     },
     [location.search]

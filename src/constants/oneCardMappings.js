@@ -8,7 +8,7 @@ import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
 import CoursesIcon from '@material-ui/icons/SchoolRounded';
 import EventsIcon from '@material-ui/icons/EventRounded';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
-import CheckIcon from '@material-ui/icons/CheckCircleRounded';
+import PassedIcon from '@material-ui/icons/CheckCircleRounded';
 import FailedIcon from '@material-ui/icons/ErrorRounded';
 import IndustryIcon from '@material-ui/icons/BusinessRounded';
 import TimeIcon from '@material-ui/icons/AccessTimeRounded';
@@ -16,6 +16,7 @@ import TimeIcon from '@material-ui/icons/AccessTimeRounded';
 import SkillItem from '../components/SkillItem';
 
 import * as ROUTES from './routes';
+import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 export const course = data => ({
   title: data.title,
@@ -47,7 +48,7 @@ export const assessment = data => {
         primaryAction = 'View submission';
         tertiaryIndicator = (
           <>
-            Passed <CheckIcon />
+            Passed <PassedIcon />
           </>
         );
       } else if (data.outcome === 'fail') {
@@ -78,7 +79,9 @@ export const assessment = data => {
           <IndustryIcon
             style={{ marginLeft: 12, marginRight: 20, opacity: 0.67 }}
           />
-          <Typography variant="body1">{data.category}</Typography>
+          <Typography variant="body1">
+            {getAssessmentCategoryLabel(data.category)}
+          </Typography>
         </Grid>
         <Grid container alignItems="flex-end" style={{ marginTop: 4 }}>
           <TimeIcon

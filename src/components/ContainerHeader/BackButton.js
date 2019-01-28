@@ -13,7 +13,7 @@ const BackButton = props => (
     color="primary"
     className={props.className}
   >
-    <BackIcon />
+    <BackIcon style={{ marginLeft: 0, marginRight: 4 }} />
     Back
   </Button>
 );

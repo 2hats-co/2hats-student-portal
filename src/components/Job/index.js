@@ -5,10 +5,12 @@ import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import Slide from '@material-ui/core/Slide';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import IndustryIcon from '@material-ui/icons/BusinessRounded';
 import PayIcon from '@material-ui/icons/AttachMoneyRounded';
@@ -19,44 +21,19 @@ import ErrorIcon from '@material-ui/icons/ErrorOutlineRounded';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
+import { paperView } from '../../constants/commonStyles';
 import BackButton from '../ContainerHeader/BackButton';
 import SkillItem from '../SkillItem';
 import Form from '../Form';
+
 import jobApplicationFields from '../../constants/forms/jobApplication';
 import * as ROUTES from '../../constants/routes';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import { createDoc, updateProperties } from '../../utilities/firestore';
-import { CircularProgress } from '@material-ui/core';
 
 const styles = theme => ({
-  root: {
-    padding: theme.spacing.unit,
-    maxWidth: 720,
-    margin: '0 auto',
-  },
-  backButton: {
-    display: 'flex',
-    marginBottom: theme.spacing.unit,
-  },
-  paper: {
-    padding: theme.spacing.unit * 3,
-  },
+  ...paperView(theme),
 
-  coverImage: {
-    borderRadius: theme.shape.borderRadius / 2,
-    maxWidth: '100%',
-    height: '100%',
-    minHeight: theme.spacing.unit * 15,
-
-    marginBottom: theme.spacing.unit * 3,
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundImage: `linear-gradient(-15deg, #fa0, ${
-      theme.palette.primary.main
-    })`,
-  },
-
-  title: { fontWeight: 500 },
   subtitle: {
     textTransform: 'capitalize',
     color: theme.palette.primary.main,
@@ -76,10 +53,6 @@ const styles = theme => ({
     verticalAlign: 'bottom',
     marginRight: theme.spacing.unit,
     color: theme.palette.text.secondary,
-  },
-
-  section: {
-    marginTop: theme.spacing.unit * 3,
   },
 
   skillsWrapper: {
@@ -195,56 +168,138 @@ const Job = props => {
   });
 
   return (
-    <div className={classes.root}>
-      <BackButton className={classes.backButton} />
+    <Slide in direction="up">
+      <div className={classes.root}>
+        <BackButton className={classes.backButton} />
 
-      <Paper className={classes.paper}>
-        <Grid container spacing={24}>
-          <Grid item xs={12} sm={5}>
-            <div
-              style={{ backgroundImage: `url(${data.image.url})` }}
-              className={classes.coverImage}
-            />
+        <Paper className={classes.paper}>
+          <Grid container spacing={24}>
+            <Grid item xs={12} sm={5}>
+              <div
+                style={{ backgroundImage: `url(${data.image.url})` }}
+                className={classes.coverImage}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={7}>
+              <Typography variant="h5" className={classes.title}>
+                {data.title}
+              </Typography>
+
+              <Typography variant="subtitle1" className={classes.subtitle}>
+                <IndustryIcon className={classes.adornmentIcon} />
+                {data.industry}
+              </Typography>
+
+              <Typography variant="body1" className={classes.meta}>
+                <TimeIcon className={classes.adornmentIcon} />
+                {data.commitment}
+              </Typography>
+              <Typography variant="body1" className={classes.meta}>
+                <PayIcon className={classes.adornmentIcon} />
+                {data.payRate}/{data.payUnits}
+              </Typography>
+              <Typography variant="body1" className={classes.meta}>
+                <EventIcon className={classes.adornmentIcon} />
+                Closing {data.closingDate}
+              </Typography>
+
+              <Button
+                variant="contained"
+                color="primary"
+                className={classNames(
+                  classes.apply,
+                  classes.getStartedSection,
+                  showDialog && classes.gotStarted
+                )}
+                onClick={e => {
+                  setShowDialog(true);
+                }}
+                disabled={
+                  skillsNotAchieved.length > 0 || !!data.jobId || loading
+                }
+              >
+                {loading && (
+                  <CircularProgress className={classes.loading} size={32} />
+                )}
+                {data.jobId ? (
+                  <>
+                    Applied
+                    <CheckIcon />
+                  </>
+                ) : (
+                  <>
+                    Apply
+                    <ArrowForwardIcon />
+                  </>
+                )}
+              </Button>
+              {skillsNotAchieved.length > 0 && (
+                <Typography variant="body2" className={classes.skillsWarning}>
+                  <ErrorIcon />
+                  You need {skillsNotAchieved.length} more of the required
+                  skills to apply
+                </Typography>
+              )}
+            </Grid>
           </Grid>
 
-          <Grid item xs={12} sm={7}>
-            <Typography variant="h5" className={classes.title}>
-              {data.title}
-            </Typography>
+          <div className={classes.section}>
+            <Typography variant="h6">Skills required</Typography>
+            <Grid container className={classes.skillsWrapper}>
+              {data.skillsRequired.map((x, i) => (
+                <Grid
+                  key={`${i}-${x}`}
+                  item
+                  xs={12}
+                  sm={4}
+                  className={classes.skillWrapper}
+                >
+                  <SkillItem value={x} />
+                </Grid>
+              ))}
+            </Grid>
+            {skillsNotAchieved.length > 0 && (
+              <Typography variant="body1" className={classes.upskill}>
+                <InfoIcon />
+                Get your skills approved through our{' '}
+                <Link href={ROUTES.ASSESSMENTS} target="_blank" rel="noopener">
+                  Assessments
+                  <ArrowForwardIcon />
+                </Link>
+              </Typography>
+            )}
+          </div>
 
-            <Typography variant="subtitle1" className={classes.subtitle}>
-              <IndustryIcon className={classes.adornmentIcon} />
-              {data.industry}
-            </Typography>
+          <div className={classes.section}>
+            <Typography variant="h6">About the company</Typography>
+            <Typography variant="body1">{data.companyDescription}</Typography>
+          </div>
 
-            <Typography variant="body1" className={classes.meta}>
-              <TimeIcon className={classes.adornmentIcon} />
-              {data.commitment}
-            </Typography>
-            <Typography variant="body1" className={classes.meta}>
-              <PayIcon className={classes.adornmentIcon} />
-              {data.payRate}/{data.payUnits}
-            </Typography>
-            <Typography variant="body1" className={classes.meta}>
-              <EventIcon className={classes.adornmentIcon} />
-              Closing {data.closingDate}
-            </Typography>
+          <div className={classes.section}>
+            <Typography variant="h6">The role</Typography>
+            <Typography variant="body1">{data.roleDescription}</Typography>
+          </div>
 
+          <div
+            className={classNames(
+              classes.section,
+              classes.getStartedSection,
+              showDialog && classes.gotStarted
+            )}
+          >
             <Button
               variant="contained"
               color="primary"
-              className={classNames(
-                classes.apply,
-                classes.getStartedSection,
-                showDialog && classes.gotStarted
-              )}
+              size="large"
+              className={classes.applyBig}
               onClick={e => {
                 setShowDialog(true);
               }}
               disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
             >
               {loading && (
-                <CircularProgress className={classes.loading} size={32} />
+                <CircularProgress className={classes.loading} size={48} />
               )}
               {data.jobId ? (
                 <>
@@ -265,89 +320,8 @@ const Job = props => {
                 to apply
               </Typography>
             )}
-          </Grid>
-        </Grid>
-
-        <div className={classes.section}>
-          <Typography variant="subtitle1">Skills required</Typography>
-          <Grid container className={classes.skillsWrapper}>
-            {data.skillsRequired.map((x, i) => (
-              <Grid
-                key={`${i}-${x}`}
-                item
-                xs={12}
-                sm={4}
-                className={classes.skillWrapper}
-              >
-                <SkillItem
-                  value={x}
-                  achieved={user.skills && user.skills.includes(x)}
-                />
-              </Grid>
-            ))}
-          </Grid>
-          {skillsNotAchieved.length > 0 && (
-            <Typography variant="body1" className={classes.upskill}>
-              <InfoIcon />
-              Get your skills approved through our{' '}
-              <Link href={ROUTES.ASSESSMENTS} target="_blank" rel="noopener">
-                Assessments
-                <ArrowForwardIcon />
-              </Link>
-            </Typography>
-          )}
-        </div>
-
-        <div className={classes.section}>
-          <Typography variant="subtitle1">About the company</Typography>
-          <Typography variant="body2">{data.companyDescription}</Typography>
-        </div>
-
-        <div className={classes.section}>
-          <Typography variant="subtitle1">The role</Typography>
-          <Typography variant="body2">{data.roleDescription}</Typography>
-        </div>
-
-        <div
-          className={classNames(
-            classes.section,
-            classes.getStartedSection,
-            showDialog && classes.gotStarted
-          )}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            className={classes.applyBig}
-            onClick={e => {
-              setShowDialog(true);
-            }}
-            disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
-          >
-            {loading && (
-              <CircularProgress className={classes.loading} size={48} />
-            )}
-            {data.jobId ? (
-              <>
-                Applied
-                <CheckIcon />
-              </>
-            ) : (
-              <>
-                Apply
-                <ArrowForwardIcon />
-              </>
-            )}
-          </Button>
-          {skillsNotAchieved.length > 0 && (
-            <Typography variant="body2" className={classes.skillsWarning}>
-              <ErrorIcon />
-              You need {skillsNotAchieved.length} more of the required skills to
-              apply
-            </Typography>
-          )}
-        </div>
+          </div>
+        </Paper>
 
         <Form
           action="apply"
@@ -397,8 +371,8 @@ const Job = props => {
             </Grid>
           }
         />
-      </Paper>
-    </div>
+      </div>
+    </Slide>
   );
 };
 

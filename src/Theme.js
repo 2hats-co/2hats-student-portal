@@ -62,7 +62,7 @@ export const Theme = createMuiTheme({
         boxShadow: 'none',
       },
       label: {
-        '& svg': { marginRight: 8 },
+        '& svg': { marginLeft: 8, marginRight: -4 },
       },
     },
     // ADMIN PORTAL OVERRIDES
@@ -116,23 +116,11 @@ export const Theme = createMuiTheme({
     },
     MuiChip: {
       root: {
+        height: 'auto',
+        minHeight: 32,
         '&:not(:last-of-type)': { marginRight: 8 },
       },
-      // colorPrimary: {
-      //   color: primaryDarkText,
-      //   backgroundColor: primaryLight,
-      //   '&:hover, &:focus': {
-      //     backgroundColor: primaryColor,
-      //     color: '#fff',
-      //   },
-      // },
-      // iconColorPrimary: {
-      //   opacity: 0.87,
-      // },
-      // deleteIconColorPrimary: {
-      //   color: `inherit !important`,
-      //   opacity: 0.87,
-      // },
+      label: { whiteSpace: 'normal' },
     },
     MuiAvatar: {
       colorDefault: {
