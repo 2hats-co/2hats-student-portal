@@ -27,15 +27,18 @@ const useDocumentFromUrl = (location, path) => {
         } else {
           if (docState.unsubscribe) docState.unsubscribe();
         }
-
-        return () => {
-          if (docState.unsubscribe) docState.unsubscribe();
-        };
       } else {
         docDispatch({ doc: null, path: null, prevPath: null });
       }
     },
     [location.search]
+  );
+
+  useEffect(
+    () => () => {
+      if (docState.unsubscribe) docState.unsubscribe();
+    },
+    []
   );
 
   return [docState, docDispatch];

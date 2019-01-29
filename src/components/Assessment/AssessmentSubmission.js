@@ -172,7 +172,6 @@ const AssessmentSubmission = props => {
       }
     ).then(() => {
       console.log('Submitted');
-      window.location.reload();
     });
   };
 
