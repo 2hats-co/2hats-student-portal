@@ -26,7 +26,7 @@ import Form from '../Form';
 import jobApplicationFields from '../../constants/forms/jobApplication';
 import * as ROUTES from '../../constants/routes';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
-import { createDoc, updateProperties } from '../../utilities/firestore';
+import { createDoc, updateDoc } from '../../utilities/firestore';
 
 const styles = theme => ({
   ...paperView(theme),
@@ -128,7 +128,7 @@ const Job = props => {
 
         const newTouchedJobs = user.touchedJobs || [];
         newTouchedJobs.push(data.id);
-        updateProperties(COLLECTIONS.users, user.id, {
+        updateDoc(COLLECTIONS.users, user.id, {
           touchedJobs: newTouchedJobs,
         });
 
@@ -287,6 +287,7 @@ const Job = props => {
           actions={{
             apply: data => {
               applyForJob(data);
+              updateDoc(COLLECTIONS.users, user.id, { resume: data.resume });
               setShowDialog(false);
             },
             close: () => {
@@ -297,6 +298,7 @@ const Job = props => {
           data={jobApplicationFields({
             'pay-calcVal': data.payRate,
             'pay-units': data.payUnits,
+            resume: user.resume,
           })}
           formTitle={`for ${data.title}`}
           formHeader={

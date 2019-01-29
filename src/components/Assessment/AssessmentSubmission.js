@@ -17,7 +17,7 @@ import UserContext from '../../contexts/UserContext';
 import * as ROUTES from '../../constants/routes';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import { removeHtmlTags, getRandomId } from '../../utilities';
-import { createDoc, updateProperties } from '../../utilities/firestore';
+import { createDoc, updateDoc } from '../../utilities/firestore';
 import { renderedHtml, padding } from '../../constants/commonStyles';
 
 const styles = theme => ({
@@ -138,7 +138,7 @@ const AssessmentSubmission = props => {
 
         // set first submission to resubmitted to disable
         if (data.outcome === 'fail') {
-          updateProperties(
+          updateDoc(
             `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
             data.id,
             { resubmitted: docRef.id }
@@ -150,7 +150,7 @@ const AssessmentSubmission = props => {
         // touch assessment
         const newTouchedAssessments = user.touchedAssessments || [];
         newTouchedAssessments.push(data.assessmentId || data.id);
-        updateProperties(COLLECTIONS.users, user.id, {
+        updateDoc(COLLECTIONS.users, user.id, {
           touchedAssessments: newTouchedAssessments,
         });
 
@@ -186,7 +186,7 @@ const AssessmentSubmission = props => {
   );
 
   const handleSubmit = () => {
-    updateProperties(
+    updateDoc(
       `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
       submissionId,
       {

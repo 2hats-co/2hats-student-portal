@@ -1,6 +1,6 @@
 import { firestore } from '../store';
 
-export const updateProperties = (collection, docId, properties) =>
+export const updateDoc = (collection, docId, properties) =>
   firestore
     .collection(collection)
     .doc(docId)

@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorIcon from '@material-ui/icons/ErrorRounded';
 
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
-import { updateProperties } from '../utilities/firestore';
+import { updateDoc } from '../utilities/firestore';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import UserContext from '../contexts/UserContext';
 
@@ -49,7 +49,7 @@ function CourseRedirectContainer(props) {
     // touch the course
     const newTouchedCourses = user.touchedCourses || [];
     newTouchedCourses.push(location.search.replace('?id=', ''));
-    updateProperties(COLLECTIONS.users, user.id, {
+    updateDoc(COLLECTIONS.users, user.id, {
       touchedCourses: newTouchedCourses,
     });
 

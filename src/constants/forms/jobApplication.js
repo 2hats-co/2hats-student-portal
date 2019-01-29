@@ -30,6 +30,7 @@ const jobApplicationFields = initialData => {
   if (!initialData) initialData = {};
 
   const userContext = useContext(UserContext);
+  const user = userContext.user;
   const ts = new Date().getTime();
   return [
     {
@@ -111,7 +112,7 @@ const jobApplicationFields = initialData => {
       label: 'Resume',
       value: initialData['resume'],
       mimeTypes: 'application/pdf',
-      path: `submissions/${userContext.user.id}/${ts}/`,
+      path: `submissions/${user.id}/${ts}/`,
       validation: yup.object().shape({
         name: yup.string().required(),
         url: yup
