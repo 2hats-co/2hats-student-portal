@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -22,6 +22,10 @@ const DashboardContainer = props => {
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
+
+  useEffect(() => {
+    document.title = '2hats – Dashboard';
+  }, []);
 
   const primary = {
     title: 'Courses',

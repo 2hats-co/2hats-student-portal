@@ -21,9 +21,16 @@ const AssessmentsContainer = props => {
 
   const [docState] = useDocumentFromUrl(location, COLLECTIONS.assessments);
 
+  useEffect(() => {
+    document.title = '2hats – Assessments';
+  }, []);
+
   useEffect(
     () => {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      if (docState.doc)
+        document.title = `2hats – Assessments – ${docState.doc.title}`;
+      else document.title = '2hats – Assessments';
     },
     [docState.doc]
   );
@@ -51,7 +58,6 @@ const AssessmentsContainer = props => {
           title="Your assessments"
           mapping="assessment"
           cols={cardsCols}
-          setFilter
           useCollectionInit={{
             path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
             limit: cardsCols,

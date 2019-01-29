@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import Slide from '@material-ui/core/Slide';
@@ -17,11 +17,24 @@ const CoursesContainer = props => {
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
 
+  useEffect(() => {
+    document.title = '2hats – Courses';
+  }, []);
+
   return (
     <Slide direction="up" in>
       <div className={className}>
         <ContainerHeader title="Courses" isMobile={isMobile} />
         <Stripe user={user} amount={200} />
+        <Cards
+          title="Your courses"
+          mapping="course"
+          cols={cardsCols}
+          useCollectionInit={{
+            path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
+            limit: cardsCols,
+          }}
+        />
         <Cards
           title="All courses"
           mapping="course"
@@ -30,6 +43,7 @@ const CoursesContainer = props => {
             path: COLLECTIONS.courses,
             limit: cardsCols + 1,
           }}
+          filterIds={user.touchedCourses}
         />
       </div>
     </Slide>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -10,6 +10,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ErrorIcon from '@material-ui/icons/ErrorRounded';
 
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
+import { updateProperties } from '../utilities/firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import UserContext from '../contexts/UserContext';
 
 const styles = theme => ({
   root: {
@@ -35,7 +38,22 @@ function CourseRedirectContainer(props) {
     location.search.indexOf('?id=') > -1 &&
     location.search.replace('?id=', '').length > 0;
 
+  const userContext = useContext(UserContext);
+  const user = userContext.user;
+
+  useEffect(() => {
+    document.title = '2hats – Courses – Redirecting…';
+  }, []);
+
   if (hasId) {
+    // touch the course
+    const newTouchedCourses = user.touchedCourses || [];
+    newTouchedCourses.push(location.search.replace('?id=', ''));
+    updateProperties(COLLECTIONS.users, user.id, {
+      touchedCourses: newTouchedCourses,
+    });
+
+    // learnWorlds single sign on
     cloudFunction(
       CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
       { courseId: location.search.replace('?id=', '') },

@@ -21,9 +21,15 @@ const JobsContainer = props => {
 
   const [docState] = useDocumentFromUrl(location, COLLECTIONS.jobs);
 
+  useEffect(() => {
+    document.title = '2hats – Jobs';
+  }, []);
+
   useEffect(
     () => {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      if (docState.doc) document.title = `2hats – Jobs – ${docState.doc.title}`;
+      else document.title = '2hats – Jobs';
     },
     [docState.doc]
   );

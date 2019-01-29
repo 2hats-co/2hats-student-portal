@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -25,6 +25,10 @@ const styles = theme => ({
 
 const ProfileContainer = props => {
   const { classes, className, user } = props;
+
+  useEffect(() => {
+    document.title = '2hats – Profile';
+  }, []);
 
   const [profileState] = useDocument({
     path: `${COLLECTIONS.profiles}/${user.id}`,
