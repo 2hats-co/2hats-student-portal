@@ -6,7 +6,8 @@ import MUISlider from '@material-ui/lab/Slider';
 
 const styles = theme => ({
   sliderSectionWrapper: { margin: `${theme.spacing.unit}px 0` },
-  sliderWrapper: { marginRight: theme.spacing.unit * 3 },
+  sliderGrid: { paddingRight: theme.spacing.unit },
+  sliderWrapper: { marginRight: theme.spacing.unit * 2 },
   slider: { marginLeft: theme.spacing.unit },
   sectionTitle: { marginLeft: theme.spacing.unit * 1.5 },
 
@@ -69,7 +70,7 @@ const Slider = props => {
       >
         {label}
       </Typography>
-      <Grid container alignItems="center">
+      <Grid container alignItems="center" className={classes.sliderGrid}>
         <Grid item xs className={classes.sliderWrapper}>
           <MUISlider
             classes={{ container: classes.slider }}
