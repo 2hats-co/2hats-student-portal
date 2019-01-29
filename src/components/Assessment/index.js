@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,6 +9,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 import IndustryIcon from '@material-ui/icons/BusinessRounded';
 import TimeIcon from '@material-ui/icons/AccessTimeRounded';
@@ -23,6 +25,8 @@ import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common
 import SkillItem from '../SkillItem';
 import StatusMsg from './StatusMsg';
 
+import * as ROUTES from '../../constants/routes';
+
 const styles = theme => ({
   ...paperView(theme),
 
@@ -31,7 +35,7 @@ const styles = theme => ({
   getStarted: {
     fontSize: theme.spacing.unit * 2,
     borderRadius: 200,
-    transition: theme.transitions.create('transform'),
+    transition: theme.transitions.create(['transform', 'box-shadow']),
     boxShadow: theme.shadows[3],
 
     '& svg': {
@@ -47,16 +51,24 @@ const styles = theme => ({
     transform: 'scale(0)',
     marginTop: -theme.spacing.unit * 5.5,
   },
+
+  resubmitted: {
+    marginTop: theme.spacing.unit,
+    marginLeft: theme.spacing.unit,
+  },
+  resubmittedLink: { verticalAlign: 'baseline' },
 });
 
 const Assessment = props => {
-  const { classes, data } = props;
+  const { classes, data, history } = props;
 
-  const [gotStarted, setGotStarted] = useState(false);
+  const gotStartedCondition =
+    data && data.assessmentId && data.outcome !== 'fail';
+  const [gotStarted, setGotStarted] = useState(gotStartedCondition);
 
   useEffect(
     () => {
-      if (data && data.assessmentId) setGotStarted(true);
+      if (gotStartedCondition) setGotStarted(true);
       else setGotStarted(false);
     },
     [data]
@@ -173,10 +185,29 @@ const Assessment = props => {
             onClick={e => {
               setGotStarted(true);
             }}
+            disabled={!!data.resubmitted}
           >
-            Get started
+            {data.outcome === 'fail' ? 'Resubmit' : 'Get started'}
             <ArrowForwardIcon />
           </Button>
+          {!!data.resubmitted && (
+            <Typography variant="body2" className={classes.resubmitted}>
+              You have already created a{' '}
+              <Link
+                component="button"
+                variant="body2"
+                className={classes.resubmittedLink}
+                onClick={() => {
+                  history.push(
+                    `${ROUTES.ASSESSMENTS}?id=${data.resubmitted}&yours=true`
+                  );
+                }}
+              >
+                new submission
+              </Link>
+              .
+            </Typography>
+          )}
         </div>
 
         {gotStarted && <AssessmentSubmission data={data} />}
@@ -188,6 +219,7 @@ const Assessment = props => {
 Assessment.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Assessment);
+export default withRouter(withStyles(styles)(Assessment));

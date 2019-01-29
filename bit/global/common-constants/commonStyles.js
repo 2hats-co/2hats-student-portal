@@ -100,7 +100,6 @@ export const DROPZONE_STYLES = theme => ({
   fileChip: {
     cursor: 'pointer',
     marginTop: theme.spacing.unit,
-
-    '& svg': { transform: 'rotate(-45deg)' },
   },
+  fileIcon: { transform: 'rotate(-45deg)' },
 });

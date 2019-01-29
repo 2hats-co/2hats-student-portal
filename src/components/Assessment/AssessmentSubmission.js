@@ -45,7 +45,9 @@ const AssessmentSubmission = props => {
 
   const [submissionId, setSubmissionId] = useState('');
   const [answers, setAnswers] = useState(
-    Array.isArray(data.submissionContent) ? data.submissionContent : []
+    data.outcome !== 'fail' && Array.isArray(data.submissionContent)
+      ? data.submissionContent
+      : []
   );
 
   const updateAnswers = i => val => {
@@ -58,7 +60,7 @@ const AssessmentSubmission = props => {
   let disableSubmission =
     answers.length === 0 ||
     answers.includes(undefined) ||
-    (data.questions && answers.length < data.questions.length);
+    (data.copiedQuestions && answers.length < data.copiedQuestions.length);
   answers.forEach(x => {
     if (!x) {
       disableSubmission = true;
@@ -81,7 +83,8 @@ const AssessmentSubmission = props => {
   const user = userContext.user;
 
   useEffect(() => {
-    if (!data.assessmentId) {
+    // Make a copy if not copied or failed (resubmission)
+    if (!data.assessmentId || data.outcome === 'fail') {
       // separate assessment ID so new doc doesn't have assessment ID
       const { id, ...rest } = data;
       // copy assessment data
@@ -91,7 +94,7 @@ const AssessmentSubmission = props => {
         outcome: '',
         screened: false,
         submissionContent: [],
-        assessmentId: id,
+        assessmentId: data.assessmentId || id,
         submitted: false,
       };
       // randomiser
@@ -100,19 +103,19 @@ const AssessmentSubmission = props => {
         data.questions &&
         data.questions.length > 0
       ) {
-        const copiedQuestions = [];
-        const copiedQuestionsIndices = [];
+        const cq = [];
+        const cqi = [];
 
-        while (copiedQuestions.length < data.questionsDisplayed) {
+        while (cq.length < data.questionsDisplayed) {
           const index = Math.floor(Math.random() * data.questions.length);
-          if (!copiedQuestionsIndices.includes(index)) {
-            copiedQuestionsIndices.push(index);
-            copiedQuestions.push(data.questions[index]);
+          if (!cqi.includes(index)) {
+            cqi.push(index);
+            cq.push(data.questions[index]);
           }
         }
 
-        copiedAssessment.questions = copiedQuestions;
-        copiedAssessment.copiedQuestionsIndices = copiedQuestionsIndices;
+        copiedAssessment.copiedQuestions = cq;
+        copiedAssessment.copiedQuestionsIndices = cqi;
       }
       // create copy in user's assessment subcollection
       createDoc(
@@ -120,10 +123,21 @@ const AssessmentSubmission = props => {
         copiedAssessment
       ).then(docRef => {
         console.log('Created submission doc', docRef.id);
-        setSubmissionId(docRef.id);
 
+        // set first submission to resubmitted to disable
+        if (data.outcome === 'fail') {
+          updateProperties(
+            `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+            data.id,
+            { resubmitted: docRef.id }
+          ).then(docRef => {
+            console.log('resubmitted set to true for', docRef);
+          });
+        }
+
+        // touch assessment
         const newTouchedAssessments = user.touchedAssessments || [];
-        newTouchedAssessments.push(data.id);
+        newTouchedAssessments.push(data.assessmentId || data.id);
         updateProperties(COLLECTIONS.users, user.id, {
           touchedAssessments: newTouchedAssessments,
         });
@@ -134,6 +148,17 @@ const AssessmentSubmission = props => {
       setSubmissionId(data.id);
     }
   }, []);
+
+  useEffect(
+    () => {
+      if (
+        data.assessmentId &&
+        (data.copiedQuestions || data.questionsDisplayed === 0)
+      )
+        setSubmissionId(data.id);
+    },
+    [data.id]
+  );
 
   const handleSubmit = () => {
     updateProperties(
@@ -164,20 +189,21 @@ const AssessmentSubmission = props => {
           />
         </Paper>
 
-        {data.questions.map((x, i) => (
-          <Question
-            key={i}
-            questionNum={i + 1}
-            questionText={x}
-            submissionType={data.submissionType}
-            answer={answers[i]}
-            setAnswer={updateAnswers(i)}
-            user={user}
-            readOnly={readOnly}
-          />
-        ))}
+        {data.copiedQuestions &&
+          data.copiedQuestions.map((x, i) => (
+            <Question
+              key={i}
+              questionNum={i + 1}
+              questionText={x}
+              submissionType={data.submissionType}
+              answer={answers[i]}
+              setAnswer={updateAnswers(i)}
+              user={user}
+              readOnly={readOnly}
+            />
+          ))}
 
-        {data.questions.length === 0 && (
+        {!data.copiedQuestions && (
           <Question
             questionNum={-1}
             questionText=""

@@ -52,7 +52,7 @@ export const assessment = data => {
           </>
         );
       } else if (data.outcome === 'fail') {
-        primaryAction = 'Resubmit';
+        primaryAction = data.resubmitted ? 'View' : 'Resubmit';
         tertiaryIndicator = (
           <>
             Failed <FailedIcon />

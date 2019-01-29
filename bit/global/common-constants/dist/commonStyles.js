@@ -112,9 +112,8 @@ var DROPZONE_STYLES = (exports.DROPZONE_STYLES = function DROPZONE_STYLES(
     fileChip: {
       cursor: 'pointer',
       marginTop: theme.spacing.unit,
-
-      '& svg': { transform: 'rotate(-45deg)' },
     },
+    fileIcon: { transform: 'rotate(-45deg)' },
   };
 });
 

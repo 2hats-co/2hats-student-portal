@@ -91,7 +91,13 @@ const Question = props => {
                     }
               }
               className={classes.fileChip}
-              icon={answer.url ? <FileIcon /> : <CircularProgress size={24} />}
+              icon={
+                answer.url ? (
+                  <FileIcon className={classes.fileIcon} />
+                ) : (
+                  <CircularProgress size={24} />
+                )
+              }
             />
           )}
         </>
