@@ -5,7 +5,6 @@ import Slide from '@material-ui/core/Slide';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
-import Stripe from '../components/Stripe';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards } from '../components/Cards';
@@ -25,7 +24,6 @@ const CoursesContainer = props => {
     <Slide direction="up" in>
       <div className={className}>
         <ContainerHeader title="Courses" isMobile={isMobile} />
-        <Stripe user={user} amount={200} />
         <Cards
           title="Your courses"
           mapping="course"
@@ -36,7 +34,7 @@ const CoursesContainer = props => {
           }}
         />
         <Cards
-          title="All courses"
+          title="Available courses"
           mapping="course"
           cols={cardsCols}
           useCollectionInit={{

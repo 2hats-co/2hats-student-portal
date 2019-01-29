@@ -64,7 +64,7 @@ const AssessmentsContainer = props => {
           }}
         />
         <Cards
-          title="All assessments"
+          title="Available assessments"
           mapping="assessment"
           cols={cardsCols}
           useCollectionInit={{

@@ -62,7 +62,7 @@ const JobsContainer = props => {
           }}
         />
         <Cards
-          title="All jobs"
+          title="Available jobs"
           mapping="job"
           cols={cardsCols}
           useCollectionInit={{

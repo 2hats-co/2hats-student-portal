@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
@@ -10,23 +9,32 @@ import EventsIcon from '@material-ui/icons/EventRounded';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '@material-ui/icons/CheckCircleRounded';
 import FailedIcon from '@material-ui/icons/ErrorRounded';
-import IndustryIcon from '@material-ui/icons/BusinessRounded';
-import TimeIcon from '@material-ui/icons/AccessTimeRounded';
 
-import SkillItem from '../components/SkillItem';
+import CourseMetadata from '../components/Course/CourseMetadata';
+import AssessmentMetadata from '../components/Assessment/AssessmentMetadata';
+import JobMetadata from '../components/Job/JobMetadata';
 
 import * as ROUTES from './routes';
-import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 export const course = data => ({
   title: data.title,
-  secondaryText: data.description,
-  primaryAction: 'Get started',
+  secondaryText: (
+    <>
+      <Typography component="p" style={{ whiteSpace: 'pre-wrap' }}>
+        {data.description}
+      </Typography>
+      <CourseMetadata data={data} style={{ marginTop: 16 }} />
+    </>
+  ),
+  primaryAction: data.hasOwnProperty('hasCompleted')
+    ? data.hasCompleted
+      ? 'View'
+      : 'Continue'
+    : 'Get started',
   route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
 
   newTab: true,
   indicator: <CoursesIcon />,
-  tertiaryText: [data.duration, ...data.skillsAssociated],
 
   video: data.videoUrl,
 });
@@ -72,25 +80,7 @@ export const assessment = data => {
 
   return {
     title: data.title,
-    secondaryText: (
-      <>
-        <SkillItem value={data.skillAssociated} />
-        <Grid container alignItems="flex-end" style={{ marginTop: 8 }}>
-          <IndustryIcon
-            style={{ marginLeft: 12, marginRight: 20, opacity: 0.67 }}
-          />
-          <Typography variant="body1">
-            {getAssessmentCategoryLabel(data.category)}
-          </Typography>
-        </Grid>
-        <Grid container alignItems="flex-end" style={{ marginTop: 4 }}>
-          <TimeIcon
-            style={{ marginLeft: 12, marginRight: 20, opacity: 0.67 }}
-          />
-          <Typography variant="body1">{data.duration}</Typography>
-        </Grid>
-      </>
-    ),
+    secondaryText: <AssessmentMetadata data={data} />,
     primaryAction,
     route: `${ROUTES.ASSESSMENTS}?id=${data.id}${
       data.assessmentId ? '&yours=true' : ''
@@ -106,15 +96,11 @@ export const assessment = data => {
 
 export const job = data => ({
   title: data.title,
+  secondaryText: <JobMetadata data={data} />,
   primaryAction: data.jobId ? 'View' : 'Learn more',
-  route: `${ROUTES.JOBS}?id=${data.id}${data.yours ? '&yours=true' : ''}`,
+  route: `${ROUTES.JOBS}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
 
   indicator: <JobsIcon />,
-  tertiaryText: [
-    `Closing ${data.closingDate}`,
-    `Industry: ${data.industry}`,
-    `Pay: ${data.payRate}/${data.payUnits}`,
-  ],
 
   tertiaryIndicator: data.jobId && (
     <>

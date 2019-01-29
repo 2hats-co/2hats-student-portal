@@ -11,8 +11,6 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
-import IndustryIcon from '@material-ui/icons/BusinessRounded';
-import TimeIcon from '@material-ui/icons/AccessTimeRounded';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '@material-ui/icons/CheckCircleRounded';
@@ -20,9 +18,9 @@ import FailedIcon from '@material-ui/icons/ErrorRounded';
 
 import { paperView } from '../../constants/commonStyles';
 import BackButton from '../ContainerHeader/BackButton';
+import AssessmentMetadata from './AssessmentMetadata';
 import AssessmentSubmission from './AssessmentSubmission';
 import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
-import SkillItem from '../SkillItem';
 import StatusMsg from './StatusMsg';
 
 import * as ROUTES from '../../constants/routes';
@@ -30,7 +28,7 @@ import * as ROUTES from '../../constants/routes';
 const styles = theme => ({
   ...paperView(theme),
 
-  skill: { marginTop: theme.spacing.unit },
+  meta: { marginTop: theme.spacing.unit },
 
   getStarted: {
     fontSize: theme.spacing.unit * 2,
@@ -128,26 +126,7 @@ const Assessment = props => {
                 {data.title}
               </Typography>
 
-              <SkillItem
-                value={data.skillAssociated}
-                header="Skill assessed"
-                className={classes.skill}
-              />
-
-              <Grid container alignItems="flex-end" style={{ marginTop: 8 }}>
-                <IndustryIcon
-                  style={{ marginLeft: 12, marginRight: 20, opacity: 0.67 }}
-                />
-                <Typography variant="body1">
-                  {getAssessmentCategoryLabel(data.category)}
-                </Typography>
-              </Grid>
-              <Grid container alignItems="flex-end" style={{ marginTop: 4 }}>
-                <TimeIcon
-                  style={{ marginLeft: 12, marginRight: 20, opacity: 0.67 }}
-                />
-                <Typography variant="body1">{data.duration}</Typography>
-              </Grid>
+              <AssessmentMetadata data={data} className={classes.meta} />
             </Grid>
           </Grid>
 

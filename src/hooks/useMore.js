@@ -8,7 +8,7 @@ const useMore = (intialCollection, initialNum, initialFilterIds) => {
   });
   const [filteredDocs, setFilteredDocs] = useState([]);
   const [num, setNum] = useState(initialNum);
-  const [noMore, setNoMore] = useState(false);
+  // const [noMore, setNoMore] = useState(false);
   const [filterIds, setFilterIds] = useState(initialFilterIds);
 
   const getMore = toAdd => {
@@ -42,17 +42,17 @@ const useMore = (intialCollection, initialNum, initialFilterIds) => {
     [num, collectionState.documents]
   );
 
-  useEffect(
-    () => {
-      setNoMore(
-        collectionState.documents.length < collectionState.limit &&
-          filteredDocs.length < num
-      );
-    },
-    [collectionState.documents.length]
-  );
+  // useEffect(
+  //   () => {
+  //     setNoMore(
+  //       collectionState.documents.length < collectionState.limit &&
+  //         filteredDocs.length < num
+  //     );
+  //   },
+  //   [collectionState.documents.length]
+  // );
 
-  return [filteredDocs.slice(0, num), getMore, noMore, setFilterIds];
+  return [filteredDocs.slice(0, num), getMore, setFilterIds];
 };
 
 export default useMore;

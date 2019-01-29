@@ -6,7 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
+// import CircularProgress from '@material-ui/core/CircularProgress';
 
 import MoreIcon from '@material-ui/icons/ExpandMore';
 
@@ -53,10 +53,10 @@ const styles = theme => ({
     },
   },
 
-  loading: {
-    position: 'absolute',
-    '& svg': { margin: 0 },
-  },
+  // loading: {
+  //   position: 'absolute',
+  //   '& svg': { margin: 0 },
+  // },
 });
 
 function Cards(props) {
@@ -72,9 +72,9 @@ function Cards(props) {
   } = props;
 
   const [rows, setRows] = useState(1);
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
 
-  const [cards, getMore, noMore, setFilterIds] = useMore(
+  const [cards, getMore, setFilterIds] = useMore(
     useCollectionInit,
     cols,
     filterIds
@@ -86,45 +86,48 @@ function Cards(props) {
     [filterIds]
   );
 
-  if (cards.length === cols * rows && loading) setLoading(false);
-  if (noMore && loading) setLoading(false);
+  // if (cards.length === cols * rows && loading) setLoading(false);
+  // if (noMore && loading) setLoading(false);
 
-  return (
-    <div
-      className={classNames(classes.root, inline && classes.inline)}
-      style={{ width: getCardsWidth(cols) }}
-    >
-      <Typography variant="h5" className={classes.title}>
-        {title}
-      </Typography>
-
-      <Grid container>
-        {cards &&
-          cards.map((x, i) => (
-            <OneCard
-              key={i}
-              {...mappings[mapping]({ ...x, ...mappingOverrides })}
-            />
-          ))}
-      </Grid>
-
-      <Button
-        color="primary"
-        variant="outlined"
-        className={classes.moreButton}
-        disabled={cards.length < cols * rows}
-        onClick={() => {
-          setRows(rows + 1);
-          getMore(cols);
-          setLoading(true);
-        }}
+  if (cards.length > 0)
+    return (
+      <div
+        className={classNames(classes.root, inline && classes.inline)}
+        style={{ width: getCardsWidth(cols) }}
       >
-        More
-        <MoreIcon className={classes.moreIcon} />
-        {loading && <CircularProgress className={classes.loading} />}
-      </Button>
-    </div>
-  );
+        <Typography variant="h5" className={classes.title}>
+          {title}
+        </Typography>
+
+        <Grid container>
+          {cards &&
+            cards.map((x, i) => (
+              <OneCard
+                key={i}
+                {...mappings[mapping]({ ...x, ...mappingOverrides })}
+              />
+            ))}
+        </Grid>
+
+        <Button
+          color="primary"
+          variant="outlined"
+          className={classes.moreButton}
+          disabled={cards.length < cols * rows}
+          onClick={() => {
+            setRows(rows + 1);
+            getMore(cols);
+            //setLoading(true);
+          }}
+        >
+          More
+          <MoreIcon className={classes.moreIcon} />
+          {/* {loading && <CircularProgress className={classes.loading} />} */}
+        </Button>
+      </div>
+    );
+
+  return null;
 }
 
 Cards.propTypes = {

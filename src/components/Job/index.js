@@ -12,10 +12,6 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import IndustryIcon from '@material-ui/icons/BusinessRounded';
-import PayIcon from '@material-ui/icons/AttachMoneyRounded';
-import TimeIcon from '@material-ui/icons/AccessTimeRounded';
-import EventIcon from '@material-ui/icons/EventRounded';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
 import ErrorIcon from '@material-ui/icons/ErrorOutlineRounded';
 import CheckIcon from '@material-ui/icons/CheckRounded';
@@ -23,6 +19,7 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import { paperView } from '../../constants/commonStyles';
 import BackButton from '../ContainerHeader/BackButton';
+import JobMetadata from './JobMetadata';
 import SkillItem from '../SkillItem';
 import Form from '../Form';
 
@@ -33,27 +30,6 @@ import { createDoc, updateProperties } from '../../utilities/firestore';
 
 const styles = theme => ({
   ...paperView(theme),
-
-  subtitle: {
-    textTransform: 'capitalize',
-    color: theme.palette.primary.main,
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 1.5,
-
-    '& $adornmentIcon': {
-      verticalAlign: 'sub',
-      color: theme.palette.primary.main,
-    },
-  },
-  meta: {
-    marginBottom: theme.spacing.unit,
-    display: 'flex',
-  },
-  adornmentIcon: {
-    verticalAlign: 'bottom',
-    marginRight: theme.spacing.unit,
-    color: theme.palette.text.secondary,
-  },
 
   skillsWrapper: {
     marginTop: theme.spacing.unit / 2,
@@ -185,24 +161,7 @@ const Job = props => {
               <Typography variant="h5" className={classes.title}>
                 {data.title}
               </Typography>
-
-              <Typography variant="subtitle1" className={classes.subtitle}>
-                <IndustryIcon className={classes.adornmentIcon} />
-                {data.industry}
-              </Typography>
-
-              <Typography variant="body1" className={classes.meta}>
-                <TimeIcon className={classes.adornmentIcon} />
-                {data.commitment}
-              </Typography>
-              <Typography variant="body1" className={classes.meta}>
-                <PayIcon className={classes.adornmentIcon} />
-                {data.payRate}/{data.payUnits}
-              </Typography>
-              <Typography variant="body1" className={classes.meta}>
-                <EventIcon className={classes.adornmentIcon} />
-                Closing {data.closingDate}
-              </Typography>
+              <JobMetadata data={data} />
 
               <Button
                 variant="contained"
@@ -350,23 +309,7 @@ const Job = props => {
               </Grid>
 
               <Grid item xs={12} sm={7}>
-                <Typography variant="subtitle1" className={classes.subtitle}>
-                  <IndustryIcon className={classes.adornmentIcon} />
-                  {data.industry}
-                </Typography>
-
-                <Typography variant="body1" className={classes.meta}>
-                  <TimeIcon className={classes.adornmentIcon} />
-                  {data.commitment}
-                </Typography>
-                <Typography variant="body1" className={classes.meta}>
-                  <PayIcon className={classes.adornmentIcon} />
-                  {data.payRate}/{data.payUnits}
-                </Typography>
-                <Typography variant="body1" className={classes.meta}>
-                  <EventIcon className={classes.adornmentIcon} />
-                  Closing {data.closingDate}
-                </Typography>
+                <JobMetadata data={data} />
               </Grid>
             </Grid>
           }

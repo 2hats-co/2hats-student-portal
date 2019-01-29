@@ -27,6 +27,18 @@ Object.defineProperty(exports, 'SKILLS', {
     return _skills.SKILLS;
   },
 });
+Object.defineProperty(exports, 'getSkillLabel', {
+  enumerable: true,
+  get: function get() {
+    return _skills.getSkillLabel;
+  },
+});
+Object.defineProperty(exports, 'getSkillCategory', {
+  enumerable: true,
+  get: function get() {
+    return _skills.getSkillCategory;
+  },
+});
 
 var _submissionTypes = require('./submissionTypes');
 

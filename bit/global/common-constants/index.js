@@ -2,7 +2,7 @@ export {
   ASSESSMENT_CATEGORIES,
   getAssessmentCategoryLabel,
 } from './assessmentCategories';
-export { SKILLS } from './skills';
+export { SKILLS, getSkillLabel, getSkillCategory } from './skills';
 export { SUBMISSION_TYPES } from './submissionTypes';
 export { TRIGGERS } from './triggers';
 export { COLLECTIONS } from './collections';
