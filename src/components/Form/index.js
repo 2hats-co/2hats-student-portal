@@ -152,7 +152,7 @@ function Form(props) {
         const Fields = (
           <Grid
             container
-            direction="column"
+            direction="row"
             spacing={8}
             className={classes.wrapperGrid}
           >
@@ -170,6 +170,7 @@ function Form(props) {
                       label={x.label}
                       name={x.name}
                       placeholder={x.placeholder}
+                      width={x.width}
                     />
                   );
 
@@ -215,6 +216,7 @@ function Form(props) {
                       label={x.label}
                       type={x.type}
                       formikProps={formikProps}
+                      width={x.width}
                     />
                   );
 
@@ -228,6 +230,7 @@ function Form(props) {
                       type={x.type}
                       formikProps={formikProps}
                       validator={validator}
+                      width={x.width}
                     />
                   );
 
@@ -253,6 +256,7 @@ function Form(props) {
                       label={x.label}
                       name={x.name}
                       validator={validator}
+                      width={x.width}
                     />
                   );
 

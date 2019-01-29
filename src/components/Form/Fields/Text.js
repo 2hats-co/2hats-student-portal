@@ -4,10 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Multiline from './Multiline';
 const Text = props => {
-  const { label, name, type, placeholder, formikProps } = props;
+  const { label, name, type, placeholder, formikProps, width } = props;
   const { handleChange, values, errors, touched } = formikProps;
   return (
-    <Grid item key={name}>
+    <Grid item xs={width || 12}>
       {type === FIELDS.textFieldMultiline ? (
         <Multiline
           type={type}

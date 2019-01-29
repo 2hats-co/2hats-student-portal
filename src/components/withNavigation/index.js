@@ -261,7 +261,7 @@ export default function withNavigation(WrappedComponent) {
       },
       { type: 'divider' },
       {
-        label: 'Edit Account Info',
+        label: 'Update Account Info',
         icon: <AccountInfoIcon />,
         onClick: () => {
           setShowAccountInfo(true);

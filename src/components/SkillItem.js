@@ -57,7 +57,7 @@ const styles = theme => ({
       width: theme.spacing.unit * 3,
       height: theme.spacing.unit * 3,
       backgroundImage: `url(${SkillBGSmall})`,
-      '& svg': { fontSize: 16 },
+      '& svg': { fontSize: 14 },
     },
   },
 

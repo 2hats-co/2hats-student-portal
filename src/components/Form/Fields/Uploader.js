@@ -38,7 +38,7 @@ const Uploader = props => {
   );
 
   return (
-    <Grid item key={name}>
+    <Grid item xs={12}>
       <Typography
         variant="caption"
         className={classes.sectionTitle}
