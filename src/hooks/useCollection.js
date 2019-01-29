@@ -48,6 +48,7 @@ const useCollection = intialOverrides => {
       prevFilters: filters,
       prevLimit: limit,
       prevPath: collectionState.path,
+      loading: true,
     });
     let query = firestore.collection(collectionState.path);
 

@@ -72,7 +72,6 @@ function Cards(props) {
   } = props;
 
   const [rows, setRows] = useState(1);
-  // const [loading, setLoading] = useState(true);
 
   const [cards, getMore, setFilterIds] = useMore(
     useCollectionInit,
@@ -85,9 +84,6 @@ function Cards(props) {
     },
     [filterIds]
   );
-
-  // if (cards.length === cols * rows && loading) setLoading(false);
-  // if (noMore && loading) setLoading(false);
 
   if (cards.length > 0)
     return (
@@ -117,7 +113,6 @@ function Cards(props) {
           onClick={() => {
             setRows(rows + 1);
             getMore(cols);
-            //setLoading(true);
           }}
         >
           More

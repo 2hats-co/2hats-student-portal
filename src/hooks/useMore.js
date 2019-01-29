@@ -8,7 +8,6 @@ const useMore = (intialCollection, initialNum, initialFilterIds) => {
   });
   const [filteredDocs, setFilteredDocs] = useState([]);
   const [num, setNum] = useState(initialNum);
-  // const [noMore, setNoMore] = useState(false);
   const [filterIds, setFilterIds] = useState(initialFilterIds);
 
   const getMore = toAdd => {
@@ -17,14 +16,7 @@ const useMore = (intialCollection, initialNum, initialFilterIds) => {
 
   useEffect(
     () => {
-      if (
-        //filteredDocs.length > 0 &&
-        filteredDocs.length < num //&&
-        // num > initialNum
-      ) {
-        console.log('get more');
-        collectionDispatch({ type: 'more' });
-      }
+      if (filteredDocs.length < num) collectionDispatch({ type: 'more' });
     },
     [num]
   );
@@ -41,16 +33,6 @@ const useMore = (intialCollection, initialNum, initialFilterIds) => {
     },
     [num, collectionState.documents]
   );
-
-  // useEffect(
-  //   () => {
-  //     setNoMore(
-  //       collectionState.documents.length < collectionState.limit &&
-  //         filteredDocs.length < num
-  //     );
-  //   },
-  //   [collectionState.documents.length]
-  // );
 
   return [filteredDocs.slice(0, num), getMore, setFilterIds];
 };
