@@ -10,6 +10,8 @@ import { updateDoc } from '../utilities/firestore';
 const AccountInfoDialog = props => {
   const { open, closeHandler, user } = props;
 
+  if (!user) return null;
+
   return (
     <Form
       action="update"
@@ -32,7 +34,7 @@ const AccountInfoDialog = props => {
 AccountInfoDialog.propTypes = {
   open: PropTypes.bool,
   closeHandler: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
 };
 
 export default AccountInfoDialog;

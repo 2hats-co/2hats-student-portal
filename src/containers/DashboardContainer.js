@@ -72,7 +72,11 @@ const DashboardContainer = props => {
   return (
     <Slide direction="up" in>
       <div className={className}>
-        <ContainerHeader isMobile={isMobile} title="Dashboard" />
+        <ContainerHeader
+          isMobile={isMobile}
+          title="Dashboard"
+          maxWidth={getCardsWidth(cardsCols)}
+        />
 
         <Cards {...primary} />
 

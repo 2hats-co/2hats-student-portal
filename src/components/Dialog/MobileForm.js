@@ -80,7 +80,7 @@ function MobileForm(props) {
             <CloseIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" className={classes.title}>
-            <span class={classes.activity}>{activity}</span> {title}
+            <span className={classes.activity}>{activity}</span> {title}
           </Typography>
           <Button
             id={`dialog-save-${disabled}`}

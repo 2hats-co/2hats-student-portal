@@ -7,7 +7,7 @@ import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 
 import useWindowSize from '../hooks/useWindowSize';
-import Cards, { getNumCards } from '../components/Cards';
+import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const CoursesContainer = props => {
@@ -23,7 +23,11 @@ const CoursesContainer = props => {
   return (
     <Slide direction="up" in>
       <div className={className}>
-        <ContainerHeader title="Courses" isMobile={isMobile} />
+        <ContainerHeader
+          title="Courses"
+          isMobile={isMobile}
+          maxWidth={getCardsWidth(cardsCols)}
+        />
         <Cards
           title="Your courses"
           mapping="course"

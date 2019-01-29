@@ -6,7 +6,8 @@ import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
-    padding: `${theme.spacing.unit * 3}px ${theme.spacing.unit * 4}px`,
+    boxSizing: 'border-box',
+    padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit}px`,
     margin: '0 auto',
   },
   title: {
@@ -25,7 +26,7 @@ function ContainerHeader(props) {
 
   return (
     <header className={classes.root} style={{ maxWidth }}>
-      <Typography variant="h4" className={classes.title}>
+      <Typography variant="h3" className={classes.title}>
         {title}
       </Typography>
       <Typography variant="h6" className={classes.subtitle}>

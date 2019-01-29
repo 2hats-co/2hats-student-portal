@@ -9,7 +9,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import Job from '../components/Job';
 
 import useWindowSize from '../hooks/useWindowSize';
-import Cards, { getNumCards } from '../components/Cards';
+import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
@@ -51,6 +51,7 @@ const JobsContainer = props => {
           title="Jobs"
           //subtitle="Here are our currently available jobs"
           isMobile={isMobile}
+          maxWidth={getCardsWidth(cardsCols)}
         />
         <Cards
           title="Your jobs"

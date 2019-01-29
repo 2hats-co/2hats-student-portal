@@ -23,6 +23,7 @@ function NavItem(props) {
           rel="noopener noreferrer"
           classes={{ root: classes.listItemRoot }}
           className={selected ? classes.selected : ''}
+          disabled={data.disabled}
         >
           <ListItemIcon>{data.icon}</ListItemIcon>
           <ListItemText
@@ -45,6 +46,7 @@ function NavItem(props) {
           }
           classes={{ root: classes.listItemRoot }}
           className={selected ? classes.selected : ''}
+          disabled={data.disabled}
         >
           <ListItemIcon>{data.icon}</ListItemIcon>
           <ListItemText

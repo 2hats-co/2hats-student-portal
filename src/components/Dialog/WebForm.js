@@ -123,7 +123,7 @@ function WebForm(props) {
           style={{ textTransform: 'capitalize' }}
           onClick={addHandler}
         >
-          {activity === 'Edit' ? 'Save' : activity}
+          Done
         </Button>
       </DialogActions>
     </Dialog>
