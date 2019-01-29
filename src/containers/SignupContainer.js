@@ -95,11 +95,6 @@ class ResumeBuilderContainer extends Component {
       });
     }
 
-    window.Intercom('update', {
-      hide_default_launcher: true,
-    });
-    window.Intercom('hide');
-
     if (this.props.profile) {
       for (const key in this.props.profile[0]) {
         if (this.props.profile[0].hasOwnProperty(key)) {

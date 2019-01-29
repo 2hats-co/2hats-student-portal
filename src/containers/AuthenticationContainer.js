@@ -93,10 +93,6 @@ class AuthenticationContainer extends React.Component {
       this.setState({ view: AUTHENTICATION_CONTAINER.logout });
       this.goTo(routes.LOG_OUT);
     }
-    window.Intercom('update', {
-      hide_default_launcher: true,
-    });
-    window.Intercom('hide');
   }
   handleGTevent(name) {
     window.dataLayer.push({

@@ -79,9 +79,6 @@ class SpeedySignupContainer extends Component {
     // if(this.props.history.location.hash ==='#UTS'){
     //     this.setState({isPublic:false})
     // }
-    window.Intercom('update', {
-      hide_default_launcher: true,
-    });
   }
   goTo(route) {
     this.props.history.replace(route);

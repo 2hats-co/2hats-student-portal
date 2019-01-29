@@ -7,10 +7,6 @@ import FooterMobile from '../assets/images/graphics/FooterMobile.svg';
 import ChatIcon from '@material-ui/icons/QuestionAnswerRounded';
 import HelpIcon from '@material-ui/icons/HelpRounded';
 function SupportFooter(props) {
-  window.Intercom('update', {
-    hide_default_launcher: true,
-  });
-
   const FooterStyle = props.mobile
     ? {
         padding: '7.5%',
@@ -84,7 +80,7 @@ function SupportFooter(props) {
               >
                 |
               </Typography>
-              <Typography
+              {/* <Typography
                 onClick={() => {
                   window.Intercom('show');
                 }}
@@ -97,7 +93,7 @@ function SupportFooter(props) {
                 }}
               >
                 <ChatIcon style={{ position: 'relative', top: 5 }} /> Live Chat
-              </Typography>
+              </Typography> */}
             </Grid>
             <Grid item xs={12}>
               <Typography

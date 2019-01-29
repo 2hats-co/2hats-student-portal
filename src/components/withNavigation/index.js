@@ -227,12 +227,6 @@ export default function withNavigation(WrappedComponent) {
       }
     };
 
-    useEffect(() => {
-      window.Intercom('update', {
-        hide_default_launcher: false,
-      });
-    }, []);
-
     const MAIN_NAV_ITEMS = [
       { label: 'Dashboard', icon: <DashboardIcon />, route: ROUTES.DASHBOARD },
       { label: 'Profile', icon: <ProfileIcon />, route: ROUTES.PROFILE },
@@ -246,13 +240,13 @@ export default function withNavigation(WrappedComponent) {
       { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES },
     ];
     const BOTTOM_NAV_ITEMS = [
-      {
-        label: 'Contact Us',
-        icon: <ContactIcon />,
-        onClick: () => {
-          window.Intercom('show');
-        },
-      },
+      // {
+      //   label: 'Contact Us',
+      //   icon: <ContactIcon />,
+      //   onClick: () => {
+      //     window.Intercom('show');
+      //   },
+      // },
       {
         label: 'FAQ',
         icon: <FaqIcon />,
@@ -261,6 +255,7 @@ export default function withNavigation(WrappedComponent) {
       },
       { type: 'divider' },
       {
+        disabled: !user,
         label: 'Update Account Info',
         icon: <AccountInfoIcon />,
         onClick: () => {
