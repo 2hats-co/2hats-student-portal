@@ -133,7 +133,7 @@ export const Theme = createMuiTheme({
       },
     },
     MuiFilledInput: {
-      root: { borderRadius: BORDER_RADIUS },
+      root: { borderRadius: `${BORDER_RADIUS / 2}px !important` },
       underline: {
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
