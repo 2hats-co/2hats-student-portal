@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import FileIcon from '@material-ui/icons/AttachmentRounded';
+import CopyIcon from '@material-ui/icons/FileCopyOutlined';
 
 import Dropzone from 'react-dropzone';
 import ReactQuill from 'react-quill';
@@ -20,7 +22,7 @@ import {
 } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import { uploader } from '../../utilities/Uploader';
-import { globalReplace } from '../../utilities';
+import { globalReplace, copyToClipboard } from '../../utilities';
 import { padding, renderedHtml } from '../../constants/commonStyles';
 
 const styles = theme => ({
@@ -29,6 +31,12 @@ const styles = theme => ({
   answerInputWrapper: { marginTop: theme.spacing.unit * 2 },
   quillEditor: { ...QUILL_STYLES(theme) },
   ...DROPZONE_STYLES(theme),
+
+  mcEmailButton: {
+    verticalAlign: 'baseline',
+    marginLeft: theme.spacing.unit,
+  },
+  previewSubtitle: { marginTop: theme.spacing.unit * 2 },
 });
 
 const Question = props => {
@@ -37,6 +45,7 @@ const Question = props => {
     questionNum,
     questionText,
     submissionType,
+    mcEmail,
     answer,
     setAnswer,
     user,
@@ -131,6 +140,41 @@ const Question = props => {
       );
       break;
 
+    case 'mailchimp':
+      answerInput = (
+        <>
+          <Typography variant="body1">
+            Send your email to <strong>{mcEmail}</strong>
+            <Button
+              variant="outlined"
+              color="primary"
+              className={classes.mcEmailButton}
+              onClick={() => {
+                copyToClipboard(mcEmail);
+                alert(`Copied to ${mcEmail} clipboard`);
+              }}
+            >
+              Copy
+              <CopyIcon />
+            </Button>
+          </Typography>
+          <Typography variant="subtitle1" className={classes.previewSubtitle}>
+            Email preview
+          </Typography>
+          {answer ? (
+            <div
+              className={classes.renderedHtmlOriginal}
+              dangerouslySetInnerHTML={{ __html: answer.body }}
+            />
+          ) : (
+            <Typography variant="body1">
+              Your email will appear here when we receive it.
+            </Typography>
+          )}
+        </>
+      );
+      break;
+
     default:
       answerInput = null;
   }
@@ -156,6 +200,7 @@ Question.propTypes = {
   questionNum: PropTypes.number.isRequired,
   questionText: PropTypes.string,
   submissionType: PropTypes.string.isRequired,
+  mcEmail: PropTypes.string,
   answer: PropTypes.any,
   setAnswer: PropTypes.func.isRequired,
   user: PropTypes.object.isRequired,

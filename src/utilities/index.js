@@ -44,7 +44,7 @@ export const hexToRgb = hex => {
 export const getRandomId = () =>
   Math.random()
     .toString(36)
-    .substring(7);
+    .substring(2);
 
 export const idealTextColor = rgbColor => {
   const splitColor = rgbColor

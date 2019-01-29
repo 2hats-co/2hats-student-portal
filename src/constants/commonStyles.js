@@ -52,6 +52,10 @@ export const renderedHtml = theme => ({
 
     ...generateOlStyles(),
   },
+  renderedHtmlOriginal: {
+    ...theme.typography.body2,
+    '& p': { margin: 0 },
+  },
 });
 
 export const padding = (theme, topMargin) => ({

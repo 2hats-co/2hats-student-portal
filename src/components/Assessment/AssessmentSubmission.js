@@ -16,7 +16,7 @@ import Question from './Question';
 import UserContext from '../../contexts/UserContext';
 import * as ROUTES from '../../constants/routes';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
-import { removeHtmlTags } from '../../utilities';
+import { removeHtmlTags, getRandomId } from '../../utilities';
 import { createDoc, updateProperties } from '../../utilities/firestore';
 import { renderedHtml, padding } from '../../constants/commonStyles';
 
@@ -70,7 +70,15 @@ const AssessmentSubmission = props => {
       disableSubmission = true;
       return;
     }
-    if (typeof x === 'object' && !x.url) {
+    if (data.submissionType === 'pdf' && typeof x === 'object' && !x.url) {
+      disableSubmission = true;
+      return;
+    }
+    if (
+      data.submissionType === 'mailchimp' &&
+      typeof x === 'object' &&
+      !x.body
+    ) {
       disableSubmission = true;
       return;
     }
@@ -117,6 +125,10 @@ const AssessmentSubmission = props => {
         copiedAssessment.copiedQuestions = cq;
         copiedAssessment.copiedQuestionsIndices = cqi;
       }
+      // create random email
+      if (data.submissionType === 'mailchimp')
+        copiedAssessment.mcEmail = `mc+${getRandomId()}@2hats.com`;
+
       // create copy in user's assessment subcollection
       createDoc(
         `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
@@ -160,6 +172,19 @@ const AssessmentSubmission = props => {
     [data.id]
   );
 
+  useEffect(
+    () => {
+      if (
+        data.submissionContent &&
+        Array.isArray(data.submissionContent) &&
+        data.outcome !== 'fail'
+      ) {
+        setAnswers(data.submissionContent);
+      }
+    },
+    [data.submissionContent]
+  );
+
   const handleSubmit = () => {
     updateProperties(
       `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
@@ -194,6 +219,7 @@ const AssessmentSubmission = props => {
               key={i}
               questionNum={i + 1}
               questionText={x}
+              mcEmail={data.mcEmail}
               submissionType={data.submissionType}
               answer={answers[i]}
               setAnswer={updateAnswers(i)}
@@ -206,6 +232,7 @@ const AssessmentSubmission = props => {
           <Question
             questionNum={-1}
             questionText=""
+            mcEmail={data.mcEmail}
             submissionType={data.submissionType}
             answer={answers[0]}
             setAnswer={updateAnswers(0)}
