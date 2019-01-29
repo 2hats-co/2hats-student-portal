@@ -18,10 +18,11 @@ const useMore = (intialCollection, initialNum, initialFilterIds) => {
   useEffect(
     () => {
       if (
-        filteredDocs.length > 0 &&
-        filteredDocs.length < num &&
-        num > initialNum
+        //filteredDocs.length > 0 &&
+        filteredDocs.length < num //&&
+        // num > initialNum
       ) {
+        console.log('get more');
         collectionDispatch({ type: 'more' });
       }
     },
