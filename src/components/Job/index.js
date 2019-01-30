@@ -120,7 +120,7 @@ const Job = props => {
       createDoc(`${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`, {
         ...rest,
         UID: user.id,
-        outcome: '',
+        outcome: 'pending',
         screened: false,
         submissionContent: { ...o },
         jobId: id,
