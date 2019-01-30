@@ -15,9 +15,7 @@ const primaryLight = PRIMARY_LIGHT;
 const BORDER_RADIUS = 20;
 
 export const Theme = createMuiTheme({
-  responsive: {
-    isMobile: true,
-  },
+  responsive: {},
   palette: {
     primary: {
       main: primaryColor, // button

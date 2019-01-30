@@ -60,9 +60,7 @@ function LogoInCard(props) {
     logoClass,
     snackBar,
   } = props;
-  const { isMobile } = theme.responsive;
-  // setBackground('#FA5E4E','https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FColour.svg?alt=media&token=8b190721-9a9f-4b51-9285-9b26ea825c94',isMobile)
-  setBackground('#FA5E4E', Background, isMobile);
+  setBackground('#FA5E4E', Background, false);
   return (
     <div className={classes.root}>
       <Slide direction="up" in>

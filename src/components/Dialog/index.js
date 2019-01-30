@@ -3,6 +3,7 @@ import WebForm from './WebForm';
 import MobileForm from './MobileForm';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 
 const styles = theme => ({
   root: {},
@@ -23,7 +24,9 @@ function Dialog(props) {
     width,
   } = props;
 
-  if (theme.responsive.isMobile) {
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+
+  if (isMobile) {
     return (
       <MobileForm
         isLoading={isLoading}
