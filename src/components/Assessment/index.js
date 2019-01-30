@@ -16,17 +16,19 @@ import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '@material-ui/icons/CheckCircleRounded';
 import FailedIcon from '@material-ui/icons/ErrorRounded';
 
-import { paperView } from '../../constants/commonStyles';
 import BackButton from '../ContainerHeader/BackButton';
 import AssessmentMetadata from './AssessmentMetadata';
 import AssessmentSubmission from './AssessmentSubmission';
-import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
+import {
+  STYLES,
+  getAssessmentCategoryLabel,
+} from '@bit/sidney2hats.2hats.global.common-constants';
 import StatusMsg from './StatusMsg';
 
 import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
-  ...paperView(theme),
+  ...STYLES.PAPER_VIEW(theme),
 
   meta: { marginTop: theme.spacing.unit },
 

@@ -15,18 +15,20 @@ import SubmittedIcon from '@material-ui/icons/SendRounded';
 import Question from './Question';
 import UserContext from '../../contexts/UserContext';
 import * as ROUTES from '../../constants/routes';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import {
+  COLLECTIONS,
+  STYLES,
+} from '@bit/sidney2hats.2hats.global.common-constants';
 import { removeHtmlTags, getRandomId } from '../../utilities';
 import { createDoc, updateDoc } from '../../utilities/firestore';
-import { renderedHtml, padding } from '../../constants/commonStyles';
 
 const styles = theme => ({
   root: {},
   section: { marginTop: theme.spacing.unit * 3 },
 
-  paper: { ...padding(theme, true) },
+  paper: { ...STYLES.PADDING(theme, true) },
 
-  ...renderedHtml(theme),
+  ...STYLES.RENDERED_HTML(theme),
 
   loading: {
     marginTop: theme.spacing.unit * 3,

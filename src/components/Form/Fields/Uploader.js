@@ -12,13 +12,13 @@ import FileIcon from '@material-ui/icons/AttachmentRounded';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Chip from '@material-ui/core/Chip';
 
-import { DROPZONE_STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
+import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   sectionTitle: {
     marginLeft: theme.spacing.unit * 1.5,
   },
-  ...DROPZONE_STYLES(theme),
+  ...STYLES.DROPZONE(theme),
 });
 const Uploader = props => {
   const { label, name, mimeTypes, path, formikProps, classes } = props;

@@ -17,7 +17,6 @@ import ErrorIcon from '@material-ui/icons/ErrorOutlineRounded';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
-import { paperView } from '../../constants/commonStyles';
 import BackButton from '../ContainerHeader/BackButton';
 import JobMetadata from './JobMetadata';
 import SkillItem from '../SkillItem';
@@ -25,11 +24,14 @@ import Form from '../Form';
 
 import jobApplicationFields from '../../constants/forms/jobApplication';
 import * as ROUTES from '../../constants/routes';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import {
+  COLLECTIONS,
+  STYLES,
+} from '@bit/sidney2hats.2hats.global.common-constants';
 import { createDoc, updateDoc } from '../../utilities/firestore';
 
 const styles = theme => ({
-  ...paperView(theme),
+  ...STYLES.PAPER_VIEW(theme),
 
   skillsWrapper: {
     marginTop: theme.spacing.unit / 2,

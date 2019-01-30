@@ -15,21 +15,17 @@ import CopyIcon from '@material-ui/icons/FileCopyOutlined';
 import Dropzone from 'react-dropzone';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import {
-  QUILL_STYLES,
-  DROPZONE_STYLES,
-} from '@bit/sidney2hats.2hats.global.common-constants';
+import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import { uploader } from '../../utilities/Uploader';
 import { globalReplace, copyToClipboard } from '../../utilities';
-import { padding, renderedHtml } from '../../constants/commonStyles';
 
 const styles = theme => ({
-  root: { ...padding(theme, true) },
-  ...renderedHtml(theme),
+  root: { ...STYLES.PADDING(theme, true) },
+  ...STYLES.RENDERED_HTML(theme),
   answerInputWrapper: { marginTop: theme.spacing.unit * 2 },
-  quillEditor: { ...QUILL_STYLES(theme) },
-  ...DROPZONE_STYLES(theme),
+  quillEditor: { ...STYLES.QUILL(theme) },
+  ...STYLES.DROPZONE(theme),
 
   mcEmailButton: {
     verticalAlign: 'baseline',
