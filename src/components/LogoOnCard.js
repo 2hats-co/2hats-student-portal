@@ -69,9 +69,9 @@ function LogoOnCard(props) {
       width,
       theme,
     } = props;
-    const { isMobile } = theme.responsive;
+    // const { isMobile } = theme.responsive;
     // setBackground("#E1E1E1",'https://firebasestorage.googleapis.com/v0/b/hatstest-860eb.appspot.com/o/public%2FBW.svg?alt=media&token=596de8ea-53d1-4be2-afa8-81055b7a6cad',isMobile)
-    setBackground('#E1E1E1', Background, isMobile);
+    // setBackground('#E1E1E1', Background, isMobile);
     let style = {};
     let animation = {};
     if (animateWidth) {

@@ -101,7 +101,7 @@ const AssessmentSubmission = props => {
       const copiedAssessment = {
         ...rest,
         UID: user.id,
-        outcome: '',
+        outcome: 'pending',
         screened: false,
         submissionContent: [],
         assessmentId: data.assessmentId || id,
@@ -192,7 +192,7 @@ const AssessmentSubmission = props => {
       `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
       submissionId,
       {
-        outcome: '',
+        outcome: 'pending',
         screened: false,
         submissionContent: answers,
         submitted: true,
