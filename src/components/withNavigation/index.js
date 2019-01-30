@@ -23,7 +23,7 @@ import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
 import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
 import CoursesIcon from '@material-ui/icons/SchoolRounded';
 
-import ContactIcon from '@material-ui/icons/ForumRounded';
+// import ContactIcon from '@material-ui/icons/ForumRounded';
 import FaqIcon from '@material-ui/icons/HelpRounded';
 import AccountInfoIcon from '@material-ui/icons/EditRounded';
 import LogOutIcon from '@material-ui/icons/ExitToAppRounded';
