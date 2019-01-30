@@ -52,37 +52,36 @@ const CourseRedirectContainer = lazy(() =>
 
 const App = props => {
   const [user, setUser] = useState(null);
-  const [userJobsState, userJobsDispatch] = useCollection();
-  const userJobs = userJobsState.documents;
-  const [userCoursesState, userCoursesDispatch] = useCollection();
-  const userCourses = userCoursesState.documents;
-  const [userAssessmentsState, userAssessmentsDispatch] = useCollection();
-  const userAssessments = userAssessmentsState.documents;
-  useEffect(
-    () => {
-      if (user) {
-        console.log(user.id);
-        userJobsDispatch({
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
-        });
-        userCoursesDispatch({
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
-        });
-        userAssessmentsDispatch({
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-        });
-      }
-    },
-    [user]
-  );
+  // const [userJobsState, userJobsDispatch] = useCollection();
+  // const userJobs = userJobsState.documents;
+  // const [userCoursesState, userCoursesDispatch] = useCollection();
+  // const userCourses = userCoursesState.documents;
+  // const [userAssessmentsState, userAssessmentsDispatch] = useCollection();
+  // const userAssessments = userAssessmentsState.documents;
+  // useEffect(
+  //   () => {
+  //     if (user) {
+  //       userJobsDispatch({
+  //         path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
+  //       });
+  //       userCoursesDispatch({
+  //         path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
+  //       });
+  //       userAssessmentsDispatch({
+  //         path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+  //       });
+  //     }
+  //   },
+  //   [user]
+  // );
   return (
     <MuiThemeProvider theme={Theme}>
       <UserContext.Provider
         value={{
           user: user,
-          assesments: userAssessments,
-          courses: userCourses,
-          jobs: userJobs,
+          //  assesments: userAssessments,
+          //  courses: userCourses,
+          // jobs: userJobs,
           setUser: user => setUser(user),
         }}
       >
