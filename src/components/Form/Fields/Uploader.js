@@ -53,7 +53,6 @@ const Uploader = props => {
             [name]: { name: files[0].name },
           });
           uploader(path, files[0], (url, blob) => {
-            console.log(values);
             setUploadUrl(url);
           });
         }}
