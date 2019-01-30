@@ -55,7 +55,7 @@ function LogoInCard(props) {
     classes,
     width,
     height,
-    theme,
+    // theme,
     isLoading,
     logoClass,
     snackBar,
