@@ -51,8 +51,10 @@ const styles = theme => ({
   },
   paperRootBottom: {
     top: 'auto',
+    left: 'auto',
     bottom: theme.spacing.unit * 1.5,
-    transformOrigin: `${theme.spacing.unit * 15}px 100%`,
+    right: theme.spacing.unit * 1.5,
+    transformOrigin: '100% 100%',
   },
 
   header: {
