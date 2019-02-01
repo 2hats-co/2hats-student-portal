@@ -29,7 +29,7 @@ pipelines:
           - yarn install
           - CI=false yarn build
           - firebase deploy --token "$FIREBASE_TOKEN" --project production2hats --non-interactive --public build --only hosting
-    SP3 - production:
+    SP3-production:
       - step:
           caches:
           - node
