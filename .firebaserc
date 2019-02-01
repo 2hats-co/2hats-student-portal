@@ -1,5 +1,14 @@
 {
   "projects": {
-    "default": "staging2hats"
+    "default": "production2hats"
+  },
+  "targets": {
+    "production2hats": {
+      "hosting": {
+        "SP3": [
+          "sp3-2hats"
+        ]
+      }
+    }
   }
 }
