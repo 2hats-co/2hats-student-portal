@@ -1,10 +1,14 @@
 import { firestore } from '../store';
+import firebase from 'firebase/app';
 
 export const updateDoc = (collection, docId, properties) =>
   firestore
     .collection(collection)
     .doc(docId)
-    .update({ ...properties });
+    .update({
+      ...properties,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
 
 export const deleteDoc = (collection, docId) =>
   firestore
@@ -26,4 +30,7 @@ export const getfirstIdOfQuery = async (collectionPath, filters) => {
 };
 
 export const createDoc = (collection, docData) =>
-  firestore.collection(collection).add(docData);
+  firestore.collection(collection).add({
+    ...docData,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+  });
