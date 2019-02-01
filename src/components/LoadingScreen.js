@@ -19,10 +19,7 @@ const styles = theme => ({
     right: 0,
     bottom: 0,
 
-    backgroundImage: `url(${greyBg})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center top',
-    backgroundColor: '#e1e1e1',
+    backgroundColor: theme.palette.background.default,
     textAlign: 'center',
     zIndex: 1,
   },

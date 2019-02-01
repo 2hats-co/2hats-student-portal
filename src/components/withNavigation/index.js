@@ -11,9 +11,10 @@ import Drawer from '@material-ui/core/Drawer';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
-import Fab from '@material-ui/core/Fab';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
 
 import MenuIcon from '@material-ui/icons/MenuRounded';
 import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
@@ -34,8 +35,6 @@ import * as ROUTES from '../../constants/routes';
 
 import logo from '../../assets/images/Logo/DarkText.svg';
 import blackLogo from '../../assets/images/Logo/Black.svg';
-import blackIconLogo from '../../assets/images/Logo/BlackIcon.svg';
-import greyBg from '../../assets/background/BW.svg';
 
 import User from './User';
 import NavItem from './NavItem';
@@ -81,7 +80,7 @@ const styles = theme => ({
     transition: theme.transitions.create(['background-color', 'box-shadow']),
     '&:hover': { backgroundColor: theme.palette.action.hover },
   },
-  logo: { width: 100 },
+  logo: { width: 100, userSelect: 'none' },
 
   activityLogButton: {
     position: 'absolute',
@@ -117,44 +116,8 @@ const styles = theme => ({
     '& *': { color: theme.palette.primary.main },
   },
 
-  navFab: {
-    position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    left: theme.spacing.unit * 2,
-
-    width: 60,
-    height: 60,
-
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.primary.main,
-    '&:hover': { backgroundColor: theme.palette.background.paper },
-    '& svg': { fontSize: 35 },
-  },
-
-  activityLogFab: {
-    position: 'fixed',
-    bottom: theme.spacing.unit * 2,
-    left: theme.spacing.unit * 11,
-
-    width: 60,
-    height: 60,
-
-    backgroundColor: theme.palette.background.paper,
-    color: theme.palette.text.secondary,
-    '&:hover': { backgroundColor: theme.palette.background.paper },
-    '& svg': { fontSize: 32 },
-
-    '& $badge': {
-      top: -theme.spacing.unit * 2,
-      right: -theme.spacing.unit * 2,
-      boxShadow: theme.shadows[1],
-    },
-  },
-
-  wrappedComponentWrapper: { transition: theme.transitions.create('opacity') },
-  wrappedComponentGrid: {
-    minHeight: 'calc(100vh + 108px)',
-    backgroundColor: '#e1e1e1',
+  wrappedComponentWrapper: {
+    transition: theme.transitions.create('opacity'),
     overflow: 'hidden',
   },
   fadeOut: { opacity: 0 },
@@ -163,27 +126,26 @@ const styles = theme => ({
     boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
       0px -24px 38px 3px rgba(0,0,0,0.07)`,
     minHeight: '100vh',
-    backgroundImage: `url(${greyBg})`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center top',
-    // backgroundColor: theme.palette.background.default,
   },
+  wrappedComponentMobilePadding: { paddingBottom: theme.spacing.unit * 10 },
 
+  appBar: {
+    top: 'auto',
+    bottom: 0,
+
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.secondary,
+    boxShadow: `${theme.shadows[8]}, 0 1px 0 ${theme.palette.divider} inset`,
+  },
+  toolbar: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: `0 ${theme.spacing.unit * 1.5}px`,
+  },
   bottomLogo: {
-    width: 100,
-    height: 60,
-
-    display: 'block',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit * 2,
-
-    opacity: 0.38,
-
-    [theme.breakpoints.down('sm')]: { paddingLeft: 72 },
-
-    '@media (max-width: 348px)': { width: 44 },
+    height: 28,
+    opacity: 0.5,
+    userSelect: 'none',
   },
 });
 
@@ -191,10 +153,9 @@ export default function withNavigation(WrappedComponent) {
   function WithNavigation(props) {
     const { classes, theme, history, location, authUser } = props;
 
-    setBackground('#e1e1e1');
+    setBackground(theme.palette.background.default);
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const iconLogo = useMediaQuery('(max-width: 348px)');
     const showBottomDivider = useMediaQuery('(max-height: 680px)');
 
     const [navOpen, setNavOpen] = useState(false);
@@ -365,59 +326,67 @@ export default function withNavigation(WrappedComponent) {
             )}
           >
             {user ? (
-              <Grid
-                container
-                direction="column"
-                wrap="nowrap"
-                justify="space-between"
-                className={classes.wrappedComponentGrid}
-              >
-                <WrappedComponent
-                  {...props}
-                  classes={null}
-                  className={classes.wrappedComponent}
-                  isMobile={isMobile}
-                  user={user}
-                  location={location}
-                />
-                <img
-                  src={iconLogo ? blackIconLogo : blackLogo}
-                  alt="2hats"
-                  className={classes.bottomLogo}
-                />
-              </Grid>
+              <WrappedComponent
+                {...props}
+                classes={null}
+                className={classNames(
+                  classes.wrappedComponent,
+                  isMobile && classes.wrappedComponentMobilePadding
+                )}
+                isMobile={isMobile}
+                user={user}
+                location={location}
+              />
             ) : (
               <LoadingScreen showNav />
             )}
           </Grid>
+          {/* <div
+            class="fb-customerchat"
+            attribution="setup_tool"
+            page_id="147791982330823"
+            theme_color="#f2573e"
+            logged_in_greeting="Hi! How can we help you?"
+            logged_out_greeting="Hi! How can we help you?"
+          /> */}
 
           {isMobile && (
-            <>
-              <Fab
-                onClick={() => {
-                  setNavOpen(true);
-                }}
-                className={classes.navFab}
-                color="primary"
-              >
-                <MenuIcon />
-              </Fab>
-              <Fab
-                onClick={() => {
-                  setActivityLogOpen('bottom');
-                }}
-                className={classes.activityLogFab}
-              >
-                <Badge
+            <AppBar position="fixed" color="default" className={classes.appBar}>
+              <Toolbar className={classes.toolbar}>
+                <IconButton
                   color="primary"
-                  classes={{ badge: classes.badge }}
-                  badgeContent="!"
-                  invisible
+                  aria-label="Open navigation drawer"
+                  onClick={() => {
+                    setNavOpen(true);
+                  }}
                 >
-                  <ActivityLogIcon />
-                </Badge>
-              </Fab>
-            </>
+                  <MenuIcon />
+                </IconButton>
+
+                <img
+                  src={blackLogo}
+                  alt="2hats"
+                  className={classes.bottomLogo}
+                />
+
+                <IconButton
+                  color="inherit"
+                  aria-label="Activity log"
+                  onClick={() => {
+                    setActivityLogOpen('bottom');
+                  }}
+                >
+                  <Badge
+                    color="primary"
+                    classes={{ badge: classes.badge }}
+                    badgeContent="!"
+                    invisible
+                  >
+                    <ActivityLogIcon />
+                  </Badge>
+                </IconButton>
+              </Toolbar>
+            </AppBar>
           )}
 
           {activityLogOpen && user && (
