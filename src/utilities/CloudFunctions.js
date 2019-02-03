@@ -16,6 +16,7 @@ export const CLOUD_FUNCTIONS = {
   LEARN_WORLD_SSO: 'callablesLwSingleSignOn',
   CHARGE_STRIPE_TOKEN: 'callablesChargeStripeToken',
   LW_SINGLE_SIGN_ON: 'callablesLwSingleSignOn',
+  WHATS_NEXT_AI: 'callablesWhatsNextAI',
 };
 
 export const cloudFunction = (name, input, success, fail) => {
