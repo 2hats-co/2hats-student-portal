@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Link from '@material-ui/core/Link';
 
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlankRounded';
-import CheckBoxIcon from '@material-ui/icons/CheckBoxRounded';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlankOutlined';
+import CheckBoxIcon from '@material-ui/icons/CheckBoxOutlined';
 
 import {
   CAREER_INTERESTS,

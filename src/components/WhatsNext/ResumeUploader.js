@@ -8,7 +8,7 @@ import Dropzone from 'react-dropzone';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined';
-import FileIcon from '@material-ui/icons/AttachmentRounded';
+import FileIcon from '@material-ui/icons/AttachmentOutlined';
 
 import UserContext from '../../contexts/UserContext';
 import {

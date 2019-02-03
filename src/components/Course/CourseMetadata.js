@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import TimeIcon from '@material-ui/icons/AccessTimeRounded';
+import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
 import SkillItem from '../SkillItem';
 

@@ -5,8 +5,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import IndustryIcon from '@material-ui/icons/BusinessRounded';
-import TimeIcon from '@material-ui/icons/AccessTimeRounded';
+import IndustryIcon from '@material-ui/icons/BusinessOutlined';
+import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
 import SkillItem from '../SkillItem';
 import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';

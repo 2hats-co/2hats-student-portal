@@ -10,7 +10,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 
-import EditIcon from '@material-ui/icons/EditRounded';
+import EditIcon from '@material-ui/icons/EditOutlined';
 
 import Dropzone from 'react-dropzone';
 import { db } from '../store';

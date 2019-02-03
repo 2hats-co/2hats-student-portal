@@ -9,7 +9,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import GoIcon from '@material-ui/icons/ArrowForwardRounded';
+import GoIcon from '@material-ui/icons/ArrowForwardOutlined';
 import ActivityIcon from './ActivityIcon';
 
 import moment from 'moment';

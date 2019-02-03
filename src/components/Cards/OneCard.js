@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
 
 export const CARD_WIDTH = 320;
 export const CARD_PADDING = 16;

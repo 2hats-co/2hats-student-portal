@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
-import FileIcon from '@material-ui/icons/AttachmentRounded';
+import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
 
 import Dropzone from 'react-dropzone';

@@ -4,7 +4,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Chip from '@material-ui/core/Chip';
 import Typography from '@material-ui/core/Typography';
 import { getSkills } from '../../../constants/resumeBuilderPrompts';
-import AddIcon from '@material-ui/icons/AddCircleRounded';
+import AddIcon from '@material-ui/icons/AddCircleOutlined';
 
 const styles = theme => ({
   title: {

@@ -11,10 +11,10 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
-import SubmittedIcon from '@material-ui/icons/SendRounded';
-import PassedIcon from '@material-ui/icons/CheckCircleRounded';
-import FailedIcon from '@material-ui/icons/ErrorRounded';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
+import SubmittedIcon from '@material-ui/icons/Send';
+import PassedIcon from '@material-ui/icons/CheckCircleOutlined';
+import FailedIcon from '@material-ui/icons/ErrorOutline';
 
 import BackButton from '../ContainerHeader/BackButton';
 import AssessmentMetadata from './AssessmentMetadata';

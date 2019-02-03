@@ -3,8 +3,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import PropTypes from 'prop-types';
 import MobileStepper from '@material-ui/core/MobileStepper';
 import Button from '@material-ui/core/Button';
-import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeftRounded';
-import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRightRounded';
+import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeftOutlined';
+import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRightOutlined';
 import { STEP_LABELS } from '../../../constants/signUpProcess';
 const styles = theme => ({
   root: {

@@ -6,7 +6,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputWrapper from './InputWrapper';
 import InputLabel from '@material-ui/core/InputLabel';
-import DownIcon from '@material-ui/icons/KeyboardArrowDownRounded';
+import DownIcon from '@material-ui/icons/KeyboardArrowDownOutlined';
 
 const styles = theme => ({
   root: {},

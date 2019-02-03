@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import ErrorIcon from '@material-ui/icons/ErrorRounded';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { updateDoc } from '../utilities/firestore';
