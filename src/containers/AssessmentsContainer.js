@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Slide from '@material-ui/core/Slide';
-
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 import LoadingScreen from '../components/LoadingScreen';
@@ -46,35 +44,33 @@ const AssessmentsContainer = props => {
   }
 
   return (
-    <Slide direction="up" in>
-      <div className={className}>
-        <ContainerHeader
-          title="Assessments"
-          //subtitle="Get yourself certified with these assessments"
-          isMobile={isMobile}
-          maxWidth={getCardsWidth(cardsCols)}
-        />
-        <Cards
-          title="Your assessments"
-          mapping="assessment"
-          cols={cardsCols}
-          useCollectionInit={{
-            path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-            limit: cardsCols,
-          }}
-        />
-        <Cards
-          title="Available assessments"
-          mapping="assessment"
-          cols={cardsCols}
-          useCollectionInit={{
-            path: COLLECTIONS.assessments,
-            limit: cardsCols,
-          }}
-          filterIds={user.touchedAssessments}
-        />
-      </div>
-    </Slide>
+    <div className={className}>
+      <ContainerHeader
+        title="Assessments"
+        //subtitle="Get yourself certified with these assessments"
+        isMobile={isMobile}
+        maxWidth={getCardsWidth(cardsCols)}
+      />
+      <Cards
+        title="Your assessments"
+        mapping="assessment"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+          limit: cardsCols,
+        }}
+      />
+      <Cards
+        title="Available assessments"
+        mapping="assessment"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.assessments,
+          limit: cardsCols,
+        }}
+        filterIds={user.touchedAssessments}
+      />
+    </div>
   );
 };
 

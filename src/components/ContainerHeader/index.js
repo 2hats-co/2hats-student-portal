@@ -11,7 +11,7 @@ const styles = theme => ({
     margin: '0 auto',
   },
   title: {
-    fontWeight: 500,
+    fontWeight: 400,
     display: 'block',
   },
   subtitle: {
@@ -26,7 +26,7 @@ function ContainerHeader(props) {
 
   return (
     <header className={classes.root} style={{ maxWidth }}>
-      <Typography variant="h3" className={classes.title}>
+      <Typography variant="h4" className={classes.title}>
         {title}
       </Typography>
       <Typography variant="h6" className={classes.subtitle}>

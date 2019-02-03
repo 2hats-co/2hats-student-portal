@@ -21,16 +21,25 @@ const MEDIA_HEIGHT = CARD_WIDTH * 0.5625;
 
 const styles = theme => ({
   root: {
-    transition: theme.transitions.create(['box-shadow', 'transform']),
     margin: CARD_PADDING / 2,
     width: CARD_WIDTH,
 
+    transition: theme.transitions.create(['box-shadow', 'transform']),
+    // boxShadow: `0 0 0 1px ${theme.palette.divider}`,
+    boxShadow: `0 10px 30px rgba(0,0,0,.14)`,
+
     '&:hover': {
-      boxShadow: theme.shadows[24],
+      boxShadow: `0  0    0    1px rgba(0, 0, 0, .025),
+                  0 11px 15px -7px rgba(0, 0, 0, .1),
+                  0 24px 38px  3px rgba(0, 0, 0, .07),
+                  0  9px 46px  8px rgba(0, 0, 0, .06)`,
       transform: 'translateY(-4px)',
     },
-
-    // '@media (max-width: 350px)': { width: CARD_WIDTH - 20 },
+    '&:active': {
+      transform: 'translateY(0) scale(0.95)',
+      boxShadow: `0 10px 30px rgba(0,0,0,.14)`,
+      transitionDuration: '.2s',
+    },
   },
 
   cardActionArea: {
@@ -166,7 +175,6 @@ function OneCard(props) {
     primaryAction,
     route,
     indicator,
-    tertiaryText,
     banner,
     tertiaryIndicator,
     image,
@@ -206,6 +214,7 @@ function OneCard(props) {
         }}
         classes={{ root: classes.cardActionArea }}
         focusVisibleClassName={classes.focusVisible}
+        disableRipple
       >
         {media}
 
@@ -254,15 +263,6 @@ function OneCard(props) {
               ) : (
                 secondaryText
               )}
-              {tertiaryText && (
-                <ul className={classes.tertiaryTextList}>
-                  {tertiaryText.map((x, i) => (
-                    <li key={i}>
-                      <Typography>{x}</Typography>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </CardContent>
           </Grid>
 
@@ -295,7 +295,6 @@ OneCard.propTypes = {
 
   newTab: PropTypes.bool,
   indicator: PropTypes.node,
-  tertiaryText: PropTypes.array,
   banner: PropTypes.string,
   tertiaryIndicator: PropTypes.node,
 

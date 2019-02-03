@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import Slide from '@material-ui/core/Slide';
 
 import withNavigation from '../components/withNavigation';
+import WhatsNext from '../components/WhatsNext';
 import ContainerHeader from '../components/ContainerHeader';
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 const DashboardContainer = props => {
-  const { classes, className, isMobile } = props;
+  const { classes, className, isMobile, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -70,29 +70,30 @@ const DashboardContainer = props => {
   ];
 
   return (
-    <Slide direction="up" in>
-      <div className={className}>
-        <ContainerHeader
-          isMobile={isMobile}
-          title="Dashboard"
-          maxWidth={getCardsWidth(cardsCols)}
-        />
+    //<Slide direction="up" in>
+    <div className={className}>
+      <ContainerHeader
+        isMobile={isMobile}
+        title={`Hi, ${user.firstName}!`}
+        maxWidth={getCardsWidth(cardsCols)}
+      />
+      <WhatsNext user={user} width={getCardsWidth(cardsCols)} />
 
-        <Cards {...primary} />
+      <Cards {...primary} />
 
-        <Grid
-          container
-          alignItems="flex-start"
-          justify="center"
-          className={classes.secondaryCardsWrapper}
-          style={{ width: getCardsWidth(cardsCols) }}
-        >
-          <Cards {...secondary[0]} />
-          <Cards {...secondary[1]} />
-          <Cards {...secondary[2]} />
-        </Grid>
-      </div>
-    </Slide>
+      <Grid
+        container
+        alignItems="flex-start"
+        justify="center"
+        className={classes.secondaryCardsWrapper}
+        style={{ width: getCardsWidth(cardsCols) }}
+      >
+        <Cards {...secondary[0]} />
+        <Cards {...secondary[1]} />
+        <Cards {...secondary[2]} />
+      </Grid>
+    </div>
+    //</Slide>
   );
 };
 
@@ -100,6 +101,7 @@ DashboardContainer.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default withNavigation(withStyles(styles)(DashboardContainer));

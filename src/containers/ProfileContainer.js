@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Slide from '@material-ui/core/Slide';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -38,36 +37,34 @@ const ProfileContainer = props => {
 
   if (!profile) return <LoadingScreen showNav />;
   return (
-    <Slide direction="up" in>
-      <div className={className}>
-        <Paper className={classes.root}>
-          <Grid container spacing={24}>
-            <Grid item>
-              <SuperAvatarPlus
-                uid={user && user.id}
-                firstName={user ? user.firstName : ''}
-                lastName={user ? user.lastName : ''}
-                avatarURL={user ? user.avatarURL : ''}
-              />
-              <Typography variant="subtitle1">Available</Typography>
-              <Typography variant="body2" className={classes.title}>
-                {profile.availableDays}
-              </Typography>
-            </Grid>
-
-            <Grid item xs>
-              <Typography variant="h4" className={classes.title}>
-                {user.firstName} {user.lastName}
-              </Typography>
-
-              <Typography variant="body2" className={classes.title}>
-                {profile.bio}
-              </Typography>
-            </Grid>
+    <div className={className}>
+      <Paper className={classes.root}>
+        <Grid container spacing={24}>
+          <Grid item>
+            <SuperAvatarPlus
+              uid={user && user.id}
+              firstName={user ? user.firstName : ''}
+              lastName={user ? user.lastName : ''}
+              avatarURL={user ? user.avatarURL : ''}
+            />
+            <Typography variant="subtitle1">Available</Typography>
+            <Typography variant="body2" className={classes.title}>
+              {profile.availableDays}
+            </Typography>
           </Grid>
-        </Paper>
-      </div>
-    </Slide>
+
+          <Grid item xs>
+            <Typography variant="h4" className={classes.title}>
+              {user.firstName} {user.lastName}
+            </Typography>
+
+            <Typography variant="body2" className={classes.title}>
+              {profile.bio}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Paper>
+    </div>
   );
 };
 

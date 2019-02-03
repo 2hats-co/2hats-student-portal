@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import Slide from '@material-ui/core/Slide';
-
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 import LoadingScreen from '../components/LoadingScreen';
@@ -45,35 +43,33 @@ const JobsContainer = props => {
   }
 
   return (
-    <Slide direction="up" in>
-      <div className={className}>
-        <ContainerHeader
-          title="Jobs"
-          //subtitle="Here are our currently available jobs"
-          isMobile={isMobile}
-          maxWidth={getCardsWidth(cardsCols)}
-        />
-        <Cards
-          title="Your jobs"
-          mapping="job"
-          cols={cardsCols}
-          useCollectionInit={{
-            path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
-            limit: cardsCols + 1,
-          }}
-        />
-        <Cards
-          title="Available jobs"
-          mapping="job"
-          cols={cardsCols}
-          useCollectionInit={{
-            path: COLLECTIONS.jobs,
-            limit: cardsCols + 1,
-          }}
-          filterIds={user.touchedJobs}
-        />
-      </div>
-    </Slide>
+    <div className={className}>
+      <ContainerHeader
+        title="Jobs"
+        //subtitle="Here are our currently available jobs"
+        isMobile={isMobile}
+        maxWidth={getCardsWidth(cardsCols)}
+      />
+      <Cards
+        title="Your jobs"
+        mapping="job"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
+          limit: cardsCols + 1,
+        }}
+      />
+      <Cards
+        title="Available jobs"
+        mapping="job"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.jobs,
+          limit: cardsCols + 1,
+        }}
+        filterIds={user.touchedJobs}
+      />
+    </div>
   );
 };
 

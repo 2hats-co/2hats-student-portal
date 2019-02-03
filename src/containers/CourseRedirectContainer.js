@@ -16,7 +16,7 @@ import UserContext from '../contexts/UserContext';
 
 const styles = theme => ({
   root: {
-    background: theme.palette.background.default,
+    background: theme.palette.background.paper,
     height: '100vh',
     textAlign: 'center',
   },
@@ -47,11 +47,14 @@ function CourseRedirectContainer(props) {
 
   if (hasId) {
     // touch the course
-    const newTouchedCourses = user.touchedCourses || [];
-    newTouchedCourses.push(location.search.replace('?id=', ''));
-    updateDoc(COLLECTIONS.users, user.id, {
-      touchedCourses: newTouchedCourses,
-    });
+    const courseId = location.search.replace('?id=', '');
+    if (!user.touchedCourses || !user.touchedCourses.includes(courseId)) {
+      const newTouchedCourses = user.touchedCourses || [];
+      newTouchedCourses.push(courseId);
+      updateDoc(COLLECTIONS.users, user.id, {
+        touchedCourses: newTouchedCourses,
+      });
+    }
 
     // learnWorlds single sign on
     cloudFunction(

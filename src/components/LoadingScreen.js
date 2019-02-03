@@ -7,7 +7,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import withStyles from '@material-ui/core/styles/withStyles';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import { DRAWER_WIDTH } from './withNavigation';
-import greyBg from '../assets/background/BW.svg';
 
 const styles = theme => ({
   root: {
@@ -19,17 +18,27 @@ const styles = theme => ({
     right: 0,
     bottom: 0,
 
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.paper,
     textAlign: 'center',
     zIndex: 1,
   },
 
   fakeNav: {
     backgroundColor: theme.palette.background.paper,
-    boxShadow: `-1px 0 0 ${theme.palette.divider} inset`,
 
     width: DRAWER_WIDTH,
     height: '100vh',
+
+    [theme.breakpoints.down('sm')]: {
+      height: 64,
+      width: '100vw',
+    },
+  },
+
+  circularProgressWrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -37,7 +46,7 @@ function LoadingScreen(props) {
   const { classes, theme, showNav } = props;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  if (isMobile || !showNav)
+  if (!showNav)
     return (
       <Grid
         container
@@ -52,12 +61,13 @@ function LoadingScreen(props) {
   return (
     <Grid
       container
+      direction={isMobile ? 'column-reverse' : 'row'}
       alignItems="center"
       justify="center"
       className={classes.root}
     >
       <Grid item className={classes.fakeNav} />
-      <Grid item xs>
+      <Grid item xs className={classes.circularProgressWrapper}>
         <CircularProgress color="primary" size={64} />
       </Grid>
     </Grid>

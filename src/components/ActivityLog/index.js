@@ -189,7 +189,9 @@ function ActivityLog(props) {
                       .unit * 3}px - ${theme.spacing.unit * 9}px)`,
                   }}
                 >
-                  {activityLogState.loading ? (
+                  {activityLogState.loading &&
+                  (!activityLogState.documents ||
+                    activityLogState.documents.length <= 0) ? (
                     <CircularProgress className={classes.spinner} />
                   ) : (
                     <>
@@ -207,14 +209,16 @@ function ActivityLog(props) {
                           />
                         )}
                       </ScrollyRolly>
-                      <ActivityItem
-                        data={{
-                          type: 'system',
-                          createdAt: user.createdAt,
-                          title: 'Signed up',
-                          body: 'Welcome to 2hats!',
-                        }}
-                      />
+                      {!activityLogState.loading && (
+                        <ActivityItem
+                          data={{
+                            type: 'system',
+                            createdAt: user.createdAt,
+                            title: 'Signed up',
+                            body: 'Welcome to 2hats!',
+                          }}
+                        />
+                      )}
                     </>
                   )}
                 </div>
