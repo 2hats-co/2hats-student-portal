@@ -5,6 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import PaddedIcon from '../PaddedIcon';
 import WhatsNextBadge from './WhatsNextBadge';
 import WhatsNextIcon from './WhatsNextIcon';
 import WhatsNextTitle from './WhatsNextTitle';
@@ -35,10 +36,7 @@ const styles = theme => ({
 
     userSelect: 'none',
 
-    boxShadow: `0  0    0    1px rgba(0, 0, 0, .025),
-                0 11px 15px -7px rgba(0, 0, 0, .1),
-                0 24px 38px  3px rgba(0, 0, 0, .07),
-                0  9px 46px  8px rgba(0, 0, 0, .06)`,
+    boxShadow: theme.shadowsLight[24],
 
     [theme.breakpoints.down('sm')]: {
       width: `calc(100% - ${theme.spacing.unit * 4}px) !important`,
@@ -47,35 +45,15 @@ const styles = theme => ({
   },
 
   iconWrapper: {
-    width: 48,
-    height: 48,
-    borderRadius: '50%',
-    backgroundColor: theme.palette.primary.light,
-
     marginRight: theme.spacing.unit * 2,
     marginLeft: -theme.spacing.unit,
-
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    '& svg': {
-      color: theme.palette.primary.main,
-      fontSize: 28,
-    },
   },
   title: {
     fontWeight: 500,
+    marginTop: theme.spacing.unit * 1.125,
     color: theme.palette.primary.main,
-
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 1.5,
   },
-  description: {
-    // maxWidth: 500,
-    fontWeight: 400,
-    '& b': { fontWeight: 500 },
-  },
+  description: { fontWeight: 400 },
 
   divider: {
     margin: theme.spacing.unit * 3,
@@ -137,13 +115,15 @@ const WhatsNext = props => {
         <Grid item xs>
           <Grid container direction={isMobile ? 'column' : 'row'}>
             <Grid item className={classes.iconWrapper}>
-              <WhatsNextIcon state={profile.whatsNext.state} />
+              <PaddedIcon color="primary">
+                <WhatsNextIcon state={profile.whatsNext.state} />
+              </PaddedIcon>
             </Grid>
             <Grid item xs>
-              <Typography variant="h5" className={classes.title}>
+              <Typography variant="h6" className={classes.title} gutterBottom>
                 <WhatsNextTitle state={profile.whatsNext.state} />
               </Typography>
-              <Typography variant="h6" className={classes.description}>
+              <Typography variant="body1" className={classes.description}>
                 <WhatsNextDescription
                   state={profile.whatsNext.state}
                   data={profile.whatsNext.data}

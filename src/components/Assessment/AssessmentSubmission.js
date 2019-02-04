@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
 import Slide from '@material-ui/core/Slide';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+import PaddedIcon from '../PaddedIcon';
+import InstructionsIcon from '@material-ui/icons/AssignmentOutlined';
 import CheckIcon from '@material-ui/icons/CheckRounded';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 
@@ -28,8 +30,6 @@ const styles = theme => ({
 
   ...STYLES.RENDERED_HTML(theme),
 
-  subtitle: { fontWeight: 700 },
-
   loading: {
     marginTop: theme.spacing.unit * 3,
     backgroundColor: 'transparent',
@@ -39,6 +39,13 @@ const styles = theme => ({
     fontSize: theme.spacing.unit * 2,
     borderRadius: 60,
     margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
+  },
+
+  paddedIcon: {
+    marginLeft: -theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit * 1.5,
+
+    [theme.breakpoints.up('lg')]: { marginLeft: -48 - 12 },
   },
 });
 
@@ -210,15 +217,13 @@ const AssessmentSubmission = props => {
     <Slide in direction="up">
       <>
         <div className={classes.section}>
-          <Divider />
-        </div>
-        <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
-            Instructions
+          <Typography variant="h6" gutterBottom>
+            <Grid container alignItems="center">
+              <PaddedIcon className={classes.paddedIcon}>
+                <InstructionsIcon />
+              </PaddedIcon>
+              Instructions
+            </Grid>
           </Typography>
           <div
             className={classes.renderedHtml}

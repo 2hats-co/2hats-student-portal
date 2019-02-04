@@ -2,12 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
+import PaddedIcon from '../PaddedIcon';
+import SubmissionIcon from '@material-ui/icons/AssignmentReturnedOutlined';
+import QuestionIcon from '@material-ui/icons/HelpOutline';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
@@ -21,12 +24,7 @@ import { uploader } from '../../utilities/Uploader';
 import { globalReplace, copyToClipboard } from '../../utilities';
 
 const styles = theme => ({
-  root: {},
-  divider: {
-    margin: `${theme.spacing.unit * 3}px 0`,
-  },
-
-  subtitle: { fontWeight: 700 },
+  root: { marginTop: theme.spacing.unit * 4 },
 
   ...STYLES.RENDERED_HTML(theme),
 
@@ -41,6 +39,13 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   previewSubtitle: { marginTop: theme.spacing.unit * 2 },
+
+  paddedIcon: {
+    marginLeft: -theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit * 1.5,
+
+    [theme.breakpoints.up('lg')]: { marginLeft: -48 - 12 },
+  },
 });
 
 const Question = props => {
@@ -184,29 +189,23 @@ const Question = props => {
   }
 
   return (
-    <>
-      <Divider className={classes.divider} />
-      <div className={classes.root}>
-        <Typography
-          variant="subtitle1"
-          gutterBottom
-          className={classes.subtitle}
-        >
+    <div className={classes.root}>
+      <Typography variant="h6" gutterBottom>
+        <Grid container alignItems="center">
+          <PaddedIcon className={classes.paddedIcon}>
+            {questionNum > 0 ? <QuestionIcon /> : <SubmissionIcon />}
+          </PaddedIcon>
           {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
-        </Typography>
-        <div
-          className={classes.renderedHtml}
-          dangerouslySetInnerHTML={{
-            __html: globalReplace(
-              questionText,
-              '{{firstName}}',
-              user.firstName
-            ),
-          }}
-        />
-        <div className={classes.answerInputWrapper}>{answerInput}</div>
-      </div>
-    </>
+        </Grid>
+      </Typography>
+      <div
+        className={classes.renderedHtml}
+        dangerouslySetInnerHTML={{
+          __html: globalReplace(questionText, '{{firstName}}', user.firstName),
+        }}
+      />
+      <div className={classes.answerInputWrapper}>{answerInput}</div>
+    </div>
   );
 };
 

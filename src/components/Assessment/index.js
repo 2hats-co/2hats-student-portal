@@ -67,18 +67,19 @@ const styles = theme => ({
   ...STYLES.RENDERED_HTML(theme),
 
   meta: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 3,
   },
 
   getStarted: {
     fontSize: theme.spacing.unit * 2,
     borderRadius: 200,
     transition: theme.transitions.create(['transform', 'box-shadow']),
-    margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
   },
   getStartedSection: {
     transition: theme.transitions.create(['transform', 'margin-top']),
     transformOrigin: '0 100%',
+    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 6}px`,
   },
   gotStarted: {
     transform: 'scale(0)',

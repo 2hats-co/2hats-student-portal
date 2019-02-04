@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 
+import PaddedIcon from '../PaddedIcon';
 import BadgeIcon from '@material-ui/icons/NewReleasesOutlined';
 
 import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -18,13 +19,15 @@ const WhatsNextBadge = props => {
     <>
       <Grid container direction={isMobile ? 'column' : 'row'}>
         <Grid item className={classes.iconWrapper}>
-          <BadgeIcon />
+          <PaddedIcon color="primary">
+            <BadgeIcon />
+          </PaddedIcon>
         </Grid>
         <Grid item xs>
-          <Typography variant="h5" className={classes.title}>
+          <Typography variant="h6" className={classes.title} gutterBottom>
             Congratulations!
           </Typography>
-          <Typography variant="h6" className={classes.description}>
+          <Typography variant="body1" className={classes.description}>
             You passed the {badge.type} <b>{badge.title}</b>
             {badge.skillAssociated && (
               <>

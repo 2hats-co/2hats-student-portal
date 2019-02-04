@@ -26,7 +26,7 @@ const styles = theme => ({
   fakeNav: {
     backgroundColor: theme.palette.background.paper,
 
-    width: DRAWER_WIDTH,
+    width: 0,
     height: '100vh',
 
     [theme.breakpoints.down('sm')]: {

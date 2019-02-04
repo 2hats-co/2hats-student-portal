@@ -15,6 +15,8 @@ import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common
 const styles = theme => ({
   root: { textAlign: 'center' },
 
+  spacer: { height: theme.spacing.unit },
+
   metaWrapper: {
     display: 'inline-flex',
     width: 'auto',
@@ -32,7 +34,8 @@ const AssessmentMetadata = props => {
   return (
     <div className={classNames(classes.root, className)}>
       <SkillItem value={data.skillAssociated} />
-      <br />
+
+      <div className={classes.spacer} />
 
       <Grid container alignItems="flex-end" className={classes.metaWrapper}>
         <IndustryIcon className={classes.icon} />

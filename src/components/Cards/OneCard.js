@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -27,13 +28,13 @@ const styles = theme => ({
     transition: theme.transitions.create(['box-shadow', 'transform']),
     // boxShadow: `0 0 0 1px ${theme.palette.divider}`,
     boxShadow: `0 10px 30px rgba(0,0,0,.14)`,
+    // boxShadow: theme.shadows[10],
 
     '&:hover': {
-      boxShadow: `0  0    0    1px rgba(0, 0, 0, .025),
-                  0 11px 15px -7px rgba(0, 0, 0, .1),
-                  0 24px 38px  3px rgba(0, 0, 0, .07),
-                  0  9px 46px  8px rgba(0, 0, 0, .06)`,
+      boxShadow: theme.shadows[24],
       transform: 'translateY(-4px)',
+
+      '& $media:not($video)': { opacity: 0.9 },
     },
     '&:active': {
       transform: 'translateY(0) scale(0.95)',
@@ -94,9 +95,11 @@ const styles = theme => ({
     width: '100%',
     // height: MEDIA_HEIGHT,
     height: 0,
-    paddingBottom: '56.25%',
+    paddingBottom: '33.33%',
     position: 'relative',
+    transition: theme.transitions.create('opacity'),
   },
+  video: { paddingBottom: '56.25%' },
   iframe: {
     position: 'absolute',
     top: 0,
@@ -186,7 +189,7 @@ function OneCard(props) {
   let media;
   if (video) {
     media = (
-      <div className={classes.media}>
+      <div className={classNames(classes.media, classes.video)}>
         <iframe
           src={video}
           className={classes.iframe}
@@ -232,41 +235,41 @@ function OneCard(props) {
           </Typography>
         )}
 
-        {indicator && (
+        {/* {indicator && (
           <div
             className={classes.indicator}
             style={!indicator ? { visibility: 'hidden' } : {}}
           >
             {indicator}
           </div>
-        )}
+        )} */}
 
-        <Grid
+        {/* <Grid
           container
           direction="column"
           className={classes.stretchGrid}
           wrap="nowrap"
         >
-          <Grid item xs>
-            <CardContent classes={{ root: classes.cardContent }}>
-              <Typography
-                gutterBottom
-                variant="h6"
-                className={indicator ? classes.titleWithIndicator : ''}
-              >
-                {title}
-              </Typography>
-              {typeof secondaryText === 'string' ? (
-                <Typography component="p" className={classes.secondaryText}>
-                  {secondaryText}
-                </Typography>
-              ) : (
-                secondaryText
-              )}
-            </CardContent>
-          </Grid>
+          <Grid item xs> */}
+        <CardContent classes={{ root: classes.cardContent }}>
+          <Typography
+            gutterBottom
+            variant="h6"
+            className={indicator ? classes.titleWithIndicator : ''}
+          >
+            {title}
+          </Typography>
+          {typeof secondaryText === 'string' ? (
+            <Typography component="p" className={classes.secondaryText}>
+              {secondaryText}
+            </Typography>
+          ) : (
+            secondaryText
+          )}
+        </CardContent>
+        {/* </Grid> */}
 
-          <Grid item>
+        {/* <Grid item>
             <CardActions className={classes.cardActions}>
               <Button
                 color="primary"
@@ -278,8 +281,8 @@ function OneCard(props) {
                 <ArrowForwardIcon className={classes.arrowForwardIcon} />
               </Button>
             </CardActions>
-          </Grid>
-        </Grid>
+          </Grid> */}
+        {/* </Grid> */}
       </CardActionArea>
     </Card>
   );

@@ -6,9 +6,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import green from '@material-ui/core/colors/green';
-import red from '@material-ui/core/colors/red';
-
+import PaddedIcon from '../PaddedIcon';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '@material-ui/icons/CheckCircleOutlined';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
@@ -21,37 +19,17 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
 
     borderRadius: theme.shape.borderRadius,
-    boxShadow: theme.shadows[24],
+    boxShadow: theme.shadowsLight[24],
+
+    userSelect: 'none',
   },
-  iconWrapper: {
+  paddedIcon: {
     marginRight: theme.spacing.unit * 2,
-    borderRadius: '50%',
-    backgroundColor: theme.palette.divider,
-
-    width: 48,
-    height: 48,
-
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-
-    '& svg': { fontSize: 32 },
-
     [theme.breakpoints.down('xs')]: { marginBottom: theme.spacing.unit },
   },
-  title: { marginTop: theme.spacing.unit / 4 },
-
-  passed: {
-    '& $iconWrapper': {
-      backgroundColor: green[100],
-      color: green[800],
-    },
-  },
-  failed: {
-    '& $iconWrapper': {
-      backgroundColor: red[100],
-      color: red[800],
-    },
+  title: {
+    marginTop: theme.spacing.unit / 4,
+    marginBottom: theme.spacing.unit / 2,
   },
 });
 
@@ -63,21 +41,33 @@ const StatusMsg = props => {
   let body = null;
 
   if (data.submitted && !data.screened) {
-    icon = <SubmittedIcon style={{ marginRight: -4 }} />;
+    icon = (
+      <PaddedIcon className={classes.paddedIcon}>
+        <SubmittedIcon style={{ marginRight: -4 }} />
+      </PaddedIcon>
+    );
     title = 'Submitted';
-    body = 'We will review your submission shortly to assess your skills.';
+    body = 'Sit tight! We’ll review your submission shortly.';
   } else if (data.submitted && data.screened) {
     if (data.outcome === 'pass') {
-      icon = <PassedIcon />;
+      icon = (
+        <PaddedIcon className={classes.paddedIcon} color="green">
+          <PassedIcon />
+        </PaddedIcon>
+      );
       title = 'Passed';
       body = (
         <>
-          Congratulations! You have earned the{' '}
+          Congratulations! You’ve earned the{' '}
           <b>{getAssessmentCategoryLabel(data.category)}</b> badge.
         </>
       );
     } else if (data.outcome === 'fail') {
-      icon = <FailedIcon />;
+      icon = (
+        <PaddedIcon className={classes.paddedIcon} color="red">
+          <FailedIcon />
+        </PaddedIcon>
+      );
       title = 'Failed';
       body = `You can make another submission below.`;
     }

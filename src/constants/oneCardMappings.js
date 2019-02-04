@@ -15,6 +15,7 @@ import AssessmentMetadata from '../components/Assessment/AssessmentMetadata';
 import JobMetadata from '../components/Job/JobMetadata';
 
 import * as ROUTES from './routes';
+import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 export const course = data => ({
   title: data.title,
