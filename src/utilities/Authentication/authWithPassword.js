@@ -1,5 +1,5 @@
 import { auth, db } from '../../store/index';
-import { UPLOAD_RESUME, DASHBOARD } from '../../constants/routes';
+import { DASHBOARD } from '../../constants/routes';
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
 
@@ -64,7 +64,7 @@ export const signInWithPassword = (user, routeHandler, errorHandler) => {
         .doc(authUser.user.uid)
         .get()
         .then(userDoc => {
-          const doc = userDoc.data();
+          // const doc = userDoc.data();
           // if (doc.process === 'build' || doc.process === 'upload') {
           //TODO: process constants
           routeHandler(DASHBOARD);
