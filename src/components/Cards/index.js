@@ -106,20 +106,22 @@ function Cards(props) {
             ))}
         </Grid>
 
-        <Button
-          color="primary"
-          variant="outlined"
-          className={classes.moreButton}
-          disabled={cards.length < cols * rows}
-          onClick={() => {
-            setRows(rows + 1);
-            getMore(cols);
-          }}
-        >
-          More
-          <MoreIcon className={classes.moreIcon} />
-          {/* {loading && <CircularProgress className={classes.loading} />} */}
-        </Button>
+        {cards.length >= cols * rows && (
+          <Button
+            color="primary"
+            variant="outlined"
+            className={classes.moreButton}
+            disabled={cards.length < cols * rows}
+            onClick={() => {
+              setRows(rows + 1);
+              getMore(cols);
+            }}
+          >
+            More
+            <MoreIcon className={classes.moreIcon} />
+            {/* {loading && <CircularProgress className={classes.loading} />} */}
+          </Button>
+        )}
       </div>
     );
 

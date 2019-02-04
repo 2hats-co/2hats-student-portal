@@ -20,65 +20,22 @@ import StatusMsg from './StatusMsg';
 import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 2,
-  },
-  backButton: {
-    display: 'flex',
-    marginBottom: theme.spacing.unit,
-  },
-  content: {
-    maxWidth: 640,
-    margin: '0 auto',
-  },
-
-  title: {
-    fontWeight: 400,
-    textAlign: 'center',
-  },
-
-  coverImage: {
-    borderRadius: theme.shape.borderRadius * 0.75,
-    width: '100%',
-    height: '100%',
-
-    maxWidth: 480,
-    minHeight: 160,
-
-    margin: '0 auto',
-    marginBottom: theme.spacing.unit * 3,
-
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundImage: `linear-gradient(-15deg, #fa0, ${
-      theme.palette.primary.main
-    })`,
-  },
-
-  section: {
-    marginTop: theme.spacing.unit * 3,
-  },
-
-  subtitle: { fontWeight: 700 },
-
-  description: { whiteSpace: 'pre-line' },
-
-  ...STYLES.RENDERED_HTML(theme),
+  ...STYLES.DETAIL_VIEW(theme),
 
   meta: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 3,
   },
 
   getStarted: {
     fontSize: theme.spacing.unit * 2,
     borderRadius: 200,
     transition: theme.transitions.create(['transform', 'box-shadow']),
-    margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
   },
   getStartedSection: {
     transition: theme.transitions.create(['transform', 'margin-top']),
     transformOrigin: '0 100%',
+    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 6}px`,
   },
   gotStarted: {
     transform: 'scale(0)',

@@ -24,11 +24,9 @@ const styles = theme => ({
     padding: `${theme.spacing.unit / 2}px 0`,
     paddingLeft: theme.spacing.unit * 1.25,
     paddingRight: theme.spacing.unit * 1.5,
-
-    marginRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-
     backgroundColor: theme.palette.divider,
+
+    margin: theme.spacing.unit / 2,
   },
   achieved: {
     backgroundColor: green[100],

@@ -12,7 +12,7 @@ import EventIcon from '@material-ui/icons/EventOutlined';
 import AssessmentCentreIcon from '@material-ui/icons/AssignmentIndOutlined';
 
 import AddIcon from '@material-ui/icons/Add';
-import SendIcon from '@material-ui/icons/Send';
+import SendIcon from '@material-ui/icons/SendRounded';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import ErrorIcon from '@material-ui/icons/ErrorOutline';

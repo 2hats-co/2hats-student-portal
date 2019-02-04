@@ -2,11 +2,15 @@ import React from 'react';
 
 import { withRouter } from 'react-router-dom';
 
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import withTheme from '@material-ui/core/styles/withTheme';
 import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 
 const BackButton = props => {
-  const { className, history, location, label } = props;
+  const { theme, className, history, location, label } = props;
+
+  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
 
   return (
     <Button
@@ -15,7 +19,10 @@ const BackButton = props => {
       }}
       color="primary"
       className={className}
-      style={{ textTransform: 'capitalize' }}
+      style={{
+        textTransform: 'capitalize',
+        position: isLg ? 'fixed' : 'relative',
+      }}
     >
       <BackIcon style={{ margin: 0 }} />
       {label || location.pathname.replace('/', '')}
@@ -23,4 +30,4 @@ const BackButton = props => {
   );
 };
 
-export default withRouter(BackButton);
+export default withRouter(withTheme()(BackButton));

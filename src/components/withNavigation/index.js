@@ -23,7 +23,6 @@ import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
 import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
 import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 
-import ContactIcon from '@material-ui/icons/ForumOutlined';
 import FaqIcon from '@material-ui/icons/HelpOutline';
 import AccountInfoIcon from '@material-ui/icons/SettingsOutlined';
 import LogOutIcon from '@material-ui/icons/ExitToAppOutlined';
@@ -155,6 +154,9 @@ export default function withNavigation(WrappedComponent) {
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
     const showBottomDivider = useMediaQuery('(max-height: 660px)');
 
+    if (isMobile) document.body.classList.add('fb_up');
+    else document.body.classList.remove('fb_up');
+
     const [navOpen, setNavOpen] = useState(false);
     const [activityLogOpen, setActivityLogOpen] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
@@ -198,13 +200,6 @@ export default function withNavigation(WrappedComponent) {
       { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES },
     ];
     const BOTTOM_NAV_ITEMS = [
-      {
-        label: 'Contact Us',
-        icon: <ContactIcon />,
-        onClick: () => {
-          // window.Intercom('show');
-        },
-      },
       {
         label: 'FAQ',
         icon: <FaqIcon />,
@@ -327,14 +322,6 @@ export default function withNavigation(WrappedComponent) {
               <LoadingScreen showNav />
             )}
           </Grid>
-          {/* <div
-            class="fb-customerchat"
-            attribution="setup_tool"
-            page_id="147791982330823"
-            theme_color="#f2573e"
-            logged_in_greeting="Hi! How can we help you?"
-            logged_out_greeting="Hi! How can we help you?"
-          /> */}
 
           {isMobile && (
             <AppBar position="fixed" color="default" className={classes.appBar}>

@@ -83,14 +83,15 @@
         }
       }
 
-      @media (max-width: 959px) {
-        .fb_dialog {
-          bottom: 56pt !important;
-          right: 8pt !important;
-        }
-        .fb-customerchat iframe {
-          bottom: 101pt;
-        }
+      .fb_dialog {
+        z-index: 999 !important;
+      }
+      .fb_up .fb_dialog {
+        bottom: 80px !important;
+        right: 16px !important;
+      }
+      .fb_up .fb-customerchat iframe {
+        bottom: 136px !important;
       }
     </style>
 
