@@ -65,12 +65,12 @@ export const signInWithPassword = (user, routeHandler, errorHandler) => {
         .get()
         .then(userDoc => {
           const doc = userDoc.data();
-          if (doc.process === 'build' || doc.process === 'upload') {
-            //TODO: process constants
-            routeHandler(DASHBOARD);
-          } else {
-            routeHandler(UPLOAD_RESUME);
-          }
+          // if (doc.process === 'build' || doc.process === 'upload') {
+          //TODO: process constants
+          routeHandler(DASHBOARD);
+          // } else {
+          // routeHandler(UPLOAD_RESUME);
+          // }
         });
     })
     .catch(error => {
