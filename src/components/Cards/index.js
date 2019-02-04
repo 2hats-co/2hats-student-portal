@@ -34,6 +34,7 @@ const styles = theme => ({
     marginLeft: 'auto',
     marginRight: 'auto',
     maxWidth: '100vw',
+    userSelect: 'none',
   },
   inline: {
     display: 'inline-block',

@@ -6,19 +6,13 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import SkillIcon from '@material-ui/icons/Star';
-import MarketingIcon from '../assets/icons/Bullhorn';
-import SalesIcon from '@material-ui/icons/AttachMoneyRounded';
-
-import AchievedIcon from '@material-ui/icons/CheckCircleRounded';
+import SkillIcon from '../assets/icons/Skill';
+import SkillOutlinedIcon from '@material-ui/icons/NewReleasesOutlined';
+import AchievedIcon from '@material-ui/icons/Check';
+import grey from '@material-ui/core/colors/grey';
 import green from '@material-ui/core/colors/green';
 
-import SkillBG from '../assets/images/SkillBG.svg';
-import SkillBGSmall from '../assets/images/SkillBG-small.svg';
-import {
-  getSkillLabel,
-  getSkillCategory,
-} from '@bit/sidney2hats.2hats.global.common-constants';
+import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import UserContext from '../contexts/UserContext';
 
@@ -27,55 +21,38 @@ const styles = theme => ({
     display: 'inline-flex',
     width: 'auto',
 
-    '& + &': {
-      marginLeft: theme.spacing.unit * 2,
-      marginTop: theme.spacing.unit * 2,
-    },
+    borderRadius: theme.shape.borderRadius / 2,
+    padding: `${theme.spacing.unit / 2}px 0`,
+    paddingLeft: theme.spacing.unit,
+    paddingRight: theme.spacing.unit * 1.5,
 
-    '&$small + &$small': {
-      marginLeft: theme.spacing.unit,
-      marginTop: theme.spacing.unit,
-    },
-  },
-  small: {},
-  skillIcon: {
-    boxSizing: 'border-box',
     marginRight: theme.spacing.unit,
-    width: theme.spacing.unit * 6,
-    height: theme.spacing.unit * 6,
+    marginBottom: theme.spacing.unit,
 
-    backgroundImage: `url(${SkillBG})`,
-    backgroundSize: 'cover',
-    color: '#444',
+    backgroundColor: grey[200],
 
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-
-    '$small &': {
-      width: theme.spacing.unit * 3,
-      height: theme.spacing.unit * 3,
-      backgroundImage: `url(${SkillBGSmall})`,
-      '& svg': { fontSize: 14 },
-    },
+    // '& + &': {
+    //   marginLeft: theme.spacing.unit,
+    //   marginTop: theme.spacing.unit,
+    // },
+  },
+  achieved: {
+    backgroundColor: green[50],
+    color: green[700],
   },
 
+  skillIcon: {
+    position: 'relative',
+    marginRight: theme.spacing.unit * 0.75,
+    height: 24,
+  },
   achievedIcon: {
     position: 'absolute',
-    // fontSize: theme.spacing.unit * 2.25,
-    right: 0,
-    bottom: 0,
-    padding: 1,
+    left: 4,
+    top: 4,
 
-    borderRadius: '50%',
-    backgroundColor: theme.palette.background.paper,
-    color: green[500],
-
-    '$small &': {
-      right: -theme.spacing.unit / 2,
-      bottom: -theme.spacing.unit / 2,
-    },
+    color: '#fff',
+    fontSize: 16,
   },
 
   label: {
@@ -95,30 +72,25 @@ const SkillItem = props => {
   const achieved =
     userContext.user.skills && userContext.user.skills.includes(value);
 
-  let icon = <SkillIcon />;
-  switch (getSkillCategory(value)) {
-    case 'marketing':
-      icon = <MarketingIcon />;
-      break;
-
-    case 'sales':
-      icon = <SalesIcon />;
-      break;
-
-    default:
-      icon = <SkillIcon />;
-      break;
-  }
-
   return (
     <Grid
       container
-      className={classNames(classes.root, small && classes.small, className)}
+      className={classNames(
+        classes.root,
+        achieved && classes.achieved,
+        className
+      )}
       alignItems="center"
     >
       <Grid item className={classes.skillIcon}>
-        {icon}
-        {achieved && <AchievedIcon className={classes.achievedIcon} />}
+        {achieved ? (
+          <>
+            <SkillIcon />
+            <AchievedIcon className={classes.achievedIcon} />
+          </>
+        ) : (
+          <SkillOutlinedIcon />
+        )}
       </Grid>
       <Grid item xs>
         <Typography variant="body1" className={classes.label}>

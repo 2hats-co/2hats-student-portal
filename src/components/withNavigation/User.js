@@ -7,7 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import SuperAvatarPlus from '../SuperAvatarPlus';
 
 const styles = theme => ({
-  root: { minHeight: 100 },
+  root: {
+    minHeight: 100,
+    userSelect: 'none',
+  },
 
   placeholderAvatar: {
     width: 64,

@@ -3,19 +3,24 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
-import BackIcon from '@material-ui/icons/ArrowBackRounded';
+import BackIcon from '@material-ui/icons/ArrowBackIos';
 
-const BackButton = props => (
-  <Button
-    onClick={() => {
-      props.history.push(props.location.pathName);
-    }}
-    color="primary"
-    className={props.className}
-  >
-    <BackIcon style={{ marginLeft: 0, marginRight: 4 }} />
-    Back
-  </Button>
-);
+const BackButton = props => {
+  const { className, history, location, label } = props;
+
+  return (
+    <Button
+      onClick={() => {
+        history.push(location.pathname);
+      }}
+      color="primary"
+      className={className}
+      style={{ textTransform: 'capitalize' }}
+    >
+      <BackIcon style={{ margin: 0 }} />
+      {label || location.pathname.replace('/', '')}
+    </Button>
+  );
+};
 
 export default withRouter(BackButton);

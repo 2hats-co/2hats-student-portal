@@ -25,7 +25,7 @@ import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 
 import ContactIcon from '@material-ui/icons/ForumOutlined';
 import FaqIcon from '@material-ui/icons/HelpOutline';
-import AccountInfoIcon from '@material-ui/icons/EditOutlined';
+import AccountInfoIcon from '@material-ui/icons/SettingsOutlined';
 import LogOutIcon from '@material-ui/icons/ExitToAppOutlined';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
@@ -76,7 +76,7 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     minHeight: 64,
   },
-  logo: { width: 100, userSelect: 'none' },
+  logo: { width: 100, userSelect: 'none', userDrag: 'none' },
 
   activityLogButton: {
     position: 'absolute',
@@ -121,8 +121,6 @@ const styles = theme => ({
     zIndex: 2,
   },
   fadeOut: { opacity: 0 },
-  fadeIn: { animation: 'fade-in .3s' },
-  '@keyframes fade-in': { from: { opacity: 0 }, to: { opacity: 1 } },
 
   wrappedComponent: { minHeight: '100vh' },
   wrappedComponentMobilePadding: { paddingBottom: theme.spacing.unit * 10 },
@@ -144,6 +142,7 @@ const styles = theme => ({
     height: 28,
     opacity: 0.5,
     userSelect: 'none',
+    userDrag: 'none',
   },
 });
 
@@ -159,7 +158,6 @@ export default function withNavigation(WrappedComponent) {
     const [navOpen, setNavOpen] = useState(false);
     const [activityLogOpen, setActivityLogOpen] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
-    const [fadeIn, setFadeIn] = useState(false);
     const [selectedRoute, setSelectedRoute] = useState(location.pathname);
 
     const [showAccountInfo, setShowAccountInfo] = useState(false);
@@ -182,7 +180,6 @@ export default function withNavigation(WrappedComponent) {
       if (route !== location.pathname || location.search) {
         if (!location.search) setFadeOut(true);
         setTimeout(() => {
-          setFadeIn(true);
           history.push(route);
         }, 300);
       }
@@ -311,8 +308,7 @@ export default function withNavigation(WrappedComponent) {
             xs
             className={classNames(
               classes.wrappedComponentWrapper,
-              fadeOut && classes.fadeOut,
-              fadeIn && classes.fadeIn
+              fadeOut && classes.fadeOut
             )}
           >
             {user ? (

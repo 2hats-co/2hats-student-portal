@@ -32,6 +32,7 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       height: 64,
       width: '100vw',
+      borderTop: `1px solid ${theme.palette.divider}`,
     },
   },
 

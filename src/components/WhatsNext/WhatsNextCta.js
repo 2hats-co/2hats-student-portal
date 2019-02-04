@@ -30,7 +30,7 @@ const WhatsNextCta = props => {
             history.push(`${ROUTES.COURSE_REDIRECT}?id=${data.id}`);
           }}
         >
-          Complete course
+          Complete Course
           <ArrowForwardIcon />
         </Button>
       );
@@ -44,7 +44,7 @@ const WhatsNextCta = props => {
             history.push(ROUTES.COURSES);
           }}
         >
-          Browse courses
+          Browse Courses
           <ArrowForwardIcon />
         </Button>
       );
@@ -60,7 +60,7 @@ const WhatsNextCta = props => {
             history.push(`${ROUTES.ASSESSMENTS}?id=${data.id}`);
           }}
         >
-          Complete assessment
+          Complete Assessment
           <ArrowForwardIcon />
         </Button>
       );
@@ -75,7 +75,7 @@ const WhatsNextCta = props => {
             history.push(ROUTES.ASSESSMENTS);
           }}
         >
-          Browse assessments
+          Browse Assessments
           <ArrowForwardIcon />
         </Button>
       );
@@ -91,12 +91,12 @@ const WhatsNextCta = props => {
             history.push(ROUTES.PROFILE);
           }}
         >
-          Complete profile
+          Complete Profile
           <ArrowForwardIcon />
         </Button>
       );
     case WHATS_NEXT_STATES.awaitJobApplicationOutcome:
-      return 'Sit tight!';
+      return null;
     case WHATS_NEXT_STATES.startNewJobApplication:
       return (
         <Button
@@ -107,7 +107,7 @@ const WhatsNextCta = props => {
             history.push(ROUTES.JOBS);
           }}
         >
-          Browse jobs
+          Browse Jobs
           <ArrowForwardIcon />
         </Button>
       );

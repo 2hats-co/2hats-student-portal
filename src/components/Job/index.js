@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import Slide from '@material-ui/core/Slide';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
-import ErrorIcon from '@material-ui/icons/ErrorOutlineRounded';
-import CheckIcon from '@material-ui/icons/CheckRounded';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
+import ErrorIcon from '@material-ui/icons/ErrorOutlineOutlined';
+import CheckIcon from '@material-ui/icons/CheckOutlined';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import BackButton from '../ContainerHeader/BackButton';
@@ -31,7 +30,51 @@ import {
 import { createDoc, updateDoc } from '../../utilities/firestore';
 
 const styles = theme => ({
-  ...STYLES.PAPER_VIEW(theme),
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing.unit * 2,
+  },
+  backButton: {
+    display: 'flex',
+    marginBottom: theme.spacing.unit,
+  },
+  content: {
+    maxWidth: 640,
+    margin: '0 auto',
+  },
+
+  title: {
+    fontWeight: 400,
+    textAlign: 'center',
+  },
+
+  coverImage: {
+    borderRadius: theme.shape.borderRadius * 0.75,
+    width: '100%',
+    height: '100%',
+
+    maxWidth: 480,
+    minHeight: 160,
+
+    margin: '0 auto',
+    marginBottom: theme.spacing.unit * 3,
+
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundImage: `linear-gradient(-15deg, #fa0, ${
+      theme.palette.primary.main
+    })`,
+  },
+
+  section: {
+    marginTop: theme.spacing.unit * 3,
+  },
+
+  subtitle: { fontWeight: 700 },
+
+  description: { whiteSpace: 'pre-line' },
+
+  ...STYLES.RENDERED_HTML(theme),
 
   skillsWrapper: {
     marginTop: theme.spacing.unit / 2,
@@ -52,8 +95,13 @@ const styles = theme => ({
     },
   },
 
+  applyWrapper: {
+    textAlign: 'center',
+    marginTop: theme.spacing.unit * 3,
+  },
   apply: {
     marginTop: theme.spacing.unit * 2,
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2.5}px`,
     '& svg': {
       marginLeft: theme.spacing.unit / 2,
       marginRight: -theme.spacing.unit / 2,
@@ -62,6 +110,7 @@ const styles = theme => ({
   applyBig: {
     width: '100%',
     display: 'flex',
+    marginBottom: theme.spacing.unit * 2,
     // padding: theme.spacing.unit * 1.5,
 
     fontSize: theme.spacing.unit * 3,
@@ -101,10 +150,12 @@ const styles = theme => ({
 });
 
 const Job = props => {
-  const { classes, data, user, history } = props;
+  const { classes, theme, data, user, history } = props;
 
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   useEffect(
     () => {
@@ -146,12 +197,178 @@ const Job = props => {
   });
 
   return (
-    <Slide in direction="up">
-      <div className={classes.root}>
-        <BackButton className={classes.backButton} />
+    <div className={classes.root}>
+      <BackButton className={classes.backButton} />
 
-        <Paper className={classes.paper}>
-          <Grid container spacing={24}>
+      <main className={classes.content}>
+        {data.image && data.image.url && (
+          <div
+            style={{ backgroundImage: `url(${data.image.url})` }}
+            className={classes.coverImage}
+          />
+        )}
+
+        <Typography
+          variant={isXs ? 'h5' : 'h4'}
+          className={classes.title}
+          style={isXs ? { fontWeight: 500 } : {}}
+        >
+          {data.title}
+        </Typography>
+        <JobMetadata data={data} isXs={isXs} />
+
+        <div className={classes.applyWrapper}>
+          <Button
+            variant="contained"
+            color="primary"
+            className={classNames(
+              classes.apply,
+              classes.getStartedSection,
+              showDialog && classes.gotStarted
+            )}
+            onClick={e => {
+              setShowDialog(true);
+            }}
+            disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
+          >
+            {loading && (
+              <CircularProgress className={classes.loading} size={32} />
+            )}
+            {data.jobId ? (
+              <>
+                Applied
+                <CheckIcon />
+              </>
+            ) : (
+              <>
+                Apply
+                <ArrowForwardIcon />
+              </>
+            )}
+          </Button>
+          {skillsNotAchieved.length > 0 && (
+            <Typography variant="body2" className={classes.skillsWarning}>
+              <ErrorIcon />
+              You need {skillsNotAchieved.length} more of the required skills to
+              apply
+            </Typography>
+          )}
+        </div>
+
+        <div className={classes.section}>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            className={classes.subtitle}
+          >
+            Skills required
+          </Typography>
+          <div className={classes.skillsWrapper}>
+            {data.skillsRequired.map((x, i) => (
+              <SkillItem key={`${i}-${x}`} value={x} />
+            ))}
+          </div>
+          {skillsNotAchieved.length > 0 && (
+            <Typography variant="body1" className={classes.upskill}>
+              <InfoIcon />
+              Get your skills approved through our{' '}
+              <Link href={ROUTES.ASSESSMENTS} target="_blank" rel="noopener">
+                Assessments
+                <ArrowForwardIcon />
+              </Link>
+            </Typography>
+          )}
+        </div>
+
+        <div className={classes.section}>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            className={classes.subtitle}
+          >
+            About the company
+          </Typography>
+          <Typography variant="body1" className={classes.description}>
+            {data.companyDescription}
+          </Typography>
+        </div>
+
+        <div className={classes.section}>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            className={classes.subtitle}
+          >
+            The role
+          </Typography>
+          <Typography variant="body1" className={classes.description}>
+            {data.roleDescription}
+          </Typography>
+        </div>
+
+        <div
+          className={classNames(
+            classes.section,
+            classes.getStartedSection,
+            showDialog && classes.gotStarted
+          )}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.applyBig}
+            onClick={e => {
+              setShowDialog(true);
+            }}
+            disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
+          >
+            {loading && (
+              <CircularProgress className={classes.loading} size={48} />
+            )}
+            {data.jobId ? (
+              <>
+                Applied
+                <CheckIcon />
+              </>
+            ) : (
+              <>
+                Apply
+                <ArrowForwardIcon />
+              </>
+            )}
+          </Button>
+          {skillsNotAchieved.length > 0 && (
+            <Typography variant="body2" className={classes.skillsWarning}>
+              <ErrorIcon />
+              You need {skillsNotAchieved.length} more of the required skills to
+              apply
+            </Typography>
+          )}
+        </div>
+      </main>
+
+      <Form
+        action="apply"
+        actions={{
+          apply: data => {
+            applyForJob(data);
+            updateDoc(COLLECTIONS.users, user.id, { resume: data.resume });
+            setShowDialog(false);
+          },
+          close: () => {
+            setShowDialog(false);
+          },
+        }}
+        open={showDialog}
+        data={jobApplicationFields({
+          'pay-calcVal': data.payRate,
+          'pay-units': data.payUnits,
+          resume: user.resume,
+        })}
+        formTitle={`for ${data.title}`}
+        formHeader={
+          <Grid container spacing={24} className={classes.formHeaderGrid}>
             <Grid item xs={12} sm={5}>
               <div
                 style={{ backgroundImage: `url(${data.image.url})` }}
@@ -160,174 +377,21 @@ const Job = props => {
             </Grid>
 
             <Grid item xs={12} sm={7}>
-              <Typography variant="h5" className={classes.title}>
-                {data.title}
-              </Typography>
               <JobMetadata data={data} />
-
-              <Button
-                variant="contained"
-                color="primary"
-                className={classNames(
-                  classes.apply,
-                  classes.getStartedSection,
-                  showDialog && classes.gotStarted
-                )}
-                onClick={e => {
-                  setShowDialog(true);
-                }}
-                disabled={
-                  skillsNotAchieved.length > 0 || !!data.jobId || loading
-                }
-              >
-                {loading && (
-                  <CircularProgress className={classes.loading} size={32} />
-                )}
-                {data.jobId ? (
-                  <>
-                    Applied
-                    <CheckIcon />
-                  </>
-                ) : (
-                  <>
-                    Apply
-                    <ArrowForwardIcon />
-                  </>
-                )}
-              </Button>
-              {skillsNotAchieved.length > 0 && (
-                <Typography variant="body2" className={classes.skillsWarning}>
-                  <ErrorIcon />
-                  You need {skillsNotAchieved.length} more of the required
-                  skills to apply
-                </Typography>
-              )}
             </Grid>
           </Grid>
-
-          <div className={classes.section}>
-            <Typography variant="h6">Skills required</Typography>
-            <Grid container className={classes.skillsWrapper}>
-              {data.skillsRequired.map((x, i) => (
-                <Grid
-                  key={`${i}-${x}`}
-                  item
-                  xs={12}
-                  sm={4}
-                  className={classes.skillWrapper}
-                >
-                  <SkillItem value={x} />
-                </Grid>
-              ))}
-            </Grid>
-            {skillsNotAchieved.length > 0 && (
-              <Typography variant="body1" className={classes.upskill}>
-                <InfoIcon />
-                Get your skills approved through our{' '}
-                <Link href={ROUTES.ASSESSMENTS} target="_blank" rel="noopener">
-                  Assessments
-                  <ArrowForwardIcon />
-                </Link>
-              </Typography>
-            )}
-          </div>
-
-          <div className={classes.section}>
-            <Typography variant="h6">About the company</Typography>
-            <Typography variant="body1">{data.companyDescription}</Typography>
-          </div>
-
-          <div className={classes.section}>
-            <Typography variant="h6">The role</Typography>
-            <Typography variant="body1">{data.roleDescription}</Typography>
-          </div>
-
-          <div
-            className={classNames(
-              classes.section,
-              classes.getStartedSection,
-              showDialog && classes.gotStarted
-            )}
-          >
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              className={classes.applyBig}
-              onClick={e => {
-                setShowDialog(true);
-              }}
-              disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
-            >
-              {loading && (
-                <CircularProgress className={classes.loading} size={48} />
-              )}
-              {data.jobId ? (
-                <>
-                  Applied
-                  <CheckIcon />
-                </>
-              ) : (
-                <>
-                  Apply
-                  <ArrowForwardIcon />
-                </>
-              )}
-            </Button>
-            {skillsNotAchieved.length > 0 && (
-              <Typography variant="body2" className={classes.skillsWarning}>
-                <ErrorIcon />
-                You need {skillsNotAchieved.length} more of the required skills
-                to apply
-              </Typography>
-            )}
-          </div>
-        </Paper>
-
-        <Form
-          action="apply"
-          actions={{
-            apply: data => {
-              applyForJob(data);
-              updateDoc(COLLECTIONS.users, user.id, { resume: data.resume });
-              setShowDialog(false);
-            },
-            close: () => {
-              setShowDialog(false);
-            },
-          }}
-          open={showDialog}
-          data={jobApplicationFields({
-            'pay-calcVal': data.payRate,
-            'pay-units': data.payUnits,
-            resume: user.resume,
-          })}
-          formTitle={`for ${data.title}`}
-          formHeader={
-            <Grid container spacing={24} className={classes.formHeaderGrid}>
-              <Grid item xs={12} sm={5}>
-                <div
-                  style={{ backgroundImage: `url(${data.image.url})` }}
-                  className={classes.coverImage}
-                />
-              </Grid>
-
-              <Grid item xs={12} sm={7}>
-                <JobMetadata data={data} />
-              </Grid>
-            </Grid>
-          }
-        />
-      </div>
-    </Slide>
+        }
+      />
+    </div>
   );
 };
 
 Job.propTypes = {
   classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(Job));
+export default withRouter(withStyles(styles, { withTheme: true })(Job));

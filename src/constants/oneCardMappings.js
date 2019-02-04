@@ -96,7 +96,7 @@ export const assessment = data => {
 
 export const job = data => ({
   title: data.title,
-  secondaryText: <JobMetadata data={data} />,
+  secondaryText: <JobMetadata data={data} small />,
   primaryAction: data.jobId ? 'View' : 'Learn more',
   route: `${ROUTES.JOBS}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
 

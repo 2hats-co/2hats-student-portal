@@ -9,6 +9,7 @@ const styles = theme => ({
     boxSizing: 'border-box',
     padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit}px`,
     margin: '0 auto',
+    userSelect: 'none',
   },
   title: {
     fontWeight: 400,
