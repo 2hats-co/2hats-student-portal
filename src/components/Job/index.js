@@ -5,7 +5,6 @@ import { withRouter } from 'react-router-dom';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
@@ -324,18 +323,9 @@ const Job = props => {
         })}
         formTitle={`for ${data.title}`}
         formHeader={
-          <Grid container spacing={24} className={classes.formHeaderGrid}>
-            <Grid item xs={12} sm={5}>
-              <div
-                style={{ backgroundImage: `url(${data.image.url})` }}
-                className={classes.coverImage}
-              />
-            </Grid>
-
-            <Grid item xs={12} sm={7}>
-              <JobMetadata data={data} />
-            </Grid>
-          </Grid>
+          <div style={{ marginBottom: 32 }}>
+            <JobMetadata data={data} isXs={isXs} />
+          </div>
         }
       />
     </div>

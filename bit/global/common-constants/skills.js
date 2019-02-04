@@ -43,3 +43,11 @@ export const getSkillCategory = val => {
       return '';
   }
 };
+
+export const getAllSkillsInCategory = cat => {
+  const output = [];
+  SKILLS.forEach(x => {
+    if (getSkillCategory(x.value) === cat) output.push(x.value);
+  });
+  return output;
+};
