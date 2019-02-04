@@ -19,8 +19,9 @@ const styles = theme => ({
     display: 'block',
 
     '& $adornmentIcon': {
-      verticalAlign: 'sub',
+      verticalAlign: 'baseline',
       color: theme.palette.primary.main,
+      marginBottom: -4,
     },
   },
 

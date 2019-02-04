@@ -53,14 +53,4 @@ var getSkillCategory = (exports.getSkillCategory = function getSkillCategory(
   }
 });
 
-var getAllSkillsInCategory = (exports.getAllSkillsInCategory = function getAllSkillsInCategory(
-  cat
-) {
-  var output = [];
-  SKILLS.forEach(function(x) {
-    if (getSkillCategory(x.value) === cat) output.push(x.value);
-  });
-  return output;
-});
-
 //# sourceMappingURL=skills.js.map

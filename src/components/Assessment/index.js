@@ -20,51 +20,7 @@ import StatusMsg from './StatusMsg';
 import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
-  root: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing.unit * 2,
-  },
-  backButton: {
-    display: 'flex',
-    marginBottom: theme.spacing.unit,
-  },
-  content: {
-    maxWidth: 640,
-    margin: '0 auto',
-  },
-
-  title: {
-    fontWeight: 400,
-    textAlign: 'center',
-  },
-
-  coverImage: {
-    borderRadius: theme.shape.borderRadius * 0.75,
-    width: '100%',
-    height: '100%',
-
-    maxWidth: 480,
-    minHeight: 160,
-
-    margin: '0 auto',
-    marginBottom: theme.spacing.unit * 3,
-
-    backgroundPosition: 'center',
-    backgroundSize: 'cover',
-    backgroundImage: `linear-gradient(-15deg, #fa0, ${
-      theme.palette.primary.main
-    })`,
-  },
-
-  section: {
-    marginTop: theme.spacing.unit * 3,
-  },
-
-  subtitle: { fontWeight: 700 },
-
-  description: { whiteSpace: 'pre-line' },
-
-  ...STYLES.RENDERED_HTML(theme),
+  ...STYLES.DETAIL_VIEW(theme),
 
   meta: {
     marginTop: theme.spacing.unit,
