@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -21,10 +21,19 @@ import { uploader } from '../../utilities/Uploader';
 import { globalReplace, copyToClipboard } from '../../utilities';
 
 const styles = theme => ({
-  root: { ...STYLES.PADDING(theme, true) },
+  root: {},
+  divider: {
+    margin: `${theme.spacing.unit * 3}px 0`,
+  },
+
+  subtitle: { fontWeight: 700 },
+
   ...STYLES.RENDERED_HTML(theme),
+
   answerInputWrapper: { marginTop: theme.spacing.unit * 2 },
+
   quillEditor: { ...STYLES.QUILL(theme) },
+
   ...STYLES.DROPZONE(theme),
 
   mcEmailButton: {
@@ -175,18 +184,29 @@ const Question = props => {
   }
 
   return (
-    <Paper classes={{ root: classes.root }}>
-      <Typography variant="h6">
-        {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
-      </Typography>
-      <div
-        className={classes.renderedHtml}
-        dangerouslySetInnerHTML={{
-          __html: globalReplace(questionText, '{{firstName}}', user.firstName),
-        }}
-      />
-      <div className={classes.answerInputWrapper}>{answerInput}</div>
-    </Paper>
+    <>
+      <Divider className={classes.divider} />
+      <div className={classes.root}>
+        <Typography
+          variant="subtitle1"
+          gutterBottom
+          className={classes.subtitle}
+        >
+          {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
+        </Typography>
+        <div
+          className={classes.renderedHtml}
+          dangerouslySetInnerHTML={{
+            __html: globalReplace(
+              questionText,
+              '{{firstName}}',
+              user.firstName
+            ),
+          }}
+        />
+        <div className={classes.answerInputWrapper}>{answerInput}</div>
+      </div>
+    </>
   );
 };
 

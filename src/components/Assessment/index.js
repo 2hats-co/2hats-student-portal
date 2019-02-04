@@ -3,45 +3,78 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Slide from '@material-ui/core/Slide';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
-import SubmittedIcon from '@material-ui/icons/Send';
-import PassedIcon from '@material-ui/icons/CheckCircleOutlined';
-import FailedIcon from '@material-ui/icons/ErrorOutline';
 
 import BackButton from '../ContainerHeader/BackButton';
 import AssessmentMetadata from './AssessmentMetadata';
 import AssessmentSubmission from './AssessmentSubmission';
-import {
-  STYLES,
-  getAssessmentCategoryLabel,
-} from '@bit/sidney2hats.2hats.global.common-constants';
+import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 import StatusMsg from './StatusMsg';
 
 import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
-  ...STYLES.PAPER_VIEW(theme),
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    padding: theme.spacing.unit * 2,
+  },
+  backButton: {
+    display: 'flex',
+    marginBottom: theme.spacing.unit,
+  },
+  content: {
+    maxWidth: 640,
+    margin: '0 auto',
+  },
 
-  meta: { marginTop: theme.spacing.unit },
+  title: {
+    fontWeight: 400,
+    textAlign: 'center',
+  },
+
+  coverImage: {
+    borderRadius: theme.shape.borderRadius * 0.75,
+    width: '100%',
+    height: '100%',
+
+    maxWidth: 480,
+    minHeight: 160,
+
+    margin: '0 auto',
+    marginBottom: theme.spacing.unit * 3,
+
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundImage: `linear-gradient(-15deg, #fa0, ${
+      theme.palette.primary.main
+    })`,
+  },
+
+  section: {
+    marginTop: theme.spacing.unit * 3,
+  },
+
+  subtitle: { fontWeight: 700 },
+
+  description: { whiteSpace: 'pre-line' },
+
+  ...STYLES.RENDERED_HTML(theme),
+
+  meta: {
+    marginTop: theme.spacing.unit * 3,
+  },
 
   getStarted: {
     fontSize: theme.spacing.unit * 2,
     borderRadius: 200,
     transition: theme.transitions.create(['transform', 'box-shadow']),
-    boxShadow: theme.shadows[3],
-
-    '& svg': {
-      marginLeft: theme.spacing.unit / 2,
-      marginRight: 0,
-    },
+    margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
   },
   getStartedSection: {
     transition: theme.transitions.create(['transform', 'margin-top']),
@@ -49,7 +82,7 @@ const styles = theme => ({
   },
   gotStarted: {
     transform: 'scale(0)',
-    marginTop: -theme.spacing.unit * 5.5,
+    marginTop: -104,
   },
 
   resubmitted: {
@@ -60,11 +93,13 @@ const styles = theme => ({
 });
 
 const Assessment = props => {
-  const { classes, data, history } = props;
+  const { classes, theme, data, history } = props;
 
   const gotStartedCondition =
     data && data.assessmentId && data.outcome !== 'fail';
   const [gotStarted, setGotStarted] = useState(gotStartedCondition);
+
+  const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   useEffect(
     () => {
@@ -74,82 +109,55 @@ const Assessment = props => {
     [data]
   );
 
-  let statusMsg = null;
-  if (data.submitted && !data.screened) {
-    statusMsg = (
-      <StatusMsg
-        Icon={SubmittedIcon}
-        title="Submitted"
-        body="We will review your submission shortly to assess your skills."
-      />
-    );
-  }
-  if (data.submitted && data.screened) {
-    if (data.outcome === 'pass')
-      statusMsg = (
-        <StatusMsg
-          Icon={PassedIcon}
-          title="Passed"
-          body={`Congratulations! Your ${getAssessmentCategoryLabel(
-            data.category
-          )} skill is now recognised.`}
-        />
-      );
-    else if (data.outcome === 'fail')
-      statusMsg = (
-        <StatusMsg
-          Icon={FailedIcon}
-          title="Failed"
-          body={`You can make another submission below.`}
-        />
-      );
-  }
-
   return (
-    <Slide in direction="up">
-      <div className={classes.root}>
-        <BackButton className={classes.backButton} />
+    <div className={classes.root}>
+      <BackButton className={classes.backButton} />
 
-        <Paper className={classes.paper}>
-          <Grid container spacing={24}>
-            <Grid item xs={12} sm={5}>
-              <div
-                style={
-                  data.image && data.image.url
-                    ? { backgroundImage: `url(${data.image.url})` }
-                    : {}
-                }
-                className={classes.coverImage}
-              />
-            </Grid>
+      <main className={classes.content}>
+        <div
+          style={
+            data.image && data.image.url
+              ? { backgroundImage: `url(${data.image.url})` }
+              : {}
+          }
+          className={classes.coverImage}
+        />
 
-            <Grid item xs={12} sm={7}>
-              <Typography variant="h5" className={classes.title}>
-                {data.title}
-              </Typography>
+        <Typography variant={isXs ? 'h5' : 'h4'} className={classes.title}>
+          {data.title}
+        </Typography>
 
-              <AssessmentMetadata data={data} className={classes.meta} />
-            </Grid>
-          </Grid>
+        <AssessmentMetadata data={data} className={classes.meta} />
 
-          {statusMsg}
+        <StatusMsg data={data} isXs={isXs} />
 
-          <div className={classes.section}>
-            <Typography variant="h6">The company</Typography>
-            <div
-              className={classes.renderedHtml}
-              dangerouslySetInnerHTML={{ __html: data.companyDescription }}
-            />
-          </div>
+        <div className={classes.section}>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            className={classes.subtitle}
+          >
+            The company
+          </Typography>
+          <div
+            className={classes.renderedHtml}
+            dangerouslySetInnerHTML={{ __html: data.companyDescription }}
+          />
+        </div>
 
-          <div className={classes.section}>
-            <Typography variant="h6">Your job</Typography>
-            <div
-              className={classes.renderedHtml}
-              dangerouslySetInnerHTML={{ __html: data.jobDescription }}
-            />
-          </div>
-        </Paper>
+        <div className={classes.section}>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            className={classes.subtitle}
+          >
+            Your job
+          </Typography>
+          <div
+            className={classes.renderedHtml}
+            dangerouslySetInnerHTML={{ __html: data.jobDescription }}
+          />
+        </div>
 
         <div
           className={classNames(
@@ -192,15 +200,16 @@ const Assessment = props => {
         </div>
 
         {gotStarted && <AssessmentSubmission data={data} />}
-      </div>
-    </Slide>
+      </main>
+    </div>
   );
 };
 
 Assessment.propTypes = {
   classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(Assessment));
+export default withRouter(withStyles(styles, { withTheme: true })(Assessment));

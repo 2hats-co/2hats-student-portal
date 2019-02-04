@@ -31,7 +31,7 @@ const styles = theme => ({
   gridItem: {
     paddingTop: '0 !important',
     paddingBottom: '0 !important',
-    '& + &': { borderLeft: `1px solid ${theme.palette.divider}` },
+    // '& + &': { borderLeft: `1px solid ${theme.palette.divider}` },
   },
 
   meta: {

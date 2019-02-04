@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import SkillIcon from '../assets/icons/Skill';
 import SkillOutlinedIcon from '@material-ui/icons/NewReleasesOutlined';
 import AchievedIcon from '@material-ui/icons/Check';
-import grey from '@material-ui/core/colors/grey';
 import green from '@material-ui/core/colors/green';
 
 import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -23,21 +22,16 @@ const styles = theme => ({
 
     borderRadius: theme.shape.borderRadius / 2,
     padding: `${theme.spacing.unit / 2}px 0`,
-    paddingLeft: theme.spacing.unit,
+    paddingLeft: theme.spacing.unit * 1.25,
     paddingRight: theme.spacing.unit * 1.5,
 
     marginRight: theme.spacing.unit,
     marginBottom: theme.spacing.unit,
 
-    backgroundColor: grey[200],
-
-    // '& + &': {
-    //   marginLeft: theme.spacing.unit,
-    //   marginTop: theme.spacing.unit,
-    // },
+    backgroundColor: theme.palette.divider,
   },
   achieved: {
-    backgroundColor: green[50],
+    backgroundColor: green[100],
     color: green[700],
   },
 
@@ -57,6 +51,8 @@ const styles = theme => ({
 
   label: {
     lineHeight: '1.25',
+    fontWeight: 500,
+    '$achieved &': { color: green[900] },
   },
   header: {
     display: 'block',
@@ -65,7 +61,7 @@ const styles = theme => ({
 });
 
 const SkillItem = props => {
-  const { classes, className, value, header, small } = props;
+  const { classes, className, value, header } = props;
 
   const userContext = useContext(UserContext);
 
@@ -107,7 +103,6 @@ SkillItem.propTypes = {
   className: PropTypes.string,
   value: PropTypes.string.isRequired,
   header: PropTypes.node,
-  small: PropTypes.bool,
 };
 
 export default withStyles(styles)(SkillItem);

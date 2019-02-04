@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Slide from '@material-ui/core/Slide';
-import Paper from '@material-ui/core/Paper';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -26,9 +26,9 @@ const styles = theme => ({
   root: {},
   section: { marginTop: theme.spacing.unit * 3 },
 
-  paper: { ...STYLES.PADDING(theme, true) },
-
   ...STYLES.RENDERED_HTML(theme),
+
+  subtitle: { fontWeight: 700 },
 
   loading: {
     marginTop: theme.spacing.unit * 3,
@@ -37,8 +37,8 @@ const styles = theme => ({
 
   submitButton: {
     fontSize: theme.spacing.unit * 2,
-    boxShadow: theme.shadows[3],
     borderRadius: 60,
+    margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
   },
 });
 
@@ -85,6 +85,8 @@ const AssessmentSubmission = props => {
       return;
     }
   });
+
+  console.log(data, answers);
 
   // read-only if submitted or passed
   const readOnly = data.submitted && data.outcome !== 'fail';
@@ -207,13 +209,22 @@ const AssessmentSubmission = props => {
   return (
     <Slide in direction="up">
       <>
-        <Paper className={classes.paper}>
-          <Typography variant="h6">Instructions</Typography>
+        <div className={classes.section}>
+          <Divider />
+        </div>
+        <div className={classes.section}>
+          <Typography
+            variant="subtitle1"
+            gutterBottom
+            className={classes.subtitle}
+          >
+            Instructions
+          </Typography>
           <div
             className={classes.renderedHtml}
             dangerouslySetInnerHTML={{ __html: data.taskInstructions }}
           />
-        </Paper>
+        </div>
 
         {data.copiedQuestions &&
           data.copiedQuestions.map((x, i) => (
