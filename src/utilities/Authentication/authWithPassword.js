@@ -47,7 +47,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               // hasSubmit: false,
               createdAt: Date.now(),
             });
-          routeHandler(UPLOAD_RESUME);
+          routeHandler(DASHBOARD);
         });
     })
     .catch(error => {
