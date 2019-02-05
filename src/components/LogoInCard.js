@@ -32,9 +32,9 @@ const styles = theme => ({
     height: 42,
   },
   miniLogo: {
-    marginTop: 50,
-    marginBottom: 30,
-    marginLeft: 55,
+    marginTop: 40,
+    marginBottom: 20,
+    marginLeft: 45,
     width: 117,
     height: 42,
   },

@@ -26,6 +26,7 @@ import DateTime from './Fields/DateTime';
 import Uploader from './Fields/Uploader';
 import Select from './Fields/Select';
 import Checkbox from './Fields/Checkbox';
+import RadioButtons from './Fields/RadioButtons';
 
 const styles = theme => ({
   mobile: {},
@@ -339,6 +340,19 @@ function Form(props) {
                       name={x.name}
                       validator={validator}
                       width={x.width}
+                    />
+                  );
+
+                case FIELDS.radio:
+                  return (
+                    <RadioButtons
+                      key={x.name}
+                      formikProps={formikProps}
+                      label={x.label}
+                      name={x.name}
+                      validator={validator}
+                      options={x.options}
+                      horiz={x.horiz}
                     />
                   );
 

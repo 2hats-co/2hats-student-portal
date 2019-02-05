@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import { GOOGLE_CID_STAGING, GOOGLE_CID_PRODUCTION } from '../../config/auth';
-import GoogleIcon from '../../assets/images/social/google.svg';
+import GoogleIcon from '../../assets/images/social/google-colour.svg';
 import GoogleLogin from '../../utilities/Authentication/GoogleLogin.js';
 import { getTokenWithGoogle } from '../../utilities/Authentication/getTokenWith3rdParty';
 import { withRouter } from 'react-router-dom';
@@ -71,7 +71,7 @@ class GoogleButton extends Component {
             variant="contained"
             key={`google-button`}
             id={`google-button`}
-            style={{ backgroundColor: '#E05449' }}
+            style={{ backgroundColor: '#4285F4' }}
             onClick={renderProps.onClick}
             className={classes.socialButton}
           >

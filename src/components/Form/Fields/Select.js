@@ -12,6 +12,7 @@ const Select = props => {
     width,
   } = props;
   const { setValues, values, errors, touched } = formikProps;
+
   return (
     <Grid item xs={width || 12}>
       <IntegrationReactSelect
