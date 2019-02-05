@@ -6,7 +6,7 @@ const logout = [
     name: 'mainPortal-selectLogout',
     action: async page => {
       await click(page, SELECTORS.portal.logOutButton);
-      await page.waitFor(500);
+      await page.waitForNavigation({ waitUntil: 'networkidle2' });
       await checkProtectedRoutes(page, [
         'uploadResume',
         'dashboard',

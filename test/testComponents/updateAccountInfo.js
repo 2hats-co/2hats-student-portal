@@ -1,17 +1,23 @@
 const { SELECTORS, CONST } = require('../constants');
-const { click, runSteps, uploadFile } = require('../utils/functions');
+const { click, runSteps, selectDropDown, type } = require('../utils/functions');
 
 const logout = [
   {
     name: 'updateAccInfo-click',
     action: async page => {
-      await click(page, SELECTORS.profileUploader.button);
-      await uploadFile(
-        page,
-        SELECTORS.profileUploader.input,
-        SELECTORS.profileUploader.testImg
-      );
-      await click(page, SELECTORS.profileUploader.done);
+      await click(page, SELECTORS.updateAccInfo.button);
+    },
+  },
+  {
+    name: 'updateAccInfo-fill',
+    action: async page => {
+      await type(page, SELECTORS.updateAccInfo.firstName, 'Victor');
+      await type(page, SELECTORS.updateAccInfo.lastName, 'Chan');
+      await selectDropDown(page, '', 1);
+      await type(page, SELECTORS.updateAccInfo.currentDegree, 'Commerce');
+      await selectDropDown(page, '', 1);
+      await type(page, SELECTORS.updateAccInfo.mobileNumber, '0403157878');
+      await click(page, SELECTORS.updateAccInfo.update);
     },
   },
 ];

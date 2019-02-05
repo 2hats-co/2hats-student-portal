@@ -12,6 +12,7 @@ const { testLogout } = require('./testComponents/logout');
 const { testActivityLog } = require('./testComponents/activityLog');
 const { testProfileUploader } = require('./testComponents/profileUploader');
 const { testSideBar } = require('./testComponents/sideBar');
+const { testUpdateAccInfo } = require('./testComponents/updateAccountInfo');
 
 const main = async () => {
   console.log(CONFIG);
@@ -31,9 +32,9 @@ async function signupSteps(page) {
   await clearUserData('test2hats@gmail.com');
   await page.goto('http://localhost:3333');
   await signupEmail(page);
-  await testActivityLog(page);
-  await testProfileUploader(page);
-  await testSideBar(page);
-
-  await testLogout(page);
+  //await testActivityLog(page);
+  //await testProfileUploader(page);
+  //await testSideBar(page);
+  await testUpdateAccInfo(page);
+  //await testLogout(page);
 }
