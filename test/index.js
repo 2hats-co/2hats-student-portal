@@ -8,6 +8,7 @@ const { testUploadResume } = require('./uploadResume');
 const { testMainPortal } = require('./mainPortal');
 const { testCourses } = require('./courses');
 const { clearUserData } = require('./dbUtil');
+const { testLogout } = require('./logout');
 
 const main = async () => {
   console.log(CONFIG);
@@ -17,7 +18,6 @@ const main = async () => {
   });
   let page = await browser.newPage();
   page.setViewport(CONFIG.viewport);
-  //await mainTestSteps(page);
   await signupSteps(page);
   //await compareAllScreenshots();
 };
@@ -27,18 +27,6 @@ async function signupSteps(page) {
   await clearUserData('test2hats@gmail.com');
   await page.goto('http://localhost:3333');
   await signupEmail(page);
-  //await page.goto('http://localhost:3333/uploadResume');
-  //await testUploadResume(page);
-  //await page.goto('http://localhost:3333/courses');
-  //await testCourses(page);
-}
-
-async function mainTestSteps(page) {
-  await page.goto('http://localhost:3000');
-  await loginEmail(page);
-  await page.goto('http://localhost:3000/uploadResume');
-  await testUploadResume(page);
-  await page.goto('http://localhost:3000/profile');
-  await testMainPortal(page);
+  await testLogout(page);
   browser.close();
 }
