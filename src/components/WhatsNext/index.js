@@ -111,7 +111,15 @@ const WhatsNext = props => {
         isMobile={isMobile}
       />
 
-      <Grid container alignItems="flex-end" spacing={24}>
+      <Grid
+        container
+        alignItems={
+          profile.whatsNext.state === WHATS_NEXT_STATES.uploadResume
+            ? 'flex-start'
+            : 'flex-end'
+        }
+        spacing={24}
+      >
         <Grid item xs>
           <Grid container direction={isMobile ? 'column' : 'row'}>
             <Grid item className={classes.iconWrapper}>

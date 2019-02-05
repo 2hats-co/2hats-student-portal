@@ -201,7 +201,12 @@ class SpeedySignupContainer extends Component {
         {isLoading && (
           <div className={classes.loadingMask}>
             <CircularProgress size={64} />
-            <Typography variant="h6">Hold on to your hat 🤠</Typography>
+            <Typography variant="h6">
+              Hold on to your hat{' '}
+              <span role="img" aria-label="cowboy emoji">
+                🤠
+              </span>
+            </Typography>
           </div>
         )}
       </Grid>
