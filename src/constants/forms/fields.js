@@ -19,6 +19,7 @@ const FIELDS = {
   time: 'TIME_PICKER',
 
   checkbox: 'CHECKBOX',
+  radio: 'RADIO',
 };
 
 export default FIELDS;

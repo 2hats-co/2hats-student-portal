@@ -49,6 +49,12 @@ const accountInfoFields = initialData => {
         label: x,
         value: x.split('\u2063')[0],
       })),
+      validation: yup
+        .object({
+          value: yup.number().required('Required'),
+          label: yup.string(),
+        })
+        .required('Required'),
     },
     {
       type: FIELDS.textField,

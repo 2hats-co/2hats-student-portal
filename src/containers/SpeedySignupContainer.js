@@ -4,36 +4,48 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Email from '../components/InputFields/Email';
 import Disclaimer from '../components/Authentication/Disclaimer';
-import Name from '../components/InputFields/Name';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import ChangeAdpter from '../components/InputFields/ChangeAdapter';
+import Form from '../components/Form';
+import speedySignupFields from '../constants/forms/speedySignup';
+
 import girlWithLaptop from '../assets/images/graphics/girlWithLaptop.png';
 import celebratingMan from '../assets/images/graphics/congratsMan.svg';
 import { SPEEDY_SIGNUP } from '../constants/views';
 import { withRouter } from 'react-router-dom';
-import { CLOUD_FUNCTIONS } from '../utilities/CloudFunctions';
+import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { warmUp } from '../utilities/Authentication/warmUp';
 import { speedyAuth } from '../utilities/Authentication/speedySignup';
 const styles = theme => ({
   root: {
     height: '100vh',
   },
+  subhead: {
+    marginTop: theme.spacing.unit,
+    lineHeight: 1.25,
+    fontWeight: 400,
+  },
   webForm: {
     width: 350,
-    minHeight: 350,
+    minHeight: 200,
     marginLeft: 50,
     marginRight: 50,
+    paddingBottom: 40,
+
+    position: 'relative',
   },
   mobileForm: {
     width: 280,
+    paddingBottom: 40,
+
+    position: 'relative',
   },
   button: {
     width: 180,
     marginTop: 0,
-    marginBottom: 50,
+    marginBottom: 0,
   },
   loading: {
     position: 'relative',
@@ -52,19 +64,33 @@ const styles = theme => ({
   header: {
     marginBottom: 10,
   },
+
+  loadingMask: {
+    position: 'absolute',
+    top: 0,
+    bottom: 40,
+    left: 0,
+    right: 0,
+
+    backgroundColor: '#fff',
+    zIndex: 1,
+
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    '& h6': { marginTop: theme.spacing.unit * 2 },
+  },
 });
 class SpeedySignupContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      currentUniversity: '',
-      phoneNumber: '',
       view: SPEEDY_SIGNUP.form,
       isPublic: false,
       isLoading: false,
+      isMobile: false,
     };
     this.createUser = this.createUser.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -72,22 +98,31 @@ class SpeedySignupContainer extends Component {
     this.goTo = this.goTo.bind(this);
     this.errorBar = this.errorBar.bind(this);
   }
+
+  updateWindowDimensions = () => {
+    this.setState({ isMobile: window.innerWidth < 700 });
+  };
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
   componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.SPEEDY_SIGNUP);
     // if(this.props.history.location.hash ==='#UTS'){
     //     this.setState({isPublic:false})
     // }
   }
+
   goTo(route) {
     this.props.history.replace(route);
   }
+
   handleReset() {
     this.setState({
-      firstName: '',
-      lastName: '',
-      email: '',
-      currentUniversity: '',
-      phoneNumber: '',
       view: SPEEDY_SIGNUP.form,
       isLoading: false,
       snackBar: null,
@@ -96,38 +131,24 @@ class SpeedySignupContainer extends Component {
   handleSuccess = () => {
     this.setState({ view: SPEEDY_SIGNUP.success, isLoading: false });
   };
-  createUser() {
-    const {
-      firstName,
-      lastName,
-      email,
-      currentUniversity,
-      phoneNumber,
-    } = this.state;
-    const userInfo = {
-      firstName: firstName,
-      lastName: lastName,
-      email: email.toLowerCase(),
-      currentUniversity: currentUniversity,
-      phoneNumber: phoneNumber,
-    };
 
+  createUser(userInfo) {
     this.setState({ isLoading: true });
     speedyAuth(userInfo, this.handleSuccess, this.errorBar);
 
-    // cloudFunction(CLOUD_FUNCTIONS.SPEEDY_SIGNUP, userInfo
-    //     ,(result) => {
-    //         this.setState({ isLoading: false })
-    //         this.setState({ view: SPEEDY_SIGNUP.success })
-    //         console.log("Call speedySignup success: ", result);
-    //     }
-    //     ,(error) => {
-    //         console.log("Call speedySignup error: ", error);
-    //     });
+    cloudFunction(
+      CLOUD_FUNCTIONS.SPEEDY_SIGNUP,
+      userInfo,
+      result => {
+        this.setState({ isLoading: false });
+        this.setState({ view: SPEEDY_SIGNUP.success });
+        console.log('Call speedySignup success: ', result);
+      },
+      error => {
+        console.log('Call speedySignup error: ', error);
+      }
+    );
   }
-  handleChange = (name, value) => {
-    this.setState({ [name]: value });
-  };
 
   goHome() {
     window.open('https://2hats.com.au', '_self');
@@ -140,16 +161,8 @@ class SpeedySignupContainer extends Component {
     });
   }
   renderForm() {
-    const { classes, theme } = this.props;
-    const isMobile = theme.responsive.isMobile;
-    const {
-      firstName,
-      lastName,
-      email,
-      // currentUniversity,
-      // phoneNumber,
-      isLoading,
-    } = this.state;
+    const { classes } = this.props;
+    const { isMobile, isLoading } = this.state;
     return (
       <Grid
         className={isMobile ? classes.mobileForm : classes.webForm}
@@ -166,49 +179,37 @@ class SpeedySignupContainer extends Component {
           <Typography
             variant={isMobile ? 'body2' : 'subtitle1'}
             style={isMobile ? { textAlign: 'center' } : {}}
+            className={classes.subhead}
           >
             Sign up to get paid placements and kickstart your professional
             career
           </Typography>
         </Grid>
-        <ChangeAdpter changeHandler={this.handleChange}>
-          <Name firstName={firstName} lastName={lastName} />
-        </ChangeAdpter>
-        <ChangeAdpter changeHandler={this.handleChange}>
-          <Email
-            key="emailField"
-            value={email}
-            changeHandler={this.handleChange}
-          />
-        </ChangeAdpter>
-        {/* <CurrentUniversity
-          hasLabel
-          value={currentUniversity}
-          changeHandler={this.handleChange}
+
+        <Form
+          action="Sign up!"
+          actions={{
+            'Sign up!': data => {
+              this.createUser(data);
+            },
+          }}
+          justForm
+          data={speedySignupFields({})}
+          formFooter={<Disclaimer />}
         />
-        <PhoneNumber
-          hasLabel
-          key="phoneNumber"
-          value={phoneNumber}
-          changeHandler={this.handleChange}
-        /> */}
-        <Disclaimer />
-        <Button
-          color="primary"
-          className={isMobile ? classes.mobileButton : classes.button}
-          disabled={isLoading}
-          variant="contained"
-          onClick={this.createUser}
-        >
-          Sign up!
-        </Button>
+
+        {isLoading && (
+          <div className={classes.loadingMask}>
+            <CircularProgress size={64} />
+            <Typography variant="h6">Hold on to your hat 🤠</Typography>
+          </div>
+        )}
       </Grid>
     );
   }
   renderCongrats() {
-    const { classes, theme } = this.props;
-    const { isMobile } = theme.responsive;
-    const { isPublic } = this.state;
+    const { classes } = this.props;
+    const { isPublic, isMobile } = this.state;
     return (
       <Grid
         className={isMobile ? classes.mobileForm : classes.webForm}
@@ -217,7 +218,6 @@ class SpeedySignupContainer extends Component {
         alignItems={isMobile ? 'center' : 'flex-start'}
         justify="space-between"
       >
-        {!isMobile && <Grid item />}
         <Grid item>
           <Grid container>
             <Typography
@@ -228,6 +228,7 @@ class SpeedySignupContainer extends Component {
             </Typography>
             <Typography
               variant="body2"
+              className={classes.subhead}
               style={isMobile ? { textAlign: 'center' } : {}}
             >
               We’ve sent you an email to finish the sign up process.
@@ -258,9 +259,8 @@ class SpeedySignupContainer extends Component {
     );
   }
   render() {
-    const { view, isLoading, snackBar } = this.state;
-    const { theme, classes } = this.props;
-    const isMobile = theme.responsive.isMobile;
+    const { view, snackBar, isMobile } = this.state;
+    const { classes } = this.props;
     return (
       <Grid
         container
@@ -272,7 +272,6 @@ class SpeedySignupContainer extends Component {
           <LogoInCard
             width={isMobile ? 320 : 680}
             height="auto"
-            isLoading={isLoading}
             logoClass={isMobile ? 'centeredLogo' : 'miniLogo'}
             snackBar={snackBar}
           >
@@ -304,6 +303,4 @@ class SpeedySignupContainer extends Component {
     );
   }
 }
-export default withRouter(
-  withStyles(styles, { withTheme: true })(SpeedySignupContainer)
-);
+export default withRouter(withStyles(styles)(SpeedySignupContainer));

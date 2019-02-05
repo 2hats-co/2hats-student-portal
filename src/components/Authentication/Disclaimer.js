@@ -4,10 +4,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
   root: {
-    marginTop: 30,
+    marginTop: 20,
     marginBottom: 10,
   },
-  large: theme.typography.body2,
+  large: theme.typography.caption,
   link: {
     color: theme.palette.primary.main,
     textDecoration: 'inherit',
