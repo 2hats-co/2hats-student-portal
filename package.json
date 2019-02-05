@@ -8,6 +8,7 @@
     "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
     "@material-ui/lab": "^3.0.0-alpha.28",
+    "@types/puppeteer": "^1.12.1",
     "firebase": "^5.2.0",
     "formik": "^1.4.2",
     "git-rev-sync": "^1.12.0",

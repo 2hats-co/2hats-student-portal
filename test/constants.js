@@ -94,6 +94,16 @@ const SELECTORS = {
     cancel: 'button#cancel',
     update: 'button#submit',
   },
+  speedySignUp: {
+    firstName: 'input#firstName',
+    lastName: 'input#lastName',
+    email: 'input#email',
+    currentDegree: 'input#currentDegree',
+    courses: 'input#course',
+    jobs: 'input#job',
+    signUp: 'button#submit',
+    reset: 'button#reset',
+  },
 };
 const CRED = {
   signIn: {
