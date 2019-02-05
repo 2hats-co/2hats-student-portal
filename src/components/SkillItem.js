@@ -6,9 +6,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import SkillIcon from '../assets/icons/Skill';
 import SkillOutlinedIcon from '@material-ui/icons/NewReleasesOutlined';
-import AchievedIcon from '@material-ui/icons/Check';
+import SkillAchievedIcon from '../assets/icons/SkillAchieved';
 import green from '@material-ui/core/colors/green';
 
 import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -30,7 +29,7 @@ const styles = theme => ({
   },
   achieved: {
     backgroundColor: green[100],
-    color: green[700],
+    color: green[800],
   },
 
   skillIcon: {
@@ -38,19 +37,11 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 0.75,
     height: 24,
   },
-  achievedIcon: {
-    position: 'absolute',
-    left: 4,
-    top: 4,
-
-    color: '#fff',
-    fontSize: 16,
-  },
 
   label: {
     lineHeight: '1.25',
     fontWeight: 500,
-    '$achieved &': { color: green[900] },
+    '$achieved &': { color: green[800] },
   },
   header: {
     display: 'block',
@@ -77,14 +68,7 @@ const SkillItem = props => {
       alignItems="center"
     >
       <Grid item className={classes.skillIcon}>
-        {achieved ? (
-          <>
-            <SkillIcon />
-            <AchievedIcon className={classes.achievedIcon} />
-          </>
-        ) : (
-          <SkillOutlinedIcon />
-        )}
+        {achieved ? <SkillAchievedIcon /> : <SkillOutlinedIcon />}
       </Grid>
       <Grid item xs>
         <Typography variant="body1" className={classes.label}>

@@ -133,7 +133,7 @@ class SuperAvatarPlus extends Component {
 
   render() {
     const { avatarURL, firstName, lastName, classes } = this.props;
-    const { isUploading, hasChanged, open } = this.state;
+    const { isUploading, open } = this.state;
     let avatar = (
       <IconButton
         id="profile-button"
