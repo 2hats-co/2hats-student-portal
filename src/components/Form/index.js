@@ -368,6 +368,7 @@ function Form(props) {
             color="primary"
             variant="contained"
             type="submit"
+            id="submit"
             classes={{ label: classes.capitalise }}
           >
             {action[0].toUpperCase()}
@@ -408,7 +409,7 @@ function Form(props) {
                 </DialogContent>
 
                 <DialogActions>
-                  <Button onClick={actions.close} color="primary">
+                  <Button onClick={actions.close} color="primary" id="cancel">
                     Cancel
                   </Button>
                   {PrimaryButton}

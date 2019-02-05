@@ -91,6 +91,8 @@ const SELECTORS = {
     lastName: 'input#lastName',
     currentDegree: 'input#currentDegree',
     mobileNumber: 'input#mobileNumber',
+    cancel: 'button#cancel',
+    update: 'button#submit',
   },
 };
 const CRED = {

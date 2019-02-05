@@ -43,15 +43,22 @@ async function type(page, selector, text) {
   await page.waitFor(500);
 }
 
-async function selectDropDown(page, selector, optionNum) {
-  await page.waitForSelector(selector);
-  const element = await page.$(selector);
-  element.click({ delay: 10 });
-  await page.waitFor(1000);
-  for (let i = 0; i < optionNum; i++) {
-    element.press('ArrowDown', { delay: 20 });
+async function selectDropDown(page, selector = '', optionNum) {
+  if (selector !== '') {
+    await page.waitForSelector(selector);
+    const element = await page.$(selector);
+    element.click({ delay: 10 });
+    await page.waitFor(1000);
+  } else {
+    await page.keyboard.press('Tab');
+    await page.waitFor(700);
+    await page.keyboard.press('Space');
+    await page.waitFor(700);
   }
-  element.press('Enter', { delay: 20 });
+  for (let i = 0; i < optionNum; i++) {
+    await page.keyboard.press('ArrowDown', { delay: 20 });
+  }
+  await page.keyboard.press('Enter', { delay: 20 });
 }
 
 async function uploadFile(page, selector, filepath) {
