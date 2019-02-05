@@ -63,7 +63,7 @@ const RadioButtons = props => {
             <FormControlLabel
               key={x.value}
               value={x.value}
-              control={<Radio className={classes.radio} />}
+              control={<Radio className={classes.radio} id={x.value} />}
               label={x.label}
               className={classes.radioItem}
             />

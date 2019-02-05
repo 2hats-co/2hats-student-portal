@@ -249,6 +249,7 @@ class SpeedySignupContainer extends Component {
         )}
         <Button
           color="primary"
+          id="reset"
           className={isMobile ? classes.mobileButton : classes.button}
           variant="contained"
           onClick={isPublic ? this.goHome : this.handleReset}
