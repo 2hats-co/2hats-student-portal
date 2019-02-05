@@ -51,6 +51,13 @@ const accountInfoFields = initialData => {
       })),
     },
     {
+      type: FIELDS.textField,
+      name: 'currentDegree',
+      label: 'Current degree',
+      value: initialData['currentDegree'],
+      validation: yup.string().required('Required'),
+    },
+    {
       type: FIELDS.autocomplete,
       name: 'workRestriction',
       label: 'Work restriction',

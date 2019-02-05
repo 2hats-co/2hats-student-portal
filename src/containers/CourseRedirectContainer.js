@@ -56,6 +56,12 @@ function CourseRedirectContainer(props) {
       });
     }
 
+    // set user's interest to course so what's next can display the right things
+    if (user.interest !== 'course')
+      updateDoc(COLLECTIONS.users, user.id, {
+        interest: 'course',
+      });
+
     // learnWorlds single sign on
     cloudFunction(
       CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,

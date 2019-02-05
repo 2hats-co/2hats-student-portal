@@ -26,6 +26,7 @@ import {
   COLLECTIONS,
   STYLES,
 } from '@bit/sidney2hats.2hats.global.common-constants';
+import useDocument from '../../hooks/useDocument';
 import { createDoc, updateDoc } from '../../utilities/firestore';
 
 const styles = theme => ({
@@ -110,7 +111,25 @@ const Job = props => {
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const [profileState, profileDispatch] = useDocument();
+  const profile = profileState.doc;
+
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
+
+  const showApply = () => {
+    setShowDialog(true);
+    if (!profileState.path) {
+      profileDispatch({ path: `${COLLECTIONS.profiles}/${user.id}` });
+      setLoading(true);
+    }
+  };
+
+  useEffect(
+    () => {
+      if (profile) setLoading(false);
+    },
+    [profile]
+  );
 
   useEffect(
     () => {
@@ -181,9 +200,7 @@ const Job = props => {
               classes.getStartedSection,
               showDialog && classes.gotStarted
             )}
-            onClick={e => {
-              setShowDialog(true);
-            }}
+            onClick={showApply}
             disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
           >
             {loading && (
@@ -273,9 +290,7 @@ const Job = props => {
             color="primary"
             size="large"
             className={classes.applyBig}
-            onClick={e => {
-              setShowDialog(true);
-            }}
+            onClick={showApply}
             disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
           >
             {loading && (
@@ -315,11 +330,12 @@ const Job = props => {
             setShowDialog(false);
           },
         }}
-        open={showDialog}
+        open={!!(showDialog && profile)}
         data={jobApplicationFields({
           'pay-calcVal': data.payRate,
           'pay-units': data.payUnits,
-          resume: user.resume,
+          resume: profile && profile.resume,
+          workRestriction: profile && profile.workRestriction,
         })}
         formTitle={`for ${data.title}`}
         formHeader={
