@@ -55,6 +55,7 @@ const INITIAL_STATE = {
   progress: 10,
   snackBar: null,
   timeStamp: '',
+  isLessThan840: false,
 };
 
 class AuthenticationContainer extends React.Component {
@@ -94,6 +95,18 @@ class AuthenticationContainer extends React.Component {
       this.goTo(routes.LOG_OUT);
     }
   }
+
+  updateWindowDimensions = () => {
+    this.setState({ isLessThan840: window.innerWidth < 840 });
+  };
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
   handleGTevent(name) {
     window.dataLayer.push({
       event: 'VirtualPageview',
@@ -203,7 +216,7 @@ class AuthenticationContainer extends React.Component {
   };
 
   render() {
-    const { classes, theme } = this.props;
+    const { classes } = this.props;
     const {
       firstName,
       lastName,
@@ -212,6 +225,7 @@ class AuthenticationContainer extends React.Component {
       snackBar,
       email,
       view,
+      isLessThan840,
     } = this.state;
     const onSignupRoute =
       this.props.history.location.pathname === routes.SIGN_UP;
@@ -340,7 +354,7 @@ class AuthenticationContainer extends React.Component {
       default:
         loadedView = (
           <AuthView
-            isLessThan840={theme.responsive.isLessThan840}
+            isLessThan840={isLessThan840}
             onSignupRoute={onSignupRoute}
             isLoading={isLoading}
             handleGTevent={this.handleGTevent}
@@ -358,7 +372,7 @@ class AuthenticationContainer extends React.Component {
         alignItems="center"
         justify="center"
       >
-        {theme.responsive.isLessThan840 ? null : view !==
+        {isLessThan840 ? null : view !==
           AUTHENTICATION_CONTAINER.auth ? null : (
           <SignUpIntro />
         )}
@@ -400,7 +414,5 @@ function mapDispatchToProps(dispatch) {
   };
 }
 export default withRouter(
-  withStyles(styles, { withTheme: true })(
-    connect(mapDispatchToProps)(AuthenticationContainer)
-  )
+  withStyles(styles)(connect(mapDispatchToProps)(AuthenticationContainer))
 );
