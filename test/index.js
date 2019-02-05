@@ -28,9 +28,9 @@ async function signupSteps(page) {
   await page.goto('http://localhost:3333');
   await signupEmail(page);
   //await page.goto('http://localhost:3333/uploadResume');
-  await testUploadResume(page);
-  await page.goto('http://localhost:3333/courses');
-  await testCourses(page);
+  //await testUploadResume(page);
+  //await page.goto('http://localhost:3333/courses');
+  //await testCourses(page);
 }
 
 async function mainTestSteps(page) {
