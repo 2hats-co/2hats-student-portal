@@ -1,5 +1,5 @@
-const { SELECTORS, CRED } = require('./constants');
-const { type, click, runSteps, selectDropDown } = require('./functions');
+const { SELECTORS, CRED } = require('../constants');
+const { type, click, runSteps, selectDropDown } = require('../utils/functions');
 
 const login = [
   {
@@ -40,6 +40,7 @@ const signup = [
       await type(page, SELECTORS.signUp.lastName, CRED.signUp.lastName);
       await type(page, SELECTORS.signUp.password, CRED.signUp.password);
       await click(page, SELECTORS.signUp.signUpButton);
+      await page.waitForNavigation({ waitUntil: 'networkidle2' });
     },
   },
 ];

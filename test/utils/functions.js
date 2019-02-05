@@ -1,6 +1,6 @@
 const { takeScreenshot } = require('./screenshotUtil');
 const { checkDb } = require('./dbUtil');
-const { CONST } = require('./constants');
+const { CONST } = require('../constants');
 
 async function runSteps(page, stepsArray, checkForDbChange = false) {
   let beforeData, afterData;
@@ -79,9 +79,9 @@ async function checkProtectedRoutes(page, routes) {
     await page.goto(`${CONST.urlPath}/${route}`);
     const didRedirect = page.url() === CONST.protectedRedirectPath;
     if (didRedirect) {
-      console.log(`Protected route: ${route}`);
+      console.log(`\x1b[32m Protected route: \x1b[0m ${route}`);
     } else {
-      console.log(`Unprotected route: ${route}`);
+      console.log(`\x1b[31m Unprotected route: \x1b[0m ${route}`);
     }
   }
 }

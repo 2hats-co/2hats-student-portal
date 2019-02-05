@@ -30,7 +30,7 @@ admin
 
 const db = admin.app(PROJECT).firestore();
 const auth = admin.app(PROJECT).auth();
-const { CONST } = require('./constants');
+const { CONST } = require('../constants');
 
 const singleDocCollections = [
   'candidates',

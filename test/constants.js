@@ -66,6 +66,32 @@ const SELECTORS = {
     getStarted: 'button#button-sdfsdfsdfsf',
     enrolledPageHeader: "h1[class='chapter-num']",
   },
+  //Components
+  activityLog: {
+    icon: "button[type='button']",
+    close: 'button#activitylogclose',
+  },
+  profileUploader: {
+    button: 'button#profile-button',
+    input: "input[type='file']",
+    cancel: 'button#dialog-cancel',
+    done: 'button#dialog-save-false',
+    testImg: './test/testFiles/passiveAngrey.jpg',
+  },
+  sideBar: {
+    dashboard: 'div#dashboard',
+    profile: 'div#profile',
+    jobs: 'div#jobs',
+    assessments: 'div#assessments',
+    courses: 'div#courses',
+  },
+  updateAccInfo: {
+    button: 'div#updateaccountinfo',
+    firstName: 'input#firstName',
+    lastName: 'input#lastName',
+    currentDegree: 'input#currentDegree',
+    mobileNumber: 'input#mobileNumber',
+  },
 };
 const CRED = {
   signIn: {

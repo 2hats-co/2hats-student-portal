@@ -7,7 +7,7 @@ const {
   uploadFile,
   checkRedirect,
   checkProtectedRoutes,
-} = require('./functions');
+} = require('./utils/functions');
 
 const mainPortal = [
   {

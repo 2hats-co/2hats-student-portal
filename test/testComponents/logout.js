@@ -1,5 +1,5 @@
-const { SELECTORS, CONST } = require('./constants');
-const { click, runSteps, checkProtectedRoutes } = require('./functions');
+const { SELECTORS, CONST } = require('../constants');
+const { click, runSteps, checkProtectedRoutes } = require('../utils/functions');
 
 const logout = [
   {
@@ -19,7 +19,7 @@ const logout = [
   },
 ];
 const testLogout = async page => {
-  await runSteps(page, logout, true);
+  await runSteps(page, logout, false);
 };
 
 module.exports = { testLogout };

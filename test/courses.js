@@ -6,7 +6,7 @@ const {
   selectDropDown,
   uploadFile,
   checkRedirect,
-} = require('./functions');
+} = require('./utils/functions');
 
 const courses = [
   {
