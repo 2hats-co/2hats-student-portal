@@ -21,9 +21,6 @@ const AuthenticationContainer = lazy(() =>
 const SpeedySignupContainer = lazy(() =>
   import('./containers/SpeedySignupContainer' /* webpackChunkName: "SpeedySignupContainer" */)
 );
-const SignupContainer = lazy(() =>
-  import('./containers/SignupContainer' /* webpackChunkName: "SignupContainer" */)
-);
 
 const SmartLinkContainer = lazy(() =>
   import('./containers/SmartLinkContainer' /* webpackChunkName: "SmartLinkContainer" */)
@@ -125,11 +122,6 @@ const App = props => {
                   exact
                   path={ROUTES.SPEEDY_SIGN_UP}
                   component={() => <SpeedySignupContainer isPublic />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.UPLOAD_RESUME}
-                  component={() => <SignupContainer />}
                 />
                 <Route
                   exact

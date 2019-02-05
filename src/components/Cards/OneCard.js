@@ -7,14 +7,14 @@ import withStyles from '@material-ui/core/styles/withStyles';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
+// import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
+// import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+// import Grid from '@material-ui/core/Grid';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
+// import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
 
 export const CARD_WIDTH = 320;
 export const CARD_PADDING = 16;
@@ -175,7 +175,7 @@ function OneCard(props) {
     classes,
     title,
     secondaryText,
-    primaryAction,
+    // primaryAction,
     route,
     indicator,
     banner,
@@ -293,7 +293,7 @@ OneCard.propTypes = {
 
   title: PropTypes.string,
   secondaryText: PropTypes.node,
-  primaryAction: PropTypes.string,
+  // primaryAction: PropTypes.string,
   route: PropTypes.string,
 
   newTab: PropTypes.bool,

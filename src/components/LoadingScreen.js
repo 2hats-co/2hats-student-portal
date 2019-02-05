@@ -6,7 +6,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
-import { DRAWER_WIDTH } from './withNavigation';
+// import { DRAWER_WIDTH } from './withNavigation';
 
 const styles = theme => ({
   root: {

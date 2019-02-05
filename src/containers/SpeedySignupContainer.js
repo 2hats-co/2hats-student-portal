@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import LogoInCard from '../components/LogoInCard';
-import CurrentUniversity from '../components/InputFields/CurrentUniversity';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Grid from '@material-ui/core/Grid';
@@ -13,7 +12,6 @@ import Button from '@material-ui/core/Button';
 import ChangeAdpter from '../components/InputFields/ChangeAdapter';
 import girlWithLaptop from '../assets/images/graphics/girlWithLaptop.png';
 import celebratingMan from '../assets/images/graphics/congratsMan.svg';
-import PhoneNumber from '../components/InputFields/PhoneNumber';
 import { SPEEDY_SIGNUP } from '../constants/views';
 import { withRouter } from 'react-router-dom';
 import { CLOUD_FUNCTIONS } from '../utilities/CloudFunctions';
@@ -148,8 +146,8 @@ class SpeedySignupContainer extends Component {
       firstName,
       lastName,
       email,
-      currentUniversity,
-      phoneNumber,
+      // currentUniversity,
+      // phoneNumber,
       isLoading,
     } = this.state;
     return (
@@ -183,7 +181,7 @@ class SpeedySignupContainer extends Component {
             changeHandler={this.handleChange}
           />
         </ChangeAdpter>
-        <CurrentUniversity
+        {/* <CurrentUniversity
           hasLabel
           value={currentUniversity}
           changeHandler={this.handleChange}
@@ -193,7 +191,7 @@ class SpeedySignupContainer extends Component {
           key="phoneNumber"
           value={phoneNumber}
           changeHandler={this.handleChange}
-        />
+        /> */}
         <Disclaimer />
         <Button
           color="primary"

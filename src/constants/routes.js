@@ -11,18 +11,6 @@ export const CREATE_PASSWORD = '/createPassword';
 export const NO_PASSWORD = '/noPassword';
 export const SMART_LINK = '/smartLinks';
 
-export const INTRODUCTION = '/introduction';
-export const SUBMISSION = '/submission';
-export const PREVIOUS_SUBMISSION = '/prevSubmission';
-export const UPLOAD_RESUME = '/uploadResume';
-export const BUILD_RESUME = '/buildResume';
-export const BUILD_RESUME_BIO = '/buildResumeBio';
-export const BUILD_RESUME_EDU = '/buildResumeEdu';
-export const BUILD_RESUME_EXP = '/buildResumeExp';
-export const BUILD_RESUME_OTHER = '/buildResumeLast';
-
-export const RESUME = '/resume';
-
 // SP3 MAIN NAV ITEMS
 export const DASHBOARD = '/dashboard';
 export const PROFILE = '/profile';
