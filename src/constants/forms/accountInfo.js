@@ -51,7 +51,7 @@ const accountInfoFields = initialData => {
       })),
       validation: yup
         .object({
-          value: yup.number().required('Required'),
+          value: yup.string().required('Required'),
           label: yup.string(),
         })
         .required('Required'),
