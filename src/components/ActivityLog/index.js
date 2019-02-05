@@ -175,6 +175,7 @@ function ActivityLog(props) {
                 <IconButton
                   onClick={handleClose}
                   className={classes.closeButton}
+                  id={'activitylogclose'}
                 >
                   <CloseIcon />
                 </IconButton>
