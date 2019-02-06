@@ -123,9 +123,9 @@ const CRED = {
 };
 
 const CONST = {
-  screenshotPath: './test/screenshots',
-  testPath: './test',
-  sampleProfilePath: './test/passiveAngrey.jpg',
+  screenshotPath: './screenshots',
+  testPath: '.',
+  sampleProfilePath: './testFiles/passiveAngrey.jpg',
   sampleUserId: 'TO4P3eMVGGOben7jgUbekwNylQh1',
   urlPath: 'http://localhost:3333',
   protectedRedirectPath: 'http://localhost:3333/signin',

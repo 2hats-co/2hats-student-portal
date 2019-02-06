@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer');
 const { initiateTestConfig } = require('./utils/init');
 initiateTestConfig({ width: 1200, height: 800 });
-const CONFIG = require('./utils/testconfig.json');
+const CONFIG = require('./testconfig.json');
 const {
   takeScreenshot,
   compareAllScreenshots,

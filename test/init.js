@@ -1,13 +1,12 @@
 const gitHash = require('git-rev-sync');
 const fs = require('fs');
-const { CONST } = require('../constants');
+const { CONST } = require('./constants');
 
 function initiateTestConfig(viewport = { width: 1200, height: 800 }) {
   const gitTag = gitHash.short();
   //Read previous testconfig.json
   const prevTestConfig = JSON.parse(
-    // fs.readFileSync(`${CONST.testPath}/utils/testconfig.json`, 'utf8')
-    fs.readFileSync(`testconfig.json`, 'utf8')
+    fs.readFileSync(`${CONST.testPath}/testconfig.json`, 'utf8')
   );
   //If gitTag changed, update values
   const prevGitTag = prevTestConfig.gitTag;
