@@ -25,7 +25,6 @@ const AssessmentsContainer = props => {
 
   useEffect(
     () => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       if (docState.doc)
         document.title = `2hats – Assessments – ${docState.doc.title}`;
       else document.title = '2hats – Assessments';

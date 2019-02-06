@@ -58,6 +58,10 @@ const Assessment = props => {
 
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
+
   useEffect(
     () => {
       if (gotStartedCondition) setGotStarted(true);
