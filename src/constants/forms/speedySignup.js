@@ -58,6 +58,13 @@ const speedySignupFields = initialData => {
       validation: yup.string().required('Required'),
     },
     {
+      type: FIELDS.textField,
+      name: 'phoneNumber',
+      label: 'Moblie Number',
+      value: '',
+      validation: yup.string().required('Required'),
+    },
+    {
       type: FIELDS.radio,
       name: 'interest',
       label: 'Interest',
@@ -66,6 +73,7 @@ const speedySignupFields = initialData => {
       options: [
         { value: 'course', label: 'Courses' },
         { value: 'job', label: 'Jobs' },
+        { value: 'assessments', label: 'Skill Tasks' },
       ],
       validation: yup
         .string(['course', 'job'], 'Not a valid interest')
