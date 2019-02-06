@@ -211,6 +211,7 @@ function OneCard(props) {
   return (
     <Card classes={{ root: classes.root }}>
       <CardActionArea
+        id={title.replace(/\W/g, '')}
         component="div"
         onClick={() => {
           history.push(route);
