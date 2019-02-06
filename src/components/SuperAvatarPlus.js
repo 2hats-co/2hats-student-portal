@@ -230,6 +230,7 @@ class SuperAvatarPlus extends Component {
               color="primary"
               variant="contained"
               onClick={this.saveHandler}
+              id={!isUploading && 'save'}
             >
               Save
             </Button>

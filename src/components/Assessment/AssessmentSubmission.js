@@ -283,6 +283,7 @@ const AssessmentSubmission = props => {
           color="primary"
           onClick={handleSubmit}
           size="large"
+          id={`submit-${!disableSubmission}`}
           className={classes.submitButton}
           disabled={disableSubmission || readOnly}
         >
