@@ -46,6 +46,33 @@ const multiDocCollections = [
   'communications',
 ];
 
+/**
+ *
+ * @param {String} UID
+ * @param {Array} fields
+ */
+async function checkUserCreated(email, fields) {
+  const userQuery = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (userQuery.empty) {
+    console.log('User not created');
+    return false;
+  } else {
+    const userDoc = userQuery.docs[0];
+    const userData = userDoc.data();
+    fields.forEach(field => {
+      const exists = !!userData[field];
+      console.log(
+        `${email}-${field}-${
+          exists ? '\x1b[32m Yes\x1b[0m' : '\x1b[31m No\x1b[0m'
+        }`
+      );
+    });
+  }
+}
+
 async function checkDb() {
   //
   try {
@@ -148,4 +175,4 @@ const deleteAlgoliaRecord = objectID => {
   //return index.deleteObject(objectID); //NEED TO IMPORT INDEX
 };
 
-module.exports = { checkDb, clearUserData };
+module.exports = { checkDb, clearUserData, checkUserCreated };
