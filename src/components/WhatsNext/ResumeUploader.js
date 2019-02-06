@@ -1,4 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -52,7 +54,7 @@ const styles = theme => ({
 });
 
 const ResumeUploader = props => {
-  const { classes } = props;
+  const { classes, className } = props;
 
   const [file, setFile] = useState({});
 
@@ -90,7 +92,7 @@ const ResumeUploader = props => {
         );
       }}
       accept="application/pdf"
-      className={classes.dropzone}
+      className={classNames(classes.dropzone, className)}
       style={file.url || file.name ? { cursor: 'default' } : {}}
       disabled={file.url && file.name}
     >
@@ -118,6 +120,11 @@ const ResumeUploader = props => {
       )}
     </Dropzone>
   );
+};
+
+ResumeUploader.propTypes = {
+  classes: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 export default withStyles(styles)(ResumeUploader);
