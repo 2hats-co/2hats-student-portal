@@ -11,7 +11,7 @@ import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
 
-import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
+import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   root: {
@@ -59,7 +59,7 @@ const StatusMsg = props => {
       body = (
         <>
           Congratulations! You’ve earned the{' '}
-          <b>{getAssessmentCategoryLabel(data.category)}</b> badge.
+          <b>{getSkillLabel(data.skillAssociated)}</b> badge.
         </>
       );
     } else if (data.outcome === 'fail') {
