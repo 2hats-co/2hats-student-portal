@@ -1,6 +1,6 @@
 const gitHash = require('git-rev-sync');
 const fs = require('fs');
-const { CONST } = require('../constants');
+const { CONST } = require('./constants');
 
 function initiateTestConfig(viewport = { width: 1200, height: 800 }) {
   const gitTag = gitHash.short();

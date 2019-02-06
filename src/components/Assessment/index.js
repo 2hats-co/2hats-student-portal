@@ -39,7 +39,7 @@ const styles = theme => ({
   },
   gotStarted: {
     transform: 'scale(0)',
-    marginTop: -104,
+    marginTop: -64,
   },
 
   resubmitted: {
@@ -57,6 +57,10 @@ const Assessment = props => {
   const [gotStarted, setGotStarted] = useState(gotStartedCondition);
 
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, []);
 
   useEffect(
     () => {
@@ -127,6 +131,7 @@ const Assessment = props => {
             variant="contained"
             color="primary"
             size="large"
+            id="getStarted"
             className={classes.getStarted}
             onClick={e => {
               setGotStarted(true);

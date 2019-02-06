@@ -9,7 +9,7 @@ import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const CoursesContainer = props => {
-  const { className, isMobile, user } = props;
+  const { isMobile, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -19,7 +19,7 @@ const CoursesContainer = props => {
   }, []);
 
   return (
-    <div className={className}>
+    <div>
       <ContainerHeader
         title="Courses"
         isMobile={isMobile}
@@ -49,8 +49,8 @@ const CoursesContainer = props => {
 };
 
 CoursesContainer.propTypes = {
-  className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
 };
 
 export default withNavigation(CoursesContainer);

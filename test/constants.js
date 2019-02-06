@@ -75,7 +75,7 @@ const SELECTORS = {
     button: 'button#profile-button',
     input: "input[type='file']",
     cancel: 'button#dialog-cancel',
-    done: 'button#dialog-save-false',
+    done: 'button#save',
     testImg: './test/testFiles/passiveAngrey.jpg',
   },
   sideBar: {
@@ -99,10 +99,26 @@ const SELECTORS = {
     lastName: 'input#lastName',
     email: 'input#email',
     currentDegree: 'input#currentDegree',
+    mobile: 'input#phoneNumber',
     courses: 'input#course',
     jobs: 'input#job',
     signUp: 'button#submit',
     reset: 'button#reset',
+  },
+  courses: {
+    button: 'div#Fixyourcar',
+  },
+  assessments: {
+    button: 'div#GoogleAnalytics',
+    start: 'button#getStarted',
+    input: "input[type='file']",
+    submit: 'button#submit-true',
+    back: "button[type='button']",
+    file: '../testFiles/testResume.pdf',
+  },
+  jobs: {
+    button: 'div#AssistanttotheHeadofMarketing',
+    back: "button[type='button']",
   },
 };
 const CRED = {
@@ -122,7 +138,7 @@ const CRED = {
 const CONST = {
   screenshotPath: './test/screenshots',
   testPath: './test',
-  sampleProfilePath: './test/passiveAngrey.jpg',
+  sampleProfilePath: './test/testFiles/passiveAngrey.jpg',
   sampleUserId: 'TO4P3eMVGGOben7jgUbekwNylQh1',
   urlPath: 'http://localhost:3333',
   protectedRedirectPath: 'http://localhost:3333/signin',

@@ -12,7 +12,7 @@ import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
 const AssessmentsContainer = props => {
-  const { className, isMobile, location, user } = props;
+  const { isMobile, location, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -25,7 +25,6 @@ const AssessmentsContainer = props => {
 
   useEffect(
     () => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       if (docState.doc)
         document.title = `2hats – Assessments – ${docState.doc.title}`;
       else document.title = '2hats – Assessments';
@@ -34,17 +33,12 @@ const AssessmentsContainer = props => {
   );
 
   if (location.search && docState.doc) {
-    if (docState.doc)
-      return (
-        <div className={className}>
-          <Assessment data={docState.doc} />
-        </div>
-      );
+    if (docState.doc) return <Assessment data={docState.doc} />;
     return <LoadingScreen showNav />;
   }
 
   return (
-    <div className={className}>
+    <div>
       <ContainerHeader
         title="Assessments"
         //subtitle="Get yourself certified with these assessments"
@@ -75,7 +69,6 @@ const AssessmentsContainer = props => {
 };
 
 AssessmentsContainer.propTypes = {
-  className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,

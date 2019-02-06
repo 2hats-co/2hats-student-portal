@@ -1,5 +1,6 @@
 const { SELECTORS, CONST } = require('../constants');
 const { click, runSteps, selectDropDown, type } = require('../utils/functions');
+const { checkUserCreated } = require('../utils/dbUtil');
 
 const logout = [
   {
@@ -16,9 +17,9 @@ const logout = [
       await type(page, SELECTORS.speedySignUp.email, 'test2hats@gmail.com');
       await selectDropDown(page, '', 1);
       await type(page, SELECTORS.speedySignUp.currentDegree, 'Commerce');
+      await type(page, SELECTORS.speedySignUp.mobile, '0403157878');
       await click(page, SELECTORS.speedySignUp.courses);
       await click(page, SELECTORS.speedySignUp.signUp);
-      //await page.waitFor(2000);
       await page.waitForSelector(SELECTORS.speedySignUp.reset);
     },
   },
@@ -27,6 +28,19 @@ const logout = [
     action: async page => {
       await click(page, SELECTORS.speedySignUp.reset);
       await page.waitForSelector(SELECTORS.speedySignUp.email);
+    },
+  },
+  {
+    name: 'speedySignUp-checkDB',
+    action: async page => {
+      await page.waitFor(3000);
+      await checkUserCreated(SELECTORS.speedySignUp.email, [
+        'signupMethod',
+        'email',
+        'firstName',
+        'lastName',
+        'interest',
+      ]);
     },
   },
 ];

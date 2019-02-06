@@ -121,7 +121,6 @@ const styles = theme => ({
   },
   fadeOut: { opacity: 0 },
 
-  wrappedComponent: { minHeight: '100vh' },
   wrappedComponentMobilePadding: { paddingBottom: theme.spacing.unit * 10 },
 
   appBar: {
@@ -130,12 +129,12 @@ const styles = theme => ({
 
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.secondary,
-    boxShadow: `0 1px 0 ${theme.palette.divider} inset`,
+    boxShadow: `0 -1px 0 rgba(0,0,0,.05), ${theme.shadows[16]}`,
   },
   toolbar: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: `0 ${theme.spacing.unit * 1.5}px`,
+    padding: `0 ${theme.spacing.unit}px`,
   },
   bottomLogo: {
     height: 28,
@@ -152,7 +151,7 @@ export default function withNavigation(WrappedComponent) {
     setBackground(theme.palette.background.paper);
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const showBottomDivider = useMediaQuery('(max-height: 660px)');
+    const showBottomDivider = useMediaQuery('(max-height: 616px)');
 
     if (isMobile) document.body.classList.add('fb_up');
     else document.body.classList.remove('fb_up');
@@ -296,17 +295,14 @@ export default function withNavigation(WrappedComponent) {
             xs
             className={classNames(
               classes.wrappedComponentWrapper,
-              fadeOut && classes.fadeOut
+              fadeOut && classes.fadeOut,
+              isMobile && classes.wrappedComponentMobilePadding
             )}
           >
             {user ? (
               <WrappedComponent
                 {...props}
                 classes={null}
-                className={classNames(
-                  classes.wrappedComponent,
-                  isMobile && classes.wrappedComponentMobilePadding
-                )}
                 isMobile={isMobile}
                 user={user}
                 location={location}

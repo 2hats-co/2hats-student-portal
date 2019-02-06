@@ -3,20 +3,23 @@ import * as yup from 'yup';
 
 import { UNIVERSITIES } from '../universityList';
 
-const speedySignupFields = () => {
+const speedySignupFields = initialData => {
+  if (!initialData) initialData = {};
+
   return [
     {
       type: FIELDS.textField,
       name: 'firstName',
-      label: 'First name',
+      label: 'First Name',
       value: '',
       validation: yup.string().required('Required'),
       width: 6,
+      autoFocus: true,
     },
     {
       type: FIELDS.textField,
       name: 'lastName',
-      label: 'Last name',
+      label: 'Last Name',
       value: '',
       validation: yup.string().required('Required'),
       width: 6,
@@ -34,8 +37,8 @@ const speedySignupFields = () => {
     {
       type: FIELDS.autocompleteFreeText,
       name: 'currentUniversity',
-      label: 'Current university',
-      value: null,
+      label: 'Current University',
+      value: initialData['currentUniversity'],
       suggestions: UNIVERSITIES.map(x => ({
         label: x,
         value: x.split('\u2063')[0],
@@ -50,7 +53,7 @@ const speedySignupFields = () => {
     {
       type: FIELDS.textField,
       name: 'currentDegree',
-      label: 'Current degree',
+      label: 'Current Degree',
       value: '',
       validation: yup.string().required('Required'),
     },

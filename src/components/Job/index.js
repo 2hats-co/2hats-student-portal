@@ -33,14 +33,13 @@ const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
 
   skillsWrapper: {
-    marginTop: theme.spacing.unit / 2,
-    // marginBottom: -theme.spacing.unit * 2,
-  },
-  skillWrapper: {
-    paddingRight: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    marginTop: -theme.spacing.unit / 2,
+    marginLeft: -theme.spacing.unit / 2,
   },
   upskill: {
+    marginTop: theme.spacing.unit,
+    marginLeft: theme.spacing.unit * 1.25,
+
     '& svg': {
       verticalAlign: 'bottom',
       marginLeft: theme.spacing.unit / 2,
@@ -63,23 +62,20 @@ const styles = theme => ({
       marginRight: -theme.spacing.unit / 2,
     },
   },
+  applyBigWrapper: {
+    marginTop: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit * 5,
+  },
   applyBig: {
-    width: '100%',
     display: 'flex',
-    marginBottom: theme.spacing.unit * 2,
-    // padding: theme.spacing.unit * 1.5,
-
-    fontSize: theme.spacing.unit * 3,
-    fontWeight: 500,
+    margin: '0 auto',
     borderRadius: 200,
-    transition: theme.transitions.create(['transform', 'box-shadow']),
 
     '& svg': {
-      fontSize: theme.spacing.unit * 3.75,
-      marginLeft: theme.spacing.unit,
-      marginRight: -theme.spacing.unit,
+      marginLeft: theme.spacing.unit / 2,
+      marginRight: -theme.spacing.unit / 2,
       position: 'relative',
-      top: theme.spacing.unit / 4,
+      top: 1,
     },
   },
 
@@ -195,11 +191,7 @@ const Job = props => {
           <Button
             variant="contained"
             color="primary"
-            className={classNames(
-              classes.apply,
-              classes.getStartedSection,
-              showDialog && classes.gotStarted
-            )}
+            className={classes.apply}
             onClick={showApply}
             disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
           >
@@ -278,13 +270,7 @@ const Job = props => {
           </Typography>
         </div>
 
-        <div
-          className={classNames(
-            classes.section,
-            classes.getStartedSection,
-            showDialog && classes.gotStarted
-          )}
-        >
+        <div className={classNames(classes.section, classes.applyBigWrapper)}>
           <Button
             variant="contained"
             color="primary"

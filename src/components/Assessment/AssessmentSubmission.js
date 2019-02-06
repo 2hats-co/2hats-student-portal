@@ -4,14 +4,13 @@ import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import Slide from '@material-ui/core/Slide';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
 import PaddedIcon from '../PaddedIcon';
 import InstructionsIcon from '@material-ui/icons/AssignmentOutlined';
-import CheckIcon from '@material-ui/icons/CheckRounded';
+import CheckIcon from '@material-ui/icons/Check';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 
 import Question from './Question';
@@ -39,6 +38,11 @@ const styles = theme => ({
     fontSize: theme.spacing.unit * 2,
     borderRadius: 60,
     margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
+  },
+  saveButton: {
+    fontSize: theme.spacing.unit * 2,
+    borderRadius: 60,
+    marginLeft: theme.spacing.unit,
   },
 
   paddedIcon: {
@@ -93,14 +97,13 @@ const AssessmentSubmission = props => {
     }
   });
 
-  console.log(data, answers);
-
   // read-only if submitted or passed
   const readOnly = data.submitted && data.outcome !== 'fail';
 
   const userContext = useContext(UserContext);
   const user = userContext.user;
 
+  // on first mount only
   useEffect(() => {
     // Make a copy if not copied or failed (resubmission)
     if (!data.assessmentId || data.outcome === 'fail') {
@@ -196,6 +199,21 @@ const AssessmentSubmission = props => {
     [data.submissionContent]
   );
 
+  const handleSave = () => {
+    updateDoc(
+      `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+      submissionId,
+      {
+        outcome: 'pending',
+        screened: false,
+        submissionContent: answers,
+        submitted: false,
+      }
+    ).then(() => {
+      console.log('Saved');
+    });
+  };
+
   const handleSubmit = () => {
     updateDoc(
       `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
@@ -208,72 +226,84 @@ const AssessmentSubmission = props => {
       }
     ).then(() => {
       console.log('Submitted');
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     });
   };
 
   if (!submissionId) return <LinearProgress className={classes.loading} />;
 
   return (
-    <Slide in direction="up">
-      <>
-        <div className={classes.section}>
-          <Typography variant="h6" gutterBottom>
-            <Grid container alignItems="center">
-              <PaddedIcon className={classes.paddedIcon}>
-                <InstructionsIcon />
-              </PaddedIcon>
-              Instructions
-            </Grid>
-          </Typography>
-          <div
-            className={classes.renderedHtml}
-            dangerouslySetInnerHTML={{ __html: data.taskInstructions }}
-          />
-        </div>
+    <>
+      <div className={classes.section}>
+        <Typography variant="h6" gutterBottom>
+          <Grid container alignItems="center">
+            <PaddedIcon className={classes.paddedIcon}>
+              <InstructionsIcon />
+            </PaddedIcon>
+            Instructions
+          </Grid>
+        </Typography>
+        <div
+          className={classes.renderedHtml}
+          dangerouslySetInnerHTML={{ __html: data.taskInstructions }}
+        />
+      </div>
 
-        {data.copiedQuestions &&
-          data.copiedQuestions.map((x, i) => (
-            <Question
-              key={i}
-              questionNum={i + 1}
-              questionText={x}
-              mcEmail={data.mcEmail}
-              submissionType={data.submissionType}
-              answer={answers[i]}
-              setAnswer={updateAnswers(i)}
-              user={user}
-              readOnly={readOnly}
-            />
-          ))}
-
-        {!data.copiedQuestions && (
+      {data.copiedQuestions &&
+        data.copiedQuestions.map((x, i) => (
           <Question
-            questionNum={-1}
-            questionText=""
+            key={i}
+            questionNum={i + 1}
+            questionText={x}
             mcEmail={data.mcEmail}
             submissionType={data.submissionType}
-            answer={answers[0]}
-            setAnswer={updateAnswers(0)}
+            answer={answers[i]}
+            setAnswer={updateAnswers(i)}
             user={user}
             readOnly={readOnly}
           />
-        )}
+        ))}
 
-        <div className={classes.section}>
+      {!data.copiedQuestions && (
+        <Question
+          questionNum={-1}
+          questionText=""
+          mcEmail={data.mcEmail}
+          submissionType={data.submissionType}
+          answer={answers[0]}
+          setAnswer={updateAnswers(0)}
+          user={user}
+          readOnly={readOnly}
+        />
+      )}
+
+      <Grid container alignItems="baseline" className={classes.section}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmit}
+          size="large"
+          id={`submit-${!disableSubmission}`}
+          className={classes.submitButton}
+          disabled={disableSubmission || readOnly}
+        >
+          {readOnly ? 'Submitted' : 'Submit'}
+          {readOnly ? <CheckIcon /> : <SubmittedIcon />}
+        </Button>
+        {!readOnly && (
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
-            onClick={handleSubmit}
+            onClick={handleSave}
             size="large"
-            className={classes.submitButton}
-            disabled={disableSubmission || readOnly}
+            className={classes.saveButton}
           >
-            {readOnly ? 'Submitted' : 'Submit'}
-            {readOnly ? <CheckIcon /> : <SubmittedIcon />}
+            Save
+            <CheckIcon />
           </Button>
-        </div>
-      </>
-    </Slide>
+        )}
+      </Grid>
+    </>
   );
 };
 
