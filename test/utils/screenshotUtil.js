@@ -2,7 +2,7 @@ const fs = require('fs');
 const PNG = require('pngjs').PNG;
 const pixelmatch = require('pixelmatch');
 const { CONST } = require('../constants');
-const CONFIG = require('./testconfig.json');
+const CONFIG = require('../testconfig.json');
 
 const takeScreenshot = async (page, stepName) => {
   const gitTag = CONFIG.gitTag;

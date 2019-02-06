@@ -131,6 +131,7 @@ const Assessment = props => {
             variant="contained"
             color="primary"
             size="large"
+            id="getStarted"
             className={classes.getStarted}
             onClick={e => {
               setGotStarted(true);

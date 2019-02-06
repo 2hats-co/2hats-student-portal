@@ -192,9 +192,6 @@ const Question = props => {
     <div className={classes.root}>
       <Typography variant="h6" gutterBottom>
         <Grid container alignItems="center">
-          <PaddedIcon className={classes.paddedIcon}>
-            {questionNum > 0 ? <QuestionIcon /> : <SubmissionIcon />}
-          </PaddedIcon>
           {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
         </Grid>
       </Typography>
