@@ -12,7 +12,7 @@ import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
 const JobsContainer = props => {
-  const { className, isMobile, location, user } = props;
+  const { isMobile, location, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -33,17 +33,12 @@ const JobsContainer = props => {
   );
 
   if (location.search && docState.valid) {
-    if (docState.doc)
-      return (
-        <div className={className}>
-          <Job data={docState.doc} user={user} />
-        </div>
-      );
+    if (docState.doc) return <Job data={docState.doc} user={user} />;
     return <LoadingScreen showNav />;
   }
 
   return (
-    <div className={className}>
+    <div>
       <ContainerHeader
         title="Jobs"
         //subtitle="Here are our currently available jobs"
@@ -74,7 +69,6 @@ const JobsContainer = props => {
 };
 
 JobsContainer.propTypes = {
-  className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
