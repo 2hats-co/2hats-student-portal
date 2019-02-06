@@ -254,6 +254,7 @@ function Form(props) {
                       name={x.name}
                       placeholder={x.placeholder}
                       width={x.width}
+                      autoFocus={x.autoFocus}
                     />
                   );
 

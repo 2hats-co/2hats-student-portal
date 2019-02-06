@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 
 import PaddedIcon from '../PaddedIcon';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
-import PassedIcon from '@material-ui/icons/CheckCircleOutlined';
+import PassedIcon from '../../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
 
 import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';

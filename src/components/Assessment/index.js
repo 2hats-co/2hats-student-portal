@@ -39,7 +39,7 @@ const styles = theme => ({
   },
   gotStarted: {
     transform: 'scale(0)',
-    marginTop: -104,
+    marginTop: -64,
   },
 
   resubmitted: {

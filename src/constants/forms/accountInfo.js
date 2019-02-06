@@ -24,7 +24,7 @@ const accountInfoFields = initialData => {
     {
       type: FIELDS.textField,
       name: 'firstName',
-      label: 'First name',
+      label: 'First Name',
       value: initialData['firstName'],
       validation: yup.string().required('Required'),
       width: 6,
@@ -32,7 +32,7 @@ const accountInfoFields = initialData => {
     {
       type: FIELDS.textField,
       name: 'lastName',
-      label: 'Last name',
+      label: 'Last Name',
       value: initialData['lastName'],
       validation: yup.string().required('Required'),
       width: 6,
@@ -40,7 +40,7 @@ const accountInfoFields = initialData => {
     {
       type: FIELDS.autocompleteFreeText,
       name: 'currentUniversity',
-      label: 'Current university',
+      label: 'Current University',
       value: initialData['currentUniversity'] && {
         label: initialData['currentUniversity'],
         value: initialData['currentUniversity'],
@@ -59,21 +59,21 @@ const accountInfoFields = initialData => {
     {
       type: FIELDS.textField,
       name: 'currentDegree',
-      label: 'Current degree',
+      label: 'Current Degree',
       value: initialData['currentDegree'],
       validation: yup.string().required('Required'),
     },
     {
       type: FIELDS.autocomplete,
       name: 'workRestriction',
-      label: 'Work restriction',
+      label: 'Work Restriction',
       value: transformValue(initialData['workRestriction'], WORK_RESTRICTIONS),
       suggestions: WORK_RESTRICTIONS,
     },
     {
       type: FIELDS.slider,
       name: 'availableDays',
-      label: 'Available days',
+      label: 'Available Days',
       units: 'days',
       value: initialData['availableDays'],
       min: 1,
@@ -88,7 +88,7 @@ const accountInfoFields = initialData => {
     {
       type: FIELDS.textField,
       name: 'mobileNumber',
-      label: 'Mobile number',
+      label: 'Mobile Number',
       value: initialData['mobileNumber'],
       validation: yup
         .string()

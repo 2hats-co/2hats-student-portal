@@ -13,6 +13,7 @@ const styles = theme => ({
     borderRadius: '50%',
 
     backgroundColor: theme.palette.divider,
+    color: theme.palette.text.primary,
 
     display: 'inline-flex',
     alignItems: 'center',

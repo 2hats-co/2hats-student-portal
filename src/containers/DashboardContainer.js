@@ -18,7 +18,7 @@ const styles = theme => ({
 });
 
 const DashboardContainer = props => {
-  const { classes, className, isMobile, user } = props;
+  const { classes, isMobile, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -70,8 +70,7 @@ const DashboardContainer = props => {
   ];
 
   return (
-    //<Slide direction="up" in>
-    <div className={className}>
+    <div>
       <ContainerHeader
         isMobile={isMobile}
         title={`Hi, ${user.firstName}!`}
@@ -93,13 +92,11 @@ const DashboardContainer = props => {
         <Cards {...secondary[2]} />
       </Grid>
     </div>
-    //</Slide>
   );
 };
 
 DashboardContainer.propTypes = {
   classes: PropTypes.object.isRequired,
-  className: PropTypes.string,
   isMobile: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,
 };
