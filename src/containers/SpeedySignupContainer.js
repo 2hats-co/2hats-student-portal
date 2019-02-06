@@ -18,6 +18,8 @@ import { withRouter } from 'react-router-dom';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { warmUp } from '../utilities/Authentication/warmUp';
 import { speedyAuth } from '../utilities/Authentication/speedySignup';
+import { UNIVERSITIES } from '../constants/universityList';
+
 const styles = theme => ({
   root: {
     height: '100vh',
@@ -112,9 +114,6 @@ class SpeedySignupContainer extends Component {
 
   componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.SPEEDY_SIGNUP);
-    // if(this.props.history.location.hash ==='#UTS'){
-    //     this.setState({isPublic:false})
-    // }
   }
 
   goTo(route) {
@@ -163,6 +162,37 @@ class SpeedySignupContainer extends Component {
   renderForm() {
     const { classes } = this.props;
     const { isMobile, isLoading } = this.state;
+
+    let defaultUni = null;
+    switch (this.props.history.location.hash) {
+      case '#USYD':
+        defaultUni = {
+          value: UNIVERSITIES[0].split('\u2063')[0],
+          label: UNIVERSITIES[0],
+        };
+        break;
+      case '#UNSW':
+        defaultUni = {
+          value: UNIVERSITIES[1].split('\u2063')[0],
+          label: UNIVERSITIES[1],
+        };
+        break;
+      case '#MQ':
+        defaultUni = {
+          value: UNIVERSITIES[2].split('\u2063')[0],
+          label: UNIVERSITIES[2],
+        };
+        break;
+      case '#UTS':
+        defaultUni = {
+          value: UNIVERSITIES[3].split('\u2063')[0],
+          label: UNIVERSITIES[3],
+        };
+        break;
+      default:
+        break;
+    }
+
     return (
       <Grid
         className={isMobile ? classes.mobileForm : classes.webForm}
@@ -194,7 +224,7 @@ class SpeedySignupContainer extends Component {
             },
           }}
           justForm
-          data={speedySignupFields({})}
+          data={speedySignupFields({ currentUniversity: defaultUni })}
           formFooter={<Disclaimer />}
         />
 
