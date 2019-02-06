@@ -104,6 +104,9 @@ const SELECTORS = {
     signUp: 'button#submit',
     reset: 'button#reset',
   },
+  courses: {
+    button: 'div#Fixyourcar',
+  },
 };
 const CRED = {
   signIn: {
