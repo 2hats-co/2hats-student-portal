@@ -1,7 +1,10 @@
 const puppeteer = require('puppeteer');
+const fs = require('fs');
 const { initiateTestConfig } = require('./utils/init');
 initiateTestConfig({ width: 1200, height: 800 });
-const CONFIG = require('./testconfig.json');
+const CONFIG = JSON.parse(fs.readFileSync(`./test/testconfig.json`, 'utf8'));
+// console.log(file);
+// const CONFIG = require('./test/testconfig.json');
 const {
   takeScreenshot,
   compareAllScreenshots,
@@ -14,7 +17,9 @@ const { testProfileUploader } = require('./testComponents/profileUploader');
 const { testSideBar } = require('./testComponents/sideBar');
 const { testUpdateAccInfo } = require('./testComponents/updateAccountInfo');
 const { testSpeedySignUp } = require('./testComponents/speedySignUp');
-const fs = require('fs');
+const { testCourses } = require('./testComponents/courses');
+const { testAssessments } = require('./testComponents/assessments');
+const { testJobs } = require('./testComponents/jobs');
 
 const main = async () => {
   console.log(CONFIG);
@@ -33,22 +38,28 @@ const main = async () => {
   //   const file = fs.createWriteStream(fileName);
   //   imgData.pipe(file);
   // });
-
+  console.log(CONFIG.viewport);
   page.setViewport(CONFIG.viewport);
   await signupSteps(page);
-  //browser.close();
+  browser.close();
   //await compareAllScreenshots();
 };
 main();
 
 async function signupSteps(page) {
   await clearUserData('test2hats@gmail.com');
-  await testSpeedySignUp(page);
-  // await page.goto('http://localhost:3333');
-  //await signupEmail(page);
-  //await testActivityLog(page);
-  //await testProfileUploader(page);
-  //await testSideBar(page);
-  //await testUpdateAccInfo(page); //Doesnt check the DB YET
-  //await testLogout(page);
+  //await testSpeedySignUp(page);
+  await page.goto('http://localhost:3333');
+  await signupEmail(page);
+  await testActivityLog(page);
+  await testProfileUploader(page);
+  await testSideBar(page);
+  await testUpdateAccInfo(page); //Doesnt check the DB YET
+  await page.goto('http://localhost:3333');
+  await testCourses(page);
+  await page.goto('http://localhost:3333');
+  await testAssessments(page);
+  await page.goto('http://localhost:3333');
+  await testJobs(page);
+  await testLogout(page);
 }
