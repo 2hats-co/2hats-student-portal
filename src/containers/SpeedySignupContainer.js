@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import LogoInCard from '../components/LogoInCard';
+import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Grid from '@material-ui/core/Grid';
@@ -22,7 +23,8 @@ import { UNIVERSITIES } from '../constants/universityList';
 
 const styles = theme => ({
   root: {
-    height: '100vh',
+    minHeight: '100vh',
+    padding: `${theme.spacing.unit * 2}px 0`,
   },
   subhead: {
     marginTop: theme.spacing.unit,
@@ -67,15 +69,9 @@ const styles = theme => ({
     marginBottom: 10,
   },
 
-  loadingMask: {
-    position: 'absolute',
-    top: 0,
-    bottom: 40,
-    left: 0,
-    right: 0,
-
+  loadingScreen: {
     backgroundColor: '#fff',
-    zIndex: 1,
+    minHeight: 607,
 
     display: 'flex',
     flexDirection: 'column',
@@ -193,6 +189,24 @@ class SpeedySignupContainer extends Component {
         break;
     }
 
+    if (isLoading)
+      return (
+        <div
+          className={classNames(
+            isMobile ? classes.mobileForm : classes.webForm,
+            classes.loadingScreen
+          )}
+        >
+          <CircularProgress size={64} />
+          <Typography variant="h6">
+            Hold on to your hat{' '}
+            <span role="img" aria-label="cowboy emoji">
+              🤠
+            </span>
+          </Typography>
+        </div>
+      );
+
     return (
       <Grid
         className={isMobile ? classes.mobileForm : classes.webForm}
@@ -227,18 +241,6 @@ class SpeedySignupContainer extends Component {
           data={speedySignupFields({ currentUniversity: defaultUni })}
           formFooter={<Disclaimer />}
         />
-
-        {isLoading && (
-          <div className={classes.loadingMask}>
-            <CircularProgress size={64} />
-            <Typography variant="h6">
-              Hold on to your hat{' '}
-              <span role="img" aria-label="cowboy emoji">
-                🤠
-              </span>
-            </Typography>
-          </div>
-        )}
       </Grid>
     );
   }
