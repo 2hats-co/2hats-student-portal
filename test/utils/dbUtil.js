@@ -52,7 +52,13 @@ const multiDocCollections = [
  * @param {String} UID
  * @param {Array} fields
  */
-async function checkUserCreated(email, fields) {
+async function checkUserCreated(email, fields, message = '') {
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 10000);
+  });
+  console.log(`\x1b[1m${message}\x1b[0m`);
   const userQuery = await db
     .collection('users')
     .where('email', '==', email)

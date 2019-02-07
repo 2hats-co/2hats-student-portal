@@ -4,9 +4,9 @@ const { CONST } = require('../constants');
 
 async function runSteps(page, stepsArray, checkForDbChange = false) {
   let beforeData, afterData;
-  if (checkForDbChange) {
-    beforeData = JSON.stringify(await checkDb());
-  }
+  // if (checkForDbChange) {
+  //   beforeData = JSON.stringify(await checkDb());
+  // }
   for (let i = 0; i < stepsArray.length; i++) {
     const step = stepsArray[i];
     if (!step) {
@@ -17,14 +17,14 @@ async function runSteps(page, stepsArray, checkForDbChange = false) {
     await takeScreenshot(page, `${step.name}-1`);
     console.log(`Ran ${step.name}`);
   }
-  if (checkForDbChange) {
-    afterData = JSON.stringify(await checkDb());
-    if (afterData !== beforeData) {
-      console.log(`Db change success`);
-    } else {
-      console.log(`Db change failed`);
-    }
-  }
+  // if (checkForDbChange) {
+  //   afterData = JSON.stringify(await checkDb());
+  //   if (afterData !== beforeData) {
+  //     console.log(`Db change success`);
+  //   } else {
+  //     console.log(`Db change failed`);
+  //   }
+  // }
 }
 
 async function toggle(page, selector) {
