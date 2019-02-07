@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 
 import EditIcon from '@material-ui/icons/EditOutlined';
 import SaveIcon from '@material-ui/icons/CheckCircle';
@@ -27,14 +27,14 @@ const styles = theme => ({
   name: {
     fontWeight: 500,
     marginTop: 16,
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 1.5,
 
     [theme.breakpoints.down('xs')]: { marginTop: 0 },
   },
 
   editBar: { marginBottom: theme.spacing.unit / 2 },
-  editIcon: { marginRight: -theme.spacing.unit * 2 },
-  bioLength: { display: 'inline' },
+  editIcon: { marginRight: -theme.spacing.unit },
+  bioLength: { display: 'inline-block', marginRight: theme.spacing.unit },
   textFieldRoot: {
     margin: '-10px -12px',
     paddingTop: 10,
@@ -81,7 +81,7 @@ const Profile = props => {
               </Typography>
             )}
             {edit ? (
-              <IconButton
+              <Button
                 className={classes.editIcon}
                 color="primary"
                 id="bio-submit"
@@ -91,18 +91,21 @@ const Profile = props => {
                     updateDoc(COLLECTIONS.profiles, user.id, { bio: newBio });
                 }}
               >
+                Save
                 <SaveIcon />
-              </IconButton>
+              </Button>
             ) : (
-              <IconButton
+              <Button
+                color="primary"
                 id="bio-edit"
                 className={classes.editIcon}
                 onClick={() => {
                   setEdit(true);
                 }}
               >
+                Edit
                 <EditIcon />
-              </IconButton>
+              </Button>
             )}
           </Grid>
         </Grid>
