@@ -89,6 +89,7 @@ export const Theme = createMuiTheme({
       label: {
         '& svg': { marginLeft: 8, marginRight: -4 },
       },
+      sizeLarge: { borderRadius: 24 },
     },
     // ADMIN PORTAL OVERRIDES
     MuiToggleButtonGroup: {

@@ -6,6 +6,8 @@ import ContainerHeader from '../components/ContainerHeader';
 import LoadingScreen from '../components/LoadingScreen';
 import Assessment from '../components/Assessment';
 
+import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
+
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -41,12 +43,12 @@ const AssessmentsContainer = props => {
     <div>
       <ContainerHeader
         title="Assessments"
-        //subtitle="Get yourself certified with these assessments"
         isMobile={isMobile}
         maxWidth={getCardsWidth(cardsCols)}
+        icon={<AssessmentsIcon />}
       />
       <Cards
-        title="Your assessments"
+        title="Your Assessments"
         mapping="assessment"
         cols={cardsCols}
         useCollectionInit={{
@@ -55,7 +57,7 @@ const AssessmentsContainer = props => {
         }}
       />
       <Cards
-        title="Available assessments"
+        title="Available Assessments"
         mapping="assessment"
         cols={cardsCols}
         useCollectionInit={{
@@ -63,6 +65,8 @@ const AssessmentsContainer = props => {
           limit: cardsCols,
         }}
         filterIds={user.touchedAssessments}
+        NoneLeftIcon={AssessmentsIcon}
+        noneLeftMsg="There are no more courses available at the moment"
       />
     </div>
   );

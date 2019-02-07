@@ -13,7 +13,7 @@ const styles = theme => ({
   subtitle: {
     textAlign: 'center',
     textTransform: 'capitalize',
-    color: theme.palette.text.secondary,
+    color: theme.palette.text.primary,
 
     marginTop: theme.spacing.unit,
     marginBottom: `${theme.spacing.unit * 3}px !important`,
@@ -21,7 +21,7 @@ const styles = theme => ({
 
     '& $adornmentIcon': {
       verticalAlign: 'baseline',
-      color: theme.palette.text.secondary,
+      color: theme.palette.text.primary,
       marginBottom: -4,
     },
   },
