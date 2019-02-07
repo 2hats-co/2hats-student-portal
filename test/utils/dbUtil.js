@@ -37,6 +37,7 @@ const singleDocCollections = [
   'users',
   'profiles',
   'algoliaCandidates',
+  'assessments',
 ];
 const multiDocCollections = [
   'mailchimp',
@@ -89,90 +90,130 @@ async function checkDb() {
 }
 
 async function clearUserData(email) {
-  clearData: try {
-    const query = await db
-      .collection(`users`)
-      .where('email', '==', email)
-      .get();
-    if (query.empty) {
-      console.log(`UID for ${email} not found`);
-      break clearData;
-    }
-    query.docs.forEach(async doc => {
-      const UID = doc.id;
-      console.log(UID);
-      //Delete user from db/users db/candidates etc.
-      singleDocCollections.forEach(async collection => {
-        await deleteDoc(collection, UID);
-      });
-      const multiDocs = await getAllMultiDocs(UID);
-      multiDocs.forEach(async multiDoc => {
-        await deleteDoc(doc.collection, multiDoc.doc.id);
-      });
-      //Delete user from auth, intercom, algolia
-      await deleteAuth(UID);
-      //await deleteAlgoliaRecord(UID);
-      //await deleteIntercomCustomer(UID);
-    });
-  } catch (error) {
-    throw error;
+  //FIRST: grab their UID
+  const userQuery = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (userQuery.empty) {
+    console.log('\x1b[5m\x1b[31mNo user document found for:\x1b[0m', email);
+    return;
   }
-}
+  console.log('\x1b[5m\x1b[32mUser document found for:\x1b[0m', email);
+  const userDoc = userQuery.docs[0];
+  const UID = userDoc.id;
 
-const deleteDoc = (collection, docID) => {
-  db.collection(collection)
-    .doc(docID)
-    .delete()
-    .then(function() {
-      console.log(`DB: Document successfully deleted: ${collection}-${docID}`);
-    })
-    .catch(function(error) {
-      console.error(
-        `DB: Error removing document: ${collection}-${docID}`,
-        error
-      );
-    });
-};
-
-const deleteAuth = async uid => {
-  //console.log(`deleting Auth: ${uid}`);
+  //Clear AUTH
   try {
-    await auth.deleteUser(uid);
-    console.log('AUTH: Successfully deleted user', uid);
+    await auth.deleteUser(UID);
+    console.log('AUTH: Successfully deleted user', UID);
   } catch (error) {
     console.log('AUTH: Error deleting user:', error);
   }
-};
 
-const getGetCollectionDocsOfUID = async (collection, UID) => {
-  // Create a reference to the collection
-  var collectionRef = db.collection(collection);
-  // Create a query against the collection.
-  var queryRef = collectionRef.where('UID', '==', UID);
-  let results = await queryRef.get();
-  let docs = results.docs.map(x => ({ collection, doc: x.id }));
-  return docs;
-};
+  //Clear collections by email
+  const collectionsByEmail = [
+    { collection: 'users', field: 'email' },
+    { collection: 'algoliaCandidates', field: 'email' },
+    { collection: 'campaignSubscriptions', field: 'email' },
+    { collection: 'candidates', field: 'email' },
+    { collection: 'communications', field: 'candidateEmail' },
+    { collection: 'emails', field: 'to' },
+  ];
 
-const getAllMultiDocs = async UID => {
-  let docs = [];
-  for (let i = 0; i < multiDocCollections; i++) {
-    const collection = multiDocCollections[i];
-    let collectionDocs = await getGetCollectionDocsOfUID(collection, UID);
-    collectionDocs.forEach(docRef => docs.push(docRef));
+  //Delete
+  collectionsByEmail.forEach(async x => {
+    const query = await db
+      .collection(x.collection)
+      .where(x.field, '==', email)
+      .get();
+    query.docs.forEach(async doc => {
+      const res = await doc.ref.delete();
+      console.log(res);
+    });
+  });
+
+  //Clear collections by UID
+  const collectionsByUID = [{ collection: 'submission', field: 'UID' }];
+  collectionsByUID.forEach(async x => {
+    const query = await db
+      .collection(x.collection)
+      .where(x.field, '==', UID)
+      .get();
+    query.docs.forEach(async doc => {
+      const res = await doc.ref.delete();
+      console.log(res);
+    });
+  });
+
+  //Clear profiles by UID
+  const res = await db
+    .collection('profiles')
+    .doc(UID)
+    .delete();
+  console.log(res);
+
+  //Clear collections by UID inside subcollection
+  const subCollectionsByUID = [
+    { collection: 'jobs', subcollection: 'submissions', field: 'UID' },
+    { collection: 'assessments', subcollection: 'submissions', field: 'UID' },
+  ];
+  subCollectionsByUID.forEach(async x => {
+    const query = await db.collection(x.collection).get();
+    query.docs.forEach(async y => {
+      const subQuery = await db
+        .collection(x.collection)
+        .doc(y.id)
+        .collection(x.subcollection)
+        .where(x.field, '==', UID)
+        .get();
+      subQuery.docs.forEach(async doc => {
+        console.log(doc.id);
+        await doc.ref.delete();
+      });
+    });
+  });
+
+  return;
+}
+
+async function setProfileData(email, data) {
+  const query = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (query.empty) {
+    console.log(`UID for ${email} not found`);
+    return;
   }
-  return docs;
-};
+  const UID = query.docs[0].id;
+  await db
+    .collection('profiles')
+    .doc(UID)
+    .update({ ...data });
+}
 
-const deleteIntercomCustomer = user_id => {
-  intercomClient.users.requestPermanentDeletionByParams(
-    { user_id: user_id },
-    callback
-  );
-};
+async function getProfileData(email) {
+  const query = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (query.empty) {
+    console.log(`UID for ${email} not found`);
+    return;
+  }
+  const UID = query.docs[0].id;
+  const doc = await db
+    .collection('profiles')
+    .doc(UID)
+    .get();
+  return doc.data();
+}
 
-const deleteAlgoliaRecord = objectID => {
-  //return index.deleteObject(objectID); //NEED TO IMPORT INDEX
+module.exports = {
+  checkDb,
+  checkUserCreated,
+  clearUserData,
+  setProfileData,
+  getProfileData,
 };
-
-module.exports = { checkDb, clearUserData, checkUserCreated };

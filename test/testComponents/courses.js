@@ -7,7 +7,7 @@ const logout = [
     action: async page => {
       await page.waitFor(1000);
       await click(page, SELECTORS.courses.button);
-      await page.waitForNavigation({ waitUntil: 'networkidle2' });
+      // await page.waitForNavigation({ waitUntil: 'networkidle0' });
     },
   },
 ];
