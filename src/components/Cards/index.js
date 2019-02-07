@@ -219,7 +219,7 @@ Cards.propTypes = {
   icon: PropTypes.node,
   route: PropTypes.string,
 
-  NoneLeftIcon: PropTypes.node,
+  NoneLeftIcon: PropTypes.func,
   noneLeftMsg: PropTypes.node,
 
   useCollectionInit: PropTypes.object.isRequired,

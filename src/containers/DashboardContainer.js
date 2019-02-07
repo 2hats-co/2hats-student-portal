@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 
-import PaddedIcon from '../components/PaddedIcon';
 import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
 import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
 import CoursesIcon from '@material-ui/icons/SchoolOutlined';
@@ -47,6 +45,7 @@ const DashboardContainer = props => {
     filterIds: user.touchedCourses,
     icon: <CoursesIcon />,
     route: ROUTES.COURSES,
+    noneLeftMsg: 'There are no more courses available at the moment',
   };
   const secondary = [
     {
@@ -60,6 +59,7 @@ const DashboardContainer = props => {
       filterIds: user.touchedAssessments,
       icon: <AssessmentsIcon />,
       route: ROUTES.ASSESSMENTS,
+      noneLeftMsg: 'There are no more assessments available at the moment',
     },
     {
       title: 'Jobs',
