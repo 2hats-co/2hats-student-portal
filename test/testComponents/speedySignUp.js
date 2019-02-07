@@ -34,13 +34,12 @@ const logout = [
     name: 'speedySignUp-checkDB',
     action: async page => {
       await page.waitFor(3000);
-      await checkUserCreated(SELECTORS.speedySignUp.email, [
-        'signupMethod',
-        'email',
-        'firstName',
-        'lastName',
-        'interest',
-      ]);
+      checkUserCreated(
+        'test2hats@gmail.com',
+        ['signupMethod', 'email', 'firstName', 'lastName', 'interest'],
+        'speedySignUp-Testing for User Creation'
+      );
+      console.log('done');
     },
   },
 ];

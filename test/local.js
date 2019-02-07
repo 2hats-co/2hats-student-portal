@@ -40,8 +40,22 @@ async function main() {
   //   'interest',
   // ]);
   //await clearUserData('test2hats@gmail.com');
+  console.log('do something');
+  delay();
+  console.log('do something else instantly');
 }
 main();
+
+async function delay() {
+  console.log('start');
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 5000);
+  });
+  console.log('end');
+  return;
+}
 
 /**
  *
@@ -49,6 +63,9 @@ main();
  * @param {Array} fields
  */
 async function checkUserCreated(email, fields) {
+  await setTimeout(() => {
+    return null;
+  }, 10000);
   const userQuery = await db
     .collection('users')
     .where('email', '==', email)
