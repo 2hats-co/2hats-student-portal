@@ -21,12 +21,13 @@ const styles = theme => ({
 
     borderRadius: theme.shape.borderRadius / 2,
     padding: `${theme.spacing.unit / 2}px 0`,
-    paddingLeft: theme.spacing.unit * 1.25,
+    paddingLeft: theme.spacing.unit,
     paddingRight: theme.spacing.unit * 1.5,
     backgroundColor: theme.palette.divider,
 
     margin: theme.spacing.unit / 2,
   },
+  dense: { margin: theme.spacing.unit / 4 },
   achieved: {
     backgroundColor: green[100],
     color: green[800],
@@ -50,7 +51,7 @@ const styles = theme => ({
 });
 
 const SkillItem = props => {
-  const { classes, className, value, header } = props;
+  const { classes, className, value, header, dense } = props;
 
   const userContext = useContext(UserContext);
 
@@ -62,6 +63,7 @@ const SkillItem = props => {
       container
       className={classNames(
         classes.root,
+        dense && classes.dense,
         achieved && classes.achieved,
         className
       )}
@@ -85,6 +87,7 @@ SkillItem.propTypes = {
   className: PropTypes.string,
   value: PropTypes.string.isRequired,
   header: PropTypes.node,
+  dense: PropTypes.bool,
 };
 
 export default withStyles(styles)(SkillItem);

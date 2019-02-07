@@ -6,13 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
-import ErrorIcon from '@material-ui/icons/ErrorOutlineOutlined';
-import CheckIcon from '@material-ui/icons/CheckOutlined';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import BackButton from '../ContainerHeader/BackButton';

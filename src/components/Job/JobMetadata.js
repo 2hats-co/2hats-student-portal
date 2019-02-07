@@ -7,12 +7,13 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import IndustryIcon from '@material-ui/icons/BusinessOutlined';
+import WarningIcon from '@material-ui/icons/ErrorOutlineOutlined';
 
 const styles = theme => ({
   subtitle: {
     textAlign: 'center',
     textTransform: 'capitalize',
-    color: theme.palette.primary.main,
+    color: theme.palette.text.secondary,
 
     marginTop: theme.spacing.unit,
     marginBottom: `${theme.spacing.unit * 3}px !important`,
@@ -20,7 +21,7 @@ const styles = theme => ({
 
     '& $adornmentIcon': {
       verticalAlign: 'baseline',
-      color: theme.palette.primary.main,
+      color: theme.palette.text.secondary,
       marginBottom: -4,
     },
   },
@@ -32,7 +33,6 @@ const styles = theme => ({
   gridItem: {
     paddingTop: '0 !important',
     paddingBottom: '0 !important',
-    // '& + &': { borderLeft: `1px solid ${theme.palette.divider}` },
   },
 
   meta: {
@@ -49,10 +49,20 @@ const styles = theme => ({
     marginRight: theme.spacing.unit,
     color: theme.palette.text.secondary,
   },
+
+  warningIcon: {
+    fontSize: 28,
+    verticalAlign: 'text-bottom',
+    marginLeft: -theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit,
+  },
 });
 
 const JobMetadata = props => {
   const { classes, data, isXs, small } = props;
+
+  const closingSoon =
+    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 3;
 
   return (
     <>
@@ -92,7 +102,9 @@ const JobMetadata = props => {
           <Typography
             variant={isXs || small ? 'h6' : 'h5'}
             className={classes.meta}
+            color={closingSoon ? 'primary' : 'textPrimary'}
           >
+            {closingSoon && <WarningIcon className={classes.warningIcon} />}
             {moment(data.closingDate, 'DD/MM/YYYY').fromNow(true)}
           </Typography>
           <Typography variant={isXs || small ? 'body2' : 'body1'}>
