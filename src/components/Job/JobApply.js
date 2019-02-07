@@ -103,4 +103,13 @@ const JobApply = props => {
   );
 };
 
+JobApply.propTypes = {
+  classes: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+  data: PropTypes.object.isRequired,
+  skillsNotAchieved: PropTypes.array,
+  loading: PropTypes.bool,
+  big: PropTypes.bool,
+};
+
 export default withStyles(styles)(JobApply);

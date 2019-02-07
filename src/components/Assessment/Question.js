@@ -2,15 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
-import PaddedIcon from '../PaddedIcon';
-import SubmissionIcon from '@material-ui/icons/AssignmentReturnedOutlined';
-import QuestionIcon from '@material-ui/icons/HelpOutline';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
@@ -191,9 +187,7 @@ const Question = props => {
   return (
     <div className={classes.root}>
       <Typography variant="h6" gutterBottom>
-        <Grid container alignItems="center">
-          {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
-        </Grid>
+        {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
       </Typography>
       <div
         className={classes.renderedHtml}
