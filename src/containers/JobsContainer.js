@@ -57,16 +57,30 @@ const JobsContainer = props => {
         }}
       />
       <Cards
-        title="Available Jobs"
+        title="Marketing Jobs"
         mapping="job"
         cols={cardsCols}
         useCollectionInit={{
           path: COLLECTIONS.jobs,
           limit: cardsCols + 1,
+          filters: [{ field: 'industry', operator: '==', value: 'marketing' }],
         }}
         filterIds={user.touchedJobs}
         NoneLeftIcon={JobsIcon}
-        noneLeftMsg="There are no jobs available at the moment"
+        noneLeftMsg="There are no marketing jobs available at the moment"
+      />
+      <Cards
+        title="Sales Jobs"
+        mapping="job"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.jobs,
+          limit: cardsCols + 1,
+          filters: [{ field: 'industry', operator: '==', value: 'sales' }],
+        }}
+        filterIds={user.touchedJobs}
+        NoneLeftIcon={JobsIcon}
+        noneLeftMsg="There are no sales jobs available at the moment"
       />
     </div>
   );

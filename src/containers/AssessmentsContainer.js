@@ -57,16 +57,30 @@ const AssessmentsContainer = props => {
         }}
       />
       <Cards
-        title="Available Assessments"
+        title="Marketing Assessments"
         mapping="assessment"
         cols={cardsCols}
         useCollectionInit={{
           path: COLLECTIONS.assessments,
           limit: cardsCols,
+          filters: [{ field: 'category', operator: '==', value: 'marketing' }],
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
-        noneLeftMsg="There are no more courses available at the moment"
+        noneLeftMsg="There are no more marketing assessements available at the moment"
+      />
+      <Cards
+        title="Sales Assessments"
+        mapping="assessment"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.assessments,
+          limit: cardsCols,
+          filters: [{ field: 'category', operator: '==', value: 'sales' }],
+        }}
+        filterIds={user.touchedAssessments}
+        NoneLeftIcon={AssessmentsIcon}
+        noneLeftMsg="There are no more sales assessments available at the moment"
       />
     </div>
   );

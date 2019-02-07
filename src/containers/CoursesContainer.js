@@ -38,16 +38,30 @@ const CoursesContainer = props => {
         }}
       />
       <Cards
-        title="Available Courses"
+        title="Marketing Courses"
         mapping="course"
         cols={cardsCols}
         useCollectionInit={{
           path: COLLECTIONS.courses,
           limit: cardsCols + 1,
+          filters: [{ field: 'category', operator: '==', value: 'marketing' }],
         }}
         filterIds={user.touchedCourses}
         NoneLeftIcon={CoursesIcon}
-        noneLeftMsg="There are no more courses available at the moment"
+        noneLeftMsg="There are no more marketing courses available at the moment"
+      />
+      <Cards
+        title="Sales Courses"
+        mapping="course"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.courses,
+          limit: cardsCols + 1,
+          filters: [{ field: 'category', operator: '==', value: 'sales' }],
+        }}
+        filterIds={user.touchedCourses}
+        NoneLeftIcon={CoursesIcon}
+        noneLeftMsg="There are no more sales courses available at the moment"
       />
     </div>
   );
