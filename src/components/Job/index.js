@@ -6,17 +6,14 @@ import { withRouter } from 'react-router-dom';
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
-import ErrorIcon from '@material-ui/icons/ErrorOutlineOutlined';
-import CheckIcon from '@material-ui/icons/CheckOutlined';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import BackButton from '../ContainerHeader/BackButton';
 import JobMetadata from './JobMetadata';
+import JobApply from './JobApply';
 import SkillItem from '../SkillItem';
 import Form from '../Form';
 
@@ -54,40 +51,9 @@ const styles = theme => ({
     textAlign: 'center',
     marginTop: theme.spacing.unit * 3,
   },
-  apply: {
-    marginTop: theme.spacing.unit * 2,
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2.5}px`,
-    '& svg': {
-      marginLeft: theme.spacing.unit / 2,
-      marginRight: -theme.spacing.unit / 2,
-    },
-  },
   applyBigWrapper: {
     marginTop: theme.spacing.unit * 4,
     marginBottom: theme.spacing.unit * 5,
-  },
-  applyBig: {
-    display: 'flex',
-    margin: '0 auto',
-    borderRadius: 200,
-
-    '& svg': {
-      marginLeft: theme.spacing.unit / 2,
-      marginRight: -theme.spacing.unit / 2,
-      position: 'relative',
-      top: 1,
-    },
-  },
-
-  skillsWarning: {
-    marginTop: theme.spacing.unit,
-    color: theme.palette.error.main,
-
-    '& svg': {
-      verticalAlign: 'bottom',
-      marginRight: theme.spacing.unit / 2,
-    },
-    '$applyBig + &': { textAlign: 'center' },
   },
 
   loading: {
@@ -147,7 +113,7 @@ const Job = props => {
         jobId: id,
         submitted: true,
       }).then(docRef => {
-        console.log('Created submission doc', docRef.id);
+        console.log('Created job application doc', docRef.id);
 
         const newTouchedJobs = user.touchedJobs || [];
         newTouchedJobs.push(data.id);
@@ -156,7 +122,6 @@ const Job = props => {
         });
 
         history.push(`${ROUTES.JOBS}?id=${docRef.id}&yours=true`);
-        // setSubmissionId(docRef.id);
       });
     }
   };
@@ -188,35 +153,12 @@ const Job = props => {
         <JobMetadata data={data} isXs={isXs} />
 
         <div className={classes.applyWrapper}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.apply}
+          <JobApply
             onClick={showApply}
-            disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
-          >
-            {loading && (
-              <CircularProgress className={classes.loading} size={32} />
-            )}
-            {data.jobId ? (
-              <>
-                Applied
-                <CheckIcon />
-              </>
-            ) : (
-              <>
-                Apply
-                <ArrowForwardIcon />
-              </>
-            )}
-          </Button>
-          {skillsNotAchieved.length > 0 && (
-            <Typography variant="body2" className={classes.skillsWarning}>
-              <ErrorIcon />
-              You need {skillsNotAchieved.length} more of the required skills to
-              apply
-            </Typography>
-          )}
+            data={data}
+            skillsNotAchieved={skillsNotAchieved}
+            loading={loading}
+          />
         </div>
 
         <div className={classes.section}>
@@ -271,36 +213,13 @@ const Job = props => {
         </div>
 
         <div className={classNames(classes.section, classes.applyBigWrapper)}>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            className={classes.applyBig}
+          <JobApply
             onClick={showApply}
-            disabled={skillsNotAchieved.length > 0 || !!data.jobId || loading}
-          >
-            {loading && (
-              <CircularProgress className={classes.loading} size={48} />
-            )}
-            {data.jobId ? (
-              <>
-                Applied
-                <CheckIcon />
-              </>
-            ) : (
-              <>
-                Apply
-                <ArrowForwardIcon />
-              </>
-            )}
-          </Button>
-          {skillsNotAchieved.length > 0 && (
-            <Typography variant="body2" className={classes.skillsWarning}>
-              <ErrorIcon />
-              You need {skillsNotAchieved.length} more of the required skills to
-              apply
-            </Typography>
-          )}
+            data={data}
+            skillsNotAchieved={skillsNotAchieved}
+            loading={loading}
+            big
+          />
         </div>
       </main>
 

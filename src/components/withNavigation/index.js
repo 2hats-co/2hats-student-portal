@@ -118,6 +118,7 @@ const styles = theme => ({
   wrappedComponentWrapper: {
     transition: theme.transitions.create('opacity'),
     zIndex: 2,
+    minHeight: '100vh',
   },
   fadeOut: { opacity: 0 },
 
