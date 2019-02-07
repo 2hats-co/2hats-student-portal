@@ -77,7 +77,7 @@ const styles = theme => ({
 
   root: {
     ...STYLES.DETAIL_VIEW(theme).root,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing.unit * 2,
     marginBottom: theme.spacing.unit * 5,
 
     '& h6': { fontWeight: 700 },

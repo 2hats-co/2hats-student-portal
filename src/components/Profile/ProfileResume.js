@@ -120,7 +120,7 @@ const ProfileResume = props => {
 
 ProfileResume.propTypes = {
   classes: PropTypes.object.isRequired,
-  data: PropTypes.array,
+  data: PropTypes.object,
   user: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
