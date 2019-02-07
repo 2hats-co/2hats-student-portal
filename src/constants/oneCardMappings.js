@@ -9,30 +9,134 @@ import IndustryIcon from '@material-ui/icons/BusinessOutlined';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
+import CompletedIcon from '@material-ui/icons/CheckCircleOutlined';
 
-import CourseMetadata from '../components/Course/CourseMetadata';
-import AssessmentMetadata from '../components/Assessment/AssessmentMetadata';
 import SkillItem from '../components/SkillItem';
 
 import * as ROUTES from './routes';
+import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
-export const course = data => ({
-  title: data.title,
-  secondaryText: (
-    <>
-      <Typography component="p" style={{ whiteSpace: 'pre-wrap' }}>
-        {data.description}
-      </Typography>
-      <CourseMetadata data={data} style={{ marginTop: 16 }} />
-    </>
-  ),
-  route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
+const CourseDetail = withTheme()(({ data, theme }) => (
+  <>
+    <Typography component="p" style={{ whiteSpace: 'pre-wrap' }}>
+      {data.description}
+    </Typography>
 
-  newTab: true,
+    <Typography
+      variant="subtitle2"
+      style={{ marginTop: theme.spacing.unit * 2 }}
+    >
+      Skills taught
+    </Typography>
+    <div
+      style={{
+        marginLeft: -theme.spacing.unit / 4,
+      }}
+    >
+      {data.skillsAssociated.slice(0, 3).map((x, i) => (
+        <SkillItem key={`${i}-${x}`} value={x} dense />
+      ))}
+      {data.skillsAssociated.length > 3 && (
+        <Typography
+          variant="body1"
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'bottom',
+            margin: theme.spacing.unit / 4,
+            fontWeight: 500,
 
-  video: data.videoUrl,
-});
+            borderRadius: theme.shape.borderRadius / 2,
+            padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit *
+              1.5}px`,
+            backgroundColor: theme.palette.divider,
+          }}
+        >
+          +{data.skillsAssociated.length - 3} more
+        </Typography>
+      )}
+    </div>
+  </>
+));
+export const course = data => {
+  let banner = null;
+  let bannerColor = '';
 
+  if (data.completed === false) {
+    banner = (
+      <>
+        <FailedIcon />
+        Incomplete
+      </>
+    );
+    bannerColor = 'orange';
+  } else if (data.completed === true) {
+    banner = (
+      <>
+        <CompletedIcon />
+        Compleeted
+      </>
+    );
+    bannerColor = 'green';
+  }
+
+  return {
+    title: data.title,
+    secondaryText: <CourseDetail data={data} />,
+    route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
+    newTab: true,
+
+    banner,
+    bannerColor,
+
+    video: data.videoUrl,
+  };
+};
+
+const AssessmentDetail = withTheme()(({ data, theme }) => (
+  <>
+    <Grid
+      container
+      alignItems="center"
+      style={{ width: 'auto', marginTop: theme.spacing.unit / 2 }}
+    >
+      <Grid item>
+        <IndustryIcon
+          style={{
+            marginRight: theme.spacing.unit / 2,
+            color: theme.palette.text.secondary,
+          }}
+        />
+      </Grid>
+      <Grid item xs>
+        <Typography
+          variant="subtitle1"
+          style={{
+            color: theme.palette.text.secondary,
+            fontWeight: '500 !important',
+          }}
+        >
+          {getAssessmentCategoryLabel(data.category)}
+        </Typography>
+      </Grid>
+    </Grid>
+
+    <Typography
+      variant="subtitle2"
+      style={{
+        marginLeft: theme.spacing.unit / 4,
+        marginTop: theme.spacing.unit * 2,
+      }}
+    >
+      Skill awarded
+    </Typography>
+    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense />
+
+    <div
+      style={{ ...theme.typography.body2, marginBottom: '-1em' }}
+      dangerouslySetInnerHTML={{ __html: data.jobDescription }}
+    />
+  </>
+));
 export const assessment = data => {
   let banner = null;
   let bannerColor = '';
@@ -77,7 +181,7 @@ export const assessment = data => {
 
   return {
     title: data.title,
-    secondaryText: <AssessmentMetadata data={data} />,
+    secondaryText: <AssessmentDetail data={data} />,
     route: `${ROUTES.ASSESSMENTS}?id=${data.id}${
       data.assessmentId ? '&yours=true' : ''
     }`,

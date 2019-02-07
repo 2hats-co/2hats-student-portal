@@ -49,6 +49,8 @@ const styles = theme => ({
     backgroundColor: theme.palette.action.hover,
   },
 
+  cardContent: { textAlign: 'left' },
+
   banner: {
     background: theme.palette.divider,
     transition: theme.transitions.create('opacity'),
@@ -79,6 +81,8 @@ const styles = theme => ({
     '& *': { color: theme.palette.primary.main },
   },
 
+  title: { marginTop: -theme.spacing.unit / 2 },
+
   media: {
     width: 100,
     height: 100,
@@ -108,8 +112,6 @@ const styles = theme => ({
     height: '100%',
   },
 
-  cardContent: { textAlign: 'left' },
-
   secondaryText: {
     whiteSpace: 'pre-wrap',
   },
@@ -121,7 +123,6 @@ function OneCard(props) {
     title,
     secondaryText,
     route,
-    indicator,
     banner,
     bannerColor,
     image,
@@ -183,11 +184,7 @@ function OneCard(props) {
 
         <CardContent classes={{ root: classes.cardContent }}>
           {!video && media}
-          <Typography
-            gutterBottom
-            variant="h6"
-            className={indicator ? classes.titleWithIndicator : ''}
-          >
+          <Typography gutterBottom variant="h6" className={classes.title}>
             {title}
           </Typography>
           {typeof secondaryText === 'string' ? (

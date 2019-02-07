@@ -51,7 +51,7 @@ const styles = theme => ({
 });
 
 const SkillItem = props => {
-  const { classes, className, value, header, dense } = props;
+  const { classes, className, style, value, header, dense } = props;
 
   const userContext = useContext(UserContext);
 
@@ -67,7 +67,9 @@ const SkillItem = props => {
         achieved && classes.achieved,
         className
       )}
+      style={style}
       alignItems="center"
+      wrap="nowrap"
     >
       <Grid item className={classes.skillIcon}>
         {achieved ? <SkillAchievedIcon /> : <SkillOutlinedIcon />}
@@ -85,6 +87,7 @@ const SkillItem = props => {
 SkillItem.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  style: PropTypes.object,
   value: PropTypes.string.isRequired,
   header: PropTypes.node,
   dense: PropTypes.bool,
