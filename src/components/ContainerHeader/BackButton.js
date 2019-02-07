@@ -14,6 +14,7 @@ const BackButton = props => {
 
   return (
     <Button
+      id="back"
       onClick={() => {
         history.push(location.pathname);
       }}

@@ -84,6 +84,7 @@ const Profile = props => {
               <IconButton
                 className={classes.editIcon}
                 color="primary"
+                id="bio-submit"
                 onClick={() => {
                   setEdit(false);
                   if (newBio !== data.bio)
@@ -94,6 +95,7 @@ const Profile = props => {
               </IconButton>
             ) : (
               <IconButton
+                id="bio-edit"
                 className={classes.editIcon}
                 onClick={() => {
                   setEdit(true);
@@ -106,6 +108,7 @@ const Profile = props => {
         </Grid>
         {edit ? (
           <TextField
+            id="bio-input"
             autoFocus
             fullWidth
             multiline

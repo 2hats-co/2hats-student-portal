@@ -48,6 +48,7 @@ const ProfileAssessments = props => {
           </Grid>
           <Grid item className={classes.infoPopper}>
             <IconButton
+              id="info-button-assessments"
               onClick={e => {
                 setPopperAnchor(e.currentTarget);
               }}

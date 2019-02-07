@@ -61,6 +61,7 @@ const ProfileResume = props => {
           </Grid>
           <Grid item className={classes.infoPopper}>
             <IconButton
+              id="info-button-resume"
               onClick={e => {
                 setPopperAnchor(e.currentTarget);
               }}
@@ -101,6 +102,7 @@ const ProfileResume = props => {
           </>
         ) : (
           <Chip
+            id="resume-chip"
             component="a"
             href={data.url}
             target="_blank"

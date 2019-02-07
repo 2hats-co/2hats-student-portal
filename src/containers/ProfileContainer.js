@@ -136,6 +136,7 @@ const ProfileContainer = props => {
           </Grid>
           <Grid item className={classes.infoPopper}>
             <IconButton
+              id="work-info-button"
               onClick={e => {
                 setPopperAnchor(e.currentTarget);
               }}
