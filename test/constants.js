@@ -113,12 +113,25 @@ const SELECTORS = {
     start: 'button#getStarted',
     input: "input[type='file']",
     submit: 'button#submit-true',
-    back: "button[type='button']",
+    back: 'button#back',
     file: '../testFiles/testResume.pdf',
   },
   jobs: {
     button: 'div#AssistanttotheHeadofMarketing',
-    back: "button[type='button']",
+    back: 'button#back',
+  },
+  profileContainer: {
+    button: 'div#profile',
+    workInfo: 'button#work-info-button',
+    assessmentsInfo: 'button#info-button-assessments',
+    resumeInfo: 'button#info-button-resume',
+    bioEdit: 'button#bio-edit',
+    bioSubmit: 'button#bio-submit',
+    bioInput: '#bio-input',
+    resumeDelete: 'a#resume-delete',
+    resumeInput: "input[type='file']",
+    file: '../testFiles/testResume.pdf',
+    chip: 'a#resume-chip',
   },
 };
 const CRED = {

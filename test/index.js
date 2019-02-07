@@ -20,6 +20,7 @@ const { testSpeedySignUp } = require('./testComponents/speedySignUp');
 const { testCourses } = require('./testComponents/courses');
 const { testAssessments } = require('./testComponents/assessments');
 const { testJobs } = require('./testComponents/jobs');
+const { testProfileContainer } = require('./testComponents/profileContainer');
 
 const main = async () => {
   console.log(CONFIG);
@@ -48,18 +49,20 @@ main();
 
 async function signupSteps(page) {
   await clearUserData('test2hats@gmail.com');
-  //await testSpeedySignUp(page);
-  await page.goto('http://localhost:3333');
-  await signupEmail(page);
-  await testActivityLog(page);
-  await testProfileUploader(page);
-  await testSideBar(page);
-  await testUpdateAccInfo(page); //Doesnt check the DB YET
-  await page.goto('http://localhost:3333');
-  await testCourses(page);
-  await page.goto('http://localhost:3333');
-  await testAssessments(page);
-  await page.goto('http://localhost:3333');
-  await testJobs(page);
-  await testLogout(page);
+  // await testSpeedySignUp(page);
+  // await page.goto('http://localhost:3333');
+  // await signupEmail(page);
+  // await testActivityLog(page);
+  // await testProfileUploader(page);
+  // await testSideBar(page);
+  // await testUpdateAccInfo(page); //Doesnt check the DB YET
+  // await testProfileContainer(page);
+  // await page.goto('http://localhost:3333/dashboard');
+  // await testCourses(page);
+  // await page.goto('http://localhost:3333/dashboard');
+  // await testAssessments(page);
+  // await page.goto('http://localhost:3333/dashboard');
+  // await testJobs(page);
+
+  //await testLogout(page);
 }

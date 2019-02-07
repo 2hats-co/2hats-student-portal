@@ -27,6 +27,24 @@ async function runSteps(page, stepsArray, checkForDbChange = false) {
   }
 }
 
+async function toggle(page, selector) {
+  await page.waitForSelector(selector, { timeout: 10000 });
+  await page.click(selector, { delay: 10 });
+  await page.waitFor(1000);
+  await page.waitForSelector(selector, { timeout: 10000 });
+  await page.click(selector, { delay: 10 });
+  await page.waitFor(500);
+}
+
+async function exists(page, selector) {
+  try {
+    await page.waitForSelector(selector, { timeout: 2500 });
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
 async function click(page, selector) {
   await page.waitForSelector(selector, { timeout: 10000 });
   await page.waitFor(500);
@@ -101,4 +119,6 @@ module.exports = {
   uploadFile,
   checkRedirect,
   checkProtectedRoutes,
+  toggle,
+  exists,
 };
