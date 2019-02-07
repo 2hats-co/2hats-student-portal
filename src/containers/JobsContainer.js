@@ -6,6 +6,8 @@ import ContainerHeader from '../components/ContainerHeader';
 import LoadingScreen from '../components/LoadingScreen';
 import Job from '../components/Job';
 
+import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
+
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -41,12 +43,12 @@ const JobsContainer = props => {
     <div>
       <ContainerHeader
         title="Jobs"
-        //subtitle="Here are our currently available jobs"
         isMobile={isMobile}
         maxWidth={getCardsWidth(cardsCols)}
+        icon={<JobsIcon />}
       />
       <Cards
-        title="Your jobs"
+        title="Your Jobs"
         mapping="job"
         cols={cardsCols}
         useCollectionInit={{
@@ -55,7 +57,7 @@ const JobsContainer = props => {
         }}
       />
       <Cards
-        title="Available jobs"
+        title="Available Jobs"
         mapping="job"
         cols={cardsCols}
         useCollectionInit={{
@@ -63,6 +65,8 @@ const JobsContainer = props => {
           limit: cardsCols + 1,
         }}
         filterIds={user.touchedJobs}
+        NoneLeftIcon={JobsIcon}
+        noneLeftMsg="There are no jobs available at the moment"
       />
     </div>
   );

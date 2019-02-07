@@ -42,6 +42,14 @@ const styles = theme => ({
     margin: theme.spacing.unit / 2,
     marginLeft: theme.spacing.unit,
   },
+
+  loading: {
+    position: 'absolute',
+    '& svg': {
+      margin: 0,
+      position: 'static',
+    },
+  },
 });
 
 const JobApply = props => {

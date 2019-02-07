@@ -10,6 +10,7 @@ import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
 import CompletedIcon from '@material-ui/icons/CheckCircleOutlined';
+import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
 import SkillItem from '../components/SkillItem';
 
@@ -18,7 +19,11 @@ import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common
 
 const CourseDetail = withTheme()(({ data, theme }) => (
   <>
-    <Typography component="p" style={{ whiteSpace: 'pre-wrap' }}>
+    <Typography
+      component="p"
+      style={{ whiteSpace: 'pre-wrap' }}
+      color="textSecondary"
+    >
       {data.description}
     </Typography>
 
@@ -55,6 +60,20 @@ const CourseDetail = withTheme()(({ data, theme }) => (
         </Typography>
       )}
     </div>
+
+    <Grid
+      container
+      alignItems="flex-end"
+      style={{ marginTop: theme.spacing.unit * 2 }}
+    >
+      <TimeIcon
+        style={{
+          marginRight: theme.spacing.unit,
+          color: theme.palette.text.secondary,
+        }}
+      />
+      <Typography variant="body1">{data.duration}</Typography>
+    </Grid>
   </>
 ));
 export const course = data => {
@@ -103,7 +122,7 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
         <IndustryIcon
           style={{
             marginRight: theme.spacing.unit / 2,
-            color: theme.palette.text.secondary,
+            color: theme.palette.text.primary,
           }}
         />
       </Grid>
@@ -111,7 +130,6 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
         <Typography
           variant="subtitle1"
           style={{
-            color: theme.palette.text.secondary,
             fontWeight: '500 !important',
           }}
         >
@@ -132,7 +150,11 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
     <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense />
 
     <div
-      style={{ ...theme.typography.body2, marginBottom: '-1em' }}
+      style={{
+        ...theme.typography.body2,
+        color: theme.palette.text.secondary,
+        marginBottom: '-1em',
+      }}
       dangerouslySetInnerHTML={{ __html: data.jobDescription }}
     />
   </>
@@ -205,7 +227,7 @@ const JobDetail = withTheme()(({ data, theme }) => (
           style={{
             marginRight: theme.spacing.unit,
             marginLeft: -theme.spacing.unit / 4,
-            color: theme.palette.text.secondary,
+            color: theme.palette.text.primary,
           }}
         />
       </Grid>
@@ -214,7 +236,6 @@ const JobDetail = withTheme()(({ data, theme }) => (
           variant="subtitle1"
           style={{
             textTransform: 'capitalize',
-            color: theme.palette.text.secondary,
             fontWeight: '500 !important',
           }}
         >
@@ -223,9 +244,13 @@ const JobDetail = withTheme()(({ data, theme }) => (
       </Grid>
     </Grid>
 
-    <Typography variant="body2" style={{ marginBottom: theme.spacing.unit }}>
+    <Typography
+      variant="body2"
+      style={{ marginBottom: theme.spacing.unit }}
+      color="textSecondary"
+    >
       {
-        data.roleDescription
+        data.jobDescription
         /* .slice(0, 100)… */
       }
     </Typography>

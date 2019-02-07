@@ -104,7 +104,7 @@ const WhatsNext = props => {
   if (!profile || !profile.whatsNext || !profile.whatsNext.state) return null;
 
   return (
-    <div className={classes.root} style={{ width }}>
+    <div className={classes.root} style={{ width: width - 16 }}>
       <WhatsNextBadge
         badge={profile.whatsNext.badge}
         classes={classes}

@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 
+import CoursesIcon from '@material-ui/icons/SchoolOutlined';
+
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -24,9 +26,10 @@ const CoursesContainer = props => {
         title="Courses"
         isMobile={isMobile}
         maxWidth={getCardsWidth(cardsCols)}
+        icon={<CoursesIcon />}
       />
       <Cards
-        title="Your courses"
+        title="Your Courses"
         mapping="course"
         cols={cardsCols}
         useCollectionInit={{
@@ -35,7 +38,7 @@ const CoursesContainer = props => {
         }}
       />
       <Cards
-        title="Available courses"
+        title="Available Courses"
         mapping="course"
         cols={cardsCols}
         useCollectionInit={{
@@ -43,6 +46,8 @@ const CoursesContainer = props => {
           limit: cardsCols + 1,
         }}
         filterIds={user.touchedCourses}
+        NoneLeftIcon={CoursesIcon}
+        noneLeftMsg="There are no more courses available at the moment"
       />
     </div>
   );

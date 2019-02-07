@@ -56,14 +56,6 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 5,
   },
 
-  loading: {
-    position: 'absolute',
-    '& svg': {
-      margin: 0,
-      position: 'static',
-    },
-  },
-
   formHeaderGrid: { marginBottom: theme.spacing.unit },
 });
 
