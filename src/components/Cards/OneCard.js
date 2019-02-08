@@ -20,6 +20,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 export const CARD_WIDTH = 320;
 export const CARD_PADDING = 16;
+const MEDIA_HEIGHT = CARD_WIDTH * 0.5625;
 
 const styles = theme => ({
   root: {
@@ -41,6 +42,7 @@ const styles = theme => ({
       transitionDuration: '.2s',
     },
   },
+  withVideo: {},
 
   cardActionArea: {
     textAlign: 'right',
@@ -115,7 +117,10 @@ const styles = theme => ({
     height: '100%',
   },
 
-  stretchGrid: { height: '100%' },
+  stretchGrid: {
+    height: 'calc(100% - 40px)',
+    '$withVideo &': { height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)` },
+  },
   cardContent: {
     textAlign: 'left',
     paddingBottom: theme.spacing.unit,
@@ -176,7 +181,9 @@ function OneCard(props) {
   }
 
   return (
-    <Card classes={{ root: classes.root }}>
+    <Card
+      classes={{ root: classNames(classes.root, video && classes.withVideo) }}
+    >
       <CardActionArea
         id={title.replace(/\W/g, '')}
         component="div"
