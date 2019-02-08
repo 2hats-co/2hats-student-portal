@@ -177,11 +177,7 @@ const ProfileContainer = props => {
               <ProfileCourses data={courses} isMobile={isMobile} />
             </div>
             <div className={classes.section}>
-              <ProfileResume
-                data={profile.resume}
-                user={user}
-                isMobile={isMobile}
-              />
+              <ProfileResume data={profile.resume} isMobile={isMobile} />
             </div>
           </>
         )}

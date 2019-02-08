@@ -15,8 +15,6 @@ import FileIcon from '@material-ui/icons/AttachmentOutlined';
 
 import { profileStyles } from '../../containers/ProfileContainer';
 import ResumeUploader from '../WhatsNext/ResumeUploader';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
-import { updateDoc } from '../../utilities/firestore';
 
 const styles = theme => ({
   ...profileStyles(theme),
@@ -36,14 +34,9 @@ const styles = theme => ({
 });
 
 const ProfileResume = props => {
-  const { classes, data, user, isMobile } = props;
+  const { classes, data, isMobile } = props;
 
   const [popperAnchor, setPopperAnchor] = useState(null);
-
-  const handleDelete = e => {
-    e.preventDefault();
-    updateDoc(COLLECTIONS.profiles, user.id, { resume: {} });
-  };
 
   return (
     <Grid
@@ -133,7 +126,6 @@ const ProfileResume = props => {
 ProfileResume.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object,
-  user: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
 
