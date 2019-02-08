@@ -21,6 +21,11 @@ import { updateDoc } from '../../utilities/firestore';
 const styles = theme => ({
   ...profileStyles(theme),
 
+  newResumeMsg: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: -theme.spacing.unit,
+  },
+
   uploader: { marginTop: theme.spacing.unit * 2 },
 
   fileChip: {
@@ -92,27 +97,34 @@ const ProfileResume = props => {
         </Grid>
 
         {!data || !data.url ? (
-          <>
-            <Typography variant="body1" color="textSecondary">
-              It looks like you haven’t uploaded your resume yet. Uploading a
-              resume will make applying for jobs faster and make it easier for
-              us to see what best suits you.
-            </Typography>
-            <ResumeUploader className={classes.uploader} />
-          </>
+          <Typography variant="body1" color="textSecondary">
+            It looks like you haven’t uploaded your resume yet. Uploading a
+            resume will make applying for jobs faster and make it easier for us
+            to see what best suits you.
+          </Typography>
         ) : (
-          <Chip
-            id="resume-chip"
-            component="a"
-            href={data.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            label={data.name}
-            onDelete={handleDelete}
-            className={classes.fileChip}
-            icon={<FileIcon className={classes.fileIcon} />}
-          />
+          <>
+            <Chip
+              id="resume-chip"
+              component="a"
+              href={data.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              label={data.name}
+              className={classes.fileChip}
+              icon={<FileIcon className={classes.fileIcon} />}
+            />
+            <Typography
+              variant="body1"
+              color="textSecondary"
+              className={classes.newResumeMsg}
+            >
+              You can upload a new resume below.
+            </Typography>
+          </>
         )}
+
+        <ResumeUploader className={classes.uploader} resetOnUpload />
       </Grid>
     </Grid>
   );
