@@ -44,6 +44,7 @@ const DashboardContainer = props => {
     useCollectionInit: {
       path: COLLECTIONS.courses,
       limit: 3,
+      sort: { field: 'createdAt', direction: 'desc' },
     },
     filterIds: user.touchedCourses,
     icon: <CoursesIcon />,
@@ -58,6 +59,7 @@ const DashboardContainer = props => {
       useCollectionInit: {
         path: COLLECTIONS.assessments,
         limit: 2,
+        sort: { field: 'createdAt', direction: 'desc' },
       },
       filterIds: user.touchedAssessments,
       icon: <AssessmentsIcon />,
@@ -71,6 +73,7 @@ const DashboardContainer = props => {
       useCollectionInit: {
         path: COLLECTIONS.jobs,
         limit: 1,
+        sort: { field: 'createdAt', direction: 'desc' },
       },
       filterIds: user.touchedJobs,
       icon: <JobsIcon />,

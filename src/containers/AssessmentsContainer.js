@@ -54,6 +54,7 @@ const AssessmentsContainer = props => {
         useCollectionInit={{
           path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
           limit: cardsCols,
+          sort: { field: 'updatedAt', direction: 'desc' },
         }}
       />
       <Cards
@@ -64,6 +65,7 @@ const AssessmentsContainer = props => {
           path: COLLECTIONS.assessments,
           limit: cardsCols,
           filters: [{ field: 'category', operator: '==', value: 'marketing' }],
+          sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
@@ -77,6 +79,7 @@ const AssessmentsContainer = props => {
           path: COLLECTIONS.assessments,
           limit: cardsCols,
           filters: [{ field: 'category', operator: '==', value: 'sales' }],
+          sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
