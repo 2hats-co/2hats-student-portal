@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const ramda = require('ramda');
 const PROJECT = 'staging2hats';
 const PROJECT_KEY = {
   type: 'service_account',
@@ -46,6 +47,99 @@ const multiDocCollections = [
   'emails',
   'communications',
 ];
+
+async function checkSmartLink(email, templateName, data, message = '') {
+  //Set delay
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 10000);
+  });
+  console.log(`\x1b[1m${message}\x1b[0m`);
+  //Grab UID from emaill
+  const query = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (query.empty) {
+    console.log(`\x1b[31mUID for user does not exist\x1b[0m`);
+    return false;
+  }
+  const UID = query.docs[0].id;
+
+  const smartLinkQuery = await db
+    .collection('smartLinks')
+    .where('UID', '==', UID)
+    .where('templateName', '==', templateName)
+    .get();
+  if (smartLinkQuery.empty) {
+    console.log(
+      `smartLink for ${UID}-${templateName}\x1b[31m does not exist\x1b[0m`
+    );
+    return false;
+  }
+  const smartLinkData = smartLinkQuery.docs[0].data();
+  let matches = true;
+  Object.keys(data).forEach(key => {
+    if (!ramda.equals(data[key], smartLinkData[key])) {
+      matches = false;
+    }
+  });
+  if (matches) {
+    console.log(`smartLink-${templateName}\x1b[32m matches data!\x1b[0m`);
+    return true;
+  } else {
+    console.log(`smartLink-${templateName}\x1b[31m doesnt matches data\x1b[0m`);
+    return false;
+  }
+}
+
+/**
+ *
+ * @param {String} docPath
+ * @param {Object} data
+ */
+async function checkDocMatches(email, collection, data, message = '') {
+  //Set delay
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 10000);
+  });
+  console.log(`\x1b[1m${message}\x1b[0m`);
+  //Grab UID from emaill
+  const query = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (query.empty) {
+    console.log(`\x1b[31mUID for user does not exist\x1b[0m`);
+    return false;
+  }
+  const UID = query.docs[0].id;
+
+  //Check document data
+  const docPath = `${collection}/${UID}`;
+  const docRef = await db.doc(docPath).get();
+  if (!docRef.exists) {
+    console.log(`${docPath}\x1b[31m does not exist\x1b[0m`);
+    return false;
+  }
+  const docData = docRef.data();
+  let matches = true;
+  Object.keys(data).forEach(key => {
+    if (!ramda.equals(data[key], docData[key])) {
+      matches = false;
+    }
+  });
+  if (matches) {
+    console.log(`${docPath}\x1b[32m matches data!\x1b[0m`);
+    return true;
+  } else {
+    console.log(`${docPath}\x1b[31m doesnt matches data\x1b[0m`);
+    return false;
+  }
+}
 
 /**
  *
@@ -140,7 +234,10 @@ async function clearUserData(email) {
   });
 
   //Clear collections by UID
-  const collectionsByUID = [{ collection: 'submission', field: 'UID' }];
+  const collectionsByUID = [
+    { collection: 'submission', field: 'UID' },
+    { collection: 'smartLinks', field: 'UID' },
+  ];
   collectionsByUID.forEach(async x => {
     const query = await db
       .collection(x.collection)
@@ -222,4 +319,6 @@ module.exports = {
   clearUserData,
   setProfileData,
   getProfileData,
+  checkDocMatches,
+  checkSmartLink,
 };

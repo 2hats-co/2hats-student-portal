@@ -36,7 +36,7 @@ const courses = [
 ];
 
 const testCourses = async page => {
-  await runSteps(page, courses, true);
+  await runSteps(page, courses, { checkForDbChange: true });
 };
 
 module.exports = { testCourses };

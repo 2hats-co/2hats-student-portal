@@ -40,22 +40,8 @@ async function main() {
   //   'interest',
   // ]);
   //await clearUserData('test2hats@gmail.com');
-  console.log('do something');
-  delay();
-  console.log('do something else instantly');
 }
 main();
-
-async function delay() {
-  console.log('start');
-  await new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve('done');
-    }, 5000);
-  });
-  console.log('end');
-  return;
-}
 
 /**
  *

@@ -24,7 +24,7 @@ const { testProfileContainer } = require('./testComponents/profileContainer');
 
 const main = async () => {
   console.log(CONFIG);
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({ headless: false });
   browser.on('targetcreated', e => {
     // console.log(`New page opened: ${e._targetInfo.url}`);
   });
