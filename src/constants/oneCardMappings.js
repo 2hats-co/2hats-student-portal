@@ -138,7 +138,7 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
       </Grid>
     </Grid>
 
-    <Typography
+    {/* <Typography
       variant="subtitle2"
       style={{
         marginLeft: theme.spacing.unit / 4,
@@ -147,7 +147,7 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
     >
       Skill awarded
     </Typography>
-    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense />
+    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense /> */}
 
     <div
       style={{
