@@ -183,6 +183,11 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
         ...theme.typography.body2,
         color: theme.palette.text.secondary,
         marginBottom: '-1em',
+
+        lineClamp: 4,
+        display: 'box',
+        boxOrient: 'vertical',
+        overflow: 'hidden',
       }}
       dangerouslySetInnerHTML={{ __html: data.jobDescription }}
     />
