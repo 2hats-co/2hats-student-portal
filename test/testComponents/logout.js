@@ -19,7 +19,7 @@ const logout = [
   },
 ];
 const testLogout = async page => {
-  await runSteps(page, logout, false);
+  await runSteps(page, logout);
 };
 
 module.exports = { testLogout };

@@ -23,7 +23,7 @@ const logout = [
 ];
 
 const testUpdateAccInfo = async page => {
-  await runSteps(page, logout, true);
+  await runSteps(page, logout, { checkForDbChange: true });
 };
 
 module.exports = { testUpdateAccInfo };

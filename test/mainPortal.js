@@ -124,7 +124,7 @@ const mainPortal = [
   },
 ];
 const testMainPortal = async page => {
-  await runSteps(page, mainPortal, true);
+  await runSteps(page, mainPortal, { checkForDbChange: true });
 };
 
 module.exports = { testMainPortal };

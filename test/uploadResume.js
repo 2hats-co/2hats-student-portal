@@ -63,7 +63,7 @@ const uploadResume = [
 ];
 
 const testUploadResume = async page => {
-  await runSteps(page, uploadResume, true);
+  await runSteps(page, uploadResume, { checkForDbChange: true });
 };
 
 module.exports = { testUploadResume };

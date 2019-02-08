@@ -58,7 +58,7 @@ const steps = [
 ];
 
 const testProfileContainer = async page => {
-  await runSteps(page, steps, true);
+  await runSteps(page, steps, { checkForDbChange: true });
 };
 
 module.exports = { testProfileContainer };

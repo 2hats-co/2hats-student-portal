@@ -2,7 +2,13 @@ const { takeScreenshot } = require('./screenshotUtil');
 const { checkDb } = require('./dbUtil');
 const { CONST } = require('../constants');
 
-async function runSteps(page, stepsArray, checkForDbChange = false) {
+async function runSteps(
+  page,
+  stepsArray,
+  options = { checkForDbChange: false, screenshot: true }
+) {
+  let screenshot = options.screenshot || true;
+  let checkForDbChange = options.checkForDbChange || false;
   let beforeData, afterData;
   // if (checkForDbChange) {
   //   beforeData = JSON.stringify(await checkDb());
@@ -12,9 +18,9 @@ async function runSteps(page, stepsArray, checkForDbChange = false) {
     if (!step) {
       break;
     }
-    await takeScreenshot(page, `${step.name}-0`);
+    screenshot && (await takeScreenshot(page, `${step.name}-0`));
     await step.action(page);
-    await takeScreenshot(page, `${step.name}-1`);
+    screenshot && (await takeScreenshot(page, `${step.name}-1`));
     console.log(`Ran ${step.name}`);
   }
   // if (checkForDbChange) {
