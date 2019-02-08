@@ -13,6 +13,11 @@ const styles = theme => ({
     padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit}px`,
     margin: '0 auto',
     userSelect: 'none',
+
+    [theme.breakpoints.down('xs')]: {
+      paddingLeft: theme.spacing.unit * 2,
+      paddingRight: theme.spacing.unit * 2,
+    },
   },
   title: {
     fontWeight: 400,

@@ -21,7 +21,10 @@ import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 const styles = theme => ({
   root: { paddingBottom: theme.spacing.unit * 4 },
 
-  secondaryWrapper: { margin: '0 auto' },
+  wrapper: {
+    margin: '0 auto',
+    maxWidth: '100vw',
+  },
 });
 
 const DashboardContainer = props => {
@@ -51,7 +54,7 @@ const DashboardContainer = props => {
     {
       title: 'Assessments',
       mapping: 'assessment',
-      cols: 2,
+      cols: cardsCols > 2 ? 2 : 1,
       useCollectionInit: {
         path: COLLECTIONS.assessments,
         limit: 2,
@@ -85,16 +88,34 @@ const DashboardContainer = props => {
       />
       <WhatsNext user={user} width={getCardsWidth(cardsCols)} />
 
-      <Cards {...primary} yourBackup={user.id} hideMore />
+      <div
+        style={{ width: getCardsWidth(cardsCols) }}
+        className={classes.wrapper}
+      >
+        <Cards
+          {...primary}
+          // yourBackup={user.id}
+          hideMore
+        />
+      </div>
 
       <Grid
         container
-        className={classes.secondaryWrapper}
+        className={classes.wrapper}
         style={{ width: getCardsWidth(cardsCols) }}
+        direction={cardsCols < 2 ? 'column' : 'row'}
         wrap="nowrap"
       >
-        <Cards {...secondary[0]} yourBackup={user.id} hideMore />
-        <Cards {...secondary[1]} yourBackup={user.id} hideMore />
+        <Cards
+          {...secondary[0]}
+          //yourBackup={user.id}
+          hideMore
+        />
+        <Cards
+          {...secondary[1]}
+          //yourBackup={user.id}
+          hideMore
+        />
       </Grid>
     </div>
   );

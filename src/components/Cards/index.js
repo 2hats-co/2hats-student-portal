@@ -53,7 +53,12 @@ const styles = theme => ({
     cursor: 'default',
     padding: theme.spacing.unit,
     fontWeight: 500,
+
+    [theme.breakpoints.down('xs')]: { marginLeft: theme.spacing.unit * 2 },
+  },
+  titleWithIcon: {
     lineHeight: '48px',
+    marginLeft: '0 !important',
   },
   goButton: {
     marginLeft: -theme.spacing.unit / 2,
@@ -71,7 +76,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 2,
   },
   noneLeftIcon: {
-    fontSize: 32,
+    fontSize: 35,
     color: theme.palette.text.disabled,
     marginLeft: theme.spacing.unit,
   },
@@ -79,6 +84,8 @@ const styles = theme => ({
     color: theme.palette.text.disabled,
     marginLeft: theme.spacing.unit * 2,
     fontWeight: 700,
+    lineHeight: 1.4,
+    maxWidth: 260,
   },
 });
 
@@ -133,18 +140,36 @@ function Cards(props) {
     setUsedYourBackup(true);
   }
 
+  const cardsHeader = (
+    <Typography
+      variant="h5"
+      className={classNames(classes.title, icon && classes.titleWithIcon)}
+    >
+      {icon && <PaddedIcon className={classes.paddedIcon}>{icon}</PaddedIcon>}
+      {usedYourBackup && cards.length > 0 && 'Your '}
+      {title}
+      {route && (
+        <IconButton
+          color="primary"
+          className={classes.goButton}
+          onClick={() => {
+            history.push(route);
+          }}
+        >
+          <GoIcon />
+        </IconButton>
+      )}
+    </Typography>
+  );
+
   if (!cardsState.loading && cards.length === 0 && noneLeftMsg)
     return (
       <div
         className={classNames(classes.root, inline && classes.inline)}
         style={{ width: getCardsWidth(cols) }}
       >
-        <Typography variant="h5" className={classes.title}>
-          {icon && (
-            <PaddedIcon className={classes.paddedIcon}>{icon}</PaddedIcon>
-          )}
-          {usedYourBackup && cards.length > 0 && 'Your'} {title}
-        </Typography>
+        {cardsHeader}
+
         <Grid container alignItems="center" className={classes.noneLeftWrapper}>
           {NoneLeftIcon && <NoneLeftIcon className={classes.noneLeftIcon} />}
           <Typography variant="subtitle1" className={classes.noneLeftMsg}>
@@ -160,24 +185,7 @@ function Cards(props) {
         className={classNames(classes.root, inline && classes.inline)}
         style={{ width: getCardsWidth(cols) }}
       >
-        <Typography variant="h5" className={classes.title}>
-          {icon && (
-            <PaddedIcon className={classes.paddedIcon}>{icon}</PaddedIcon>
-          )}
-          {usedYourBackup && cards.length > 0 && 'Your '}
-          {title}
-          {route && (
-            <IconButton
-              color="primary"
-              className={classes.goButton}
-              onClick={() => {
-                history.push(route);
-              }}
-            >
-              <GoIcon />
-            </IconButton>
-          )}
-        </Typography>
+        {cardsHeader}
 
         <Grid container>
           {cards &&

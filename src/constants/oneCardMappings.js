@@ -63,8 +63,32 @@ const CourseDetail = withTheme()(({ data, theme }) => (
 
     <Grid
       container
+      alignItems="center"
+      style={{
+        width: 'auto',
+        marginTop: theme.spacing.unit * 2,
+        color: theme.palette.text.secondary,
+      }}
+    >
+      <Grid item>
+        <IndustryIcon
+          style={{
+            marginRight: theme.spacing.unit,
+            color: theme.palette.text.secondary,
+          }}
+        />
+      </Grid>
+      <Grid item xs>
+        <Typography variant="body1">
+          {getAssessmentCategoryLabel(data.category)}
+        </Typography>
+      </Grid>
+    </Grid>
+
+    <Grid
+      container
       alignItems="flex-end"
-      style={{ marginTop: theme.spacing.unit * 2 }}
+      style={{ marginTop: theme.spacing.unit / 2 }}
     >
       <TimeIcon
         style={{
@@ -138,7 +162,7 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
       </Grid>
     </Grid>
 
-    <Typography
+    {/* <Typography
       variant="subtitle2"
       style={{
         marginLeft: theme.spacing.unit / 4,
@@ -147,7 +171,7 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
     >
       Skill awarded
     </Typography>
-    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense />
+    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense /> */}
 
     <div
       style={{
@@ -244,16 +268,13 @@ const JobDetail = withTheme()(({ data, theme }) => (
       </Grid>
     </Grid>
 
-    <Typography
-      variant="body2"
-      style={{ marginBottom: theme.spacing.unit }}
-      color="textSecondary"
-    >
-      {
-        data.jobDescription
-        /* .slice(0, 100)… */
-      }
-    </Typography>
+    <div
+      style={{
+        ...theme.typography.body2,
+        color: theme.palette.text.secondary,
+      }}
+      dangerouslySetInnerHTML={{ __html: data.companyDescription }}
+    />
 
     <Typography
       variant="subtitle2"

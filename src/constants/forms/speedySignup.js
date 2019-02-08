@@ -59,10 +59,22 @@ const speedySignupFields = initialData => {
     },
     {
       type: FIELDS.textField,
-      name: 'phoneNumber',
-      label: 'Moblie Number',
-      value: '',
-      validation: yup.string().required('Required'),
+      name: 'mobileNumber',
+      label: 'Mobile Number',
+      value: initialData['mobileNumber'],
+      validation: yup
+        .string()
+        .min(
+          10,
+          'Please enter a 10-digit Australian mobile number with no spaces'
+        )
+        .max(
+          10,
+          'Please enter a 10-digit Australian mobile number with no spaces'
+        )
+        .required(
+          'Please enter a 10-digit Australian mobile number with no spaces'
+        ),
     },
     {
       type: FIELDS.radio,

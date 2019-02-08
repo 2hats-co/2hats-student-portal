@@ -39,7 +39,7 @@ const styles = theme => ({
     boxShadow: theme.shadowsLight[24],
 
     [theme.breakpoints.down('sm')]: {
-      width: `calc(100% - ${theme.spacing.unit * 4}px) !important`,
+      width: `calc(100% - ${theme.spacing.unit * 2}px) !important`,
       maxWidth: 660,
     },
   },

@@ -28,6 +28,8 @@ const styles = theme => ({
     ...STYLES.DROPZONE(theme).dropzone,
     width: '100%',
     boxSizing: 'border-box',
+
+    [theme.breakpoints.up('sm')]: { marginTop: theme.spacing.unit },
   },
 
   fileName: {
