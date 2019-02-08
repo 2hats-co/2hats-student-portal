@@ -13,8 +13,8 @@ import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 
-import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
-import CloseIcon from '@material-ui/icons/CloseRounded';
+import ActivityLogIcon from '@material-ui/icons/HistoryOutlined';
+import CloseIcon from '@material-ui/icons/CloseOutlined';
 
 import ActivityItem from './ActivityItem';
 
@@ -175,6 +175,7 @@ function ActivityLog(props) {
                 <IconButton
                   onClick={handleClose}
                   className={classes.closeButton}
+                  id={'activitylogclose'}
                 >
                   <CloseIcon />
                 </IconButton>
@@ -189,7 +190,9 @@ function ActivityLog(props) {
                       .unit * 3}px - ${theme.spacing.unit * 9}px)`,
                   }}
                 >
-                  {activityLogState.loading ? (
+                  {activityLogState.loading &&
+                  (!activityLogState.documents ||
+                    activityLogState.documents.length <= 0) ? (
                     <CircularProgress className={classes.spinner} />
                   ) : (
                     <>
@@ -207,14 +210,16 @@ function ActivityLog(props) {
                           />
                         )}
                       </ScrollyRolly>
-                      <ActivityItem
-                        data={{
-                          type: 'system',
-                          createdAt: user.createdAt,
-                          title: 'Signed up',
-                          body: 'Welcome to 2hats!',
-                        }}
-                      />
+                      {!activityLogState.loading && (
+                        <ActivityItem
+                          data={{
+                            type: 'system',
+                            createdAt: user.createdAt,
+                            title: 'Signed up',
+                            body: 'Welcome to 2hats!',
+                          }}
+                        />
+                      )}
                     </>
                   )}
                 </div>

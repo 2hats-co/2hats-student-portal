@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 // material UI
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { Theme } from './Theme';
@@ -14,17 +14,12 @@ import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
 
 import LoadingScreen from './components/LoadingScreen';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
-import useCollection from './hooks/useCollection';
 const AuthenticationContainer = lazy(() =>
   import('./containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */)
 );
 const SpeedySignupContainer = lazy(() =>
   import('./containers/SpeedySignupContainer' /* webpackChunkName: "SpeedySignupContainer" */)
-);
-const SignupContainer = lazy(() =>
-  import('./containers/SignupContainer' /* webpackChunkName: "SignupContainer" */)
 );
 
 const SmartLinkContainer = lazy(() =>
@@ -52,39 +47,11 @@ const CourseRedirectContainer = lazy(() =>
 
 const App = props => {
   const [user, setUser] = useState(null);
-  const [userJobsState, userJobsDispatch] = useCollection();
-  const userJobs = userJobsState.documents;
-  const [userCoursesState, userCoursesDispatch] = useCollection();
-  const userCourses = userCoursesState.documents;
-  const [userAssessmentsState, userAssessmentsDispatch] = useCollection();
-  const userAssessments = userAssessmentsState.documents;
-  useEffect(
-    () => {
-      if (user) {
-        console.log(user.id);
-        userJobsDispatch({
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
-        });
-        userCoursesDispatch({
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
-        });
-        userAssessmentsDispatch({
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-        });
-      }
-    },
-    [user]
-  );
+
   return (
     <MuiThemeProvider theme={Theme}>
       <UserContext.Provider
-        value={{
-          user: user,
-          assesments: userAssessments,
-          courses: userCourses,
-          jobs: userJobs,
-          setUser: user => setUser(user),
-        }}
+        value={{ user: user, setUser: user => setUser(user) }}
       >
         <Router>
           <div className="app">
@@ -158,11 +125,6 @@ const App = props => {
                 />
                 <Route
                   exact
-                  path={ROUTES.UPLOAD_RESUME}
-                  component={() => <SignupContainer />}
-                />
-                <Route
-                  exact
                   path={ROUTES.SMART_LINK}
                   component={() => <SmartLinkContainer />}
                 />
@@ -201,7 +163,7 @@ const App = props => {
 
                 <Route exact path="/linkedin" component={LinkedInPopUp} />
                 <Route exact path={'/'} component={() => <Landing />} />
-                <Route component={() => <div>404</div>} />
+                <Route component={() => <h1>404</h1>} />
               </Switch>
             </Suspense>
           </div>

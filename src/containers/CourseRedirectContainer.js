@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import ErrorIcon from '@material-ui/icons/ErrorRounded';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { updateDoc } from '../utilities/firestore';
@@ -16,7 +16,7 @@ import UserContext from '../contexts/UserContext';
 
 const styles = theme => ({
   root: {
-    background: theme.palette.background.default,
+    background: theme.palette.background.paper,
     height: '100vh',
     textAlign: 'center',
   },
@@ -47,11 +47,20 @@ function CourseRedirectContainer(props) {
 
   if (hasId) {
     // touch the course
-    const newTouchedCourses = user.touchedCourses || [];
-    newTouchedCourses.push(location.search.replace('?id=', ''));
-    updateDoc(COLLECTIONS.users, user.id, {
-      touchedCourses: newTouchedCourses,
-    });
+    const courseId = location.search.replace('?id=', '');
+    if (!user.touchedCourses || !user.touchedCourses.includes(courseId)) {
+      const newTouchedCourses = user.touchedCourses || [];
+      newTouchedCourses.push(courseId);
+      updateDoc(COLLECTIONS.users, user.id, {
+        touchedCourses: newTouchedCourses,
+      });
+    }
+
+    // set user's interest to course so what's next can display the right things
+    if (user.interest !== 'course')
+      updateDoc(COLLECTIONS.users, user.id, {
+        interest: 'course',
+      });
 
     // learnWorlds single sign on
     cloudFunction(

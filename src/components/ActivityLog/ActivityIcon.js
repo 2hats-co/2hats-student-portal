@@ -4,18 +4,18 @@ import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import DefaultIcon from '@material-ui/icons/HistoryRounded';
-import JobIcon from '@material-ui/icons/BusinessCenterRounded';
-import AssessmentIcon from '@material-ui/icons/AssignmentRounded';
-import CourseIcon from '@material-ui/icons/SchoolRounded';
-import EventIcon from '@material-ui/icons/EventRounded';
-import AssessmentCentreIcon from '@material-ui/icons/AssignmentIndRounded';
+import DefaultIcon from '@material-ui/icons/HistoryOutlined';
+import JobIcon from '@material-ui/icons/BusinessCenterOutlined';
+import AssessmentIcon from '@material-ui/icons/AssignmentOutlined';
+import CourseIcon from '@material-ui/icons/SchoolOutlined';
+import EventIcon from '@material-ui/icons/EventOutlined';
+import AssessmentCentreIcon from '@material-ui/icons/AssignmentIndOutlined';
 
-import AddIcon from '@material-ui/icons/AddRounded';
+import AddIcon from '@material-ui/icons/Add';
 import SendIcon from '@material-ui/icons/SendRounded';
-import CheckIcon from '@material-ui/icons/CheckRounded';
-import CloseIcon from '@material-ui/icons/CloseRounded';
-import ErrorIcon from '@material-ui/icons/ErrorOutlineRounded';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 const styles = theme => ({
   badgeIcon: {

@@ -5,7 +5,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import { STRIPE_KEY } from '../config/stripe';
 
 import Button from '@material-ui/core/Button';
-import PaymentIcon from '@material-ui/icons/PaymentRounded';
+import PaymentIcon from '@material-ui/icons/PaymentOutlined';
 
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 

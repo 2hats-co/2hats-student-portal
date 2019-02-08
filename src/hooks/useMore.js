@@ -34,7 +34,13 @@ const useMore = (intialCollection, initialNum, initialFilterIds) => {
     [num, collectionState.documents]
   );
 
-  return [filteredDocs.slice(0, num), getMore, setFilterIds];
+  return [
+    filteredDocs.slice(0, num),
+    getMore,
+    setFilterIds,
+    collectionState,
+    collectionDispatch,
+  ];
 };
 
 export default useMore;

@@ -5,7 +5,7 @@ const {
   runSteps,
   selectDropDown,
   uploadFile,
-} = require('./functions');
+} = require('./utils/functions');
 const FILEPATH = './testResume.pdf';
 
 const uploadResume = [

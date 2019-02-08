@@ -82,6 +82,17 @@
           stroke-dashoffset: -120px;
         }
       }
+
+      .fb_dialog {
+        z-index: 999 !important;
+      }
+      .fb_up .fb_dialog {
+        bottom: 80px !important;
+        right: 16px !important;
+      }
+      .fb_up .fb-customerchat iframe {
+        bottom: 136px !important;
+      }
     </style>
 
     <title>2hats</title>
@@ -137,11 +148,10 @@
     <noscript> You need to enable JavaScript to run this app. </noscript>
 
     <!-- Facebook SDK -->
-    <!--<script>
+    <div id="fb-root"></div>
+    <script>
       window.fbAsyncInit = function() {
         FB.init({
-          appId: 'your-app-id',
-          autoLogAppEvents: true,
           xfbml: true,
           version: 'v3.2',
         });
@@ -150,15 +160,21 @@
       (function(d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) {
-          return;
-        }
+        if (d.getElementById(id)) return;
         js = d.createElement(s);
         js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+        js.src = 'https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js';
         fjs.parentNode.insertBefore(js, fjs);
       })(document, 'script', 'facebook-jssdk');
-    </script>-->
+    </script>
+
+    <!-- Your customer chat code -->
+    <div
+      class="fb-customerchat"
+      attribution="install_email"
+      page_id="147791982330823"
+      theme_color="#f15a29"
+    ></div>
 
     <div id="root">
       <div class="basic-spinner-container">
@@ -174,15 +190,5 @@
         </svg>
       </div>
     </div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

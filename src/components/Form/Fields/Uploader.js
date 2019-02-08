@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Dropzone from 'react-dropzone';
 import { uploader } from '../../../utilities/Uploader';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
-import FileIcon from '@material-ui/icons/AttachmentRounded';
+import FileIcon from '@material-ui/icons/AttachmentOutlined';
 
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Chip from '@material-ui/core/Chip';

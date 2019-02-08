@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
-import FileIcon from '@material-ui/icons/AttachmentRounded';
+import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
 
 import Dropzone from 'react-dropzone';
@@ -21,10 +20,14 @@ import { uploader } from '../../utilities/Uploader';
 import { globalReplace, copyToClipboard } from '../../utilities';
 
 const styles = theme => ({
-  root: { ...STYLES.PADDING(theme, true) },
+  root: { marginTop: theme.spacing.unit * 4 },
+
   ...STYLES.RENDERED_HTML(theme),
+
   answerInputWrapper: { marginTop: theme.spacing.unit * 2 },
+
   quillEditor: { ...STYLES.QUILL(theme) },
+
   ...STYLES.DROPZONE(theme),
 
   mcEmailButton: {
@@ -32,6 +35,13 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   previewSubtitle: { marginTop: theme.spacing.unit * 2 },
+
+  paddedIcon: {
+    marginLeft: -theme.spacing.unit / 2,
+    marginRight: theme.spacing.unit * 1.5,
+
+    [theme.breakpoints.up('lg')]: { marginLeft: -48 - 12 },
+  },
 });
 
 const Question = props => {
@@ -175,8 +185,8 @@ const Question = props => {
   }
 
   return (
-    <Paper classes={{ root: classes.root }}>
-      <Typography variant="h6">
+    <div className={classes.root}>
+      <Typography variant="h6" gutterBottom>
         {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
       </Typography>
       <div
@@ -186,7 +196,7 @@ const Question = props => {
         }}
       />
       <div className={classes.answerInputWrapper}>{answerInput}</div>
-    </Paper>
+    </div>
   );
 };
 

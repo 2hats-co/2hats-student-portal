@@ -1,77 +1,224 @@
 import React from 'react';
+import moment from 'moment';
 
+import withTheme from '@material-ui/core/styles/withTheme';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
-import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
-import CoursesIcon from '@material-ui/icons/SchoolRounded';
-import EventsIcon from '@material-ui/icons/EventRounded';
+import IndustryIcon from '@material-ui/icons/BusinessOutlined';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
-import PassedIcon from '@material-ui/icons/CheckCircleRounded';
-import FailedIcon from '@material-ui/icons/ErrorRounded';
+import PassedIcon from '../assets/icons/SkillAchieved';
+import FailedIcon from '@material-ui/icons/ErrorOutline';
+import CompletedIcon from '@material-ui/icons/CheckCircleOutlined';
+import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
-import CourseMetadata from '../components/Course/CourseMetadata';
-import AssessmentMetadata from '../components/Assessment/AssessmentMetadata';
-import JobMetadata from '../components/Job/JobMetadata';
+import SkillItem from '../components/SkillItem';
 
 import * as ROUTES from './routes';
+import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
-export const course = data => ({
-  title: data.title,
-  secondaryText: (
-    <>
-      <Typography component="p" style={{ whiteSpace: 'pre-wrap' }}>
-        {data.description}
-      </Typography>
-      <CourseMetadata data={data} style={{ marginTop: 16 }} />
-    </>
-  ),
-  primaryAction: data.hasOwnProperty('hasCompleted')
-    ? data.hasCompleted
-      ? 'View'
-      : 'Continue'
-    : 'Get started',
-  route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
+const CourseDetail = withTheme()(({ data, theme }) => (
+  <>
+    <Typography
+      component="p"
+      style={{ whiteSpace: 'pre-wrap' }}
+      color="textSecondary"
+    >
+      {data.description}
+    </Typography>
 
-  newTab: true,
-  indicator: <CoursesIcon />,
+    <Typography
+      variant="subtitle2"
+      style={{ marginTop: theme.spacing.unit * 2 }}
+    >
+      Skills taught
+    </Typography>
+    <div
+      style={{
+        marginLeft: -theme.spacing.unit / 4,
+      }}
+    >
+      {data.skillsAssociated.slice(0, 3).map((x, i) => (
+        <SkillItem key={`${i}-${x}`} value={x} dense />
+      ))}
+      {data.skillsAssociated.length > 3 && (
+        <Typography
+          variant="body1"
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'bottom',
+            margin: theme.spacing.unit / 4,
+            fontWeight: 500,
 
-  video: data.videoUrl,
-});
+            borderRadius: theme.shape.borderRadius / 2,
+            padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit *
+              1.5}px`,
+            backgroundColor: theme.palette.divider,
+          }}
+        >
+          +{data.skillsAssociated.length - 3} more
+        </Typography>
+      )}
+    </div>
 
+    <Grid
+      container
+      alignItems="center"
+      style={{
+        width: 'auto',
+        marginTop: theme.spacing.unit * 2,
+        color: theme.palette.text.secondary,
+      }}
+    >
+      <Grid item>
+        <IndustryIcon
+          style={{
+            marginRight: theme.spacing.unit,
+            color: theme.palette.text.secondary,
+          }}
+        />
+      </Grid>
+      <Grid item xs>
+        <Typography variant="body1">
+          {getAssessmentCategoryLabel(data.category)}
+        </Typography>
+      </Grid>
+    </Grid>
+
+    <Grid
+      container
+      alignItems="flex-end"
+      style={{ marginTop: theme.spacing.unit / 2 }}
+    >
+      <TimeIcon
+        style={{
+          marginRight: theme.spacing.unit,
+          color: theme.palette.text.secondary,
+        }}
+      />
+      <Typography variant="body1">{data.duration}</Typography>
+    </Grid>
+  </>
+));
+export const course = data => {
+  let banner = null;
+  let bannerColor = '';
+
+  if (data.completed === false) {
+    banner = (
+      <>
+        <FailedIcon />
+        Incomplete
+      </>
+    );
+    bannerColor = 'orange';
+  } else if (data.completed === true) {
+    banner = (
+      <>
+        <CompletedIcon />
+        Compleeted
+      </>
+    );
+    bannerColor = 'green';
+  }
+
+  return {
+    title: data.title,
+    secondaryText: <CourseDetail data={data} />,
+    route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
+    newTab: true,
+
+    banner,
+    bannerColor,
+
+    video: data.videoUrl,
+  };
+};
+
+const AssessmentDetail = withTheme()(({ data, theme }) => (
+  <>
+    <Grid
+      container
+      alignItems="center"
+      style={{ width: 'auto', marginTop: theme.spacing.unit / 2 }}
+    >
+      <Grid item>
+        <IndustryIcon
+          style={{
+            marginRight: theme.spacing.unit / 2,
+            color: theme.palette.text.primary,
+          }}
+        />
+      </Grid>
+      <Grid item xs>
+        <Typography
+          variant="subtitle1"
+          style={{
+            fontWeight: '500 !important',
+          }}
+        >
+          {getAssessmentCategoryLabel(data.category)}
+        </Typography>
+      </Grid>
+    </Grid>
+
+    {/* <Typography
+      variant="subtitle2"
+      style={{
+        marginLeft: theme.spacing.unit / 4,
+        marginTop: theme.spacing.unit * 2,
+      }}
+    >
+      Skill awarded
+    </Typography>
+    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense /> */}
+
+    <div
+      style={{
+        ...theme.typography.body2,
+        color: theme.palette.text.secondary,
+        marginBottom: '-1em',
+      }}
+      dangerouslySetInnerHTML={{ __html: data.jobDescription }}
+    />
+  </>
+));
 export const assessment = data => {
-  let primaryAction = 'Get started';
-  let tertiaryIndicator = null;
+  let banner = null;
+  let bannerColor = '';
 
   if (data.assessmentId) {
     if (!data.submitted) {
-      primaryAction = 'Complete submission';
-      tertiaryIndicator = (
+      banner = (
         <>
-          Incomplete <FailedIcon />
+          <FailedIcon />
+          Incomplete
         </>
       );
+      bannerColor = 'orange';
     } else {
       if (data.outcome === 'pass') {
-        primaryAction = 'View submission';
-        tertiaryIndicator = (
+        banner = (
           <>
-            Passed <PassedIcon />
+            <PassedIcon />
+            Passed
           </>
         );
+        bannerColor = 'green';
       } else if (data.outcome === 'fail') {
-        primaryAction = data.resubmitted ? 'View' : 'Resubmit';
-        tertiaryIndicator = (
+        banner = (
           <>
-            Failed <FailedIcon />
+            <FailedIcon />
+            Failed
           </>
         );
+        bannerColor = 'red';
       } else {
         // Submitted but no outcome yet/not screened
-        primaryAction = 'View submission';
-        tertiaryIndicator = (
+        banner = (
           <>
-            Submitted <SubmittedIcon />
+            <SubmittedIcon />
+            Submitted
           </>
         );
       }
@@ -80,36 +227,122 @@ export const assessment = data => {
 
   return {
     title: data.title,
-    secondaryText: <AssessmentMetadata data={data} />,
-    primaryAction,
+    secondaryText: <AssessmentDetail data={data} />,
     route: `${ROUTES.ASSESSMENTS}?id=${data.id}${
       data.assessmentId ? '&yours=true' : ''
     }`,
 
-    indicator: <AssessmentsIcon />,
-
-    tertiaryIndicator,
+    banner,
+    bannerColor,
 
     image: data.image && data.image.url,
   };
 };
 
-export const job = data => ({
-  title: data.title,
-  secondaryText: <JobMetadata data={data} />,
-  primaryAction: data.jobId ? 'View' : 'Learn more',
-  route: `${ROUTES.JOBS}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
+const JobDetail = withTheme()(({ data, theme }) => (
+  <>
+    <Grid
+      container
+      alignItems="center"
+      style={{ width: 'auto', marginBottom: theme.spacing.unit }}
+    >
+      <Grid item>
+        <IndustryIcon
+          style={{
+            marginRight: theme.spacing.unit,
+            marginLeft: -theme.spacing.unit / 4,
+            color: theme.palette.text.primary,
+          }}
+        />
+      </Grid>
+      <Grid item xs>
+        <Typography
+          variant="subtitle1"
+          style={{
+            textTransform: 'capitalize',
+            fontWeight: '500 !important',
+          }}
+        >
+          {data.industry}
+        </Typography>
+      </Grid>
+    </Grid>
 
-  indicator: <JobsIcon />,
+    <div
+      style={{
+        ...theme.typography.body2,
+        color: theme.palette.text.secondary,
+      }}
+      dangerouslySetInnerHTML={{ __html: data.companyDescription }}
+    />
 
-  tertiaryIndicator: data.jobId && (
-    <>
-      Applied <SubmittedIcon />
-    </>
-  ),
+    <Typography
+      variant="subtitle2"
+      style={{ marginLeft: theme.spacing.unit / 4 }}
+    >
+      Skills required
+    </Typography>
+    <div
+      style={{
+        marginLeft: -theme.spacing.unit / 4,
+      }}
+    >
+      {data.skillsRequired.slice(0, 3).map((x, i) => (
+        <SkillItem key={`${i}-${x}`} value={x} dense />
+      ))}
+      {data.skillsRequired.length > 3 && (
+        <Typography
+          variant="body1"
+          style={{
+            display: 'inline-block',
+            verticalAlign: 'bottom',
+            margin: theme.spacing.unit / 4,
+            fontWeight: 500,
 
-  image: data.image && data.image.url,
-});
+            borderRadius: theme.shape.borderRadius / 2,
+            padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit *
+              1.5}px`,
+            backgroundColor: theme.palette.divider,
+          }}
+        >
+          +{data.skillsRequired.length - 3} more
+        </Typography>
+      )}
+    </div>
+  </>
+));
+export const job = data => {
+  let banner = null;
+  let bannerColor = '';
+
+  if (data.jobId)
+    banner = (
+      <>
+        <SubmittedIcon />
+        Applied
+      </>
+    );
+  if (moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 3) {
+    banner = (
+      <>
+        <FailedIcon />
+        Closing Soon
+      </>
+    );
+    bannerColor = 'orange';
+  }
+
+  return {
+    title: data.title,
+    secondaryText: <JobDetail data={data} />,
+    route: `${ROUTES.JOBS}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
+
+    banner,
+    bannerColor,
+
+    image: data.image && data.image.url,
+  };
+};
 
 export const event = data => ({
   title: data.title,
@@ -117,7 +350,6 @@ export const event = data => ({
   primaryAction: 'Do the thing',
   route: `${ROUTES.EVENTS}?id=${data.id}`,
 
-  indicator: <EventsIcon />,
   tertiaryText: [`Starts ${data.startDateTime}`, `Ends ${data.endDateTime}`],
 
   image: data.image && data.image.url,

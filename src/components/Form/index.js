@@ -1,15 +1,24 @@
 import React, { useEffect } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Dialog from '../Dialog';
+
+import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import Slide from '@material-ui/core/Slide';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import remove from 'ramda/es/remove';
 import map from 'ramda/es/map';
+
 import FIELDS from '../../constants/forms/fields';
+
 import Text from './Fields/Text';
 import TextItems from './Fields/TextItems';
 import Slider from './Fields/Slider';
@@ -17,12 +26,79 @@ import DateTime from './Fields/DateTime';
 import Uploader from './Fields/Uploader';
 import Select from './Fields/Select';
 import Checkbox from './Fields/Checkbox';
+import RadioButtons from './Fields/RadioButtons';
 
 const styles = theme => ({
+  mobile: {},
+  paperRoot: {
+    width: `calc(100% - ${theme.spacing.unit * 4}px)`,
+    maxWidth: 600,
+    margin: theme.spacing.unit * 2,
+    maxHeight: `calc(100% - ${theme.spacing.unit * 4}px)`,
+  },
+
+  dialogTitle: {
+    paddingTop: theme.spacing.unit * 2.5,
+
+    '& > *': {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
+
+    '$mobile &': {
+      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2.5}px`,
+    },
+  },
+
   wrapperGrid: {
-    // marginTop: theme.spacing.unit,
     overflowX: 'hidden',
     paddingBottom: theme.spacing.unit,
+  },
+
+  dialogContent: {
+    paddingBottom: 0,
+    position: 'relative',
+    zIndex: 1,
+
+    background: `${theme.palette.background.paper} no-repeat`,
+    backgroundImage:
+      theme.palette.type === 'dark'
+        ? 'linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,0)), linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,0))'
+        : 'linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,0)), linear-gradient(to top, rgba(0,0,0,.1), rgba(0,0,0,0))',
+    backgroundPosition: `-${theme.spacing.unit * 3}px 0, -${theme.spacing.unit *
+      3}px 100%`,
+    backgroundSize: `calc(100% + ${theme.spacing.unit * 3}px) ${theme.spacing
+      .unit * 2}px`,
+
+    '&::before, &::after': {
+      content: '""',
+      position: 'relative',
+      zIndex: -1,
+      display: 'block',
+      height: theme.spacing.unit * 4,
+      margin: `0 -${theme.spacing.unit * 3}px -${theme.spacing.unit * 4}px`,
+      background: `linear-gradient(to bottom, ${
+        theme.palette.background.paper
+      }, ${theme.palette.background.paper} 30%, rgba(255, 255, 255, 0))`,
+    },
+
+    '&::after': {
+      marginTop: -theme.spacing.unit * 4,
+      marginBottom: 0,
+      background: `linear-gradient(to bottom, rgba(255, 255, 255, 0), ${
+        theme.palette.background.paper
+      } 70%, ${theme.palette.background.paper})`,
+    },
+
+    '$mobile &': {
+      padding: `0 ${theme.spacing.unit * 2}px`,
+
+      '&::before, &::after': {
+        marginLeft: -theme.spacing.unit * 2,
+        marginRight: -theme.spacing.unit * 2,
+      },
+    },
   },
 
   capitalise: {
@@ -62,9 +138,14 @@ const validationReducer = (obj, item) => (
   item.validation ? (obj[item.name] = item.validation) : null, obj
 );
 
+function Transition(props) {
+  return <Slide direction="up" {...props} />;
+}
+
 function Form(props) {
   const {
     classes,
+    theme,
     action,
     actions,
     open,
@@ -88,6 +169,8 @@ function Form(props) {
     },
     [data]
   );
+
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
     <Formik
@@ -171,6 +254,7 @@ function Form(props) {
                       name={x.name}
                       placeholder={x.placeholder}
                       width={x.width}
+                      autoFocus={x.autoFocus}
                     />
                   );
 
@@ -260,6 +344,19 @@ function Form(props) {
                     />
                   );
 
+                case FIELDS.radio:
+                  return (
+                    <RadioButtons
+                      key={x.name}
+                      formikProps={formikProps}
+                      label={x.label}
+                      name={x.name}
+                      validator={validator}
+                      options={x.options}
+                      horiz={x.horiz}
+                    />
+                  );
+
                 default:
                   return null;
               }
@@ -272,6 +369,7 @@ function Form(props) {
             color="primary"
             variant="contained"
             type="submit"
+            id="submit"
             classes={{ label: classes.capitalise }}
           >
             {action[0].toUpperCase()}
@@ -291,15 +389,32 @@ function Form(props) {
               <Dialog
                 open={open}
                 onClose={actions.close}
-                activity={action}
-                unChanged={false}
-                title={formTitle}
-                addHandler={handleSubmit}
-                cancelHandler={actions.close}
+                classes={{
+                  paper: isMobile ? classes.mobilePaperRoot : classes.paperRoot,
+                }}
+                fullScreen={isMobile}
+                className={isMobile ? classes.mobile : ''}
+                TransitionComponent={Transition}
               >
-                {formHeader}
-                {Fields}
-                {formFooter}
+                <DialogTitle
+                  className={classes.capitalise}
+                  classes={{ root: classes.dialogTitle }}
+                >
+                  {action} {formTitle}
+                </DialogTitle>
+
+                <DialogContent classes={{ root: classes.dialogContent }}>
+                  {formHeader}
+                  {Fields}
+                  {formFooter}
+                </DialogContent>
+
+                <DialogActions>
+                  <Button onClick={actions.close} color="primary" id="cancel">
+                    Cancel
+                  </Button>
+                  {PrimaryButton}
+                </DialogActions>
               </Dialog>
             )}
           </form>
@@ -309,4 +424,4 @@ function Form(props) {
   );
 }
 
-export default withStyles(styles)(Form);
+export default withStyles(styles, { withTheme: true })(Form);

@@ -8,7 +8,6 @@ import withAuthorisation from '../../utilities/Session/withAuthorisation';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,18 +15,17 @@ import Badge from '@material-ui/core/Badge';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
-import MenuIcon from '@material-ui/icons/MenuRounded';
-import ActivityLogIcon from '@material-ui/icons/HistoryRounded';
-import DashboardIcon from '@material-ui/icons/DashboardRounded';
-import ProfileIcon from '@material-ui/icons/PersonRounded';
-import JobsIcon from '@material-ui/icons/BusinessCenterRounded';
-import AssessmentsIcon from '@material-ui/icons/AssignmentRounded';
-import CoursesIcon from '@material-ui/icons/SchoolRounded';
+import MenuIcon from '@material-ui/icons/MenuOutlined';
+import ActivityLogIcon from '@material-ui/icons/HistoryOutlined';
+import DashboardIcon from '@material-ui/icons/DashboardOutlined';
+import ProfileIcon from '@material-ui/icons/PersonOutlined';
+import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
+import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
+import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 
-// import ContactIcon from '@material-ui/icons/ForumRounded';
-import FaqIcon from '@material-ui/icons/HelpRounded';
-import AccountInfoIcon from '@material-ui/icons/EditRounded';
-import LogOutIcon from '@material-ui/icons/ExitToAppRounded';
+import FaqIcon from '@material-ui/icons/HelpOutline';
+import AccountInfoIcon from '@material-ui/icons/SettingsOutlined';
+import LogOutIcon from '@material-ui/icons/ExitToAppOutlined';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import { setBackground } from '../../utilities/styling';
@@ -66,21 +64,18 @@ const styles = theme => ({
   },
   drawerPaper: {
     width: DRAWER_WIDTH,
-  },
-  drawerBorder: {
-    boxShadow: `-1px 0 0 ${theme.palette.divider} inset`,
     borderRight: 'none',
+    '$desktopNavWrapper &': { zIndex: 1 },
   },
   nav: { height: '100%' },
 
-  logoButton: {
-    width: '100%',
+  logoWrapper: {
     padding: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit,
     justifyContent: 'flex-start',
-    transition: theme.transitions.create(['background-color', 'box-shadow']),
-    '&:hover': { backgroundColor: theme.palette.action.hover },
+    minHeight: 64,
   },
-  logo: { width: 100, userSelect: 'none' },
+  logo: { width: 100, userSelect: 'none', userDrag: 'none' },
 
   activityLogButton: {
     position: 'absolute',
@@ -97,19 +92,23 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit,
     cursor: 'default',
   },
+
+  divider: { margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2.25}px` },
+
   listWrapper: { marginTop: theme.spacing.unit * 3 },
   listItemRoot: {
-    transition: theme.transitions.create([
-      'background-color',
-      'box-shadow',
-      'color',
-    ]),
+    transition: theme.transitions.create(['background-color', 'color']),
+    borderRadius: '0 20px 20px 0',
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+
+    margin: `${theme.spacing.unit / 2}px 0`,
+    marginRight: theme.spacing.unit,
+    width: 'auto',
   },
   listItemTextRoot: { padding: 0 },
-  divider: { margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px` },
   selected: {
     color: theme.palette.primary.main,
-    boxShadow: `-4px 0 0 ${theme.palette.primary.main} inset`,
     backgroundColor: theme.palette.primary.light,
 
     '&:hover': { backgroundColor: theme.palette.primary.light },
@@ -118,15 +117,11 @@ const styles = theme => ({
 
   wrappedComponentWrapper: {
     transition: theme.transitions.create('opacity'),
-    overflow: 'hidden',
+    zIndex: 2,
+    minHeight: '100vh',
   },
   fadeOut: { opacity: 0 },
 
-  wrappedComponent: {
-    boxShadow: `0px -11px 15px -7px rgba(0,0,0,0.1),
-      0px -24px 38px 3px rgba(0,0,0,0.07)`,
-    minHeight: '100vh',
-  },
   wrappedComponentMobilePadding: { paddingBottom: theme.spacing.unit * 10 },
 
   appBar: {
@@ -135,17 +130,18 @@ const styles = theme => ({
 
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.secondary,
-    boxShadow: `${theme.shadows[8]}, 0 1px 0 ${theme.palette.divider} inset`,
+    boxShadow: `0 -1px 0 rgba(0,0,0,.05), ${theme.shadows[16]}`,
   },
   toolbar: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: `0 ${theme.spacing.unit * 1.5}px`,
+    padding: `0 ${theme.spacing.unit}px`,
   },
   bottomLogo: {
     height: 28,
     opacity: 0.5,
     userSelect: 'none',
+    userDrag: 'none',
   },
 });
 
@@ -153,10 +149,13 @@ export default function withNavigation(WrappedComponent) {
   function WithNavigation(props) {
     const { classes, theme, history, location, authUser } = props;
 
-    setBackground(theme.palette.background.default);
+    setBackground(theme.palette.background.paper);
 
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const showBottomDivider = useMediaQuery('(max-height: 680px)');
+    const showBottomDivider = useMediaQuery('(max-height: 616px)');
+
+    if (isMobile) document.body.classList.add('fb_up');
+    else document.body.classList.remove('fb_up');
 
     const [navOpen, setNavOpen] = useState(false);
     const [activityLogOpen, setActivityLogOpen] = useState(false);
@@ -201,13 +200,6 @@ export default function withNavigation(WrappedComponent) {
       { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES },
     ];
     const BOTTOM_NAV_ITEMS = [
-      // {
-      //   label: 'Contact Us',
-      //   icon: <ContactIcon />,
-      //   onClick: () => {
-      //     window.Intercom('show');
-      //   },
-      // },
       {
         label: 'FAQ',
         icon: <FaqIcon />,
@@ -241,10 +233,7 @@ export default function withNavigation(WrappedComponent) {
               onClose={() => {
                 if (isMobile) setNavOpen(false);
               }}
-              classes={{
-                paper: classes.drawerPaper,
-                paperAnchorDockedLeft: classes.drawerBorder,
-              }}
+              classes={{ paper: classes.drawerPaper }}
             >
               <Grid
                 container
@@ -253,16 +242,8 @@ export default function withNavigation(WrappedComponent) {
                 className={classes.nav}
                 wrap="nowrap"
               >
-                <Grid item>
-                  <ButtonBase
-                    id="logo-button"
-                    onClick={() => {
-                      goTo(ROUTES.DASHBOARD);
-                    }}
-                    className={classes.logoButton}
-                  >
-                    <img src={logo} alt="2hats" className={classes.logo} />
-                  </ButtonBase>
+                <Grid item className={classes.logoWrapper}>
+                  <img src={logo} alt="2hats" className={classes.logo} />
                   <IconButton
                     className={classes.activityLogButton}
                     onClick={() => {
@@ -278,8 +259,8 @@ export default function withNavigation(WrappedComponent) {
                       <ActivityLogIcon />
                     </Badge>
                   </IconButton>
-                  <Divider className={classes.divider} />
                 </Grid>
+                <Divider className={classes.divider} />
                 <Grid item className={classes.userWrapper}>
                   <User user={user} />
                 </Grid>
@@ -308,13 +289,6 @@ export default function withNavigation(WrappedComponent) {
                 </Grid>
               </Grid>
             </Drawer>
-            <AccountInfoDialog
-              user={user}
-              open={showAccountInfo}
-              closeHandler={() => {
-                setShowAccountInfo(false);
-              }}
-            />
           </Grid>
 
           <Grid
@@ -322,17 +296,14 @@ export default function withNavigation(WrappedComponent) {
             xs
             className={classNames(
               classes.wrappedComponentWrapper,
-              fadeOut && classes.fadeOut
+              fadeOut && classes.fadeOut,
+              isMobile && classes.wrappedComponentMobilePadding
             )}
           >
             {user ? (
               <WrappedComponent
                 {...props}
                 classes={null}
-                className={classNames(
-                  classes.wrappedComponent,
-                  isMobile && classes.wrappedComponentMobilePadding
-                )}
                 isMobile={isMobile}
                 user={user}
                 location={location}
@@ -341,14 +312,6 @@ export default function withNavigation(WrappedComponent) {
               <LoadingScreen showNav />
             )}
           </Grid>
-          {/* <div
-            class="fb-customerchat"
-            attribution="setup_tool"
-            page_id="147791982330823"
-            theme_color="#f2573e"
-            logged_in_greeting="Hi! How can we help you?"
-            logged_out_greeting="Hi! How can we help you?"
-          /> */}
 
           {isMobile && (
             <AppBar position="fixed" color="default" className={classes.appBar}>
@@ -396,6 +359,10 @@ export default function withNavigation(WrappedComponent) {
               user={user}
               isMobile={isMobile}
             />
+          )}
+
+          {showAccountInfo && user && (
+            <AccountInfoDialog user={user} setShowDialog={setShowAccountInfo} />
           )}
         </Grid>
       </>

@@ -1,5 +1,5 @@
 import React from 'react';
-import DoneIcon from '@material-ui/icons/DoneRounded';
+import DoneIcon from '@material-ui/icons/DoneOutlined';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Link from '@material-ui/core/Link';

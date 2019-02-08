@@ -4,13 +4,19 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
-import Dialog from './Dialog/index';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@material-ui/core/Button';
+
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 
-import EditIcon from '@material-ui/icons/EditRounded';
+import EditIcon from '@material-ui/icons/Edit';
 
 import Dropzone from 'react-dropzone';
 import { db } from '../store';
@@ -127,7 +133,7 @@ class SuperAvatarPlus extends Component {
 
   render() {
     const { avatarURL, firstName, lastName, classes } = this.props;
-    const { isUploading, hasChanged, open } = this.state;
+    const { isUploading, open } = this.state;
     let avatar = (
       <IconButton
         id="profile-button"
@@ -188,37 +194,47 @@ class SuperAvatarPlus extends Component {
     return (
       <div>
         {avatar}
-        <Dialog
-          open={open}
-          isLoading={isUploading}
-          unChanged={!hasChanged}
-          title={'Profile Photo'}
-          activity="Update"
-          hideActivityFromTitle
-          disabled={isUploading || !hasChanged}
-          addHandler={this.saveHandler}
-          cancelHandler={this.cancelHandler}
-        >
-          <Grid
-            container
-            direction="column"
-            alignItems="center"
-            style={{ width: '100%' }}
-          >
-            {isUploading && (
-              <CircularProgress className={classes.spinner} size={180} />
-            )}
-            <Dropzone
-              onDrop={this.onDrop.bind(this)}
-              className={classes.dropZone}
-              accept="image/jpeg, image/png, image/jpg"
+        <Dialog open={open}>
+          <DialogTitle>Profile Photo</DialogTitle>
+          <DialogContent>
+            <Grid
+              container
+              direction="column"
+              alignItems="center"
+              style={{ width: '100%' }}
             >
-              {bigAvatar}
-              <Link component="button" className={classes.link} variant="body1">
-                Select a file
-              </Link>
-            </Dropzone>
-          </Grid>
+              {isUploading && (
+                <CircularProgress className={classes.spinner} size={180} />
+              )}
+              <Dropzone
+                onDrop={this.onDrop.bind(this)}
+                className={classes.dropZone}
+                accept="image/jpeg, image/png, image/jpg"
+              >
+                {bigAvatar}
+                <Link
+                  component="button"
+                  className={classes.link}
+                  variant="body1"
+                >
+                  Select a file
+                </Link>
+              </Dropzone>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button color="primary" onClick={this.cancelHandler}>
+              Cancel
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={this.saveHandler}
+              id={!isUploading && 'save'}
+            >
+              Save
+            </Button>
+          </DialogActions>
         </Dialog>
       </div>
     );
@@ -228,5 +244,7 @@ class SuperAvatarPlus extends Component {
 SuperAvatarPlus.propTypes = {
   classes: PropTypes.object.isRequired,
   avatarURL: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
 };
 export default withStyles(styles)(SuperAvatarPlus);

@@ -15,8 +15,14 @@ function initiateTestConfig(viewport = { width: 1200, height: 800 }) {
     lastGitTag = prevGitTag;
   }
   //Create screenshot directory
+  const screenshotFolder = `${CONST.screenshotPath}`;
+  if (!fs.existsSync(screenshotFolder)) fs.mkdirSync(screenshotFolder);
   const dir = `${CONST.screenshotPath}/${gitTag}`;
   if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+
+  //Create Errors directory
+  const errorsFolder = `${CONST.screenshotPath}/errors-${gitTag}`;
+  if (!fs.existsSync(errorsFolder)) fs.mkdirSync(errorsFolder);
 
   //Create screenshot difference directory
   const diffDir = `${CONST.screenshotPath}/diff-${lastGitTag}-${gitTag}`;

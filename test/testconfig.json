@@ -1,9 +1,9 @@
 {
-  "lastGitTag": "c4bb38a",
-  "gitTag": "55ffa94",
-  "timestamp": 1548051137840,
+  "lastGitTag": "ef8e1a4",
+  "gitTag": "703cce3",
+  "timestamp": 1549524683723,
   "viewport": { "width": 1200, "height": 800 },
-  "screenshotDir": "./test/screenshots/55ffa94",
-  "lastScreenshotDir": "./test/screenshots/c4bb38a",
-  "diffDir": "./test/screenshots/diff-c4bb38a-55ffa94"
+  "screenshotDir": "./test/screenshots/703cce3",
+  "lastScreenshotDir": "./test/screenshots/ef8e1a4",
+  "diffDir": "./test/screenshots/diff-ef8e1a4-703cce3"
 }

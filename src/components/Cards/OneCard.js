@@ -1,36 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
+import green from '@material-ui/core/colors/green';
+import red from '@material-ui/core/colors/red';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardRounded';
 
 export const CARD_WIDTH = 320;
 export const CARD_PADDING = 16;
-const MEDIA_HEIGHT = CARD_WIDTH * 0.5625;
 
 const styles = theme => ({
   root: {
-    transition: theme.transitions.create(['box-shadow', 'transform']),
     margin: CARD_PADDING / 2,
     width: CARD_WIDTH,
+
+    transition: theme.transitions.create(['box-shadow', 'transform']),
+    boxShadow: `0 0 0 1px rgba(0,0,0,.025), 0 10px 20px rgba(0,0,0,.1)`,
 
     '&:hover': {
       boxShadow: theme.shadows[24],
       transform: 'translateY(-4px)',
-    },
 
-    // '@media (max-width: 350px)': { width: CARD_WIDTH - 20 },
+      '& $media:not($video), & $banner': { opacity: 0.9 },
+    },
+    '&:active': {
+      transform: 'translateY(0) scale(0.95)',
+      boxShadow: `0 10px 30px rgba(0,0,0,.14)`,
+      transitionDuration: '.2s',
+    },
   },
 
   cardActionArea: {
@@ -45,48 +49,60 @@ const styles = theme => ({
     backgroundColor: theme.palette.action.hover,
   },
 
+  cardContent: { textAlign: 'left' },
+
   banner: {
-    display: 'block',
-    width: 160,
-    height: 28,
-    background: theme.palette.primary.main,
-    position: 'absolute',
-    top: 30,
-    left: -34,
-    textAlign: 'center',
-    transform: 'rotate(-45deg)',
-  },
-  bannerText: {
-    color: theme.palette.common.white,
-    lineHeight: '26px',
-  },
+    background: theme.palette.divider,
+    transition: theme.transitions.create('opacity'),
 
-  tertiaryIndicator: {
-    position: 'absolute',
-    top: theme.spacing.unit,
-    right: theme.spacing.unit,
-
-    backgroundColor: 'rgba(0,0,0,.54)',
-    color: theme.palette.common.white,
-    height: theme.spacing.unit * 4,
-    borderRadius: theme.spacing.unit * 2,
-    boxSizing: 'border-box',
-    lineHeight: `${theme.spacing.unit * 4}px`,
-    paddingLeft: theme.spacing.unit,
+    textAlign: 'left',
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 1.75}px`,
 
     '& svg': {
-      margin: theme.spacing.unit / 2,
-      marginLeft: theme.spacing.unit / 4,
       verticalAlign: 'bottom',
+      marginRight: theme.spacing.unit,
     },
   },
+  bannerText: {
+    fontWeight: 500,
+    position: 'relative',
+    top: 1,
+  },
+  bannerGreen: {
+    backgroundColor: green[100],
+    '& *': { color: green[800] },
+  },
+  bannerRed: {
+    backgroundColor: red[100],
+    '& *': { color: red[800] },
+  },
+  bannerOrange: {
+    backgroundColor: theme.palette.primary.light,
+    '& *': { color: theme.palette.primary.main },
+  },
+
+  title: { marginTop: -theme.spacing.unit / 2 },
 
   media: {
+    width: 100,
+    height: 100,
+    float: 'right',
+    borderRadius: theme.shape.borderRadius * 0.75,
+    transition: theme.transitions.create('opacity'),
+
+    marginLeft: theme.spacing.unit,
+    marginBottom: theme.spacing.unit,
+  },
+  gradient: {
+    backgroundImage: `linear-gradient(-15deg, #fa0, ${
+      theme.palette.primary.main
+    })`,
+  },
+  video: {
     width: '100%',
-    // height: MEDIA_HEIGHT,
     height: 0,
-    paddingBottom: '56.25%',
     position: 'relative',
+    paddingBottom: '56.25%',
   },
   iframe: {
     position: 'absolute',
@@ -95,66 +111,9 @@ const styles = theme => ({
     width: '100%',
     height: '100%',
   },
-  gradient: {
-    width: '100%',
-    // height: MEDIA_HEIGHT,
-    height: 0,
-    paddingBottom: '56.25%',
-    backgroundImage: `linear-gradient(-15deg, #fa0, ${
-      theme.palette.primary.main
-    })`,
-  },
-
-  titleWithIndicator: { paddingRight: theme.spacing.unit * 6 },
-
-  indicator: {
-    display: 'inline-block',
-    height: theme.spacing.unit * 6,
-    padding: theme.spacing.unit * 1.5,
-    boxSizing: 'border-box',
-    position: 'absolute',
-    top: MEDIA_HEIGHT - theme.spacing.unit * 3,
-    right: theme.spacing.unit,
-    zIndex: 1,
-    boxShadow: theme.shadows[4],
-
-    borderRadius: theme.spacing.unit * 3,
-    backgroundColor: theme.palette.primary.main,
-    color: theme.palette.common.white,
-  },
-
-  stretchGrid: {
-    height: '100%',
-    paddingTop: MEDIA_HEIGHT,
-    marginTop: -MEDIA_HEIGHT,
-  },
-  cardContent: {
-    textAlign: 'left',
-    paddingBottom: theme.spacing.unit,
-    '&:last-child': { paddingBottom: theme.spacing.unit },
-  },
 
   secondaryText: {
     whiteSpace: 'pre-wrap',
-  },
-  tertiaryTextList: {
-    padding: 0,
-    paddingLeft: theme.spacing.unit * 2.5,
-    marginTop: theme.spacing.unit,
-    marginBottom: 0,
-  },
-
-  cardActions: {
-    justifyContent: 'flex-end',
-    paddingTop: 0,
-    paddingRight: 0,
-  },
-  arrowForwardIcon: {
-    marginRight: '0 !important',
-    marginLeft: theme.spacing.unit / 2,
-  },
-  primaryButton: {
-    '&:hover': { backgroundColor: 'transparent' },
   },
 });
 
@@ -163,12 +122,9 @@ function OneCard(props) {
     classes,
     title,
     secondaryText,
-    primaryAction,
     route,
-    indicator,
-    tertiaryText,
     banner,
-    tertiaryIndicator,
+    bannerColor,
     image,
     video,
     gradient,
@@ -178,7 +134,7 @@ function OneCard(props) {
   let media;
   if (video) {
     media = (
-      <div className={classes.media}>
+      <div className={classes.video}>
         <iframe
           src={video}
           className={classes.iframe}
@@ -200,86 +156,45 @@ function OneCard(props) {
   return (
     <Card classes={{ root: classes.root }}>
       <CardActionArea
+        id={title.replace(/\W/g, '')}
         component="div"
         onClick={() => {
           history.push(route);
         }}
         classes={{ root: classes.cardActionArea }}
         focusVisibleClassName={classes.focusVisible}
+        disableRipple
       >
-        {media}
+        {video && media}
 
         {banner && (
-          <div className={classes.banner}>
-            <Typography variant="button" className={classes.bannerText}>
+          <div
+            className={classNames(
+              classes.banner,
+              bannerColor === 'green' && classes.bannerGreen,
+              bannerColor === 'red' && classes.bannerRed,
+              bannerColor === 'orange' && classes.bannerOrange
+            )}
+          >
+            <Typography variant="body1" className={classes.bannerText}>
               {banner}
             </Typography>
           </div>
         )}
 
-        {tertiaryIndicator && (
-          <Typography variant="body2" className={classes.tertiaryIndicator}>
-            {tertiaryIndicator}
+        <CardContent classes={{ root: classes.cardContent }}>
+          {!video && media}
+          <Typography gutterBottom variant="h6" className={classes.title}>
+            {title}
           </Typography>
-        )}
-
-        {indicator && (
-          <div
-            className={classes.indicator}
-            style={!indicator ? { visibility: 'hidden' } : {}}
-          >
-            {indicator}
-          </div>
-        )}
-
-        <Grid
-          container
-          direction="column"
-          className={classes.stretchGrid}
-          wrap="nowrap"
-        >
-          <Grid item xs>
-            <CardContent classes={{ root: classes.cardContent }}>
-              <Typography
-                gutterBottom
-                variant="h6"
-                className={indicator ? classes.titleWithIndicator : ''}
-              >
-                {title}
-              </Typography>
-              {typeof secondaryText === 'string' ? (
-                <Typography component="p" className={classes.secondaryText}>
-                  {secondaryText}
-                </Typography>
-              ) : (
-                secondaryText
-              )}
-              {tertiaryText && (
-                <ul className={classes.tertiaryTextList}>
-                  {tertiaryText.map((x, i) => (
-                    <li key={i}>
-                      <Typography>{x}</Typography>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </CardContent>
-          </Grid>
-
-          <Grid item>
-            <CardActions className={classes.cardActions}>
-              <Button
-                color="primary"
-                id={`button-${title}`}
-                className={classes.primaryButton}
-                disableRipple
-              >
-                {primaryAction}
-                <ArrowForwardIcon className={classes.arrowForwardIcon} />
-              </Button>
-            </CardActions>
-          </Grid>
-        </Grid>
+          {typeof secondaryText === 'string' ? (
+            <Typography component="p" className={classes.secondaryText}>
+              {secondaryText}
+            </Typography>
+          ) : (
+            secondaryText
+          )}
+        </CardContent>
       </CardActionArea>
     </Card>
   );
@@ -290,14 +205,10 @@ OneCard.propTypes = {
 
   title: PropTypes.string,
   secondaryText: PropTypes.node,
-  primaryAction: PropTypes.string,
   route: PropTypes.string,
 
-  newTab: PropTypes.bool,
-  indicator: PropTypes.node,
-  tertiaryText: PropTypes.array,
-  banner: PropTypes.string,
-  tertiaryIndicator: PropTypes.node,
+  banner: PropTypes.node,
+  bannerColor: PropTypes.string,
 
   image: PropTypes.string,
   video: PropTypes.string,

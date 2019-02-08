@@ -1,5 +1,5 @@
 import { auth, db } from '../../store/index';
-import { UPLOAD_RESUME, DASHBOARD } from '../../constants/routes';
+import { DASHBOARD } from '../../constants/routes';
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
 
@@ -23,8 +23,8 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               createdAt: new Date(),
               providers: [{ service: 'password', id: uid }],
               signupMethod: 'password',
-              stage: 'pre-review', // TODO use stage and status constants
-              status: 'incomplete',
+              // stage: 'pre-review', // TODO use stage and status constants
+              // status: 'incomplete',
               history: [
                 {
                   stage: 'pre-review',
@@ -36,18 +36,18 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
           db.collection('profiles')
             .doc(uid)
             .set({
-              education: [],
-              experience: [],
-              industry: 'OTHER',
+              // education: [],
+              // experience: [],
+              // industry: 'OTHER',
               bio: '',
-              careerInterests: { type: 'defualt', value: [] },
-              skills: [],
-              resumeFile: { name: '', fullPath: '', downloadURL: '' },
-              isComplete: false,
-              hasSubmit: false,
+              // careerInterests: { type: 'defualt', value: [] },
+              // skills: [],
+              resumeFile: { name: '', url: '' },
+              // isComplete: false,
+              // hasSubmit: false,
               createdAt: Date.now(),
             });
-          routeHandler(UPLOAD_RESUME);
+          routeHandler(DASHBOARD);
         });
     })
     .catch(error => {
@@ -64,13 +64,13 @@ export const signInWithPassword = (user, routeHandler, errorHandler) => {
         .doc(authUser.user.uid)
         .get()
         .then(userDoc => {
-          const doc = userDoc.data();
-          if (doc.process === 'build' || doc.process === 'upload') {
-            //TODO: process constants
-            routeHandler(DASHBOARD);
-          } else {
-            routeHandler(UPLOAD_RESUME);
-          }
+          // const doc = userDoc.data();
+          // if (doc.process === 'build' || doc.process === 'upload') {
+          //TODO: process constants
+          routeHandler(DASHBOARD);
+          // } else {
+          // routeHandler(UPLOAD_RESUME);
+          // }
         });
     })
     .catch(error => {

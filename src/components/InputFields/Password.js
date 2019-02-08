@@ -6,8 +6,8 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
-import Visibility from '@material-ui/icons/VisibilityRounded';
-import VisibilityOff from '@material-ui/icons/VisibilityOffRounded';
+import Visibility from '@material-ui/icons/VisibilityOutlined';
+import VisibilityOff from '@material-ui/icons/VisibilityOffOutlined';
 
 import { withOnEnter } from './withOnEnter';
 
