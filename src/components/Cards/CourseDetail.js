@@ -8,7 +8,6 @@ import IndustryIcon from '@material-ui/icons/BusinessOutlined';
 import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
 import SkillsList from './SkillsList';
-import IndustryLabel from './IndustryLabel';
 
 import {
   STYLES,

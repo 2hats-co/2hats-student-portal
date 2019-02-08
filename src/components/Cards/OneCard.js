@@ -135,8 +135,10 @@ const styles = theme => ({
     paddingRight: 0,
   },
   arrowForwardIcon: {
-    marginRight: '0 !important',
-    marginLeft: theme.spacing.unit / 2,
+    'svg&': {
+      marginRight: 0,
+      marginLeft: theme.spacing.unit / 2,
+    },
   },
   primaryButton: {
     '&:hover': { backgroundColor: 'transparent' },
