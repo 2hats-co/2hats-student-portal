@@ -35,7 +35,7 @@ const styles = theme => ({
   },
   upskill: {
     marginTop: theme.spacing.unit,
-    marginLeft: theme.spacing.unit * 1.25,
+    marginLeft: theme.spacing.unit,
 
     '& svg': {
       verticalAlign: 'bottom',
@@ -128,11 +128,13 @@ const Job = props => {
       <BackButton className={classes.backButton} />
 
       <main className={classes.content}>
-        {data.image && data.image.url && (
+        {data.image && data.image.url ? (
           <div
             style={{ backgroundImage: `url(${data.image.url})` }}
             className={classes.coverImage}
           />
+        ) : (
+          <div style={{ height: 24 }} />
         )}
 
         <Typography
@@ -186,9 +188,10 @@ const Job = props => {
           >
             About the company
           </Typography>
-          <Typography variant="body1" className={classes.description}>
-            {data.companyDescription}
-          </Typography>
+          <div
+            className={classes.renderedHtml}
+            dangerouslySetInnerHTML={{ __html: data.companyDescription }}
+          />
         </div>
 
         <div className={classes.section}>
@@ -197,11 +200,12 @@ const Job = props => {
             gutterBottom
             className={classes.subtitle}
           >
-            The role
+            Job description
           </Typography>
-          <Typography variant="body1" className={classes.description}>
-            {data.roleDescription}
-          </Typography>
+          <div
+            className={classes.renderedHtml}
+            dangerouslySetInnerHTML={{ __html: data.jobDescription }}
+          />
         </div>
 
         <div className={classNames(classes.section, classes.applyBigWrapper)}>

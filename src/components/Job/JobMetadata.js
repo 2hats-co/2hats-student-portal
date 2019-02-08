@@ -83,7 +83,7 @@ const JobMetadata = props => {
             {data.commitment}
           </Typography>
           <Typography variant={isXs || small ? 'body2' : 'body1'}>
-            days per week
+            {data.commitmentUnits}
           </Typography>
         </Grid>
         <Grid item xs={4} className={classes.gridItem}>
@@ -95,7 +95,7 @@ const JobMetadata = props => {
             {data.payRate}
           </Typography>
           <Typography variant={isXs || small ? 'body2' : 'body1'}>
-            per {data.payUnits}
+            {data.payUnits}
           </Typography>
         </Grid>
         <Grid item xs={4} className={classes.gridItem}>
