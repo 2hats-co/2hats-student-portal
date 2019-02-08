@@ -125,6 +125,11 @@ export const course = data => {
   return {
     title: data.title,
     secondaryText: <CourseDetail data={data} />,
+    primaryAction: data.hasOwnProperty('completed')
+      ? data.completed
+        ? 'View'
+        : 'Continue'
+      : 'Get started',
     route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
     newTab: true,
 
@@ -162,7 +167,7 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
       </Grid>
     </Grid>
 
-    <Typography
+    {/* <Typography
       variant="subtitle2"
       style={{
         marginLeft: theme.spacing.unit / 4,
@@ -171,7 +176,7 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
     >
       Skill awarded
     </Typography>
-    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense />
+    <SkillItem value={data.skillAssociated} style={{ marginLeft: 0 }} dense /> */}
 
     <div
       style={{
@@ -184,11 +189,14 @@ const AssessmentDetail = withTheme()(({ data, theme }) => (
   </>
 ));
 export const assessment = data => {
+  let primaryAction = 'Get started';
   let banner = null;
   let bannerColor = '';
 
   if (data.assessmentId) {
     if (!data.submitted) {
+      primaryAction = 'Complete submission';
+
       banner = (
         <>
           <FailedIcon />
@@ -198,6 +206,8 @@ export const assessment = data => {
       bannerColor = 'orange';
     } else {
       if (data.outcome === 'pass') {
+        primaryAction = 'View submission';
+
         banner = (
           <>
             <PassedIcon />
@@ -206,6 +216,8 @@ export const assessment = data => {
         );
         bannerColor = 'green';
       } else if (data.outcome === 'fail') {
+        primaryAction = data.resubmitted ? 'View' : 'Resubmit';
+
         banner = (
           <>
             <FailedIcon />
@@ -215,6 +227,7 @@ export const assessment = data => {
         bannerColor = 'red';
       } else {
         // Submitted but no outcome yet/not screened
+        primaryAction = 'View submission';
         banner = (
           <>
             <SubmittedIcon />
@@ -228,6 +241,7 @@ export const assessment = data => {
   return {
     title: data.title,
     secondaryText: <AssessmentDetail data={data} />,
+    primaryAction,
     route: `${ROUTES.ASSESSMENTS}?id=${data.id}${
       data.assessmentId ? '&yours=true' : ''
     }`,
@@ -335,6 +349,7 @@ export const job = data => {
   return {
     title: data.title,
     secondaryText: <JobDetail data={data} />,
+    primaryAction: data.jobId ? 'View' : 'Learn more',
     route: `${ROUTES.JOBS}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
 
     banner,
