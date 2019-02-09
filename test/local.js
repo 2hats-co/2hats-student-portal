@@ -31,16 +31,7 @@ admin
 const db = admin.app(PROJECT).firestore();
 const auth = admin.app(PROJECT).auth();
 
-async function main() {
-  // await checkUserCreated('test2hats@gmail.com', [
-  //   'signupMethod',
-  //   'email',
-  //   'firstName',
-  //   'lastName',
-  //   'interest',
-  // ]);
-  //await clearUserData('test2hats@gmail.com');
-}
+async function main() {}
 main();
 
 /**

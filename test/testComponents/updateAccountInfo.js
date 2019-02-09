@@ -1,6 +1,6 @@
 const { SELECTORS, CONST } = require('../constants');
 const { click, runSteps, selectDropDown, type } = require('../utils/functions');
-
+const { checkDocMatches } = require('../utils/dbUtil');
 const logout = [
   {
     name: 'updateAccInfo-click',
@@ -18,6 +18,24 @@ const logout = [
       await selectDropDown(page, '', 1);
       await type(page, SELECTORS.updateAccInfo.mobileNumber, '0403157878');
       await click(page, SELECTORS.updateAccInfo.update);
+    },
+  },
+  {
+    name: 'updateAccInfo-checkDB',
+    action: async page => {
+      const profileData = {
+        firstName: 'Victor',
+        lastName: 'Chan',
+        currentDegree: 'Commerce',
+        mobileNumber: '0403157878',
+        availableDays: 1,
+      };
+      checkDocMatches(
+        'test2hats@gmail.com',
+        'profiles',
+        profileData,
+        'ProfileUploader-Testing for Profile details update'
+      );
     },
   },
 ];

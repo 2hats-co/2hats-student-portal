@@ -4,6 +4,8 @@ const {
   checkUserCreated,
   checkDocMatches,
   checkSmartLink,
+  checkCommDoc,
+  checkEmailDoc,
 } = require('../utils/dbUtil');
 
 const logout = [
@@ -37,9 +39,16 @@ const logout = [
   {
     name: 'speedySignUp-checkDB',
     action: async page => {
+      const fields = [
+        'signupMethod',
+        'email',
+        'firstName',
+        'lastName',
+        'interest',
+      ];
       checkUserCreated(
         'test2hats@gmail.com',
-        ['signupMethod', 'email', 'firstName', 'lastName', 'interest'],
+        fields,
         'speedySignUp-Testing for User Creation'
       );
       const profileData = {
@@ -93,6 +102,24 @@ const logout = [
         'createPassword',
         smartLinkData,
         'speedySignUp-Testing for smartLink Creation'
+      );
+      const commDocData = {
+        subject: '👋 Welcome to 2hats',
+        isSent: true,
+      };
+      checkCommDoc(
+        'test2hats@gmail.com',
+        commDocData,
+        'speedySignUp-Testing for Communications Creation'
+      );
+      const emailDocData = {
+        subject: '👋 Welcome to 2hats',
+        type: 'outbox',
+      };
+      checkEmailDoc(
+        'test2hats@gmail.com',
+        emailDocData,
+        'speedySignUp-Testing for Email Creation'
       );
 
       console.log('done');

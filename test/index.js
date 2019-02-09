@@ -33,27 +33,27 @@ const main = async () => {
   console.log(CONFIG.viewport);
   page.setViewport(CONFIG.viewport);
   await signupSteps(page);
-  browser.close();
+  //browser.close();
   //await compareAllScreenshots();
 };
 main();
 
 async function signupSteps(page) {
   await clearUserData('test2hats@gmail.com');
-  await testSpeedySignUp(page);
-  // await page.goto('http://localhost:3333');
-  // await signupEmail(page);
-  // await testActivityLog(page);
-  // await testProfileUploader(page);
-  // await testSideBar(page);
-  // await testUpdateAccInfo(page); //Doesnt check the DB YET
-  // await testProfileContainer(page);
-  // await page.goto('http://localhost:3333/dashboard');
-  // await testCourses(page);
-  // await page.goto('http://localhost:3333/dashboard');
-  // await testAssessments(page);
-  // await page.goto('http://localhost:3333/dashboard');
-  // await testJobs(page);
+  //await testSpeedySignUp(page);
+  await page.goto('http://localhost:3333');
+  await signupEmail(page);
+  await testActivityLog(page);
+  await testProfileUploader(page);
+  await testSideBar(page);
+  await testUpdateAccInfo(page);
+  await testProfileContainer(page);
+  await page.goto('http://localhost:3333/dashboard');
+  await testCourses(page);
+  await page.goto('http://localhost:3333/dashboard');
+  await testAssessments(page);
+  await page.goto('http://localhost:3333/dashboard');
+  await testJobs(page);
 
-  //await testLogout(page);
+  await testLogout(page);
 }

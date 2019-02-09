@@ -6,7 +6,7 @@ const {
   toggle,
   type,
 } = require('../utils/functions');
-const { setProfileData } = require('../utils/dbUtil');
+const { setProfileData, checkDocMatches } = require('../utils/dbUtil');
 
 const steps = [
   {
@@ -53,6 +53,20 @@ const steps = [
         SELECTORS.profileContainer.file
       );
       await page.waitForSelector(SELECTORS.profileContainer.chip);
+    },
+  },
+  {
+    name: 'ProfileContainer-checkDBUpdate',
+    action: async page => {
+      const profileData = {
+        bio: 'This is a sample bio',
+      };
+      checkDocMatches(
+        'test2hats@gmail.com',
+        'profiles',
+        profileData,
+        'ProfileContainer-Testing for Profile details update'
+      );
     },
   },
 ];
