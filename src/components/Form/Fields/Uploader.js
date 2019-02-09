@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from 'react';
+
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Dropzone from 'react-dropzone';
-import { uploader } from '../../../utilities/Uploader';
-import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
-import FileIcon from '@material-ui/icons/AttachmentOutlined';
-
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Chip from '@material-ui/core/Chip';
 
+import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
+import FileIcon from '@material-ui/icons/AttachmentOutlined';
+
+import { uploader } from '../../../utilities/Uploader';
+import Dropzone from 'react-dropzone';
+
 import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
+
+import isEmpty from 'ramda/es/isEmpty';
 
 const styles = theme => ({
   sectionTitle: {
@@ -20,6 +24,7 @@ const styles = theme => ({
   },
   ...STYLES.DROPZONE(theme),
 });
+
 const Uploader = props => {
   const { label, name, mimeTypes, path, formikProps, classes } = props;
   const { setValues, values, errors, touched } = formikProps;
@@ -70,7 +75,7 @@ const Uploader = props => {
           Click to upload a {label.toLowerCase()}
         </Button>
       </Dropzone>
-      {values[name] && (
+      {!isEmpty(values[name]) && (
         <div className={classes.fileChipWrapper}>
           <Chip
             component="a"
