@@ -43,6 +43,7 @@ const styles = theme => ({
     },
   },
   withVideo: {},
+  withBanner: {},
 
   cardActionArea: {
     textAlign: 'right',
@@ -118,8 +119,12 @@ const styles = theme => ({
   },
 
   stretchGrid: {
-    height: 'calc(100% - 40px)',
-    '$withVideo &': { height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)` },
+    height: '100%',
+    '$withBanner &': { height: 'calc(100% - 40px)' },
+    '$withVideo &': { height: `calc(100% - ${MEDIA_HEIGHT}px)` },
+    '$withBanner$withVideo &': {
+      height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)`,
+    },
   },
   cardContent: {
     textAlign: 'left',
@@ -184,7 +189,13 @@ function OneCard(props) {
 
   return (
     <Card
-      classes={{ root: classNames(classes.root, video && classes.withVideo) }}
+      classes={{
+        root: classNames(
+          classes.root,
+          video && classes.withVideo,
+          banner && classes.withBanner
+        ),
+      }}
     >
       <CardActionArea
         id={title.replace(/\W/g, '')}
