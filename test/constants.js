@@ -99,7 +99,7 @@ const SELECTORS = {
     lastName: 'input#lastName',
     email: 'input#email',
     currentDegree: 'input#currentDegree',
-    mobile: 'input#phoneNumber',
+    mobile: 'input#mobileNumber',
     courses: 'input#course',
     jobs: 'input#job',
     signUp: 'button#submit',

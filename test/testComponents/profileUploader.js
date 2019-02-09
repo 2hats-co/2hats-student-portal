@@ -1,5 +1,6 @@
 const { SELECTORS, CONST } = require('../constants');
 const { click, runSteps, uploadFile } = require('../utils/functions');
+const { checkDocMatches, checkUserCreated } = require('../utils/dbUtil');
 
 const logout = [
   {
@@ -13,6 +14,11 @@ const logout = [
         SELECTORS.profileUploader.testImg
       );
       await click(page, SELECTORS.profileUploader.done);
+      checkUserCreated(
+        'test2hats@gmail.com',
+        ['avatarURL'],
+        'ProfileUploader-Testing for Profile avatar update'
+      );
     },
   },
 ];
