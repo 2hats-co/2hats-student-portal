@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
@@ -34,8 +35,10 @@ const AssessmentsContainer = props => {
     [docState.doc]
   );
 
-  if (location.search && docState.doc) {
-    if (docState.doc) return <Assessment data={docState.doc} />;
+  const parsedQuery = queryString.parse(location.search);
+  if (parsedQuery.id && parsedQuery.id.length > 0) {
+    if (docState.doc && docState.doc.id === parsedQuery.id)
+      return <Assessment data={docState.doc} />;
     return <LoadingScreen showNav />;
   }
 
@@ -54,6 +57,7 @@ const AssessmentsContainer = props => {
         useCollectionInit={{
           path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
           limit: cardsCols,
+          sort: { field: 'updatedAt', direction: 'desc' },
         }}
       />
       <Cards
@@ -64,6 +68,7 @@ const AssessmentsContainer = props => {
           path: COLLECTIONS.assessments,
           limit: cardsCols,
           filters: [{ field: 'category', operator: '==', value: 'marketing' }],
+          sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
@@ -77,6 +82,7 @@ const AssessmentsContainer = props => {
           path: COLLECTIONS.assessments,
           limit: cardsCols,
           filters: [{ field: 'category', operator: '==', value: 'sales' }],
+          sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}

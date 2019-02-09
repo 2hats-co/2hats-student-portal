@@ -1,6 +1,12 @@
 const { SELECTORS, CONST } = require('../constants');
 const { click, runSteps, selectDropDown, type } = require('../utils/functions');
-const { checkUserCreated } = require('../utils/dbUtil');
+const {
+  checkUserCreated,
+  checkDocMatches,
+  checkSmartLink,
+  checkCommDoc,
+  checkEmailDoc,
+} = require('../utils/dbUtil');
 
 const logout = [
   {
@@ -33,19 +39,98 @@ const logout = [
   {
     name: 'speedySignUp-checkDB',
     action: async page => {
-      await page.waitFor(3000);
+      const fields = [
+        'signupMethod',
+        'email',
+        'firstName',
+        'lastName',
+        'interest',
+      ];
       checkUserCreated(
         'test2hats@gmail.com',
-        ['signupMethod', 'email', 'firstName', 'lastName', 'interest'],
+        fields,
         'speedySignUp-Testing for User Creation'
       );
+      const profileData = {
+        bio: '',
+        currentDegree: 'Commerce',
+        currentUniversity: 'University of New South Wales',
+        firstName: 'Victor',
+        lastName: 'Chan',
+      };
+      checkDocMatches(
+        'test2hats@gmail.com',
+        'profiles',
+        profileData,
+        'speedySignUp-Testing for Profile Creation'
+      );
+      const candidateData = {
+        email: 'test2hats@gmail.com',
+        emailVerified: false,
+        interest: 'course',
+        firstName: 'Victor',
+        lastName: 'Chan',
+        noPassword: true,
+        signupMethod: 'speedy',
+      };
+      checkDocMatches(
+        'test2hats@gmail.com',
+        'candidates',
+        candidateData,
+        'speedySignUp-Testing for Candidate Creation'
+      );
+      const algoliaCandidateData = {
+        email: 'test2hats@gmail.com',
+        emailVerified: false,
+        firstName: 'Victor',
+        lastName: 'Chan',
+        signupMethod: 'speedy',
+      };
+      checkDocMatches(
+        'test2hats@gmail.com',
+        'algoliaCandidates',
+        algoliaCandidateData,
+        'speedySignUp-Testing for algoliaCandidate Creation'
+      );
+      const smartLinkData = {
+        templateName: 'createPassword',
+        route: '/createPassword',
+        disable: false,
+      };
+      checkSmartLink(
+        'test2hats@gmail.com',
+        'createPassword',
+        smartLinkData,
+        'speedySignUp-Testing for smartLink Creation'
+      );
+      const commDocData = {
+        subject: '👋 Welcome to 2hats',
+        isSent: true,
+      };
+      checkCommDoc(
+        'test2hats@gmail.com',
+        commDocData,
+        'speedySignUp-Testing for Communications Creation'
+      );
+      const emailDocData = {
+        subject: '👋 Welcome to 2hats',
+        type: 'outbox',
+      };
+      checkEmailDoc(
+        'test2hats@gmail.com',
+        emailDocData,
+        'speedySignUp-Testing for Email Creation'
+      );
+
       console.log('done');
     },
   },
 ];
 
 const testSpeedySignUp = async page => {
-  await runSteps(page, logout, true);
+  await runSteps(page, logout, { screenshot: false });
 };
 
 module.exports = { testSpeedySignUp };
+
+//http://email.2coins.com.au/c/eJwdzruOgzAQheGnMaU1HhtsChdJCIq0qVKlHQcDVriJcYp9-w0rne6XPp3OO2e6oOoieQRVA4IDg1orqWQFeLYXV16udeNaexYG8LWmheVrnSV9itEDEihFJgRLTtmypt511Btbxipo6IrJjzlvQp8Ett9xpiEtA46UWfZpj4E40rYd4pFn2vM9LW8WuuXpJ_4K3Yx6uGXGbQp8qvrm8Yzrvdh9jpz_ne-tYaY0HcYfDw9ADw

@@ -13,7 +13,7 @@ const logout = [
 ];
 
 const testCourses = async page => {
-  await runSteps(page, logout, true);
+  await runSteps(page, logout, { checkForDbChange: true });
 };
 
 module.exports = { testCourses };

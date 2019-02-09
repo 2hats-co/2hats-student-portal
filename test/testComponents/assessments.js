@@ -35,7 +35,7 @@ const logout = [
 ];
 
 const testAssessments = async page => {
-  await runSteps(page, logout, true);
+  await runSteps(page, logout, { checkForDbChange: true });
 };
 
 module.exports = { testAssessments };

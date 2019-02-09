@@ -9,12 +9,18 @@ import red from '@material-ui/core/colors/red';
 
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 export const CARD_WIDTH = 320;
 export const CARD_PADDING = 16;
+const MEDIA_HEIGHT = CARD_WIDTH * 0.5625;
 
 const styles = theme => ({
   root: {
@@ -36,6 +42,8 @@ const styles = theme => ({
       transitionDuration: '.2s',
     },
   },
+  withVideo: {},
+  withBanner: {},
 
   cardActionArea: {
     textAlign: 'right',
@@ -48,8 +56,6 @@ const styles = theme => ({
   focusVisible: {
     backgroundColor: theme.palette.action.hover,
   },
-
-  cardContent: { textAlign: 'left' },
 
   banner: {
     background: theme.palette.divider,
@@ -112,8 +118,35 @@ const styles = theme => ({
     height: '100%',
   },
 
-  secondaryText: {
-    whiteSpace: 'pre-wrap',
+  stretchGrid: {
+    height: '100%',
+    '$withBanner &': { height: 'calc(100% - 40px)' },
+    '$withVideo &': { height: `calc(100% - ${MEDIA_HEIGHT}px)` },
+    '$withBanner$withVideo &': {
+      height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)`,
+    },
+  },
+  cardContent: {
+    textAlign: 'left',
+    paddingBottom: theme.spacing.unit,
+    '&:last-child': { paddingBottom: theme.spacing.unit },
+  },
+
+  secondaryText: { whiteSpace: 'pre-wrap' },
+
+  cardActions: {
+    justifyContent: 'flex-end',
+    paddingTop: 0,
+    paddingRight: 0,
+  },
+  arrowForwardIcon: {
+    'svg&': {
+      marginRight: 0,
+      marginLeft: theme.spacing.unit / 2,
+    },
+  },
+  primaryButton: {
+    '&:hover': { backgroundColor: 'transparent' },
   },
 });
 
@@ -122,6 +155,7 @@ function OneCard(props) {
     classes,
     title,
     secondaryText,
+    primaryAction,
     route,
     banner,
     bannerColor,
@@ -154,7 +188,15 @@ function OneCard(props) {
   }
 
   return (
-    <Card classes={{ root: classes.root }}>
+    <Card
+      classes={{
+        root: classNames(
+          classes.root,
+          video && classes.withVideo,
+          banner && classes.withBanner
+        ),
+      }}
+    >
       <CardActionArea
         id={title.replace(/\W/g, '')}
         component="div"
@@ -182,19 +224,42 @@ function OneCard(props) {
           </div>
         )}
 
-        <CardContent classes={{ root: classes.cardContent }}>
-          {!video && media}
-          <Typography gutterBottom variant="h6" className={classes.title}>
-            {title}
-          </Typography>
-          {typeof secondaryText === 'string' ? (
-            <Typography component="p" className={classes.secondaryText}>
-              {secondaryText}
-            </Typography>
-          ) : (
-            secondaryText
-          )}
-        </CardContent>
+        <Grid
+          container
+          direction="column"
+          className={classes.stretchGrid}
+          wrap="nowrap"
+        >
+          <Grid item xs>
+            <CardContent classes={{ root: classes.cardContent }}>
+              {!video && media}
+              <Typography gutterBottom variant="h6" className={classes.title}>
+                {title}
+              </Typography>
+              {typeof secondaryText === 'string' ? (
+                <Typography component="p" className={classes.secondaryText}>
+                  {secondaryText}
+                </Typography>
+              ) : (
+                secondaryText
+              )}
+            </CardContent>
+          </Grid>
+
+          <Grid item>
+            <CardActions className={classes.cardActions}>
+              <Button
+                color="primary"
+                id={`button-${title}`}
+                className={classes.primaryButton}
+                disableRipple
+              >
+                {primaryAction}
+                <ArrowForwardIcon className={classes.arrowForwardIcon} />
+              </Button>
+            </CardActions>
+          </Grid>
+        </Grid>
       </CardActionArea>
     </Card>
   );
@@ -205,6 +270,7 @@ OneCard.propTypes = {
 
   title: PropTypes.string,
   secondaryText: PropTypes.node,
+  primaryAction: PropTypes.string,
   route: PropTypes.string,
 
   banner: PropTypes.node,

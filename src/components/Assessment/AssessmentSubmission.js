@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import Snackbar from '@material-ui/core/Snackbar';
 
 import PaddedIcon from '../PaddedIcon';
 import InstructionsIcon from '@material-ui/icons/AssignmentOutlined';
@@ -51,6 +52,15 @@ const styles = theme => ({
 
     [theme.breakpoints.up('lg')]: { marginLeft: -48 - 12 },
   },
+
+  snackbar: {
+    [theme.breakpoints.down('sm')]: { bottom: theme.spacing.unit * 8 },
+    [theme.breakpoints.down('xs')]: { bottom: theme.spacing.unit * 7 },
+  },
+  savedTick: {
+    verticalAlign: 'bottom',
+    marginRight: theme.spacing.unit,
+  },
 });
 
 const AssessmentSubmission = props => {
@@ -62,6 +72,7 @@ const AssessmentSubmission = props => {
       ? data.submissionContent
       : []
   );
+  const [showSnackbar, setShowSnackbar] = useState(false);
 
   const updateAnswers = i => val => {
     const newAnswers = [...answers];
@@ -166,9 +177,9 @@ const AssessmentSubmission = props => {
         newTouchedAssessments.push(data.assessmentId || data.id);
         updateDoc(COLLECTIONS.users, user.id, {
           touchedAssessments: newTouchedAssessments,
+        }).then(() => {
+          history.push(`${ROUTES.ASSESSMENTS}?id=${docRef.id}&yours=true`);
         });
-
-        history.push(`${ROUTES.ASSESSMENTS}?id=${docRef.id}&yours=true`);
       });
     } else {
       setSubmissionId(data.id);
@@ -211,6 +222,7 @@ const AssessmentSubmission = props => {
       }
     ).then(() => {
       console.log('Saved');
+      setShowSnackbar(true);
     });
   };
 
@@ -303,6 +315,25 @@ const AssessmentSubmission = props => {
           </Button>
         )}
       </Grid>
+
+      <Snackbar
+        className={classes.snackbar}
+        open={showSnackbar}
+        autoHideDuration={3000}
+        onClose={() => {
+          setShowSnackbar(false);
+        }}
+        message={
+          <>
+            <CheckIcon className={classes.savedTick} />
+            Saved
+          </>
+        }
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'right',
+        }}
+      />
     </>
   );
 };

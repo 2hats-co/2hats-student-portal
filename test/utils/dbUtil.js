@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const ramda = require('ramda');
 const PROJECT = 'staging2hats';
 const PROJECT_KEY = {
   type: 'service_account',
@@ -49,6 +50,179 @@ const multiDocCollections = [
 
 /**
  *
+ * @param {String} email
+ * @param {Object} data
+ * @param {String} message
+ */
+async function checkEmailDoc(email, data, message = '') {
+  //Set delay
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 10000);
+  });
+
+  const query = await db
+    .collection('emails')
+    .where('to', '==', email)
+    .get();
+  let matches = false;
+  query.docs.forEach(doc => {
+    const docData = doc.data();
+
+    Object.keys(data).forEach(key => {
+      if (ramda.equals(data[key], docData[key])) {
+        matches = true;
+      }
+    });
+  });
+  console.log(`\x1b[1m${message}\x1b[0m`);
+  if (matches) {
+    console.log(`emailDoc-${email}\x1b[32m matches data!\x1b[0m`);
+    return true;
+  } else {
+    console.log(`emailDoc-${email}\x1b[31m doesnt matches data\x1b[0m`);
+    return false;
+  }
+}
+
+/**
+ *
+ * @param {String} email
+ * @param {Object} data
+ * @param {String} message
+ */
+async function checkCommDoc(email, data, message = '') {
+  //Set delay
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 10000);
+  });
+  const query = await db
+    .collection('communications')
+    .where('candidateEmail', '==', email)
+    .get();
+  let matches = false;
+  query.docs.forEach(doc => {
+    const docData = doc.data();
+
+    Object.keys(data).forEach(key => {
+      if (ramda.equals(data[key], docData[key])) {
+        matches = true;
+      }
+    });
+  });
+  console.log(`\x1b[1m${message}\x1b[0m`);
+  if (matches) {
+    console.log(`commDoc-${email}\x1b[32m matches data!\x1b[0m`);
+    return true;
+  } else {
+    console.log(`commDoc-${email}\x1b[31m doesnt matches data\x1b[0m`);
+    return false;
+  }
+}
+
+async function checkSmartLink(email, templateName, data, message = '') {
+  //Set delay
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 10000);
+  });
+  //Grab UID from emaill
+  const query = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (query.empty) {
+    console.log(`\x1b[31mUID for user does not exist\x1b[0m`);
+    return false;
+  }
+  const UID = query.docs[0].id;
+
+  const smartLinkQuery = await db
+    .collection('smartLinks')
+    .where('UID', '==', UID)
+    .where('templateName', '==', templateName)
+    .get();
+  if (smartLinkQuery.empty) {
+    console.log(`\x1b[1m${message}\x1b[0m`);
+    console.log(
+      `smartLink for ${UID}-${templateName}\x1b[31m does not exist\x1b[0m`
+    );
+    return false;
+  }
+  const smartLinkData = smartLinkQuery.docs[0].data();
+  let matches = true;
+  Object.keys(data).forEach(key => {
+    if (!ramda.equals(data[key], smartLinkData[key])) {
+      matches = false;
+    }
+  });
+  if (matches) {
+    console.log(`\x1b[1m${message}\x1b[0m`);
+    console.log(`smartLink-${templateName}\x1b[32m matches data!\x1b[0m`);
+    return true;
+  } else {
+    console.log(`\x1b[1m${message}\x1b[0m`);
+    console.log(`smartLink-${templateName}\x1b[31m doesnt matches data\x1b[0m`);
+    return false;
+  }
+}
+
+/**
+ *
+ * @param {String} docPath
+ * @param {Object} data
+ */
+async function checkDocMatches(email, collection, data, message = '') {
+  //Set delay
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('done');
+    }, 10000);
+  });
+  //Grab UID from emaill
+  const query = await db
+    .collection('users')
+    .where('email', '==', email)
+    .get();
+  if (query.empty) {
+    console.log(`\x1b[1m${message}\x1b[0m`);
+    console.log(`\x1b[31mUID for user does not exist\x1b[0m`);
+    return false;
+  }
+  const UID = query.docs[0].id;
+
+  //Check document data
+  const docPath = `${collection}/${UID}`;
+  const docRef = await db.doc(docPath).get();
+  if (!docRef.exists) {
+    console.log(`\x1b[1m${message}\x1b[0m`);
+    console.log(`${docPath}\x1b[31m does not exist\x1b[0m`);
+    return false;
+  }
+  const docData = docRef.data();
+  let matches = true;
+  Object.keys(data).forEach(key => {
+    if (!ramda.equals(data[key], docData[key])) {
+      matches = false;
+    }
+  });
+  if (matches) {
+    console.log(`\x1b[1m${message}\x1b[0m`);
+    console.log(`${docPath}\x1b[32m matches data!\x1b[0m`);
+    return true;
+  } else {
+    console.log(`\x1b[1m${message}\x1b[0m`);
+    console.log(`${docPath}\x1b[31m doesnt matches data\x1b[0m`);
+    return false;
+  }
+}
+
+/**
+ *
  * @param {String} UID
  * @param {Array} fields
  */
@@ -58,12 +232,12 @@ async function checkUserCreated(email, fields, message = '') {
       resolve('done');
     }, 10000);
   });
-  console.log(`\x1b[1m${message}\x1b[0m`);
   const userQuery = await db
     .collection('users')
     .where('email', '==', email)
     .get();
   if (userQuery.empty) {
+    console.log(`\x1b[1m${message}\x1b[0m`);
     console.log('User not created');
     return false;
   } else {
@@ -140,7 +314,10 @@ async function clearUserData(email) {
   });
 
   //Clear collections by UID
-  const collectionsByUID = [{ collection: 'submission', field: 'UID' }];
+  const collectionsByUID = [
+    { collection: 'submission', field: 'UID' },
+    { collection: 'smartLinks', field: 'UID' },
+  ];
   collectionsByUID.forEach(async x => {
     const query = await db
       .collection(x.collection)
@@ -222,4 +399,8 @@ module.exports = {
   clearUserData,
   setProfileData,
   getProfileData,
+  checkDocMatches,
+  checkSmartLink,
+  checkCommDoc,
+  checkEmailDoc,
 };

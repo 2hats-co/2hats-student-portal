@@ -37,10 +37,13 @@ export const profileStyles = theme => ({
     [theme.breakpoints.down('xs')]: { marginLeft: -theme.spacing.unit / 2 },
   },
 
+  titleWrapper: {
+    marginBottom: theme.spacing.unit * 2,
+    minHeight: theme.spacing.unit * 6,
+    lineHeight: `${theme.spacing.unit * 6}px`,
+  },
   title: {
     fontWeight: 500,
-    margin: `8px 0 ${theme.spacing.unit * 2}px`,
-
     [theme.breakpoints.down('xs')]: { marginTop: 0 },
   },
 
@@ -61,7 +64,7 @@ export const profileStyles = theme => ({
   },
   itemButton: {
     verticalAlign: 'baseline',
-    marginLeft: theme.spacing.unit / 2,
+    marginLeft: -theme.spacing.unit,
 
     '& svg': {
       fontSize: 18,
@@ -177,11 +180,7 @@ const ProfileContainer = props => {
               <ProfileCourses data={courses} isMobile={isMobile} />
             </div>
             <div className={classes.section}>
-              <ProfileResume
-                data={profile.resume}
-                user={user}
-                isMobile={isMobile}
-              />
+              <ProfileResume data={profile.resume} isMobile={isMobile} />
             </div>
           </>
         )}

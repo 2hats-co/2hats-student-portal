@@ -54,6 +54,7 @@ const JobsContainer = props => {
         useCollectionInit={{
           path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
           limit: cardsCols + 1,
+          sort: { field: 'updatedAt', direction: 'desc' },
         }}
       />
       <Cards
@@ -64,6 +65,7 @@ const JobsContainer = props => {
           path: COLLECTIONS.jobs,
           limit: cardsCols + 1,
           filters: [{ field: 'industry', operator: '==', value: 'marketing' }],
+          sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedJobs}
         NoneLeftIcon={JobsIcon}
@@ -77,6 +79,7 @@ const JobsContainer = props => {
           path: COLLECTIONS.jobs,
           limit: cardsCols + 1,
           filters: [{ field: 'industry', operator: '==', value: 'sales' }],
+          sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedJobs}
         NoneLeftIcon={JobsIcon}

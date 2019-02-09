@@ -15,11 +15,14 @@ import FileIcon from '@material-ui/icons/AttachmentOutlined';
 
 import { profileStyles } from '../../containers/ProfileContainer';
 import ResumeUploader from '../WhatsNext/ResumeUploader';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
-import { updateDoc } from '../../utilities/firestore';
 
 const styles = theme => ({
   ...profileStyles(theme),
+
+  newResumeMsg: {
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: -theme.spacing.unit,
+  },
 
   uploader: { marginTop: theme.spacing.unit * 2 },
 
@@ -31,14 +34,9 @@ const styles = theme => ({
 });
 
 const ProfileResume = props => {
-  const { classes, data, user, isMobile } = props;
+  const { classes, data, isMobile } = props;
 
   const [popperAnchor, setPopperAnchor] = useState(null);
-
-  const handleDelete = e => {
-    e.preventDefault();
-    updateDoc(COLLECTIONS.profiles, user.id, { resume: {} });
-  };
 
   return (
     <Grid
@@ -53,7 +51,7 @@ const ProfileResume = props => {
         </PaddedIcon>
       </Grid>
       <Grid item xs>
-        <Grid container alignItems="flex-end">
+        <Grid container alignItems="center" className={classes.titleWrapper}>
           <Grid item xs>
             <Typography variant="h5" className={classes.title}>
               Your Resume
@@ -92,27 +90,34 @@ const ProfileResume = props => {
         </Grid>
 
         {!data || !data.url ? (
-          <>
-            <Typography variant="body1" color="textSecondary">
-              It looks like you haven’t uploaded your resume yet. Uploading a
-              resume will make applying for jobs faster and make it easier for
-              us to see what best suits you.
-            </Typography>
-            <ResumeUploader className={classes.uploader} />
-          </>
+          <Typography variant="body1" color="textSecondary">
+            It looks like you haven’t uploaded your resume yet. Uploading a
+            resume will make applying for jobs faster and make it easier for us
+            to see what best suits you.
+          </Typography>
         ) : (
-          <Chip
-            id="resume-chip"
-            component="a"
-            href={data.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            label={data.name}
-            onDelete={handleDelete}
-            className={classes.fileChip}
-            icon={<FileIcon className={classes.fileIcon} />}
-          />
+          <>
+            <Chip
+              id="resume-chip"
+              component="a"
+              href={data.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              label={data.name}
+              className={classes.fileChip}
+              icon={<FileIcon className={classes.fileIcon} />}
+            />
+            <Typography
+              variant="body1"
+              color="textSecondary"
+              className={classes.newResumeMsg}
+            >
+              You can upload a new resume below.
+            </Typography>
+          </>
         )}
+
+        <ResumeUploader className={classes.uploader} resetOnUpload />
       </Grid>
     </Grid>
   );
@@ -121,7 +126,6 @@ const ProfileResume = props => {
 ProfileResume.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object,
-  user: PropTypes.object.isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
 

@@ -56,7 +56,7 @@ const styles = theme => ({
 });
 
 const ResumeUploader = props => {
-  const { classes, className } = props;
+  const { classes, className, resetOnUpload } = props;
 
   const [file, setFile] = useState({});
 
@@ -70,6 +70,7 @@ const ResumeUploader = props => {
             o => console.log(o),
             o => console.log(o)
           );
+          if (resetOnUpload) setFile({});
         });
       }
     },
@@ -96,7 +97,7 @@ const ResumeUploader = props => {
       accept="application/pdf"
       className={classNames(classes.dropzone, className)}
       style={file.url || file.name ? { cursor: 'default' } : {}}
-      disabled={file.url && file.name}
+      disabled={!!(file.url && file.name)}
     >
       {file.url ? (
         <CloudDoneIcon className={classes.uploadIcon} />
@@ -127,6 +128,7 @@ const ResumeUploader = props => {
 ResumeUploader.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
+  resetOnUpload: PropTypes.bool,
 };
 
 export default withStyles(styles)(ResumeUploader);

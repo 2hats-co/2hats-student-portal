@@ -1,6 +1,6 @@
 const { SELECTORS, CONST } = require('../constants');
 const { click, runSteps, selectDropDown, type } = require('../utils/functions');
-
+const { checkDocMatches } = require('../utils/dbUtil');
 const logout = [
   {
     name: 'updateAccInfo-click',
@@ -20,10 +20,28 @@ const logout = [
       await click(page, SELECTORS.updateAccInfo.update);
     },
   },
+  {
+    name: 'updateAccInfo-checkDB',
+    action: async page => {
+      const profileData = {
+        firstName: 'Victor',
+        lastName: 'Chan',
+        currentDegree: 'Commerce',
+        mobileNumber: '0403157878',
+        availableDays: 1,
+      };
+      checkDocMatches(
+        'test2hats@gmail.com',
+        'profiles',
+        profileData,
+        'ProfileUploader-Testing for Profile details update'
+      );
+    },
+  },
 ];
 
 const testUpdateAccInfo = async page => {
-  await runSteps(page, logout, true);
+  await runSteps(page, logout, { checkForDbChange: true });
 };
 
 module.exports = { testUpdateAccInfo };
