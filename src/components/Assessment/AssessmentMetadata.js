@@ -9,13 +9,10 @@ import Typography from '@material-ui/core/Typography';
 import IndustryIcon from '@material-ui/icons/BusinessOutlined';
 import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
-import SkillItem from '../SkillItem';
 import { getAssessmentCategoryLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   root: { textAlign: 'center' },
-
-  spacer: { height: theme.spacing.unit },
 
   metaWrapper: {
     display: 'inline-flex',
@@ -33,10 +30,6 @@ const AssessmentMetadata = props => {
 
   return (
     <div className={classNames(classes.root, className)}>
-      <SkillItem value={data.skillAssociated} />
-
-      <div className={classes.spacer} />
-
       <Grid container alignItems="flex-end" className={classes.metaWrapper}>
         <IndustryIcon className={classes.icon} />
         <Typography variant="body1">
