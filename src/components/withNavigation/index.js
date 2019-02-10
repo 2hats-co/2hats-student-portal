@@ -317,6 +317,7 @@ export default function withNavigation(WrappedComponent) {
             <AppBar position="fixed" color="default" className={classes.appBar}>
               <Toolbar className={classes.toolbar}>
                 <IconButton
+                  id="mobile-nav-drawer"
                   color="primary"
                   aria-label="Open navigation drawer"
                   onClick={() => {
@@ -333,6 +334,7 @@ export default function withNavigation(WrappedComponent) {
                 />
 
                 <IconButton
+                  id="mobile-activity-log"
                   color="inherit"
                   aria-label="Activity log"
                   onClick={() => {
