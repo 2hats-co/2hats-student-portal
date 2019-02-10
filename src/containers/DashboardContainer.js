@@ -32,55 +32,82 @@ const DashboardContainer = props => {
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
-
+  const cards = (interest, numberOfCards) => {
+    switch (interest) {
+      case 'courses':
+        return {
+          title: 'Courses',
+          mapping: 'course',
+          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
+          useCollectionInit: {
+            path: COLLECTIONS.courses,
+            limit: numberOfCards,
+            sort: { field: 'createdAt', direction: 'desc' },
+          },
+          filterIds: user.touchedCourses,
+          icon: <CoursesIcon />,
+          route: ROUTES.COURSES,
+          noneLeftMsg: 'There are no more courses available at the moment',
+        };
+      case 'jobs':
+        return {
+          title: 'Jobs',
+          mapping: 'job',
+          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
+          useCollectionInit: {
+            path: COLLECTIONS.jobs,
+            limit: numberOfCards,
+            sort: { field: 'createdAt', direction: 'desc' },
+          },
+          filterIds: user.touchedJobs,
+          icon: <JobsIcon />,
+          route: ROUTES.JOBS,
+          noneLeftMsg: 'There are no more jobs available at the moment',
+        };
+      case 'assessments':
+        return {
+          title: 'Assessments',
+          mapping: 'assessment',
+          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
+          useCollectionInit: {
+            path: COLLECTIONS.assessments,
+            limit: numberOfCards,
+            sort: { field: 'createdAt', direction: 'desc' },
+          },
+          filterIds: user.touchedAssessments,
+          icon: <AssessmentsIcon />,
+          route: ROUTES.ASSESSMENTS,
+          noneLeftMsg: 'There are no more assessments available at the moment',
+        };
+      default:
+        break;
+    }
+  };
+  let primary;
+  let secondary;
   useEffect(() => {
     document.title = '2hats – Dashboard';
   }, []);
+  console.log(user);
+  switch (user.interest) {
+    case 'courses':
+      primary = cards(user.interest, 3);
+      secondary = [cards('assessments', 2), cards('jobs', 1)];
+      break;
 
-  const primary = {
-    title: 'Courses',
-    mapping: 'course',
-    cols: cardsCols > 1 ? cardsCols : 2,
-    useCollectionInit: {
-      path: COLLECTIONS.courses,
-      limit: 3,
-      sort: { field: 'createdAt', direction: 'desc' },
-    },
-    filterIds: user.touchedCourses,
-    icon: <CoursesIcon />,
-    route: ROUTES.COURSES,
-    noneLeftMsg: 'There are no more courses available at the moment',
-  };
-  const secondary = [
-    {
-      title: 'Assessments',
-      mapping: 'assessment',
-      cols: cardsCols > 2 ? 2 : 1,
-      useCollectionInit: {
-        path: COLLECTIONS.assessments,
-        limit: 2,
-        sort: { field: 'createdAt', direction: 'desc' },
-      },
-      filterIds: user.touchedAssessments,
-      icon: <AssessmentsIcon />,
-      route: ROUTES.ASSESSMENTS,
-      noneLeftMsg: 'There are no more assessments available at the moment',
-    },
-    {
-      title: 'Jobs',
-      mapping: 'job',
-      cols: 1,
-      useCollectionInit: {
-        path: COLLECTIONS.jobs,
-        limit: 1,
-        sort: { field: 'createdAt', direction: 'desc' },
-      },
-      filterIds: user.touchedJobs,
-      icon: <JobsIcon />,
-      route: ROUTES.JOBS,
-      noneLeftMsg: 'There are no more jobs available at the moment',
-    },
-  ];
+    case 'assessments':
+      primary = cards(user.interest, 3);
+      secondary = [cards('courses', 2), cards('jobs', 1)];
+      break;
+    case 'jobs':
+      primary = cards(user.interest, 3);
+      secondary = [cards('assessments', 2), cards('courses', 1)];
+      break;
+    default:
+      primary = cards('jobs', 3);
+      secondary = [cards('assessments', 2), cards('courses', 1)];
+      break;
+  }
 
   return (
     <div className={classes.root}>
