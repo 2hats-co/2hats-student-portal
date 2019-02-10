@@ -7,6 +7,7 @@ import accountInfoFields from '../constants/forms/accountInfo';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocument from '../hooks/useDocument';
 import { updateDoc } from '../utilities/firestore';
+import isEmpty from 'ramda/es/isEmpty';
 
 const AccountInfoDialog = props => {
   const { setShowDialog, user } = props;
@@ -24,6 +25,8 @@ const AccountInfoDialog = props => {
       setShowDialog(false);
     }, 400);
   };
+
+  if (!profile || isEmpty(profile)) return null;
 
   return (
     <Form
