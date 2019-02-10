@@ -99,9 +99,6 @@ const DashboardContainer = props => {
       secondary = [cards('courses', 2), cards('jobs', 1)];
       break;
     case 'jobs':
-      primary = cards(user.interest, 3);
-      secondary = [cards('assessments', 2), cards('courses', 1)];
-      break;
     default:
       primary = cards('jobs', 3);
       secondary = [cards('assessments', 2), cards('courses', 1)];
