@@ -106,6 +106,10 @@ const styles = theme => ({
       top: theme.spacing.unit * 4,
     },
   },
+  scrollyRollyEmptyList: {
+    height: 0,
+    paddingBottom: 0,
+  },
 });
 
 function ActivityLog(props) {
@@ -196,11 +200,14 @@ function ActivityLog(props) {
                     <CircularProgress className={classes.spinner} />
                   ) : (
                     <>
-                      <div className={classes.timeline} />
                       <ScrollyRolly
                         dataState={activityLogState}
                         dataDispatch={activityLogDispatch}
-                        classes={{ list: classes.scrollyRollyList }}
+                        classes={{
+                          list: classes.scrollyRollyList,
+                          emptyList: classes.scrollyRollyEmptyList,
+                        }}
+                        noneText=" "
                       >
                         {x => (
                           <ActivityItem
