@@ -40,11 +40,11 @@ const main = async () => {
   let page = await browser.newPage();
 
   console.log(CONFIG.viewport);
-  page.setViewport({ width: 400, height: 600 });
-  //await signupSteps(page);
-  await mobileSteps(page);
-  //browser.close();
-  //await compareAllScreenshots();
+  page.setViewport({ width: 1200, height: 800 });
+  await signupSteps(page);
+  //await mobileSteps(page);
+  browser.close();
+  await compareAllScreenshots();
 };
 main();
 
