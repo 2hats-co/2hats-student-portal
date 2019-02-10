@@ -50,19 +50,7 @@ const speedySignupFields = initialData => {
         })
         .required('Required'),
     },
-    {
-      type: FIELDS.autocomplete,
-      name: 'interest',
-      label: 'Interest',
-      suggestions: [
-        { value: 'course', label: 'Courses' },
-        { value: 'job', label: 'Jobs' },
-        { value: 'assessments', label: 'Skill Tasks' },
-      ],
-      validation: yup
-        .string(['course', 'job', 'assessments'], 'Not a valid interest')
-        .required('Required'),
-    },
+
     {
       type: FIELDS.textField,
       name: 'currentDegree',
@@ -88,6 +76,21 @@ const speedySignupFields = initialData => {
         .required(
           'Please enter a 10-digit Australian mobile number with no spaces'
         ),
+    },
+    {
+      type: FIELDS.radio,
+      name: 'interest',
+      label: 'Interest',
+      value: null,
+      horiz: true,
+      options: [
+        { value: 'courses', label: 'Courses' },
+        { value: 'jobs', label: 'Jobs' },
+        { value: 'assessments', label: 'Skill Tasks' },
+      ],
+      validation: yup
+        .string(['courses', 'jobs', 'assessments'], 'Not a valid interest')
+        .required('Required'),
     },
   ];
 };
