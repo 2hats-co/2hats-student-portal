@@ -88,6 +88,21 @@ const JobsContainer = props => {
         noneLeftMsg="There are no sales jobs available at the moment"
         extra
       />
+      <Cards
+        title="Tech Jobs"
+        mapping="job"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.jobs,
+          limit: cardsCols + 1,
+          filters: [{ field: 'industry', operator: '==', value: 'tech' }],
+          sort: { field: 'createdAt', direction: 'desc' },
+        }}
+        filterIds={user.touchedJobs}
+        NoneLeftIcon={JobsIcon}
+        noneLeftMsg="There are no tech jobs available at the moment"
+        extra
+      />
     </div>
   );
 };

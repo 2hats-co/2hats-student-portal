@@ -91,6 +91,21 @@ const AssessmentsContainer = props => {
         noneLeftMsg="There are no more sales assessments available at the moment"
         extra
       />
+      <Cards
+        title="Tech Assessments"
+        mapping="assessment"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.assessments,
+          limit: cardsCols,
+          filters: [{ field: 'category', operator: '==', value: 'tech' }],
+          sort: { field: 'createdAt', direction: 'desc' },
+        }}
+        filterIds={user.touchedAssessments}
+        NoneLeftIcon={AssessmentsIcon}
+        noneLeftMsg="There are no more tech assessments available at the moment"
+        extra
+      />
     </div>
   );
 };
