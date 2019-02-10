@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as routes from '../constants/routes';
 import AuthenticationContainer from '../containers/AuthenticationContainer';
@@ -38,4 +39,4 @@ function mapStateToProps(state) {
     authUser: state.sessionState.authUser,
   };
 }
-export default withRouter(Landing);
+export default withRouter(connect(mapStateToProps)(Landing));

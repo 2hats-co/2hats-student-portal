@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { auth } from '../../store';
 
 const withAuthentication = Component => {
@@ -25,7 +26,13 @@ const withAuthentication = Component => {
       return <Component />;
     }
   }
-  return WithAuthentication;
+  const mapDispatchToProps = dispatch => ({
+    onSetAuthUser: authUser => dispatch({ type: 'AUTH_USER_SET', authUser }),
+  });
+  return connect(
+    null,
+    mapDispatchToProps
+  )(WithAuthentication);
 };
 
 export default withAuthentication;
