@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 // Create HOC that gets firestore from react context and passes it as a prop
 // NOTE: Modified version of withFirestore for a simple example. For a full
@@ -38,12 +37,5 @@ export const withFirestore = WrappedComponent => {
       return component;
     }
   }
-  // Note, for full statics support, use hoist-non-react-statics as done
-  // in react-redux-firebase's withFirestore: https://goo.gl/4pxmPv
-  function mapStateToProps(state) {
-    return {
-      authUser: state.sessionState.authUser,
-    };
-  }
-  return connect(mapStateToProps)(WithFirestore);
+  return WithFirestore;
 };

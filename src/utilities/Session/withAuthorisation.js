@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import { compose } from 'recompose';
 import { withRouter } from 'react-router-dom';
 
@@ -25,10 +24,7 @@ const withAuthorisation = condition => Component => {
     authUser: state.sessionState.authUser,
   });
 
-  return compose(
-    withRouter,
-    connect(mapStateToProps)
-  )(WithAuthorisation);
+  return WithAuthorisation;
 };
 
 export default withAuthorisation;
