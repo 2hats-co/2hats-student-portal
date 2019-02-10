@@ -21,7 +21,7 @@ const WhatsNextDescription = props => {
         </>
       );
     case WHATS_NEXT_STATES.startNewCourse:
-      return 'Our courses teach you skills?';
+      return 'Our courses teach you real skills used in the workplace to make you job ready.';
 
     // assessments flow
     case WHATS_NEXT_STATES.completeAssessment:
@@ -47,7 +47,7 @@ const WhatsNextDescription = props => {
     case WHATS_NEXT_STATES.awaitJobApplicationOutcome:
       return 'Sit tight!';
     case WHATS_NEXT_STATES.startNewJobApplication:
-      return 'Something kickstart career?';
+      return 'Kickstart your career with 2hats.';
 
     default:
       return null;
