@@ -20,7 +20,8 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { warmUp } from '../utilities/Authentication/warmUp';
 import { speedyAuth } from '../utilities/Authentication/speedySignup';
 import { UNIVERSITIES } from '../constants/universityList';
-
+import { DASHBOARD } from '../constants/routes';
+import { doSignInWithCustomToken } from '../firebase/auth';
 const styles = theme => ({
   root: {
     minHeight: '100vh',
@@ -86,7 +87,7 @@ class SpeedySignupContainer extends PureComponent {
     super(props);
     this.state = {
       view: SPEEDY_SIGNUP.form,
-      isPublic: false,
+      isPublic: true,
       isLoading: false,
       isMobile: false,
     };
@@ -134,10 +135,17 @@ class SpeedySignupContainer extends PureComponent {
     cloudFunction(
       CLOUD_FUNCTIONS.SPEEDY_SIGNUP,
       userInfo,
-      result => {
+      async result => {
+        //if (this.state.isPublic) {
+        console.log(result);
+        await doSignInWithCustomToken(result.data.token);
         this.setState({ isLoading: false });
-        this.setState({ view: SPEEDY_SIGNUP.success });
-        console.log('Call speedySignup success: ', result);
+        this.goTo(DASHBOARD);
+        // } else {
+        //   this.setState({ isLoading: false });
+        //   this.setState({ view: SPEEDY_SIGNUP.success });
+        //   console.log('Call speedySignup success: ', result);
+        // }
       },
       error => {
         console.log('Call speedySignup error: ', error);
