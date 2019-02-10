@@ -1,9 +1,7 @@
 {
-  "hosting": [
-    {
-      "target": "admin",
-      "public": "build",
-      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
-    }
-  ]
+  "hosting": {
+    "target": "SP3",
+    "public": "build",
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
 }
