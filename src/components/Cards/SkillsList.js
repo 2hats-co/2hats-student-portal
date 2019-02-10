@@ -17,6 +17,7 @@ const styles = theme => ({
     verticalAlign: 'bottom',
     margin: theme.spacing.unit / 4,
     fontWeight: 500,
+    opacity: 0.5,
 
     borderRadius: theme.shape.borderRadius / 2,
     padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit * 1.5}px`,
@@ -37,7 +38,7 @@ const SkillsList = props => {
           <SkillItem key={`${i}-${x}`} value={x} dense />
         ))}
         {values.length > 3 && (
-          <Typography variant="body1" className={classes.extraSkill}>
+          <Typography variant="body1" className={classes.extraSkills}>
             +{values.length - 3} more
           </Typography>
         )}
