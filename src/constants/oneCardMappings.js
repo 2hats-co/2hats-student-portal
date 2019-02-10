@@ -28,7 +28,7 @@ export const course = data => {
     banner = (
       <>
         <CompletedIcon />
-        Compleeted
+        Completed
       </>
     );
     bannerColor = 'green';
