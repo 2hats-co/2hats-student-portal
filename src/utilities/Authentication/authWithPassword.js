@@ -1,5 +1,6 @@
 import { auth, db } from '../../store/index';
 import { DASHBOARD } from '../../constants/routes';
+
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
 
@@ -67,6 +68,7 @@ export const signInWithPassword = (user, routeHandler, errorHandler) => {
           // const doc = userDoc.data();
           // if (doc.process === 'build' || doc.process === 'upload') {
           //TODO: process constants
+
           routeHandler(DASHBOARD);
           // } else {
           // routeHandler(UPLOAD_RESUME);
@@ -83,6 +85,9 @@ export const updateUserPassword = (password, routeHandler, errorHandler) => {
     .updatePassword(password)
     .then(() => {
       // Update successful.
+      db.collection('users')
+        .doc(auth.uid)
+        .update({ noPassword: false });
       routeHandler();
     })
     .catch(error => {
