@@ -2,7 +2,7 @@ const { SELECTORS, CONST } = require('../constants');
 const { click, runSteps, uploadFile } = require('../utils/functions');
 const { checkDocMatches, checkUserCreated } = require('../utils/dbUtil');
 
-const logout = [
+const steps = [
   {
     name: 'ProfileUploader-upload',
     action: async page => {
@@ -24,7 +24,33 @@ const logout = [
 ];
 
 const testProfileUploader = async page => {
-  await runSteps(page, logout, { checkForDbChange: true });
+  await runSteps(page, steps, { checkForDbChange: true });
 };
 
-module.exports = { testProfileUploader };
+const mobileSteps = [
+  {
+    name: 'ProfileUploader-upload',
+    action: async page => {
+      await page.waitFor(1000);
+      await click(page, SELECTORS.mobile.nav);
+      await click(page, SELECTORS.profileUploader.button);
+      await uploadFile(
+        page,
+        SELECTORS.profileUploader.input,
+        SELECTORS.profileUploader.testImg
+      );
+      await click(page, SELECTORS.profileUploader.done);
+      checkUserCreated(
+        'test2hats@gmail.com',
+        ['avatarURL'],
+        'ProfileUploader-Testing for Profile avatar update'
+      );
+    },
+  },
+];
+
+const testProfileUploaderM = async page => {
+  await runSteps(page, mobileSteps, { checkForDbChange: true });
+};
+
+module.exports = { testProfileUploader, testProfileUploaderM };

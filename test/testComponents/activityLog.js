@@ -1,7 +1,7 @@
 const { SELECTORS, CONST } = require('../constants');
 const { click, runSteps, checkProtectedRoutes } = require('../utils/functions');
 
-const logout = [
+const steps = [
   {
     name: 'activityLog-select',
     action: async page => {
@@ -19,7 +19,28 @@ const logout = [
 ];
 
 const testActivityLog = async page => {
-  await runSteps(page, logout);
+  await runSteps(page, steps);
 };
 
-module.exports = { testActivityLog };
+const mobileSteps = [
+  {
+    name: 'activityLogM-select',
+    action: async page => {
+      await page.waitFor(1000);
+      await click(page, SELECTORS.activityLogM.icon);
+    },
+  },
+  {
+    name: 'activityLogM-close',
+    action: async page => {
+      await page.waitFor(1000);
+      await click(page, SELECTORS.activityLogM.close);
+    },
+  },
+];
+
+const testActivityLogM = async page => {
+  await runSteps(page, mobileSteps);
+};
+
+module.exports = { testActivityLog, testActivityLogM };

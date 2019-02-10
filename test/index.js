@@ -11,11 +11,20 @@ const {
 } = require('./utils/screenshotUtil');
 const { clearUserData } = require('./utils/dbUtil');
 const { signupEmail } = require('./testComponents/login');
-const { testLogout } = require('./testComponents/logout');
-const { testActivityLog } = require('./testComponents/activityLog');
-const { testProfileUploader } = require('./testComponents/profileUploader');
-const { testSideBar } = require('./testComponents/sideBar');
-const { testUpdateAccInfo } = require('./testComponents/updateAccountInfo');
+const { testLogout, testLogoutM } = require('./testComponents/logout');
+const {
+  testActivityLog,
+  testActivityLogM,
+} = require('./testComponents/activityLog');
+const {
+  testProfileUploader,
+  testProfileUploaderM,
+} = require('./testComponents/profileUploader');
+const { testSideBar, testSideBarM } = require('./testComponents/sideBar');
+const {
+  testUpdateAccInfo,
+  testUpdateAccInfoM,
+} = require('./testComponents/updateAccountInfo');
 const { testSpeedySignUp } = require('./testComponents/speedySignUp');
 const { testCourses } = require('./testComponents/courses');
 const { testAssessments } = require('./testComponents/assessments');
@@ -31,8 +40,9 @@ const main = async () => {
   let page = await browser.newPage();
 
   console.log(CONFIG.viewport);
-  page.setViewport(CONFIG.viewport);
-  await signupSteps(page);
+  page.setViewport({ width: 400, height: 600 });
+  //await signupSteps(page);
+  await mobileSteps(page);
   //browser.close();
   //await compareAllScreenshots();
 };
@@ -48,12 +58,29 @@ async function signupSteps(page) {
   await testSideBar(page);
   await testUpdateAccInfo(page);
   await testProfileContainer(page);
-  await page.goto('http://localhost:3333/dashboard');
+  await page.goto('http://localhost:3333/courses');
   await testCourses(page);
-  await page.goto('http://localhost:3333/dashboard');
+  await page.goto('http://localhost:3333/assessments');
   await testAssessments(page);
-  await page.goto('http://localhost:3333/dashboard');
+  await page.goto('http://localhost:3333/jobs');
   await testJobs(page);
 
   await testLogout(page);
+}
+
+async function mobileSteps(page) {
+  await clearUserData('test2hats@gmail.com');
+  //await testSpeedySignUp(page);
+  await testActivityLogM(page);
+  await testProfileUploaderM(page);
+  await testSideBarM(page);
+  await testUpdateAccInfoM(page);
+  await testProfileContainer(page);
+  await page.goto('http://localhost:3333/courses');
+  await testCourses(page);
+  await page.goto('http://localhost:3333/assessments');
+  await testAssessments(page);
+  await page.goto('http://localhost:3333/jobs');
+  await testJobs(page);
+  await testLogoutM(page);
 }
