@@ -154,7 +154,8 @@ class SpeedySignupContainer extends PureComponent {
   }
 
   goHome() {
-    window.open('https://2hats.com.au', '_self');
+    // window.open('https://2hats.com.au', '_self');
+    this.props.history.push(DASHBOARD);
   }
   errorBar(e) {
     this.setState({
@@ -299,7 +300,7 @@ class SpeedySignupContainer extends PureComponent {
           variant="contained"
           onClick={isPublic ? this.goHome : this.handleReset}
         >
-          {isPublic ? `Visit Website` : `Reset Form`}
+          {isPublic ? `Visit Dashboard` : `Reset Form`}
         </Button>
       </Grid>
     );

@@ -86,7 +86,7 @@ export const updateUserPassword = (password, routeHandler, errorHandler) => {
     .then(() => {
       // Update successful.
       db.collection('users')
-        .doc(auth.uid)
+        .doc(auth.currentUser.uid)
         .update({ noPassword: false });
       routeHandler();
     })
