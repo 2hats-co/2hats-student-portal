@@ -59,6 +59,7 @@ const AssessmentsContainer = props => {
           limit: cardsCols,
           sort: { field: 'updatedAt', direction: 'desc' },
         }}
+        extra
       />
       <Cards
         title="Marketing Assessments"
@@ -73,6 +74,7 @@ const AssessmentsContainer = props => {
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
         noneLeftMsg="There are no more marketing assessements available at the moment"
+        extra
       />
       <Cards
         title="Sales Assessments"
@@ -87,6 +89,7 @@ const AssessmentsContainer = props => {
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
         noneLeftMsg="There are no more sales assessments available at the moment"
+        extra
       />
     </div>
   );

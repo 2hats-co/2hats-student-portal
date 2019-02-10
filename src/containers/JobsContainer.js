@@ -56,6 +56,7 @@ const JobsContainer = props => {
           limit: cardsCols + 1,
           sort: { field: 'updatedAt', direction: 'desc' },
         }}
+        extra
       />
       <Cards
         title="Marketing Jobs"
@@ -70,6 +71,7 @@ const JobsContainer = props => {
         filterIds={user.touchedJobs}
         NoneLeftIcon={JobsIcon}
         noneLeftMsg="There are no marketing jobs available at the moment"
+        extra
       />
       <Cards
         title="Sales Jobs"
@@ -84,6 +86,7 @@ const JobsContainer = props => {
         filterIds={user.touchedJobs}
         NoneLeftIcon={JobsIcon}
         noneLeftMsg="There are no sales jobs available at the moment"
+        extra
       />
     </div>
   );
