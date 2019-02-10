@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
@@ -34,8 +35,10 @@ const AssessmentsContainer = props => {
     [docState.doc]
   );
 
-  if (location.search && docState.doc) {
-    if (docState.doc) return <Assessment data={docState.doc} />;
+  const parsedQuery = queryString.parse(location.search);
+  if (parsedQuery.id && parsedQuery.id.length > 0) {
+    if (docState.doc && docState.doc.id === parsedQuery.id)
+      return <Assessment data={docState.doc} />;
     return <LoadingScreen showNav />;
   }
 

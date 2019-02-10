@@ -51,7 +51,7 @@ const ProfileResume = props => {
         </PaddedIcon>
       </Grid>
       <Grid item xs>
-        <Grid container alignItems="flex-end">
+        <Grid container alignItems="center" className={classes.titleWrapper}>
           <Grid item xs>
             <Typography variant="h5" className={classes.title}>
               Your Resume

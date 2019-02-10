@@ -177,9 +177,9 @@ const AssessmentSubmission = props => {
         newTouchedAssessments.push(data.assessmentId || data.id);
         updateDoc(COLLECTIONS.users, user.id, {
           touchedAssessments: newTouchedAssessments,
+        }).then(() => {
+          history.push(`${ROUTES.ASSESSMENTS}?id=${docRef.id}&yours=true`);
         });
-
-        history.push(`${ROUTES.ASSESSMENTS}?id=${docRef.id}&yours=true`);
       });
     } else {
       setSubmissionId(data.id);

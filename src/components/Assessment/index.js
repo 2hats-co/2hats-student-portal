@@ -23,7 +23,7 @@ const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
 
   meta: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing.unit * 1.5,
     marginBottom: theme.spacing.unit * 3,
   },
 

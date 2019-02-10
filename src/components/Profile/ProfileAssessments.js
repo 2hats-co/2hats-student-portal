@@ -40,7 +40,7 @@ const ProfileAssessments = props => {
         </PaddedIcon>
       </Grid>
       <Grid item xs>
-        <Grid container alignItems="flex-end">
+        <Grid container alignItems="center" className={classes.titleWrapper}>
           <Grid item xs>
             <Typography variant="h5" className={classes.title}>
               Your Skills
@@ -105,20 +105,17 @@ const ProfileAssessments = props => {
               <Typography variant="subtitle1" className={classes.itemTitle}>
                 {getSkillLabel(x.skillAssociated)}
               </Typography>
-              <Typography variant="body1">
-                {x.title}
-                <Button
-                  color="primary"
-                  size="small"
-                  className={classes.itemButton}
-                  onClick={() => {
-                    history.push(`${ROUTES.ASSESSMENTS}?id=${x.id}&yours=true`);
-                  }}
-                >
-                  View submission
-                  <ArrowForwardIcon />
-                </Button>
-              </Typography>
+              <Button
+                color="primary"
+                size="small"
+                className={classes.itemButton}
+                onClick={() => {
+                  history.push(`${ROUTES.ASSESSMENTS}?id=${x.id}&yours=true`);
+                }}
+              >
+                View submission
+                <ArrowForwardIcon />
+              </Button>
             </Grid>
           </Grid>
         ))}
