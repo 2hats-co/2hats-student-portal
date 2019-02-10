@@ -49,21 +49,6 @@ const DashboardContainer = props => {
           route: ROUTES.COURSES,
           noneLeftMsg: 'There are no more courses available at the moment',
         };
-      case 'jobs':
-        return {
-          title: 'Jobs',
-          mapping: 'job',
-          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
-          useCollectionInit: {
-            path: COLLECTIONS.jobs,
-            limit: numberOfCards,
-            sort: { field: 'createdAt', direction: 'desc' },
-          },
-          filterIds: user.touchedJobs,
-          icon: <JobsIcon />,
-          route: ROUTES.JOBS,
-          noneLeftMsg: 'There are no more jobs available at the moment',
-        };
       case 'assessments':
         return {
           title: 'Assessments',
@@ -79,8 +64,22 @@ const DashboardContainer = props => {
           route: ROUTES.ASSESSMENTS,
           noneLeftMsg: 'There are no more assessments available at the moment',
         };
+      case 'jobs':
       default:
-        break;
+        return {
+          title: 'Jobs',
+          mapping: 'job',
+          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
+          useCollectionInit: {
+            path: COLLECTIONS.jobs,
+            limit: numberOfCards,
+            sort: { field: 'createdAt', direction: 'desc' },
+          },
+          filterIds: user.touchedJobs,
+          icon: <JobsIcon />,
+          route: ROUTES.JOBS,
+          noneLeftMsg: 'There are no more jobs available at the moment',
+        };
     }
   };
   let primary;
