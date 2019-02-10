@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import LogoInCard from '../components/LogoInCard';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -81,7 +81,7 @@ const styles = theme => ({
     '& h6': { marginTop: theme.spacing.unit * 2 },
   },
 });
-class SpeedySignupContainer extends Component {
+class SpeedySignupContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
