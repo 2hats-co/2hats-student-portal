@@ -268,7 +268,7 @@ class SpeedySignupContainer extends Component {
               className={classes.subhead}
               style={isMobile ? { textAlign: 'center' } : {}}
             >
-              We’ve sent you an email to finish the sign up process.
+              We’ve <b>sent you an email</b> to finish the sign up process.
             </Typography>
             <Typography
               variant="body2"

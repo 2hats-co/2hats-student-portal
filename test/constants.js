@@ -71,6 +71,10 @@ const SELECTORS = {
     icon: "button[type='button']",
     close: 'button#activitylogclose',
   },
+  activityLogM: {
+    icon: 'button#mobile-activity-log',
+    close: 'button#activitylogclose',
+  },
   profileUploader: {
     button: 'button#profile-button',
     input: "input[type='file']",
@@ -84,6 +88,9 @@ const SELECTORS = {
     jobs: 'div#jobs',
     assessments: 'div#assessments',
     courses: 'div#courses',
+  },
+  sideBarM: {
+    drawer: 'button#mobile-nav-drawer',
   },
   updateAccInfo: {
     button: 'div#updateaccountinfo',
@@ -132,6 +139,9 @@ const SELECTORS = {
     resumeInput: "input[type='file']",
     file: '../testFiles/testResume.pdf',
     chip: 'a#resume-chip',
+  },
+  mobile: {
+    nav: 'button#mobile-nav-drawer',
   },
 };
 const CRED = {
