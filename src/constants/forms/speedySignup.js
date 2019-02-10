@@ -77,18 +77,16 @@ const speedySignupFields = initialData => {
         ),
     },
     {
-      type: FIELDS.radio,
+      type: FIELDS.autocomplete,
       name: 'interest',
       label: 'Interest',
-      value: null,
-      horiz: true,
-      options: [
+      suggestions: [
         { value: 'course', label: 'Courses' },
         { value: 'job', label: 'Jobs' },
         { value: 'assessments', label: 'Skill Tasks' },
       ],
       validation: yup
-        .string(['course', 'job'], 'Not a valid interest')
+        .string(['course', 'job', 'assessments'], 'Not a valid interest')
         .required('Required'),
     },
   ];
