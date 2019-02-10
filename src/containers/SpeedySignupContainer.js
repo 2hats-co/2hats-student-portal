@@ -24,7 +24,7 @@ import { UNIVERSITIES } from '../constants/universityList';
 const styles = theme => ({
   root: {
     minHeight: '100vh',
-    padding: `${theme.spacing.unit * 2}px 0`,
+    padding: `${theme.spacing.unit}px 0`,
   },
   subhead: {
     marginTop: theme.spacing.unit,
@@ -308,7 +308,7 @@ class SpeedySignupContainer extends Component {
       >
         <Grid item>
           <LogoInCard
-            width={isMobile ? 320 : 680}
+            width={isMobile ? 340 : 680}
             height="auto"
             logoClass={isMobile ? 'centeredLogo' : 'miniLogo'}
             snackBar={snackBar}
