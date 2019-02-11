@@ -158,11 +158,12 @@ class SpeedySignupContainer extends PureComponent {
     this.props.history.push(DASHBOARD);
   }
   errorBar(e) {
-    this.setState({
-      snackBar: { message: e.message, variant: 'error' },
-      isLoading: false,
-      link: 'signin',
-    });
+    if (e.message !== 'INTERNAL')
+      this.setState({
+        snackBar: { message: e.message, variant: 'error' },
+        isLoading: false,
+        link: 'signin',
+      });
   }
   renderForm() {
     const { classes } = this.props;
@@ -243,6 +244,7 @@ class SpeedySignupContainer extends PureComponent {
           action="Sign up!"
           actions={{
             'Sign up!': data => {
+              console.log('signed up', data);
               this.createUser(data);
             },
           }}
