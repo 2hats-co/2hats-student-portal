@@ -13,18 +13,61 @@ import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
+import { firestore } from '../store';
+import * as ROUTES from '../constants/routes';
 
 const AssessmentsContainer = props => {
-  const { isMobile, location, user } = props;
+  const { isMobile, location, history, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
 
-  const [docState] = useDocumentFromUrl(location, COLLECTIONS.assessments);
+  const setAssessmentPathBySkill = async skill => {
+    console.log(COLLECTIONS);
+    const yourQuery = await firestore
+      .collection(COLLECTIONS.users)
+      .doc(user.id)
+      .collection(COLLECTIONS.assessments)
+      .where('skillAssociated', '==', skill)
+      .get();
+
+    if (!yourQuery.empty) {
+      history.push(
+        `${ROUTES.ASSESSMENTS}?id=${yourQuery.docs[0].id}&yours=true`
+      );
+      return;
+    }
+
+    const query = await firestore
+      .collection(COLLECTIONS.assessments)
+      .where('skillAssociated', '==', skill)
+      .get();
+
+    if (!query.empty)
+      history.push(`${ROUTES.ASSESSMENTS}?id=${query.docs[0].id}`);
+    // docDispatch({
+    //   path: `${COLLECTIONS.assessments}/${query.docs[0].id}`,
+    //   valid: true,
+    // });
+  };
+  const [
+    docState,
+    // docDispatch
+  ] = useDocumentFromUrl(location, COLLECTIONS.assessments);
 
   useEffect(() => {
     document.title = '2hats – Assessments';
   }, []);
+
+  useEffect(
+    () => {
+      const parsedQuery = queryString.parse(location.search);
+      if (parsedQuery.skill) {
+        setAssessmentPathBySkill(parsedQuery.skill);
+      }
+    },
+    [location]
+  );
 
   useEffect(
     () => {
@@ -39,6 +82,10 @@ const AssessmentsContainer = props => {
   if (parsedQuery.id && parsedQuery.id.length > 0) {
     if (docState.doc && docState.doc.id === parsedQuery.id)
       return <Assessment data={docState.doc} />;
+    return <LoadingScreen showNav />;
+  }
+  if (parsedQuery.skill && parsedQuery.skill.length > 0) {
+    if (docState.doc) return <Assessment data={docState.doc} />;
     return <LoadingScreen showNav />;
   }
 
@@ -113,6 +160,7 @@ const AssessmentsContainer = props => {
 AssessmentsContainer.propTypes = {
   isMobile: PropTypes.bool.isRequired,
   location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
 };
 

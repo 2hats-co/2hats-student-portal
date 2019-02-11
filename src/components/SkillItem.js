@@ -1,9 +1,11 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 
 import SkillOutlinedIcon from '@material-ui/icons/NewReleasesOutlined';
@@ -18,6 +20,7 @@ const styles = theme => ({
   root: {
     display: 'inline-flex',
     width: 'auto',
+    position: 'relative',
 
     borderRadius: theme.shape.borderRadius / 2,
     padding: `${theme.spacing.unit / 2}px 0`,
@@ -26,6 +29,15 @@ const styles = theme => ({
     backgroundColor: theme.palette.divider,
 
     margin: theme.spacing.unit / 2,
+  },
+  buttonBase: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    width: '100%',
+    borderRadius: theme.shape.borderRadius / 2,
   },
   dense: { margin: theme.spacing.unit / 4 },
   achieved: {
@@ -51,7 +63,16 @@ const styles = theme => ({
 });
 
 const SkillItem = props => {
-  const { classes, className, style, value, header, dense } = props;
+  const {
+    classes,
+    className,
+    style,
+    value,
+    header,
+    dense,
+    history,
+    clickable,
+  } = props;
 
   const userContext = useContext(UserContext);
 
@@ -60,6 +81,13 @@ const SkillItem = props => {
 
   return (
     <Grid
+      onClick={
+        clickable
+          ? () => {
+              history.push(`/assessments?skill=${value}`);
+            }
+          : () => {}
+      }
       container
       className={classNames(
         classes.root,
@@ -80,6 +108,7 @@ const SkillItem = props => {
           {getSkillLabel(value)}
         </Typography>
       </Grid>
+      {clickable && <ButtonBase className={classes.buttonBase} />}
     </Grid>
   );
 };
@@ -91,6 +120,7 @@ SkillItem.propTypes = {
   value: PropTypes.string.isRequired,
   header: PropTypes.node,
   dense: PropTypes.bool,
+  clickable: PropTypes.bool,
 };
 
-export default withStyles(styles)(SkillItem);
+export default withRouter(withStyles(styles)(SkillItem));
