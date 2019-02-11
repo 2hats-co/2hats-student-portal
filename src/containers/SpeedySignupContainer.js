@@ -138,6 +138,10 @@ class SpeedySignupContainer extends PureComponent {
       async result => {
         //if (this.state.isPublic) {
         console.log(result);
+        if (result.data.hasRan) {
+          this.goTo(DASHBOARD);
+          return;
+        }
         await doSignInWithCustomToken(result.data.token);
         this.setState({ isLoading: false });
         this.goTo(DASHBOARD);
@@ -243,6 +247,7 @@ class SpeedySignupContainer extends PureComponent {
           action="Sign up!"
           actions={{
             'Sign up!': data => {
+              console.log('signed up', data);
               this.createUser(data);
             },
           }}
