@@ -59,6 +59,7 @@ const AssessmentsContainer = props => {
           limit: cardsCols,
           sort: { field: 'updatedAt', direction: 'desc' },
         }}
+        extra
       />
       <Cards
         title="Marketing Assessments"
@@ -73,6 +74,7 @@ const AssessmentsContainer = props => {
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
         noneLeftMsg="There are no more marketing assessements available at the moment"
+        extra
       />
       <Cards
         title="Sales Assessments"
@@ -87,6 +89,22 @@ const AssessmentsContainer = props => {
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
         noneLeftMsg="There are no more sales assessments available at the moment"
+        extra
+      />
+      <Cards
+        title="Tech Assessments"
+        mapping="assessment"
+        cols={cardsCols}
+        useCollectionInit={{
+          path: COLLECTIONS.assessments,
+          limit: cardsCols,
+          filters: [{ field: 'category', operator: '==', value: 'tech' }],
+          sort: { field: 'createdAt', direction: 'desc' },
+        }}
+        filterIds={user.touchedAssessments}
+        NoneLeftIcon={AssessmentsIcon}
+        noneLeftMsg="There are no more tech assessments available at the moment"
+        extra
       />
     </div>
   );

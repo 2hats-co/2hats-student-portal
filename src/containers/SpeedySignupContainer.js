@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import LogoInCard from '../components/LogoInCard';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -20,11 +20,12 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { warmUp } from '../utilities/Authentication/warmUp';
 import { speedyAuth } from '../utilities/Authentication/speedySignup';
 import { UNIVERSITIES } from '../constants/universityList';
-
+import { DASHBOARD } from '../constants/routes';
+import { doSignInWithCustomToken } from '../firebase/auth';
 const styles = theme => ({
   root: {
     minHeight: '100vh',
-    padding: `${theme.spacing.unit * 2}px 0`,
+    padding: `${theme.spacing.unit}px 0`,
   },
   subhead: {
     marginTop: theme.spacing.unit,
@@ -81,12 +82,12 @@ const styles = theme => ({
     '& h6': { marginTop: theme.spacing.unit * 2 },
   },
 });
-class SpeedySignupContainer extends Component {
+class SpeedySignupContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       view: SPEEDY_SIGNUP.form,
-      isPublic: false,
+      isPublic: true,
       isLoading: false,
       isMobile: false,
     };
@@ -134,10 +135,21 @@ class SpeedySignupContainer extends Component {
     cloudFunction(
       CLOUD_FUNCTIONS.SPEEDY_SIGNUP,
       userInfo,
-      result => {
+      async result => {
+        //if (this.state.isPublic) {
+        console.log(result);
+        if (result.data.hasRan) {
+          this.goTo(DASHBOARD);
+          return;
+        }
+        await doSignInWithCustomToken(result.data.token);
         this.setState({ isLoading: false });
-        this.setState({ view: SPEEDY_SIGNUP.success });
-        console.log('Call speedySignup success: ', result);
+        this.goTo(DASHBOARD);
+        // } else {
+        //   this.setState({ isLoading: false });
+        //   this.setState({ view: SPEEDY_SIGNUP.success });
+        //   console.log('Call speedySignup success: ', result);
+        // }
       },
       error => {
         console.log('Call speedySignup error: ', error);
@@ -146,7 +158,8 @@ class SpeedySignupContainer extends Component {
   }
 
   goHome() {
-    window.open('https://2hats.com.au', '_self');
+    // window.open('https://2hats.com.au', '_self');
+    this.props.history.push(DASHBOARD);
   }
   errorBar(e) {
     this.setState({
@@ -234,6 +247,7 @@ class SpeedySignupContainer extends Component {
           action="Sign up!"
           actions={{
             'Sign up!': data => {
+              console.log('signed up', data);
               this.createUser(data);
             },
           }}
@@ -291,7 +305,7 @@ class SpeedySignupContainer extends Component {
           variant="contained"
           onClick={isPublic ? this.goHome : this.handleReset}
         >
-          {isPublic ? `Visit Website` : `Reset Form`}
+          {isPublic ? `Visit Dashboard` : `Reset Form`}
         </Button>
       </Grid>
     );
@@ -308,7 +322,7 @@ class SpeedySignupContainer extends Component {
       >
         <Grid item>
           <LogoInCard
-            width={isMobile ? 320 : 680}
+            width={isMobile ? 340 : 680}
             height="auto"
             logoClass={isMobile ? 'centeredLogo' : 'miniLogo'}
             snackBar={snackBar}

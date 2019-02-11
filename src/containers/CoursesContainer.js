@@ -37,6 +37,7 @@ const CoursesContainer = props => {
           limit: cardsCols,
           sort: { field: 'createdAt', direction: 'desc' },
         }}
+        extra
       />
       <Cards
         title="Marketing Courses"
@@ -51,6 +52,7 @@ const CoursesContainer = props => {
         filterIds={user.touchedCourses}
         NoneLeftIcon={CoursesIcon}
         noneLeftMsg="There are no more marketing courses available at the moment"
+        extra
       />
       <Cards
         title="Sales Courses"
@@ -65,6 +67,7 @@ const CoursesContainer = props => {
         filterIds={user.touchedCourses}
         NoneLeftIcon={CoursesIcon}
         noneLeftMsg="There are no more sales courses available at the moment"
+        extra
       />
     </div>
   );

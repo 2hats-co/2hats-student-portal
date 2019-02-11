@@ -37,7 +37,9 @@ const CourseDetail = ({ classes, data }) => (
       {data.description}
     </Typography>
 
-    <SkillsList values={data.skillsAssociated} header="Skills taught" />
+    {data.skillsAssociated && data.skillsAssociated.length !== 0 && (
+      <SkillsList values={data.skillsAssociated} header="Skills covered" />
+    )}
 
     <Grid container alignItems="flex-end" className={classes.categoryWrapper}>
       <IndustryIcon className={classes.timeIcon} />

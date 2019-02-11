@@ -1,5 +1,6 @@
 import { auth, db } from '../../store/index';
 import { DASHBOARD } from '../../constants/routes';
+
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
 
@@ -21,30 +22,12 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               firstName,
               lastName,
               createdAt: new Date(),
-              providers: [{ service: 'password', id: uid }],
               signupMethod: 'password',
-              // stage: 'pre-review', // TODO use stage and status constants
-              // status: 'incomplete',
-              history: [
-                {
-                  stage: 'pre-review',
-                  status: 'incomplete',
-                  createdAt: new Date(),
-                },
-              ],
             });
           db.collection('profiles')
             .doc(uid)
             .set({
-              // education: [],
-              // experience: [],
-              // industry: 'OTHER',
               bio: '',
-              // careerInterests: { type: 'defualt', value: [] },
-              // skills: [],
-              resumeFile: { name: '', url: '' },
-              // isComplete: false,
-              // hasSubmit: false,
               createdAt: Date.now(),
             });
           routeHandler(DASHBOARD);
@@ -67,6 +50,7 @@ export const signInWithPassword = (user, routeHandler, errorHandler) => {
           // const doc = userDoc.data();
           // if (doc.process === 'build' || doc.process === 'upload') {
           //TODO: process constants
+
           routeHandler(DASHBOARD);
           // } else {
           // routeHandler(UPLOAD_RESUME);
@@ -83,6 +67,9 @@ export const updateUserPassword = (password, routeHandler, errorHandler) => {
     .updatePassword(password)
     .then(() => {
       // Update successful.
+      db.collection('users')
+        .doc(auth.currentUser.uid)
+        .update({ noPassword: false });
       routeHandler();
     })
     .catch(error => {

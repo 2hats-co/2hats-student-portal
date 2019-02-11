@@ -29,6 +29,17 @@ pipelines:
           - yarn install
           - CI=false yarn build
           - firebase deploy --token "$FIREBASE_TOKEN" --project production2hats --non-interactive --public build --only hosting
+    SP3-production:
+      - step:
+          caches:
+          - node
+          - globalnode
+          - localnode
+          script: # Modify the commands below to build your repository.
+          - yarn global add firebase-tools
+          - yarn install
+          - CI=false yarn build
+          - firebase deploy --token "$FIREBASE_TOKEN" --project production2hats --non-interactive --public build --only hosting
 definitions: 
    caches: 
      globalnode: /usr/local/lib/node_modules

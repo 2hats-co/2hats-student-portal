@@ -28,7 +28,7 @@ export const course = data => {
     banner = (
       <>
         <CompletedIcon />
-        Compleeted
+        Completed
       </>
     );
     bannerColor = 'green';
@@ -42,7 +42,7 @@ export const course = data => {
         ? 'View'
         : 'Continue'
       : 'Get started',
-    route: `${ROUTES.COURSE_REDIRECT}?id=${data.id}`,
+    route: `${ROUTES.COURSE_REDIRECT}?id=${data.LWid}`,
     newTab: true,
 
     banner,

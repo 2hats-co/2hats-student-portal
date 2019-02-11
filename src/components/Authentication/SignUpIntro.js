@@ -67,19 +67,19 @@ function SignUpIntro(props) {
             <Grid item>
               <img src={Tick} className={classes.tick} alt="Tick" />
               <Typography className={classes.tickText} variant="h6">
-                One-time signup
+                Paid jobs
               </Typography>
             </Grid>
             <Grid item>
               <img src={Tick} className={classes.tick} alt="Tick" />
               <Typography className={classes.tickText} variant="h6">
-                Resume review
+                Real life skill tests
               </Typography>
             </Grid>
             <Grid item>
               <img src={Tick} className={classes.tick} alt="Tick" />
               <Typography className={classes.tickText} variant="h6">
-                Career guidance
+                Bite-sized courses
               </Typography>
             </Grid>
             <Grid item>

@@ -204,7 +204,7 @@ export default function withNavigation(WrappedComponent) {
         label: 'FAQ',
         icon: <FaqIcon />,
         type: 'link',
-        href: 'https://intercom.help/2hats/faq-for-students',
+        href: 'https://www.2hats.com.au/faq-for-students',
       },
       { type: 'divider' },
       {

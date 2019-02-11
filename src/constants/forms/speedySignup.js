@@ -50,6 +50,7 @@ const speedySignupFields = initialData => {
         })
         .required('Required'),
     },
+
     {
       type: FIELDS.textField,
       name: 'currentDegree',
@@ -83,12 +84,12 @@ const speedySignupFields = initialData => {
       value: null,
       horiz: true,
       options: [
-        { value: 'course', label: 'Courses' },
-        { value: 'job', label: 'Jobs' },
+        { value: 'courses', label: 'Courses' },
+        { value: 'jobs', label: 'Jobs' },
         { value: 'assessments', label: 'Skill Tasks' },
       ],
       validation: yup
-        .string(['course', 'job'], 'Not a valid interest')
+        .string(['courses', 'jobs', 'assessments'], 'Not a valid interest')
         .required('Required'),
     },
   ];

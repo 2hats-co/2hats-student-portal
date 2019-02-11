@@ -110,14 +110,21 @@ function Cards(props) {
 
     inline,
     hideMore,
+    extra,
   } = props;
 
   const [rows, setRows] = useState(1);
   const [usedYourBackup, setUsedYourBackup] = useState(false);
 
+  let extraCols = cols;
+  if (extra) {
+    if (cols === 2) extraCols = 4;
+    if (cols <= 1) extraCols = 3;
+  }
+
   const [cards, getMore, setFilterIds, cardsState, cardsDispatch] = useMore(
     useCollectionInit,
-    cols,
+    extraCols,
     filterIds
   );
   useEffect(
@@ -197,15 +204,15 @@ function Cards(props) {
             ))}
         </Grid>
 
-        {!hideMore && cards.length >= cols * rows && (
+        {!hideMore && cards.length >= extraCols * rows && (
           <Button
             color="primary"
             variant="outlined"
             className={classes.moreButton}
-            disabled={cards.length < cols * rows}
+            disabled={cards.length < extraCols * rows}
             onClick={() => {
               setRows(rows + 1);
-              getMore(cols);
+              getMore(extraCols);
             }}
           >
             More
@@ -238,6 +245,7 @@ Cards.propTypes = {
 
   inline: PropTypes.bool,
   hideMore: PropTypes.bool,
+  extra: PropTypes.bool,
 };
 
 export default withRouter(withStyles(styles)(Cards));
