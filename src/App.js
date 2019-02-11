@@ -25,7 +25,9 @@ const SpeedySignupContainer = lazy(() =>
 const SmartLinkContainer = lazy(() =>
   import('./containers/SmartLinkContainer' /* webpackChunkName: "SmartLinkContainer" */)
 );
-
+const SubmissionContainer = lazy(() =>
+  import('./containers/SubmissionContainer' /* webpackChunkName: "SubmissionContainer" */)
+);
 const DashboardContainer = lazy(() =>
   import('./containers/DashboardContainer' /* webpackChunkName: "DashboardContainer" */)
 );
@@ -127,6 +129,11 @@ const App = props => {
                   exact
                   path={ROUTES.SMART_LINK}
                   component={() => <SmartLinkContainer />}
+                />
+                <Route
+                  exact
+                  path={ROUTES.PREVIOUS_SUBMISSION}
+                  component={() => <SubmissionContainer />}
                 />
 
                 <Route

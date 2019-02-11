@@ -10,6 +10,7 @@ export const EMAIL_VERIFICATION = '/emailVerifications';
 export const CREATE_PASSWORD = '/createPassword';
 export const NO_PASSWORD = '/noPassword';
 export const SMART_LINK = '/smartLinks';
+export const PREVIOUS_SUBMISSION = '/prevSubmission';
 
 // SP3 MAIN NAV ITEMS
 export const DASHBOARD = '/dashboard';
