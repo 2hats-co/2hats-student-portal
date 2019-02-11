@@ -32,13 +32,23 @@ const DashboardContainer = props => {
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
+
+  useEffect(() => {
+    document.title = '2hats – Dashboard';
+  }, []);
+
   const cards = (interest, numberOfCards) => {
     switch (interest) {
       case 'courses':
         return {
           title: 'Courses',
           mapping: 'course',
-          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
+          cols:
+            numberOfCards > 1
+              ? cardsCols > 1
+                ? Math.min(numberOfCards, cardsCols)
+                : 2
+              : 1,
           useCollectionInit: {
             path: COLLECTIONS.courses,
             limit: numberOfCards,
@@ -53,7 +63,12 @@ const DashboardContainer = props => {
         return {
           title: 'Assessments',
           mapping: 'assessment',
-          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
+          cols:
+            numberOfCards > 1
+              ? cardsCols > 1
+                ? Math.min(numberOfCards, cardsCols)
+                : 2
+              : 1,
           useCollectionInit: {
             path: COLLECTIONS.assessments,
             limit: numberOfCards,
@@ -69,7 +84,12 @@ const DashboardContainer = props => {
         return {
           title: 'Jobs',
           mapping: 'job',
-          cols: numberOfCards > 1 ? (cardsCols > 1 ? numberOfCards : 2) : 1,
+          cols:
+            numberOfCards > 1
+              ? cardsCols > 1
+                ? Math.min(numberOfCards, cardsCols)
+                : 2
+              : 1,
           useCollectionInit: {
             path: COLLECTIONS.jobs,
             limit: numberOfCards,
@@ -82,12 +102,10 @@ const DashboardContainer = props => {
         };
     }
   };
+
   let primary;
   let secondary;
-  useEffect(() => {
-    document.title = '2hats – Dashboard';
-  }, []);
-  console.log(user);
+
   switch (user.interest) {
     case 'courses':
       primary = cards(user.interest, 3);
@@ -96,8 +114,9 @@ const DashboardContainer = props => {
 
     case 'assessments':
       primary = cards(user.interest, 3);
-      secondary = [cards('courses', 2), cards('jobs', 1)];
+      secondary = [cards('courses', cardsCols === 2 ? 1 : 2), cards('jobs', 1)];
       break;
+
     case 'jobs':
     default:
       primary = cards('jobs', 3);
@@ -122,6 +141,7 @@ const DashboardContainer = props => {
           {...primary}
           // yourBackup={user.id}
           hideMore
+          extra
         />
       </div>
 
