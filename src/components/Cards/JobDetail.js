@@ -32,7 +32,7 @@ const JobDetail = ({ classes, data }) => (
       dangerouslySetInnerHTML={{ __html: data.companyDescription }}
     />
 
-    <SkillsList values={data.skillsRequired} />
+    {data.skillsRequired && <SkillsList values={data.skillsRequired} />}
   </>
 );
 
