@@ -165,7 +165,7 @@ const Job = props => {
           </Typography>
           <div className={classes.skillsWrapper}>
             {data.skillsRequired.map((x, i) => (
-              <SkillItem key={`${i}-${x}`} value={x} />
+              <SkillItem key={`${i}-${x}`} value={x} clickable />
             ))}
           </div>
           {skillsNotAchieved.length > 0 && (
