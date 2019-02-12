@@ -70,7 +70,7 @@ const speedySignupFields = initialData => {
           'Please enter a 10-digit Australian mobile number with no spaces'
         )
         .max(
-          10,
+          13,
           'Please enter a 10-digit Australian mobile number with no spaces'
         )
         .required(
