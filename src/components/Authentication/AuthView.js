@@ -76,13 +76,13 @@ function AuthView(props) {
         action={onSignupRoute ? 'Sign up' : 'Sign in'}
         changeHandler={changeHandler}
       />
-      <LinkedinButton
+      {/* <LinkedinButton
         disabled={isLoading}
         key="linkedin-button"
         id="linkedin-button"
         action={onSignupRoute ? 'Sign up' : 'Sign in'}
         changeHandler={changeHandler}
-      />
+      /> */}
 
       <Typography variant="subtitle1" style={{ marginTop: 15 }}>
         OR
