@@ -13,6 +13,13 @@ const withAuthentication = Component => {
     setUser(authUser) {
       const { onSetAuthUser } = this.props;
       onSetAuthUser(authUser);
+      console.log(authUser);
+      console.log(window.smartlook);
+
+      window.smartlook('identify', authUser.uid, {
+        name: authUser.displayName,
+        email: authUser.email,
+      });
       // let user = {
       //   app_id: 'k8mrtb3h',
       //   name: authUser.displayName, // Full name
