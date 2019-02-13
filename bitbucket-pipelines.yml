@@ -14,6 +14,8 @@ pipelines:
           - globalnode
           - localnode
           script: # Modify the commands below to build your repository.
+          - node scripts/deployconfig-staging
+          - cat .env
           - yarn global add firebase-tools
           - yarn install
           - CI=false yarn build
@@ -25,6 +27,7 @@ pipelines:
           - globalnode
           - localnode
           script: # Modify the commands below to build your repository.
+          - node scripts/deployconfig-production
           - yarn global add firebase-tools
           - yarn install
           - CI=false yarn build

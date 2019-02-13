@@ -1,5 +1,6 @@
 {
-  "projects": {
-    "default": "staging2hats"
+    "projects": {
+      "default": "staging2hats"
+    }
   }
-}
+  
