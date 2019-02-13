@@ -23,3 +23,8 @@ yarn-error.log*
 # testing
 /test/screenshots/*
 test/testconfig.json
+
+# prevent merge fucky-wuckys
+.env
+.firebaserc
+firebase.json
