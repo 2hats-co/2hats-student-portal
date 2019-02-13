@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "target": "SP3",
+    "target": "staging2hats",
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
