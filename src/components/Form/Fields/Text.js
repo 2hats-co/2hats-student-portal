@@ -12,8 +12,9 @@ const Text = props => {
     formikProps,
     width,
     autoFocus,
+    disallowSpace,
   } = props;
-  const { handleChange, values, errors, touched } = formikProps;
+  const { handleChange, values, errors, touched, setValues } = formikProps;
   return (
     <Grid item xs={width || 12}>
       {type === FIELDS.textFieldMultiline ? (
@@ -36,7 +37,16 @@ const Text = props => {
               ? 'password'
               : 'text'
           }
-          onChange={handleChange}
+          onChange={
+            disallowSpace
+              ? e => {
+                  setValues({
+                    ...values,
+                    [name]: e.target.value.replace(' ', ''),
+                  });
+                }
+              : handleChange
+          }
           variant="filled"
           margin="dense"
           InputProps={{ disableUnderline: true }}

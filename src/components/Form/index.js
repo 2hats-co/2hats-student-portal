@@ -255,6 +255,7 @@ function Form(props) {
                       placeholder={x.placeholder}
                       width={x.width}
                       autoFocus={x.autoFocus}
+                      disallowSpace={x.disallowSpace}
                     />
                   );
 

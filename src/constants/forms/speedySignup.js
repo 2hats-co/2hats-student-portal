@@ -29,8 +29,10 @@ const speedySignupFields = initialData => {
       name: 'email',
       label: 'Email',
       value: '',
+      disallowSpace: true,
       validation: yup
         .string()
+        .trim()
         .email('Must be a valid email')
         .required('Required'),
     },
