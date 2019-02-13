@@ -1,10 +1,10 @@
 var fs = require('fs');
 
-console.log('Running staging deploy config script...');
+console.log('Running production deploy config script...');
 
 fs.writeFile(
   './.env',
-  `REACT_APP_ENV='STAGING'
+  `REACT_APP_ENV='PRODUCTION'
 SKIP_PREFLIGHT_CHECK=true
 `,
   function(err) {
@@ -17,9 +17,16 @@ fs.writeFile(
   './.firebaserc',
   `{
     "projects": {
-      "default": "staging2hats"
+      "default": "production2hats"
+    },
+    "targets": {
+      "production2hats": {
+        "hosting": {
+          "SP3": ["sp3-2hats"]
+        }
+      }
     }
-  }
+  }  
   `,
   function(err) {
     if (err) throw err;
@@ -31,6 +38,7 @@ fs.writeFile(
   './firebase.json',
   `{
     "hosting": {
+      "target": "SP3",
       "public": "build",
       "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
       "rewrites": [
@@ -41,7 +49,6 @@ fs.writeFile(
       ]
     }
   }
-  
   `,
   function(err) {
     if (err) throw err;

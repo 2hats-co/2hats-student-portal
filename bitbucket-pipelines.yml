@@ -16,22 +16,23 @@ pipelines:
           script: # Modify the commands below to build your repository.
           - node scripts/deployconfig-staging
           - cat .env
+          - cat .firebaserc
+          - cat firebase.json
           - yarn global add firebase-tools
           - yarn install
           - CI=false yarn build
           - firebase deploy --token "$FIREBASE_TOKEN" --project staging2hats --non-interactive --public build --only hosting
-    production:
-      - step:
-          caches:
-          - node
-          - globalnode
-          - localnode
-          script: # Modify the commands below to build your repository.
-          - node scripts/deployconfig-production
-          - yarn global add firebase-tools
-          - yarn install
-          - CI=false yarn build
-          - firebase deploy --token "$FIREBASE_TOKEN" --project production2hats --non-interactive --public build --only hosting
+    # production:
+    #   - step:
+    #       caches:
+    #       - node
+    #       - globalnode
+    #       - localnode
+    #       script: # Modify the commands below to build your repository.
+    #       - yarn global add firebase-tools
+    #       - yarn install
+    #       - CI=false yarn build
+    #       - firebase deploy --token "$FIREBASE_TOKEN" --project production2hats --non-interactive --public build --only hosting
     SP3-production:
       - step:
           caches:
@@ -39,6 +40,10 @@ pipelines:
           - globalnode
           - localnode
           script: # Modify the commands below to build your repository.
+          - node scripts/deployconfig-production
+          - cat .env
+          - cat .firebaserc
+          - cat firebase.json
           - yarn global add firebase-tools
           - yarn install
           - CI=false yarn build
