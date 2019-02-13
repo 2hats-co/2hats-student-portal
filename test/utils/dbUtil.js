@@ -1,19 +1,20 @@
 const admin = require('firebase-admin');
 const ramda = require('ramda');
-const PROJECT = 'staging2hats';
+const PROJECT = 'production2hats';
 const PROJECT_KEY = {
   type: 'service_account',
-  project_id: 'staging2hats',
-  private_key_id: 'e60360dd65942a87627187cc26f7f1bbd01f9bbe',
+  project_id: 'production2hats',
+  private_key_id: 'a19495b51b5d6d65822597bc68d3c2fc58049267',
   private_key:
-    '-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCfdylpuw9POV76\nNIN5NKWfTGZB9Zk7A6u+5DWbR0/HJAbQ8NffCe5QL70D1gHTXdjhQ+9njvn0+eXp\nBz5yPk0Tmb1n22gslHkzrFzJU0RAYhymR6Ubl3KTeMBS411DD+1Upqx2jiLK1tPa\nttTg82cYJAmBT7iaMVTa4Cv75RpzYEbNPNorEkiRuTqhj7inck537CsMvsgWvEgD\nov2sEX8sQSroXpRe9SR9s7ysK1RMq2ZgaHNclKE1J67HTesDyv/63yk0XfFUgQ0K\n2iNY1tZ0YSGG0H/6EeWHjsHUALjXkq5DbOUBkjh+nHLjCgasLCPiCfs18wExntZ6\nH2qBCUSnAgMBAAECggEACgZbvCHeXISmy+PxP/VnVBRheVQPRf59FYsTM6fQBBzn\nsMrzRzpAmRnnMA6MHtWPhNnYexIp9JShN30VF+mCvvCzT4wjiGntFKqJSr7JU6LX\nWjy2zH1A3rSAorVYb5bYvLGdtfZJiabnuqAz0dB7crERR+fTGx5uzzO4kCVe/FG/\npeuPYpY5X9PL8xo4BwlTX4nyF0JWJT7Jfe8QzmOEeZxUTMRWDKk4rdQeyvNPwdAb\njpF06ALxxb2xedEu6aFaXp/7yuMGbIlIjmI6qctYiRUUNVBchRvmmXdQ4P4h1sJW\npl8YLCnGhQLOy2QNuKR4P5ou83p/rGGRP9YGb9FfwQKBgQDasekayZa4a+3Vh7Rg\n0UfgfmDaNfg6asdzHMumX3hM2VGvHU0mag3FQEkZdkgVhX8b4pv1q51k09StRllM\n8TUujzQktXOu3HiwR2aUUOmLr7aN8CQNLT44i6sZ6Sx9E5EBe8lpByw0ALnxM5/4\n0pF3gz6tQ+VeXv7RwDDeoCej2wKBgQC6qsk6RsnbVDMNL1hqJpwc5VSI71rYwgTR\nIPc7ntilVGBzxY+DxDwKy0kLqBZG6Pu9Zp8KRpks7Yk8sAN8GIilLmFMZSPXIBD+\nVmqLzGZvxk5JX7XHdk65E+EGWD/s7ALUgLH9g/h920E2vKieNe0ibI++brtrtzVK\nunlXUjqiJQKBgQCmiA2asWFNRBqSnEjV5OeX4oR8BdblHQSN+qJ1KYPg+SeDcoua\nMe4Ug1RmyDQx9zsIj/H1DF7JNalg3Q4JUjAOKUwqm+XghNB+Y5CQZmDBVudrhC7f\nvdEAnBKJo46WG/0ypQGFMcoOO3NcYdRyVF4jJNToeahCyZG/RVuxW0F0OwKBgQCQ\nKBzHOKvjCh9y60FomPCvEBw8tDyAcTWvG7pS/NVquMLUJZoztHR6EYwTyHeLw5nG\nJ15jXSomHDuD9pp6V6gPiMXzbZhEJqt4/9vAotXpNEh5OcT0iVU6cTOy5qxXl9yH\np+vNUQGykITIdOHzbMn5b8WC15k+EnrBf0j+Oq61UQKBgQDUUA5c34uGcnLgyG6P\n2TME+Z5eNnZBCBrnH6mxpzWNUtkil3kRCYKeyqls7DBxrEKoG+N8Qz8HHLXodpuo\nKFbrGS+kO78pmD03mhlEm0jMtyYroP6CRmDSVCjOoxasvyik4x3vcYuEvGSz+CsD\nVa4bioXSIMfAWUWU2Oqf5edxEw==\n-----END PRIVATE KEY-----\n',
-  client_email: 'firebase-adminsdk-x1z8t@staging2hats.iam.gserviceaccount.com',
-  client_id: '117775015509104956535',
+    '-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC2W0kPg18lCM2Z\n9j5A9sFgs1gF2J050hE5lf/Fasv1WeFKj/QblvUj9KZrcxwKps5I5MxGnem+gFCs\npZ2K0Q0l76QzjliQ7PWgqTpPzNoYm1fMiwYi9YuL2aTWahJrXPhyBoXnJZ9r2FdJ\nk4SWA2Nj+v30uMNfe/sywbgAHtEZ1igmENxrlANmrHqOWDaSMBwIfxYrRu3v7546\ne1Ssl5s/8mbtnDHtKQ2xwdMJjUtUZZPHK8ejx3BME+ByErICJT5+KYqLuuVxQVV2\nzhh1V7DIzxaAWVZoJm2K0QWxgy98UEW/qGOsQUPE/U247N5XtiuzCGXrnZQiYhRx\nMmCnBCr1AgMBAAECggEALNX1+Tf6QT9QWe4G8W8aLb36wvk28xv4uzlruSzgd/NA\n5tXNFamAnXYOIvYa622G47pJlYVHDt06uLBBs3th6bVpoHl7wipY3EcvfKZn60vq\ngvKdsCPCS0DYfBV5cOdbeKGs85+2+kunboI0Q7QSkGcKYMy60LPJl/m0VWc+T0UD\nMf18xTAq5JA42YuX4QIskcu5HoUjZ1awKwm3c5DB855C5r9r3XLuGmGvIlBGseMW\n66yujnMLV3Wjddldtbj7CcxiWkDezHS024lDe/2v404Zcp6e8CKHsyFdH28mQkR/\nM31RoFHPHBx9SYobID6BjolgMP1/M3lIDFY7tyaJAwKBgQDu6vNae80FykG7us9I\nqj+wFpr8SMd3MsiDOQU/IXoFUen3oTJuwAZm9NskqPNYTzeoxzOPg5XQIbHW6PaO\n9HsjEVj4OGHq4BxfwoJA6vR8COp37qDbUYq/ZPv9FkeQj8Fu/dyNiZXUlddb33JO\neWobYgBCbjHIOZPtCXP8hpMR+wKBgQDDZRASGmdnSB38wDFoSs4Sc8PZ6ysUY5AU\nqb/TQdL6h7kqLj732ktWfn/JbO5sA+t03ZyX8KI01LYEzy8AjX2cUHUGzRah8UMw\nNp4ra+WmkPphiODVaVd8lbWi5CKopf2O1+cxS2fd4109+Rqn2kSBKdCoFFr6DfVA\nkaBIqtkTzwKBgQCZk1+Qh0n38dYlJWT+8aj0uOMxTlshbPxlFW8g8JTt/ISnz++K\nL1cuMTD4tL2Pw4Qksr+a/dt8KVyWp7NtmwvYM9t720pd32d9yptNvXogjN6i7zpp\nIFZOx0wPmJWyACY4AWkXdhxgxVzkypJAjV0+ctV13j2T1icXVF9BMQQypwKBgF3w\ndK1/bD9HeMNPU3GkpTZR2dMnMOr4gwisI8FZYCl6nxccbMGUfavz3VPlvyrHJ6hj\n8ylJU3K64VemlB5b6AwC0oCWkU8CQx8m4xxVH2/ZO8cwm4d+wcTv5QePTupuA11t\nh4U3j5Qp/2YQITSZx12h0OM+Bg86LrMAUGMfYIYZAoGBAORxiEYmJojdsCOh4yB0\nOy/TUR0I5myh66tLCSVxvID8r1jXlgnA3E/qWyboAsPbyjjCM/GzBZf+5QIPugih\nt7AiI3F7W/SLZbxs6PWiqiFLQU878kNF1pqbeG4CNBIrXaLflXBY55vhSLBalbz4\nZnLlz8d4hBxyQioHffOB4Pu0\n-----END PRIVATE KEY-----\n',
+  client_email:
+    'firebase-adminsdk-ye02m@production2hats.iam.gserviceaccount.com',
+  client_id: '109270531465496564555',
   auth_uri: 'https://accounts.google.com/o/oauth2/auth',
   token_uri: 'https://oauth2.googleapis.com/token',
   auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
   client_x509_cert_url:
-    'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-x1z8t%40staging2hats.iam.gserviceaccount.com',
+    'https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ye02m%40production2hats.iam.gserviceaccount.com',
 };
 
 admin.initializeApp(
