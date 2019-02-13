@@ -65,7 +65,10 @@ const JobsContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.jobs,
           limit: cardsCols + 1,
-          filters: [{ field: 'industry', operator: '==', value: 'marketing' }],
+          filters: [
+            { field: 'industry', operator: '==', value: 'marketing' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedJobs}
@@ -80,7 +83,10 @@ const JobsContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.jobs,
           limit: cardsCols + 1,
-          filters: [{ field: 'industry', operator: '==', value: 'sales' }],
+          filters: [
+            { field: 'industry', operator: '==', value: 'sales' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedJobs}
@@ -95,7 +101,10 @@ const JobsContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.jobs,
           limit: cardsCols + 1,
-          filters: [{ field: 'industry', operator: '==', value: 'tech' }],
+          filters: [
+            { field: 'industry', operator: '==', value: 'tech' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedJobs}

@@ -46,7 +46,10 @@ const CoursesContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.courses,
           limit: cardsCols + 1,
-          filters: [{ field: 'category', operator: '==', value: 'marketing' }],
+          filters: [
+            { field: 'category', operator: '==', value: 'marketing' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedCourses}
@@ -61,7 +64,10 @@ const CoursesContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.courses,
           limit: cardsCols + 1,
-          filters: [{ field: 'category', operator: '==', value: 'sales' }],
+          filters: [
+            { field: 'category', operator: '==', value: 'sales' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedCourses}

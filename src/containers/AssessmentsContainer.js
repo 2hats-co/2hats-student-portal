@@ -115,7 +115,10 @@ const AssessmentsContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.assessments,
           limit: cardsCols,
-          filters: [{ field: 'category', operator: '==', value: 'marketing' }],
+          filters: [
+            { field: 'category', operator: '==', value: 'marketing' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedAssessments}
@@ -130,7 +133,10 @@ const AssessmentsContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.assessments,
           limit: cardsCols,
-          filters: [{ field: 'category', operator: '==', value: 'sales' }],
+          filters: [
+            { field: 'category', operator: '==', value: 'sales' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedAssessments}
@@ -145,7 +151,10 @@ const AssessmentsContainer = props => {
         useCollectionInit={{
           path: COLLECTIONS.assessments,
           limit: cardsCols,
-          filters: [{ field: 'category', operator: '==', value: 'tech' }],
+          filters: [
+            { field: 'category', operator: '==', value: 'tech' },
+            { field: 'published', operator: '==', value: true },
+          ],
           sort: { field: 'createdAt', direction: 'desc' },
         }}
         filterIds={user.touchedAssessments}
