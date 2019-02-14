@@ -9,17 +9,17 @@ const WhatsNextTitle = props => {
     case WHATS_NEXT_STATES.booking:
       return 'You have an upcoming booking';
     case WHATS_NEXT_STATES.uploadResume:
-      return 'You haven’t uploaded your resume yet';
+      return 'Next step: upload your resume';
 
     // course flow
     case WHATS_NEXT_STATES.completeCourse:
-      return 'You haven’t finished a course';
+      return 'You have an unfinished course';
     case WHATS_NEXT_STATES.startNewCourse:
       return 'Get started with one of our courses';
 
     // assessments flow
     case WHATS_NEXT_STATES.completeAssessment:
-      return 'You haven’t submitted an assessment';
+      return 'You have an incomplete assessment';
     case WHATS_NEXT_STATES.awaitAssessmentOutcome:
       return 'While you wait for your assessment outcome…';
     case WHATS_NEXT_STATES.startNewAssessment:
