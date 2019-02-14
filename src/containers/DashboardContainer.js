@@ -52,7 +52,7 @@ const DashboardContainer = props => {
           useCollectionInit: {
             path: COLLECTIONS.courses,
             limit: numberOfCards,
-            sort: { field: 'createdAt', direction: 'desc' },
+            sort: { field: 'ranking', direction: 'asc' },
             filters: [{ field: 'published', operator: '==', value: true }],
           },
           filterIds: user.touchedCourses,

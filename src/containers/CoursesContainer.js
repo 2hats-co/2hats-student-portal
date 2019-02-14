@@ -35,7 +35,7 @@ const CoursesContainer = props => {
         useCollectionInit={{
           path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
           limit: cardsCols,
-          sort: { field: 'createdAt', direction: 'desc' },
+          sort: { field: 'ranking', direction: 'asc' },
         }}
         extra
       />
@@ -50,7 +50,7 @@ const CoursesContainer = props => {
             { field: 'category', operator: '==', value: 'marketing' },
             { field: 'published', operator: '==', value: true },
           ],
-          sort: { field: 'createdAt', direction: 'desc' },
+          sort: { field: 'ranking', direction: 'asc' },
         }}
         filterIds={user.touchedCourses}
         NoneLeftIcon={CoursesIcon}
@@ -68,7 +68,7 @@ const CoursesContainer = props => {
             { field: 'category', operator: '==', value: 'sales' },
             { field: 'published', operator: '==', value: true },
           ],
-          sort: { field: 'createdAt', direction: 'desc' },
+          sort: { field: 'ranking', direction: 'asc' },
         }}
         filterIds={user.touchedCourses}
         NoneLeftIcon={CoursesIcon}
