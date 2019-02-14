@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
@@ -37,7 +38,6 @@ const styles = theme => ({
   tooltipText: {
     fontSize: '.875rem',
     lineHeight: 1.25,
-    maxWidth: 150,
 
     margin: theme.spacing.unit / 2,
     marginLeft: theme.spacing.unit,
@@ -55,6 +55,44 @@ const styles = theme => ({
 const JobApply = props => {
   const { classes, onClick, data, skillsNotAchieved, loading, big } = props;
 
+  const closed =
+    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 0;
+
+  if (closed)
+    return (
+      <Tooltip
+        title={
+          <Grid container alignItems="center">
+            <Grid item className={classes.tooltipIconWrapper}>
+              <ErrorIcon />
+            </Grid>
+            <Grid
+              item
+              xs
+              className={classes.tooltipText}
+              style={{ maxWidth: 175 }}
+            >
+              We are no longer accepting applications for this job
+            </Grid>
+          </Grid>
+        }
+      >
+        <div>
+          <Button
+            variant="contained"
+            color="primary"
+            className={big ? classes.applyBig : classes.apply}
+            size={big ? 'large' : 'medium'}
+            onClick={onClick}
+            disabled
+          >
+            Apply
+            <ArrowForwardIcon />
+          </Button>
+        </div>
+      </Tooltip>
+    );
+
   if (skillsNotAchieved.length > 0)
     return (
       <Tooltip
@@ -63,7 +101,12 @@ const JobApply = props => {
             <Grid item className={classes.tooltipIconWrapper}>
               <ErrorIcon />
             </Grid>
-            <Grid item xs className={classes.tooltipText}>
+            <Grid
+              item
+              xs
+              className={classes.tooltipText}
+              style={{ maxWidth: 150 }}
+            >
               You need {skillsNotAchieved.length} more of the required skills to
               apply
             </Grid>

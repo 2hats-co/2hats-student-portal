@@ -61,6 +61,9 @@ const styles = theme => ({
 const JobMetadata = props => {
   const { classes, data, isXs, small } = props;
 
+  const closed =
+    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 0;
+
   const closingSoon =
     moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 3;
 
@@ -99,17 +102,33 @@ const JobMetadata = props => {
           </Typography>
         </Grid>
         <Grid item xs={4} className={classes.gridItem}>
-          <Typography
-            variant={isXs || small ? 'h6' : 'h5'}
-            className={classes.meta}
-            color={closingSoon ? 'primary' : 'textPrimary'}
-          >
-            {closingSoon && <WarningIcon className={classes.warningIcon} />}
-            {moment(data.closingDate, 'DD/MM/YYYY').fromNow(true)}
-          </Typography>
-          <Typography variant={isXs || small ? 'body2' : 'body1'}>
-            remaining
-          </Typography>
+          {closed ? (
+            <>
+              <Typography
+                variant={isXs || small ? 'h6' : 'h5'}
+                className={classes.meta}
+              >
+                Closed
+              </Typography>
+              <Typography variant={isXs || small ? 'body2' : 'body1'}>
+                for applications
+              </Typography>
+            </>
+          ) : (
+            <>
+              <Typography
+                variant={isXs || small ? 'h6' : 'h5'}
+                className={classes.meta}
+                color={closingSoon ? 'primary' : 'textPrimary'}
+              >
+                {closingSoon && <WarningIcon className={classes.warningIcon} />}
+                {moment(data.closingDate, 'DD/MM/YYYY').fromNow(true)}
+              </Typography>
+              <Typography variant={isXs || small ? 'body2' : 'body1'}>
+                remaining
+              </Typography>
+            </>
+          )}
         </Grid>
       </Grid>
     </>

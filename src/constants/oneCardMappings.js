@@ -128,7 +128,16 @@ export const job = data => {
         Applied
       </>
     );
-  if (moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 3) {
+  if (moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 0) {
+    banner = (
+      <>
+        <FailedIcon />
+        Applications Closed
+      </>
+    );
+  } else if (
+    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 3
+  ) {
     banner = (
       <>
         <FailedIcon />
