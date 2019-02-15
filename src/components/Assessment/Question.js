@@ -60,6 +60,7 @@ const Question = props => {
   let answerInput = null;
   switch (submissionType) {
     case 'pdf':
+    case 'zip':
       answerInput = (
         <>
           {!readOnly && (
@@ -74,7 +75,9 @@ const Question = props => {
                   }
                 );
               }}
-              accept="application/pdf"
+              accept={
+                submissionType === 'pdf' ? 'application/pdf' : 'application/zip'
+              }
               className={classes.dropzone}
             >
               <CloudUploadIcon className={classes.uploadIcon} />
@@ -85,7 +88,7 @@ const Question = props => {
                 className={classes.dropzoneButton}
                 size="small"
               >
-                Click to select a PDF
+                Click to select a file
               </Button>
             </Dropzone>
           )}
