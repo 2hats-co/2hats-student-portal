@@ -67,28 +67,22 @@ const speedySignupFields = initialData => {
       value: initialData['mobileNumber'],
       validation: yup
         .string()
-        .min(
-          10,
-          'Please enter a 10-digit Australian mobile number with no spaces'
-        )
-        .max(
-          13,
-          'Please enter a 10-digit Australian mobile number with no spaces'
-        )
-        .required(
-          'Please enter a 10-digit Australian mobile number with no spaces'
-        ),
+        .min(10, 'Please enter a 10-digit mobile number')
+        .max(13, 'Please enter a 10-digit mobile number')
+        .required('Please enter a 10-digit mobile number'),
     },
     {
       type: FIELDS.radio,
       name: 'interest',
-      label: 'Interest',
+      label: 'What are you most interested in?',
       value: null,
-      horiz: true,
       options: [
-        { value: 'courses', label: 'Courses' },
-        { value: 'jobs', label: 'Jobs' },
-        { value: 'assessments', label: 'Skill Tasks' },
+        { value: 'courses', label: 'Learn crucial skills with online courses' },
+        {
+          value: 'assessments',
+          label: 'Practice & upskill with digital tasks',
+        },
+        { value: 'jobs', label: 'Apply for part-time paid internships' },
       ],
       validation: yup
         .string(['courses', 'jobs', 'assessments'], 'Not a valid interest')

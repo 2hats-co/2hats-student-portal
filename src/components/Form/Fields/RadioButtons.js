@@ -16,7 +16,7 @@ const styles = theme => ({
 
   sectionTitle: {
     marginLeft: theme.spacing.unit * 1.5,
-    marginBottom: -theme.spacing.unit,
+    // marginBottom: -theme.spacing.unit,
   },
 
   group: { marginLeft: theme.spacing.unit * 1.25 },
