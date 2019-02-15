@@ -11,7 +11,10 @@ import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
 
-import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
+import {
+  SKILLS,
+  getSkillLabel,
+} from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   root: {
@@ -39,6 +42,11 @@ const StatusMsg = props => {
   let icon = null;
   let title = null;
   let body = null;
+  console.log(
+    data.skillAssociated,
+    getSkillLabel(data.skillAssociated),
+    SKILLS
+  );
 
   if (data.submitted && !data.screened) {
     icon = (
