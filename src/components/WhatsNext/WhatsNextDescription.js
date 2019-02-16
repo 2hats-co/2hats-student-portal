@@ -16,7 +16,7 @@ const WhatsNextDescription = props => {
     case WHATS_NEXT_STATES.completeCourse:
       return (
         <>
-          You haven’t finished <b>{data.title}</b>.<br />
+          You haven’t finished <b>{data.title.trim()}</b>.<br />
           Complete the course to learn new skills to make you job ready.
         </>
       );
@@ -27,15 +27,16 @@ const WhatsNextDescription = props => {
     case WHATS_NEXT_STATES.completeAssessment:
       return (
         <>
-          You haven’t completed your submission for <b>{data.title}</b>. Passing
-          assessments allow us to verify your skills and get you job-ready.
+          You haven’t completed your submission for <b>{data.title.trim()}</b>.
+          Passing assessments allow us to verify your skills and get you
+          job-ready.
         </>
       );
     case WHATS_NEXT_STATES.awaitAssessmentOutcome:
       return (
         <>
           You can attempt another assessment and get more of your{' '}
-          <b>{data.category}</b> skills recognised.
+          <b>{data.category.trim()}</b> skills recognised.
         </>
       );
     case WHATS_NEXT_STATES.startNewAssessment:

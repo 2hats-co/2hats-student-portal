@@ -131,7 +131,7 @@ const DashboardContainer = props => {
     <div className={classes.root}>
       <ContainerHeader
         isMobile={isMobile}
-        title={`Hi, ${user.firstName}!`}
+        title={`Hi, ${user.firstName.trim()}!`}
         maxWidth={getCardsWidth(cardsCols)}
       />
       <WhatsNext user={user} width={getCardsWidth(cardsCols)} />
