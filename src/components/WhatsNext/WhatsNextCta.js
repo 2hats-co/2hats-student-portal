@@ -57,7 +57,7 @@ const WhatsNextCta = props => {
           variant="contained"
           size="large"
           onClick={() => {
-            history.push(`${ROUTES.ASSESSMENTS}?id=${data.id}`);
+            history.push(`${ROUTES.ASSESSMENTS}?id=${data.id}&yours=true`);
           }}
         >
           Complete Assessment
