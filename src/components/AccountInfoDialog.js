@@ -33,14 +33,21 @@ const AccountInfoDialog = props => {
       action="update"
       actions={{
         update: data => {
-          updateDoc(COLLECTIONS.profiles, user.id, data);
+          const sanitisedData = {
+            ...data,
+            firstName: data.firstName.trim(),
+            lastName: data.lastName.trim(),
+            currentDegree: data.currentDegree.trim(),
+          };
+
+          updateDoc(COLLECTIONS.profiles, user.id, sanitisedData);
           if (
             data.firstName !== user.firstName ||
             data.lastName !== user.lastName
           )
             updateDoc(COLLECTIONS.users, user.id, {
-              firstName: data.firstName,
-              lastName: data.lastName,
+              firstName: data.firstName.trim(),
+              lastName: data.lastName.trim(),
             });
           closeHandler();
         },

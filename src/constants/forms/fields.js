@@ -3,6 +3,8 @@ const FIELDS = {
   textFieldNumber: 'TEXT_FIELD_NUMBER',
   textFieldPassword: 'TEXT_FIELD_PASSWORD',
   textFieldMultiline: 'TEXT_FIELD_MULTILINE',
+  textFieldEmail: 'TEXT_FIELD_EMAIL',
+  textFieldTel: 'TEXT_FIELD_TEL',
 
   chipFreeText: 'CHIP_FREE_TEXT',
 

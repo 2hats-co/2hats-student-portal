@@ -132,9 +132,19 @@ class SpeedySignupContainer extends PureComponent {
     this.setState({ isLoading: true });
     speedyAuth(userInfo, this.handleSuccess, this.errorBar);
 
+    const sanitisedUserInfo = {
+      firstName: userInfo.firstName.trim(),
+      lastName: userInfo.lastName.trim(),
+      email: userInfo.email.trim().toLowerCase(),
+      currentUniversity: userInfo.currentUniversity.trim(),
+      currentDegree: userInfo.currentDegree.trim(),
+      mobileNumber: userInfo.mobileNumber,
+      interest: userInfo.interest,
+    };
+
     cloudFunction(
       CLOUD_FUNCTIONS.SPEEDY_SIGNUP,
-      userInfo,
+      sanitisedUserInfo,
       async result => {
         //if (this.state.isPublic) {
         console.log(result);

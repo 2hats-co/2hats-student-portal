@@ -25,7 +25,7 @@ const speedySignupFields = initialData => {
       width: 6,
     },
     {
-      type: FIELDS.textField,
+      type: FIELDS.textFieldEmail,
       name: 'email',
       label: 'Email',
       value: '',
@@ -61,7 +61,7 @@ const speedySignupFields = initialData => {
       validation: yup.string().required('Required'),
     },
     {
-      type: FIELDS.textField,
+      type: FIELDS.textFieldTel,
       name: 'mobileNumber',
       label: 'Mobile Number',
       value: initialData['mobileNumber'],

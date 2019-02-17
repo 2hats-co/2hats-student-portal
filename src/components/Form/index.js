@@ -245,6 +245,8 @@ function Form(props) {
                 case FIELDS.textFieldNumber:
                 case FIELDS.textFieldPassword:
                 case FIELDS.textFieldMultiline:
+                case FIELDS.textFieldEmail:
+                case FIELDS.textFieldTel:
                   return (
                     <Text
                       key={x.name}
