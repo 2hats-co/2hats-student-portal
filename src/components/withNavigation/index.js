@@ -183,6 +183,7 @@ export default function withNavigation(WrappedComponent) {
         if (!location.search) setFadeOut(true);
         setTimeout(() => {
           history.push(route);
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }, 300);
       }
     };

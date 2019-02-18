@@ -15,6 +15,7 @@ function Email(props) {
       style={{ marginTop: 0, width: '100%', marginBottom: 5 }}
       margin="normal"
       color="primary"
+      type="email"
     />
   );
 }

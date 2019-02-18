@@ -84,7 +84,11 @@ const Assessment = props => {
           className={classes.coverImage}
         />
 
-        <Typography variant={isXs ? 'h5' : 'h4'} className={classes.title}>
+        <Typography
+          variant={isXs ? 'h5' : 'h4'}
+          className={classes.title}
+          style={isXs ? { fontWeight: 500 } : {}}
+        >
           {data.title}
         </Typography>
 
