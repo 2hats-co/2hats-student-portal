@@ -22,6 +22,8 @@ const styles = theme => ({
   title: {
     fontWeight: 400,
     display: 'block',
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
   },
   subtitle: {
     marginTop: theme.spacing.unit * 1.5,

@@ -27,6 +27,12 @@ const styles = theme => ({
     '50%': { opacity: 0 },
     '100%': { opacity: 1 },
   },
+
+  displayName: {
+    paddingLeft: theme.spacing.unit / 2,
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
+  },
 });
 
 function User(props) {
@@ -46,7 +52,11 @@ function User(props) {
         lastName={user ? user.lastName : ''}
         avatarURL={user ? user.avatarURL : ''}
       />
-      <Typography variant="h6" style={{ paddingLeft: 4 }}>
+      <Typography
+        variant="h6"
+        style={{ paddingLeft: 4 }}
+        className={classes.displayName}
+      >
         {user && user.firstName} {user && user.lastName}
       </Typography>
     </div>
