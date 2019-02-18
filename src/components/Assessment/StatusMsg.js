@@ -42,11 +42,6 @@ const StatusMsg = props => {
   let icon = null;
   let title = null;
   let body = null;
-  console.log(
-    data.skillAssociated,
-    getSkillLabel(data.skillAssociated),
-    SKILLS
-  );
 
   if (data.submitted && !data.screened) {
     icon = (

@@ -11,6 +11,7 @@ import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
+import Announcement from '../components/Announcement';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 import { firestore } from '../store';
@@ -97,6 +98,7 @@ const AssessmentsContainer = props => {
         maxWidth={getCardsWidth(cardsCols)}
         icon={<AssessmentsIcon />}
       />
+      <Announcement width={getCardsWidth(cardsCols)} />
       <Cards
         title="Your Assessments"
         mapping="assessment"
