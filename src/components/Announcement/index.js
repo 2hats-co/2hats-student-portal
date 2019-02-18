@@ -84,7 +84,9 @@ const styles = theme => ({
     '&:hover $media': { opacity: 0.9 },
   },
   jobTitle: {
-    transition: theme.transitions.create('color'),
+    transition: theme.transitions.create('color', {
+      duration: theme.transitions.duration.short,
+    }),
     marginTop: theme.spacing.unit * 1.125,
   },
   titleArrow: {

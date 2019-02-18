@@ -60,8 +60,15 @@ const styles = theme => ({
     lineHeight: '48px',
     marginLeft: '0 !important',
   },
-  goButton: {
-    marginLeft: -theme.spacing.unit / 2,
+  clickableTitle: {
+    cursor: 'pointer',
+    transition: theme.transitions.create('color', {
+      duration: theme.transitions.duration.short,
+    }),
+    '&:hover': { color: theme.palette.primary.main },
+  },
+  goIcon: {
+    marginLeft: theme.spacing.unit / 2,
     verticalAlign: 'sub',
   },
 
@@ -150,22 +157,19 @@ function Cards(props) {
   const cardsHeader = (
     <Typography
       variant="h5"
-      className={classNames(classes.title, icon && classes.titleWithIcon)}
+      className={classNames(
+        classes.title,
+        icon && classes.titleWithIcon,
+        route && classes.clickableTitle
+      )}
+      onClick={() => {
+        if (route) history.push(route);
+      }}
     >
       {icon && <PaddedIcon className={classes.paddedIcon}>{icon}</PaddedIcon>}
       {usedYourBackup && cards.length > 0 && 'Your '}
       {title}
-      {route && (
-        <IconButton
-          color="primary"
-          className={classes.goButton}
-          onClick={() => {
-            history.push(route);
-          }}
-        >
-          <GoIcon />
-        </IconButton>
-      )}
+      {route && <GoIcon className={classes.goIcon} />}
     </Typography>
   );
 
