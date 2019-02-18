@@ -126,8 +126,6 @@ const styles = theme => ({
   buttonWrapper: { textAlign: 'right' },
 });
 
-console.log(COLLECTIONS);
-
 const Announcement = props => {
   const { classes, theme, width, history } = props;
 
@@ -141,8 +139,6 @@ const Announcement = props => {
     sort: { field: 'createdAt', direction: 'desc' },
   });
   const data = announcementsState.documents[0];
-
-  console.log('announcementsState', announcementsState);
 
   const [yourAssessmentState, yourAssessmentDispatch] = useCollection();
   const yourAssessmentDoc = yourAssessmentState.documents[0];
