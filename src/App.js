@@ -130,6 +130,7 @@ const App = props => {
                   path={ROUTES.SMART_LINK}
                   component={() => <SmartLinkContainer />}
                 />
+                  <Route exact path={'/smartlinks'} component={() => <SmartLinkContainer/>} />
                 <Route
                   exact
                   path={ROUTES.PREVIOUS_SUBMISSION}
