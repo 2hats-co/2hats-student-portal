@@ -81,14 +81,16 @@ const Question = props => {
               className={classes.dropzone}
             >
               <CloudUploadIcon className={classes.uploadIcon} />
-              <Typography variant="body1">Drag a file here or</Typography>
+              <Typography variant="body1">
+                Drag a {submissionType.toUpperCase()} file here or
+              </Typography>
               <Button
                 color="primary"
                 variant="outlined"
                 className={classes.dropzoneButton}
                 size="small"
               >
-                Click to select a file
+                Click to select a {submissionType.toUpperCase()} file
               </Button>
             </Dropzone>
           )}
