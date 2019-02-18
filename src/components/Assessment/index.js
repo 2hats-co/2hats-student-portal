@@ -124,6 +124,22 @@ const Assessment = props => {
           />
         </div>
 
+        {data.relatedMaterial && (
+          <div className={classes.section}>
+            <Typography
+              variant="subtitle1"
+              gutterBottom
+              className={classes.subtitle}
+            >
+              Related material
+            </Typography>
+            <div
+              className={classes.renderedHtml}
+              dangerouslySetInnerHTML={{ __html: data.relatedMaterial }}
+            />
+          </div>
+        )}
+
         <div
           className={classNames(
             classes.section,
