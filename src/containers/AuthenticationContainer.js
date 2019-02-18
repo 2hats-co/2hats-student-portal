@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
+import queryString from 'query-string';
 
 //routing
 import * as routes from '../constants/routes';
@@ -75,16 +76,17 @@ class AuthenticationContainer extends React.Component {
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL);
     warmUp(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY);
-    const linkParams = ['firstName', 'smartKey'];
+    const parsedQuery = queryString.parse(this.props.history.location.search);
+    // console.log(parsedQuery);
+    const linkParams = ['firstName', 'smartKey', 'route', 'email'];
     linkParams.forEach(x => {
-      if (this.props.history.location.search.includes(x)) {
+      if (parsedQuery[x]) {
         this.setState({
-          [x]: this.props.history.location.search
-            .split(`${x}=`)[1]
-            .split('?')[0],
+          [x]: parsedQuery[x],
         });
       }
     });
+    this.setState({ urlParams: parsedQuery });
 
     if (this.props.view) {
       this.setState({ view: this.props.view });
@@ -121,10 +123,11 @@ class AuthenticationContainer extends React.Component {
     this.setState({ isLoading: true });
     const { email, password } = this.state;
     const user = { email, password };
+
     signInWithPassword(
       user,
       route => {
-        this.goTo(route);
+        this.goTo(this.state.route || route);
         this.handleGTevent('Signin');
       },
       this.handleError
@@ -359,7 +362,7 @@ class AuthenticationContainer extends React.Component {
             isLoading={isLoading}
             handleGTevent={this.handleGTevent}
             changeHandler={this.handleChange}
-            urlParams={this.props.location.search}
+            urlParams={this.state.urlParams}
           />
         );
         break;

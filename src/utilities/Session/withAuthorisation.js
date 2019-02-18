@@ -9,9 +9,15 @@ import * as routes from '../../constants/routes';
 const withAuthorisation = condition => Component => {
   class WithAuthorisation extends React.Component {
     componentDidMount() {
+      const { location, history } = this.props;
+
       auth.onAuthStateChanged(authUser => {
         if (!condition(authUser)) {
-          this.props.history.push(routes.SIGN_IN);
+          if (location.pathname) {
+            history.push(`${routes.SIGN_IN}?route=${location.pathname}`);
+            return;
+          }
+          history.push(routes.SIGN_IN);
         }
       });
     }
