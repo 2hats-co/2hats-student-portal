@@ -66,14 +66,16 @@ const Question = props => {
           {!readOnly && (
             <Dropzone
               onDrop={files => {
-                setAnswer({ name: files[0].name });
-                uploader(
-                  `submissions/${user.id}/${files[0].name}`,
-                  files[0],
-                  (url, blob) => {
-                    setAnswer({ name: blob.name, url });
-                  }
-                );
+                if (files[0]) {
+                  setAnswer({ name: files[0].name || 'submission' });
+                  uploader(
+                    `submissions/${user.id}/${new Date()}/${files[0].name}`,
+                    files[0],
+                    (url, blob) => {
+                      setAnswer({ name: blob.name, url });
+                    }
+                  );
+                }
               }}
               accept={
                 submissionType === 'pdf' ? 'application/pdf' : 'application/zip'
