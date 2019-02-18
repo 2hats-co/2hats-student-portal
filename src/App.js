@@ -14,6 +14,7 @@ import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
 
 import LoadingScreen from './components/LoadingScreen';
+import DetailedViewContainer from './containers/DetailedViewContainer';
 
 const AuthenticationContainer = lazy(() =>
   import('./containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */)
@@ -65,6 +66,7 @@ const App = props => {
                   path={ROUTES.SIGN_UP}
                   component={() => <AuthenticationContainer isPublic />}
                 />
+                <Route exact path="/linkedin" component={LinkedInPopUp} />
                 <Route
                   exact
                   path={ROUTES.LOG_OUT}
@@ -132,6 +134,11 @@ const App = props => {
                 />
                 <Route
                   exact
+                  path={'/smartlinks'}
+                  component={() => <SmartLinkContainer />}
+                />
+                <Route
+                  exact
                   path={ROUTES.PREVIOUS_SUBMISSION}
                   component={() => <SubmissionContainer />}
                 />
@@ -153,6 +160,11 @@ const App = props => {
                 />
                 <Route
                   exact
+                  path={ROUTES.JOB}
+                  component={() => <DetailedViewContainer />}
+                />
+                <Route
+                  exact
                   path={ROUTES.ASSESSMENTS}
                   component={() => <AssessmentsContainer />}
                 />
@@ -167,8 +179,6 @@ const App = props => {
                   path={ROUTES.COURSE_REDIRECT}
                   component={() => <CourseRedirectContainer />}
                 />
-
-                <Route exact path="/linkedin" component={LinkedInPopUp} />
                 <Route exact path={'/'} component={() => <Landing />} />
                 <Route component={() => <h1>404</h1>} />
               </Switch>
