@@ -48,7 +48,9 @@ const Profile = props => {
   const { classes, data, user, isMobile } = props;
 
   const [edit, setEdit] = useState(false);
-  const [newBio, setNewBio] = useState(data.bio.substr(0, BIO_MAX_LENGTH));
+  const [newBio, setNewBio] = useState(
+    data.bio && data.bio.substr(0, BIO_MAX_LENGTH)
+  );
 
   return (
     <Grid
