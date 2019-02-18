@@ -902,7 +902,7 @@
     to-fast-properties "^2.0.0"
 
 "@bit/sidney2hats.2hats.global.common-constants@file:./bit/global/common-constants":
-  version "0.0.22"
+  version "0.0.34"
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"

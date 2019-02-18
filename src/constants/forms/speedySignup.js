@@ -1,7 +1,10 @@
 import FIELDS from './fields';
 import * as yup from 'yup';
+import Validator from 'mailgun-validate';
 
 import { UNIVERSITIES } from '../universityList';
+
+const validator = new Validator('pubkey-39aac6f76384240d4c4b3a2b1afeaf02');
 
 const speedySignupFields = initialData => {
   if (!initialData) initialData = {};
@@ -32,8 +35,18 @@ const speedySignupFields = initialData => {
       disallowSpace: true,
       validation: yup
         .string()
-        .trim()
-        .email('Must be a valid email')
+        .email('Invalid email')
+        .test('mailgun-validate', 'Invalid email mailgun', async email => {
+          // console.log('called mailgun validator');
+          const validatorPromise = await new Promise(resolve => {
+            validator.validate(email, (err, response) => {
+              if (err) resolve(false);
+              resolve(response);
+            });
+          });
+          // console.log('validatorResponse', validatorPromise);
+          return validatorPromise.is_valid;
+        })
         .required('Required'),
     },
     {
