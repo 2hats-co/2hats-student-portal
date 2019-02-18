@@ -34,6 +34,7 @@ import * as ROUTES from '../../constants/routes';
 import logo from '../../assets/images/Logo/DarkText.svg';
 import blackLogo from '../../assets/images/Logo/Black.svg';
 
+import ErrorBoundary from '../ErrorBoundary';
 import User from './User';
 import NavItem from './NavItem';
 import LoadingScreen from '../LoadingScreen';
@@ -301,17 +302,19 @@ export default function withNavigation(WrappedComponent) {
               isMobile && classes.wrappedComponentMobilePadding
             )}
           >
-            {user ? (
-              <WrappedComponent
-                {...props}
-                classes={null}
-                isMobile={isMobile}
-                user={user}
-                location={location}
-              />
-            ) : (
-              <LoadingScreen showNav />
-            )}
+            <ErrorBoundary>
+              {user ? (
+                <WrappedComponent
+                  {...props}
+                  classes={null}
+                  isMobile={isMobile}
+                  user={user}
+                  location={location}
+                />
+              ) : (
+                <LoadingScreen showNav />
+              )}
+            </ErrorBoundary>
           </Grid>
 
           {isMobile && (
