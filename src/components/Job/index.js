@@ -113,7 +113,7 @@ const Job = props => {
           touchedJobs: newTouchedJobs,
         });
 
-        history.push(`${ROUTES.JOBS}?id=${docRef.id}&yours=true`);
+        history.push(`${ROUTES.JOB}?id=${docRef.id}&yours=true`);
       });
     }
   };

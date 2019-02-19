@@ -15,6 +15,7 @@ import TagTracker from './components/TagTracker';
 import ErrorBoundary from './components/ErrorBoundary';
 
 import LoadingScreen from './components/LoadingScreen';
+import DetailedViewContainer from './containers/DetailedViewContainer';
 
 const AuthenticationContainer = lazy(() =>
   import('./containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */)
@@ -162,6 +163,16 @@ const App = props => {
                     exact
                     path={ROUTES.ASSESSMENTS}
                     component={() => <AssessmentsContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.ASSESSMENT}
+                    component={() => <DetailedViewContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.JOB}
+                    component={() => <DetailedViewContainer />}
                   />
                   <Route
                     exact

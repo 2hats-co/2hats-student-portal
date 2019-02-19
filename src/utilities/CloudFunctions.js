@@ -6,7 +6,7 @@ export const CLOUD_FUNCTIONS = {
   SPEEDY_SIGNUP: 'restApiSpeedySignup',
   AUTHENTICATE_3RD_PARTY: 'restApiAuthenticate3rdParty',
   AUTHENTICATE_GOOGLE: 'restApiAuthenticateGoogle',
-  AUTHENTICATE_LINKEDIN: 'restApiAuthenticateLinkedIn',
+  AUTHENTICATE_LINKEDIN: 'callablesAuthenticateLinkedIn',
   CHECK_EMAIL: 'restApiCheckEmail',
   SMART_LINK: 'restApiSmartLink',
   RESET_PASSWORD: 'restApiResetPassword',
