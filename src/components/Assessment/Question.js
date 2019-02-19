@@ -66,6 +66,7 @@ const Question = props => {
           {!readOnly && (
             <Dropzone
               onDrop={files => {
+                console.log('dropped', files);
                 if (files[0]) {
                   setAnswer({ name: files[0].name || 'submission' });
                   uploader(
@@ -77,9 +78,9 @@ const Question = props => {
                   );
                 }
               }}
-              accept={
+              /*accept={
                 submissionType === 'pdf' ? 'application/pdf' : 'application/zip'
-              }
+              }*/
               className={classes.dropzone}
             >
               <CloudUploadIcon className={classes.uploadIcon} />

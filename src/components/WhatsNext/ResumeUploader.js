@@ -94,7 +94,7 @@ const ResumeUploader = props => {
           }
         );
       }}
-      accept="application/pdf"
+      //accept="application/pdf"
       className={classNames(classes.dropzone, className)}
       style={file.url || file.name ? { cursor: 'default' } : {}}
       disabled={!!(file.url && file.name)}
