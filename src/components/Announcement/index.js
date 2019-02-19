@@ -107,6 +107,11 @@ const styles = theme => ({
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
+
+    [theme.breakpoints.down('sm')]: {
+      width: 75,
+      height: 75,
+    },
   },
   daysRemaining: {
     fontWeight: 500,
@@ -179,7 +184,7 @@ const Announcement = props => {
   return (
     <div className={classes.root} style={{ width: width - 16 }}>
       <Grid container alignItems="stretch" spacing={24}>
-        <Grid item xs>
+        <Grid item xs={12} sm={7}>
           <Grid
             container
             direction={isMobile ? 'column' : 'row'}
@@ -191,38 +196,27 @@ const Announcement = props => {
               </PaddedIcon>
             </Grid>
             <Grid item xs>
-              <Grid
-                container
-                direction="column"
-                wrap="nowrap"
-                className={classes.fullHeight}
-              >
-                <Grid item xs>
-                  <Typography
-                    variant="h6"
-                    className={classes.title}
-                    gutterBottom
-                  >
-                    {data.title}
-                  </Typography>
-                  <div
-                    className={classes.renderedHtml}
-                    dangerouslySetInnerHTML={{ __html: data.description }}
-                  />
-                </Grid>
-                <Grid item>
-                  <div className={classes.specialLabelWrapper}>
-                    {data.specialLabel.map(x => (
-                      <SpecialLabel key={x} color="primary" label={x} />
-                    ))}
-                  </div>
-                </Grid>
+              <Grid item xs>
+                <Typography variant="h6" className={classes.title} gutterBottom>
+                  {data.title}
+                </Typography>
+                <div
+                  className={classes.renderedHtml}
+                  dangerouslySetInnerHTML={{ __html: data.description }}
+                />
+              </Grid>
+              <Grid item>
+                <div className={classes.specialLabelWrapper}>
+                  {data.specialLabel.map(x => (
+                    <SpecialLabel key={x} color="primary" label={x} />
+                  ))}
+                </div>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={12} sm={4} className={classes.ctaWrapper}>
+        <Grid item xs={12} sm={5} className={classes.ctaWrapper}>
           <Grid
             container
             direction="column"

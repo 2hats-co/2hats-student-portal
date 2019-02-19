@@ -107,7 +107,8 @@ const Question = props => {
               onDelete={
                 readOnly
                   ? null
-                  : () => {
+                  : e => {
+                      e.preventDefault();
                       setAnswer(null);
                     }
               }
