@@ -36,7 +36,7 @@ const speedySignupFields = initialData => {
       validation: yup
         .string()
         .email('Invalid email')
-        .test('mailgun-validate', 'Invalid email mailgun', async email => {
+        .test('mailgun-validate', 'Invalid email', async email => {
           // console.log('called mailgun validator');
           const validatorPromise = await new Promise(resolve => {
             validator.validate(email, (err, response) => {

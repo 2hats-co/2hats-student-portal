@@ -284,6 +284,7 @@ class SpeedySignupContainer extends PureComponent {
               variant="body2"
               className={classes.subhead}
               style={isMobile ? { textAlign: 'center' } : {}}
+              gutterBottom
             >
               We’ve <b>sent you an email</b> to finish the sign up process.
             </Typography>
@@ -291,8 +292,9 @@ class SpeedySignupContainer extends PureComponent {
               variant="body2"
               style={isMobile ? { textAlign: 'center' } : {}}
             >
-              When you’re ready, submit your information to access job
-              opporunties.
+              When you’re ready, continue to our dashboard to apply for jobs,
+              complete our short online courses, and pass quick tasks to verify
+              your skills.
             </Typography>
           </Grid>
         </Grid>
