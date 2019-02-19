@@ -85,3 +85,5 @@ export const compareByGivenName = (a, b) => {
   if (a.givenName > b.givenName) return 1;
   return 0;
 };
+
+export const capitalise = str => str.charAt(0).toUpperCase() + str.slice(1);
