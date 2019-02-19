@@ -14,6 +14,10 @@ const styles = theme => ({
     margin: '0 auto',
     userSelect: 'none',
 
+    [theme.breakpoints.down('sm')]: {
+      width: `calc(100% - ${theme.spacing.unit * 2}px) !important`,
+      maxWidth: '660px !important',
+    },
     [theme.breakpoints.down('xs')]: {
       paddingLeft: theme.spacing.unit * 2,
       paddingRight: theme.spacing.unit * 2,
@@ -22,6 +26,8 @@ const styles = theme => ({
   title: {
     fontWeight: 400,
     display: 'block',
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
   },
   subtitle: {
     marginTop: theme.spacing.unit * 1.5,

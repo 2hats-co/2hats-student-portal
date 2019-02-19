@@ -5,7 +5,7 @@ import * as routes from '../../constants/routes';
 
 import Header from './Header';
 import GoogleButton from './GoogleButton';
-import LinkedinButton from './LinkedinButton';
+// import LinkedinButton from './LinkedinButton';
 import EmailAuth from './EmailAuth';
 import withStyles from '@material-ui/core/styles/withStyles';
 

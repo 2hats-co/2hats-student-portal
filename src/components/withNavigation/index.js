@@ -34,6 +34,7 @@ import * as ROUTES from '../../constants/routes';
 import logo from '../../assets/images/Logo/DarkText.svg';
 import blackLogo from '../../assets/images/Logo/Black.svg';
 
+import ErrorBoundary from '../ErrorBoundary';
 import User from './User';
 import NavItem from './NavItem';
 import LoadingScreen from '../LoadingScreen';
@@ -74,6 +75,7 @@ const styles = theme => ({
     paddingBottom: theme.spacing.unit,
     justifyContent: 'flex-start',
     minHeight: 64,
+    cursor: 'pointer',
   },
   logo: { width: 100, userSelect: 'none', userDrag: 'none' },
 
@@ -142,6 +144,7 @@ const styles = theme => ({
     opacity: 0.5,
     userSelect: 'none',
     userDrag: 'none',
+    cursor: 'pointer',
   },
 });
 
@@ -183,6 +186,7 @@ export default function withNavigation(WrappedComponent) {
         if (!location.search) setFadeOut(true);
         setTimeout(() => {
           history.push(route);
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
         }, 300);
       }
     };
@@ -242,7 +246,13 @@ export default function withNavigation(WrappedComponent) {
                 className={classes.nav}
                 wrap="nowrap"
               >
-                <Grid item className={classes.logoWrapper}>
+                <Grid
+                  item
+                  className={classes.logoWrapper}
+                  onClick={() => {
+                    history.push(ROUTES.DASHBOARD);
+                  }}
+                >
                   <img src={logo} alt="2hats" className={classes.logo} />
                   <IconButton
                     className={classes.activityLogButton}
@@ -260,10 +270,13 @@ export default function withNavigation(WrappedComponent) {
                     </Badge>
                   </IconButton>
                 </Grid>
+
                 <Divider className={classes.divider} />
+
                 <Grid item className={classes.userWrapper}>
                   <User user={user} />
                 </Grid>
+
                 <Grid item xs>
                   <List disablePadding>
                     {MAIN_NAV_ITEMS.map((x, i) => (
@@ -277,6 +290,7 @@ export default function withNavigation(WrappedComponent) {
                     ))}
                   </List>
                 </Grid>
+
                 <Grid item>
                   <List disablePadding>
                     {showBottomDivider && (
@@ -300,17 +314,19 @@ export default function withNavigation(WrappedComponent) {
               isMobile && classes.wrappedComponentMobilePadding
             )}
           >
-            {user ? (
-              <WrappedComponent
-                {...props}
-                classes={null}
-                isMobile={isMobile}
-                user={user}
-                location={location}
-              />
-            ) : (
-              <LoadingScreen showNav />
-            )}
+            <ErrorBoundary>
+              {user ? (
+                <WrappedComponent
+                  {...props}
+                  classes={null}
+                  isMobile={isMobile}
+                  user={user}
+                  location={location}
+                />
+              ) : (
+                <LoadingScreen showNav />
+              )}
+            </ErrorBoundary>
           </Grid>
 
           {isMobile && (
@@ -331,6 +347,9 @@ export default function withNavigation(WrappedComponent) {
                   src={blackLogo}
                   alt="2hats"
                   className={classes.bottomLogo}
+                  onClick={() => {
+                    history.push(ROUTES.DASHBOARD);
+                  }}
                 />
 
                 <IconButton

@@ -19,12 +19,12 @@ class NoPasswordView extends React.Component {
       request,
       changeHandler('snackBar', {
         variant: 'success',
-        message: 'We will resend you the email shortly',
+        message: 'You should receive the email shortly',
       }),
       e => {
         changeHandler('snackBar', {
           variant: 'error',
-          message: 'An error has occured please try agian soon',
+          message: 'An error has occured. Please try again in a moment',
         });
         console.log(e);
       }

@@ -18,7 +18,7 @@ import { SPEEDY_SIGNUP } from '../constants/views';
 import { withRouter } from 'react-router-dom';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { warmUp } from '../utilities/Authentication/warmUp';
-import { speedyAuth } from '../utilities/Authentication/speedySignup';
+// import { speedyAuth } from '../utilities/Authentication/speedySignup';
 import { UNIVERSITIES } from '../constants/universityList';
 import { DASHBOARD } from '../constants/routes';
 import { doSignInWithCustomToken } from '../firebase/auth';
@@ -130,22 +130,29 @@ class SpeedySignupContainer extends PureComponent {
 
   createUser(userInfo) {
     this.setState({ isLoading: true });
-    speedyAuth(userInfo, this.handleSuccess, this.errorBar);
+
+    const sanitisedUserInfo = {
+      firstName: userInfo.firstName.trim(),
+      lastName: userInfo.lastName.trim(),
+      email: userInfo.email.trim().toLowerCase(),
+      currentUniversity: userInfo.currentUniversity.trim(),
+      currentDegree: userInfo.currentDegree.trim(),
+      mobileNumber: userInfo.mobileNumber,
+      interest: userInfo.interest,
+    };
+
+    //speedyAuth(sanitisedUserInfo, this.handleSuccess, this.errorBar);
 
     cloudFunction(
       CLOUD_FUNCTIONS.SPEEDY_SIGNUP,
-      userInfo,
+      sanitisedUserInfo,
       async result => {
-        //if (this.state.isPublic) {
         console.log(result);
         await doSignInWithCustomToken(result.data.token);
-        this.setState({ isLoading: false });
-        this.goTo(DASHBOARD);
-        // } else {
-        //   this.setState({ isLoading: false });
-        //   this.setState({ view: SPEEDY_SIGNUP.success });
-        //   console.log('Call speedySignup success: ', result);
-        // }
+        this.setState({
+          isLoading: false,
+          view: SPEEDY_SIGNUP.success,
+        });
       },
       error => {
         console.log('Call speedySignup error: ', error);
@@ -158,12 +165,11 @@ class SpeedySignupContainer extends PureComponent {
     this.props.history.push(DASHBOARD);
   }
   errorBar(e) {
-    if (e.message !== 'INTERNAL')
-      this.setState({
-        snackBar: { message: e.message, variant: 'error' },
-        isLoading: false,
-        link: 'signin',
-      });
+    this.setState({
+      snackBar: { message: e.message, variant: 'error' },
+      isLoading: false,
+      link: 'signin',
+    });
   }
   renderForm() {
     const { classes } = this.props;

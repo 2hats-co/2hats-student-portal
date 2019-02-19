@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -12,6 +12,7 @@ import ErrorIcon from '@material-ui/icons/ErrorOutline';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { updateDoc } from '../utilities/firestore';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import withNavigation from '../components/withNavigation';
 import UserContext from '../contexts/UserContext';
 
 const styles = theme => ({
@@ -46,8 +47,28 @@ function CourseRedirectContainer(props) {
   }, []);
 
   if (hasId) {
+    if (!user) {
+      return (
+        <Grid
+          container
+          justify="center"
+          alignItems="center"
+          className={classes.root}
+        >
+          <Grid item>
+            <CircularProgress size={64} />
+            <Typography variant="h6" className={classes.message}>
+              Loading…
+            </Typography>
+          </Grid>
+        </Grid>
+      );
+    }
+
     // touch the course
-    const courseId = location.search.replace('?id=', '');
+    const parsedQuery = queryString.parse(location.search);
+    const courseId = parsedQuery.id;
+
     if (!user.touchedCourses || !user.touchedCourses.includes(courseId)) {
       const newTouchedCourses = user.touchedCourses || [];
       newTouchedCourses.push(courseId);
@@ -113,4 +134,4 @@ CourseRedirectContainer.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(CourseRedirectContainer));
+export default withNavigation(withStyles(styles)(CourseRedirectContainer));

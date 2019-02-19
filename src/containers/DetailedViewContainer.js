@@ -23,7 +23,7 @@ const DetailedViewContainer = props => {
 
   useEffect(
     () => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      // window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       if (docState.doc)
         document.title = `2hats – ${type}s – ${docState.doc.title}`;
     },

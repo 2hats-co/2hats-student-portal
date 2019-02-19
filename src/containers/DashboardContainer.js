@@ -11,6 +11,7 @@ import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 import WhatsNext from '../components/WhatsNext';
+import Announcement from '../components/Announcement';
 import Cards from '../components/Cards';
 
 import useWindowSize from '../hooks/useWindowSize';
@@ -134,6 +135,7 @@ const DashboardContainer = props => {
         title={`Hi, ${user.firstName.trim()}!`}
         maxWidth={getCardsWidth(cardsCols)}
       />
+      <Announcement width={getCardsWidth(cardsCols)} />
       <WhatsNext user={user} width={getCardsWidth(cardsCols)} />
 
       <div

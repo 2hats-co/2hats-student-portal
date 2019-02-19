@@ -59,7 +59,7 @@ const Assessment = props => {
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    //window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, []);
 
   useEffect(
@@ -84,7 +84,11 @@ const Assessment = props => {
           className={classes.coverImage}
         />
 
-        <Typography variant={isXs ? 'h5' : 'h4'} className={classes.title}>
+        <Typography
+          variant={isXs ? 'h5' : 'h4'}
+          className={classes.title}
+          style={isXs ? { fontWeight: 500 } : {}}
+        >
           {data.title}
         </Typography>
 
@@ -119,6 +123,22 @@ const Assessment = props => {
             dangerouslySetInnerHTML={{ __html: data.jobDescription }}
           />
         </div>
+
+        {data.relatedMaterial && (
+          <div className={classes.section}>
+            <Typography
+              variant="subtitle1"
+              gutterBottom
+              className={classes.subtitle}
+            >
+              Related material
+            </Typography>
+            <div
+              className={classes.renderedHtml}
+              dangerouslySetInnerHTML={{ __html: data.relatedMaterial }}
+            />
+          </div>
+        )}
 
         <div
           className={classNames(

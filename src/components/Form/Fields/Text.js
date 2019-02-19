@@ -15,6 +15,26 @@ const Text = props => {
     disallowSpace,
   } = props;
   const { handleChange, values, errors, touched, setValues } = formikProps;
+
+  let textFieldType = 'text';
+  switch (type) {
+    case FIELDS.textFieldNumber:
+      textFieldType = 'number';
+      break;
+    case FIELDS.textFieldPassword:
+      textFieldType = 'password';
+      break;
+    case FIELDS.textFieldEmail:
+      textFieldType = 'email';
+      break;
+    case FIELDS.textFieldTel:
+      textFieldType = 'tel';
+      break;
+
+    default:
+      break;
+  }
+
   return (
     <Grid item xs={width || 12}>
       {type === FIELDS.textFieldMultiline ? (
@@ -30,13 +50,7 @@ const Text = props => {
         <TextField
           label={label}
           id={name}
-          type={
-            type === FIELDS.textFieldNumber
-              ? 'number'
-              : type === FIELDS.textFieldPassword
-              ? 'password'
-              : 'text'
-          }
+          type={textFieldType}
           onChange={
             disallowSpace
               ? e => {

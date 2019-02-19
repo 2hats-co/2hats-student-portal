@@ -66,14 +66,16 @@ const Question = props => {
           {!readOnly && (
             <Dropzone
               onDrop={files => {
-                setAnswer({ name: files[0].name });
-                uploader(
-                  `submissions/${user.id}/${files[0].name}`,
-                  files[0],
-                  (url, blob) => {
-                    setAnswer({ name: blob.name, url });
-                  }
-                );
+                if (files[0]) {
+                  setAnswer({ name: files[0].name || 'submission' });
+                  uploader(
+                    `submissions/${user.id}/${new Date()}/${files[0].name}`,
+                    files[0],
+                    (url, blob) => {
+                      setAnswer({ name: blob.name, url });
+                    }
+                  );
+                }
               }}
               accept={
                 submissionType === 'pdf' ? 'application/pdf' : 'application/zip'
@@ -81,14 +83,16 @@ const Question = props => {
               className={classes.dropzone}
             >
               <CloudUploadIcon className={classes.uploadIcon} />
-              <Typography variant="body1">Drag a file here or</Typography>
+              <Typography variant="body1">
+                Drag a {submissionType.toUpperCase()} file here or
+              </Typography>
               <Button
                 color="primary"
                 variant="outlined"
                 className={classes.dropzoneButton}
                 size="small"
               >
-                Click to select a file
+                Click to select a {submissionType.toUpperCase()} file
               </Button>
             </Dropzone>
           )}
@@ -103,7 +107,8 @@ const Question = props => {
               onDelete={
                 readOnly
                   ? null
-                  : () => {
+                  : e => {
+                      e.preventDefault();
                       setAnswer(null);
                     }
               }

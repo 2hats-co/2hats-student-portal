@@ -12,6 +12,7 @@ import * as ROUTES from './constants/routes';
 import { AUTHENTICATION_CONTAINER } from './constants/views';
 import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
+import ErrorBoundary from './components/ErrorBoundary';
 
 import LoadingScreen from './components/LoadingScreen';
 import DetailedViewContainer from './containers/DetailedViewContainer';
@@ -57,138 +58,141 @@ const App = props => {
         value={{ user: user, setUser: user => setUser(user) }}
       >
         <Router>
-          <div className="app">
-            <TagTracker />
-            <Suspense fallback={<LoadingScreen />}>
-              <Switch>
-                <Route
-                  exact
-                  path={ROUTES.SIGN_UP}
-                  component={() => <AuthenticationContainer isPublic />}
-                />
-                <Route exact path="/linkedin" component={LinkedInPopUp} />
-                <Route
-                  exact
-                  path={ROUTES.LOG_OUT}
-                  component={() => (
-                    <AuthenticationContainer
-                      isPublic
-                      view={AUTHENTICATION_CONTAINER.logout}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={ROUTES.SIGN_IN}
-                  component={() => <AuthenticationContainer isPublic />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.NO_PASSWORD}
-                  component={() => (
-                    <AuthenticationContainer
-                      isPublic
-                      view={AUTHENTICATION_CONTAINER.noPassword}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={ROUTES.CREATE_PASSWORD}
-                  component={() => (
-                    <AuthenticationContainer
-                      isPublic
-                      view={AUTHENTICATION_CONTAINER.createPassword}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={ROUTES.RESET_PASSWORD}
-                  component={() => (
-                    <AuthenticationContainer
-                      isPublic
-                      view={AUTHENTICATION_CONTAINER.resetPassword}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={ROUTES.VALIDATE_EMAIL}
-                  component={() => (
-                    <AuthenticationContainer
-                      isPublic
-                      view={AUTHENTICATION_CONTAINER.validateEmail}
-                    />
-                  )}
-                />
-                <Route
-                  exact
-                  path={ROUTES.SPEEDY_SIGN_UP}
-                  component={() => <SpeedySignupContainer isPublic />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.SMART_LINK}
-                  component={() => <SmartLinkContainer />}
-                />
-                <Route
-                  exact
-                  path={'/smartlinks'}
-                  component={() => <SmartLinkContainer />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.PREVIOUS_SUBMISSION}
-                  component={() => <SubmissionContainer />}
-                />
+          <ErrorBoundary>
+            <div className="app">
+              <TagTracker />
+              <Suspense fallback={<LoadingScreen />}>
+                <Switch>
+                  <Route
+                    exact
+                    path={ROUTES.SIGN_UP}
+                    component={() => <AuthenticationContainer isPublic />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.LOG_OUT}
+                    component={() => (
+                      <AuthenticationContainer
+                        isPublic
+                        view={AUTHENTICATION_CONTAINER.logout}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.SIGN_IN}
+                    component={() => <AuthenticationContainer isPublic />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.NO_PASSWORD}
+                    component={() => (
+                      <AuthenticationContainer
+                        isPublic
+                        view={AUTHENTICATION_CONTAINER.noPassword}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.CREATE_PASSWORD}
+                    component={() => (
+                      <AuthenticationContainer
+                        isPublic
+                        view={AUTHENTICATION_CONTAINER.createPassword}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.RESET_PASSWORD}
+                    component={() => (
+                      <AuthenticationContainer
+                        isPublic
+                        view={AUTHENTICATION_CONTAINER.resetPassword}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.VALIDATE_EMAIL}
+                    component={() => (
+                      <AuthenticationContainer
+                        isPublic
+                        view={AUTHENTICATION_CONTAINER.validateEmail}
+                      />
+                    )}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.SPEEDY_SIGN_UP}
+                    component={() => <SpeedySignupContainer isPublic />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.SMART_LINK}
+                    component={() => <SmartLinkContainer />}
+                  />
+                  <Route
+                    exact
+                    path={'/smartlinks'}
+                    component={() => <SmartLinkContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.PREVIOUS_SUBMISSION}
+                    component={() => <SubmissionContainer />}
+                  />
 
-                <Route
-                  exact
-                  path={ROUTES.DASHBOARD}
-                  component={() => <DashboardContainer />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.PROFILE}
-                  component={() => <ProfileContainer />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.JOBS}
-                  component={() => <JobsContainer />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.JOB}
-                  component={() => <DetailedViewContainer />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.ASSESSMENT}
-                  component={() => <DetailedViewContainer />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.ASSESSMENTS}
-                  component={() => <AssessmentsContainer />}
-                />
-                <Route
-                  exact
-                  path={ROUTES.COURSES}
-                  component={() => <CoursesContainer />}
-                />
+                  <Route
+                    exact
+                    path={ROUTES.DASHBOARD}
+                    component={() => <DashboardContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.PROFILE}
+                    component={() => <ProfileContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.JOBS}
+                    component={() => <JobsContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.ASSESSMENTS}
+                    component={() => <AssessmentsContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.ASSESSMENT}
+                    component={() => <DetailedViewContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.JOB}
+                    component={() => <DetailedViewContainer />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.COURSES}
+                    component={() => <CoursesContainer />}
+                  />
 
-                <Route
-                  exact
-                  path={ROUTES.COURSE_REDIRECT}
-                  component={() => <CourseRedirectContainer />}
-                />
-                <Route exact path={'/'} component={() => <Landing />} />
-                <Route component={() => <h1>404</h1>} />
-              </Switch>
-            </Suspense>
-          </div>
+                  <Route
+                    exact
+                    path={ROUTES.COURSE_REDIRECT}
+                    component={() => <CourseRedirectContainer />}
+                  />
+
+                  <Route exact path="/linkedin" component={LinkedInPopUp} />
+                  <Route exact path={'/'} component={() => <Landing />} />
+                  <Route component={() => <h1>404</h1>} />
+                </Switch>
+              </Suspense>
+            </div>
+          </ErrorBoundary>
         </Router>
       </UserContext.Provider>
     </MuiThemeProvider>

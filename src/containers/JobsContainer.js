@@ -10,6 +10,7 @@ import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
+import Announcement from '../components/Announcement';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
@@ -27,7 +28,7 @@ const JobsContainer = props => {
 
   useEffect(
     () => {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      //  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       if (docState.doc) document.title = `2hats – Jobs – ${docState.doc.title}`;
       else document.title = '2hats – Jobs';
     },
@@ -47,6 +48,7 @@ const JobsContainer = props => {
         maxWidth={getCardsWidth(cardsCols)}
         icon={<JobsIcon />}
       />
+      <Announcement width={getCardsWidth(cardsCols)} />
       <Cards
         title="Your Jobs"
         mapping="job"

@@ -20,9 +20,14 @@ const styles = theme => ({
     color: '#fff',
     //backgroundColor: '#0077B5',
     padding: 0,
+    paddingLeft: 20,
   },
   socialIcon: {
     marginRight: 16,
+
+    position: 'absolute',
+    left: 6,
+    top: 6,
   },
 });
 class GoogleButton extends Component {

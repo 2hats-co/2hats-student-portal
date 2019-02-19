@@ -9,7 +9,7 @@ import Password from '../InputFields/Password';
 
 import Header from './Header';
 import GoogleButton from './GoogleButton';
-import LinkedinButton from './LinkedinButton';
+// import LinkedinButton from './LinkedinButton';
 
 function CreatePasswordView(props) {
   const {
