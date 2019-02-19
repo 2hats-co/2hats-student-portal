@@ -165,6 +165,11 @@ const App = props => {
                 />
                 <Route
                   exact
+                  path={ROUTES.ASSESSMENT}
+                  component={() => <DetailedViewContainer />}
+                />
+                <Route
+                  exact
                   path={ROUTES.ASSESSMENTS}
                   component={() => <AssessmentsContainer />}
                 />

@@ -110,7 +110,7 @@ const ProfileAssessments = props => {
                 size="small"
                 className={classes.itemButton}
                 onClick={() => {
-                  history.push(`${ROUTES.ASSESSMENTS}?id=${x.id}&yours=true`);
+                  history.push(`${ROUTES.ASSESSMENT}?id=${x.id}&yours=true`);
                 }}
               >
                 View submission

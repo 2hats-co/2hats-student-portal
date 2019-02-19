@@ -106,7 +106,7 @@ export const assessment = data => {
     title: data.title,
     secondaryText: <AssessmentDetail data={data} />,
     primaryAction,
-    route: `${ROUTES.ASSESSMENTS}?id=${data.id}${
+    route: `${ROUTES.ASSESSMENT}?id=${data.id}${
       data.assessmentId ? '&yours=true' : ''
     }`,
 
@@ -151,7 +151,7 @@ export const job = data => {
     title: data.title,
     secondaryText: <JobDetail data={data} />,
     primaryAction: data.jobId ? 'View' : 'Learn more',
-    route: `${ROUTES.JOBS}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
+    route: `${ROUTES.JOB}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
 
     banner,
     bannerColor,

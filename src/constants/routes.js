@@ -16,7 +16,9 @@ export const PREVIOUS_SUBMISSION = '/prevSubmission';
 export const DASHBOARD = '/dashboard';
 export const PROFILE = '/profile';
 export const JOBS = '/jobs';
+export const JOB = '/job';
 export const ASSESSMENTS = '/assessments';
+export const ASSESSMENT = '/assessment';
 export const COURSES = '/courses';
 export const EVENTS = '/events';
 // SP3 MORE VIEWS

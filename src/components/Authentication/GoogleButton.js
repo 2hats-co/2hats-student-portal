@@ -18,7 +18,7 @@ const styles = theme => ({
     width: 250,
     height: 40,
     color: '#fff',
-    backgroundColor: '#0077B5',
+    //backgroundColor: '#0077B5',
     padding: 0,
   },
   socialIcon: {

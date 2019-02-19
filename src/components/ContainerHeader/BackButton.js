@@ -16,7 +16,7 @@ const BackButton = props => {
     <Button
       id="back"
       onClick={() => {
-        history.push(location.pathname);
+        history.goBack();
       }}
       color="primary"
       className={className}
@@ -26,7 +26,7 @@ const BackButton = props => {
       }}
     >
       <BackIcon style={{ margin: 0 }} />
-      {label || location.pathname.replace('/', '')}
+      {label || 'Back'}
     </Button>
   );
 };
