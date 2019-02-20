@@ -28,7 +28,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
             .doc(uid)
             .set({
               bio: '',
-              createdAt: Date.now(),
+              createdAt: new Date(),
             });
           routeHandler(DASHBOARD);
         });
