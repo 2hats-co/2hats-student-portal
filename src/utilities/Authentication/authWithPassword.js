@@ -29,6 +29,8 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
             .set({
               bio: '',
               createdAt: new Date(),
+              firstName,
+              lastName,
             });
           routeHandler(DASHBOARD);
         });
