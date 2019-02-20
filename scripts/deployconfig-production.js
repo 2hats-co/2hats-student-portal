@@ -46,9 +46,21 @@ fs.writeFile(
           "source": "**",
           "destination": "/index.html"
         }
+      ],
+      "headers": [
+        {
+          "source": "**/*.@(html)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=5"
+            }
+          ]
+        }
       ]
     }
   }
+  
   `,
   function(err) {
     if (err) throw err;
