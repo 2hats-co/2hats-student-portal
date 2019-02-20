@@ -337,11 +337,9 @@ class SpeedySignupContainer extends PureComponent {
               direction={isMobile ? 'column' : 'row'}
               alignItems="center"
             >
-              {/* {view === SPEEDY_SIGNUP.form */}
-              {/* ? this.renderForm() */}
-              {/* :  */}
-              {this.renderCongrats()}
-              {/* } */}
+              {view === SPEEDY_SIGNUP.form
+                ? this.renderForm()
+                : this.renderCongrats()}
               {!isMobile && (
                 <Grid item>
                   <img
