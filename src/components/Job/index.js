@@ -224,7 +224,7 @@ const Job = props => {
         actions={{
           apply: data => {
             applyForJob(data);
-            updateDoc(COLLECTIONS.users, user.id, { resume: data.resume });
+            updateDoc(COLLECTIONS.profiles, user.id, { resume: data.resume });
             setShowDialog(false);
           },
           close: () => {

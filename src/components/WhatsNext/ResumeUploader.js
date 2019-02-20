@@ -59,6 +59,7 @@ const ResumeUploader = props => {
   const { classes, className, resetOnUpload } = props;
 
   const [file, setFile] = useState({});
+  const [rejectedFile, setRejectedFile] = useState('');
 
   useEffect(
     () => {
@@ -82,44 +83,74 @@ const ResumeUploader = props => {
 
   return (
     <Dropzone
-      onDrop={files => {
-        setFile({
-          name: files[0].name,
-        });
-        uploader(
-          `candidates/${uid}/resumes/${new Date().getTime()}/${files[0].name}`,
-          files[0],
-          (url, blob) => {
-            setFile({ name: blob.name, url });
-          }
-        );
+      onDrop={(acceptedFiles, rejectedFiles) => {
+        console.log('dropzone', acceptedFiles, rejectedFiles);
+
+        if (rejectedFiles.length > 0) setRejectedFile(rejectedFiles[0].name);
+
+        if (acceptedFiles.length > 0) {
+          setFile({
+            name: acceptedFiles[0].name,
+          });
+          uploader(
+            `candidates/${uid}/resumes/${new Date().getTime()}/${
+              acceptedFiles[0].name
+            }`,
+            acceptedFiles[0],
+            (url, blob) => {
+              setFile({ name: blob.name, url });
+            }
+          );
+        }
       }}
       accept="application/pdf"
-      className={classNames(classes.dropzone, className)}
-      style={file.url || file.name ? { cursor: 'default' } : {}}
       disabled={!!(file.url && file.name)}
     >
-      {file.url ? (
-        <CloudDoneIcon className={classes.uploadIcon} />
-      ) : file.name ? (
-        <CircularProgress className={classes.circularProgress} size={48} />
-      ) : (
-        <CloudUploadIcon className={classes.uploadIcon} />
-      )}
-      {file.name ? (
-        <Typography
-          variant="body1"
-          className={classes.fileName}
-          component="a"
-          href={file.url}
-          target="_blank"
-          rel="noopener noreferrer"
+      {({ getRootProps, getInputProps, isDragActive }) => (
+        <div
+          {...getRootProps()}
+          className={classNames(
+            classes.dropzone,
+            isDragActive && classes.dropzoneDragActive,
+            !!(file.url && file.name) && classes.dropzoneDisabled,
+            className
+          )}
         >
-          <FileIcon className={classes.fileIcon} />
-          {file.name}
-        </Typography>
-      ) : (
-        <Typography variant="body1">Drag a PDF here or click here</Typography>
+          <input {...getInputProps()} />
+          {file.url ? (
+            <CloudDoneIcon className={classes.uploadIcon} />
+          ) : file.name ? (
+            <CircularProgress className={classes.circularProgress} size={48} />
+          ) : (
+            <CloudUploadIcon className={classes.uploadIcon} />
+          )}
+          {file.name ? (
+            <Typography
+              variant="body1"
+              className={classes.fileName}
+              component="a"
+              href={file.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FileIcon className={classes.fileIcon} />
+              {file.name}
+            </Typography>
+          ) : (
+            <>
+              <Typography variant="body1">
+                {isDragActive
+                  ? 'Drop your PDF here!'
+                  : 'Drag a PDF here or click here'}
+              </Typography>
+              {rejectedFile && (
+                <Typography variant="body2" color="error">
+                  {rejectedFile} is invalid
+                </Typography>
+              )}
+            </>
+          )}
+        </div>
       )}
     </Dropzone>
   );

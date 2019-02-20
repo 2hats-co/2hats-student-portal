@@ -8,6 +8,7 @@ import Assessment from '../components/Assessment';
 
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
+import { capitalise } from '../utilities';
 
 const DetailedViewContainer = props => {
   const { location, user } = props;
@@ -16,7 +17,7 @@ const DetailedViewContainer = props => {
 
   useEffect(
     () => {
-      document.title = `2hats – ${type}s`;
+      document.title = `2hats – ${capitalise(type)}s`;
     },
     [location]
   );
@@ -25,7 +26,7 @@ const DetailedViewContainer = props => {
     () => {
       // window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
       if (docState.doc)
-        document.title = `2hats – ${type}s – ${docState.doc.title}`;
+        document.title = `2hats – ${capitalise(type)}s – ${docState.doc.title}`;
     },
     [docState.doc]
   );
