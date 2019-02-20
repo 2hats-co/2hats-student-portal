@@ -901,9 +901,6 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@bit/sidney2hats.2hats.global.common-constants@file:./bit/global/common-constants":
-  version "0.0.35"
-
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -1770,9 +1767,10 @@ atob@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.1.tgz#ae2d5a729477f289d60dd7f96a6314a22dd6c22a"
 
-attr-accept@^1.0.3:
+attr-accept@^1.1.3:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-1.1.3.tgz#48230c79f93790ef2775fcec4f0db0f5db41ca52"
+  integrity sha512-iT40nudw8zmCweivz6j58g+RT33I4KbaIvRUhjNmDwO2WmsQUxFEZZYZ5w3vXe5x5MX9D7mfvA/XaLOZYFR9EQ==
   dependencies:
     core-js "^2.5.0"
 
@@ -8946,7 +8944,7 @@ prompts@^0.1.9:
     kleur "^2.0.1"
     sisteransi "^0.1.1"
 
-prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.7, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
+prop-types@^15.5.10, prop-types@^15.5.4, prop-types@^15.5.6, prop-types@^15.5.8, prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2:
   version "15.6.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.2.tgz#05d5ca77b4453e985d60fc7ff8c859094a497102"
   integrity sha512-3pboPvLiWD7dkI3qf3KbUe6hKFKa52w+AE0VCqECtf+QHAKgOL37tTaNCnuX1nAAQ4ZhyP+kYVKf8rLmJ/feDQ==
@@ -9276,12 +9274,13 @@ react-dom@16.7.0-alpha.2:
     prop-types "^15.6.2"
     scheduler "^0.12.0-alpha.2"
 
-react-dropzone@^4.2.11:
-  version "4.2.11"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-4.2.11.tgz#c20ff6a62634c5803bed5f292ef1bd4b3e1f90c3"
+react-dropzone@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-8.1.0.tgz#be97dfbbe7ca57cf69becd07d321f61c52d7787b"
+  integrity sha512-engzi+Ov/3PC/Pzbi7k0LA5/agN6fdibb7quX7Hx7fWExoEnvpXi1EyQNCZZnEdkPiKNx5PYjWATlpn6PqTjXA==
   dependencies:
-    attr-accept "^1.0.3"
-    prop-types "^15.5.7"
+    attr-accept "^1.1.3"
+    prop-types "^15.6.2"
 
 react-error-overlay@^4.0.0:
   version "4.0.0"
@@ -9341,10 +9340,10 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-linkedin-login-oauth2@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/react-linkedin-login-oauth2/-/react-linkedin-login-oauth2-1.0.5.tgz#7dd8e031074117af7339f47313e65096386a2ff8"
-  integrity sha512-BXFhMZvK40uJ0qnnUex2e0GqlrjUjfJPVpW/+JBSl9y1x6Jd+p/0U72s+C2SGMCxcYBQaytYTEjEbWShsMcCVg==
+react-linkedin-login-oauth2@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/react-linkedin-login-oauth2/-/react-linkedin-login-oauth2-1.0.6.tgz#52f5777b83b944859eeaf8f7ef376f88933f74eb"
+  integrity sha512-so1iBYP7OSabPsS3Ny21VULPozpzdhx2YaQ+Sh19Kvq9TNx8xpDvRr6NVBx18ryZRyR3awj7H2TrrqxuGaBYug==
   dependencies:
     enzyme "^3.6.0"
     query-string "~5.1.1"

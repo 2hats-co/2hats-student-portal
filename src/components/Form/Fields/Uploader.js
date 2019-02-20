@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -42,6 +43,8 @@ const Uploader = props => {
     [uploadUrl]
   );
 
+  const [rejectedFile, setRejectedFile] = useState('');
+
   return (
     <Grid item xs={12}>
       <Typography
@@ -52,28 +55,51 @@ const Uploader = props => {
         {label}
       </Typography>
       <Dropzone
-        onDrop={files => {
-          setValues({
-            ...values,
-            [name]: { name: files[0].name },
-          });
-          uploader(path, files[0], (url, blob) => {
-            setUploadUrl(url);
-          });
+        onDrop={(acceptedFiles, rejectedFiles) => {
+          console.log('dropzone', acceptedFiles, rejectedFiles);
+
+          if (rejectedFiles.length > 0) setRejectedFile(rejectedFiles[0].name);
+
+          if (acceptedFiles.length > 0) {
+            setValues({
+              ...values,
+              [name]: { name: acceptedFiles[0].name },
+            });
+            uploader(path, acceptedFiles[0], (url, blob) => {
+              setUploadUrl(url);
+            });
+          }
         }}
         accept={mimeTypes || ''}
-        className={classes.dropzone}
       >
-        <CloudUploadIcon className={classes.uploadIcon} />
-        <Typography variant="body1">Drag a file here or</Typography>
-        <Button
-          color="primary"
-          variant="outlined"
-          className={classes.dropzoneButton}
-          size="small"
-        >
-          Click to upload a {label.toLowerCase()}
-        </Button>
+        {({ getRootProps, getInputProps, isDragActive }) => (
+          <div
+            {...getRootProps()}
+            className={classNames(
+              classes.dropzone,
+              isDragActive && classes.dropzoneDragActive
+            )}
+          >
+            <input {...getInputProps()} />
+            <CloudUploadIcon className={classes.uploadIcon} />
+            <Typography variant="body1">
+              {isDragActive ? 'Drop your file here!' : 'Drag a file here or'}
+            </Typography>
+            <Button
+              color="primary"
+              variant="outlined"
+              className={classes.dropzoneButton}
+              size="small"
+            >
+              Click to upload a {label.toLowerCase()}
+            </Button>
+            {rejectedFile && (
+              <Typography variant="body2" color="error">
+                {rejectedFile} is invalid
+              </Typography>
+            )}
+          </div>
+        )}
       </Dropzone>
       {!isEmpty(values[name]) && (
         <div className={classes.fileChipWrapper}>

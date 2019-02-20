@@ -125,10 +125,17 @@ class SuperAvatarPlus extends Component {
     this.setState({ isUploading: false });
   }
 
-  onDrop(files) {
-    this.setState({ isUploading: true, hasChanged: true });
-    this.setState({ avatarURL: files[0].preview });
-    blobAvatarUploader(files[0], this.handleUpload);
+  onDrop(acceptedFiles, rejectedFiles) {
+    console.log('dropzone', acceptedFiles, rejectedFiles);
+
+    if (rejectedFiles.length > 0)
+      this.setState({ rejectedFile: rejectedFiles[0].name });
+
+    if (acceptedFiles.length > 0) {
+      this.setState({ isUploading: true, hasChanged: true });
+      this.setState({ avatarURL: acceptedFiles[0].preview });
+      blobAvatarUploader(acceptedFiles[0], this.handleUpload);
+    }
   }
 
   render() {
@@ -209,16 +216,21 @@ class SuperAvatarPlus extends Component {
               <Dropzone
                 onDrop={this.onDrop.bind(this)}
                 className={classes.dropZone}
-                accept="image/jpeg, image/png, image/jpg"
+                accept="image/*"
               >
-                {bigAvatar}
-                <Link
-                  component="button"
-                  className={classes.link}
-                  variant="body1"
-                >
-                  Select a file
-                </Link>
+                {({ getRootProps, getInputProps }) => (
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    {bigAvatar}
+                    <Link
+                      component="button"
+                      className={classes.link}
+                      variant="body1"
+                    >
+                      Select a file
+                    </Link>
+                  </div>
+                )}
               </Dropzone>
             </Grid>
           </DialogContent>
@@ -230,7 +242,7 @@ class SuperAvatarPlus extends Component {
               color="primary"
               variant="contained"
               onClick={this.saveHandler}
-              id={!isUploading && 'save'}
+              id={!isUploading ? 'save' : ''}
             >
               Save
             </Button>

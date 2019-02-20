@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -57,6 +58,8 @@ const Question = props => {
     readOnly,
   } = props;
 
+  const [rejectedFile, setRejectedFile] = useState('');
+
   let answerInput = null;
   switch (submissionType) {
     case 'pdf':
@@ -65,36 +68,61 @@ const Question = props => {
         <>
           {!readOnly && (
             <Dropzone
-              onDrop={files => {
-                console.log('dropped', files);
-                if (files[0]) {
-                  setAnswer({ name: files[0].name || 'submission' });
+              onDrop={(acceptedFiles, rejectedFiles) => {
+                console.log('dropzone', acceptedFiles, rejectedFiles);
+
+                if (rejectedFiles.length > 0)
+                  setRejectedFile(rejectedFiles[0].name);
+
+                if (acceptedFiles.length > 0) {
+                  setAnswer({ name: acceptedFiles[0].name || 'submission' });
                   uploader(
-                    `submissions/${user.id}/${new Date()}/${files[0].name}`,
-                    files[0],
+                    `submissions/${user.id}/${new Date()}/${
+                      acceptedFiles[0].name
+                    }`,
+                    acceptedFiles[0],
                     (url, blob) => {
                       setAnswer({ name: blob.name, url });
                     }
                   );
                 }
               }}
-              /*accept={
-                submissionType === 'pdf' ? 'application/pdf' : 'application/zip'
-              }*/
-              className={classes.dropzone}
+              accept={
+                submissionType === 'pdf'
+                  ? 'application/pdf'
+                  : ['application/zip', 'application/x-zip-compressed']
+              }
             >
-              <CloudUploadIcon className={classes.uploadIcon} />
-              <Typography variant="body1">
-                Drag a {submissionType.toUpperCase()} file here or
-              </Typography>
-              <Button
-                color="primary"
-                variant="outlined"
-                className={classes.dropzoneButton}
-                size="small"
-              >
-                Click to select a {submissionType.toUpperCase()} file
-              </Button>
+              {({ getRootProps, getInputProps, isDragActive }) => (
+                <div
+                  {...getRootProps()}
+                  className={classNames(
+                    classes.dropzone,
+                    isDragActive && classes.dropzoneDragActive
+                  )}
+                >
+                  <input {...getInputProps()} />
+                  <CloudUploadIcon className={classes.uploadIcon} />
+                  <Typography variant="body1">
+                    {isDragActive
+                      ? `Drop your ${submissionType.toUpperCase()} here!`
+                      : `Drag a ${submissionType.toUpperCase()} file here or`}
+                  </Typography>
+                  <Button
+                    color="primary"
+                    variant="outlined"
+                    className={classes.dropzoneButton}
+                    size="small"
+                  >
+                    Click to select a {submissionType.toUpperCase()} file
+                  </Button>
+                  {rejectedFile && (
+                    <Typography variant="body2" color="error">
+                      {rejectedFile} is invalid
+                    </Typography>
+                  )}
+                </div>
+              )}
             </Dropzone>
           )}
 
