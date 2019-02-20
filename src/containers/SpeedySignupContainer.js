@@ -29,6 +29,7 @@ const styles = theme => ({
   },
   subhead: {
     marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 1.5,
     lineHeight: 1.25,
     fontWeight: 400,
   },
@@ -49,7 +50,7 @@ const styles = theme => ({
   },
   button: {
     width: 180,
-    marginTop: 0,
+    marginTop: theme.spacing.unit * 3,
     marginBottom: 0,
   },
   loading: {
@@ -58,8 +59,7 @@ const styles = theme => ({
   },
   mobileButton: {
     width: 180,
-    marginTop: 20,
-    marginBottom: 50,
+    marginTop: theme.spacing.unit * 3,
     margin: 'auto',
   },
   img: {
@@ -337,9 +337,11 @@ class SpeedySignupContainer extends PureComponent {
               direction={isMobile ? 'column' : 'row'}
               alignItems="center"
             >
-              {view === SPEEDY_SIGNUP.form
-                ? this.renderForm()
-                : this.renderCongrats()}
+              {/* {view === SPEEDY_SIGNUP.form */}
+              {/* ? this.renderForm() */}
+              {/* :  */}
+              {this.renderCongrats()}
+              {/* } */}
               {!isMobile && (
                 <Grid item>
                   <img
