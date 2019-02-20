@@ -1,5 +1,6 @@
 import { auth, db } from '../../store/index';
 import { DASHBOARD } from '../../constants/routes';
+import firebase from 'firebase/app';
 
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
@@ -21,14 +22,14 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               email: normlizedEmail,
               firstName,
               lastName,
-              createdAt: new Date(),
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
               signupMethod: 'password',
             });
           db.collection('profiles')
             .doc(uid)
             .set({
               bio: '',
-              createdAt: new Date(),
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
               firstName,
               lastName,
             });
