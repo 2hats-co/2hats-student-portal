@@ -156,6 +156,7 @@ class SpeedySignupContainer extends PureComponent {
       },
       error => {
         console.log('Call speedySignup error: ', error);
+        this.errorBar(error);
       }
     );
   }
@@ -250,7 +251,7 @@ class SpeedySignupContainer extends PureComponent {
           action="Sign up!"
           actions={{
             'Sign up!': data => {
-              console.log('signed up', data);
+              console.log('sign up click', data);
               this.createUser(data);
             },
           }}

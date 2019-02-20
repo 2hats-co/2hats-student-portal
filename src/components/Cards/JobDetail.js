@@ -30,7 +30,9 @@ const JobDetail = ({ classes, data }) => (
     <div
       className={classNames(classes.renderedHtml, classes.description)}
       dangerouslySetInnerHTML={{
-        __html: data.companyDescription.substr(0, 140) + '…',
+        __html: `${data.companyDescription.substr(0, 140)}${
+          data.companyDescription.length > 140 ? '…' : ''
+        }`,
       }}
     />
 
