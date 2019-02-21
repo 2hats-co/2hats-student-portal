@@ -29,7 +29,7 @@ function Disclaimer(props) {
       <div className={classes.large}>
         {`By clicking Sign Up, you agree to our `}
         <a
-          href="https://www.2hats.com.au/terms.html"
+          href="https://www.2hats.com.au/terms"
           target="_blank"
           rel="noopener noreferrer"
           className={classes.link}
@@ -38,7 +38,7 @@ function Disclaimer(props) {
         </a>
         {` and `}
         <a
-          href="https://www.2hats.com.au/privacy.html"
+          href="https://www.2hats.com.au/privacy"
           target="_blank"
           rel="noopener noreferrer"
           className={classes.link}
