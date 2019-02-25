@@ -94,7 +94,10 @@ const AssessmentSubmission = props => {
       disableSubmission = true;
       return;
     }
-    if (data.submissionType === 'pdf' && typeof x === 'object' && !x.url) {
+    if (
+      (data.submissionType === 'pdf' || data.submissionType === 'zip') &&
+      !x.url
+    ) {
       disableSubmission = true;
       return;
     }
