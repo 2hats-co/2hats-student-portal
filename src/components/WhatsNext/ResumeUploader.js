@@ -151,7 +151,7 @@ const ResumeUploader = props => {
               <Typography variant="body1">
                 {isDragActive
                   ? 'Drop your PDF here!'
-                  : 'Drag a PDF here or click here'}
+                  : 'Drag and drop a PDF or click here'}
               </Typography>
               {rejectedFile && (
                 <Typography variant="body2" color="error">
