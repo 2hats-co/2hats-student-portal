@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 
 const BackButton = props => {
-  const { theme, className, history, location, label } = props;
+  const { theme, className, history, label } = props;
 
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
 

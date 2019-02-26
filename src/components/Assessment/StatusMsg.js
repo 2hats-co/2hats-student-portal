@@ -12,7 +12,7 @@ import PassedIcon from '../../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
 
 import {
-  SKILLS,
+  // SKILLS,
   getSkillLabel,
 } from '@bit/sidney2hats.2hats.global.common-constants';
 

@@ -1,10 +1,10 @@
 import FIELDS from './fields';
 import * as yup from 'yup';
-import Validator from 'mailgun-validate';
+// import Validator from 'mailgun-validate';
 
 import { UNIVERSITIES } from '../universityList';
 
-const validator = new Validator('pubkey-39aac6f76384240d4c4b3a2b1afeaf02');
+// const validator = new Validator('pubkey-39aac6f76384240d4c4b3a2b1afeaf02');
 
 const speedySignupFields = initialData => {
   if (!initialData) initialData = {};

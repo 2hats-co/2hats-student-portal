@@ -6,7 +6,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import Job from '../components/Job';
 import Assessment from '../components/Assessment';
 
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+// import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 import { capitalise } from '../utilities';
 
