@@ -21,14 +21,15 @@ const SmartLinkContainer = props => {
     const queryStr = history.location.search;
     const parsedQuery = queryString.parse(queryStr);
     console.log(parsedQuery);
-    handleKey(parsedQuery.slKey);
+    handleKey(parsedQuery.slKey, parsedQuery.slSecret);
   }, []);
 
-  const handleKey = slKey => {
+  const handleKey = (slKey, slSecret) => {
     if (slKey) {
       if (slKey !== '') {
         const request = {
           slKey: slKey,
+          slSecret: slSecret,
         };
 
         cloudFunction(
@@ -36,7 +37,7 @@ const SmartLinkContainer = props => {
           request,
           async result => {
             console.log(result);
-            if (result.data.success) {
+            if (result.data.token) {
               // Sign in user with custom token.
               auth.signInWithCustomToken(result.data.token).then(authUser => {
                 // Redirect page based on the route.
