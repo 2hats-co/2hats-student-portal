@@ -91,7 +91,7 @@ function CourseRedirectContainer(props) {
         window.location.href = res.data.url;
       },
       err => {
-        console.log(err);
+        console.error(err);
       }
     );
 

@@ -23,6 +23,7 @@ import {
 } from '@bit/sidney2hats.2hats.global.common-constants';
 import { removeHtmlTags, getRandomId } from '../../utilities';
 import { createDoc, updateDoc } from '../../utilities/firestore';
+import { CLOUD_FUNCTIONS, cloudFunction } from '../../utilities/CloudFunctions';
 
 const styles = theme => ({
   root: {},
@@ -164,6 +165,20 @@ const AssessmentSubmission = props => {
       ).then(docRef => {
         console.log('Created submission doc', docRef.id);
 
+        // create IDEO smartLink
+        if (data.submissionType === 'ideo') {
+          cloudFunction(
+            CLOUD_FUNCTIONS.CREATE_SMART_LINK,
+            { route: 'ideo', data: { submissionId: docRef.id } },
+            res => {
+              docRef.update({ smartLink: res.data });
+            },
+            err => {
+              console.error('error creating smartlink', err);
+            }
+          );
+        }
+
         // set first submission to resubmitted to disable
         if (data.outcome === 'fail') {
           updateDoc(
@@ -186,6 +201,46 @@ const AssessmentSubmission = props => {
       });
     } else {
       setSubmissionId(data.id);
+
+      // if has smartlink, verify it still works
+      if (
+        data.submissionType === 'ideo' &&
+        data.smartLink &&
+        data.smartLink.key &&
+        data.smartLink.secret
+      ) {
+        console.log('Checking SmartLink…', data.smartLink);
+        cloudFunction(
+          CLOUD_FUNCTIONS.SMART_LINK,
+          { slKey: data.smartLink.key, slSecret: data.smartLink.secret },
+          res => {
+            if (!res.data.success) {
+              console.log('Re-generating SmartLink…');
+              cloudFunction(
+                CLOUD_FUNCTIONS.CREATE_SMART_LINK,
+                { route: 'ideo', data: { submissionId: data.id } },
+                res => {
+                  updateDoc(
+                    `${COLLECTIONS.users}/${user.id}/${
+                      COLLECTIONS.assessments
+                    }`,
+                    data.id,
+                    { smartLink: res.data }
+                  ).then(() => {
+                    console.log('Successfully re-generated SmartLink');
+                  });
+                },
+                err => {
+                  console.error('error creating smartlink', err);
+                }
+              );
+            }
+          },
+          err => {
+            console.error('error checking smartlink', err);
+          }
+        );
+      }
     }
   }, []);
 
@@ -284,6 +339,7 @@ const AssessmentSubmission = props => {
           questionNum={-1}
           questionText=""
           mcEmail={data.mcEmail}
+          smartLink={data.smartLink}
           submissionType={data.submissionType}
           answer={answers[0]}
           setAnswer={updateAnswers(0)}
@@ -292,32 +348,34 @@ const AssessmentSubmission = props => {
         />
       )}
 
-      <Grid container alignItems="baseline" className={classes.section}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSubmit}
-          size="large"
-          id={`submit-${!disableSubmission}`}
-          className={classes.submitButton}
-          disabled={disableSubmission || readOnly}
-        >
-          {readOnly ? 'Submitted' : 'Submit'}
-          {readOnly ? <CheckIcon /> : <SubmittedIcon />}
-        </Button>
-        {!readOnly && (
+      {data.submissionType !== 'ideo' && (
+        <Grid container alignItems="baseline" className={classes.section}>
           <Button
-            variant="outlined"
+            variant="contained"
             color="primary"
-            onClick={handleSave}
+            onClick={handleSubmit}
             size="large"
-            className={classes.saveButton}
+            id={`submit-${!disableSubmission}`}
+            className={classes.submitButton}
+            disabled={disableSubmission || readOnly}
           >
-            Save
-            <CheckIcon />
+            {readOnly ? 'Submitted' : 'Submit'}
+            {readOnly ? <CheckIcon /> : <SubmittedIcon />}
           </Button>
-        )}
-      </Grid>
+          {!readOnly && (
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={handleSave}
+              size="large"
+              className={classes.saveButton}
+            >
+              Save
+              <CheckIcon />
+            </Button>
+          )}
+        </Grid>
+      )}
 
       <Snackbar
         className={classes.snackbar}

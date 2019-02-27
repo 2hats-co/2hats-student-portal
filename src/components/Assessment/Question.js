@@ -6,11 +6,13 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Chip from '@material-ui/core/Chip';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import LinearProgress from '@material-ui/core/LinearProgress';
 import Button from '@material-ui/core/Button';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import Dropzone from 'react-dropzone';
 import ReactQuill from 'react-quill';
@@ -37,6 +39,8 @@ const styles = theme => ({
   },
   previewSubtitle: { marginTop: theme.spacing.unit * 2 },
 
+  linearProgress: { marginTop: theme.spacing.unit },
+
   paddedIcon: {
     marginLeft: -theme.spacing.unit / 2,
     marginRight: theme.spacing.unit * 1.5,
@@ -56,6 +60,7 @@ const Question = props => {
     setAnswer,
     user,
     readOnly,
+    smartLink,
   } = props;
 
   const [rejectedFile, setRejectedFile] = useState('');
@@ -215,6 +220,36 @@ const Question = props => {
           )}
         </>
       );
+      break;
+
+    case 'ideo':
+      answerInput =
+        smartLink && smartLink.key && smartLink.secret ? (
+          <Button
+            variant="contained"
+            color="primary"
+            component="a"
+            href={`https://ide.2hats.com/?slKey=${smartLink.key}&slSecret=${
+              smartLink.secret
+            }`}
+            target="_blank"
+            rel="noopener noreferrer"
+            size="large"
+            className={classes.getStartedButton}
+          >
+            {readOnly
+              ? 'View submission'
+              : answer && answer.title
+              ? 'Continue'
+              : 'Get started'}
+            <ArrowForwardIcon />
+          </Button>
+        ) : (
+          <>
+            <Typography variant="body1">Generating link…</Typography>
+            <LinearProgress className={classes.linearProgress} />
+          </>
+        );
       break;
 
     default:
