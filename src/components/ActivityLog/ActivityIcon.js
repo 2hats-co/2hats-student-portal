@@ -101,6 +101,20 @@ const ActivityIcon = props => {
           />
         </>
       );
+    case 'job-pass':
+      return (
+        <>
+          <JobIcon />
+          <CheckIcon className={classes.badgeIcon} />
+        </>
+      );
+    case 'job-fail':
+      return (
+        <>
+          <JobIcon />
+          <CloseIcon className={classes.badgeIcon} />
+        </>
+      );
 
     case 'event-booked':
       return (
