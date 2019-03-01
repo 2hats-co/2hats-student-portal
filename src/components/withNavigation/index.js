@@ -256,7 +256,8 @@ export default function withNavigation(WrappedComponent) {
                   <img src={logo} alt="2hats" className={classes.logo} />
                   <IconButton
                     className={classes.activityLogButton}
-                    onClick={() => {
+                    onClick={e => {
+                      e.stopPropagation();
                       setActivityLogOpen(true);
                     }}
                   >
