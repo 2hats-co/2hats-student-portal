@@ -108,7 +108,8 @@ async function checkProtectedRoutes(page, routes) {
   for (let i = 0; i < routes.length; i++) {
     const route = routes[i];
     await page.goto(`${CONST.urlPath}/${route}`);
-    const didRedirect = page.url() === CONST.protectedRedirectPath;
+    await page.waitFor(1000);
+    const didRedirect = `${page.url()}`.includes(CONST.protectedRedirectPath);
     if (didRedirect) {
       console.log(`\x1b[32m Protected route: \x1b[0m ${route}`);
     } else {

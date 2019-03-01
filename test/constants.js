@@ -113,7 +113,7 @@ const SELECTORS = {
     reset: 'button#reset',
   },
   courses: {
-    button: 'div#Fixyourcar',
+    button: 'div#MarketingGrowthFundamentals',
   },
   assessments: {
     button: 'div#GoogleAnalytics',
@@ -124,7 +124,7 @@ const SELECTORS = {
     file: '../testFiles/testResume.pdf',
   },
   jobs: {
-    button: 'div#AssistanttotheHeadofMarketing',
+    button: 'div#JuniorDigitalMarketer',
     back: 'button#back',
   },
   profileContainer: {
