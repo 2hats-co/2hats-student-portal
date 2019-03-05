@@ -56,7 +56,7 @@ const JobApply = props => {
   const { classes, onClick, data, skillsNotAchieved, loading, big } = props;
 
   const closed =
-    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 0;
+    moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0;
 
   if (closed)
     return (

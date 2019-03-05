@@ -246,7 +246,7 @@ const Announcement = props => {
                 </Typography>
 
                 <Typography variant="h5" className={classes.daysRemaining}>
-                  {moment(jobDoc.closingDate, 'DD/MM/YYYY').fromNow(true)}
+                  {moment.unix(jobDoc.closingDate.seconds).fromNow(true)}
                 </Typography>
                 <Typography variant="body2">left to apply</Typography>
               </div>
