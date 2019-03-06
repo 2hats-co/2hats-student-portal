@@ -214,7 +214,12 @@ const AssessmentSubmission = props => {
           CLOUD_FUNCTIONS.SMART_LINK,
           { slKey: data.smartLink.key, slSecret: data.smartLink.secret },
           res => {
-            if (!res.data.success) {
+            console.log('smartlink response', res.data);
+            if (
+              !res.data.success ||
+              !res.data.route !== 'ideo' ||
+              !res.data.doc.data.submissionId !== data.id
+            ) {
               console.log('Re-generating SmartLink…');
               cloudFunction(
                 CLOUD_FUNCTIONS.CREATE_SMART_LINK,
