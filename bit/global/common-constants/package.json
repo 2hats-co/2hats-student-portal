@@ -6,5 +6,6 @@
   "dependencies": {},
   "devDependencies": {},
   "peerDependencies": {},
+  "componentRootFolder": "bit/global/common-constants",
   "license": "SEE LICENSE IN LICENSE"
 }
