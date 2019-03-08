@@ -47,9 +47,13 @@ const AssessmentDetail = ({ classes, data }) => (
     <div
       className={classNames(classes.renderedHtml, classes.description)}
       dangerouslySetInnerHTML={{
-        __html: `${data.jobDescription.substr(0, 140)}${
-          data.jobDescription.length > 140 ? '…' : ''
-        }`,
+        __html: data.briefing
+          ? `${data.briefing.substr(0, 140)}${
+              data.briefing.length > 140 ? '…' : ''
+            }`
+          : `${data.jobDescription.substr(0, 140)}${
+              data.jobDescription.length > 140 ? '…' : ''
+            }`,
       }}
     />
   </>

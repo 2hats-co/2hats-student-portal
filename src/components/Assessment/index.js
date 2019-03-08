@@ -96,33 +96,44 @@ const Assessment = props => {
 
         <StatusMsg data={data} isXs={isXs} />
 
-        <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
-            The company
-          </Typography>
-          <div
-            className={classes.renderedHtml}
-            dangerouslySetInnerHTML={{ __html: data.companyDescription }}
-          />
-        </div>
+        {data.briefing && data.briefing.length > 0 ? (
+          <div className={classes.section}>
+            <div
+              className={classes.renderedHtml}
+              dangerouslySetInnerHTML={{ __html: data.briefing }}
+            />
+          </div>
+        ) : (
+          <>
+            <div className={classes.section}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                className={classes.subtitle}
+              >
+                The company
+              </Typography>
+              <div
+                className={classes.renderedHtml}
+                dangerouslySetInnerHTML={{ __html: data.companyDescription }}
+              />
+            </div>
 
-        <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
-            Your job
-          </Typography>
-          <div
-            className={classes.renderedHtml}
-            dangerouslySetInnerHTML={{ __html: data.jobDescription }}
-          />
-        </div>
+            <div className={classes.section}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                className={classes.subtitle}
+              >
+                Your job
+              </Typography>
+              <div
+                className={classes.renderedHtml}
+                dangerouslySetInnerHTML={{ __html: data.jobDescription }}
+              />
+            </div>
+          </>
+        )}
 
         {data.relatedMaterial && (
           <div className={classes.section}>
