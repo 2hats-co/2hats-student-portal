@@ -3,7 +3,6 @@
   "version": "3.0.0-alpha",
   "private": true,
   "dependencies": {
-    "@bit/sidney2hats.2hats.global.common-constants": "file:./bit/global/common-constants",
     "@date-io/moment": "^1.0.1",
     "@material-ui/core": "^3.8.1",
     "@material-ui/icons": "^3.0.1",
@@ -55,7 +54,8 @@
     "redux-persist": "^5.10.0",
     "source-map-explorer": "^1.6.0",
     "webworkify": "^1.5.0",
-    "yup": "^0.26.7"
+    "yup": "^0.26.7",
+    "@bit/sidney2hats.2hats.global.common-constants": "file:./bit/global/common-constants"
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/main.*",
