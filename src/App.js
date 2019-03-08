@@ -48,6 +48,9 @@ const CoursesContainer = lazy(() =>
 const CourseRedirectContainer = lazy(() =>
   import('./containers/CourseRedirectContainer' /* webpackChunkName: "CourseRedirectContainer" */)
 );
+const SchedulerContainer = lazy(() =>
+  import('./containers/SchedulerContainer' /* webpackChunkName: "SchedulerContainer" */)
+);
 
 const App = props => {
   const [user, setUser] = useState(null);
@@ -184,6 +187,12 @@ const App = props => {
                     exact
                     path={ROUTES.COURSE_REDIRECT}
                     component={() => <CourseRedirectContainer />}
+                  />
+
+                  <Route
+                    exact
+                    path={ROUTES.SCHEDULER}
+                    component={() => <SchedulerContainer />}
                   />
 
                   <Route exact path="/linkedin" component={LinkedInPopUp} />
