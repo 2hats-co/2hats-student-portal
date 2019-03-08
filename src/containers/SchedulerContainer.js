@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -39,7 +38,7 @@ const styles = theme => ({
 });
 
 const SchedulerContainer = props => {
-  const { classes, theme, user } = props;
+  const { classes } = props;
 
   const [availableTimes, setAvailableTimes] = useState(null);
   const [dates, setDates] = useState(null);
@@ -192,9 +191,6 @@ const SchedulerContainer = props => {
 
 SchedulerContainer.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  isMobile: PropTypes.bool.isRequired,
 };
 
 export default withNavigation(withStyles(styles)(SchedulerContainer));
