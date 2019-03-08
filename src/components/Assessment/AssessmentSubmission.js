@@ -217,8 +217,8 @@ const AssessmentSubmission = props => {
             console.log('smartlink response', res.data);
             if (
               !res.data.success ||
-              !res.data.route !== 'ideo' ||
-              !res.data.doc.data.submissionId !== data.id
+              res.data.route !== 'ideo' ||
+              res.data.doc.data.submissionId !== data.id
             ) {
               console.log('Re-generating SmartLink…');
               cloudFunction(
