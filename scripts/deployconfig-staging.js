@@ -41,11 +41,11 @@ fs.writeFile(
       ],
       "headers": [
         {
-          "source": "**/*.@(html)",
+          "source": "**/*",
           "headers": [
             {
               "key": "Cache-Control",
-              "value": "max-age=5"
+              "value": "no-cache, max-age=60"
             }
           ]
         }
