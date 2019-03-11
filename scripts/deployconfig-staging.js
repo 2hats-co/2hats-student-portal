@@ -48,7 +48,16 @@ fs.writeFile(
               "value": "no-cache, max-age=60"
             }
           ]
-        }
+        },
+        {
+          "source": "**/*.@(css|js|jpg|jpeg|gif|png)",
+          "headers": [
+            {
+              "key": "Cache-Control",
+              "value": "max-age=31536000, immutable"
+            }
+          ]
+        },
       ]
     }
   }
