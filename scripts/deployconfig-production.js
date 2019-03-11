@@ -65,7 +65,7 @@ fs.writeFile(
               "value": "max-age=31536000, immutable"
             }
           ]
-        },
+        }
       ]
     }
   }
