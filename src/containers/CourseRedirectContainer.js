@@ -5,7 +5,6 @@ import queryString from 'query-string';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
 
 import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
@@ -14,6 +13,8 @@ import { updateDoc } from '../utilities/firestore';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import withNavigation from '../components/withNavigation';
 import UserContext from '../contexts/UserContext';
+
+import LoadingScreen from '../components/LoadingScreen';
 
 const styles = theme => ({
   root: {
@@ -47,23 +48,7 @@ function CourseRedirectContainer(props) {
   }, []);
 
   if (hasId) {
-    if (!user) {
-      return (
-        <Grid
-          container
-          justify="center"
-          alignItems="center"
-          className={classes.root}
-        >
-          <Grid item>
-            <CircularProgress size={64} />
-            <Typography variant="h6" className={classes.message}>
-              Loading…
-            </Typography>
-          </Grid>
-        </Grid>
-      );
-    }
+    if (!user) return <LoadingScreen contained message="Loading…" />;
 
     // touch the course
     const parsedQuery = queryString.parse(location.search);
@@ -95,21 +80,7 @@ function CourseRedirectContainer(props) {
       }
     );
 
-    return (
-      <Grid
-        container
-        justify="center"
-        alignItems="center"
-        className={classes.root}
-      >
-        <Grid item>
-          <CircularProgress size={64} />
-          <Typography variant="h6" className={classes.message}>
-            Redirecting…
-          </Typography>
-        </Grid>
-      </Grid>
-    );
+    return <LoadingScreen contained message="Redirecting…" />;
   }
 
   return (

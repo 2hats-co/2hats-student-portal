@@ -11,6 +11,9 @@ import AssessmentDetail from '../components/Cards/AssessmentDetail';
 import JobDetail from '../components/Cards/JobDetail';
 
 import * as ROUTES from './routes';
+import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';
+
+moment.updateLocale('en', MOMENT_LOCALES);
 
 export const course = data => {
   let banner = null;
@@ -65,6 +68,7 @@ export const assessment = data => {
         <>
           <FailedIcon />
           Incomplete
+          <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
         </>
       );
       bannerColor = 'orange';
@@ -76,6 +80,7 @@ export const assessment = data => {
           <>
             <PassedIcon />
             Passed
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );
         bannerColor = 'green';
@@ -85,7 +90,8 @@ export const assessment = data => {
         banner = (
           <>
             <FailedIcon />
-            Failed
+            Unsuccessful
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );
         bannerColor = 'red';
@@ -96,6 +102,7 @@ export const assessment = data => {
           <>
             <SubmittedIcon />
             Submitted
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );
       }

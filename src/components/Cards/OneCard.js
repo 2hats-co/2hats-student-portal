@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
@@ -17,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 export const CARD_WIDTH = 320;
 export const CARD_PADDING = 16;
@@ -73,6 +75,11 @@ const styles = theme => ({
     fontWeight: 500,
     position: 'relative',
     top: 1,
+
+    '& small': {
+      marginLeft: theme.spacing.unit,
+      opacity: 0.67,
+    },
   },
   bannerGreen: {
     backgroundColor: green[100],
@@ -186,6 +193,8 @@ function OneCard(props) {
       <div className={classes.gradient} style={{ backgroundImage: gradient }} />
     );
   }
+
+  moment.updateLocale('en', MOMENT_LOCALES);
 
   return (
     <Card

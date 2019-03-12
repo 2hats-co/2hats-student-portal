@@ -100,7 +100,7 @@ const AssessmentsContainer = props => {
       />
       <Announcement width={getCardsWidth(cardsCols)} />
       <Cards
-        title="Your Assessments"
+        title="Your Submissions"
         mapping="assessment"
         cols={cardsCols}
         useCollectionInit={{

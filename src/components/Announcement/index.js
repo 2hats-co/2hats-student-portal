@@ -156,6 +156,17 @@ const Announcement = props => {
   const [assessmentState, assessmentDispatch] = useDocument();
   const assessmentDoc = assessmentState.doc;
 
+  moment.updateLocale('en', {
+    relativeTime: {
+      m: '%d minute',
+      mm: '%d minutes',
+      h: '%d hour',
+      hh: '%d hours',
+      d: '%d day',
+      dd: '%d days',
+    },
+  });
+
   useEffect(
     () => {
       if (!data) return;

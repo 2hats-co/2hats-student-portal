@@ -284,7 +284,10 @@ export default function withNavigation(WrappedComponent) {
                       <NavItem
                         data={x}
                         key={i}
-                        selected={selectedRoute === x.route}
+                        selected={
+                          selectedRoute === x.route ||
+                          selectedRoute + 's' === x.route
+                        }
                         goTo={goTo}
                         classes={classes}
                       />

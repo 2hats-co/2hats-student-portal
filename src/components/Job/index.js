@@ -125,7 +125,11 @@ const Job = props => {
 
   return (
     <div className={classes.root}>
-      <BackButton className={classes.backButton} />
+      <BackButton
+        className={classes.backButton}
+        route={ROUTES.JOBS}
+        label="Jobs"
+      />
 
       <main className={classes.content}>
         {data.image && data.image.url ? (

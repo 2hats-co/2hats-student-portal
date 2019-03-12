@@ -11,6 +11,8 @@ import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
 
+import Feedback from './Feedback';
+
 import {
   // SKILLS,
   getSkillLabel,
@@ -42,6 +44,7 @@ const StatusMsg = props => {
   let icon = null;
   let title = null;
   let body = null;
+  let extra = null;
 
   if (data.submitted && !data.screened) {
     icon = (
@@ -71,8 +74,9 @@ const StatusMsg = props => {
           <FailedIcon />
         </PaddedIcon>
       );
-      title = 'Failed';
-      body = `You can make another submission below.`;
+      title = 'Unsuccessful';
+      body = 'Your submission did not meet our standards.';
+      extra = <Feedback data={data} />;
     }
   } else {
     return null;
@@ -97,6 +101,7 @@ const StatusMsg = props => {
           {title}
         </Typography>
         <Typography variant="body1">{body}</Typography>
+        {extra}
       </Grid>
     </Grid>
   );

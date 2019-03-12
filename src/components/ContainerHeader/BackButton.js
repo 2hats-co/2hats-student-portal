@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 
 const BackButton = props => {
-  const { theme, className, history, label } = props;
+  const { theme, className, history, location, route, label } = props;
 
   const isLg = useMediaQuery(theme.breakpoints.up('lg'));
 
@@ -16,7 +16,7 @@ const BackButton = props => {
     <Button
       id="back"
       onClick={() => {
-        history.goBack();
+        history.push(route || location.pathname);
       }}
       color="primary"
       className={className}

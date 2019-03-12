@@ -1,7 +1,9 @@
 import React from 'react';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -22,6 +24,10 @@ const styles = theme => ({
     textAlign: 'center',
     zIndex: 1,
   },
+  contained: {
+    width: '100%',
+    position: 'static',
+  },
 
   fakeNav: {
     backgroundColor: theme.palette.background.paper,
@@ -36,28 +42,14 @@ const styles = theme => ({
     },
   },
 
-  circularProgressWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+  message: {
+    marginTop: theme.spacing.unit,
   },
 });
 
 function LoadingScreen(props) {
-  const { classes, theme, showNav } = props;
+  const { classes, theme, message, showNav, contained } = props;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-  if (!showNav)
-    return (
-      <Grid
-        container
-        alignItems="center"
-        justify="center"
-        className={classes.root}
-      >
-        <CircularProgress color="primary" size={64} />
-      </Grid>
-    );
 
   return (
     <Grid
@@ -65,11 +57,16 @@ function LoadingScreen(props) {
       direction={isMobile ? 'column-reverse' : 'row'}
       alignItems="center"
       justify="center"
-      className={classes.root}
+      className={classNames(classes.root, contained && classes.contained)}
     >
-      <Grid item className={classes.fakeNav} />
-      <Grid item xs className={classes.circularProgressWrapper}>
+      {showNav && <Grid item className={classes.fakeNav} />}
+      <Grid item xs>
         <CircularProgress color="primary" size={64} />
+        {message && (
+          <Typography variant="h6" className={classes.message}>
+            {message}
+          </Typography>
+        )}
       </Grid>
     </Grid>
   );
@@ -78,7 +75,9 @@ function LoadingScreen(props) {
 LoadingScreen.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
+  message: PropTypes.node,
   showNav: PropTypes.bool,
+  contained: PropTypes.bool,
 };
 
 export default withStyles(styles, { withTheme: true })(LoadingScreen);
