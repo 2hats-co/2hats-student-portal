@@ -14,7 +14,11 @@ const withAuthorisation = condition => Component => {
       auth.onAuthStateChanged(authUser => {
         if (!condition(authUser)) {
           if (location.pathname) {
-            history.push(`${routes.SIGN_IN}?route=${location.pathname}`);
+            history.push(
+              `${routes.SIGN_IN}?route=${encodeURIComponent(
+                location.pathname + location.search
+              )}`
+            );
             return;
           }
           history.push(routes.SIGN_IN);

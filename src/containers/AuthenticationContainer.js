@@ -127,7 +127,9 @@ class AuthenticationContainer extends React.Component {
     signInWithPassword(
       user,
       route => {
-        this.goTo(this.state.route || route);
+        this.goTo(
+          this.state.route ? decodeURIComponent(this.state.route) : route
+        );
         this.handleGTevent('Signin');
       },
       this.handleError

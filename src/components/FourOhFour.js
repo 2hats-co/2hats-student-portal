@@ -17,6 +17,7 @@ const styles = theme => ({
     minWidth: '100vw',
     textAlign: 'center',
     padding: theme.spacing.unit * 2,
+    backgroundColor: theme.palette.background.paper,
   },
 
   button: { margin: theme.spacing.unit * 4 },
