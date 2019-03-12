@@ -9,23 +9,33 @@ import Button from '@material-ui/core/Button';
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 
 import { DASHBOARD } from '../constants/routes';
+import Logo from '../assets/images/Logo/Black.svg';
 
 const styles = theme => ({
   root: {
-    height: '100vh',
-    width: '100%',
+    minHeight: '100vh',
+    minWidth: '100vw',
     textAlign: 'center',
+    padding: theme.spacing.unit * 2,
   },
 
-  button: { margin: theme.spacing.unit },
+  button: { margin: theme.spacing.unit * 4 },
+
+  logo: {
+    userSelect: 'none',
+    userDrag: 'none',
+    width: 80,
+    opacity: 0.5,
+
+    marginBottom: theme.spacing.unit,
+  },
 });
 
 const FourOhFour = ({ classes, history }) => (
   <Grid container className={classes.root} justify="center" alignItems="center">
     <Grid item>
-      <Typography variant="h5">
-        The page you were looking for was not found
-      </Typography>
+      <img src={Logo} alt="2hats" className={classes.logo} />
+      <Typography variant="h5">This page was not found</Typography>
       <Button
         color="primary"
         className={classes.button}
