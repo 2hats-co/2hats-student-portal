@@ -13,6 +13,7 @@ import { AUTHENTICATION_CONTAINER } from './constants/views';
 import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
 import ErrorBoundary from './components/ErrorBoundary';
+import FourOhFour from './components/FourOhFour';
 
 import LoadingScreen from './components/LoadingScreen';
 import DetailedViewContainer from './containers/DetailedViewContainer';
@@ -197,7 +198,7 @@ const App = props => {
 
                   <Route exact path="/linkedin" component={LinkedInPopUp} />
                   <Route exact path={'/'} component={() => <Landing />} />
-                  <Route component={() => <h1>404</h1>} />
+                  <Route component={() => <FourOhFour />} />
                 </Switch>
               </Suspense>
             </div>
