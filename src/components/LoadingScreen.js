@@ -42,6 +42,10 @@ const styles = theme => ({
     },
   },
 
+  circularProgress: {
+    color: '#F15A29' || theme.palette.primary.main,
+  },
+
   message: {
     marginTop: theme.spacing.unit,
   },
@@ -61,7 +65,7 @@ function LoadingScreen(props) {
     >
       {showNav && <Grid item className={classes.fakeNav} />}
       <Grid item xs>
-        <CircularProgress color="primary" size={64} />
+        <CircularProgress size={64} className={classes.circularProgress} />
         {message && (
           <Typography variant="h6" className={classes.message}>
             {message}
