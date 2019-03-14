@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
@@ -15,7 +15,7 @@ import green from '@material-ui/core/colors/green';
 import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import UserContext from '../contexts/UserContext';
-
+import { getDoc } from '../utilities/firestore';
 const styles = theme => ({
   root: {
     display: 'inline-flex',
@@ -75,16 +75,31 @@ const SkillItem = props => {
   } = props;
 
   const userContext = useContext(UserContext);
-
+  const [skillLabel, setSkillLabel] = useState(getSkillLabel(value));
+  const [assessmentRoute, setAssessmentRoute] = useState(
+    `/assessments?skill=${value}`
+  );
   const achieved =
     userContext.user.skills && userContext.user.skills.includes(value);
-
+  const setSkillByAssessmentId = async value => {
+    const assessmentDoc = await getDoc('assessments', value);
+    if (assessmentDoc) {
+      setSkillLabel(assessmentDoc.title);
+      setAssessmentRoute(`/assessments?id=${value}`);
+    }
+  };
+  useEffect(
+    () => {
+      setSkillByAssessmentId(value);
+    },
+    [value]
+  );
   return (
     <Grid
       onClick={
         clickable
           ? () => {
-              history.push(`/assessments?skill=${value}`);
+              history.push(assessmentRoute);
             }
           : () => {}
       }
@@ -105,7 +120,7 @@ const SkillItem = props => {
       <Grid item xs>
         <Typography variant="body1" className={classes.label}>
           <span className={classes.header}>{header}</span>
-          {getSkillLabel(value)}
+          {skillLabel}
         </Typography>
       </Grid>
       {clickable && <ButtonBase className={classes.buttonBase} />}

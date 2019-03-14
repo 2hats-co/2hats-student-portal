@@ -35,3 +35,11 @@ export const createDoc = (collection, docData) =>
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
   });
+
+export const getDoc = async (collection, docId) => {
+  const doc = await firestore
+    .collection(collection)
+    .doc(docId)
+    .get();
+  return doc.data();
+};
