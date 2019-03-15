@@ -103,7 +103,8 @@ const ProfileAssessments = props => {
             </Grid>
             <Grid item xs>
               <Typography variant="subtitle1" className={classes.itemTitle}>
-                {getSkillLabel(x.skillAssociated)}
+                {/* {getSkillLabel(x.skillAssociated)} */}
+                {x.title}
               </Typography>
               <Button
                 color="primary"
