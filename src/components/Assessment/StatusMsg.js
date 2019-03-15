@@ -10,6 +10,7 @@ import PaddedIcon from '../PaddedIcon';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
+import DisqualifyIcon from '@material-ui/icons/CancelOutlined';
 
 import Feedback from './Feedback';
 
@@ -68,6 +69,7 @@ const StatusMsg = props => {
           <b>{getSkillLabel(data.skillAssociated)}</b> badge.
         </>
       );
+      extra = <Feedback data={data} />;
     } else if (data.outcome === 'fail') {
       icon = (
         <PaddedIcon className={classes.paddedIcon} color="red">
@@ -76,6 +78,15 @@ const StatusMsg = props => {
       );
       title = 'Unsuccessful';
       body = 'Your submission did not meet our standards.';
+      extra = <Feedback data={data} />;
+    } else if (data.outcome === 'disqualify') {
+      icon = (
+        <PaddedIcon className={classes.paddedIcon} color="red">
+          <DisqualifyIcon />
+        </PaddedIcon>
+      );
+      title = 'Disqualified';
+      body = 'Your submission was disqualified.';
       extra = <Feedback data={data} />;
     }
   } else {

@@ -4,6 +4,7 @@ import moment from 'moment';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
+import DisqualifyIcon from '@material-ui/icons/CancelOutlined';
 import CompletedIcon from '@material-ui/icons/CheckCircleOutlined';
 
 import CourseDetail from '../components/Cards/CourseDetail';
@@ -91,6 +92,17 @@ export const assessment = data => {
           <>
             <FailedIcon />
             Unsuccessful
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
+          </>
+        );
+        bannerColor = 'red';
+      } else if (data.outcome === 'disqualify') {
+        primaryAction = data.resubmitted ? 'View' : 'Resubmit';
+
+        banner = (
+          <>
+            <DisqualifyIcon />
+            Disqualified
             <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );

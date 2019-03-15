@@ -22,8 +22,6 @@ import * as ROUTES from '../../constants/routes';
 import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
-  ...STYLES.RENDERED_HTML(theme),
-
   root: {
     marginTop: theme.spacing.unit * 2,
   },
@@ -41,21 +39,30 @@ const styles = theme => ({
   },
   passIcon: { color: green[500] },
   failIcon: { color: red[500] },
+
+  renderedHtml: {
+    ...STYLES.RENDERED_HTML(theme).renderedHtml,
+    ...theme.typography.body2,
+  },
 });
 
 const FeedbackItem = withStyles(styles)(({ classes, data }) => (
   <div className={classes.feedbackItem}>
-    {data.outcome === 'pass' ? (
-      <PassIcon
-        className={classNames(classes.feedbackIcon, classes.passIcon)}
-      />
-    ) : (
-      <FailIcon
-        className={classNames(classes.feedbackIcon, classes.failIcon)}
-      />
-    )}
+    {data.id &&
+      (data.outcome === 'pass' ? (
+        <PassIcon
+          className={classNames(classes.feedbackIcon, classes.passIcon)}
+        />
+      ) : (
+        <FailIcon
+          className={classNames(classes.feedbackIcon, classes.failIcon)}
+        />
+      ))}
     <Typography variant="subtitle1">{data.title}</Typography>
-    <div className={classes.renderedHtml}>{data.message}</div>
+    <div
+      className={classes.renderedHtml}
+      dangerouslySetInnerHTML={{ __html: data.message }}
+    />
   </div>
 ));
 
@@ -122,7 +129,7 @@ const Feedback = props => {
           ))}
         </>
       )}
-      {newSubmissionButton}
+      {data.outcome !== 'pass' && newSubmissionButton}
     </div>
   );
 };
