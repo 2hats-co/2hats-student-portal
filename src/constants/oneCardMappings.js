@@ -147,6 +147,7 @@ export const job = data => {
       <>
         <FailedIcon />
         Closing Soon
+        <small>{moment.unix(data.closingDate.seconds).fromNow()}</small>
       </>
     );
     bannerColor = 'orange';
