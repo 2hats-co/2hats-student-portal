@@ -16,10 +16,13 @@ export const deleteDoc = (collection, docId) =>
     .doc(docId)
     .delete();
 
-export const getfirstIdOfQuery = async (collectionPath, filters) => {
+export const getFirstIdOfQuery = async (collectionPath, filters, sorts) => {
   let query = firestore.collection(collectionPath);
   filters.forEach(filter => {
     query = query.where(filter.field, filter.operator, filter.value);
+  });
+  sorts.forEach(sort => {
+    query = query.orderBy(sort.field, sort.direction || 'asc');
   });
   const results = await query.get();
   if (results.empty) {

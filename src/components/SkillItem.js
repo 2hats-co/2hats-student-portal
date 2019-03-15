@@ -15,7 +15,10 @@ import green from '@material-ui/core/colors/green';
 import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import UserContext from '../contexts/UserContext';
-import { getDoc } from '../utilities/firestore';
+import { getFirstIdOfQuery } from '../utilities/firestore';
+
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+
 const styles = theme => ({
   root: {
     display: 'inline-flex',
@@ -75,29 +78,47 @@ const SkillItem = props => {
   } = props;
 
   const userContext = useContext(UserContext);
+  const user = userContext.user;
   const [skillLabel, setSkillLabel] = useState(getSkillLabel(value));
   const [assessmentRoute, setAssessmentRoute] = useState(
-    `/assessments?skill=${value}`
+    !value.id && `/assessments?skill=${value}`
   );
   const achieved =
-    userContext.user.skills && userContext.user.skills.includes(value);
-  const setSkillByAssessmentId = async value => {
-    const assessmentDoc = await getDoc('assessments', value);
-    if (assessmentDoc) {
-      setSkillLabel(assessmentDoc.title);
-      setAssessmentRoute(`/assessments?id=${value}`);
-    }
+    user.skills &&
+    (user.skills.includes(value) || user.skills.includes(value.id));
+
+  const setUserAssessmentRoute = async value => {
+    console.time('query user assessments');
+    const docId = await getFirstIdOfQuery(
+      `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+      [{ field: 'assessmentId', operator: '==', value: value.id }],
+      [{ field: 'updatedAt', direction: 'desc' }]
+    );
+    setAssessmentRoute(`/assessments?id=${docId}&yours=true`);
+    console.timeEnd('query user assessments');
   };
+
   useEffect(
     () => {
-      setSkillByAssessmentId(value);
+      if (value.title) {
+        setSkillLabel(value.title);
+        if (
+          user.touchedAssessments &&
+          user.touchedAssessments.includes(value.id)
+        ) {
+          setUserAssessmentRoute(value);
+        } else {
+          setAssessmentRoute(`/assessments?id=${value.id}`);
+        }
+      }
     },
     [value]
   );
+
   return (
     <Grid
       onClick={
-        clickable
+        clickable && assessmentRoute
           ? () => {
               history.push(assessmentRoute);
             }
@@ -132,7 +153,7 @@ SkillItem.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   header: PropTypes.node,
   dense: PropTypes.bool,
   clickable: PropTypes.bool,
