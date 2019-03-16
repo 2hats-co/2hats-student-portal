@@ -46,7 +46,6 @@ class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { hasError: props.location.pathname === '/error' };
-    console.log(this.state);
   }
 
   componentDidCatch(error, info) {
