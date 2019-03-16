@@ -46,6 +46,7 @@ class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
     this.state = { hasError: props.location.pathname === '/error' };
+    console.log(this.state);
   }
 
   componentDidCatch(error, info) {
@@ -54,8 +55,8 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    const { classes, location, history } = this.props;
-    const { hasError, children } = this.state;
+    const { classes, children, location, history } = this.props;
+    const { hasError } = this.state;
 
     const parsedQuery = queryString.parse(location.search);
 
@@ -100,7 +101,9 @@ class ErrorBoundary extends Component {
 
               <div className={classes.bodyText}>
                 <Button
+                  variant="contained"
                   color="primary"
+                  size="large"
                   onClick={() => {
                     history.push('/error?askToClose=true');
                     window.location.reload();
