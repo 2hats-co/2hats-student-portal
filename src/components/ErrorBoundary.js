@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import Button from '@material-ui/core/Button';
+
+import ReloadIcon from '@material-ui/icons/Refresh';
 
 import Logo from '../assets/images/Logo/Black.svg';
 
@@ -25,17 +30,10 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 1.5,
     fontWeight: 500,
   },
-  subtitle: {
-    fontWeight: 400,
-  },
-  bodyText: {
-    marginBottom: theme.spacing.unit * 2,
-    '& b': { color: theme.palette.primary.main },
-  },
+  subtitle: { fontWeight: 400 },
+  bodyText: { marginBottom: theme.spacing.unit * 2 },
 
-  divider: {
-    margin: `${theme.spacing.unit * 4}px 0`,
-  },
+  divider: { margin: `${theme.spacing.unit * 4}px 0` },
 
   logo: {
     marginTop: theme.spacing.unit * 2,
@@ -47,7 +45,7 @@ const styles = theme => ({
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: props.location.pathname === '/error' };
   }
 
   componentDidCatch(error, info) {
@@ -56,9 +54,12 @@ class ErrorBoundary extends Component {
   }
 
   render() {
-    const { classes } = this.props;
+    const { classes, location, history } = this.props;
+    const { hasError, children } = this.state;
 
-    if (this.state.hasError)
+    const parsedQuery = queryString.parse(location.search);
+
+    if (hasError)
       return (
         <Grid
           container
@@ -68,40 +69,65 @@ class ErrorBoundary extends Component {
           direction="column"
           wrap="nowrap"
         >
-          <Grid item className={classes.content}>
-            <Typography variant="h4" className={classes.title}>
-              Something went wrong.
-            </Typography>
-            <Typography variant="h6" className={classes.subtitle}>
-              We’ve been notified of the error.
-            </Typography>
+          {parsedQuery.askToClose === 'true' ? (
+            <Grid item className={classes.content}>
+              <Typography variant="h4" className={classes.title}>
+                You’re almost there!
+              </Typography>
+              <Typography variant="h6" className={classes.subtitle}>
+                Please close this tab and all other 2hats tabs.
+              </Typography>
+            </Grid>
+          ) : (
+            <Grid item className={classes.content}>
+              <Typography variant="h4" className={classes.title}>
+                Something went wrong.
+              </Typography>
+              <Typography variant="h6" className={classes.subtitle}>
+                We’ve been notified of the error.
+              </Typography>
 
-            <Divider className={classes.divider} />
+              <Divider className={classes.divider} />
 
-            <Typography variant="h5" className={classes.title}>
-              You may have an old version of this site.
-            </Typography>
+              <Typography variant="h5" className={classes.title}>
+                You may have an old version of this site.
+              </Typography>
 
-            <Typography variant="body1" className={classes.bodyText}>
-              Please <b>close all 2hats tabs</b>, then visit the 2hats site
-              again.
-            </Typography>
-            <Typography variant="body1" className={classes.bodyText}>
-              We’re constantly updating and improving this site to prevent
-              errors like this. You may have an old version that does not fix
-              this error.
-            </Typography>
-            <Typography variant="body1" className={classes.bodyText}>
-              Thank you for your patience.
-            </Typography>
+              <Typography variant="body1" className={classes.bodyText}>
+                Please <b>reload this page then close all 2hats tabs</b>. After
+                that, you should have the latest version of the 2hats site.
+              </Typography>
 
-            <img src={Logo} alt="2hats" className={classes.logo} />
-          </Grid>
+              <div className={classes.bodyText}>
+                <Button
+                  color="primary"
+                  onClick={() => {
+                    history.push('/error?askToClose=true');
+                    window.location.reload();
+                  }}
+                >
+                  Reload
+                  <ReloadIcon />
+                </Button>
+              </div>
+
+              <Typography variant="body1" className={classes.bodyText}>
+                We’re constantly updating and improving this site to prevent
+                errors like this. You may have an old version that does not fix
+                this error.
+              </Typography>
+              <Typography variant="body1" className={classes.bodyText}>
+                Thank you for your patience.
+              </Typography>
+
+              <img src={Logo} alt="2hats" className={classes.logo} />
+            </Grid>
+          )}
         </Grid>
       );
 
-    return this.props.children;
+    return children;
   }
 }
 
-export default withStyles(styles)(ErrorBoundary);
+export default withRouter(withStyles(styles)(ErrorBoundary));
