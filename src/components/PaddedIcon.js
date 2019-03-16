@@ -23,11 +23,11 @@ const styles = theme => ({
   },
   green: {
     backgroundColor: green[100],
-    color: green[800],
+    color: green[700],
   },
   red: {
     backgroundColor: red[100],
-    color: red[800],
+    color: red[600],
   },
   primary: {
     backgroundColor: theme.palette.primary.light,

@@ -58,7 +58,7 @@ const FeedbackItem = withStyles(styles)(({ classes, data }) => (
           className={classNames(classes.feedbackIcon, classes.failIcon)}
         />
       ))}
-    <Typography variant="subtitle1">{data.title}</Typography>
+    {data.id && <Typography variant="subtitle1">{data.title}</Typography>}
     <div
       className={classes.renderedHtml}
       dangerouslySetInnerHTML={{ __html: data.message }}
@@ -68,6 +68,9 @@ const FeedbackItem = withStyles(styles)(({ classes, data }) => (
 
 const Feedback = props => {
   const { classes, data, history } = props;
+
+  const validFeedback =
+    Array.isArray(data.feedback) && data.feedback.length > 0;
 
   const [loading, setLoading] = useState(false);
 
@@ -116,9 +119,11 @@ const Feedback = props => {
     </>
   );
 
+  if (!validFeedback && data.outcome === 'pass') return null;
+
   return (
     <div className={classes.root}>
-      {Array.isArray(data.feedback) && data.feedback.length > 0 && (
+      {validFeedback && (
         <>
           <Divider className={classes.divider} />
           <Typography variant="h6" gutterBottom>

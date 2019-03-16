@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -14,11 +13,6 @@ import DisqualifyIcon from '@material-ui/icons/CancelOutlined';
 
 import Feedback from './Feedback';
 
-import {
-  // SKILLS,
-  getSkillLabel,
-} from '@bit/sidney2hats.2hats.global.common-constants';
-
 const styles = theme => ({
   root: {
     marginTop: theme.spacing.unit * 3,
@@ -26,8 +20,6 @@ const styles = theme => ({
 
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadowsLight[24],
-
-    userSelect: 'none',
   },
   paddedIcon: {
     marginRight: theme.spacing.unit * 2,
@@ -65,8 +57,7 @@ const StatusMsg = props => {
       title = 'Passed';
       body = (
         <>
-          Congratulations! You’ve earned the{' '}
-          <b>{getSkillLabel(data.skillAssociated)}</b> badge.
+          Congratulations! You’ve earned the <b>{data.title}</b> badge.
         </>
       );
       extra = <Feedback data={data} />;
@@ -96,11 +87,7 @@ const StatusMsg = props => {
   return (
     <Grid
       container
-      className={classNames(
-        classes.root,
-        title === 'Passed' && classes.passed,
-        title === 'Failed' && classes.failed
-      )}
+      className={classes.root}
       alignItems="flex-start"
       direction={isXs ? 'column' : 'row'}
     >

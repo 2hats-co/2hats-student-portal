@@ -88,14 +88,12 @@ const SkillItem = props => {
     (user.skills.includes(value) || user.skills.includes(value.id));
 
   const setUserAssessmentRoute = async value => {
-    console.time('query user assessments');
     const docId = await getFirstIdOfQuery(
       `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
       [{ field: 'assessmentId', operator: '==', value: value.id }],
       [{ field: 'updatedAt', direction: 'desc' }]
     );
     setAssessmentRoute(`/assessments?id=${docId}&yours=true`);
-    console.timeEnd('query user assessments');
   };
 
   useEffect(
