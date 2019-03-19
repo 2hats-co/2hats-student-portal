@@ -82,11 +82,7 @@ const Assessment = props => {
 
   return (
     <div className={classes.root}>
-      <BackButton
-        className={classes.backButton}
-        route={ROUTES.ASSESSMENTS}
-        label="Assessments"
-      />
+      <BackButton className={classes.backButton} />
 
       <main className={classes.content}>
         <div

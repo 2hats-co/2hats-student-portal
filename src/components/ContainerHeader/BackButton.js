@@ -1,34 +1,34 @@
 import React from 'react';
-
+import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
+import withStyles from '@material-ui/core/styles/withStyles';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
-import withTheme from '@material-ui/core/styles/withTheme';
 import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 
-const BackButton = props => {
-  const { theme, className, history, location, route, label } = props;
+const styles = theme => ({
+  root: {
+    [theme.breakpoints.up('lg')]: { position: 'relative' },
+  },
+  backIcon: { margin: '0 !important' },
+});
 
-  const isLg = useMediaQuery(theme.breakpoints.up('lg'));
+const BackButton = props => {
+  const { classes, className, history } = props;
 
   return (
     <Button
       id="back"
       onClick={() => {
-        history.push(route || location.pathname);
+        history.goBack();
       }}
       color="primary"
-      className={className}
-      style={{
-        textTransform: 'capitalize',
-        position: isLg ? 'fixed' : 'relative',
-      }}
+      className={classNames(classes.root, className)}
     >
-      <BackIcon style={{ margin: 0 }} />
-      {label || 'Back'}
+      <BackIcon className={classes.backIcon} />
+      Back
     </Button>
   );
 };
 
-export default withRouter(withTheme()(BackButton));
+export default withRouter(withStyles(styles)(BackButton));
