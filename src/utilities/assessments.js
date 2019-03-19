@@ -76,7 +76,9 @@ export const copyAssessment = (data, user, history) => {
       });
     }
 
-    history.push(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
+    if (data.outcome === 'fail')
+      history.push(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
+    else history.replace(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
 
     // touch assessment
     const newTouchedAssessments = user.touchedAssessments || [];

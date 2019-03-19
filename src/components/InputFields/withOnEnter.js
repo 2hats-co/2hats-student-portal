@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 export const withOnEnter = WrappedComponent => {
   const WithOnEnter = props => {
     const handleKeyPress = e => {

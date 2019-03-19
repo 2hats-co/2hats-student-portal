@@ -23,6 +23,7 @@ const withAuthorisation = condition => Component => {
           history.push(routes.SIGN_IN);
         } else {
           setAuthUser(authUser);
+          console.log(authUser);
         }
       });
     }, []);

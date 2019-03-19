@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import queryString from 'query-string';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';

@@ -95,14 +95,14 @@ const SkillItem = props => {
     );
     setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
   };
-  const setUserAssessmentRouteByAssociatedSkill = async value => {
-    const docId = await getFirstIdOfQuery(
-      `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-      [{ field: 'skillAssociated', operator: '==', value: value }],
-      [{ field: 'updatedAt', direction: 'desc' }]
-    );
-    setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
-  };
+  // const setUserAssessmentRouteByAssociatedSkill = async value => {
+  //   const docId = await getFirstIdOfQuery(
+  //     `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+  //     [{ field: 'skillAssociated', operator: '==', value: value }],
+  //     [{ field: 'updatedAt', direction: 'desc' }]
+  //   );
+  //   setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
+  // };
   const getAssessmentIdByAssociatedSkill = async value => {
     const docId = await getFirstIdOfQuery(
       COLLECTIONS.assessments,
