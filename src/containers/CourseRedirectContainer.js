@@ -73,7 +73,7 @@ function CourseRedirectContainer(props) {
       CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
       { courseId: location.search.replace('?id=', '') },
       res => {
-        window.location.href = res.data.url;
+        window.location.replace(res.data.url);
       },
       err => {
         console.error(err);
