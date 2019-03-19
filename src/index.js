@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { configureStore } from './store';
 import { Provider } from 'react-redux';
-import registerServiceWorker from './registerServiceWorker';
+import { unregister } from './registerServiceWorker';
 import ReactPixel from 'react-facebook-pixel';
 
 import metadata from './metadata.json';
@@ -25,4 +25,6 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('root')
 );
-registerServiceWorker();
+
+// unregister service worker
+unregister();
