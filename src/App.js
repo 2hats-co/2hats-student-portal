@@ -16,7 +16,9 @@ import ErrorBoundary from './components/ErrorBoundary';
 import FourOhFour from './components/FourOhFour';
 
 import LoadingScreen from './components/LoadingScreen';
-import DetailedViewContainer from './containers/DetailedViewContainer';
+const DetailedViewContainer = lazy(() =>
+  import('./containers/DetailedViewContainer' /* webpackChunkName: "DetailedViewContainer" */)
+);
 
 const AuthenticationContainer = lazy(() =>
   import('./containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */)
@@ -28,9 +30,7 @@ const SpeedySignupContainer = lazy(() =>
 const SmartLinkContainer = lazy(() =>
   import('./containers/SmartLinkContainer' /* webpackChunkName: "SmartLinkContainer" */)
 );
-const SubmissionContainer = lazy(() =>
-  import('./containers/SubmissionContainer' /* webpackChunkName: "SubmissionContainer" */)
-);
+
 const DashboardContainer = lazy(() =>
   import('./containers/DashboardContainer' /* webpackChunkName: "DashboardContainer" */)
 );
@@ -144,60 +144,58 @@ const App = props => {
                   />
                   <Route
                     exact
-                    path={ROUTES.PREVIOUS_SUBMISSION}
-                    component={() => <SubmissionContainer />}
-                  />
-
-                  <Route
-                    exact
                     path={ROUTES.DASHBOARD}
-                    component={() => <DashboardContainer />}
+                    component={() => <DashboardContainer {...props} />}
                   />
                   <Route
                     exact
                     path={ROUTES.PROFILE}
-                    component={() => <ProfileContainer />}
+                    component={() => <ProfileContainer {...props} />}
                   />
                   <Route
                     exact
                     path={ROUTES.JOBS}
-                    component={() => <JobsContainer />}
+                    component={() => <JobsContainer {...props} />}
                   />
                   <Route
                     exact
                     path={ROUTES.ASSESSMENTS}
-                    component={() => <AssessmentsContainer />}
+                    component={() => <AssessmentsContainer {...props} />}
                   />
                   <Route
                     exact
                     path={ROUTES.ASSESSMENT}
-                    component={() => <DetailedViewContainer />}
+                    component={() => <DetailedViewContainer {...props} />}
                   />
                   <Route
                     exact
                     path={ROUTES.JOB}
-                    component={() => <DetailedViewContainer />}
+                    component={() => <DetailedViewContainer {...props} />}
                   />
                   <Route
                     exact
                     path={ROUTES.COURSES}
-                    component={() => <CoursesContainer />}
+                    component={() => <CoursesContainer {...props} />}
                   />
 
                   <Route
                     exact
                     path={ROUTES.COURSE_REDIRECT}
-                    component={() => <CourseRedirectContainer />}
+                    component={() => <CourseRedirectContainer {...props} />}
                   />
 
                   <Route
                     exact
                     path={ROUTES.SCHEDULER}
-                    component={() => <SchedulerContainer />}
+                    component={() => <SchedulerContainer {...props} />}
                   />
 
                   <Route exact path="/linkedin" component={LinkedInPopUp} />
-                  <Route exact path={'/'} component={() => <Landing />} />
+                  <Route
+                    exact
+                    path={'/'}
+                    component={() => <Landing {...props} />}
+                  />
                   <Route component={() => <FourOhFour />} />
                 </Switch>
               </Suspense>

@@ -1,15 +1,14 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'recompose';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { auth } from '../../store';
 import * as routes from '../../constants/routes';
 
 const withAuthorisation = condition => Component => {
-  class WithAuthorisation extends React.Component {
-    componentDidMount() {
-      const { location, history } = this.props;
+  function WithAuthorisation(props) {
+    const [authUser, setAuthUser] = useState(null);
+    useEffect(() => {
+      const { location, history } = props;
 
       auth.onAuthStateChanged(authUser => {
         if (!condition(authUser)) {
@@ -22,23 +21,15 @@ const withAuthorisation = condition => Component => {
             return;
           }
           history.push(routes.SIGN_IN);
+        } else {
+          setAuthUser(authUser);
         }
       });
-    }
+    }, []);
 
-    render() {
-      return this.props.authUser ? <Component {...this.props} /> : null;
-    }
+    return props.authUser ? <Component {...props} /> : null;
   }
-
-  const mapStateToProps = state => ({
-    authUser: state.sessionState.authUser,
-  });
-
-  return compose(
-    withRouter,
-    connect(mapStateToProps)
-  )(WithAuthorisation);
+  return withRouter(WithAuthorisation);
 };
 
 export default withAuthorisation;

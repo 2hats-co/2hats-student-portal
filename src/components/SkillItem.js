@@ -81,7 +81,7 @@ const SkillItem = props => {
   const user = userContext.user;
   const [skillLabel, setSkillLabel] = useState(getSkillLabel(value));
   const [assessmentRoute, setAssessmentRoute] = useState(
-    !value.id && `/assessments?skill=${value}`
+    !value.id && `/assessment?skill=${value}`
   );
   const achieved =
     user.skills &&
@@ -93,9 +93,44 @@ const SkillItem = props => {
       [{ field: 'assessmentId', operator: '==', value: value.id }],
       [{ field: 'updatedAt', direction: 'desc' }]
     );
-    setAssessmentRoute(`/assessments?id=${docId}&yours=true`);
+    setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
+  };
+  const setUserAssessmentRouteByAssociatedSkill = async value => {
+    const docId = await getFirstIdOfQuery(
+      `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+      [{ field: 'skillAssociated', operator: '==', value: value }],
+      [{ field: 'updatedAt', direction: 'desc' }]
+    );
+    setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
+  };
+  const getAssessmentIdByAssociatedSkill = async value => {
+    const docId = await getFirstIdOfQuery(
+      COLLECTIONS.assessments,
+      [
+        { field: 'skillAssociated', operator: '==', value: value },
+        { field: 'published', operator: '==', value: true },
+      ],
+      [{ field: 'updatedAt', direction: 'desc' }]
+    );
+    return docId;
   };
 
+  const setRouteByAssociatedSkill = async value => {
+    const assementId = await getAssessmentIdByAssociatedSkill(value);
+    if (
+      user.touchedAssessments &&
+      user.touchedAssessments.includes(assementId)
+    ) {
+      const docId = await getFirstIdOfQuery(
+        `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+        [{ field: 'assessmentId', operator: '==', value: assementId }],
+        [{ field: 'updatedAt', direction: 'desc' }]
+      );
+      setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
+    } else {
+      setAssessmentRoute(`/assessment?id=${assementId}`);
+    }
+  };
   useEffect(
     () => {
       if (value.title) {
@@ -106,8 +141,10 @@ const SkillItem = props => {
         ) {
           setUserAssessmentRoute(value);
         } else {
-          setAssessmentRoute(`/assessments?id=${value.id}`);
+          setAssessmentRoute(`/assessment?id=${value.id}`);
         }
+      } else {
+        setRouteByAssociatedSkill(value);
       }
     },
     [value]

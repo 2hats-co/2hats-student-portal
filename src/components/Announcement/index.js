@@ -237,7 +237,7 @@ const Announcement = props => {
             <Grid item xs>
               <div
                 onClick={() => {
-                  history.push(`${ROUTES.JOBS}?id=${data.jobId}`);
+                  history.push(`${ROUTES.JOB}?id=${data.jobId}`);
                 }}
                 className={classes.jobWrapper}
               >
@@ -276,13 +276,13 @@ const Announcement = props => {
                 onClick={() => {
                   if (yourAssessmentDoc)
                     history.push(
-                      `${ROUTES.ASSESSMENTS}?id=${
+                      `${ROUTES.ASSESSMENT}?id=${
                         yourAssessmentDoc.id
                       }&yours=true`
                     );
                   else
                     history.push(
-                      `${ROUTES.ASSESSMENTS}?id=${data.assessmentId}`
+                      `${ROUTES.ASSESSMENT}?id=${data.assessmentId}`
                     );
                 }}
               >

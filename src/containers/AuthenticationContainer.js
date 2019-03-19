@@ -30,8 +30,6 @@ import {
 } from '../utilities/Authentication/authWithPassword';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { auth } from '../firebase';
-import { connect } from 'react-redux';
-import { actionTypes } from 'redux-firestore';
 
 const styles = theme => ({
   root: {
@@ -408,16 +406,4 @@ AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    clearData: () => {
-      dispatch({
-        type: actionTypes.CLEAR_DATA,
-        preserve: { data: false, ordered: false },
-      });
-    },
-  };
-}
-export default withRouter(
-  withStyles(styles)(connect(mapDispatchToProps)(AuthenticationContainer))
-);
+export default withRouter(withStyles(styles)(AuthenticationContainer));

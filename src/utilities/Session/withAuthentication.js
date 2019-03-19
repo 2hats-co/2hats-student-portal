@@ -1,51 +1,33 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { auth } from '../../store';
 import LoadingScreen from '../../components/LoadingScreen';
 
 const withAuthentication = Component => {
-  class WithAuthentication extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { loading: true };
-    }
-
-    componentDidMount() {
-      const { onSetAuthUser } = this.props;
+  function WithAuthentication(props) {
+    const [loading, setLoading] = useState(true);
+    const [authUser, setAuthUser] = useState(null);
+    useEffect(() => {
       auth.onAuthStateChanged(authUser => {
-        if (this.state.loading) this.setState({ loading: false });
-
-        if (authUser) this.setUser(authUser);
-        else onSetAuthUser(null);
+        console.log('authUser', authUser);
+        setAuthUser(authUser);
+        if (loading) setLoading(false);
+        if (auth.authUser) setUser(authUser);
       });
-    }
+    }, []);
 
-    setUser(authUser) {
-      const { onSetAuthUser } = this.props;
-      onSetAuthUser(authUser);
-      console.log(authUser);
-      console.log(window.smartlook);
-
+    const setUser = authUser => {
       window.smartlook('identify', authUser.uid, {
         name: authUser.displayName,
         email: authUser.email,
       });
-    }
+    };
 
-    render() {
-      if (this.state.loading) return <LoadingScreen />;
-      return <Component />;
-    }
+    if (loading) return <LoadingScreen />;
+
+    return <Component authUser={authUser} />;
   }
 
-  const mapDispatchToProps = dispatch => ({
-    onSetAuthUser: authUser => dispatch({ type: 'AUTH_USER_SET', authUser }),
-  });
-
-  return connect(
-    null,
-    mapDispatchToProps
-  )(WithAuthentication);
+  return WithAuthentication;
 };
 
 export default withAuthentication;

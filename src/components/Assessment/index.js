@@ -196,7 +196,7 @@ const Assessment = props => {
                 className={classes.resubmittedLink}
                 onClick={() => {
                   history.push(
-                    `${ROUTES.ASSESSMENTS}?id=${data.resubmitted}&yours=true`
+                    `${ROUTES.ASSESSMENT}?id=${data.resubmitted}&yours=true`
                   );
                 }}
               >

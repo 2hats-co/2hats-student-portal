@@ -89,7 +89,7 @@ const Feedback = props => {
           variant="body1"
           onClick={() => {
             history.push(
-              `${ROUTES.ASSESSMENTS}?id=${data.resubmitted}&yours=true`
+              `${ROUTES.ASSESSMENT}?id=${data.resubmitted}&yours=true`
             );
           }}
           className={classes.resubmittedLink}
