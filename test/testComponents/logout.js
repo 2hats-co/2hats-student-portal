@@ -31,7 +31,6 @@ const mobileSteps = [
       await click(page, SELECTORS.portal.logOutButton);
       await page.waitFor(1000);
       await checkProtectedRoutes(page, [
-        'uploadResume',
         'dashboard',
         'profile',
         'jobs',

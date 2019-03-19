@@ -76,7 +76,7 @@ export const copyAssessment = (data, user, history) => {
       });
     }
 
-    history.push(`${ROUTES.ASSESSMENTS}?id=${docRef.id}&yours=true`);
+    history.push(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
 
     // touch assessment
     const newTouchedAssessments = user.touchedAssessments || [];
@@ -85,7 +85,7 @@ export const copyAssessment = (data, user, history) => {
       touchedAssessments: newTouchedAssessments,
     });
     // .then(() => {
-    //   history.push(`${ROUTES.ASSESSMENTS}?id=${docRef.id}&yours=true`);
+    //   history.push(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
     // });
   });
 };

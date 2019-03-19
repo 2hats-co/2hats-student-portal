@@ -42,7 +42,6 @@ const styles = theme => ({
   },
   inline: {
     display: 'inline-block',
-    // margin: 0,
   },
 
   paddedIcon: {
@@ -232,12 +231,10 @@ function Cards(props) {
 Cards.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-
   cols: PropTypes.number.isRequired,
   title: PropTypes.node.isRequired,
   icon: PropTypes.node,
   route: PropTypes.string,
-
   NoneLeftIcon: PropTypes.func,
   noneLeftMsg: PropTypes.node,
 

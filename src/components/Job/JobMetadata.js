@@ -60,13 +60,8 @@ const styles = theme => ({
 
 const JobMetadata = props => {
   const { classes, data, isXs, small } = props;
-
-  const closed =
-    moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0;
-
-  const closingSoon =
-    moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 3;
-
+  const closed = moment(data.closingDate).diff(moment(), 'days') < 0;
+  const closingSoon = moment(data.closingDate).diff(moment(), 'days') < 3;
   return (
     <>
       <Typography
@@ -122,7 +117,7 @@ const JobMetadata = props => {
                 color={closingSoon ? 'primary' : 'textPrimary'}
               >
                 {closingSoon && <WarningIcon className={classes.warningIcon} />}
-                {moment.unix(data.closingDate.seconds).fromNow(true)}
+                {moment(data.closingDate).fromNow(true)}
               </Typography>
               <Typography variant={isXs || small ? 'body2' : 'body1'}>
                 remaining
