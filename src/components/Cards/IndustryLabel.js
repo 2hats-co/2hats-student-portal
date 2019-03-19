@@ -12,14 +12,16 @@ const styles = theme => ({
   industryWrapper: {
     width: 'auto',
     marginTop: 0,
-    marginBottom: theme.spacing.unit * 1.5,
+    marginBottom: theme.spacing.unit,
   },
   industryIcon: {
     marginRight: theme.spacing.unit / 2,
     marginLeft: -1,
-    color: theme.palette.text.primary,
+    color: theme.palette.text.secondary,
   },
-  industryText: { fontWeight: 500 },
+  industryText: {
+    // fontWeight: 500
+  },
 });
 
 const IndustryLabel = props => {
@@ -31,7 +33,7 @@ const IndustryLabel = props => {
         <IndustryIcon className={classes.industryIcon} />
       </Grid>
       <Grid item xs>
-        <Typography variant="subtitle1" className={classes.industryText}>
+        <Typography variant="body1" className={classes.industryText}>
           {getAssessmentCategoryLabel(value)}
         </Typography>
       </Grid>

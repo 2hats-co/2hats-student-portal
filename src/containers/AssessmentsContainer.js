@@ -9,7 +9,7 @@ import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
-import Announcement from '../components/Announcement';
+// import Announcement from '../components/Announcement';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const AssessmentsContainer = props => {
@@ -30,7 +30,7 @@ const AssessmentsContainer = props => {
         maxWidth={getCardsWidth(cardsCols)}
         icon={<AssessmentsIcon />}
       />
-      <Announcement width={getCardsWidth(cardsCols)} />
+      {/* <Announcement width={getCardsWidth(cardsCols)} /> */}
       <Cards
         title="Your Submissions"
         mapping="assessment"

@@ -7,8 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import PaddedIcon from '../PaddedIcon';
-import AlertIcon from '@material-ui/icons/NewReleasesOutlined';
+import JobIcon from '@material-ui/icons/BusinessCenterOutlined';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
 import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
@@ -54,9 +53,13 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
     marginLeft: -theme.spacing.unit,
   },
+  icon: {
+    fontSize: 32,
+    color: theme.palette.primary.main,
+  },
   title: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit * 1.125,
+    marginTop: 2,
     color: theme.palette.primary.main,
   },
 
@@ -156,17 +159,6 @@ const Announcement = props => {
   const [assessmentState, assessmentDispatch] = useDocument();
   const assessmentDoc = assessmentState.doc;
 
-  moment.updateLocale('en', {
-    relativeTime: {
-      m: '%d minute',
-      mm: '%d minutes',
-      h: '%d hour',
-      hh: '%d hours',
-      d: '%d day',
-      dd: '%d days',
-    },
-  });
-
   useEffect(
     () => {
       if (!data) return;
@@ -192,6 +184,12 @@ const Announcement = props => {
 
   if (!data || !jobDoc || !assessmentDoc) return null;
 
+  const diffDays = moment
+    .unix(jobDoc.closingDate.seconds)
+    .diff(moment(), 'days');
+
+  if (diffDays < 0) return null;
+
   return (
     <div className={classes.root} style={{ width: width - 16 }}>
       <Grid container alignItems="stretch" spacing={24}>
@@ -202,9 +200,7 @@ const Announcement = props => {
             className={classes.fullHeight}
           >
             <Grid item className={classes.iconWrapper}>
-              <PaddedIcon color="primary">
-                <AlertIcon />
-              </PaddedIcon>
+              <JobIcon className={classes.icon} />
             </Grid>
             <Grid item xs>
               <Grid item xs>
@@ -257,9 +253,11 @@ const Announcement = props => {
                 </Typography>
 
                 <Typography variant="h5" className={classes.daysRemaining}>
-                  {moment.unix(jobDoc.closingDate.seconds).fromNow(true)}
+                  {diffDays > 1 ? `${diffDays} days` : 'Last day'}
                 </Typography>
-                <Typography variant="body2">left to apply</Typography>
+                <Typography variant="body2">
+                  {diffDays > 1 && 'left'} to apply
+                </Typography>
               </div>
             </Grid>
 
@@ -286,7 +284,7 @@ const Announcement = props => {
                     );
                 }}
               >
-                Get Started
+                Complete Assessment
                 <ArrowForwardIcon />
               </Button>
             </Grid>

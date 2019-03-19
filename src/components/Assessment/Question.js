@@ -12,7 +12,8 @@ import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+// import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 import Dropzone from 'react-dropzone';
 import ReactQuill from 'react-quill';
@@ -243,12 +244,8 @@ const Question = props => {
               size="large"
               className={classes.getStartedButton}
             >
-              {readOnly
-                ? 'View submission'
-                : answer && answer.title
-                ? 'Continue'
-                : 'Get started'}
-              <ArrowForwardIcon />
+              Open in new tab
+              <LaunchIcon />
             </Button>
           </>
         ) : (

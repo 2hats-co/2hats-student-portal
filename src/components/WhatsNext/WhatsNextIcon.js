@@ -10,27 +10,27 @@ import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 import { WHATS_NEXT_STATES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const WhatsNextIcon = props => {
-  const { state } = props;
+  const { state, ...restProps } = props;
 
   switch (state) {
     case WHATS_NEXT_STATES.uploadResume:
-      return <CloudUploadIcon />;
+      return <CloudUploadIcon {...restProps} />;
 
     case WHATS_NEXT_STATES.completeCourse:
     case WHATS_NEXT_STATES.startNewCourse:
-      return <CoursesIcon />;
+      return <CoursesIcon {...restProps} />;
 
     case WHATS_NEXT_STATES.completeAssessment:
     case WHATS_NEXT_STATES.awaitAssessmentOutcome:
     case WHATS_NEXT_STATES.startNewAssessment:
-      return <AssessmentsIcon />;
+      return <AssessmentsIcon {...restProps} />;
 
     case WHATS_NEXT_STATES.awaitJobApplicationOutcome:
     case WHATS_NEXT_STATES.startNewJobApplication:
-      return <JobsIcon />;
+      return <JobsIcon {...restProps} />;
 
     case WHATS_NEXT_STATES.completeProfile:
-      return <ProfileIcon />;
+      return <ProfileIcon {...restProps} />;
 
     default:
       return null;

@@ -161,6 +161,7 @@ function OneCard(props) {
   const {
     classes,
     title,
+    meta,
     secondaryText,
     primaryAction,
     route,
@@ -206,6 +207,21 @@ function OneCard(props) {
         ),
       }}
     >
+      {banner && (
+        <div
+          className={classNames(
+            classes.banner,
+            bannerColor === 'green' && classes.bannerGreen,
+            bannerColor === 'red' && classes.bannerRed,
+            bannerColor === 'orange' && classes.bannerOrange
+          )}
+        >
+          <Typography variant="body1" className={classes.bannerText}>
+            {banner}
+          </Typography>
+        </div>
+      )}
+
       <CardActionArea
         id={title.replace(/\W/g, '')}
         component="div"
@@ -217,21 +233,6 @@ function OneCard(props) {
         disableRipple
       >
         {video && media}
-
-        {banner && (
-          <div
-            className={classNames(
-              classes.banner,
-              bannerColor === 'green' && classes.bannerGreen,
-              bannerColor === 'red' && classes.bannerRed,
-              bannerColor === 'orange' && classes.bannerOrange
-            )}
-          >
-            <Typography variant="body1" className={classes.bannerText}>
-              {banner}
-            </Typography>
-          </div>
-        )}
 
         <Grid
           container
@@ -245,6 +246,7 @@ function OneCard(props) {
               <Typography gutterBottom variant="h6" className={classes.title}>
                 {title}
               </Typography>
+              {meta}
               {typeof secondaryText === 'string' ? (
                 <Typography component="p" className={classes.secondaryText}>
                   {secondaryText}
@@ -278,6 +280,7 @@ OneCard.propTypes = {
   classes: PropTypes.object.isRequired,
 
   title: PropTypes.string,
+  meta: PropTypes.node,
   secondaryText: PropTypes.node,
   primaryAction: PropTypes.string,
   route: PropTypes.string,

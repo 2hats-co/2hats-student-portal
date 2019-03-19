@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 
 import { auth } from '../../store';
@@ -6,7 +6,6 @@ import * as routes from '../../constants/routes';
 
 const withAuthorisation = condition => Component => {
   function WithAuthorisation(props) {
-    const [authUser, setAuthUser] = useState(null);
     useEffect(() => {
       const { location, history } = props;
 
@@ -21,9 +20,6 @@ const withAuthorisation = condition => Component => {
             return;
           }
           history.push(routes.SIGN_IN);
-        } else {
-          setAuthUser(authUser);
-          console.log(authUser);
         }
       });
     }, []);

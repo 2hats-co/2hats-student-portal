@@ -5,7 +5,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
-import PaddedIcon from '../PaddedIcon';
+// import PaddedIcon from '../PaddedIcon';
 import WhatsNextBadge from './WhatsNextBadge';
 import WhatsNextIcon from './WhatsNextIcon';
 import WhatsNextTitle from './WhatsNextTitle';
@@ -48,9 +48,13 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 2,
     marginLeft: -theme.spacing.unit,
   },
+  whatsNextIcon: {
+    fontSize: 32,
+    color: theme.palette.primary.main,
+  },
   title: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit * 1.125,
+    marginTop: 2,
     color: theme.palette.primary.main,
   },
   description: { fontWeight: 400 },
@@ -123,9 +127,10 @@ const WhatsNext = props => {
         <Grid item xs>
           <Grid container direction={isMobile ? 'column' : 'row'}>
             <Grid item className={classes.iconWrapper}>
-              <PaddedIcon color="primary">
-                <WhatsNextIcon state={profile.whatsNext.state} />
-              </PaddedIcon>
+              <WhatsNextIcon
+                className={classes.whatsNextIcon}
+                state={profile.whatsNext.state}
+              />
             </Grid>
             <Grid item xs>
               <Typography variant="h6" className={classes.title} gutterBottom>
