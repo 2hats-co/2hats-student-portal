@@ -118,10 +118,14 @@ const Job = props => {
     }
   };
 
-  const skillsNotAchieved = user.skills ? [] : [...data.skillsRequired];
-  data.skillsRequired.forEach(x => {
-    if (user.skills && !user.skills.includes(x)) skillsNotAchieved.push(x);
-  });
+  const skillsNotAchieved = user.skills
+    ? []
+    : data.skillsRequired.map(x => x.id);
+  data.skillsRequired
+    .map(x => x.id)
+    .forEach(x => {
+      if (user.skills && !user.skills.includes(x)) skillsNotAchieved.push(x);
+    });
 
   return (
     <div className={classes.root}>
