@@ -6,6 +6,7 @@ import ContainerHeader from '../components/ContainerHeader';
 //import Assessment from '../components/Assessment';
 
 import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
+import YourIcon from '@material-ui/icons/AccountCircleOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
@@ -41,6 +42,7 @@ const AssessmentsContainer = props => {
           sort: { field: 'updatedAt', direction: 'desc' },
         }}
         extra
+        icon={<YourIcon />}
       />
       <Cards
         title="Marketing Assessments"

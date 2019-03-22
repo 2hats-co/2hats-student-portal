@@ -5,6 +5,7 @@ import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 
 import CoursesIcon from '@material-ui/icons/SchoolOutlined';
+import YourIcon from '@material-ui/icons/AccountCircleOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
@@ -38,6 +39,7 @@ const CoursesContainer = props => {
           sort: { field: 'ranking', direction: 'asc' },
         }}
         extra
+        icon={<YourIcon />}
       />
       <Cards
         title="Marketing Courses"

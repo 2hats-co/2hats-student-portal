@@ -8,8 +8,10 @@ import DisqualifyIcon from '@material-ui/icons/CancelOutlined';
 import CompletedIcon from '@material-ui/icons/CheckCircleOutlined';
 
 import CourseDetail from '../components/Cards/CourseDetail';
-import AssessmentDetail from '../components/Cards/AssessmentDetail';
-import JobDetail from '../components/Cards/JobDetail';
+import AssessmentDetail, {
+  AssessmentMeta,
+} from '../components/Cards/AssessmentDetail';
+import JobDetail, { JobMeta } from '../components/Cards/JobDetail';
 
 import * as ROUTES from './routes';
 import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -123,6 +125,7 @@ export const assessment = data => {
 
   return {
     title: data.title,
+    meta: <AssessmentMeta data={data} />,
     secondaryText: <AssessmentDetail data={data} />,
     primaryAction,
     route: `${ROUTES.ASSESSMENT}?id=${data.id}${
@@ -167,6 +170,7 @@ export const job = data => {
 
   return {
     title: data.title,
+    meta: <JobMeta data={data} />,
     secondaryText: <JobDetail data={data} />,
     primaryAction: data.jobId ? 'View' : 'Learn more',
     route: `${ROUTES.JOB}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,

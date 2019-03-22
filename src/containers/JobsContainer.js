@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
+
 import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
+import YourIcon from '@material-ui/icons/AccountCircleOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
@@ -39,6 +41,7 @@ const JobsContainer = props => {
           sort: { field: 'updatedAt', direction: 'desc' },
         }}
         extra
+        icon={<YourIcon />}
       />
       <Cards
         title="Marketing Jobs"

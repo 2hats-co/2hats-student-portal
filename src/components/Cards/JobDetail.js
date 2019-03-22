@@ -17,14 +17,14 @@ const styles = theme => ({
     boxOrient: 'vertical',
     overflow: 'hidden',
 
-    color: theme.palette.text.secondary,
+    // color: theme.palette.text.secondary,
   },
 });
 
+export const JobMeta = ({ data }) => <IndustryLabel value={data.industry} />;
+
 const JobDetail = ({ classes, data }) => (
   <>
-    <IndustryLabel value={data.industry} />
-
     <Typography variant="body2" className={classes.description}>
       {removeHtmlTags(
         data.companyDescription.replace('</p>', '\n').replace('&nbsp;', '')
