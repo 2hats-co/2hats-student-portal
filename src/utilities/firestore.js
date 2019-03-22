@@ -44,5 +44,6 @@ export const getDoc = async (collection, docId) => {
     .collection(collection)
     .doc(docId)
     .get();
-  return doc.data();
+
+  return { id: doc.id, ...doc.data() };
 };

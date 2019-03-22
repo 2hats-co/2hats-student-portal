@@ -1,11 +1,11 @@
 import { getRandomId } from './index';
-import { createDoc, updateDoc } from './firestore';
+import { createDoc, updateDoc, getDoc } from './firestore';
 import { CLOUD_FUNCTIONS, cloudFunction } from './CloudFunctions';
 
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import * as ROUTES from '../constants/routes';
 
-export const copyAssessment = (data, user, history) => {
+export const copyAssessment = (data, user, history, oldId) => {
   console.log('Copying assessment…', data);
   // separate assessment ID so new doc doesn't have assessment ID
   const { id, ...rest } = data;
@@ -66,19 +66,18 @@ export const copyAssessment = (data, user, history) => {
     }
 
     // set first submission to resubmitted to disable
-    if (data.outcome === 'fail') {
+    if (!!oldId) {
       updateDoc(
         `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-        data.id,
+        oldId,
         { resubmitted: docRef.id }
       ).then(docRef => {
         console.log('resubmitted set to true for', docRef);
       });
-    }
-
-    if (data.outcome === 'fail')
       history.push(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
-    else history.replace(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
+    } else {
+      history.replace(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
+    }
 
     // touch assessment
     const newTouchedAssessments = user.touchedAssessments || [];
@@ -90,6 +89,11 @@ export const copyAssessment = (data, user, history) => {
     //   history.push(`${ROUTES.ASSESSMENT}?id=${docRef.id}&yours=true`);
     // });
   });
+};
+
+export const copyAssessmentForResubmission = async (data, user, history) => {
+  const assessment = await getDoc(COLLECTIONS.assessments, data.assessmentId);
+  copyAssessment(assessment, user, history, data.id);
 };
 
 export const checkSmartLink = (data, user) => {

@@ -15,7 +15,7 @@ import FailIcon from '@material-ui/icons/Error';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
-import { copyAssessment } from '../../utilities/assessments';
+import { copyAssessmentForResubmission } from '../../utilities/assessments';
 import LoadingScreen from '../LoadingScreen';
 import UserContext from '../../contexts/UserContext';
 import * as ROUTES from '../../constants/routes';
@@ -108,7 +108,7 @@ const Feedback = props => {
       <Button
         onClick={() => {
           setLoading(true);
-          copyAssessment(data, user, history);
+          copyAssessmentForResubmission(data, user, history);
         }}
         variant="contained"
         color="primary"
