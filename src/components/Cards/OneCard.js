@@ -127,18 +127,18 @@ const styles = theme => ({
 
   stretchGrid: {
     height: '100%',
-    '$withBanner &': { height: 'calc(100% - 40px)' },
+    // '$withBanner &': { height: 'calc(100% - 40px)' },
     '$withVideo &': { height: `calc(100% - ${MEDIA_HEIGHT}px)` },
-    '$withBanner$withVideo &': {
-      height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)`,
-    },
+    // '$withBanner$withVideo &': {
+    //   height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)`,
+    // },
   },
   cardContent: {
     textAlign: 'left',
     paddingBottom: theme.spacing.unit,
     '&:last-child': { paddingBottom: theme.spacing.unit },
   },
-  cardContentHeaderWithImg: { minHeight: 100 },
+  cardContentHeaderWithImg: { minHeight: 125 },
 
   secondaryText: { whiteSpace: 'pre-wrap' },
 

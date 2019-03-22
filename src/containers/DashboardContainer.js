@@ -57,7 +57,7 @@ const DashboardContainer = props => {
             filters: [{ field: 'published', operator: '==', value: true }],
           },
           filterIds: user.touchedCourses,
-          icon: <CoursesIcon />,
+          Icon: CoursesIcon,
           route: ROUTES.COURSES,
           noneLeftMsg: 'There are no more courses available at the moment',
         };
@@ -78,7 +78,7 @@ const DashboardContainer = props => {
             filters: [{ field: 'published', operator: '==', value: true }],
           },
           filterIds: user.touchedAssessments,
-          icon: <AssessmentsIcon />,
+          Icon: AssessmentsIcon,
           route: ROUTES.ASSESSMENTS,
           noneLeftMsg: 'There are no more assessments available at the moment',
         };
@@ -100,7 +100,7 @@ const DashboardContainer = props => {
             filters: [{ field: 'published', operator: '==', value: true }],
           },
           filterIds: user.touchedJobs,
-          icon: <JobsIcon />,
+          Icon: JobsIcon,
           route: ROUTES.JOBS,
           noneLeftMsg: 'There are no more jobs available at the moment',
         };

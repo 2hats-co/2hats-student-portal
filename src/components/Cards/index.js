@@ -71,7 +71,7 @@ function Cards(props) {
 
     cols,
     title,
-    icon,
+    Icon,
     route,
 
     NoneLeftIcon,
@@ -128,7 +128,7 @@ function Cards(props) {
         className={classNames(classes.root, inline && classes.inline)}
         style={{ width: getCardsWidth(cols) }}
       >
-        <CardsHeader {...{ title, route, icon, usedYourBackup }} />
+        <CardsHeader {...{ title, route, Icon, usedYourBackup }} />
 
         <Grid container alignItems="center" className={classes.noneLeftWrapper}>
           {NoneLeftIcon && <NoneLeftIcon className={classes.noneLeftIcon} />}
@@ -145,7 +145,7 @@ function Cards(props) {
         className={classNames(classes.root, inline && classes.inline)}
         style={{ width: getCardsWidth(cols) }}
       >
-        <CardsHeader {...{ title, route, icon, usedYourBackup }} />
+        <CardsHeader {...{ title, route, Icon, usedYourBackup }} />
 
         <Grid container>
           {cards &&
@@ -182,7 +182,7 @@ Cards.propTypes = {
   classes: PropTypes.object.isRequired,
   cols: PropTypes.number.isRequired,
   title: PropTypes.node.isRequired,
-  icon: PropTypes.node,
+  Icon: PropTypes.func,
   route: PropTypes.string,
   NoneLeftIcon: PropTypes.func,
   noneLeftMsg: PropTypes.node,

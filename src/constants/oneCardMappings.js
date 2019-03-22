@@ -74,7 +74,7 @@ export const assessment = data => {
           <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
         </>
       );
-      bannerColor = 'orange';
+      // bannerColor = 'orange';
     } else {
       if (data.outcome === 'pass') {
         primaryAction = 'View submission';
@@ -97,7 +97,7 @@ export const assessment = data => {
             <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );
-        bannerColor = 'red';
+        bannerColor = 'orange';
       } else if (data.outcome === 'disqualify') {
         primaryAction = data.resubmitted ? 'View' : 'Resubmit';
 

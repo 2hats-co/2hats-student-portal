@@ -41,7 +41,7 @@ const JobsContainer = props => {
           sort: { field: 'updatedAt', direction: 'desc' },
         }}
         extra
-        icon={<YourIcon />}
+        Icon={YourIcon}
       />
       <Cards
         title="Marketing Jobs"

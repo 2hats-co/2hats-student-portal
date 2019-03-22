@@ -39,7 +39,7 @@ const CoursesContainer = props => {
           sort: { field: 'ranking', direction: 'asc' },
         }}
         extra
-        icon={<YourIcon />}
+        Icon={YourIcon}
       />
       <Cards
         title="Marketing Courses"

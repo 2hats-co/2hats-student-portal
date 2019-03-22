@@ -127,7 +127,7 @@ const styles = theme => ({
   wrappedComponentMobilePadding: { paddingBottom: theme.spacing.unit * 10 },
 
   appBar: {
-    top: 'auto',
+    top: 'auto !important',
     bottom: 0,
 
     backgroundColor: theme.palette.background.paper,

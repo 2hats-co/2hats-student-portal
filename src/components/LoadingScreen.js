@@ -40,6 +40,9 @@ const styles = theme => ({
       width: '100vw',
       borderTop: `1px solid ${theme.palette.divider}`,
     },
+    [theme.breakpoints.down('xs')]: {
+      height: 56,
+    },
   },
 
   circularProgress: {
@@ -60,11 +63,12 @@ function LoadingScreen(props) {
       container
       direction={isMobile ? 'column-reverse' : 'row'}
       alignItems="center"
-      justify="center"
+      justify={showNav ? 'space-between' : 'center'}
       className={classNames(classes.root, contained && classes.contained)}
     >
       {showNav && <Grid item className={classes.fakeNav} />}
-      <Grid item xs>
+
+      <Grid item>
         <CircularProgress size={64} className={classes.circularProgress} />
         {message && (
           <Typography variant="h6" className={classes.message}>
@@ -72,6 +76,8 @@ function LoadingScreen(props) {
           </Typography>
         )}
       </Grid>
+
+      {showNav && <Grid item />}
     </Grid>
   );
 }

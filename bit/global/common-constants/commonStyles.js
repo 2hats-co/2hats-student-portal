@@ -180,11 +180,11 @@ const generateUlStyles = () => {
 
     output[i === 0 ? '& ul li' : `& ul li.ql-indent-${i}`] = {
       listStyleType: 'none',
-      paddingLeft: `${1.5 + 2 * i}em`,
+      paddingLeft: `${1.25 + 2 * i}em`,
 
       '&::before': {
         content: '"\u2022"',
-        marginLeft: '-1.5em',
+        marginLeft: '-1.25em',
         marginRight: '0.75em',
 
         textAlign: 'right',
@@ -288,7 +288,7 @@ export const DETAIL_VIEW = theme => ({
 
   section: { marginTop: theme.spacing.unit * 3 },
 
-  subtitle: { fontWeight: 700 },
+  // subtitle: { fontWeight: 700 },
 
   description: { whiteSpace: 'pre-line' },
 

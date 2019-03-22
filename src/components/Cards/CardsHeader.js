@@ -7,8 +7,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import PaddedIcon from '../PaddedIcon';
-
 const styles = theme => ({
   root: {
     padding: theme.spacing.unit,
@@ -22,15 +20,14 @@ const styles = theme => ({
     cursor: 'pointer',
 
     '&:hover $title': { color: theme.palette.primary.main },
-    '&:hover $paddedIcon': {
-      backgroundColor: theme.palette.primary.light,
-      color: theme.palette.primary.main,
-    },
+    '&:hover $icon': { color: theme.palette.primary.main },
   },
 
-  paddedIcon: {
+  icon: {
+    fontSize: 32,
+    opacity: 0.87,
+
     marginRight: theme.spacing.unit * 1.5,
-    marginLeft: -theme.spacing.unit / 2,
     verticalAlign: 'bottom',
 
     transition: theme.transitions.create(['color', 'background-color'], {
@@ -49,14 +46,11 @@ const styles = theme => ({
     },
   },
 
-  viewAllButton: {
-    position: 'relative',
-    top: 3,
-  },
+  viewAllButton: { marginRight: -theme.spacing.unit / 4 },
 });
 
 const CardsHeader = props => {
-  const { classes, history, title, route, icon, usedYourBackup } = props;
+  const { classes, history, title, route, Icon, usedYourBackup } = props;
 
   return (
     <Grid
@@ -72,9 +66,9 @@ const CardsHeader = props => {
           : null
       }
     >
-      {icon && (
+      {Icon && (
         <Grid item>
-          <PaddedIcon className={classes.paddedIcon}>{icon}</PaddedIcon>
+          <Icon className={classes.icon} />
         </Grid>
       )}
 
@@ -87,7 +81,11 @@ const CardsHeader = props => {
 
       {route && (
         <Grid item>
-          <Button color="primary" className={classes.viewAllButton}>
+          <Button
+            variant="outlined"
+            color="primary"
+            className={classes.viewAllButton}
+          >
             View all
           </Button>
         </Grid>

@@ -55,6 +55,11 @@ const styles = theme => ({
     verticalAlign: 'text-bottom',
     marginLeft: -theme.spacing.unit / 2,
     marginRight: theme.spacing.unit,
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 24,
+      marginRight: theme.spacing.unit / 2,
+    },
   },
 });
 

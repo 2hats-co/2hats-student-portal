@@ -228,9 +228,9 @@ const Question = props => {
         smartLink && smartLink.key && smartLink.secret ? (
           <>
             <Typography variant="body1" style={{ marginBottom: '1em' }}>
-              Write your code using our code editor, where you can make changes
-              in real time and submit with one click. No need for uploading ZIPs
-              or creating GitHub repositories.
+              Write your code using our <b>code editor</b>, where you can make
+              changes in real time and submit with one click. No need for
+              uploading ZIPs or creating GitHub repositories.
             </Typography>
             <Button
               variant="contained"

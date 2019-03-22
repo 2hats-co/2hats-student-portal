@@ -30,7 +30,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 6,
 
     padding: theme.spacing.unit * 4,
-    paddingTop: theme.spacing.unit * 3,
+    // paddingTop: theme.spacing.unit * 3,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
 
@@ -46,7 +46,7 @@ const styles = theme => ({
 
   iconWrapper: {
     marginRight: theme.spacing.unit * 2,
-    marginLeft: -theme.spacing.unit,
+    marginLeft: -theme.spacing.unit / 2,
   },
   whatsNextIcon: {
     fontSize: 32,
