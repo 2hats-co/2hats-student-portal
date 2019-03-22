@@ -38,7 +38,7 @@ class EmailAuth extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: this.props.urlParams.email,
+      email: this.props.urlParams.email || '',
       invalidEmail: false,
     };
     this.onNext = this.onNext.bind(this);

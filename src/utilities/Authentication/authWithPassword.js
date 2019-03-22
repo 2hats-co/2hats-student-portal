@@ -41,25 +41,11 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
     });
 };
 
-export const signInWithPassword = (user, routeHandler, errorHandler) => {
+export const signInWithPassword = (user, successHandler, errorHandler) => {
   const { email, password } = user;
   auth
     .signInWithEmailAndPassword(email, password)
-    .then(async authUser => {
-      db.collection('users')
-        .doc(authUser.user.uid)
-        .get()
-        .then(userDoc => {
-          // const doc = userDoc.data();
-          // if (doc.process === 'build' || doc.process === 'upload') {
-          //TODO: process constants
-
-          routeHandler(DASHBOARD);
-          // } else {
-          // routeHandler(UPLOAD_RESUME);
-          // }
-        });
-    })
+    .then(successHandler)
     .catch(error => {
       errorHandler(error);
     });
