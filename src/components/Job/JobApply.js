@@ -56,7 +56,7 @@ const JobApply = props => {
   const { classes, onClick, data, skillsNotAchieved, loading, big } = props;
 
   const closed =
-    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 0;
+    moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0;
 
   if (closed)
     return (
@@ -79,15 +79,15 @@ const JobApply = props => {
       >
         <div>
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             className={big ? classes.applyBig : classes.apply}
             size={big ? 'large' : 'medium'}
             onClick={onClick}
             disabled
           >
-            Apply
-            <ArrowForwardIcon />
+            Applications Closed
+            <ErrorIcon />
           </Button>
         </div>
       </Tooltip>
@@ -115,7 +115,7 @@ const JobApply = props => {
       >
         <div>
           <Button
-            variant="contained"
+            variant="outlined"
             color="primary"
             className={big ? classes.applyBig : classes.apply}
             size={big ? 'large' : 'medium'}
@@ -131,7 +131,7 @@ const JobApply = props => {
 
   return (
     <Button
-      variant="contained"
+      variant={!!data.jobId || loading ? 'outlined' : 'contained'}
       color="primary"
       className={big ? classes.applyBig : classes.apply}
       size={big ? 'large' : 'medium'}

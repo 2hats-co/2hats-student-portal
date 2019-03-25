@@ -55,17 +55,20 @@ const styles = theme => ({
     verticalAlign: 'text-bottom',
     marginLeft: -theme.spacing.unit / 2,
     marginRight: theme.spacing.unit,
+
+    [theme.breakpoints.down('sm')]: {
+      fontSize: 24,
+      marginRight: theme.spacing.unit / 2,
+    },
   },
 });
 
 const JobMetadata = props => {
   const { classes, data, isXs, small } = props;
 
-  const closed =
-    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 0;
-
-  const closingSoon =
-    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 3;
+  const diffDays = moment.unix(data.closingDate.seconds).diff(moment(), 'days');
+  const closed = diffDays < 0;
+  const closingSoon = diffDays <= 3;
 
   return (
     <>
@@ -122,10 +125,10 @@ const JobMetadata = props => {
                 color={closingSoon ? 'primary' : 'textPrimary'}
               >
                 {closingSoon && <WarningIcon className={classes.warningIcon} />}
-                {moment(data.closingDate, 'DD/MM/YYYY').fromNow(true)}
+                {diffDays > 1 ? `${diffDays} days` : 'Last day'}
               </Typography>
               <Typography variant={isXs || small ? 'body2' : 'body1'}>
-                remaining
+                {diffDays > 1 && 'left'} to apply
               </Typography>
             </>
           )}

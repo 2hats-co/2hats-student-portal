@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 export const withOnEnter = WrappedComponent => {
-  class WithOnEnter extends Component {
-    handleKeyPress = e => {
-      if (this.props.primaryAction) {
+  const WithOnEnter = props => {
+    const handleKeyPress = e => {
+      if (props.primaryAction) {
         if (e.key === 'Enter') {
-          this.props.primaryAction();
+          props.primaryAction();
         }
       }
     };
-    render() {
-      return (
-        <WrappedComponent
-          {...this.props}
-          handleKeyPress={this.handleKeyPress}
-        />
-      );
-    }
-  }
+
+    return <WrappedComponent {...props} handleKeyPress={handleKeyPress} />;
+  };
   return WithOnEnter;
 };

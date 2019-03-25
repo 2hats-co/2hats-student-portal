@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -7,12 +6,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-// import IconButton from '@material-ui/core/IconButton';
 
-import PaddedIcon from '../PaddedIcon';
-import GoIcon from '@material-ui/icons/ArrowForward';
 import MoreIcon from '@material-ui/icons/ExpandMore';
 
+import CardsHeader from './CardsHeader';
 import OneCard from './OneCard';
 import { DRAWER_WIDTH } from '../withNavigation';
 import { CARD_WIDTH, CARD_PADDING } from './OneCard';
@@ -42,34 +39,6 @@ const styles = theme => ({
   },
   inline: {
     display: 'inline-block',
-    // margin: 0,
-  },
-
-  paddedIcon: {
-    marginRight: theme.spacing.unit * 1.5,
-    verticalAlign: 'bottom',
-  },
-  title: {
-    cursor: 'default',
-    padding: theme.spacing.unit,
-    fontWeight: 500,
-
-    [theme.breakpoints.down('xs')]: { marginLeft: theme.spacing.unit * 2 },
-  },
-  titleWithIcon: {
-    lineHeight: '48px',
-    marginLeft: '0 !important',
-  },
-  clickableTitle: {
-    cursor: 'pointer',
-    transition: theme.transitions.create('color', {
-      duration: theme.transitions.duration.short,
-    }),
-    '&:hover': { color: theme.palette.primary.main },
-  },
-  goIcon: {
-    marginLeft: theme.spacing.unit / 2,
-    verticalAlign: 'sub',
   },
 
   moreButton: {
@@ -99,11 +68,10 @@ const styles = theme => ({
 function Cards(props) {
   const {
     classes,
-    history,
 
     cols,
     title,
-    icon,
+    Icon,
     route,
 
     NoneLeftIcon,
@@ -154,32 +122,13 @@ function Cards(props) {
     setUsedYourBackup(true);
   }
 
-  const cardsHeader = (
-    <Typography
-      variant="h5"
-      className={classNames(
-        classes.title,
-        icon && classes.titleWithIcon,
-        route && classes.clickableTitle
-      )}
-      onClick={() => {
-        if (route) history.push(route);
-      }}
-    >
-      {icon && <PaddedIcon className={classes.paddedIcon}>{icon}</PaddedIcon>}
-      {usedYourBackup && cards.length > 0 && 'Your '}
-      {title}
-      {route && <GoIcon className={classes.goIcon} />}
-    </Typography>
-  );
-
   if (!cardsState.loading && cards.length === 0 && noneLeftMsg)
     return (
       <div
         className={classNames(classes.root, inline && classes.inline)}
         style={{ width: getCardsWidth(cols) }}
       >
-        {cardsHeader}
+        <CardsHeader {...{ title, route, Icon, usedYourBackup }} />
 
         <Grid container alignItems="center" className={classes.noneLeftWrapper}>
           {NoneLeftIcon && <NoneLeftIcon className={classes.noneLeftIcon} />}
@@ -196,7 +145,7 @@ function Cards(props) {
         className={classNames(classes.root, inline && classes.inline)}
         style={{ width: getCardsWidth(cols) }}
       >
-        {cardsHeader}
+        <CardsHeader {...{ title, route, Icon, usedYourBackup }} />
 
         <Grid container>
           {cards &&
@@ -231,13 +180,10 @@ function Cards(props) {
 
 Cards.propTypes = {
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-
   cols: PropTypes.number.isRequired,
   title: PropTypes.node.isRequired,
-  icon: PropTypes.node,
+  Icon: PropTypes.func,
   route: PropTypes.string,
-
   NoneLeftIcon: PropTypes.func,
   noneLeftMsg: PropTypes.node,
 
@@ -252,4 +198,4 @@ Cards.propTypes = {
   extra: PropTypes.bool,
 };
 
-export default withRouter(withStyles(styles)(Cards));
+export default withStyles(styles)(Cards);

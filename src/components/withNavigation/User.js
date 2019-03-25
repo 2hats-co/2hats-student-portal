@@ -57,7 +57,7 @@ function User(props) {
         style={{ paddingLeft: 4 }}
         className={classes.displayName}
       >
-        {user && user.firstName} {user && user.lastName}
+        {user && user.firstName}
       </Typography>
     </div>
   );

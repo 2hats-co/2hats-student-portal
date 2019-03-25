@@ -4,13 +4,19 @@ import moment from 'moment';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
+import DisqualifyIcon from '@material-ui/icons/CancelOutlined';
 import CompletedIcon from '@material-ui/icons/CheckCircleOutlined';
 
 import CourseDetail from '../components/Cards/CourseDetail';
-import AssessmentDetail from '../components/Cards/AssessmentDetail';
-import JobDetail from '../components/Cards/JobDetail';
+import AssessmentDetail, {
+  AssessmentMeta,
+} from '../components/Cards/AssessmentDetail';
+import JobDetail, { JobMeta } from '../components/Cards/JobDetail';
 
 import * as ROUTES from './routes';
+import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';
+
+moment.updateLocale('en', MOMENT_LOCALES);
 
 export const course = data => {
   let banner = null;
@@ -65,9 +71,10 @@ export const assessment = data => {
         <>
           <FailedIcon />
           Incomplete
+          <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
         </>
       );
-      bannerColor = 'orange';
+      // bannerColor = 'orange';
     } else {
       if (data.outcome === 'pass') {
         primaryAction = 'View submission';
@@ -76,6 +83,7 @@ export const assessment = data => {
           <>
             <PassedIcon />
             Passed
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );
         bannerColor = 'green';
@@ -85,7 +93,19 @@ export const assessment = data => {
         banner = (
           <>
             <FailedIcon />
-            Failed
+            Unsuccessful
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
+          </>
+        );
+        bannerColor = 'orange';
+      } else if (data.outcome === 'disqualify') {
+        primaryAction = data.resubmitted ? 'View' : 'Resubmit';
+
+        banner = (
+          <>
+            <DisqualifyIcon />
+            Disqualified
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );
         bannerColor = 'red';
@@ -96,6 +116,7 @@ export const assessment = data => {
           <>
             <SubmittedIcon />
             Submitted
+            <small>{moment.unix(data.updatedAt.seconds).fromNow()}</small>
           </>
         );
       }
@@ -104,6 +125,7 @@ export const assessment = data => {
 
   return {
     title: data.title,
+    meta: <AssessmentMeta data={data} />,
     secondaryText: <AssessmentDetail data={data} />,
     primaryAction,
     route: `${ROUTES.ASSESSMENT}?id=${data.id}${
@@ -128,20 +150,19 @@ export const job = data => {
         Applied
       </>
     );
-  if (moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 0) {
+  if (moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0) {
     banner = (
       <>
         <FailedIcon />
         Applications Closed
       </>
     );
-  } else if (
-    moment(data.closingDate, 'DD/MM/YYYY').diff(moment(), 'days') < 3
-  ) {
+  } else if (moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 3) {
     banner = (
       <>
         <FailedIcon />
         Closing Soon
+        <small>{moment.unix(data.closingDate.seconds).fromNow()}</small>
       </>
     );
     bannerColor = 'orange';
@@ -149,6 +170,7 @@ export const job = data => {
 
   return {
     title: data.title,
+    meta: <JobMeta data={data} />,
     secondaryText: <JobDetail data={data} />,
     primaryAction: data.jobId ? 'View' : 'Learn more',
     route: `${ROUTES.JOB}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,

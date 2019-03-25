@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
@@ -17,6 +18,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
 import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 export const CARD_WIDTH = 320;
 export const CARD_PADDING = 16;
@@ -43,7 +45,7 @@ const styles = theme => ({
     },
   },
   withVideo: {},
-  withBanner: {},
+  // withBanner: {},
 
   cardActionArea: {
     textAlign: 'right',
@@ -62,7 +64,8 @@ const styles = theme => ({
     transition: theme.transitions.create('opacity'),
 
     textAlign: 'left',
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 1.75}px`,
+    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+    margin: `0 ${-theme.spacing.unit * 2}px ${theme.spacing.unit}px`,
 
     '& svg': {
       verticalAlign: 'bottom',
@@ -73,6 +76,11 @@ const styles = theme => ({
     fontWeight: 500,
     position: 'relative',
     top: 1,
+
+    '& small': {
+      marginLeft: theme.spacing.unit,
+      opacity: 0.67,
+    },
   },
   bannerGreen: {
     backgroundColor: green[100],
@@ -87,12 +95,11 @@ const styles = theme => ({
     '& *': { color: theme.palette.primary.main },
   },
 
-  title: { marginTop: -theme.spacing.unit / 2 },
+  // title: { marginTop: -theme.spacing.unit / 2 },
 
   media: {
     width: 100,
     height: 100,
-    float: 'right',
     borderRadius: theme.shape.borderRadius * 0.75,
     transition: theme.transitions.create('opacity'),
 
@@ -120,17 +127,18 @@ const styles = theme => ({
 
   stretchGrid: {
     height: '100%',
-    '$withBanner &': { height: 'calc(100% - 40px)' },
+    // '$withBanner &': { height: 'calc(100% - 40px)' },
     '$withVideo &': { height: `calc(100% - ${MEDIA_HEIGHT}px)` },
-    '$withBanner$withVideo &': {
-      height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)`,
-    },
+    // '$withBanner$withVideo &': {
+    //   height: `calc(100% - 40px - ${MEDIA_HEIGHT}px)`,
+    // },
   },
   cardContent: {
     textAlign: 'left',
     paddingBottom: theme.spacing.unit,
     '&:last-child': { paddingBottom: theme.spacing.unit },
   },
+  cardContentHeaderWithImg: { minHeight: 125 },
 
   secondaryText: { whiteSpace: 'pre-wrap' },
 
@@ -154,6 +162,7 @@ function OneCard(props) {
   const {
     classes,
     title,
+    meta,
     secondaryText,
     primaryAction,
     route,
@@ -187,14 +196,12 @@ function OneCard(props) {
     );
   }
 
+  moment.updateLocale('en', MOMENT_LOCALES);
+
   return (
     <Card
       classes={{
-        root: classNames(
-          classes.root,
-          video && classes.withVideo,
-          banner && classes.withBanner
-        ),
+        root: classNames(classes.root, video && classes.withVideo),
       }}
     >
       <CardActionArea
@@ -209,21 +216,6 @@ function OneCard(props) {
       >
         {video && media}
 
-        {banner && (
-          <div
-            className={classNames(
-              classes.banner,
-              bannerColor === 'green' && classes.bannerGreen,
-              bannerColor === 'red' && classes.bannerRed,
-              bannerColor === 'orange' && classes.bannerOrange
-            )}
-          >
-            <Typography variant="body1" className={classes.bannerText}>
-              {banner}
-            </Typography>
-          </div>
-        )}
-
         <Grid
           container
           direction="column"
@@ -232,10 +224,39 @@ function OneCard(props) {
         >
           <Grid item xs>
             <CardContent classes={{ root: classes.cardContent }}>
-              {!video && media}
-              <Typography gutterBottom variant="h6" className={classes.title}>
-                {title}
-              </Typography>
+              <Grid
+                container
+                wrap="nowrap"
+                className={!video && media && classes.cardContentHeaderWithImg}
+              >
+                <Grid item xs>
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    className={classes.title}
+                  >
+                    {title}
+                  </Typography>
+                  {meta}
+                </Grid>
+                <Grid item>{!video && media}</Grid>
+              </Grid>
+
+              {banner && (
+                <div
+                  className={classNames(
+                    classes.banner,
+                    bannerColor === 'green' && classes.bannerGreen,
+                    bannerColor === 'red' && classes.bannerRed,
+                    bannerColor === 'orange' && classes.bannerOrange
+                  )}
+                >
+                  <Typography variant="body1" className={classes.bannerText}>
+                    {banner}
+                  </Typography>
+                </div>
+              )}
+
               {typeof secondaryText === 'string' ? (
                 <Typography component="p" className={classes.secondaryText}>
                   {secondaryText}
@@ -269,6 +290,7 @@ OneCard.propTypes = {
   classes: PropTypes.object.isRequired,
 
   title: PropTypes.string,
+  meta: PropTypes.node,
   secondaryText: PropTypes.node,
   primaryAction: PropTypes.string,
   route: PropTypes.string,

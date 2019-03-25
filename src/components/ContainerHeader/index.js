@@ -18,13 +18,13 @@ const styles = theme => ({
       width: `calc(100% - ${theme.spacing.unit * 2}px) !important`,
       maxWidth: '660px !important',
     },
-    [theme.breakpoints.down('xs')]: {
-      paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2,
-    },
+    // [theme.breakpoints.down('xs')]: {
+    //   paddingLeft: theme.spacing.unit * 2,
+    //   paddingRight: theme.spacing.unit * 2,
+    // },
   },
   title: {
-    fontWeight: 400,
+    fontWeight: 500,
     display: 'block',
     overflowWrap: 'break-word',
     wordWrap: 'break-word',

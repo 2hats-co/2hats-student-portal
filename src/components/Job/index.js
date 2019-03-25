@@ -5,10 +5,9 @@ import { withRouter } from 'react-router-dom';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
+import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Link from '@material-ui/core/Link';
 
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import BackButton from '../ContainerHeader/BackButton';
@@ -33,19 +32,17 @@ const styles = theme => ({
     marginTop: -theme.spacing.unit / 2,
     marginLeft: -theme.spacing.unit / 2,
   },
-  upskill: {
-    marginTop: theme.spacing.unit,
-    marginLeft: theme.spacing.unit,
 
-    '& svg': {
-      verticalAlign: 'bottom',
-      marginLeft: theme.spacing.unit / 2,
-    },
-    '& > svg': {
-      marginLeft: 0,
-      marginRight: theme.spacing.unit,
-    },
+  upskill: {
+    marginBottom: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
+
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: theme.shadowsLight[12],
+
+    userSelect: 'none',
   },
+  upskillIcon: { marginRight: theme.spacing.unit },
 
   applyWrapper: {
     textAlign: 'center',
@@ -118,10 +115,14 @@ const Job = props => {
     }
   };
 
-  const skillsNotAchieved = user.skills ? [] : [...data.skillsRequired];
-  data.skillsRequired.forEach(x => {
-    if (user.skills && !user.skills.includes(x)) skillsNotAchieved.push(x);
-  });
+  const skillsNotAchieved = user.skills
+    ? []
+    : data.skillsRequired.map(x => x.id);
+  data.skillsRequired
+    .map(x => x.id)
+    .forEach(x => {
+      if (user.skills && !user.skills.includes(x)) skillsNotAchieved.push(x);
+    });
 
   return (
     <div className={classes.root}>
@@ -156,36 +157,39 @@ const Job = props => {
         </div>
 
         <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
+          <Typography variant="h6" gutterBottom>
             Skills required
           </Typography>
+
+          {skillsNotAchieved.length > 0 && (
+            <Grid
+              container
+              className={classes.upskill}
+              wrap="nowrap"
+              alignItems="flex-start"
+            >
+              <Grid item>
+                <InfoIcon className={classes.upskillIcon} />
+              </Grid>
+              <Grid item xs>
+                <Typography variant="body1">
+                  To demonstrate your skills to potential employers, complete
+                  the short online assessments listed below. Click on a skill
+                  below to get started.
+                </Typography>
+              </Grid>
+            </Grid>
+          )}
+
           <div className={classes.skillsWrapper}>
             {data.skillsRequired.map((x, i) => (
               <SkillItem key={`${i}-${x}`} value={x} clickable />
             ))}
           </div>
-          {skillsNotAchieved.length > 0 && (
-            <Typography variant="body1" className={classes.upskill}>
-              <InfoIcon />
-              Get your skills approved through our{' '}
-              <Link href={ROUTES.ASSESSMENTS} target="_blank" rel="noopener">
-                Assessments
-                <ArrowForwardIcon />
-              </Link>
-            </Typography>
-          )}
         </div>
 
         <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
+          <Typography variant="h6" gutterBottom>
             About the company
           </Typography>
           <div
@@ -195,11 +199,7 @@ const Job = props => {
         </div>
 
         <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
+          <Typography variant="h6" gutterBottom>
             Job description
           </Typography>
           <div

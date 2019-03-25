@@ -42,7 +42,8 @@ var COLLECTIONS = (exports.COLLECTIONS = {
   gmailsToStore: 'gmailsToStore',
   gmails: 'gmails',
   announcements: 'announcements',
-  analytics: 'analytics',
+  emailBlasts: 'emailBlasts',
+  criteria: 'criteria',
 });
 
 //# sourceMappingURL=collections.js.map

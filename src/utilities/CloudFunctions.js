@@ -17,6 +17,7 @@ export const CLOUD_FUNCTIONS = {
   LW_SINGLE_SIGN_ON: 'callablesLwSingleSignOn',
   WHATS_NEXT_AI: 'callablesWhatsNextAI',
   CREATE_SMART_LINK: 'callablesCreateSmartLink',
+  CHECK_FREE_TIMESLOTS: 'callablesCheckFreeTimeslots',
 };
 
 export const cloudFunction = (name, input, success, fail) => {

@@ -30,8 +30,7 @@ import {
 } from '../utilities/Authentication/authWithPassword';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { auth } from '../firebase';
-import { connect } from 'react-redux';
-import { actionTypes } from 'redux-firestore';
+import { DASHBOARD } from '../constants/routes';
 
 const styles = theme => ({
   root: {
@@ -125,8 +124,10 @@ class AuthenticationContainer extends React.Component {
 
     signInWithPassword(
       user,
-      route => {
-        this.goTo(this.state.route || route);
+      () => {
+        this.goTo(
+          this.state.route ? decodeURIComponent(this.state.route) : DASHBOARD
+        );
         this.handleGTevent('Signin');
       },
       this.handleError
@@ -229,6 +230,7 @@ class AuthenticationContainer extends React.Component {
       view,
       isLessThan840,
     } = this.state;
+
     const onSignupRoute =
       this.props.history.location.pathname === routes.SIGN_UP;
 
@@ -405,16 +407,4 @@ AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    clearData: () => {
-      dispatch({
-        type: actionTypes.CLEAR_DATA,
-        preserve: { data: false, ordered: false },
-      });
-    },
-  };
-}
-export default withRouter(
-  withStyles(styles)(connect(mapDispatchToProps)(AuthenticationContainer))
-);
+export default withRouter(withStyles(styles)(AuthenticationContainer));

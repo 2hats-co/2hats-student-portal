@@ -16,7 +16,6 @@ import InfoIcon from '@material-ui/icons/InfoOutlined';
 
 import { profileStyles } from '../../containers/ProfileContainer';
 import * as ROUTES from '../../constants/routes';
-import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   ...profileStyles(theme),
@@ -103,7 +102,8 @@ const ProfileAssessments = props => {
             </Grid>
             <Grid item xs>
               <Typography variant="subtitle1" className={classes.itemTitle}>
-                {getSkillLabel(x.skillAssociated)}
+                {/* {getSkillLabel(x.skillAssociated)} */}
+                {x.title}
               </Typography>
               <Button
                 color="primary"

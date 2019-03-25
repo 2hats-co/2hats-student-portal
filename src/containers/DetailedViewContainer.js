@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 
 import withNavigation from '../components/withNavigation';
 import LoadingScreen from '../components/LoadingScreen';
@@ -11,13 +12,16 @@ import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 import { capitalise } from '../utilities';
 
 const DetailedViewContainer = props => {
-  const { location, user } = props;
+  const { location, user, history } = props;
   const type = location.pathname.replace('/', '');
   const [docState] = useDocumentFromUrl(location, `${type}s`);
 
   useEffect(
     () => {
       document.title = `2hats – ${capitalise(type)}s`;
+
+      const parsedQuery = queryString.parse(location.search);
+      if (!parsedQuery.id) history.push(location.pathname + 's');
     },
     [location]
   );
@@ -43,6 +47,7 @@ const DetailedViewContainer = props => {
 DetailedViewContainer.propTypes = {
   location: PropTypes.object.isRequired,
   user: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
 export default withNavigation(DetailedViewContainer);

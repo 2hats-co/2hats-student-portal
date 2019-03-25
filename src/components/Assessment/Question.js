@@ -12,7 +12,8 @@ import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import CopyIcon from '@material-ui/icons/FileCopyOutlined';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+// import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
+import LaunchIcon from '@material-ui/icons/Launch';
 
 import Dropzone from 'react-dropzone';
 import ReactQuill from 'react-quill';
@@ -23,7 +24,7 @@ import { uploader } from '../../utilities/Uploader';
 import { globalReplace, copyToClipboard } from '../../utilities';
 
 const styles = theme => ({
-  root: { marginTop: theme.spacing.unit * 4 },
+  root: { margin: `${theme.spacing.unit * 4}px 0` },
 
   ...STYLES.RENDERED_HTML(theme),
 
@@ -225,25 +226,28 @@ const Question = props => {
     case 'ideo':
       answerInput =
         smartLink && smartLink.key && smartLink.secret ? (
-          <Button
-            variant="contained"
-            color="primary"
-            component="a"
-            href={`https://ide.2hats.com/?slKey=${smartLink.key}&slSecret=${
-              smartLink.secret
-            }`}
-            target="_blank"
-            rel="noopener noreferrer"
-            size="large"
-            className={classes.getStartedButton}
-          >
-            {readOnly
-              ? 'View submission'
-              : answer && answer.title
-              ? 'Continue'
-              : 'Get started'}
-            <ArrowForwardIcon />
-          </Button>
+          <>
+            <Typography variant="body1" style={{ marginBottom: '1em' }}>
+              Write your code using our <b>code editor</b>, where you can make
+              changes in real time and submit with one click. No need for
+              uploading ZIPs or creating GitHub repositories.
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              component="a"
+              href={`https://ide.2hats.com/?slKey=${smartLink.key}&slSecret=${
+                smartLink.secret
+              }`}
+              target="_blank"
+              rel="noopener noreferrer"
+              size="large"
+              className={classes.getStartedButton}
+            >
+              Open in new tab
+              <LaunchIcon />
+            </Button>
+          </>
         ) : (
           <>
             <Typography variant="body1">Generating link…</Typography>

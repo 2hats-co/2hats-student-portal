@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -10,11 +9,9 @@ import PaddedIcon from '../PaddedIcon';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 import PassedIcon from '../../assets/icons/SkillAchieved';
 import FailedIcon from '@material-ui/icons/ErrorOutline';
+import DisqualifyIcon from '@material-ui/icons/CancelOutlined';
 
-import {
-  // SKILLS,
-  getSkillLabel,
-} from '@bit/sidney2hats.2hats.global.common-constants';
+import Feedback from './Feedback';
 
 const styles = theme => ({
   root: {
@@ -23,8 +20,6 @@ const styles = theme => ({
 
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadowsLight[24],
-
-    userSelect: 'none',
   },
   paddedIcon: {
     marginRight: theme.spacing.unit * 2,
@@ -42,6 +37,7 @@ const StatusMsg = props => {
   let icon = null;
   let title = null;
   let body = null;
+  let extra = null;
 
   if (data.submitted && !data.screened) {
     icon = (
@@ -61,18 +57,28 @@ const StatusMsg = props => {
       title = 'Passed';
       body = (
         <>
-          Congratulations! You’ve earned the{' '}
-          <b>{getSkillLabel(data.skillAssociated)}</b> badge.
+          Congratulations! You’ve earned the <b>{data.title}</b> badge.
         </>
       );
+      extra = <Feedback data={data} />;
     } else if (data.outcome === 'fail') {
       icon = (
         <PaddedIcon className={classes.paddedIcon} color="red">
           <FailedIcon />
         </PaddedIcon>
       );
-      title = 'Failed';
-      body = `You can make another submission below.`;
+      title = 'Unsuccessful';
+      body = 'Your submission did not meet our standards.';
+      extra = <Feedback data={data} />;
+    } else if (data.outcome === 'disqualify') {
+      icon = (
+        <PaddedIcon className={classes.paddedIcon} color="red">
+          <DisqualifyIcon />
+        </PaddedIcon>
+      );
+      title = 'Disqualified';
+      body = 'Your submission was disqualified.';
+      extra = <Feedback data={data} />;
     }
   } else {
     return null;
@@ -81,11 +87,7 @@ const StatusMsg = props => {
   return (
     <Grid
       container
-      className={classNames(
-        classes.root,
-        title === 'Passed' && classes.passed,
-        title === 'Failed' && classes.failed
-      )}
+      className={classes.root}
       alignItems="flex-start"
       direction={isXs ? 'column' : 'row'}
     >
@@ -97,6 +99,7 @@ const StatusMsg = props => {
           {title}
         </Typography>
         <Typography variant="body1">{body}</Typography>
+        {extra}
       </Grid>
     </Grid>
   );

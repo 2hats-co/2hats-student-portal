@@ -7,8 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import PaddedIcon from '../PaddedIcon';
-import AlertIcon from '@material-ui/icons/NewReleasesOutlined';
+import JobIcon from '@material-ui/icons/BusinessCenterOutlined';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
 import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
 
@@ -36,7 +35,7 @@ const styles = theme => ({
     marginBottom: theme.spacing.unit * 6,
 
     padding: theme.spacing.unit * 4,
-    paddingTop: theme.spacing.unit * 3,
+    // paddingTop: theme.spacing.unit * 3,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
 
@@ -52,11 +51,15 @@ const styles = theme => ({
 
   iconWrapper: {
     marginRight: theme.spacing.unit * 2,
-    marginLeft: -theme.spacing.unit,
+    marginLeft: -theme.spacing.unit / 2,
+  },
+  icon: {
+    fontSize: 32,
+    color: theme.palette.primary.main,
   },
   title: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit * 1.125,
+    marginTop: 2,
     color: theme.palette.primary.main,
   },
 
@@ -181,6 +184,12 @@ const Announcement = props => {
 
   if (!data || !jobDoc || !assessmentDoc) return null;
 
+  const diffDays = moment
+    .unix(jobDoc.closingDate.seconds)
+    .diff(moment(), 'days');
+
+  if (diffDays < 0) return null;
+
   return (
     <div className={classes.root} style={{ width: width - 16 }}>
       <Grid container alignItems="stretch" spacing={24}>
@@ -191,9 +200,7 @@ const Announcement = props => {
             className={classes.fullHeight}
           >
             <Grid item className={classes.iconWrapper}>
-              <PaddedIcon color="primary">
-                <AlertIcon />
-              </PaddedIcon>
+              <JobIcon className={classes.icon} />
             </Grid>
             <Grid item xs>
               <Grid item xs>
@@ -226,7 +233,7 @@ const Announcement = props => {
             <Grid item xs>
               <div
                 onClick={() => {
-                  history.push(`${ROUTES.JOBS}?id=${data.jobId}`);
+                  history.push(`${ROUTES.JOB}?id=${data.jobId}`);
                 }}
                 className={classes.jobWrapper}
               >
@@ -246,9 +253,11 @@ const Announcement = props => {
                 </Typography>
 
                 <Typography variant="h5" className={classes.daysRemaining}>
-                  {moment(jobDoc.closingDate, 'DD/MM/YYYY').fromNow(true)}
+                  {diffDays > 1 ? `${diffDays} days` : 'Last day'}
                 </Typography>
-                <Typography variant="body2">left to apply</Typography>
+                <Typography variant="body2">
+                  {diffDays > 1 && 'left'} to apply
+                </Typography>
               </div>
             </Grid>
 
@@ -265,17 +274,17 @@ const Announcement = props => {
                 onClick={() => {
                   if (yourAssessmentDoc)
                     history.push(
-                      `${ROUTES.ASSESSMENTS}?id=${
+                      `${ROUTES.ASSESSMENT}?id=${
                         yourAssessmentDoc.id
                       }&yours=true`
                     );
                   else
                     history.push(
-                      `${ROUTES.ASSESSMENTS}?id=${data.assessmentId}`
+                      `${ROUTES.ASSESSMENT}?id=${data.assessmentId}`
                     );
                 }}
               >
-                Get Started
+                Complete Assessment
                 <ArrowForwardIcon />
               </Button>
             </Grid>

@@ -16,10 +16,13 @@ export const deleteDoc = (collection, docId) =>
     .doc(docId)
     .delete();
 
-export const getfirstIdOfQuery = async (collectionPath, filters) => {
+export const getFirstIdOfQuery = async (collectionPath, filters, sorts) => {
   let query = firestore.collection(collectionPath);
   filters.forEach(filter => {
     query = query.where(filter.field, filter.operator, filter.value);
+  });
+  sorts.forEach(sort => {
+    query = query.orderBy(sort.field, sort.direction || 'asc');
   });
   const results = await query.get();
   if (results.empty) {
@@ -35,3 +38,12 @@ export const createDoc = (collection, docData) =>
     createdAt: firebase.firestore.FieldValue.serverTimestamp(),
     updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
   });
+
+export const getDoc = async (collection, docId) => {
+  const doc = await firestore
+    .collection(collection)
+    .doc(docId)
+    .get();
+
+  return { id: doc.id, ...doc.data() };
+};

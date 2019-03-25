@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
@@ -16,8 +16,11 @@ import AssessmentMetadata from './AssessmentMetadata';
 import AssessmentSubmission from './AssessmentSubmission';
 import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 import StatusMsg from './StatusMsg';
+import LoadingScreen from '../LoadingScreen';
 
 import * as ROUTES from '../../constants/routes';
+import UserContext from '../../contexts/UserContext';
+import { copyAssessment } from '../../utilities/assessments';
 
 const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
@@ -52,15 +55,19 @@ const styles = theme => ({
 const Assessment = props => {
   const { classes, theme, data, history } = props;
 
-  const gotStartedCondition =
-    data && data.assessmentId && data.outcome !== 'fail';
+  const gotStartedCondition = data && data.assessmentId;
+  // && data.outcome !== 'fail';
+  const [loading, setLoading] = useState(false);
   const [gotStarted, setGotStarted] = useState(gotStartedCondition);
 
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
-  useEffect(() => {
-    //window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }, []);
+  // useEffect(() => {
+  //   //window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  // }, []);
+
+  const userContext = useContext(UserContext);
+  const user = userContext.user;
 
   useEffect(
     () => {
@@ -69,6 +76,9 @@ const Assessment = props => {
     },
     [data]
   );
+
+  if (loading)
+    return <LoadingScreen contained message="Creating submission…" />;
 
   return (
     <div className={classes.root}>
@@ -96,33 +106,44 @@ const Assessment = props => {
 
         <StatusMsg data={data} isXs={isXs} />
 
-        <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
-            The company
-          </Typography>
-          <div
-            className={classes.renderedHtml}
-            dangerouslySetInnerHTML={{ __html: data.companyDescription }}
-          />
-        </div>
+        {data.briefing && data.briefing.length > 0 ? (
+          <div className={classes.section}>
+            <div
+              className={classes.renderedHtml}
+              dangerouslySetInnerHTML={{ __html: data.briefing }}
+            />
+          </div>
+        ) : (
+          <>
+            <div className={classes.section}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                className={classes.subtitle}
+              >
+                The company
+              </Typography>
+              <div
+                className={classes.renderedHtml}
+                dangerouslySetInnerHTML={{ __html: data.companyDescription }}
+              />
+            </div>
 
-        <div className={classes.section}>
-          <Typography
-            variant="subtitle1"
-            gutterBottom
-            className={classes.subtitle}
-          >
-            Your job
-          </Typography>
-          <div
-            className={classes.renderedHtml}
-            dangerouslySetInnerHTML={{ __html: data.jobDescription }}
-          />
-        </div>
+            <div className={classes.section}>
+              <Typography
+                variant="subtitle1"
+                gutterBottom
+                className={classes.subtitle}
+              >
+                Your job
+              </Typography>
+              <div
+                className={classes.renderedHtml}
+                dangerouslySetInnerHTML={{ __html: data.jobDescription }}
+              />
+            </div>
+          </>
+        )}
 
         {data.relatedMaterial && (
           <div className={classes.section}>
@@ -154,11 +175,12 @@ const Assessment = props => {
             id="getStarted"
             className={classes.getStarted}
             onClick={e => {
-              setGotStarted(true);
+              setLoading(true);
+              copyAssessment(data, user, history);
             }}
             disabled={!!data.resubmitted}
           >
-            {data.outcome === 'fail' ? 'Resubmit' : 'Get started'}
+            Get started
             <ArrowForwardIcon />
           </Button>
           {!!data.resubmitted && (
@@ -170,7 +192,7 @@ const Assessment = props => {
                 className={classes.resubmittedLink}
                 onClick={() => {
                   history.push(
-                    `${ROUTES.ASSESSMENTS}?id=${data.resubmitted}&yours=true`
+                    `${ROUTES.ASSESSMENT}?id=${data.resubmitted}&yours=true`
                   );
                 }}
               >
@@ -181,7 +203,7 @@ const Assessment = props => {
           )}
         </div>
 
-        {gotStarted && <AssessmentSubmission data={data} />}
+        {gotStarted && <AssessmentSubmission data={data} user={user} />}
       </main>
     </div>
   );

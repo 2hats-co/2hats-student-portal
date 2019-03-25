@@ -3,42 +3,24 @@ import PropTypes from 'prop-types';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
-import LoadingScreen from '../components/LoadingScreen';
-import Job from '../components/Job';
 
 import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
+import YourIcon from '@material-ui/icons/AccountCircleOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import Announcement from '../components/Announcement';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
-import useDocumentFromUrl from '../hooks/useDocumentFromUrl';
 
 const JobsContainer = props => {
-  const { isMobile, location, user } = props;
+  const { isMobile, user } = props;
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
 
-  const [docState] = useDocumentFromUrl(location, COLLECTIONS.jobs);
-
   useEffect(() => {
     document.title = '2hats – Jobs';
   }, []);
-
-  useEffect(
-    () => {
-      //  window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-      if (docState.doc) document.title = `2hats – Jobs – ${docState.doc.title}`;
-      else document.title = '2hats – Jobs';
-    },
-    [docState.doc]
-  );
-
-  if (location.search && docState.valid) {
-    if (docState.doc) return <Job data={docState.doc} user={user} />;
-    return <LoadingScreen showNav />;
-  }
 
   return (
     <div>
@@ -59,6 +41,7 @@ const JobsContainer = props => {
           sort: { field: 'updatedAt', direction: 'desc' },
         }}
         extra
+        Icon={YourIcon}
       />
       <Cards
         title="Marketing Jobs"

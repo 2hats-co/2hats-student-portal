@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
@@ -15,15 +15,13 @@ import CheckIcon from '@material-ui/icons/Check';
 import SubmittedIcon from '@material-ui/icons/SendRounded';
 
 import Question from './Question';
-import UserContext from '../../contexts/UserContext';
-import * as ROUTES from '../../constants/routes';
 import {
   COLLECTIONS,
   STYLES,
 } from '@bit/sidney2hats.2hats.global.common-constants';
-import { removeHtmlTags, getRandomId } from '../../utilities';
-import { createDoc, updateDoc } from '../../utilities/firestore';
-import { CLOUD_FUNCTIONS, cloudFunction } from '../../utilities/CloudFunctions';
+import { removeHtmlTags } from '../../utilities';
+import { updateDoc } from '../../utilities/firestore';
+import { checkSmartLink } from '../../utilities/assessments';
 
 const styles = theme => ({
   root: {},
@@ -65,13 +63,12 @@ const styles = theme => ({
 });
 
 const AssessmentSubmission = props => {
-  const { classes, data, history } = props;
+  const { classes, data, user } = props;
 
   const [submissionId, setSubmissionId] = useState('');
   const [answers, setAnswers] = useState(
-    data.outcome !== 'fail' && Array.isArray(data.submissionContent)
-      ? data.submissionContent
-      : []
+    // data.outcome !== 'fail' &&
+    Array.isArray(data.submissionContent) ? data.submissionContent : []
   );
   const [showSnackbar, setShowSnackbar] = useState(false);
 
@@ -112,135 +109,14 @@ const AssessmentSubmission = props => {
     }
   });
 
-  // read-only if submitted or passed
-  const readOnly = data.submitted && data.outcome !== 'fail';
-
-  const userContext = useContext(UserContext);
-  const user = userContext.user;
+  // read-only if submitted
+  const readOnly = data.submitted;
 
   // on first mount only
   useEffect(() => {
-    // Make a copy if not copied or failed (resubmission)
-    if (!data.assessmentId || data.outcome === 'fail') {
-      // separate assessment ID so new doc doesn't have assessment ID
-      const { id, ...rest } = data;
-      // copy assessment data
-      const copiedAssessment = {
-        ...rest,
-        UID: user.id,
-        outcome: 'pending',
-        screened: false,
-        submissionContent: [],
-        assessmentId: data.assessmentId || id,
-        submitted: false,
-      };
-      // randomiser
-      if (
-        data.questionsDisplayed > 0 &&
-        data.questions &&
-        data.questions.length > 0
-      ) {
-        const cq = [];
-        const cqi = [];
-
-        while (cq.length < data.questionsDisplayed) {
-          const index = Math.floor(Math.random() * data.questions.length);
-          if (!cqi.includes(index)) {
-            cqi.push(index);
-            cq.push(data.questions[index]);
-          }
-        }
-
-        copiedAssessment.copiedQuestions = cq;
-        copiedAssessment.copiedQuestionsIndices = cqi;
-      }
-      // create random email
-      if (data.submissionType === 'mailchimp')
-        copiedAssessment.mcEmail = `mc+${getRandomId()}@2hats.com`;
-
-      // create copy in user's assessment subcollection
-      createDoc(
-        `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-        copiedAssessment
-      ).then(docRef => {
-        console.log('Created submission doc', docRef.id);
-
-        // create IDEO smartLink
-        if (data.submissionType === 'ideo') {
-          cloudFunction(
-            CLOUD_FUNCTIONS.CREATE_SMART_LINK,
-            { route: 'ideo', data: { submissionId: docRef.id } },
-            res => {
-              docRef.update({ smartLink: res.data });
-            },
-            err => {
-              console.error('error creating smartlink', err);
-            }
-          );
-        }
-
-        // set first submission to resubmitted to disable
-        if (data.outcome === 'fail') {
-          updateDoc(
-            `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-            data.id,
-            { resubmitted: docRef.id }
-          ).then(docRef => {
-            console.log('resubmitted set to true for', docRef);
-          });
-        }
-
-        // touch assessment
-        const newTouchedAssessments = user.touchedAssessments || [];
-        newTouchedAssessments.push(data.assessmentId || data.id);
-        updateDoc(COLLECTIONS.users, user.id, {
-          touchedAssessments: newTouchedAssessments,
-        }).then(() => {
-          history.push(`${ROUTES.ASSESSMENTS}?id=${docRef.id}&yours=true`);
-        });
-      });
-    } else {
+    if (data.assessmentId) {
       setSubmissionId(data.id);
-
-      // if has smartlink, verify it still works
-      if (
-        data.submissionType === 'ideo' &&
-        data.smartLink &&
-        data.smartLink.key &&
-        data.smartLink.secret
-      ) {
-        console.log('Checking SmartLink…', data.smartLink);
-        cloudFunction(
-          CLOUD_FUNCTIONS.SMART_LINK,
-          { slKey: data.smartLink.key, slSecret: data.smartLink.secret },
-          res => {
-            if (!res.data.success) {
-              console.log('Re-generating SmartLink…');
-              cloudFunction(
-                CLOUD_FUNCTIONS.CREATE_SMART_LINK,
-                { route: 'ideo', data: { submissionId: data.id } },
-                res => {
-                  updateDoc(
-                    `${COLLECTIONS.users}/${user.id}/${
-                      COLLECTIONS.assessments
-                    }`,
-                    data.id,
-                    { smartLink: res.data }
-                  ).then(() => {
-                    console.log('Successfully re-generated SmartLink');
-                  });
-                },
-                err => {
-                  console.error('error creating smartlink', err);
-                }
-              );
-            }
-          },
-          err => {
-            console.error('error checking smartlink', err);
-          }
-        );
-      }
+      checkSmartLink(data, user);
     }
   }, []);
 
@@ -257,13 +133,8 @@ const AssessmentSubmission = props => {
 
   useEffect(
     () => {
-      if (
-        data.submissionContent &&
-        Array.isArray(data.submissionContent) &&
-        data.outcome !== 'fail'
-      ) {
+      if (data.submissionContent && Array.isArray(data.submissionContent))
         setAnswers(data.submissionContent);
-      }
     },
     [data.submissionContent]
   );
@@ -402,6 +273,7 @@ const AssessmentSubmission = props => {
 AssessmentSubmission.propTypes = {
   classes: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 

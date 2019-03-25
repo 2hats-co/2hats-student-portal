@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
@@ -15,6 +15,9 @@ import green from '@material-ui/core/colors/green';
 import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import UserContext from '../contexts/UserContext';
+import { getFirstIdOfQuery } from '../utilities/firestore';
+
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   root: {
@@ -75,16 +78,84 @@ const SkillItem = props => {
   } = props;
 
   const userContext = useContext(UserContext);
-
+  const user = userContext.user;
+  const [skillLabel, setSkillLabel] = useState(getSkillLabel(value));
+  const [assessmentRoute, setAssessmentRoute] = useState(
+    !value.id && `/assessment?skill=${value}`
+  );
   const achieved =
-    userContext.user.skills && userContext.user.skills.includes(value);
+    user.skills &&
+    (user.skills.includes(value) || user.skills.includes(value.id));
+
+  const setUserAssessmentRoute = async value => {
+    const docId = await getFirstIdOfQuery(
+      `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+      [{ field: 'assessmentId', operator: '==', value: value.id }],
+      [{ field: 'updatedAt', direction: 'desc' }]
+    );
+    setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
+  };
+  // const setUserAssessmentRouteByAssociatedSkill = async value => {
+  //   const docId = await getFirstIdOfQuery(
+  //     `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+  //     [{ field: 'skillAssociated', operator: '==', value: value }],
+  //     [{ field: 'updatedAt', direction: 'desc' }]
+  //   );
+  //   setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
+  // };
+  const getAssessmentIdByAssociatedSkill = async value => {
+    const docId = await getFirstIdOfQuery(
+      COLLECTIONS.assessments,
+      [
+        { field: 'skillAssociated', operator: '==', value: value },
+        { field: 'published', operator: '==', value: true },
+      ],
+      [{ field: 'updatedAt', direction: 'desc' }]
+    );
+    return docId;
+  };
+
+  const setRouteByAssociatedSkill = async value => {
+    const assementId = await getAssessmentIdByAssociatedSkill(value);
+    if (
+      user.touchedAssessments &&
+      user.touchedAssessments.includes(assementId)
+    ) {
+      const docId = await getFirstIdOfQuery(
+        `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+        [{ field: 'assessmentId', operator: '==', value: assementId }],
+        [{ field: 'updatedAt', direction: 'desc' }]
+      );
+      setAssessmentRoute(`/assessment?id=${docId}&yours=true`);
+    } else {
+      setAssessmentRoute(`/assessment?id=${assementId}`);
+    }
+  };
+  useEffect(
+    () => {
+      if (value.title) {
+        setSkillLabel(value.title);
+        if (
+          user.touchedAssessments &&
+          user.touchedAssessments.includes(value.id)
+        ) {
+          setUserAssessmentRoute(value);
+        } else {
+          setAssessmentRoute(`/assessment?id=${value.id}`);
+        }
+      } else {
+        setRouteByAssociatedSkill(value);
+      }
+    },
+    [value]
+  );
 
   return (
     <Grid
       onClick={
-        clickable
+        clickable && assessmentRoute
           ? () => {
-              history.push(`/assessments?skill=${value}`);
+              history.push(assessmentRoute);
             }
           : () => {}
       }
@@ -105,7 +176,7 @@ const SkillItem = props => {
       <Grid item xs>
         <Typography variant="body1" className={classes.label}>
           <span className={classes.header}>{header}</span>
-          {getSkillLabel(value)}
+          {skillLabel}
         </Typography>
       </Grid>
       {clickable && <ButtonBase className={classes.buttonBase} />}
@@ -117,7 +188,7 @@ SkillItem.propTypes = {
   classes: PropTypes.object.isRequired,
   className: PropTypes.string,
   style: PropTypes.object,
-  value: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   header: PropTypes.node,
   dense: PropTypes.bool,
   clickable: PropTypes.bool,

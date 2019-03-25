@@ -127,7 +127,7 @@ const styles = theme => ({
   wrappedComponentMobilePadding: { paddingBottom: theme.spacing.unit * 10 },
 
   appBar: {
-    top: 'auto',
+    top: 'auto !important',
     bottom: 0,
 
     backgroundColor: theme.palette.background.paper,
@@ -284,7 +284,10 @@ export default function withNavigation(WrappedComponent) {
                       <NavItem
                         data={x}
                         key={i}
-                        selected={selectedRoute === x.route}
+                        selected={
+                          selectedRoute === x.route ||
+                          selectedRoute + 's' === x.route
+                        }
                         goTo={goTo}
                         classes={classes}
                       />
