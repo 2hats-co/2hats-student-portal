@@ -75,7 +75,6 @@ class AuthenticationContainer extends React.Component {
   }
   async componentWillMount() {
     warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL);
-    warmUp(CLOUD_FUNCTIONS.AUTHENTICATE_3RD_PARTY);
     const parsedQuery = queryString.parse(this.props.history.location.search);
     // console.log(parsedQuery);
     const linkParams = ['firstName', 'smartKey', 'route', 'email'];
