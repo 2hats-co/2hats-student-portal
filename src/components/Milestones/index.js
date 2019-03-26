@@ -97,7 +97,7 @@ const Milestones = props => {
       <Grid container spacing={8} className={classes.milestonesGrid}>
         <Grid item xs={4} sm={3}>
           <MilestoneItem
-            val={user.touchedJobs.length}
+            val={Array.isArray(user.touchedJobs) ? user.touchedJobs.length : 0}
             Icon={JobsIcon}
             title={'Jobs\napplied'}
             route={ROUTES.JOBS}
@@ -107,7 +107,7 @@ const Milestones = props => {
 
         <Grid item xs={4} sm={3}>
           <MilestoneItem
-            val={user.skills.length}
+            val={Array.isArray(user.skills) ? user.skills.length : 0}
             Icon={SkillIcon}
             title={'Skills\nachieved'}
             route={ROUTES.ASSESSMENTS}
