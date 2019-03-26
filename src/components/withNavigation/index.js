@@ -11,12 +11,10 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import MenuIcon from '@material-ui/icons/MenuOutlined';
-import ActivityLogIcon from '@material-ui/icons/HistoryOutlined';
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 import ProfileIcon from '@material-ui/icons/PersonOutlined';
 import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
@@ -39,7 +37,7 @@ import User from './User';
 import NavItem from './NavItem';
 import LoadingScreen from '../LoadingScreen';
 import AccountInfoDialog from '../AccountInfoDialog';
-import ActivityLog from '../ActivityLog';
+import SuperAvatar from '../SuperAvatar';
 
 import useDocument from '../../hooks/useDocument';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -146,6 +144,8 @@ const styles = theme => ({
     userDrag: 'none',
     cursor: 'pointer',
   },
+  avatarButton: { padding: 0, width: 48, height: 48 },
+  avatar: { width: 32, height: 32 },
 });
 
 export default function withNavigation(WrappedComponent) {
@@ -161,7 +161,6 @@ export default function withNavigation(WrappedComponent) {
     else document.body.classList.remove('fb_up');
 
     const [navOpen, setNavOpen] = useState(false);
-    const [activityLogOpen, setActivityLogOpen] = useState(false);
     const [fadeOut, setFadeOut] = useState(false);
     const [selectedRoute, setSelectedRoute] = useState(location.pathname);
 
@@ -254,22 +253,6 @@ export default function withNavigation(WrappedComponent) {
                   }}
                 >
                   <img src={logo} alt="2hats" className={classes.logo} />
-                  <IconButton
-                    className={classes.activityLogButton}
-                    onClick={e => {
-                      e.stopPropagation();
-                      setActivityLogOpen(true);
-                    }}
-                  >
-                    <Badge
-                      color="primary"
-                      classes={{ badge: classes.badge }}
-                      badgeContent="!"
-                      invisible
-                    >
-                      <ActivityLogIcon />
-                    </Badge>
-                  </IconButton>
                 </Grid>
 
                 <Divider className={classes.divider} />
@@ -357,33 +340,16 @@ export default function withNavigation(WrappedComponent) {
                 />
 
                 <IconButton
-                  id="mobile-activity-log"
                   color="inherit"
-                  aria-label="Activity log"
                   onClick={() => {
-                    setActivityLogOpen('bottom');
+                    setNavOpen(true);
                   }}
+                  className={classes.avatarButton}
                 >
-                  <Badge
-                    color="primary"
-                    classes={{ badge: classes.badge }}
-                    badgeContent="!"
-                    invisible
-                  >
-                    <ActivityLogIcon />
-                  </Badge>
+                  <SuperAvatar data={user || {}} className={classes.avatar} />
                 </IconButton>
               </Toolbar>
             </AppBar>
-          )}
-
-          {activityLogOpen && user && (
-            <ActivityLog
-              showDialog={activityLogOpen}
-              setShowDialog={setActivityLogOpen}
-              user={user}
-              isMobile={isMobile}
-            />
           )}
 
           {showAccountInfo && user && (

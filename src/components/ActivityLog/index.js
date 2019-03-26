@@ -42,20 +42,21 @@ const styles = theme => ({
     position: 'absolute',
     top: theme.spacing.unit * 1.5,
     bottom: 'auto',
-    left: theme.spacing.unit * 20.5,
-    transformOrigin: `${theme.spacing.unit * 4.5}px 0`,
-  },
-  paperRootMobile: {
-    left: theme.spacing.unit * 1.5,
-    transformOrigin: `${theme.spacing.unit * 27}px 0%`,
-  },
-  paperRootBottom: {
-    top: 'auto',
-    left: 'auto',
-    bottom: theme.spacing.unit * 1.5,
     right: theme.spacing.unit * 1.5,
-    transformOrigin: '100% 100%',
+    // transformOrigin: `${theme.spacing.unit * 4.5}px 0`,
+    transformOrigin: '100% 0',
   },
+  // paperRootMobile: {
+  //   left: theme.spacing.unit * 1.5,
+  //   transformOrigin: `${theme.spacing.unit * 27}px 0%`,
+  // },
+  // paperRootBottom: {
+  //   top: 'auto',
+  //   left: 'auto',
+  //   bottom: theme.spacing.unit * 1.5,
+  //   right: theme.spacing.unit * 1.5,
+  //   transformOrigin: '100% 100%',
+  // },
 
   header: {
     boxSizing: 'content-box',
@@ -165,8 +166,8 @@ function ActivityLog(props) {
             classes={{
               root: classNames(
                 classes.paperRoot,
-                isMobile && classes.paperRootMobile,
-                showDialog === 'bottom' && classes.paperRootBottom
+                isMobile && classes.paperRootMobile
+                //showDialog === 'bottom' && classes.paperRootBottom
               ),
             }}
           >
