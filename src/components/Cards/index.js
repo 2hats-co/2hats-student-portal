@@ -126,7 +126,12 @@ function Cards(props) {
     return (
       <div
         className={classNames(classes.root, inline && classes.inline)}
-        style={{ width: getCardsWidth(cols) }}
+        style={{
+          width: Math.min(
+            getCardsWidth(cols),
+            getCardsWidth(getNumCards(window.innerWidth))
+          ),
+        }}
       >
         <CardsHeader {...{ title, route, Icon, usedYourBackup }} />
 
@@ -143,7 +148,12 @@ function Cards(props) {
     return (
       <div
         className={classNames(classes.root, inline && classes.inline)}
-        style={{ width: getCardsWidth(cols) }}
+        style={{
+          width: Math.min(
+            getCardsWidth(cols),
+            getCardsWidth(getNumCards(window.innerWidth))
+          ),
+        }}
       >
         <CardsHeader {...{ title, route, Icon, usedYourBackup }} />
 
