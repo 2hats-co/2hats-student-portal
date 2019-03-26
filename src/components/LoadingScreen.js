@@ -55,7 +55,13 @@ const styles = theme => ({
 });
 
 function LoadingScreen(props) {
-  const { classes, theme, message, showNav, contained } = props;
+  const {
+    classes,
+    theme,
+    message,
+    // showNav,
+    contained,
+  } = props;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -87,7 +93,7 @@ LoadingScreen.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   message: PropTypes.node,
-  showNav: PropTypes.bool,
+  // showNav: PropTypes.bool,
   contained: PropTypes.bool,
 };
 
