@@ -149,7 +149,9 @@ class AuthenticationContainer extends React.Component {
           user,
           route => {
             console.log('going to ' + route);
-            this.goTo(route);
+            this.goTo(
+              this.state.route ? decodeURIComponent(this.state.route) : route
+            );
             this.handleGTevent('Signup');
           },
           this.handleError
