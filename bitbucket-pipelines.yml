@@ -7,7 +7,7 @@ image: node:9
 
 pipelines:
   branches:
-    student-portal-3-revenge-of-the-hooks-react-reloaded-harder-better-faster-stronger:
+    SP3-testing:
       - step:
           caches:
           - node
