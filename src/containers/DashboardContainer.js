@@ -10,7 +10,7 @@ import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 
 import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
-import Milestones from '../components/Milestones';
+// import Milestones from '../components/Milestones';
 import WhatsNext from '../components/WhatsNext';
 import Announcement from '../components/Announcement';
 import Cards from '../components/Cards';
@@ -136,11 +136,11 @@ const DashboardContainer = props => {
         title={`Hi, ${user.firstName.trim()}!`}
         maxWidth={getCardsWidth(cardsCols)}
       />
-      <Milestones
+      {/* <Milestones
         user={user}
         width={getCardsWidth(cardsCols)}
         isMobile={isMobile}
-      />
+      /> */}
       <Announcement width={getCardsWidth(cardsCols)} />
       <WhatsNext user={user} width={getCardsWidth(cardsCols)} />
 
