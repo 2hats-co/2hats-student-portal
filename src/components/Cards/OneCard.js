@@ -227,7 +227,9 @@ function OneCard(props) {
               <Grid
                 container
                 wrap="nowrap"
-                className={!video && media && classes.cardContentHeaderWithImg}
+                className={
+                  !video && media ? classes.cardContentHeaderWithImg : ''
+                }
               >
                 <Grid item xs>
                   <Typography

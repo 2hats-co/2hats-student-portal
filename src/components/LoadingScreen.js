@@ -55,7 +55,13 @@ const styles = theme => ({
 });
 
 function LoadingScreen(props) {
-  const { classes, theme, message, showNav, contained } = props;
+  const {
+    classes,
+    theme,
+    message,
+    // showNav,
+    contained,
+  } = props;
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -63,10 +69,11 @@ function LoadingScreen(props) {
       container
       direction={isMobile ? 'column-reverse' : 'row'}
       alignItems="center"
-      justify={showNav ? 'space-between' : 'center'}
+      //justify={showNav ? 'space-between' : 'center'}
+      justify="center"
       className={classNames(classes.root, contained && classes.contained)}
     >
-      {showNav && <Grid item className={classes.fakeNav} />}
+      {/* {showNav && <Grid item className={classes.fakeNav} />} */}
 
       <Grid item>
         <CircularProgress size={64} className={classes.circularProgress} />
@@ -77,7 +84,7 @@ function LoadingScreen(props) {
         )}
       </Grid>
 
-      {showNav && <Grid item />}
+      {/* {showNav && <Grid item />} */}
     </Grid>
   );
 }
@@ -86,7 +93,7 @@ LoadingScreen.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
   message: PropTypes.node,
-  showNav: PropTypes.bool,
+  // showNav: PropTypes.bool,
   contained: PropTypes.bool,
 };
 

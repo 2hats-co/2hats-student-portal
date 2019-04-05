@@ -13,7 +13,7 @@ const styles = theme => ({
 
     [theme.breakpoints.down('xs')]: {
       paddingLeft: theme.spacing.unit * 2,
-      paddingRight: theme.spacing.unit * 2,
+      // paddingRight: theme.spacing.unit * 2,
     },
   },
   clickable: {

@@ -71,6 +71,16 @@ const ResumeUploader = props => {
             o => console.log(o),
             o => console.log(o)
           );
+          cloudFunction(
+            CLOUD_FUNCTIONS.RESUME_SCRAPER,
+            { uid, url: file.url },
+            o => {
+              console.log(o);
+            },
+            o => {
+              console.log(o);
+            }
+          );
           if (resetOnUpload) setFile({});
         });
       }

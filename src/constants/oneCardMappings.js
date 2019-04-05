@@ -143,14 +143,14 @@ export const job = data => {
   let banner = null;
   let bannerColor = '';
 
-  if (data.jobId)
+  if (data.jobId) {
     banner = (
       <>
         <SubmittedIcon />
         Applied
       </>
     );
-  if (moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0) {
+  } else if (moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0) {
     banner = (
       <>
         <FailedIcon />

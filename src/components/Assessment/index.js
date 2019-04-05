@@ -17,10 +17,14 @@ import AssessmentSubmission from './AssessmentSubmission';
 import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 import StatusMsg from './StatusMsg';
 import LoadingScreen from '../LoadingScreen';
+import OneCard from '../Cards/OneCard';
 
 import * as ROUTES from '../../constants/routes';
 import UserContext from '../../contexts/UserContext';
 import { copyAssessment } from '../../utilities/assessments';
+import useCollection from '../../hooks/useCollection';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { course as courseMapping } from '../../constants/oneCardMappings';
 
 const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
@@ -50,6 +54,10 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit,
   },
   resubmittedLink: { verticalAlign: 'baseline' },
+
+  coursesWrapper: {
+    margin: `0 -${theme.spacing.unit}px`,
+  },
 });
 
 const Assessment = props => {
@@ -75,6 +83,33 @@ const Assessment = props => {
       else setGotStarted(false);
     },
     [data]
+  );
+
+  const [courseState, courseDispatch] = useCollection();
+  const suggestedCourses = courseState.documents;
+
+  // Get course suggestion
+  useEffect(
+    () => {
+      courseDispatch({
+        path: COLLECTIONS.courses,
+        filters: [
+          {
+            field: 'skillsAssociated',
+            operator: 'array-contains',
+            value: { id: data.assessmentId || data.id, title: data.title },
+          },
+        ],
+      });
+    },
+    [data.id]
+  );
+
+  useEffect(
+    () => {
+      console.log('suggestedCourses', suggestedCourses);
+    },
+    [suggestedCourses]
   );
 
   if (loading)
@@ -117,7 +152,7 @@ const Assessment = props => {
           <>
             <div className={classes.section}>
               <Typography
-                variant="subtitle1"
+                variant="h6"
                 gutterBottom
                 className={classes.subtitle}
               >
@@ -131,7 +166,7 @@ const Assessment = props => {
 
             <div className={classes.section}>
               <Typography
-                variant="subtitle1"
+                variant="h6"
                 gutterBottom
                 className={classes.subtitle}
               >
@@ -147,11 +182,7 @@ const Assessment = props => {
 
         {data.relatedMaterial && (
           <div className={classes.section}>
-            <Typography
-              variant="subtitle1"
-              gutterBottom
-              className={classes.subtitle}
-            >
+            <Typography variant="h6" gutterBottom className={classes.subtitle}>
               Related material
             </Typography>
             <div
@@ -204,6 +235,23 @@ const Assessment = props => {
         </div>
 
         {gotStarted && <AssessmentSubmission data={data} user={user} />}
+
+        {suggestedCourses.length > 0 && (
+          <div className={classes.section}>
+            <Typography variant="h6" gutterBottom className={classes.subtitle}>
+              Need some help?
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Check out this short online course and learn the skills you need
+              to complete this task.
+            </Typography>
+            <div className={classes.coursesWrapper}>
+              {suggestedCourses.map(x => (
+                <OneCard key={x.id} {...courseMapping({ ...x })} />
+              ))}
+            </div>
+          </div>
+        )}
       </main>
     </div>
   );

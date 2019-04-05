@@ -18,6 +18,7 @@ export const CLOUD_FUNCTIONS = {
   WHATS_NEXT_AI: 'callablesWhatsNextAI',
   CREATE_SMART_LINK: 'callablesSmartLinkCreate', //here
   CHECK_FREE_TIMESLOTS: 'callablesCalendarFreeTimeslots',
+  CACHED_STATS: 'callablesCachedStats',
 };
 
 export const cloudFunction = (name, input, success, fail) => {
