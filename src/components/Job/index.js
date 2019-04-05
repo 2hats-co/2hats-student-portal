@@ -54,6 +54,11 @@ const styles = theme => ({
   },
 
   formHeaderGrid: { marginBottom: theme.spacing.unit },
+
+  coverImage: {
+    ...STYLES.DETAIL_VIEW(theme).coverImage,
+    maxWidth: 160,
+  },
 });
 
 const Job = props => {
