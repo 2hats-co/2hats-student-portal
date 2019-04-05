@@ -1,23 +1,23 @@
 import { functions } from '../store';
 
 export const CLOUD_FUNCTIONS = {
-  TAG_TRACKER: 'restApiEventTracker',
+  TAG_TRACKER: 'callablesEventTracker',
   RESUME_SCRAPER: 'callablesAlgoliaResumes',
-  SPEEDY_SIGNUP: 'restApiSpeedySignup',
-  AUTHENTICATE_GOOGLE: 'restApiAuthenticateGoogle',
-  AUTHENTICATE_LINKEDIN: 'callablesAuthenticateLinkedIn',
-  CHECK_EMAIL: 'restApiCheckEmail',
-  SMART_LINK: 'restApiSmartLink',
-  RESET_PASSWORD: 'restApiResetPassword',
-  CREATE_PASSWORD: 'restApiCreatePassword',
-  VALIDATE_EMAIL: 'restApiVaildateEmail',
-  DISABLE_SMART_LINK: 'restApiDisableSmartLink',
-  LEARN_WORLD_SSO: 'callablesLwSingleSignOn',
-  CHARGE_STRIPE_TOKEN: 'callablesChargeStripeToken',
-  LW_SINGLE_SIGN_ON: 'callablesLwSingleSignOn',
+  SPEEDY_SIGNUP: 'callablesAuthSpeedySignup',
+  AUTHENTICATE_GOOGLE: 'callablesAuthGoogle',
+  AUTHENTICATE_LINKEDIN: 'callablesAuthenticateLinkedIn', // not used
+  CHECK_EMAIL: 'callablesCheckEmail',
+  SMART_LINK: 'callablesSmartLinkActivate',
+  RESET_PASSWORD: 'callablesAuthResetPassword',
+  CREATE_PASSWORD: 'callablesAuthCreatePassword',
+  VALIDATE_EMAIL: 'restApiVaildateEmail', // not this one
+  DISABLE_SMART_LINK: 'callablesSmartLinkDisable',
+  LEARN_WORLD_SSO: 'callablesLearnWorldSignon',
+  CHARGE_STRIPE_TOKEN: 'callablesStripeChargeToken', //not used
+  LW_SINGLE_SIGN_ON: 'callablesLearnWorldSignon',
   WHATS_NEXT_AI: 'callablesWhatsNextAI',
-  CREATE_SMART_LINK: 'callablesCreateSmartLink',
-  CHECK_FREE_TIMESLOTS: 'callablesCheckFreeTimeslots',
+  CREATE_SMART_LINK: 'callablesSmartLinkCreate', //here
+  CHECK_FREE_TIMESLOTS: 'callablesCalendarFreeTimeslots',
 };
 
 export const cloudFunction = (name, input, success, fail) => {

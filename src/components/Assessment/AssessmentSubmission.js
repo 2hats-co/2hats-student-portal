@@ -21,7 +21,10 @@ import {
 } from '@bit/sidney2hats.2hats.global.common-constants';
 import { removeHtmlTags } from '../../utilities';
 import { updateDoc } from '../../utilities/firestore';
-import { checkSmartLink } from '../../utilities/assessments';
+import {
+  checkSmartLink,
+  //createIdeoSmartLink,
+} from '../../utilities/assessments';
 
 const styles = theme => ({
   root: {},
@@ -135,6 +138,12 @@ const AssessmentSubmission = props => {
     () => {
       if (data.submissionContent && Array.isArray(data.submissionContent))
         setAnswers(data.submissionContent);
+      if (
+        (data.submissionType === 'ideo' && !data.smartLink) ||
+        data.smartLink === {}
+      ) {
+        //createIdeoSmartLink(data, user);
+      }
     },
     [data.submissionContent]
   );

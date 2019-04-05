@@ -11,6 +11,8 @@ export const getTokenWithGoogle = async (user, callback) => {
     CLOUD_FUNCTIONS.AUTHENTICATE_GOOGLE,
     request,
     result => {
+      console.log(result.data);
+
       auth.signInWithCustomToken(result.data.token).then(() => {
         callback(result.data.route);
       });

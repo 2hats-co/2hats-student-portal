@@ -236,9 +236,11 @@ const Question = props => {
               variant="contained"
               color="primary"
               component="a"
-              href={`https://ide.2hats.com/?slKey=${smartLink.key}&slSecret=${
-                smartLink.secret
-              }`}
+              href={`https://${
+                process.env.REACT_APP_ENV === 'STAGING'
+                  ? 'ideo-2hata.firebaseapp.com'
+                  : 'ide.2hats.com'
+              }/?slKey=${smartLink.key}&slSecret=${smartLink.secret}`}
               target="_blank"
               rel="noopener noreferrer"
               size="large"
