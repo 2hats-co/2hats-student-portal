@@ -143,6 +143,8 @@ export const job = data => {
   let banner = null;
   let bannerColor = '';
 
+  const diffDays = moment.unix(data.closingDate.seconds).diff(moment(), 'days');
+
   if (data.jobId) {
     banner = (
       <>
@@ -150,19 +152,19 @@ export const job = data => {
         Applied
       </>
     );
-  } else if (moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0) {
+  } else if (diffDays < 0) {
     banner = (
       <>
         <FailedIcon />
         Applications Closed
       </>
     );
-  } else if (moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 3) {
+  } else if (diffDays < 3) {
     banner = (
       <>
         <FailedIcon />
         Closing Soon
-        <small>{moment.unix(data.closingDate.seconds).fromNow()}</small>
+        <small>{diffDays > 1 ? `${diffDays} days` : 'Last day'}</small>
       </>
     );
     bannerColor = 'orange';
