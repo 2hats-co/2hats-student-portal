@@ -10,13 +10,12 @@ export const CLOUD_FUNCTIONS = {
   SMART_LINK: 'callablesSmartLinkActivate',
   RESET_PASSWORD: 'callablesAuthResetPassword',
   CREATE_PASSWORD: 'callablesAuthCreatePassword',
-  VALIDATE_EMAIL: 'restApiVaildateEmail', // not this one
   DISABLE_SMART_LINK: 'callablesSmartLinkDisable',
   LEARN_WORLD_SSO: 'callablesLearnWorldSignon',
   CHARGE_STRIPE_TOKEN: 'callablesStripeChargeToken', //not used
   LW_SINGLE_SIGN_ON: 'callablesLearnWorldSignon',
   WHATS_NEXT_AI: 'callablesWhatsNextAI',
-  CREATE_SMART_LINK: 'callablesSmartLinkCreate', //here
+  CREATE_SMART_LINK: 'callablesSmartLinkCreate',
   CHECK_FREE_TIMESLOTS: 'callablesCalendarFreeTimeslots',
   CACHED_STATS: 'callablesCachedStats',
 };
