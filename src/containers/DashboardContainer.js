@@ -64,7 +64,7 @@ const DashboardContainer = props => {
         };
       case 'assessments':
         return {
-          title: 'Assessments',
+          title: 'Tasks',
           mapping: 'assessment',
           cols:
             numberOfCards > 1
