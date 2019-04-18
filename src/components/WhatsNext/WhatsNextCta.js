@@ -60,7 +60,7 @@ const WhatsNextCta = props => {
             history.push(`${ROUTES.ASSESSMENT}?id=${data.id}&yours=true`);
           }}
         >
-          Complete Assessment
+          Complete Task
           <ArrowForwardIcon />
         </Button>
       );
