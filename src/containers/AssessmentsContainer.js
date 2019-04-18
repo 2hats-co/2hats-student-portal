@@ -26,7 +26,7 @@ const AssessmentsContainer = props => {
   return (
     <div>
       <ContainerHeader
-        title="Assessments"
+        title="Tasks"
         isMobile={isMobile}
         maxWidth={getCardsWidth(cardsCols)}
         icon={<AssessmentsIcon />}
@@ -45,7 +45,7 @@ const AssessmentsContainer = props => {
         Icon={YourIcon}
       />
       <Cards
-        title="Marketing Assessments"
+        title="Marketing Tasks"
         mapping="assessment"
         cols={cardsCols}
         useCollectionInit={{
@@ -59,11 +59,11 @@ const AssessmentsContainer = props => {
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
-        noneLeftMsg="There are no more marketing assessements available at the moment"
+        noneLeftMsg="There are no more marketing tasks available at the moment"
         extra
       />
       <Cards
-        title="Sales Assessments"
+        title="Sales Tasks"
         mapping="assessment"
         cols={cardsCols}
         useCollectionInit={{
@@ -77,11 +77,11 @@ const AssessmentsContainer = props => {
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
-        noneLeftMsg="There are no more sales assessments available at the moment"
+        noneLeftMsg="There are no more sales tasks available at the moment"
         extra
       />
       <Cards
-        title="Tech Assessments"
+        title="Tech Tasks"
         mapping="assessment"
         cols={cardsCols}
         useCollectionInit={{
@@ -95,7 +95,7 @@ const AssessmentsContainer = props => {
         }}
         filterIds={user.touchedAssessments}
         NoneLeftIcon={AssessmentsIcon}
-        noneLeftMsg="There are no more tech assessments available at the moment"
+        noneLeftMsg="There are no more tech tasks available at the moment"
         extra
       />
     </div>

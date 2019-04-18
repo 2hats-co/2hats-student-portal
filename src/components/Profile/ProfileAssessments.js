@@ -81,7 +81,7 @@ const ProfileAssessments = props => {
           <>
             <Typography variant="body1" color="textSecondary">
               Your verified skills will appear here after you complete and pass
-              assessments.
+              tasks.
             </Typography>
             <Button
               color="primary"
@@ -90,7 +90,7 @@ const ProfileAssessments = props => {
                 history.push(ROUTES.ASSESSMENTS);
               }}
             >
-              Browse Assessments
+              Browse Tasks
               <ArrowForwardIcon />
             </Button>
           </>

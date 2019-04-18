@@ -196,7 +196,7 @@ export default function withNavigation(WrappedComponent) {
       { type: 'divider' },
       { label: 'Jobs', icon: <JobsIcon />, route: ROUTES.JOBS },
       {
-        label: 'Assessments',
+        label: 'Tasks',
         icon: <AssessmentsIcon />,
         route: ROUTES.ASSESSMENTS,
       },

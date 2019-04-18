@@ -75,7 +75,7 @@ const WhatsNextCta = props => {
             history.push(ROUTES.ASSESSMENTS);
           }}
         >
-          Browse Assessments
+          Browse Tasks
           <ArrowForwardIcon />
         </Button>
       );

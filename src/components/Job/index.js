@@ -179,8 +179,8 @@ const Job = props => {
               <Grid item xs>
                 <Typography variant="body1">
                   To demonstrate your skills to potential employers, complete
-                  the short online assessments listed below. Click on a skill
-                  below to get started.
+                  the short online tasks listed below. Click on a skill below to
+                  get started.
                 </Typography>
               </Grid>
             </Grid>

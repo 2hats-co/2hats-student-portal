@@ -23,7 +23,7 @@ const WhatsNextTitle = props => {
     case WHATS_NEXT_STATES.awaitAssessmentOutcome:
       return 'While you wait for your assessment outcome…';
     case WHATS_NEXT_STATES.startNewAssessment:
-      return 'Get started with one of our assessments';
+      return 'Get started with one of our tasks';
 
     // jobs flow
     case WHATS_NEXT_STATES.completeProfile:

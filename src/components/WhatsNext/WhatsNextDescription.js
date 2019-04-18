@@ -28,8 +28,7 @@ const WhatsNextDescription = props => {
       return (
         <>
           You haven’t completed your submission for <b>{data.title.trim()}</b>.
-          Passing assessments allow us to verify your skills and get you
-          job-ready.
+          Passing tasks allow us to verify your skills and get you job-ready.
         </>
       );
     case WHATS_NEXT_STATES.awaitAssessmentOutcome:

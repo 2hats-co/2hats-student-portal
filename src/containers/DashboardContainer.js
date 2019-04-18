@@ -81,7 +81,7 @@ const DashboardContainer = props => {
           filterIds: user.touchedAssessments,
           Icon: AssessmentsIcon,
           route: ROUTES.ASSESSMENTS,
-          noneLeftMsg: 'There are no more assessments available at the moment',
+          noneLeftMsg: 'There are no more tasks available at the moment',
         };
       case 'jobs':
       default:
