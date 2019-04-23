@@ -5,13 +5,13 @@ import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 
 import JobIcon from '@material-ui/icons/BusinessCenterOutlined';
-import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
-import TimeIcon from '@material-ui/icons/AccessTimeOutlined';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 import SpecialLabel from './SpecialLabel';
+import SkillItem from '../SkillItem';
+import SkillsCounter from '../Job/SkillsCounter';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import UserContext from '../../contexts/UserContext';
@@ -87,15 +87,15 @@ const styles = theme => ({
     '&:hover $media': { opacity: 0.9 },
   },
   jobTitle: {
+    marginTop: 2,
     transition: theme.transitions.create('color', {
       duration: theme.transitions.duration.short,
     }),
-    marginTop: theme.spacing.unit * 1.125,
   },
   titleArrow: {
     verticalAlign: 'text-bottom',
     opacity: 0.87,
-    marginLeft: theme.spacing.unit / 2,
+    marginLeft: theme.spacing.unit,
   },
   media: {
     width: 100,
@@ -121,19 +121,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
   },
 
-  timeLabel: {
+  skillsWrapper: {
     marginTop: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
-    color: theme.palette.text.secondary,
   },
-  timeIcon: {
-    marginRight: theme.spacing.unit,
-    opacity: 0.67,
-    verticalAlign: 'bottom',
-  },
-
-  buttonWrapper: { textAlign: 'right' },
 });
 
 const Announcement = props => {
@@ -142,6 +132,7 @@ const Announcement = props => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const userContext = useContext(UserContext);
+  const user = userContext.user;
 
   const [announcementsState] = useCollection({
     path: COLLECTIONS.announcements,
@@ -150,45 +141,59 @@ const Announcement = props => {
   });
   const data = announcementsState.documents[0];
 
-  const [yourAssessmentState, yourAssessmentDispatch] = useCollection();
-  const yourAssessmentDoc = yourAssessmentState.documents[0];
+  // const [yourAssessmentState, yourAssessmentDispatch] = useCollection();
+  // const yourAssessmentDoc = yourAssessmentState.documents[0];
 
   const [jobState, jobDispatch] = useDocument();
   const jobDoc = jobState.doc;
 
-  const [assessmentState, assessmentDispatch] = useDocument();
-  const assessmentDoc = assessmentState.doc;
+  // const [assessmentState, assessmentDispatch] = useDocument();
+  // const assessmentDoc = assessmentState.doc;
 
   useEffect(
     () => {
       if (!data) return;
       if (data.jobId && !jobState.path)
         jobDispatch({ path: `${COLLECTIONS.jobs}/${data.jobId}` });
-      if (data.assessmentId && !assessmentState.path) {
-        yourAssessmentDispatch({
-          path: `${COLLECTIONS.users}/${userContext.user.id}/${
-            COLLECTIONS.assessments
-          }`,
-          filters: [
-            { field: 'assessmentId', operator: '==', value: data.assessmentId },
-          ],
-          sort: { field: 'createdAt', direction: 'desc' },
-        });
-        assessmentDispatch({
-          path: `${COLLECTIONS.assessments}/${data.assessmentId}`,
-        });
-      }
+      // if (data.assessmentId && !assessmentState.path) {
+      //   yourAssessmentDispatch({
+      //     path: `${COLLECTIONS.users}/${userContext.user.id}/${
+      //       COLLECTIONS.assessments
+      //     }`,
+      //     filters: [
+      //       { field: 'assessmentId', operator: '==', value: data.assessmentId },
+      //     ],
+      //     sort: { field: 'createdAt', direction: 'desc' },
+      //   });
+      //   assessmentDispatch({
+      //     path: `${COLLECTIONS.assessments}/${data.assessmentId}`,
+      //   });
+      // }
     },
     [data]
   );
 
-  if (!data || !jobDoc || !assessmentDoc) return null;
+  if (
+    !data ||
+    !jobDoc
+    // || !assessmentDoc
+  )
+    return null;
 
   const diffDays = moment
     .unix(jobDoc.closingDate.seconds)
     .diff(moment(), 'days');
 
   if (diffDays < 0) return null;
+
+  const skillsNotAchieved = user.skills
+    ? []
+    : jobDoc.skillsRequired.map(x => x.id);
+  jobDoc.skillsRequired
+    .map(x => x.id)
+    .forEach(x => {
+      if (user.skills && !user.skills.includes(x)) skillsNotAchieved.push(x);
+    });
 
   return (
     <div className={classes.root} style={{ width: width - 16 }}>
@@ -224,71 +229,46 @@ const Announcement = props => {
         </Grid>
 
         <Grid item xs={12} sm={5} className={classes.ctaWrapper}>
-          <Grid
-            container
-            direction="column"
-            wrap="nowrap"
-            className={classes.fullHeight}
+          <div
+            onClick={() => {
+              history.push(`${ROUTES.JOB}?id=${data.jobId}`);
+            }}
+            className={classes.jobWrapper}
           >
-            <Grid item xs>
-              <div
-                onClick={() => {
-                  history.push(`${ROUTES.JOB}?id=${data.jobId}`);
-                }}
-                className={classes.jobWrapper}
-              >
-                <div
-                  className={classes.media}
-                  style={{
-                    backgroundImage: `url(${jobDoc.image && jobDoc.image.url})`,
-                  }}
-                />
-                <Typography
-                  variant="h6"
-                  gutterBottom
-                  className={classes.jobTitle}
-                >
-                  {jobDoc.title}
-                  <ArrowForwardIcon className={classes.titleArrow} />
-                </Typography>
+            <div
+              className={classes.media}
+              style={{
+                backgroundImage: `url(${jobDoc.image && jobDoc.image.url})`,
+              }}
+            />
+            <Typography variant="h6" gutterBottom className={classes.jobTitle}>
+              {jobDoc.title}
+              <ArrowForwardIcon
+                className={classes.titleArrow}
+                fontSize="small"
+              />
+            </Typography>
 
-                <Typography variant="h5" className={classes.daysRemaining}>
-                  {diffDays > 1 ? `${diffDays} days` : 'Last day'}
-                </Typography>
-                <Typography variant="body2">
-                  {diffDays > 1 && 'left'} to apply
-                </Typography>
-              </div>
-            </Grid>
+            <Typography variant="h5" className={classes.daysRemaining}>
+              {diffDays > 1 ? `${diffDays} days` : 'Last day'}
+            </Typography>
+            <Typography variant="body2" gutterBottom>
+              {diffDays > 1 && 'left'} to apply
+            </Typography>
+          </div>
 
-            <Grid item className={classes.buttonWrapper}>
-              <Typography variant="body2" className={classes.timeLabel}>
-                <TimeIcon className={classes.timeIcon} />
-                {assessmentDoc.duration} to complete
-              </Typography>
-
-              <Button
-                color="primary"
-                variant="contained"
-                size="large"
-                onClick={() => {
-                  if (yourAssessmentDoc)
-                    history.push(
-                      `${ROUTES.ASSESSMENT}?id=${
-                        yourAssessmentDoc.id
-                      }&yours=true`
-                    );
-                  else
-                    history.push(
-                      `${ROUTES.ASSESSMENT}?id=${data.assessmentId}`
-                    );
-                }}
-              >
-                Complete Assessment
-                <ArrowForwardIcon />
-              </Button>
-            </Grid>
-          </Grid>
+          <div className={classes.skillsWrapper}>
+            <Typography variant="subtitle1" gutterBottom>
+              Skills required
+              <SkillsCounter
+                skillsRequired={jobDoc.skillsRequired}
+                skillsNotAchieved={skillsNotAchieved}
+              />
+            </Typography>
+            {jobDoc.skillsRequired.map((x, i) => (
+              <SkillItem key={`${i}-${x}`} value={x} clickable dense />
+            ))}
+          </div>
         </Grid>
       </Grid>
     </div>

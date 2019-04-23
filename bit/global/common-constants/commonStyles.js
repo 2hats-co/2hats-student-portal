@@ -1,3 +1,5 @@
+import green from '@material-ui/core/colors/green';
+
 export const QUILL = theme => ({
   minHeight: 100,
 
@@ -126,6 +128,26 @@ export const DROPZONE = theme => ({
     marginTop: theme.spacing.unit,
   },
   fileIcon: { transform: 'rotate(-45deg)' },
+
+  previewWrapper: {
+    height: 172,
+    textAlign: 'center',
+  },
+  previewImg: { height: 172 - 32 - theme.spacing.unit / 2 },
+  changeButton: {
+    margin: '0 auto',
+    marginTop: theme.spacing.unit / 2,
+    display: 'flex',
+  },
+
+  loadingWrapper: {
+    height: 172,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+
+    '& > *': { width: '100%' },
+  },
 });
 
 const generateOlStyles = () => {
@@ -180,11 +202,11 @@ const generateUlStyles = () => {
 
     output[i === 0 ? '& ul li' : `& ul li.ql-indent-${i}`] = {
       listStyleType: 'none',
-      paddingLeft: `${1.25 + 2 * i}em`,
+      paddingLeft: `${1.5 + 2 * i}em`,
 
       '&::before': {
         content: '"\u2022"',
-        marginLeft: '-1.25em',
+        marginLeft: '-1.5em',
         marginRight: '0.75em',
 
         textAlign: 'right',
@@ -288,7 +310,25 @@ export const DETAIL_VIEW = theme => ({
 
   section: { marginTop: theme.spacing.unit * 3 },
 
-  // subtitle: { fontWeight: 700 },
+  subtitle: { fontWeight: 700 },
+
+  highlighted: {
+    fontSize: '1rem',
+    backgroundColor: theme.palette.text.primary,
+    color: theme.palette.background.paper,
+
+    borderRadius: '500px',
+    margin: theme.spacing.unit,
+    padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit * 1.25}px`,
+  },
+  highlightedOrange: {
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.main,
+  },
+  highlightedGreen: {
+    backgroundColor: green[100],
+    color: green[800],
+  },
 
   description: { whiteSpace: 'pre-line' },
 

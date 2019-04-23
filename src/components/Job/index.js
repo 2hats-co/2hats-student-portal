@@ -15,6 +15,7 @@ import JobMetadata from './JobMetadata';
 import JobApply from './JobApply';
 import SkillItem from '../SkillItem';
 import Form from '../Form';
+import SkillsCounter from './SkillsCounter';
 
 import jobApplicationFields from '../../constants/forms/jobApplication';
 import * as ROUTES from '../../constants/routes';
@@ -34,7 +35,8 @@ const styles = theme => ({
   },
 
   upskill: {
-    marginBottom: theme.spacing.unit * 2,
+    marginTop: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 4,
     padding: theme.spacing.unit * 2,
 
     borderRadius: theme.shape.borderRadius,
@@ -42,7 +44,11 @@ const styles = theme => ({
 
     userSelect: 'none',
   },
-  upskillIcon: { marginRight: theme.spacing.unit },
+  upskillIcon: {
+    marginRight: theme.spacing.unit,
+    marginTop: theme.spacing.unit / 4,
+    color: theme.palette.primary.main,
+  },
 
   applyWrapper: {
     textAlign: 'center',
@@ -162,10 +168,6 @@ const Job = props => {
         </div>
 
         <div className={classes.section}>
-          <Typography variant="h6" gutterBottom>
-            Skills required
-          </Typography>
-
           {skillsNotAchieved.length > 0 && (
             <Grid
               container
@@ -177,6 +179,10 @@ const Job = props => {
                 <InfoIcon className={classes.upskillIcon} />
               </Grid>
               <Grid item xs>
+                <Typography variant="subtitle1" color="primary">
+                  You need {skillsNotAchieved.length} more of the skills below
+                  to apply.
+                </Typography>
                 <Typography variant="body1">
                   To demonstrate your skills to potential employers, complete
                   the short online tasks listed below. Click on a skill below to
@@ -185,6 +191,14 @@ const Job = props => {
               </Grid>
             </Grid>
           )}
+
+          <Typography variant="h6" gutterBottom>
+            Skills required
+            <SkillsCounter
+              skillsNotAchieved={skillsNotAchieved}
+              skillsRequired={data.skillsRequired}
+            />
+          </Typography>
 
           <div className={classes.skillsWrapper}>
             {data.skillsRequired.map((x, i) => (
