@@ -41,11 +41,13 @@ const styles = theme => ({
     fontSize: theme.spacing.unit * 2,
     borderRadius: 60,
     margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
+    '@media print': { display: 'none' },
   },
   saveButton: {
     fontSize: theme.spacing.unit * 2,
     borderRadius: 60,
     marginLeft: theme.spacing.unit,
+    '@media print': { display: 'none' },
   },
 
   paddedIcon: {

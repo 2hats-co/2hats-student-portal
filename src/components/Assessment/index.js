@@ -58,6 +58,10 @@ const styles = theme => ({
   coursesWrapper: {
     margin: `0 -${theme.spacing.unit}px`,
   },
+
+  hideOnPrint: {
+    '@media print': { display: 'none' },
+  },
 });
 
 const Assessment = props => {
@@ -237,7 +241,7 @@ const Assessment = props => {
         {gotStarted && <AssessmentSubmission data={data} user={user} />}
 
         {suggestedCourses.length > 0 && (
-          <div className={classes.section}>
+          <div className={classNames(classes.section, classes.hideOnPrint)}>
             <Typography variant="h6" gutterBottom className={classes.subtitle}>
               Need some help?
             </Typography>

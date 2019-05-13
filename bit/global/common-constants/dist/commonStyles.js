@@ -119,6 +119,7 @@ var QUILL = (exports.QUILL = function QUILL(theme) {
   };
 });
 
+var DROPZONE_HEIGHT = (exports.DROPZONE_HEIGHT = 196);
 var DROPZONE = (exports.DROPZONE = function DROPZONE(theme) {
   return {
     dropzone: {
@@ -126,10 +127,14 @@ var DROPZONE = (exports.DROPZONE = function DROPZONE(theme) {
       borderColor: theme.palette.divider,
       borderStyle: 'dashed',
       borderWidth: theme.spacing.unit / 2,
+
       padding: theme.spacing.unit * 2,
       paddingBottom: theme.spacing.unit * 3,
+
+      height: DROPZONE_HEIGHT,
+      boxSizing: 'border-box',
+
       textAlign: 'center',
-      minHeight: theme.spacing.unit * 12,
       cursor: 'pointer',
       userSelect: 'none',
       outline: 'none',
@@ -146,6 +151,8 @@ var DROPZONE = (exports.DROPZONE = function DROPZONE(theme) {
 
         '& *': { color: theme.palette.primary.main },
       },
+
+      '@media print': { display: 'none' },
     },
     dropzoneDragActive: {
       borderColor: theme.palette.primary.main,
@@ -165,6 +172,33 @@ var DROPZONE = (exports.DROPZONE = function DROPZONE(theme) {
       marginTop: theme.spacing.unit,
     },
     fileIcon: { transform: 'rotate(-45deg)' },
+
+    previewWrapper: {
+      height: DROPZONE_HEIGHT,
+      textAlign: 'center',
+    },
+    previewImg: { height: DROPZONE_HEIGHT - 32 - theme.spacing.unit / 2 },
+    changeButton: {
+      margin: '0 auto',
+      marginTop: theme.spacing.unit / 2,
+      display: 'flex',
+    },
+    editButtonsWrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      '& > button': {
+        margin: theme.spacing.unit / 2,
+      },
+    },
+
+    loadingWrapper: {
+      height: DROPZONE_HEIGHT,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+
+      '& > *': { width: '100%' },
+    },
   };
 });
 
@@ -220,11 +254,11 @@ var generateUlStyles = function generateUlStyles() {
 
     output[i === 0 ? '& ul li' : '& ul li.ql-indent-' + i] = {
       listStyleType: 'none',
-      paddingLeft: 1.25 + 2 * i + 'em',
+      paddingLeft: 1.5 + 2 * i + 'em',
 
       '&::before': {
         content: '"\u2022"',
-        marginLeft: '-1.25em',
+        marginLeft: '-1.5em',
         marginRight: '0.75em',
 
         textAlign: 'right',
@@ -311,6 +345,8 @@ var DETAIL_VIEW = (exports.DETAIL_VIEW = function DETAIL_VIEW(theme) {
       backButton: {
         display: 'flex',
         marginBottom: theme.spacing.unit,
+
+        '@media print': { display: 'none' },
       },
       content: {
         maxWidth: 640,
@@ -341,7 +377,7 @@ var DETAIL_VIEW = (exports.DETAIL_VIEW = function DETAIL_VIEW(theme) {
 
       section: { marginTop: theme.spacing.unit * 3 },
 
-      // subtitle: { fontWeight: 700 },
+      subtitle: { fontWeight: 700 },
 
       description: { whiteSpace: 'pre-line' },
     },

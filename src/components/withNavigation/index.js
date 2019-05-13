@@ -56,15 +56,21 @@ const styles = theme => ({
     width: DRAWER_WIDTH,
     height: '100%',
     overflowY: 'auto',
+
+    '@media print': { display: 'none' },
   },
   mobileNavWrapper: {
     width: 0,
     overflowY: 'auto',
+
+    '@media print': { display: 'none' },
   },
   drawerPaper: {
     width: DRAWER_WIDTH,
     borderRight: 'none',
     '$desktopNavWrapper &': { zIndex: 1 },
+
+    '@media print': { display: 'none' },
   },
   nav: { height: '100%' },
 
@@ -131,6 +137,8 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.secondary,
     boxShadow: `0 -1px 0 rgba(0,0,0,.05), ${theme.shadows[16]}`,
+
+    '@media print': { display: 'none' },
   },
   toolbar: {
     alignItems: 'center',
