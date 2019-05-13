@@ -34,7 +34,7 @@ const WhatsNextDescription = props => {
     case WHATS_NEXT_STATES.awaitAssessmentOutcome:
       return (
         <>
-          You can attempt another assessment and get more of your{' '}
+          You can attempt another task and get more of your{' '}
           <b>{data.category.trim()}</b> skills recognised.
         </>
       );

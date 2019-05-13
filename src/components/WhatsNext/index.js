@@ -5,6 +5,8 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
+import green from '@material-ui/core/colors/green';
+
 // import PaddedIcon from '../PaddedIcon';
 import WhatsNextBadge from './WhatsNextBadge';
 import WhatsNextIcon from './WhatsNextIcon';
@@ -50,18 +52,19 @@ const styles = theme => ({
   },
   whatsNextIcon: {
     fontSize: 32,
-    color: theme.palette.primary.main,
+    color: theme.palette.text.primary,
   },
   title: {
     fontWeight: 500,
     marginTop: 2,
-    color: theme.palette.primary.main,
+    color: theme.palette.text.primary,
   },
+  green: { color: green[500] },
   description: { fontWeight: 400 },
 
   divider: {
-    margin: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit * 7,
+    margin: theme.spacing.unit * 4,
+    marginLeft: theme.spacing.unit * 5.5,
     marginRight: theme.spacing.unit,
 
     [theme.breakpoints.down('sm')]: {

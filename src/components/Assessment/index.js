@@ -103,6 +103,7 @@ const Assessment = props => {
             operator: 'array-contains',
             value: { id: data.assessmentId || data.id, title: data.title },
           },
+          { field: 'published', operator: '==', value: true },
         ],
       });
     },

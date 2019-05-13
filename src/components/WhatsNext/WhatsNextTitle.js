@@ -19,9 +19,9 @@ const WhatsNextTitle = props => {
 
     // assessments flow
     case WHATS_NEXT_STATES.completeAssessment:
-      return 'You have an incomplete assessment';
+      return 'You have an incomplete task';
     case WHATS_NEXT_STATES.awaitAssessmentOutcome:
-      return 'While you wait for your assessment outcome…';
+      return 'While you wait for your task outcome…';
     case WHATS_NEXT_STATES.startNewAssessment:
       return 'Get started with one of our tasks';
 

@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
+exports.NAKED_EXPANSION_PANEL = exports.DETAIL_VIEW = exports.PADDING = exports.RENDERED_HTML = exports.DROPZONE = exports.DROPZONE_HEIGHT = exports.QUILL = undefined;
 
 var _extends =
   Object.assign ||
@@ -17,6 +18,14 @@ var _extends =
     }
     return target;
   };
+
+var _green = require('@material-ui/core/colors/green');
+
+var _green2 = _interopRequireDefault(_green);
+
+function _interopRequireDefault(obj) {
+  return obj && obj.__esModule ? obj : { default: obj };
+}
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -174,25 +183,18 @@ var DROPZONE = (exports.DROPZONE = function DROPZONE(theme) {
     fileIcon: { transform: 'rotate(-45deg)' },
 
     previewWrapper: {
-      height: DROPZONE_HEIGHT,
+      height: 172,
       textAlign: 'center',
     },
-    previewImg: { height: DROPZONE_HEIGHT - 32 - theme.spacing.unit / 2 },
+    previewImg: { height: 172 - 32 - theme.spacing.unit / 2 },
     changeButton: {
       margin: '0 auto',
       marginTop: theme.spacing.unit / 2,
       display: 'flex',
     },
-    editButtonsWrapper: {
-      display: 'flex',
-      justifyContent: 'center',
-      '& > button': {
-        margin: theme.spacing.unit / 2,
-      },
-    },
 
     loadingWrapper: {
-      height: DROPZONE_HEIGHT,
+      height: 172,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -379,6 +381,25 @@ var DETAIL_VIEW = (exports.DETAIL_VIEW = function DETAIL_VIEW(theme) {
 
       subtitle: { fontWeight: 700 },
 
+      highlighted: {
+        fontSize: '1rem',
+        backgroundColor: theme.palette.text.primary,
+        color: theme.palette.background.paper,
+
+        borderRadius: '500px',
+        margin: theme.spacing.unit,
+        padding:
+          theme.spacing.unit / 2 + 'px ' + theme.spacing.unit * 1.25 + 'px',
+      },
+      highlightedOrange: {
+        backgroundColor: theme.palette.primary.light,
+        color: theme.palette.primary.main,
+      },
+      highlightedGreen: {
+        backgroundColor: _green2.default[100],
+        color: _green2.default[800],
+      },
+
       description: { whiteSpace: 'pre-line' },
     },
     RENDERED_HTML(theme)
@@ -411,24 +432,24 @@ var NAKED_EXPANSION_PANEL = (exports.NAKED_EXPANSION_PANEL = function NAKED_EXPA
       flexDirection: 'column',
       padding: 0,
       paddingBottom: theme.spacing.unit * 2,
-    },
 
-    /* CLASSES PROPS
-      ExpansionPanel:
-      {
-        root: classes.expansionPanel,
-        expanded: classes.expansionPanelExpanded,
-      }
-       ExpansionPanelSummary:
-      {
-        root: classes.expansionPanelSummary,
-        content: classes.expansionPanelSummaryContent,
-        expanded: classes.expansionPanelSummaryExpanded,
-        expandIcon: classes.expansionPanelSummaryExpandIcon,
-      }
-       ExpansionPanelDetails:
-      { root: classes.expansionPanelDetails }
-    */
+      /* CLASSES PROPS
+        ExpansionPanel:
+        {
+          root: classes.expansionPanel,
+          expanded: classes.expansionPanelExpanded,
+        }
+         ExpansionPanelSummary:
+        {
+          root: classes.expansionPanelSummary,
+          content: classes.expansionPanelSummaryContent,
+          expanded: classes.expansionPanelSummaryExpanded,
+          expandIcon: classes.expansionPanelSummaryExpandIcon,
+        }
+         ExpansionPanelDetails:
+        { root: classes.expansionPanelDetails }
+      */
+    },
   };
 });
 

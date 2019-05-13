@@ -133,16 +133,15 @@ const SkillItem = props => {
   };
   useEffect(
     () => {
-      if (value.title) {
-        setSkillLabel(value.title);
+      if (value.title) setSkillLabel(value.title);
+
+      if (clickable) {
         if (
           user.touchedAssessments &&
           user.touchedAssessments.includes(value.id)
-        ) {
+        )
           setUserAssessmentRoute(value);
-        } else {
-          setAssessmentRoute(`/assessment?id=${value.id}`);
-        }
+        else setAssessmentRoute(`/assessment?id=${value.id}`);
       } else {
         setRouteByAssociatedSkill(value);
       }

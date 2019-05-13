@@ -1,3 +1,5 @@
+import green from '@material-ui/core/colors/green';
+
 export const QUILL = theme => ({
   minHeight: 100,
 
@@ -135,25 +137,18 @@ export const DROPZONE = theme => ({
   fileIcon: { transform: 'rotate(-45deg)' },
 
   previewWrapper: {
-    height: DROPZONE_HEIGHT,
+    height: 172,
     textAlign: 'center',
   },
-  previewImg: { height: DROPZONE_HEIGHT - 32 - theme.spacing.unit / 2 },
+  previewImg: { height: 172 - 32 - theme.spacing.unit / 2 },
   changeButton: {
     margin: '0 auto',
     marginTop: theme.spacing.unit / 2,
     display: 'flex',
   },
-  editButtonsWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    '& > button': {
-      margin: theme.spacing.unit / 2,
-    },
-  },
 
   loadingWrapper: {
-    height: DROPZONE_HEIGHT,
+    height: 172,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -325,6 +320,24 @@ export const DETAIL_VIEW = theme => ({
   section: { marginTop: theme.spacing.unit * 3 },
 
   subtitle: { fontWeight: 700 },
+
+  highlighted: {
+    fontSize: '1rem',
+    backgroundColor: theme.palette.text.primary,
+    color: theme.palette.background.paper,
+
+    borderRadius: '500px',
+    margin: theme.spacing.unit,
+    padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit * 1.25}px`,
+  },
+  highlightedOrange: {
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.primary.main,
+  },
+  highlightedGreen: {
+    backgroundColor: green[100],
+    color: green[800],
+  },
 
   description: { whiteSpace: 'pre-line' },
 
