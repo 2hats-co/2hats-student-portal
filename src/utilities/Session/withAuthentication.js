@@ -10,7 +10,7 @@ const withAuthentication = Component => {
       auth.onAuthStateChanged(authUser => {
         setAuthUser(authUser);
         if (loading) setLoading(false);
-        setSmartlookUser(authUser);
+        if (authUser) setSmartlookUser(authUser);
       });
     }, []);
 
