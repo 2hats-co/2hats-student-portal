@@ -12,7 +12,7 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
 import ErrorIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import CheckIcon from '@material-ui/icons/CheckOutlined';
 
-import UserContext from 'contexts/UserContext';
+import UserContext from '../../contexts/UserContext';
 
 const styles = theme => ({
   apply: {
