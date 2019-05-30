@@ -1,10 +1,13 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../../utilities/CloudFunctions';
+
+import GoIcon from '@material-ui/icons/ArrowForward';
 
 import BackBar from './BackBar';
 import Header from './Header';
-import { Link } from '@material-ui/core';
 
 class NoPasswordView extends React.Component {
   constructor() {
@@ -41,25 +44,25 @@ class NoPasswordView extends React.Component {
           backHandler={backHandler}
         />
         <Header greeting="Welcome back" name={firstName} />
-        <Typography variant="body2">
-          We’ve sent you a confirmation email, please check your mailbox.
+
+        <div>
+          <Typography variant="body2" gutterBottom>
+            We’ve sent you a confirmation email. Please check your inbox.
+          </Typography>
+          <Typography variant="body2">
+            Don’t forget to check your spam or junk folder.
+          </Typography>
+        </div>
+
+        <Divider style={{ width: '100%', margin: '16px 0' }} />
+        <Typography variant="body2" gutterBottom color="textSecondary">
+          Didn’t receive the email?
         </Typography>
 
-        <Typography variant="body2" style={{ marginTop: 8 }}>
-          Didn’t receive the email? You can request a resend&nbsp;
-          <Link
-            variant="body2"
-            component="button"
-            onClick={this.resendEmail}
-            style={{
-              textDecoration: 'underline',
-              verticalAlign: 'baseline',
-            }}
-          >
-            here
-          </Link>
-          . Don’t forget to check your junk or spam folder.
-        </Typography>
+        <Button variant="outlined" color="primary" onClick={this.resendEmail}>
+          Resend Email
+          <GoIcon />
+        </Button>
       </React.Fragment>
     );
   }
