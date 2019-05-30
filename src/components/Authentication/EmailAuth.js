@@ -118,6 +118,8 @@ class EmailAuth extends Component {
               'view',
               AUTHENTICATION_CONTAINER.noPassword
             );
+          } else if (provider === 'linkedin') {
+            this.props.changeHandler('view', 'noPassword');
           } else {
             this.props.changeHandler('view', provider);
           }
@@ -130,7 +132,7 @@ class EmailAuth extends Component {
       );
     } else {
       this.props.changeHandler('snackBar', {
-        message: 'invalid email format',
+        message: 'Invalid email format',
         variant: 'error',
       });
     }
