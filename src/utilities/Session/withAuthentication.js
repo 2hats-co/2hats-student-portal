@@ -8,14 +8,13 @@ const withAuthentication = Component => {
     const [authUser, setAuthUser] = useState(null);
     useEffect(() => {
       auth.onAuthStateChanged(authUser => {
-        console.log('authUser', authUser);
         setAuthUser(authUser);
         if (loading) setLoading(false);
-        if (auth.authUser) setUser(authUser);
+        setSmartlookUser(authUser);
       });
     }, []);
 
-    const setUser = authUser => {
+    const setSmartlookUser = authUser => {
       window.smartlook('identify', authUser.uid, {
         name: authUser.displayName,
         email: authUser.email,
