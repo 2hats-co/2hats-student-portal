@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
@@ -11,6 +11,8 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardOutlined';
 import ErrorIcon from '@material-ui/icons/ErrorOutlineOutlined';
 import CheckIcon from '@material-ui/icons/CheckOutlined';
+
+import UserContext from 'contexts/UserContext';
 
 const styles = theme => ({
   apply: {
@@ -58,7 +60,14 @@ const JobApply = props => {
   const closed =
     moment.unix(data.closingDate.seconds).diff(moment(), 'days') < 0;
 
-  if (closed)
+  const userContext = useContext(UserContext);
+  const { user } = userContext;
+
+  const hasApplied =
+    !!data.jobId ||
+    (user.touchedJobs && user.touchedJobs.indexOf(data.id) > -1);
+
+  if (closed & !hasApplied)
     return (
       <Tooltip
         title={
@@ -136,10 +145,10 @@ const JobApply = props => {
       className={big ? classes.applyBig : classes.apply}
       size={big ? 'large' : 'medium'}
       onClick={onClick}
-      disabled={!!data.jobId || loading}
+      disabled={loading || hasApplied}
     >
       {loading && <CircularProgress className={classes.loading} size={32} />}
-      {data.jobId ? (
+      {hasApplied ? (
         <>
           Applied
           <CheckIcon />

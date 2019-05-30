@@ -1,9 +1,6 @@
 import FIELDS from './fields';
 import * as yup from 'yup';
 
-import { useContext } from 'react';
-import UserContext from '../../contexts/UserContext';
-
 const transformValue = (value, arr) =>
   value ? arr.filter(x => x.value === value)[0] : null;
 
@@ -26,12 +23,11 @@ const WORK_RESTRICTIONS = [
   },
 ];
 
-const jobApplicationFields = initialData => {
+const jobApplicationFields = (initialData, user) => {
   if (!initialData) initialData = {};
 
-  const userContext = useContext(UserContext);
-  const user = userContext.user;
   const ts = new Date().getTime();
+
   return [
     {
       type: FIELDS.checkbox,

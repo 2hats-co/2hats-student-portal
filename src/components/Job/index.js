@@ -251,12 +251,15 @@ const Job = props => {
           },
         }}
         open={!!(showDialog && profile)}
-        data={jobApplicationFields({
-          'pay-calcVal': data.payRate,
-          'pay-units': data.payUnits,
-          resume: profile && profile.resume,
-          workRestriction: profile && profile.workRestriction,
-        })}
+        data={jobApplicationFields(
+          {
+            'pay-calcVal': data.payRate,
+            'pay-units': data.payUnits,
+            resume: profile && profile.resume,
+            workRestriction: profile && profile.workRestriction,
+          },
+          user
+        )}
         formTitle={`for ${data.title}`}
         formHeader={
           <div style={{ marginBottom: 32 }}>
