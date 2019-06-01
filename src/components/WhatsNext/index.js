@@ -29,9 +29,9 @@ const styles = theme => ({
     boxSizing: 'border-box',
 
     margin: '0 auto',
-    marginBottom: theme.spacing.unit * 6,
+    marginBottom: theme.spacing(6),
 
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
     // paddingTop: theme.spacing.unit * 3,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
@@ -41,14 +41,14 @@ const styles = theme => ({
     boxShadow: theme.shadowsLight[24],
 
     [theme.breakpoints.down('sm')]: {
-      width: `calc(100% - ${theme.spacing.unit * 2}px) !important`,
+      width: `calc(100% - ${theme.spacing(2)}px) !important`,
       maxWidth: 660,
     },
   },
 
   iconWrapper: {
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: -theme.spacing.unit / 2,
+    marginRight: theme.spacing(2),
+    marginLeft: -theme.spacing(1) / 2,
   },
   whatsNextIcon: {
     fontSize: 32,
@@ -63,9 +63,9 @@ const styles = theme => ({
   description: { fontWeight: 400 },
 
   divider: {
-    margin: theme.spacing.unit * 4,
-    marginLeft: theme.spacing.unit * 5.5,
-    marginRight: theme.spacing.unit,
+    margin: theme.spacing(4),
+    marginLeft: theme.spacing(5.5),
+    marginRight: theme.spacing(1),
 
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,

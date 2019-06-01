@@ -21,20 +21,20 @@ const styles = theme => ({
   avatar: {
     marginBottom: 0,
 
-    [theme.breakpoints.down('xs')]: { marginLeft: -theme.spacing.unit / 2 },
+    [theme.breakpoints.down('xs')]: { marginLeft: -theme.spacing(1) / 2 },
   },
 
   name: {
     fontWeight: 500,
     marginTop: 16,
-    marginBottom: theme.spacing.unit * 1.5,
+    marginBottom: theme.spacing(1.5),
 
     [theme.breakpoints.down('xs')]: { marginTop: 0 },
   },
 
-  editBar: { marginBottom: theme.spacing.unit / 2 },
-  editIcon: { marginRight: -theme.spacing.unit },
-  bioLength: { display: 'inline-block', marginRight: theme.spacing.unit },
+  editBar: { marginBottom: theme.spacing(0.5) },
+  editIcon: { marginRight: -theme.spacing(1) },
+  bioLength: { display: 'inline-block', marginRight: theme.spacing(1) },
   textFieldRoot: {
     margin: '-10px -12px',
     paddingTop: 10,

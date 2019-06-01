@@ -34,17 +34,17 @@ function ScrollyRolly(props) {
   };
 
   useEffect(() => {
-      if (
-        dataState.limit === dataState.cap ||
-        (dataState.limit - dataState.documents.length > 0 &&
-          dataState.limit - dataState.documents.length < 10)
-      ) {
-        setHasMore(false);
-        setLoading(false);
-      } else {
-        setHasMore(dataState.documents.length === dataState.limit);
-        if (dataState.documents.length === dataState.limit) setLoading(false);
-      }
+    if (
+      dataState.limit === dataState.cap ||
+      (dataState.limit - dataState.documents.length > 0 &&
+        dataState.limit - dataState.documents.length < 10)
+    ) {
+      setHasMore(false);
+      setLoading(false);
+    } else {
+      setHasMore(dataState.documents.length === dataState.limit);
+      if (dataState.documents.length === dataState.limit) setLoading(false);
+    }
   }, [dataState]);
 
   let sortedDocs = dataState.documents;
@@ -89,7 +89,7 @@ function ScrollyRolly(props) {
                 textAlign: 'center',
                 cursor: 'default',
                 userSelect: 'none',
-                paddingTop: theme.spacing.unit * 4,
+                paddingTop: theme.spacing(4),
               }}
             >
               <Grid item>

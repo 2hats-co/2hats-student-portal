@@ -33,7 +33,7 @@ const styles = theme => ({
     boxSizing: 'border-box',
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginBottom: theme.spacing.unit * 5,
+    marginBottom: theme.spacing(5),
     maxWidth: '100vw',
     userSelect: 'none',
   },
@@ -42,23 +42,23 @@ const styles = theme => ({
   },
 
   moreButton: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
     '& svg': {
-      marginLeft: theme.spacing.unit / 4,
+      marginLeft: theme.spacing(0.25),
     },
   },
 
   noneLeftWrapper: {
-    marginBottom: theme.spacing.unit * 2,
+    marginBottom: theme.spacing(2),
   },
   noneLeftIcon: {
     fontSize: 35,
     color: theme.palette.text.disabled,
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   noneLeftMsg: {
     color: theme.palette.text.disabled,
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
     fontWeight: 700,
     lineHeight: 1.4,
     maxWidth: 260,
@@ -102,12 +102,9 @@ function Cards(props) {
     extraCols,
     filterIds
   );
-  useEffect(
-    () => {
-      setFilterIds(filterIds);
-    },
-    [filterIds]
-  );
+  useEffect(() => {
+    setFilterIds(filterIds);
+  }, [filterIds]);
 
   if (
     !cardsState.loading &&

@@ -15,10 +15,10 @@ const styles = theme => ({
     position: 'relative',
 
     borderRadius: theme.shape.borderRadius / 2,
-    padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit * 1.5}px`,
+    padding: `${theme.spacing(0.5)}px ${theme.spacing(1.5)}px`,
     backgroundColor: theme.palette.divider,
 
-    margin: theme.spacing.unit / 2,
+    margin: theme.spacing(0.5),
   },
 
   colorPrimary: {

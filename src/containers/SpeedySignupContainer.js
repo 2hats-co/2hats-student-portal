@@ -25,11 +25,11 @@ import { doSignInWithCustomToken } from '../firebase/auth';
 const styles = theme => ({
   root: {
     minHeight: '100vh',
-    padding: `${theme.spacing.unit}px 0`,
+    padding: `${theme.spacing(1)}px 0`,
   },
   subhead: {
-    marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 1.5,
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1.5),
     lineHeight: 1.25,
     fontWeight: 400,
   },
@@ -50,7 +50,7 @@ const styles = theme => ({
   },
   button: {
     width: 180,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     marginBottom: 0,
   },
   loading: {
@@ -59,7 +59,7 @@ const styles = theme => ({
   },
   mobileButton: {
     width: 180,
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     margin: 'auto',
   },
   img: {
@@ -79,7 +79,7 @@ const styles = theme => ({
     justifyContent: 'center',
     alignItems: 'center',
 
-    '& h6': { marginTop: theme.spacing.unit * 2 },
+    '& h6': { marginTop: theme.spacing(2) },
   },
 });
 class SpeedySignupContainer extends PureComponent {

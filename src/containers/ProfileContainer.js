@@ -25,22 +25,22 @@ import useDocument from '../hooks/useDocument';
 import useCollection from '../hooks/useCollection';
 
 export const profileStyles = theme => ({
-  infoPopper: { marginRight: -theme.spacing.unit * 2 },
+  infoPopper: { marginRight: -theme.spacing(1) * 2 },
   infoPopperText: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     width: 240,
   },
 
   paddedIcon: {
-    marginLeft: theme.spacing.unit * 2,
+    marginLeft: theme.spacing(2),
 
-    [theme.breakpoints.down('xs')]: { marginLeft: -theme.spacing.unit / 2 },
+    [theme.breakpoints.down('xs')]: { marginLeft: -theme.spacing(1) / 2 },
   },
 
   titleWrapper: {
-    marginBottom: theme.spacing.unit * 2,
-    minHeight: theme.spacing.unit * 6,
-    lineHeight: `${theme.spacing.unit * 6}px`,
+    marginBottom: theme.spacing(2),
+    minHeight: theme.spacing(6),
+    lineHeight: `${theme.spacing(6)}px`,
   },
   title: {
     fontWeight: 500,
@@ -48,27 +48,27 @@ export const profileStyles = theme => ({
   },
 
   browseButton: {
-    marginTop: theme.spacing.unit / 2,
-    marginLeft: -theme.spacing.unit,
+    marginTop: theme.spacing(0.5),
+    marginLeft: -theme.spacing(1),
   },
 
   item: {
-    '& + &': { marginTop: theme.spacing.unit * 2 },
+    '& + &': { marginTop: theme.spacing(2) },
   },
   itemIcon: {
     height: 28,
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
   itemTitle: {
     lineHeight: '28px',
   },
   itemButton: {
     verticalAlign: 'baseline',
-    marginLeft: -theme.spacing.unit,
+    marginLeft: -theme.spacing(1),
 
     '& svg': {
       fontSize: 18,
-      marginLeft: theme.spacing.unit / 4,
+      marginLeft: theme.spacing(0.25),
       marginRight: 0,
       marginBottom: -1,
     },
@@ -80,8 +80,8 @@ const styles = theme => ({
 
   root: {
     ...STYLES.DETAIL_VIEW(theme).root,
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 5,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(5),
 
     '& h6': { fontWeight: 700 },
   },
@@ -91,9 +91,9 @@ const styles = theme => ({
     textAlign: 'left',
   },
 
-  infoPopper: { marginRight: -theme.spacing.unit * 2 },
+  infoPopper: { marginRight: -theme.spacing(1) * 2 },
   infoPopperText: {
-    margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+    margin: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     width: 240,
   },
 });

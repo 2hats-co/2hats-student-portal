@@ -20,21 +20,21 @@ const styles = theme => ({
   },
 
   content: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     maxWidth: 480,
   },
 
   title: {
-    marginBottom: theme.spacing.unit * 1.5,
+    marginBottom: theme.spacing(1.5),
     fontWeight: 500,
   },
   subtitle: { fontWeight: 400 },
-  bodyText: { marginBottom: theme.spacing.unit * 2 },
+  bodyText: { marginBottom: theme.spacing(2) },
 
-  divider: { margin: `${theme.spacing.unit * 4}px 0` },
+  divider: { margin: `${theme.spacing(4)}px 0` },
 
   logo: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
     opacity: 0.33,
     width: 100,
   },

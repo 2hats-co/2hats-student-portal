@@ -29,7 +29,7 @@ const styles = theme => ({
   },
   avatarButton: {
     padding: 0,
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
     overflow: 'hidden',
 
     '&:hover $editIcon': { opacity: 1 },
@@ -37,9 +37,9 @@ const styles = theme => ({
   avatar: {
     cursor: 'pointer',
     textTransform: 'uppercase',
-    width: theme.spacing.unit * 8,
-    height: theme.spacing.unit * 8,
-    fontSize: theme.spacing.unit * 4,
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+    fontSize: theme.spacing(4),
   },
   editIcon: {
     opacity: 0,
@@ -50,11 +50,11 @@ const styles = theme => ({
 
     color: '#fff',
     backgroundColor: 'rgba(0,0,0,.25)',
-    boxShadow: `0 0 0 ${theme.spacing.unit * 2.5}px rgba(0,0,0,.25)`,
+    boxShadow: `0 0 0 ${theme.spacing(2.5)}px rgba(0,0,0,.25)`,
   },
   bigEditIcon: {
-    fontSize: theme.spacing.unit * (96 / 8),
-    boxShadow: `0 0 0 ${theme.spacing.unit * 5.25}px rgba(0,0,0,.25)`,
+    fontSize: theme.spacing(1) * (96 / 8),
+    boxShadow: `0 0 0 ${theme.spacing(5.25)}px rgba(0,0,0,.25)`,
   },
 
   bigAvatar: {

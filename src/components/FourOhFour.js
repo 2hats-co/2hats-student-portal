@@ -16,11 +16,11 @@ const styles = theme => ({
     minHeight: '100vh',
     minWidth: '100vw',
     textAlign: 'center',
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     backgroundColor: theme.palette.background.paper,
   },
 
-  button: { margin: theme.spacing.unit * 4 },
+  button: { margin: theme.spacing(4) },
 
   logo: {
     userSelect: 'none',
@@ -28,7 +28,7 @@ const styles = theme => ({
     width: 80,
     opacity: 0.5,
 
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 });
 

@@ -28,42 +28,42 @@ import {
 
 const styles = theme => ({
   root: {},
-  section: { marginTop: theme.spacing.unit * 3 },
+  section: { marginTop: theme.spacing(3) },
 
   ...STYLES.RENDERED_HTML(theme),
 
   loading: {
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
     backgroundColor: 'transparent',
   },
 
   submitButton: {
-    fontSize: theme.spacing.unit * 2,
+    fontSize: theme.spacing(2),
     borderRadius: 60,
-    margin: `${theme.spacing.unit * 3}px 0 ${theme.spacing.unit * 6}px`,
+    margin: `${theme.spacing(3)}px 0 ${theme.spacing(6)}px`,
     '@media print': { display: 'none' },
   },
   saveButton: {
-    fontSize: theme.spacing.unit * 2,
+    fontSize: theme.spacing(2),
     borderRadius: 60,
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
     '@media print': { display: 'none' },
   },
 
   paddedIcon: {
-    marginLeft: -theme.spacing.unit / 2,
-    marginRight: theme.spacing.unit * 1.5,
+    marginLeft: -theme.spacing(1) / 2,
+    marginRight: theme.spacing(1.5),
 
     [theme.breakpoints.up('lg')]: { marginLeft: -48 - 12 },
   },
 
   snackbar: {
-    [theme.breakpoints.down('sm')]: { bottom: theme.spacing.unit * 8 },
-    [theme.breakpoints.down('xs')]: { bottom: theme.spacing.unit * 7 },
+    [theme.breakpoints.down('sm')]: { bottom: theme.spacing(8) },
+    [theme.breakpoints.down('xs')]: { bottom: theme.spacing(7) },
   },
   savedTick: {
     verticalAlign: 'bottom',
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 
@@ -125,30 +125,24 @@ const AssessmentSubmission = props => {
     }
   }, []);
 
-  useEffect(
-    () => {
-      if (
-        data.assessmentId &&
-        (data.copiedQuestions || data.questionsDisplayed === 0)
-      )
-        setSubmissionId(data.id);
-    },
-    [data.id]
-  );
+  useEffect(() => {
+    if (
+      data.assessmentId &&
+      (data.copiedQuestions || data.questionsDisplayed === 0)
+    )
+      setSubmissionId(data.id);
+  }, [data.id]);
 
-  useEffect(
-    () => {
-      if (data.submissionContent && Array.isArray(data.submissionContent))
-        setAnswers(data.submissionContent);
-      if (
-        (data.submissionType === 'ideo' && !data.smartLink) ||
-        data.smartLink === {}
-      ) {
-        //createIdeoSmartLink(data, user);
-      }
-    },
-    [data.submissionContent]
-  );
+  useEffect(() => {
+    if (data.submissionContent && Array.isArray(data.submissionContent))
+      setAnswers(data.submissionContent);
+    if (
+      (data.submissionType === 'ideo' && !data.smartLink) ||
+      data.smartLink === {}
+    ) {
+      //createIdeoSmartLink(data, user);
+    }
+  }, [data.submissionContent]);
 
   const handleSave = () => {
     updateDoc(

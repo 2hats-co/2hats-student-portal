@@ -30,19 +30,19 @@ const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
 
   meta: {
-    marginTop: theme.spacing.unit * 1.5,
-    marginBottom: theme.spacing.unit * 3,
+    marginTop: theme.spacing(1.5),
+    marginBottom: theme.spacing(3),
   },
 
   getStarted: {
-    fontSize: theme.spacing.unit * 2,
+    fontSize: theme.spacing(2),
     borderRadius: 200,
     transition: theme.transitions.create(['transform', 'box-shadow']),
   },
   getStartedSection: {
     transition: theme.transitions.create(['transform', 'margin-top']),
     transformOrigin: '0 100%',
-    margin: `${theme.spacing.unit * 4}px 0 ${theme.spacing.unit * 6}px`,
+    margin: `${theme.spacing(4)}px 0 ${theme.spacing(6)}px`,
   },
   gotStarted: {
     transform: 'scale(0)',
@@ -50,13 +50,13 @@ const styles = theme => ({
   },
 
   resubmitted: {
-    marginTop: theme.spacing.unit,
-    marginLeft: theme.spacing.unit,
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(1),
   },
   resubmittedLink: { verticalAlign: 'baseline' },
 
   coursesWrapper: {
-    margin: `0 -${theme.spacing.unit}px`,
+    margin: `0 -${theme.spacing(1)}px`,
   },
 
   hideOnPrint: {

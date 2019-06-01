@@ -19,17 +19,17 @@ const styles = theme => ({
   listItemRoot: {
     alignItems: 'flex-start',
     cursor: 'default',
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
   },
 
   listItemTextRoot: { paddingRight: 0 },
   activityTitle: {
     lineHeight: '1.25',
-    marginBottom: theme.spacing.unit / 2,
+    marginBottom: theme.spacing(0.5),
   },
   timestamp: {
     color: theme.palette.text.secondary,
-    marginLeft: theme.spacing.unit * 1.5,
+    marginLeft: theme.spacing(1.5),
   },
   activityLogLabel: { color: theme.palette.text.secondary },
 
@@ -39,12 +39,12 @@ const styles = theme => ({
   },
 
   ctaButton: {
-    marginTop: theme.spacing.unit / 2,
-    marginLeft: -theme.spacing.unit * 2,
+    marginTop: theme.spacing(0.5),
+    marginLeft: -theme.spacing(1) * 2,
     '& svg': {
       margin: 0,
-      marginLeft: theme.spacing.unit / 2,
-      marginRight: -theme.spacing.unit / 2,
+      marginLeft: theme.spacing(0.5),
+      marginRight: -theme.spacing(1) / 2,
     },
   },
 });

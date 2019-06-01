@@ -23,17 +23,17 @@ import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
   divider: {
-    margin: `${theme.spacing.unit * 3}px 0`,
+    margin: `${theme.spacing(3)}px 0`,
   },
   resubmittedLink: { verticalAlign: 'baseline' },
 
-  feedbackItem: { marginTop: theme.spacing.unit * 2 },
+  feedbackItem: { marginTop: theme.spacing(2) },
   feedbackIcon: {
     display: 'inline-block',
-    marginLeft: -theme.spacing.unit * 4,
+    marginLeft: -theme.spacing(1) * 4,
     marginTop: 2,
     float: 'left',
   },

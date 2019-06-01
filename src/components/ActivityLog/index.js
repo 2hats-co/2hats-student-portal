@@ -28,21 +28,21 @@ import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';
 const styles = theme => ({
   spinner: {
     display: 'block',
-    margin: `${theme.spacing.unit * 2}px auto`,
+    margin: `${theme.spacing(2)}px auto`,
   },
 
   paperRoot: {
     borderRadius: theme.shape.roundBorderRadius,
-    width: `calc(100% - ${theme.spacing.unit * 3}px)`,
+    width: `calc(100% - ${theme.spacing(3)}px)`,
     maxWidth: 360,
     outline: 'none',
-    maxHeight: `calc(100% - ${theme.spacing.unit * 3}px)`,
+    maxHeight: `calc(100% - ${theme.spacing(3)}px)`,
     overflowY: 'hidden',
 
     position: 'absolute',
-    top: theme.spacing.unit * 1.5,
+    top: theme.spacing(1.5),
     bottom: 'auto',
-    right: theme.spacing.unit * 1.5,
+    right: theme.spacing(1.5),
     // transformOrigin: `${theme.spacing.unit * 4.5}px 0`,
     transformOrigin: '100% 0',
   },
@@ -60,8 +60,8 @@ const styles = theme => ({
 
   header: {
     boxSizing: 'content-box',
-    height: theme.spacing.unit * 5,
-    padding: `${theme.spacing.unit * 2}px 0`,
+    height: theme.spacing(5),
+    padding: `${theme.spacing(2)}px 0`,
   },
   title: {
     fontWeight: 500,
@@ -70,41 +70,42 @@ const styles = theme => ({
   },
   titleIcon: {
     verticalAlign: 'middle',
-    marginLeft: theme.spacing.unit * 2,
-    marginRight: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit / 2 + 1,
+    marginLeft: theme.spacing(2),
+    marginRight: theme.spacing(2),
+    marginBottom: theme.spacing(0.5) + 1,
 
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
     borderRadius: '50%',
     backgroundColor: theme.palette.divider,
   },
   closeButton: {
     position: 'absolute',
-    top: theme.spacing.unit * 1.5,
-    right: theme.spacing.unit * 0.75,
+    top: theme.spacing(1.5),
+    right: theme.spacing(0.75),
   },
   headerDivider: {
-    margin: `0 ${theme.spacing.unit * 2}px`,
+    margin: `0 ${theme.spacing(2)}px`,
     position: 'relative',
-    top: theme.spacing.unit + 2,
+    top: theme.spacing(1) + 2,
   },
 
   listWrapper: {
     overflowY: 'auto',
     '-webkit-overflow-scrolling': 'touch',
-    maxHeight: `calc(${window.innerHeight}px - ${theme.spacing.unit *
-      3}px - ${theme.spacing.unit * 9}px)`,
+    maxHeight: `calc(${window.innerHeight}px - ${theme.spacing(
+      3
+    )}px - ${theme.spacing(9)}px)`,
   },
   scrollyRollyList: {
     '&::before': {
       content: '""',
-      width: theme.spacing.unit / 4 + 1,
+      width: theme.spacing(0.25) + 1,
       height: '100%',
       backgroundColor: theme.palette.primary.light,
 
       position: 'absolute',
-      left: theme.spacing.unit * 4.5 - 1,
-      top: theme.spacing.unit * 4,
+      left: theme.spacing(4.5) - 1,
+      top: theme.spacing(4),
     },
   },
   scrollyRollyEmptyList: {
@@ -191,8 +192,9 @@ function ActivityLog(props) {
                 <div
                   className={classes.listWrapper}
                   style={{
-                    maxHeight: `calc(${window.innerHeight}px - ${theme.spacing
-                      .unit * 3}px - ${theme.spacing.unit * 9}px)`,
+                    maxHeight: `calc(${window.innerHeight}px - ${theme.spacing(
+                      3
+                    )}px - ${theme.spacing(9)}px)`,
                   }}
                 >
                   {activityLogState.loading &&

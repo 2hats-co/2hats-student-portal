@@ -29,7 +29,7 @@ const styles = theme => ({
     width: '100%',
     boxSizing: 'border-box',
 
-    [theme.breakpoints.up('sm')]: { marginTop: theme.spacing.unit },
+    [theme.breakpoints.up('sm')]: { marginTop: theme.spacing(1) },
   },
 
   fileName: {
@@ -37,7 +37,7 @@ const styles = theme => ({
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
 
-    marginLeft: -theme.spacing.unit,
+    marginLeft: -theme.spacing(1),
     width: '100%',
 
     textDecoration: 'none',
@@ -45,13 +45,13 @@ const styles = theme => ({
   },
   fileIcon: {
     ...STYLES.DROPZONE(theme).fileIcon,
-    marginRight: theme.spacing.unit / 2,
+    marginRight: theme.spacing(0.5),
     verticalAlign: 'bottom',
   },
 
   circularProgress: {
     color: theme.palette.text.secondary,
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1),
   },
 });
 
@@ -61,32 +61,29 @@ const ResumeUploader = props => {
   const [file, setFile] = useState({});
   const [rejectedFile, setRejectedFile] = useState('');
 
-  useEffect(
-    () => {
-      if (file.name && file.url) {
-        updateDoc(COLLECTIONS.profiles, uid, { resume: file }).then(() => {
-          cloudFunction(
-            CLOUD_FUNCTIONS.WHATS_NEXT_AI,
-            {},
-            o => console.log(o),
-            o => console.log(o)
-          );
-          cloudFunction(
-            CLOUD_FUNCTIONS.RESUME_SCRAPER,
-            { uid, url: file.url },
-            o => {
-              console.log(o);
-            },
-            o => {
-              console.log(o);
-            }
-          );
-          if (resetOnUpload) setFile({});
-        });
-      }
-    },
-    [file]
-  );
+  useEffect(() => {
+    if (file.name && file.url) {
+      updateDoc(COLLECTIONS.profiles, uid, { resume: file }).then(() => {
+        cloudFunction(
+          CLOUD_FUNCTIONS.WHATS_NEXT_AI,
+          {},
+          o => console.log(o),
+          o => console.log(o)
+        );
+        cloudFunction(
+          CLOUD_FUNCTIONS.RESUME_SCRAPER,
+          { uid, url: file.url },
+          o => {
+            console.log(o);
+          },
+          o => {
+            console.log(o);
+          }
+        );
+        if (resetOnUpload) setFile({});
+      });
+    }
+  }, [file]);
 
   const userContext = useContext(UserContext);
   const uid = userContext.user.id;

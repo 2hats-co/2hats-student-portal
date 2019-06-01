@@ -22,8 +22,8 @@ const styles = theme => ({
 
   root: {
     ...STYLES.DETAIL_VIEW(theme).root,
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 5,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(5),
   },
 
   content: {
@@ -89,30 +89,24 @@ const SchedulerContainer = props => {
     );
   }, []);
 
-  useEffect(
-    () => {
-      if (availableTimes) {
-        const computedDates = computeDates();
-        const computedTimeslots = [];
+  useEffect(() => {
+    if (availableTimes) {
+      const computedDates = computeDates();
+      const computedTimeslots = [];
 
-        computedDates.forEach(x =>
-          computedTimeslots.push(computeTimeslots(availableTimes, x))
-        );
+      computedDates.forEach(x =>
+        computedTimeslots.push(computeTimeslots(availableTimes, x))
+      );
 
-        setDates(computedDates);
-        setTimeslots(computedTimeslots);
-      }
-    },
-    [availableTimes]
-  );
+      setDates(computedDates);
+      setTimeslots(computedTimeslots);
+    }
+  }, [availableTimes]);
 
   // reset selected time on date change
-  useEffect(
-    () => {
-      setSelectedTime('');
-    },
-    [selectedDate]
-  );
+  useEffect(() => {
+    setSelectedTime('');
+  }, [selectedDate]);
 
   // submits two ISO strings of the 30-minute interval
   const submitBooking = () => {

@@ -15,8 +15,8 @@ const buttonStyles = theme => ({
     width: 64,
     height: 64,
 
-    marginBottom: theme.spacing.unit / 2,
-    marginRight: theme.spacing.unit / 2,
+    marginBottom: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5),
 
     '&:hover, &:focus': {
       backgroundColor: emphasize(theme.palette.grey[300], 0.08),
@@ -31,7 +31,7 @@ const buttonStyles = theme => ({
 
   date: {
     fontWeight: 500,
-    marginTop: -theme.spacing.unit / 2,
+    marginTop: -theme.spacing(1) / 2,
   },
 
   containedPrimary: {

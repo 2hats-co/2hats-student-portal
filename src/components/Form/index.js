@@ -31,14 +31,14 @@ import RadioButtons from './Fields/RadioButtons';
 const styles = theme => ({
   mobile: {},
   paperRoot: {
-    width: `calc(100% - ${theme.spacing.unit * 4}px)`,
+    width: `calc(100% - ${theme.spacing(4)}px)`,
     maxWidth: 600,
-    margin: theme.spacing.unit * 2,
-    maxHeight: `calc(100% - ${theme.spacing.unit * 4}px)`,
+    margin: theme.spacing(2),
+    maxHeight: `calc(100% - ${theme.spacing(4)}px)`,
   },
 
   dialogTitle: {
-    paddingTop: theme.spacing.unit * 2.5,
+    paddingTop: theme.spacing(2.5),
 
     '& > *': {
       overflow: 'hidden',
@@ -47,13 +47,13 @@ const styles = theme => ({
     },
 
     '$mobile &': {
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 2.5}px`,
+      padding: `${theme.spacing(2)}px ${theme.spacing(2.5)}px`,
     },
   },
 
   wrapperGrid: {
     overflowX: 'hidden',
-    paddingBottom: theme.spacing.unit,
+    paddingBottom: theme.spacing(1),
   },
 
   dialogContent: {
@@ -66,25 +66,23 @@ const styles = theme => ({
       theme.palette.type === 'dark'
         ? 'linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,0)), linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,0))'
         : 'linear-gradient(to bottom, rgba(0,0,0,.1), rgba(0,0,0,0)), linear-gradient(to top, rgba(0,0,0,.1), rgba(0,0,0,0))',
-    backgroundPosition: `-${theme.spacing.unit * 3}px 0, -${theme.spacing.unit *
-      3}px 100%`,
-    backgroundSize: `calc(100% + ${theme.spacing.unit * 3}px) ${theme.spacing
-      .unit * 2}px`,
+    backgroundPosition: `-${theme.spacing(3)}px 0, -${theme.spacing(3)}px 100%`,
+    backgroundSize: `calc(100% + ${theme.spacing(3)}px) ${theme.spacing(2)}px`,
 
     '&::before, &::after': {
       content: '""',
       position: 'relative',
       zIndex: -1,
       display: 'block',
-      height: theme.spacing.unit * 4,
-      margin: `0 -${theme.spacing.unit * 3}px -${theme.spacing.unit * 4}px`,
+      height: theme.spacing(4),
+      margin: `0 -${theme.spacing(3)}px -${theme.spacing(4)}px`,
       background: `linear-gradient(to bottom, ${
         theme.palette.background.paper
       }, ${theme.palette.background.paper} 30%, rgba(255, 255, 255, 0))`,
     },
 
     '&::after': {
-      marginTop: -theme.spacing.unit * 4,
+      marginTop: -theme.spacing(1) * 4,
       marginBottom: 0,
       background: `linear-gradient(to bottom, rgba(255, 255, 255, 0), ${
         theme.palette.background.paper
@@ -92,11 +90,11 @@ const styles = theme => ({
     },
 
     '$mobile &': {
-      padding: `0 ${theme.spacing.unit * 2}px`,
+      padding: `0 ${theme.spacing(2)}px`,
 
       '&::before, &::after': {
-        marginLeft: -theme.spacing.unit * 2,
-        marginRight: -theme.spacing.unit * 2,
+        marginLeft: -theme.spacing(1) * 2,
+        marginRight: -theme.spacing(1) * 2,
       },
     },
   },
@@ -106,7 +104,7 @@ const styles = theme => ({
   },
 
   sectionTitle: {
-    marginLeft: theme.spacing.unit * 1.5,
+    marginLeft: theme.spacing(1.5),
   },
 });
 

@@ -21,7 +21,7 @@ import * as ROUTES from '../constants/routes';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const styles = theme => ({
-  root: { paddingBottom: theme.spacing.unit * 4 },
+  root: { paddingBottom: theme.spacing(4) },
 
   wrapper: {
     margin: '0 auto',

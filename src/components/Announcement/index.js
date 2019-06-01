@@ -32,9 +32,9 @@ const styles = theme => ({
     boxSizing: 'border-box',
 
     margin: '0 auto',
-    marginBottom: theme.spacing.unit * 6,
+    marginBottom: theme.spacing(6),
 
-    padding: theme.spacing.unit * 4,
+    padding: theme.spacing(4),
     // paddingTop: theme.spacing.unit * 3,
     borderRadius: theme.shape.borderRadius,
     backgroundColor: theme.palette.background.paper,
@@ -44,14 +44,14 @@ const styles = theme => ({
     boxShadow: theme.shadowsLight[24],
 
     [theme.breakpoints.down('sm')]: {
-      width: `calc(100% - ${theme.spacing.unit * 2}px) !important`,
+      width: `calc(100% - ${theme.spacing(2)}px) !important`,
       maxWidth: 660,
     },
   },
 
   iconWrapper: {
-    marginRight: theme.spacing.unit * 2,
-    marginLeft: -theme.spacing.unit / 2,
+    marginRight: theme.spacing(2),
+    marginLeft: -theme.spacing(1) / 2,
   },
   icon: {
     fontSize: 32,
@@ -64,9 +64,9 @@ const styles = theme => ({
   },
 
   divider: {
-    margin: theme.spacing.unit * 3,
-    marginLeft: theme.spacing.unit * 7,
-    marginRight: theme.spacing.unit,
+    margin: theme.spacing(3),
+    marginLeft: theme.spacing(7),
+    marginRight: theme.spacing(1),
 
     [theme.breakpoints.down('sm')]: {
       marginLeft: 0,
@@ -75,8 +75,8 @@ const styles = theme => ({
   },
 
   specialLabelWrapper: {
-    marginLeft: -theme.spacing.unit / 2,
-    marginTop: theme.spacing.unit * 2,
+    marginLeft: -theme.spacing(1) / 2,
+    marginTop: theme.spacing(2),
   },
 
   fullHeight: { height: '100%' },
@@ -95,7 +95,7 @@ const styles = theme => ({
   titleArrow: {
     verticalAlign: 'text-bottom',
     opacity: 0.87,
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
   media: {
     width: 100,
@@ -104,8 +104,8 @@ const styles = theme => ({
     borderRadius: theme.shape.borderRadius * 0.75,
     transition: theme.transitions.create('opacity'),
 
-    marginLeft: theme.spacing.unit,
-    marginBottom: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginBottom: theme.spacing(1),
 
     backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
@@ -118,11 +118,11 @@ const styles = theme => ({
   },
   daysRemaining: {
     fontWeight: 500,
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 
   skillsWrapper: {
-    marginTop: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
   },
 });
 

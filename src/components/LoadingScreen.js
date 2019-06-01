@@ -50,7 +50,7 @@ const styles = theme => ({
   },
 
   message: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 });
 

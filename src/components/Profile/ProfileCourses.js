@@ -20,7 +20,7 @@ import * as ROUTES from '../../constants/routes';
 const styles = theme => ({
   ...profileStyles(theme),
 
-  skillsWrapper: { marginLeft: -theme.spacing.unit },
+  skillsWrapper: { marginLeft: -theme.spacing(1) },
 });
 
 const ProfileCourses = props => {

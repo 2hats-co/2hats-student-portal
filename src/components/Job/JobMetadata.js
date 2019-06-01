@@ -15,8 +15,8 @@ const styles = theme => ({
     textTransform: 'capitalize',
     color: theme.palette.text.primary,
 
-    marginTop: theme.spacing.unit,
-    marginBottom: `${theme.spacing.unit * 3}px !important`,
+    marginTop: theme.spacing(1),
+    marginBottom: `${theme.spacing(3)}px !important`,
     display: 'block',
 
     '& $adornmentIcon': {
@@ -28,7 +28,7 @@ const styles = theme => ({
 
   grid: {
     textAlign: 'center',
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
   gridItem: {
     paddingTop: '0 !important',
@@ -46,19 +46,19 @@ const styles = theme => ({
   },
   adornmentIcon: {
     verticalAlign: 'bottom',
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     color: theme.palette.text.secondary,
   },
 
   warningIcon: {
     fontSize: 28,
     verticalAlign: 'text-bottom',
-    marginLeft: -theme.spacing.unit / 2,
-    marginRight: theme.spacing.unit,
+    marginLeft: -theme.spacing(1) / 2,
+    marginRight: theme.spacing(1),
 
     [theme.breakpoints.down('sm')]: {
       fontSize: 24,
-      marginRight: theme.spacing.unit / 2,
+      marginRight: theme.spacing(0.5),
     },
   },
 });

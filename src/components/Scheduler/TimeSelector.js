@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 
 const chipStyles = theme => ({
   root: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing(1),
 
     fontSize: '.9375rem',
     borderRadius: 200,
@@ -14,11 +14,11 @@ const chipStyles = theme => ({
     width: 164,
     textAlign: 'center',
 
-    '&:not(:last-of-type)': { marginRight: theme.spacing.unit * 0.75 },
+    '&:not(:last-of-type)': { marginRight: theme.spacing(0.75) },
   },
   label: {
-    paddingLeft: theme.spacing.unit * 1.25,
-    paddingRight: theme.spacing.unit * 1.25,
+    paddingLeft: theme.spacing(1.25),
+    paddingRight: theme.spacing(1.25),
   },
 });
 

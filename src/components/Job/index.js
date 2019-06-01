@@ -30,14 +30,14 @@ const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
 
   skillsWrapper: {
-    marginTop: -theme.spacing.unit / 2,
-    marginLeft: -theme.spacing.unit / 2,
+    marginTop: -theme.spacing(1) / 2,
+    marginLeft: -theme.spacing(1) / 2,
   },
 
   upskill: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 4,
-    padding: theme.spacing.unit * 2,
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(4),
+    padding: theme.spacing(2),
 
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadowsLight[12],
@@ -45,21 +45,21 @@ const styles = theme => ({
     userSelect: 'none',
   },
   upskillIcon: {
-    marginRight: theme.spacing.unit,
-    marginTop: theme.spacing.unit / 4,
+    marginRight: theme.spacing(1),
+    marginTop: theme.spacing(0.25),
     color: theme.palette.primary.main,
   },
 
   applyWrapper: {
     textAlign: 'center',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
   applyBigWrapper: {
-    marginTop: theme.spacing.unit * 4,
-    marginBottom: theme.spacing.unit * 5,
+    marginTop: theme.spacing(4),
+    marginBottom: theme.spacing(5),
   },
 
-  formHeaderGrid: { marginBottom: theme.spacing.unit },
+  formHeaderGrid: { marginBottom: theme.spacing(1) },
 
   coverImage: {
     ...STYLES.DETAIL_VIEW(theme).coverImage,

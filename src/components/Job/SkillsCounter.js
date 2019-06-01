@@ -11,8 +11,8 @@ const styles = theme => ({
     color: theme.palette.background.paper,
 
     borderRadius: '500px',
-    margin: theme.spacing.unit,
-    padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit * 1.25}px`,
+    margin: theme.spacing(1),
+    padding: `${theme.spacing(0.5)}px ${theme.spacing(1.25)}px`,
 
     userSelect: 'none',
   },

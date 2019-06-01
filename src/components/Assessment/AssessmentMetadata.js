@@ -17,10 +17,10 @@ const styles = theme => ({
   metaWrapper: {
     display: 'inline-flex',
     width: 'auto',
-    '& + &': { marginLeft: theme.spacing.unit * 2 },
+    '& + &': { marginLeft: theme.spacing(2) },
   },
   icon: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
     opacity: 0.67,
   },
 });

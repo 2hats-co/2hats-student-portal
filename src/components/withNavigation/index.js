@@ -75,8 +75,8 @@ const styles = theme => ({
   nav: { height: '100%' },
 
   logoWrapper: {
-    padding: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
     justifyContent: 'flex-start',
     minHeight: 64,
     cursor: 'pointer',
@@ -85,31 +85,31 @@ const styles = theme => ({
 
   activityLogButton: {
     position: 'absolute',
-    right: theme.spacing.unit * 1,
-    top: theme.spacing.unit * 0.75,
+    right: theme.spacing(1),
+    top: theme.spacing(0.75),
     color: theme.palette.primary,
-    '& svg': { fontSize: theme.spacing.unit * 4 },
+    '& svg': { fontSize: theme.spacing(4) },
   },
   badge: { boxShadow: '0 0 0 2px #fff' },
 
   userWrapper: {
-    padding: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit / 2,
-    marginBottom: theme.spacing.unit,
+    padding: theme.spacing(2),
+    paddingBottom: theme.spacing(0.5),
+    marginBottom: theme.spacing(1),
     cursor: 'default',
   },
 
-  divider: { margin: `${theme.spacing.unit}px ${theme.spacing.unit * 2.25}px` },
+  divider: { margin: `${theme.spacing(1)}px ${theme.spacing(2.25)}px` },
 
-  listWrapper: { marginTop: theme.spacing.unit * 3 },
+  listWrapper: { marginTop: theme.spacing(3) },
   listItemRoot: {
     transition: theme.transitions.create(['background-color', 'color']),
     borderRadius: '0 20px 20px 0',
-    paddingTop: theme.spacing.unit,
-    paddingBottom: theme.spacing.unit,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
 
-    margin: `${theme.spacing.unit / 2}px 0`,
-    marginRight: theme.spacing.unit,
+    margin: `${theme.spacing(0.5)}px 0`,
+    marginRight: theme.spacing(1),
     width: 'auto',
   },
   listItemTextRoot: { padding: 0 },
@@ -128,7 +128,7 @@ const styles = theme => ({
   },
   fadeOut: { opacity: 0 },
 
-  wrappedComponentMobilePadding: { paddingBottom: theme.spacing.unit * 10 },
+  wrappedComponentMobilePadding: { paddingBottom: theme.spacing(10) },
 
   appBar: {
     top: 'auto !important',
@@ -143,7 +143,7 @@ const styles = theme => ({
   toolbar: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: `0 ${theme.spacing.unit}px`,
+    padding: `0 ${theme.spacing(1)}px`,
   },
   bottomLogo: {
     height: 28,

@@ -16,11 +16,11 @@ import UserContext from '../../contexts/UserContext';
 
 const styles = theme => ({
   apply: {
-    marginTop: theme.spacing.unit * 2,
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2.5}px`,
+    marginTop: theme.spacing(2),
+    padding: `${theme.spacing(1)}px ${theme.spacing(2.5)}px`,
     '& svg': {
-      marginLeft: theme.spacing.unit / 2,
-      marginRight: -theme.spacing.unit / 2,
+      marginLeft: theme.spacing(0.5),
+      marginRight: -theme.spacing(1) / 2,
     },
   },
   applyBig: {
@@ -29,8 +29,8 @@ const styles = theme => ({
     borderRadius: 200,
 
     '& svg': {
-      marginLeft: theme.spacing.unit / 2,
-      marginRight: -theme.spacing.unit / 2,
+      marginLeft: theme.spacing(0.5),
+      marginRight: -theme.spacing(1) / 2,
       position: 'relative',
       top: 1,
     },
@@ -41,8 +41,8 @@ const styles = theme => ({
     fontSize: '.875rem',
     lineHeight: 1.25,
 
-    margin: theme.spacing.unit / 2,
-    marginLeft: theme.spacing.unit,
+    margin: theme.spacing(0.5),
+    marginLeft: theme.spacing(1),
   },
 
   loading: {

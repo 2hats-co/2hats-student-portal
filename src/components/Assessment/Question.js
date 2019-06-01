@@ -24,11 +24,11 @@ import { uploader } from '../../utilities/Uploader';
 import { globalReplace, copyToClipboard } from '../../utilities';
 
 const styles = theme => ({
-  root: { margin: `${theme.spacing.unit * 4}px 0` },
+  root: { margin: `${theme.spacing(4)}px 0` },
 
   ...STYLES.RENDERED_HTML(theme),
 
-  answerInputWrapper: { marginTop: theme.spacing.unit * 2 },
+  answerInputWrapper: { marginTop: theme.spacing(2) },
 
   quillEditor: { ...STYLES.QUILL(theme) },
 
@@ -36,15 +36,15 @@ const styles = theme => ({
 
   mcEmailButton: {
     verticalAlign: 'baseline',
-    marginLeft: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
   },
-  previewSubtitle: { marginTop: theme.spacing.unit * 2 },
+  previewSubtitle: { marginTop: theme.spacing(2) },
 
-  linearProgress: { marginTop: theme.spacing.unit },
+  linearProgress: { marginTop: theme.spacing(1) },
 
   paddedIcon: {
-    marginLeft: -theme.spacing.unit / 2,
-    marginRight: theme.spacing.unit * 1.5,
+    marginLeft: -theme.spacing(1) / 2,
+    marginRight: theme.spacing(1.5),
 
     [theme.breakpoints.up('lg')]: { marginLeft: -48 - 12 },
   },

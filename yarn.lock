@@ -1405,6 +1405,11 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
+"@material-ui/codemod@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@material-ui/codemod/-/codemod-4.0.1.tgz#c236ae23b6a3a5f53f4d57b72f59afc27bfca20e"
+  integrity sha512-jeD84kwMyoXKu5407MOWbD/Byu0qP43XagnB3ToxBoStKqMwXczxlG9VIcyTz8+n9Bz+s38wCMGfKHYPoZ/r/w==
+
 "@material-ui/core@^4.0.1":
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.0.1.tgz#7fe3bcb1a89b01376b181358a5ded58291da0016"

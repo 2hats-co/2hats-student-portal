@@ -10,12 +10,12 @@ import PaddedIcon from '../PaddedIcon';
 const styles = theme => ({
   root: {
     boxSizing: 'border-box',
-    padding: `${theme.spacing.unit * 4}px ${theme.spacing.unit}px`,
+    padding: `${theme.spacing(4)}px ${theme.spacing(1)}px`,
     margin: '0 auto',
     userSelect: 'none',
 
     [theme.breakpoints.down('sm')]: {
-      width: `calc(100% - ${theme.spacing.unit * 2}px) !important`,
+      width: `calc(100% - ${theme.spacing(2)}px) !important`,
       maxWidth: '660px !important',
     },
     // [theme.breakpoints.down('xs')]: {
@@ -30,15 +30,15 @@ const styles = theme => ({
     wordWrap: 'break-word',
   },
   subtitle: {
-    marginTop: theme.spacing.unit * 1.5,
+    marginTop: theme.spacing(1.5),
     fontWeight: 400,
     display: 'block',
   },
 
   paddedIcon: {
-    marginTop: -theme.spacing.unit / 2,
-    marginLeft: -theme.spacing.unit / 2,
-    marginRight: theme.spacing.unit * 2,
+    marginTop: -theme.spacing(1) / 2,
+    marginLeft: -theme.spacing(1) / 2,
+    marginRight: theme.spacing(2),
   },
 });
 

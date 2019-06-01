@@ -9,7 +9,7 @@ import moment from 'moment';
 
 const styles = theme => ({
   dateTimePicker: {
-    marginRight: theme.spacing.unit,
+    marginRight: theme.spacing(1),
   },
 });
 const Date = props => {

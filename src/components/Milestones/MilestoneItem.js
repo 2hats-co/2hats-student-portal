@@ -18,13 +18,13 @@ const styles = theme => ({
     '&:active': { opacity: 0.5 },
   },
 
-  value: { marginBottom: theme.spacing.unit },
+  value: { marginBottom: theme.spacing(1) },
   icon: {
     verticalAlign: 'baseline',
     position: 'relative',
     top: 3,
 
-    marginLeft: theme.spacing.unit / 2,
+    marginLeft: theme.spacing(0.5),
     transitionDuration: '0 ms',
     opacity: 0.87,
   },
@@ -35,7 +35,7 @@ const styles = theme => ({
   },
   goIcon: {
     verticalAlign: 'bottom',
-    marginLeft: theme.spacing.unit / 4,
+    marginLeft: theme.spacing(0.25),
 
     opacity: 0.87,
     fontSize: 18,

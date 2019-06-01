@@ -20,14 +20,14 @@ const styles = theme => ({
   ...profileStyles(theme),
 
   newResumeMsg: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: -theme.spacing.unit,
+    marginTop: theme.spacing(2),
+    marginBottom: -theme.spacing(1),
   },
 
-  uploader: { marginTop: theme.spacing.unit * 2 },
+  uploader: { marginTop: theme.spacing(2) },
 
   fileChip: {
-    marginLeft: -theme.spacing.unit / 2,
+    marginLeft: -theme.spacing(1) / 2,
     cursor: 'pointer',
   },
   fileIcon: { transform: 'rotate(-45deg)' },

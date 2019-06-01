@@ -19,17 +19,17 @@ import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 const styles = theme => ({
   badgeIcon: {
-    fontSize: theme.spacing.unit * 2.25,
+    fontSize: theme.spacing(2.25),
     backgroundColor: 'inherit',
     borderRadius: '50%',
 
     position: 'absolute',
-    bottom: theme.spacing.unit / 2,
-    right: theme.spacing.unit / 2,
+    bottom: theme.spacing(0.5),
+    right: theme.spacing(0.5),
   },
   badgeIconExtraPadding: {
-    fontSize: theme.spacing.unit * 2,
-    boxShadow: `0 0 0 ${theme.spacing.unit / 2 - 1}px ${
+    fontSize: theme.spacing(2),
+    boxShadow: `0 0 0 ${theme.spacing(0.5) - 1}px ${
       theme.palette.primary.light
     }`,
   },

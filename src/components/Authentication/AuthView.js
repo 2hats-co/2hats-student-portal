@@ -22,7 +22,7 @@ const styles = theme => ({
     marginLeft: -5,
   },
   link: {
-    marginLeft: theme.spacing.unit / 2,
+    marginLeft: theme.spacing(0.5),
     color: theme.palette.primary.main,
     textDecoration: 'none',
     '&:hover': { textDecoration: 'underline' },

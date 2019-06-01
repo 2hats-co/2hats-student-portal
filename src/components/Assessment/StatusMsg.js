@@ -15,19 +15,19 @@ import Feedback from './Feedback';
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing.unit * 3,
-    padding: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
+    padding: theme.spacing(3),
 
     borderRadius: theme.shape.borderRadius,
     boxShadow: theme.shadowsLight[24],
   },
   paddedIcon: {
-    marginRight: theme.spacing.unit * 2,
-    [theme.breakpoints.down('xs')]: { marginBottom: theme.spacing.unit },
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.down('xs')]: { marginBottom: theme.spacing(1) },
   },
   title: {
-    marginTop: theme.spacing.unit / 4,
-    marginBottom: theme.spacing.unit / 2,
+    marginTop: theme.spacing(0.25),
+    marginBottom: theme.spacing(0.5),
   },
 });
 

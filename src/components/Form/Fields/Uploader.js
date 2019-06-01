@@ -21,7 +21,7 @@ import isEmpty from 'ramda/es/isEmpty';
 
 const styles = theme => ({
   sectionTitle: {
-    marginLeft: theme.spacing.unit * 1.5,
+    marginLeft: theme.spacing(1.5),
   },
   ...STYLES.DROPZONE(theme),
 });
@@ -31,17 +31,14 @@ const Uploader = props => {
   const { setValues, values, errors, touched } = formikProps;
 
   const [uploadUrl, setUploadUrl] = useState(null);
-  useEffect(
-    () => {
-      if (uploadUrl) {
-        setValues({
-          ...values,
-          [name]: { name: values[name].name, url: uploadUrl },
-        });
-      }
-    },
-    [uploadUrl]
-  );
+  useEffect(() => {
+    if (uploadUrl) {
+      setValues({
+        ...values,
+        [name]: { name: values[name].name, url: uploadUrl },
+      });
+    }
+  }, [uploadUrl]);
 
   const [rejectedFile, setRejectedFile] = useState('');
 

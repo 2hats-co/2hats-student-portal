@@ -24,11 +24,11 @@ const styles = theme => ({
   input: {
     display: 'flex',
     // padding: 0,
-    paddingLeft: theme.spacing.unit * 1.5,
-    paddingRight: theme.spacing.unit * 0.75,
+    paddingLeft: theme.spacing(1.5),
+    paddingRight: theme.spacing(0.75),
   },
   collapseInput: {
-    paddingTop: theme.spacing.unit * 0.75,
+    paddingTop: theme.spacing(0.75),
   },
   valueContainer: {
     display: 'flex',
@@ -36,12 +36,12 @@ const styles = theme => ({
     flex: 1,
     alignItems: 'center',
     overflow: 'hidden',
-    minHeight: theme.spacing.unit * 3.5,
+    minHeight: theme.spacing(3.5),
   },
   chip: {
-    marginRight: `${theme.spacing.unit / 2}px !important`,
-    height: theme.spacing.unit * 3.5,
-    '& svg': { marginRight: theme.spacing.unit / 4 },
+    marginRight: `${theme.spacing(0.5)}px !important`,
+    height: theme.spacing(3.5),
+    '& svg': { marginRight: theme.spacing(0.25) },
   },
   chipFocused: {
     backgroundColor: emphasize(
@@ -52,7 +52,7 @@ const styles = theme => ({
     ),
   },
   noOptionsMessage: {
-    padding: `${theme.spacing.unit}px ${theme.spacing.unit * 2}px`,
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
   },
   singleValue: {
     fontSize: 16,
@@ -61,7 +61,7 @@ const styles = theme => ({
     userSelect: 'none',
     fontSize: 16,
     position: 'absolute',
-    left: theme.spacing.unit * 1.5,
+    left: theme.spacing(1.5),
   },
 
   menuWrapper: { position: 'relative' },
@@ -74,7 +74,7 @@ const styles = theme => ({
   },
 
   indicatorButton: {
-    marginLeft: theme.spacing.unit / 2,
+    marginLeft: theme.spacing(0.5),
     padding: 0,
   },
 });

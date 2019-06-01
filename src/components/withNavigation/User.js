@@ -29,7 +29,7 @@ const styles = theme => ({
   },
 
   displayName: {
-    paddingLeft: theme.spacing.unit / 2,
+    paddingLeft: theme.spacing(0.5),
     overflowWrap: 'break-word',
     wordWrap: 'break-word',
   },

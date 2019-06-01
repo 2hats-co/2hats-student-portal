@@ -25,7 +25,7 @@ const styles = theme => ({
   },
 
   message: {
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1),
   },
 
   errorIcon: {
@@ -35,7 +35,7 @@ const styles = theme => ({
 
   backButton: {
     position: 'relative !important',
-    marginTop: theme.spacing.unit * 3,
+    marginTop: theme.spacing(3),
   },
 });
 
@@ -54,41 +54,38 @@ function CourseRedirectContainer(props) {
     document.title = '2hats – Courses – Redirecting…';
   }, []);
 
-  useEffect(
-    () => {
-      if (!hasId || !user) return;
-      // touch the course
-      const courseId = parsedQuery.id;
+  useEffect(() => {
+    if (!hasId || !user) return;
+    // touch the course
+    const courseId = parsedQuery.id;
 
-      if (!user.touchedCourses || !user.touchedCourses.includes(courseId)) {
-        const newTouchedCourses = user.touchedCourses || [];
-        newTouchedCourses.push(courseId);
-        updateDoc(COLLECTIONS.users, user.id, {
-          touchedCourses: newTouchedCourses,
-        });
+    if (!user.touchedCourses || !user.touchedCourses.includes(courseId)) {
+      const newTouchedCourses = user.touchedCourses || [];
+      newTouchedCourses.push(courseId);
+      updateDoc(COLLECTIONS.users, user.id, {
+        touchedCourses: newTouchedCourses,
+      });
+    }
+
+    // set user's interest to course so what's next can display the right things
+    if (user.interest !== 'course')
+      updateDoc(COLLECTIONS.users, user.id, {
+        interest: 'course',
+      });
+
+    // learnWorlds single sign on
+    cloudFunction(
+      CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
+      { courseId: parsedQuery.id },
+      res => {
+        window.location.replace(res.data.url);
+      },
+      err => {
+        console.error(err);
+        setError(true);
       }
-
-      // set user's interest to course so what's next can display the right things
-      if (user.interest !== 'course')
-        updateDoc(COLLECTIONS.users, user.id, {
-          interest: 'course',
-        });
-
-      // learnWorlds single sign on
-      cloudFunction(
-        CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
-        { courseId: parsedQuery.id },
-        res => {
-          window.location.replace(res.data.url);
-        },
-        err => {
-          console.error(err);
-          setError(true);
-        }
-      );
-    },
-    [user]
-  );
+    );
+  }, [user]);
 
   if (!user) return <LoadingScreen contained message="Loading…" />;
 

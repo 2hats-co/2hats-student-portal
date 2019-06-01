@@ -23,13 +23,13 @@ import useAnalytics from '../../hooks/useAnalytics';
 const styles = theme => ({
   root: {
     margin: '0 auto',
-    marginTop: -theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 3,
-    padding: theme.spacing.unit,
+    marginTop: -theme.spacing(1) * 2,
+    marginBottom: theme.spacing(3),
+    padding: theme.spacing(1),
     boxSizing: 'border-box',
 
     [theme.breakpoints.down('sm')]: {
-      width: `calc(100% - ${theme.spacing.unit * 2}px) !important`,
+      width: `calc(100% - ${theme.spacing(2)}px) !important`,
       maxWidth: 660,
     },
   },
@@ -37,14 +37,14 @@ const styles = theme => ({
   milestonesIcon: {
     fontSize: 32,
     opacity: 0.87,
-    marginRight: theme.spacing.unit * 1.5,
+    marginRight: theme.spacing(1.5),
   },
   title: { fontWeight: 500 },
-  iconButton: { marginRight: -theme.spacing.unit },
+  iconButton: { marginRight: -theme.spacing(1) },
 
   milestonesGrid: {
-    marginTop: theme.spacing.unit,
-    padding: theme.spacing.unit / 2,
+    marginTop: theme.spacing(1),
+    padding: theme.spacing(0.5),
   },
 });
 

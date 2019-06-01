@@ -9,10 +9,10 @@ import Button from '@material-ui/core/Button';
 
 const styles = theme => ({
   root: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing(1),
 
     [theme.breakpoints.down('xs')]: {
-      paddingLeft: theme.spacing.unit * 2,
+      paddingLeft: theme.spacing(2),
       // paddingRight: theme.spacing.unit * 2,
     },
   },
@@ -27,7 +27,7 @@ const styles = theme => ({
     fontSize: 32,
     opacity: 0.87,
 
-    marginRight: theme.spacing.unit * 1.5,
+    marginRight: theme.spacing(1.5),
     verticalAlign: 'bottom',
 
     transition: theme.transitions.create(['color', 'background-color'], {
@@ -46,7 +46,7 @@ const styles = theme => ({
     },
   },
 
-  viewAllButton: { marginRight: -theme.spacing.unit / 4 },
+  viewAllButton: { marginRight: -theme.spacing(1) / 4 },
 });
 
 const CardsHeader = props => {
