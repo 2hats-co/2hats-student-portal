@@ -84,29 +84,26 @@ const WhatsNext = props => {
   });
   const profile = profileState.doc;
 
-  useEffect(
-    () => {
-      if (!profile) return null;
-      // call cloud function if user doesn't have whatsNext or hasn't been
-      // updated in 30 mins
-      if (
-        !profile.whatsNext ||
-        moment().diff(
-          moment.unix(profile.whatsNext.updatedAt.seconds),
-          'minutes'
-        ) > 30
-      ) {
-        console.log('called whatsNextAI');
-        cloudFunction(
-          CLOUD_FUNCTIONS.WHATS_NEXT_AI,
-          {},
-          o => console.log(o),
-          o => console.log(o)
-        );
-      }
-    },
-    [profile]
-  );
+  useEffect(() => {
+    if (!profile) return;
+    // call cloud function if user doesn't have whatsNext or hasn't been
+    // updated in 30 mins
+    if (
+      !profile.whatsNext ||
+      moment().diff(
+        moment.unix(profile.whatsNext.updatedAt.seconds),
+        'minutes'
+      ) > 30
+    ) {
+      console.log('called whatsNextAI');
+      cloudFunction(
+        CLOUD_FUNCTIONS.WHATS_NEXT_AI,
+        {},
+        o => console.log(o),
+        o => console.log(o)
+      );
+    }
+  }, [profile]);
 
   if (!profile || !profile.whatsNext || !profile.whatsNext.state) return null;
 
