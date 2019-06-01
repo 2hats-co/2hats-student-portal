@@ -112,7 +112,8 @@ const styles = theme => ({
     marginRight: theme.spacing(1),
     width: 'auto',
   },
-  listItemTextRoot: { padding: 0 },
+  listItemIconRoot: { minWidth: theme.spacing(3 + 2) },
+  listItemTextRoot: { margin: 0 },
   selected: {
     color: theme.palette.primary.main,
     backgroundColor: theme.palette.primary.light,

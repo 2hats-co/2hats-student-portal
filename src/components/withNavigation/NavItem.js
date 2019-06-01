@@ -25,7 +25,9 @@ function NavItem(props) {
           className={selected ? classes.selected : ''}
           disabled={data.disabled}
         >
-          <ListItemIcon>{data.icon}</ListItemIcon>
+          <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
+            {data.icon}
+          </ListItemIcon>
           <ListItemText
             primary={data.label}
             classes={{ root: classes.listItemTextRoot }}
@@ -48,7 +50,9 @@ function NavItem(props) {
           className={selected ? classes.selected : ''}
           disabled={data.disabled}
         >
-          <ListItemIcon>{data.icon}</ListItemIcon>
+          <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
+            {data.icon}
+          </ListItemIcon>
           <ListItemText
             primary={data.label}
             classes={{ root: classes.listItemTextRoot }}
