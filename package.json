@@ -57,7 +57,10 @@
     ]
   },
   "devDependencies": {
+    "firebase-admin": "^8.0.0",
     "husky": "^2.3.0",
+    "pixelmatch": "^4.0.2",
+    "pngjs": "^3.4.0",
     "prettier": "^1.17.1",
     "pretty-quick": "^1.11.0",
     "puppeteer": "^1.17.0"
