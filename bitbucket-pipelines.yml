@@ -3,42 +3,29 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: node:9
+image: node:lts
 
 pipelines:
   branches:
     SP3-staging:
       - step:
           caches:
-          - node
-          - globalnode
-          - localnode
+            - node
+            - globalnode
           script: # Modify the commands below to build your repository.
-          - node scripts/deployconfig-staging
-          - cat .env
-          - cat .firebaserc
-          - cat firebase.json
-          - yarn global add firebase-tools
-          - yarn install
-          - CI=false yarn build
-          - firebase deploy --token "$FIREBASE_TOKEN" --project staging2hats --non-interactive --public build --only hosting
-    # production:
-    #   - step:
-    #       caches:
-    #       - node
-    #       - globalnode
-    #       - localnode
-    #       script: # Modify the commands below to build your repository.
-    #       - yarn global add firebase-tools
-    #       - yarn install
-    #       - CI=false yarn build
-    #       - firebase deploy --token "$FIREBASE_TOKEN" --project production2hats --non-interactive --public build --only hosting
+            - node scripts/deployconfig-staging
+            - cat .env
+            - cat .firebaserc
+            - cat firebase.json
+            - yarn global add firebase-tools
+            - yarn install
+            - CI=false yarn build
+            - firebase deploy --token "$FIREBASE_TOKEN" --project staging2hats --non-interactive --public build --only hosting
     SP3-production:
       - step:
           caches:
           - node
           - globalnode
-          - localnode
           script: # Modify the commands below to build your repository.
           - node scripts/deployconfig-production
           - cat .env
@@ -51,4 +38,3 @@ pipelines:
 definitions: 
    caches: 
      globalnode: /usr/local/lib/node_modules
-     localnode: /opt/atlassian/pipelines/agent/build/functions/node_modules
