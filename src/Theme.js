@@ -35,7 +35,6 @@ export const Theme = createMuiTheme({
     },
   },
   typography: {
-    useNextVariants: true,
     fontFamily: FONT_STACK,
     h4: { fontWeight: 500 },
     h6: { lineHeight: 1.4 },
