@@ -7,7 +7,7 @@ image: node:9
 
 pipelines:
   branches:
-    SP3-testing:
+    SP3-staging:
       - step:
           caches:
           - node
