@@ -33,8 +33,7 @@ function ScrollyRolly(props) {
     }
   };
 
-  useEffect(
-    () => {
+  useEffect(() => {
       if (
         dataState.limit === dataState.cap ||
         (dataState.limit - dataState.documents.length > 0 &&
@@ -46,9 +45,7 @@ function ScrollyRolly(props) {
         setHasMore(dataState.documents.length === dataState.limit);
         if (dataState.documents.length === dataState.limit) setLoading(false);
       }
-    },
-    [dataState]
-  );
+  }, [dataState]);
 
   let sortedDocs = dataState.documents;
   if (sort) sortedDocs = sort(dataState.documents);
@@ -119,4 +116,4 @@ function ScrollyRolly(props) {
   );
 }
 
-export default withTheme()(ScrollyRolly);
+export default withTheme(ScrollyRolly);
