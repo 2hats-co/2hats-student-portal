@@ -80,7 +80,7 @@ const JobMetadata = props => {
         {data.industry}
       </Typography>
 
-      <Grid container className={classes.grid} spacing={16} justify="center">
+      <Grid container className={classes.grid} spacing={2} justify="center">
         <Grid item xs={4} className={classes.gridItem}>
           <Typography
             variant={isXs || small ? 'h6' : 'h5'}

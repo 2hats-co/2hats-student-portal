@@ -194,7 +194,7 @@ const Announcement = props => {
 
   return (
     <div className={classes.root} style={{ width: width - 16 }}>
-      <Grid container alignItems="stretch" spacing={24}>
+      <Grid container alignItems="stretch" spacing={3}>
         <Grid item xs={12} sm={7}>
           <Grid
             container

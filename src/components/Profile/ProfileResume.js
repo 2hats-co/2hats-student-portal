@@ -43,7 +43,7 @@ const ProfileResume = props => {
       container
       direction={isMobile ? 'column' : 'row'}
       className={classes.root}
-      spacing={isMobile ? 8 : 24}
+      spacing={isMobile ? 1 : 3}
     >
       <Grid item>
         <PaddedIcon className={classes.paddedIcon}>

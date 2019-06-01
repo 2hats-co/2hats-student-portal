@@ -231,7 +231,7 @@ function Form(props) {
           <Grid
             container
             direction="row"
-            spacing={8}
+            spacing={1}
             className={classes.wrapperGrid}
           >
             {data.map((x, i) => {

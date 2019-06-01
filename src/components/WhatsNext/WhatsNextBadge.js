@@ -21,7 +21,7 @@ const WhatsNextBadge = props => {
 
   return (
     <>
-      <Grid container alignItems="flex-end" spacing={24}>
+      <Grid container alignItems="flex-end" spacing={3}>
         <Grid item xs>
           <Grid container direction={isMobile ? 'column' : 'row'}>
             <Grid item className={classes.iconWrapper}>

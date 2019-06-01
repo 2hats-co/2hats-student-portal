@@ -94,7 +94,7 @@ const Milestones = props => {
         )}
       </Grid>
 
-      <Grid container spacing={8} className={classes.milestonesGrid}>
+      <Grid container spacing={1} className={classes.milestonesGrid}>
         <Grid item xs={4} sm={3}>
           <MilestoneItem
             val={Array.isArray(user.touchedJobs) ? user.touchedJobs.length : 0}

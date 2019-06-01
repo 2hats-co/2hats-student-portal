@@ -122,7 +122,7 @@ const WhatsNext = props => {
             ? 'flex-start'
             : 'flex-end'
         }
-        spacing={24}
+        spacing={3}
       >
         <Grid item xs>
           <Grid container direction={isMobile ? 'column' : 'row'}>
