@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -81,41 +81,32 @@ const Assessment = props => {
   const userContext = useContext(UserContext);
   const user = userContext.user;
 
-  useEffect(
-    () => {
-      if (gotStartedCondition) setGotStarted(true);
-      else setGotStarted(false);
-    },
-    [data]
-  );
+  useEffect(() => {
+    if (gotStartedCondition) setGotStarted(true);
+    else setGotStarted(false);
+  }, [data]);
 
   const [courseState, courseDispatch] = useCollection();
   const suggestedCourses = courseState.documents;
 
   // Get course suggestion
-  useEffect(
-    () => {
-      courseDispatch({
-        path: COLLECTIONS.courses,
-        filters: [
-          {
-            field: 'skillsAssociated',
-            operator: 'array-contains',
-            value: { id: data.assessmentId || data.id, title: data.title },
-          },
-          { field: 'published', operator: '==', value: true },
-        ],
-      });
-    },
-    [data.id]
-  );
+  useEffect(() => {
+    courseDispatch({
+      path: COLLECTIONS.courses,
+      filters: [
+        {
+          field: 'skillsAssociated',
+          operator: 'array-contains',
+          value: { id: data.assessmentId || data.id, title: data.title },
+        },
+        { field: 'published', operator: '==', value: true },
+      ],
+    });
+  }, [data.id]);
 
-  useEffect(
-    () => {
-      console.log('suggestedCourses', suggestedCourses);
-    },
-    [suggestedCourses]
-  );
+  useEffect(() => {
+    console.log('suggestedCourses', suggestedCourses);
+  }, [suggestedCourses]);
 
   if (loading)
     return <LoadingScreen contained message="Creating submission…" />;

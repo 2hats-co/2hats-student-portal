@@ -15,7 +15,7 @@ import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 import MilestoneItem from './MilestoneItem';
 import ActivityLog from '../ActivityLog';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import * as ROUTES from '../../constants/routes';
 import useAnalytics from '../../hooks/useAnalytics';

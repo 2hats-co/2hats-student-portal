@@ -25,7 +25,7 @@ import FaqIcon from '@material-ui/icons/HelpOutline';
 import AccountInfoIcon from '@material-ui/icons/SettingsOutlined';
 import LogOutIcon from '@material-ui/icons/ExitToAppOutlined';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { setBackground } from '../../utilities/styling';
 import * as ROUTES from '../../constants/routes';
 
@@ -177,13 +177,10 @@ export default function withNavigation(WrappedComponent) {
     const [userState] = useDocument({
       path: `${COLLECTIONS.users}/${authUser.uid}`,
     });
-    useEffect(
-      () => {
-        if (userState.doc && !equals(userState.doc, userContext.user))
-          userContext.setUser(userState.doc);
-      },
-      [userState.doc]
-    );
+    useEffect(() => {
+      if (userState.doc && !equals(userState.doc, userContext.user))
+        userContext.setUser(userState.doc);
+    }, [userState.doc]);
     const user = userContext.user;
 
     const goTo = route => {

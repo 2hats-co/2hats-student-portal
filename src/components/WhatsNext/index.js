@@ -14,7 +14,7 @@ import WhatsNextTitle from './WhatsNextTitle';
 import WhatsNextDescription from './WhatsNextDescription';
 import WhatsNextCta from './WhatsNextCta';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useDocument from '../../hooks/useDocument';
 import {
   COLLECTIONS,

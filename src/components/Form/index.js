@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Slide from '@material-ui/core/Slide';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
@@ -158,17 +158,14 @@ function Form(props) {
 
   let initialValues = data.reduce(initialValuesReducer, {});
   let hasNewData = true;
-  useEffect(
-    () => {
-      if (data) {
-        initialValues = data.reduce(initialValuesReducer, {});
-      } else {
-        initialValues = {};
-      }
-      hasNewData = true;
-    },
-    [data]
-  );
+  useEffect(() => {
+    if (data) {
+      initialValues = data.reduce(initialValuesReducer, {});
+    } else {
+      initialValues = {};
+    }
+    hasNewData = true;
+  }, [data]);
 
   const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
 

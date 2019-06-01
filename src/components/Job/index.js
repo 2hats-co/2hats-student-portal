@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -86,19 +86,13 @@ const Job = props => {
     }
   };
 
-  useEffect(
-    () => {
-      if (profile) setLoading(false);
-    },
-    [profile]
-  );
+  useEffect(() => {
+    if (profile) setLoading(false);
+  }, [profile]);
 
-  useEffect(
-    () => {
-      setLoading(false);
-    },
-    [data]
-  );
+  useEffect(() => {
+    setLoading(false);
+  }, [data]);
 
   const applyForJob = o => {
     if (!data.jobId) {

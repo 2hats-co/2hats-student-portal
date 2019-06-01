@@ -13,7 +13,7 @@ import SpecialLabel from './SpecialLabel';
 import SkillItem from '../SkillItem';
 import SkillsCounter from '../Job/SkillsCounter';
 
-import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import UserContext from '../../contexts/UserContext';
 import useCollection from '../../hooks/useCollection';
 import useDocument from '../../hooks/useDocument';
@@ -150,28 +150,25 @@ const Announcement = props => {
   // const [assessmentState, assessmentDispatch] = useDocument();
   // const assessmentDoc = assessmentState.doc;
 
-  useEffect(
-    () => {
-      if (!data) return;
-      if (data.jobId && !jobState.path)
-        jobDispatch({ path: `${COLLECTIONS.jobs}/${data.jobId}` });
-      // if (data.assessmentId && !assessmentState.path) {
-      //   yourAssessmentDispatch({
-      //     path: `${COLLECTIONS.users}/${userContext.user.id}/${
-      //       COLLECTIONS.assessments
-      //     }`,
-      //     filters: [
-      //       { field: 'assessmentId', operator: '==', value: data.assessmentId },
-      //     ],
-      //     sort: { field: 'createdAt', direction: 'desc' },
-      //   });
-      //   assessmentDispatch({
-      //     path: `${COLLECTIONS.assessments}/${data.assessmentId}`,
-      //   });
-      // }
-    },
-    [data]
-  );
+  useEffect(() => {
+    if (!data) return;
+    if (data.jobId && !jobState.path)
+      jobDispatch({ path: `${COLLECTIONS.jobs}/${data.jobId}` });
+    // if (data.assessmentId && !assessmentState.path) {
+    //   yourAssessmentDispatch({
+    //     path: `${COLLECTIONS.users}/${userContext.user.id}/${
+    //       COLLECTIONS.assessments
+    //     }`,
+    //     filters: [
+    //       { field: 'assessmentId', operator: '==', value: data.assessmentId },
+    //     ],
+    //     sort: { field: 'createdAt', direction: 'desc' },
+    //   });
+    //   assessmentDispatch({
+    //     path: `${COLLECTIONS.assessments}/${data.assessmentId}`,
+    //   });
+    // }
+  }, [data]);
 
   if (
     !data ||
