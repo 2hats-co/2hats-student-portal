@@ -14,8 +14,6 @@
     "mailgun-validate": "^0.1.0",
     "material-ui-pickers": "^2.1.1",
     "moment": "^2.22.2",
-    "multimath": "^1.0.3",
-    "object-assign": "4.1.1",
     "pica": "^5.0.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
@@ -31,7 +29,6 @@
     "react-scripts": "3.0.1",
     "react-select": "^2.0.0",
     "react-stripe-checkout": "^2.6.3",
-    "webworkify": "^1.5.0",
     "yup": "^0.26.7"
   },
   "scripts": {
