@@ -167,6 +167,7 @@ const AssessmentSubmission = props => {
   };
 
   const handleSubmit = () => {
+    //TODO: add an answer validator here to only allow answers that are not empty whitespace
     updateDoc(
       `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
       submissionId,
