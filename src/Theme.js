@@ -178,5 +178,12 @@ export const Theme = createMuiTheme({
     MuiCardActionArea: {
       focusHighlight: { opacity: '0 !important' },
     },
+    MuiDialog: {
+      paperFullScreen: {
+        marginTop: 16,
+        borderRadius: `${BORDER_RADIUS}px ${BORDER_RADIUS}px 0 0`,
+        height: 'calc(100% - 16px)',
+      },
+    },
   },
 });
