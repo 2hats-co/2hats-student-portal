@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/build/main.76c2ef5d.js",
+    "runtime~main.js": "/build/bundle.761e201c.js",
+    "static/css/2.b387b12a.chunk.css": "/static/css/2.b387b12a.chunk.css",
+    "build/2.0f8834c9.js": "/build/2.0f8834c9.js",
+    "index.html": "/index.html",
+    "precache-manifest.324a4740ed18edee86145b0bf5131a97.js": "/precache-manifest.324a4740ed18edee86145b0bf5131a97.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/2.b387b12a.chunk.css.map": "/static/css/2.b387b12a.chunk.css.map",
+    "static/media/Black.svg": "/static/media/Black.f856a8d1.svg",
+    "static/media/Colour.svg": "/static/media/Colour.aa19558c.svg",
+    "static/media/DarkText.svg": "/static/media/DarkText.95589353.svg",
+    "static/media/SignUpWoman.svg": "/static/media/SignUpWoman.99a736a1.svg",
+    "static/media/Tick.svg": "/static/media/Tick.f6f09296.svg",
+    "static/media/congratsMan.svg": "/static/media/congratsMan.7eb17513.svg",
+    "static/media/girlWithLaptop.png": "/static/media/girlWithLaptop.6bb8bd8a.png",
+    "static/media/google-colour.svg": "/static/media/google-colour.37564f6c.svg",
+    "static/media/linkedin.svg": "/static/media/linkedin.1c73a11a.svg"
+  }
+}
