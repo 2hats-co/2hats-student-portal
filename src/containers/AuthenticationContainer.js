@@ -90,7 +90,7 @@ class AuthenticationContainer extends React.Component {
       this.setState({ view: this.props.view });
     }
     if (this.props.view === AUTHENTICATION_CONTAINER.logout) {
-      await auth.doSignOut();
+      await auth.signOut();
       this.setState({ view: AUTHENTICATION_CONTAINER.logout });
       this.goTo(routes.LOG_OUT);
     }

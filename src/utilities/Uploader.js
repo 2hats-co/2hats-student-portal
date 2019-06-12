@@ -1,5 +1,4 @@
-import { firebaseStorage } from '../firebase/storage';
-import { auth } from '../store';
+import { firebaseStorage, auth } from '../firebase';
 import Pica from 'pica';
 const pica = Pica();
 var img = new Image();

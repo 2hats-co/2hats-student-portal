@@ -1,4 +1,4 @@
-import { firestore } from '../store';
+import { firestore } from '../firebase';
 import { useEffect, useReducer } from 'react';
 import equals from 'ramda/es/equals';
 const CAP = 50;
@@ -84,33 +84,30 @@ const useCollection = intialOverrides => {
     });
     collectionDispatch({ unsubscribe });
   };
-  useEffect(
-    () => {
-      const {
-        prevFilters,
-        filters,
-        prevLimit,
-        limit,
-        prevPath,
-        path,
-        sort,
-        unsubscribe,
-      } = collectionState;
-      if (
-        !equals(prevFilters, filters) ||
-        prevLimit !== limit ||
-        prevPath !== path
-      ) {
-        if (path) getDocuments(filters, limit, sort);
+  useEffect(() => {
+    const {
+      prevFilters,
+      filters,
+      prevLimit,
+      limit,
+      prevPath,
+      path,
+      sort,
+      unsubscribe,
+    } = collectionState;
+    if (
+      !equals(prevFilters, filters) ||
+      prevLimit !== limit ||
+      prevPath !== path
+    ) {
+      if (path) getDocuments(filters, limit, sort);
+    }
+    return () => {
+      if (unsubscribe) {
+        collectionState.unsubscribe();
       }
-      return () => {
-        if (unsubscribe) {
-          collectionState.unsubscribe();
-        }
-      };
-    },
-    [collectionState.filters, collectionState.limit, collectionState.path]
-  );
+    };
+  }, [collectionState.filters, collectionState.limit, collectionState.path]);
   return [collectionState, collectionDispatch];
 };
 

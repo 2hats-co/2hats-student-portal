@@ -1,4 +1,4 @@
-import { firestore } from '../store';
+import { firestore } from '../firebase';
 import firebase from 'firebase/app';
 
 export const updateDoc = (collection, docId, properties) =>

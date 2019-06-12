@@ -5,7 +5,7 @@ Displays a variant of `LogoInCard`.
 ### Back-end calls
 
 - CloudFunctions
-- **`src/firebase/auth`:** `doSignInWithCustomToken`
+- **`src/firebase`:** `auth.signInWithCustomToken`
 
 ### TODO
 

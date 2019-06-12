@@ -1,4 +1,4 @@
-import { functions } from '../store';
+import { functions } from '../firebase';
 
 export const CLOUD_FUNCTIONS = {
   TAG_TRACKER: 'callablesEventTracker',

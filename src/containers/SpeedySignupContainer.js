@@ -21,7 +21,8 @@ import { warmUp } from '../utilities/Authentication/warmUp';
 // import { speedyAuth } from '../utilities/Authentication/speedySignup';
 import { UNIVERSITIES } from '../constants/universityList';
 import { DASHBOARD } from '../constants/routes';
-import { doSignInWithCustomToken } from '../firebase/auth';
+import { auth } from '../firebase';
+
 const styles = theme => ({
   root: {
     minHeight: '100vh',
@@ -148,7 +149,7 @@ class SpeedySignupContainer extends PureComponent {
       sanitisedUserInfo,
       async result => {
         console.log(result);
-        await doSignInWithCustomToken(result.data.token);
+        await auth.signInWithCustomToken(result.data.token);
         this.setState({
           isLoading: false,
           view: SPEEDY_SIGNUP.success,

@@ -1,4 +1,4 @@
-import { auth, db } from '../../store/index';
+import { auth, db } from '../../firebase/index';
 import { DASHBOARD } from '../../constants/routes';
 import firebase from 'firebase/app';
 

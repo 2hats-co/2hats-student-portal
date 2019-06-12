@@ -1,4 +1,4 @@
-import { auth } from '../../store';
+import { auth } from '../../firebase';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
 export const speedyAuth = (userInfo, router, errorBar) =>

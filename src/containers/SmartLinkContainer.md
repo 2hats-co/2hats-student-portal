@@ -5,7 +5,7 @@ Displays `LogoInCard` during loading states and errors.
 ### Back-end calls
 
 - CloudFunctions
-- `src/store/index.js`
+- `src/firebase/index.js`
 
 ### TODO
 

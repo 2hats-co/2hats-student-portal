@@ -1,4 +1,4 @@
-import { firestore } from '../store';
+import { firestore } from '../firebase';
 import { useEffect, useReducer } from 'react';
 
 const documentReducer = (prevState, newProps) => {
@@ -33,16 +33,13 @@ const useDocument = intialOverrides => {
       });
     documentDispatch({ unsubscribe });
   };
-  useEffect(
-    () => {
-      const { path, prevPath, unsubscribe } = documentState;
-      if (path && path !== prevPath) {
-        if (unsubscribe) unsubscribe();
-        setDocumentListner();
-      }
-    },
-    [documentState]
-  );
+  useEffect(() => {
+    const { path, prevPath, unsubscribe } = documentState;
+    if (path && path !== prevPath) {
+      if (unsubscribe) unsubscribe();
+      setDocumentListner();
+    }
+  }, [documentState]);
   useEffect(
     () => () => {
       if (documentState.unsubscribe) documentState.unsubscribe();

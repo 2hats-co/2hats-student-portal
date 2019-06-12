@@ -1,4 +1,4 @@
-import { db, auth } from '../store';
+import { db, auth } from '../firebase';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 function start() {
