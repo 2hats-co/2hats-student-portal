@@ -9,8 +9,8 @@ import Button from '@material-ui/core/Button';
 
 import DashboardIcon from '@material-ui/icons/DashboardOutlined';
 
-import { DASHBOARD } from '../constants/routes';
-import Logo from '../assets/images/Logo/Black.svg';
+import { DASHBOARD } from 'constants/routes';
+import Logo from 'assets/images/Logo/Black.svg';
 
 const styles = theme => ({
   root: {

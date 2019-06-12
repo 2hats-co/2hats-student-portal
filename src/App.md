@@ -23,6 +23,7 @@ Handles routing and provides contexts.
 | `COURSE_REDIRECT` | [CourseRedirectContainer](#courseredirectcontainer) | [x]       |
 | `SCHEDULER`       | [SchedulerContainer](#schedulercontainer)           | [x]       |
 | `/`               | [Landing](#landing)                                 |           |
+| anything else     | [FourOhFour](#fourohfour)                           |           |
 
 ### `UserContext`
 

@@ -22,7 +22,6 @@ module.exports = {
         'src/components/routing/**/*.js',
         'src/components/TagTracker.js',
         'src/components/ErrorBoundary.js',
-        'src/components/FourOhFour.js',
         'src/components/LoadingScreen.js',
       ],
     },

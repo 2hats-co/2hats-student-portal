@@ -14,11 +14,9 @@ import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import Landing from 'components/routing/Landing';
 import TagTracker from 'components/TagTracker';
 import ErrorBoundary from 'components/ErrorBoundary';
-import FourOhFour from 'components/FourOhFour';
+import FourOhFour from 'components/routing/FourOhFour';
 import LoadingScreen from 'components/LoadingScreen';
 import ProtectedRoute from 'components/routing/ProtectedRoute';
-
-import { Typography } from '@material-ui/core';
 
 import { AUTHENTICATION_CONTAINER } from 'constants/views';
 const DetailedViewContainer = lazy(() =>
