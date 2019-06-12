@@ -17,40 +17,60 @@ import FourOhFour from './components/FourOhFour';
 
 import LoadingScreen from './components/LoadingScreen';
 const DetailedViewContainer = lazy(() =>
-  import('./containers/DetailedViewContainer' /* webpackChunkName: "DetailedViewContainer" */)
+  import(
+    './containers/DetailedViewContainer' /* webpackChunkName: "DetailedViewContainer" */
+  )
 );
 
 const AuthenticationContainer = lazy(() =>
-  import('./containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */)
+  import(
+    './containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */
+  )
 );
 const SpeedySignupContainer = lazy(() =>
-  import('./containers/SpeedySignupContainer' /* webpackChunkName: "SpeedySignupContainer" */)
+  import(
+    './containers/SpeedySignupContainer' /* webpackChunkName: "SpeedySignupContainer" */
+  )
 );
 
 const SmartLinkContainer = lazy(() =>
-  import('./containers/SmartLinkContainer' /* webpackChunkName: "SmartLinkContainer" */)
+  import(
+    './containers/SmartLinkContainer' /* webpackChunkName: "SmartLinkContainer" */
+  )
 );
 
 const DashboardContainer = lazy(() =>
-  import('./containers/DashboardContainer' /* webpackChunkName: "DashboardContainer" */)
+  import(
+    './containers/DashboardContainer' /* webpackChunkName: "DashboardContainer" */
+  )
 );
 const ProfileContainer = lazy(() =>
-  import('./containers/ProfileContainer' /* webpackChunkName: "ProfileContainer" */)
+  import(
+    './containers/ProfileContainer' /* webpackChunkName: "ProfileContainer" */
+  )
 );
 const JobsContainer = lazy(() =>
   import('./containers/JobsContainer' /* webpackChunkName: "JobsContainer" */)
 );
 const AssessmentsContainer = lazy(() =>
-  import('./containers/AssessmentsContainer' /* webpackChunkName: "AssessmentsContainer" */)
+  import(
+    './containers/AssessmentsContainer' /* webpackChunkName: "AssessmentsContainer" */
+  )
 );
 const CoursesContainer = lazy(() =>
-  import('./containers/CoursesContainer' /* webpackChunkName: "CoursesContainer" */)
+  import(
+    './containers/CoursesContainer' /* webpackChunkName: "CoursesContainer" */
+  )
 );
 const CourseRedirectContainer = lazy(() =>
-  import('./containers/CourseRedirectContainer' /* webpackChunkName: "CourseRedirectContainer" */)
+  import(
+    './containers/CourseRedirectContainer' /* webpackChunkName: "CourseRedirectContainer" */
+  )
 );
 const SchedulerContainer = lazy(() =>
-  import('./containers/SchedulerContainer' /* webpackChunkName: "SchedulerContainer" */)
+  import(
+    './containers/SchedulerContainer' /* webpackChunkName: "SchedulerContainer" */
+  )
 );
 
 const App = props => {
@@ -69,7 +89,7 @@ const App = props => {
                 <Switch>
                   <Route
                     exact
-                    path={ROUTES.SIGN_UP}
+                    path={[ROUTES.SIGN_UP, ROUTES.SIGN_IN]}
                     component={() => <AuthenticationContainer isPublic />}
                   />
                   <Route
@@ -81,11 +101,6 @@ const App = props => {
                         view={AUTHENTICATION_CONTAINER.logout}
                       />
                     )}
-                  />
-                  <Route
-                    exact
-                    path={ROUTES.SIGN_IN}
-                    component={() => <AuthenticationContainer isPublic />}
                   />
                   <Route
                     exact
@@ -134,12 +149,7 @@ const App = props => {
                   />
                   <Route
                     exact
-                    path={ROUTES.SMART_LINK}
-                    component={() => <SmartLinkContainer />}
-                  />
-                  <Route
-                    exact
-                    path={'/smartlinks'}
+                    path={[ROUTES.SMART_LINK, ROUTES.SMART_LINK.toLowerCase()]}
                     component={() => <SmartLinkContainer />}
                   />
                   <Route
@@ -164,12 +174,7 @@ const App = props => {
                   />
                   <Route
                     exact
-                    path={ROUTES.ASSESSMENT}
-                    component={() => <DetailedViewContainer {...props} />}
-                  />
-                  <Route
-                    exact
-                    path={ROUTES.JOB}
+                    path={[ROUTES.ASSESSMENT, ROUTES.JOB]}
                     component={() => <DetailedViewContainer {...props} />}
                   />
                   <Route
