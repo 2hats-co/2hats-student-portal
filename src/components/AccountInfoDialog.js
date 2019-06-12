@@ -9,6 +9,9 @@ import useDocument from '../hooks/useDocument';
 import { updateDoc } from '../utilities/firestore';
 import isEmpty from 'ramda/es/isEmpty';
 
+/**
+ * Left nav account info edit dialog. To be removed in SP3.1
+ */
 const AccountInfoDialog = props => {
   const { setShowDialog, user } = props;
 

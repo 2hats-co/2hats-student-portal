@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -32,6 +33,9 @@ const styles = theme => ({
   },
 });
 
+/**
+ * Renders a 404 page.
+ */
 const FourOhFour = ({ classes, history }) => (
   <Grid container className={classes.root} justify="center" alignItems="center">
     <Grid item>
@@ -50,5 +54,10 @@ const FourOhFour = ({ classes, history }) => (
     </Grid>
   </Grid>
 );
+
+FourOhFour.propTypes = {
+  classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
+};
 
 export default withRouter(withStyles(styles)(FourOhFour));

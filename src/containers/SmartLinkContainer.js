@@ -10,6 +10,7 @@ import * as routes from '../constants/routes';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 import queryString from 'query-string';
+
 const SmartLinkContainer = props => {
   const { history } = props;
 
