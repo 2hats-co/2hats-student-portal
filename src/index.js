@@ -14,10 +14,10 @@ console.log(
   new Date(metadata.date).toLocaleString()
 );
 
-if (process.env.NODE_ENV !== 'production') {
-  var axe = require('react-axe');
-  axe(React, ReactDOM, 1000);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   var axe = require('react-axe');
+//   axe(React, ReactDOM, 1000);
+// }
 
 ReactPixel.init('2178522349094498', {}, { debug: true, autoConfig: false });
 ReactPixel.pageView();

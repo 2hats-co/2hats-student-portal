@@ -1,4 +1,4 @@
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { createMuiTheme } from '@material-ui/core/styles';
 // import { inherits } from 'util';
 export const PRIMARY_COLOR = '#F15A29';
 export const PRIMARY_DARK_TEXT = 'hsl(15, 90%, 40%)';
