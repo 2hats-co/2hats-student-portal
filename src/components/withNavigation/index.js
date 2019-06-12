@@ -3,8 +3,6 @@ import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import equals from 'ramda/es/equals';
 
-import withAuthorisation from '../../utilities/Session/withAuthorisation';
-
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
@@ -365,10 +363,6 @@ export default function withNavigation(WrappedComponent) {
       </>
     );
   }
-  const authCondition = authUser => !!authUser;
-  return withRouter(
-    withAuthorisation(authCondition)(
-      withStyles(styles, { withTheme: true })(WithNavigation)
-    )
-  );
+
+  return withRouter(withStyles(styles, { withTheme: true })(WithNavigation));
 }

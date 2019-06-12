@@ -5,7 +5,6 @@ import DarkLogo from '../assets/images/Logo/DarkText.svg';
 import { setBackground } from '../utilities/styling';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SnackBar from './SnackBar';
-import Slide from '@material-ui/core/Slide';
 
 import Background from '../assets/background/Colour.svg';
 
@@ -63,27 +62,25 @@ function LogoInCard(props) {
   setBackground('#FA5E4E', Background, false);
   return (
     <div className={classes.root}>
-      <Slide direction="up" in>
-        <div className={classes.middle}>
-          <Paper
-            className={classes.paper}
-            style={{ width: width, height: height }}
-            elevation={15}
-          >
-            <LinearProgress
-              className={classes.loading}
-              style={isLoading ? {} : { display: 'none' }}
-            />
-            <img
-              className={classes[logoClass] || classes.centeredLogo}
-              alt="dark2hatsLogo"
-              src={DarkLogo}
-            />
+      <div className={classes.middle}>
+        <Paper
+          className={classes.paper}
+          style={{ width: width, height: height }}
+          elevation={15}
+        >
+          <LinearProgress
+            className={classes.loading}
+            style={isLoading ? {} : { display: 'none' }}
+          />
+          <img
+            className={classes[logoClass] || classes.centeredLogo}
+            alt="dark2hatsLogo"
+            src={DarkLogo}
+          />
 
-            {props.children}
-          </Paper>
-        </div>
-      </Slide>
+          {props.children}
+        </Paper>
+      </div>
       <SnackBar data={snackBar} />
     </div>
   );

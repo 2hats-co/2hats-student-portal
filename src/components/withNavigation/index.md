@@ -1,6 +1,6 @@
 HOC: wraps component with a standard left navigation bar.
 
-Uses `withAuthorisation` HOC to ensure authentication.
+REMOVED: Uses `withAuthorisation` HOC to ensure authentication.
 If not, redirects user to sign in, adding a deep link to the current route as a
 URL parameter.
 
@@ -9,7 +9,7 @@ crash.
 
 ### Back-end calls
 
-- **`src/store/index.js`:** `auth`
+- **`src/firebase/index.js`:** `auth`
 
 ### TODO
 

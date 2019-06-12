@@ -2,45 +2,53 @@ Handles routing and provides contexts.
 
 ### Routes
 
-| Route             | Container                                           |
-| ----------------- | --------------------------------------------------- |
-| `SIGN_UP`         | [AuthenticationContainer](#authenticationcontainer) |
-| `LOG_OUT`         | [AuthenticationContainer](#authenticationcontainer) |
-| `SIGN_IN`         | [AuthenticationContainer](#authenticationcontainer) |
-| `NO_PASSWORD`     | [AuthenticationContainer](#authenticationcontainer) |
-| `CREATE_PASSWORD` | [AuthenticationContainer](#authenticationcontainer) |
-| `RESET_PASSWORD`  | [AuthenticationContainer](#authenticationcontainer) |
-| `VALIDATE_EMAIL`  | [AuthenticationContainer](#authenticationcontainer) |
-| `SPEEDY_SIGN_UP`  | [SpeedySignupContainer](#speedysignupcontainer)     |
-| `SMART_LINK`      | [SmartLinkContainer](#smartlinkcontainer)           |
-| `DASHBOARD`       | [DashboardContainer](#dashboardcontainer)           |
-| `PROFILE`         | [ProfileContainer](#profilecontainer)               |
-| `JOBS`            | [JobsContainer](#jobscontainer)                     |
-| `JOB`             | [DetailedViewContainer](#detailedviewcontainer)     |
-| `ASSESSMENTS`     | [AssessmentsContainer](#assessmentscontainer)       |
-| `ASSESSMENT`      | [DetailedViewContainer](#detailedviewcontainer)     |
-| `COURSES`         | [CoursesContainer](#coursescontainer)               |
-| `COURSE_REDIRECT` | [CourseRedirectContainer](#courseredirectcontainer) |
-| `SCHEDULER`       | [SchedulerContainer](#schedulercontainer)           |
-| `/`               | [Landing](#landing)                                 |
-| `/linkedin`       | `LinkedInPopUp` 3rd-party component (DEPRECATED)    |
+| Route             | Container                                           | Protected |
+| ----------------- | --------------------------------------------------- | --------- |
+| `SIGN_UP`         | [AuthenticationContainer](#authenticationcontainer) |           |
+| `LOG_OUT`         | [AuthenticationContainer](#authenticationcontainer) |           |
+| `SIGN_IN`         | [AuthenticationContainer](#authenticationcontainer) |           |
+| `NO_PASSWORD`     | [AuthenticationContainer](#authenticationcontainer) | [x]       |
+| `CREATE_PASSWORD` | [AuthenticationContainer](#authenticationcontainer) | [x]       |
+| `RESET_PASSWORD`  | [AuthenticationContainer](#authenticationcontainer) | [x]       |
+| `VALIDATE_EMAIL`  | [AuthenticationContainer](#authenticationcontainer) |           |
+| `SPEEDY_SIGN_UP`  | [SpeedySignupContainer](#speedysignupcontainer)     |           |
+| `SMART_LINK`      | [SmartLinkContainer](#smartlinkcontainer)           |           |
+| `DASHBOARD`       | [DashboardContainer](#dashboardcontainer)           | [x]       |
+| `PROFILE`         | [ProfileContainer](#profilecontainer)               | [x]       |
+| `JOBS`            | [JobsContainer](#jobscontainer)                     | [x]       |
+| `JOB`             | [DetailedViewContainer](#detailedviewcontainer)     | [x]       |
+| `ASSESSMENTS`     | [AssessmentsContainer](#assessmentscontainer)       | [x]       |
+| `ASSESSMENT`      | [DetailedViewContainer](#detailedviewcontainer)     | [x]       |
+| `COURSES`         | [CoursesContainer](#coursescontainer)               | [x]       |
+| `COURSE_REDIRECT` | [CourseRedirectContainer](#courseredirectcontainer) | [x]       |
+| `SCHEDULER`       | [SchedulerContainer](#schedulercontainer)           | [x]       |
+| `/`               | [Landing](#landing)                                 |           |
 
 ### `UserContext`
 
-Default: `{ user: user, setUser: user => setUser(user) }` from
+Has two properties: `authUser` and `user`.
 
-```
-const [user, setUser] = useState(null);
-```
+#### `authUser`
 
-### `MuiThemeProvider`
+Stores whether a user is signed in or not. Can be one of three values:
+
+- `undefined`: Firebase auth hasn’t loaded yet. Show loading state.
+- `null`: No user is signed in.
+- [`User`](https://firebase.google.com/docs/reference/js/firebase.User.html): Current user info from `auth.onAuthStateChanged`
+
+#### `user`
+
+A snapshot of the user’s document from the `user` collection. It is attached via listener, so updates when user doc changes. **This will cause all components to be remounted.**
+
+If `null`, then no user is signed in or document hasn’t finished loading yet.
+
+**Do not use this to check if there is a user signed in; use `authUser`.**
+
+### Routing
+
+Routing is handled by `react-router-dom`. Routes that require user
+authentication are protected with [`ProtectedRoute`](#protectedroute).
+
+### `ThemeProvider`
 
 Takes theme from `src/Theme.js`
-
-### Deprecated
-
-LinkedIn sign in with `LinkedInPopUp` from the `/linkedin` route
-
-### TODO
-
-Remove `withAuthentication` HOC – see new Business Portal auth code

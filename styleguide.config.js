@@ -19,7 +19,7 @@ module.exports = {
       name: 'App root',
       components: [
         'src/App.js',
-        'src/components/Landing.js',
+        'src/components/routing/**/*.js',
         'src/components/TagTracker.js',
         'src/components/ErrorBoundary.js',
         'src/components/FourOhFour.js',
@@ -223,6 +223,15 @@ module.exports = {
     },
     Text: {
       strong: { color: 'rgba(255, 255, 255, .87)' },
+    },
+    Code: {
+      code: {
+        fontSize: '85%',
+        backgroundColor: 'rgba(255, 255, 255, .067)',
+        borderRadius: 3,
+        margin: 0,
+        padding: '.2em .4em',
+      },
     },
   },
 };

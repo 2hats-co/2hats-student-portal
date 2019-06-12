@@ -87,7 +87,10 @@ class SpeedySignupContainer extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      view: SPEEDY_SIGNUP.form,
+      view:
+        this.props.authUser === null
+          ? SPEEDY_SIGNUP.form
+          : SPEEDY_SIGNUP.success,
       isPublic: true,
       isLoading: false,
       isMobile: false,

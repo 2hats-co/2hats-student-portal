@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import queryString from 'query-string';
+
 import Typography from '@material-ui/core/Typography';
 
 import * as routes from '../../constants/routes';
+import UserContext from 'contexts/UserContext';
 
 import Header from './Header';
 import GoogleButton from './GoogleButton';
@@ -30,6 +34,8 @@ const styles = theme => ({
 });
 function AuthView(props) {
   const {
+    history,
+    location,
     onSignupRoute,
     isLoading,
     GTeventHandler,
@@ -38,6 +44,16 @@ function AuthView(props) {
     classes,
     urlParams,
   } = props;
+
+  const userContext = useContext(UserContext);
+  const { authUser } = userContext;
+
+  useEffect(() => {
+    if (authUser) {
+      const parsedQuery = queryString.parse(location.search);
+      history.replace(parsedQuery.route ? parsedQuery.route : routes.DASHBOARD);
+    }
+  }, [authUser]);
 
   let header = <Header greeting={onSignupRoute ? 'Sign Up' : 'Sign In'} />;
   if (isLessThan840 && onSignupRoute) {
@@ -111,4 +127,4 @@ function AuthView(props) {
   );
 }
 
-export default withStyles(styles)(AuthView);
+export default withRouter(withStyles(styles)(AuthView));
