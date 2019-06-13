@@ -1,6 +1,7 @@
 import { auth, db } from '../../store/index';
 import { DASHBOARD } from '../../constants/routes';
 import firebase from 'firebase/app';
+import ReactPixel from 'react-facebook-pixel';
 
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password } = user;
@@ -8,6 +9,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   auth
     .createUserWithEmailAndPassword(email, password)
     .then(authUser => {
+      ReactPixel.trackCustom('CompleteRegistration');
       authUser.user
         .updateProfile({
           displayName: `${firstName} ${lastName}`,
