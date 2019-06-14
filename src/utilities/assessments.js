@@ -26,19 +26,23 @@ export const copyAssessment = (data, user, history, oldId) => {
     data.questions &&
     data.questions.length > 0
   ) {
-    const cq = [];
-    const cqi = [];
+    if (data.randomiseQuestionOrder) {
+      const cq = [];
+      const cqi = [];
 
-    while (cq.length < data.questionsDisplayed) {
-      const index = Math.floor(Math.random() * data.questions.length);
-      if (!cqi.includes(index)) {
-        cqi.push(index);
-        cq.push(data.questions[index]);
+      while (cq.length < data.questionsDisplayed) {
+        const index = Math.floor(Math.random() * data.questions.length);
+        if (!cqi.includes(index)) {
+          cqi.push(index);
+          cq.push(data.questions[index]);
+        }
       }
-    }
 
-    copiedAssessment.copiedQuestions = cq;
-    copiedAssessment.copiedQuestionsIndices = cqi;
+      copiedAssessment.copiedQuestions = cq;
+      copiedAssessment.copiedQuestionsIndices = cqi;
+    } else {
+      copiedAssessment.copiedQuestions = data.questions;
+    }
   }
   // create random email
   if (data.submissionType === 'mailchimp')
