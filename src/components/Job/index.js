@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
+import ReactPixel from 'react-facebook-pixel';
 
 import { unstable_useMediaQuery as useMediaQuery } from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -114,6 +115,7 @@ const Job = props => {
         submitted: true,
       }).then(docRef => {
         console.log('Created job application doc', docRef.id);
+        ReactPixel.trackCustom('SubmitApplication');
 
         const newTouchedJobs = user.touchedJobs || [];
         newTouchedJobs.push(data.id);
