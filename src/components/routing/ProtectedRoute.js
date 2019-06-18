@@ -32,9 +32,8 @@ import { SIGN_IN } from 'constants/routes';
  * [`SmartLinkContainer`](#smartlinkcontainer), it will cause it to call the
  * smartLink callable multiple times, which is undesirable.
  */
-const ProtectedRoute = ({ component: Component, location, ...rest }) => {
-  const userContext = useContext(UserContext);
-  const { authUser } = userContext;
+const ProtectedRoute = ({ render, location, ...rest }) => {
+  const { authUser } = useContext(UserContext);
 
   let redirectRoute = SIGN_IN;
   if (location.pathname)
@@ -42,16 +41,10 @@ const ProtectedRoute = ({ component: Component, location, ...rest }) => {
       location.pathname + location.search
     )}`;
 
-  console.log(authUser);
+  if (!authUser)
+    return <Route {...rest} render={() => <Redirect to={redirectRoute} />} />;
 
-  return (
-    <Route
-      {...rest}
-      render={() =>
-        authUser ? <Component {...rest} /> : <Redirect to={redirectRoute} />
-      }
-    />
-  );
+  return <Route {...rest} render={render} />;
 };
 
 export default ProtectedRoute;
