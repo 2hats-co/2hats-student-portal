@@ -16,3 +16,4 @@ parameter. See [`ProtectedRoute`](#protectedroute) for the reason why.
 ### TODO
 
 Convert to functional component with hooks.
+Document props with propTypes.

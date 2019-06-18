@@ -1,18 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 
 import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 import YourIcon from '@material-ui/icons/AccountCircleOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
+import UserContext from 'contexts/UserContext';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const CoursesContainer = props => {
-  const { isMobile, user } = props;
+  const { isMobile } = props;
+
+  const { user } = useContext(UserContext);
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -86,4 +88,4 @@ CoursesContainer.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default withNavigation(CoursesContainer);
+export default CoursesContainer;

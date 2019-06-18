@@ -1,26 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
-//import Assessment from '../components/Assessment';
 
 import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
 import YourIcon from '@material-ui/icons/AccountCircleOutlined';
 
 import useWindowSize from '../hooks/useWindowSize';
+import UserContext from 'contexts/UserContext';
 import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
 // import Announcement from '../components/Announcement';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 const AssessmentsContainer = props => {
-  const { isMobile, user } = props;
+  const { isMobile } = props;
+
+  const { user } = useContext(UserContext);
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
 
   useEffect(() => {
     document.title = '2hats – Assessments';
+
+    console.log('MOUNT ASSESSMENTSCONTAINER');
   }, []);
 
   return (
@@ -109,4 +112,4 @@ AssessmentsContainer.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default withNavigation(AssessmentsContainer);
+export default AssessmentsContainer;

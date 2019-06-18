@@ -230,6 +230,7 @@ module.exports = {
         borderRadius: 3,
         margin: 0,
         padding: '.2em .4em',
+        cursor: 'inherit',
       },
     },
   },

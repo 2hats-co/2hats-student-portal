@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-// import { DRAWER_WIDTH } from './withNavigation';
+// import { SIDEBAR_WIDTH } from './Navigation';
 
 const styles = theme => ({
   root: {

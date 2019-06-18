@@ -11,14 +11,14 @@ import MoreIcon from '@material-ui/icons/ExpandMore';
 
 import CardsHeader from './CardsHeader';
 import OneCard from './OneCard';
-import { DRAWER_WIDTH } from '../withNavigation';
+import { SIDEBAR_WIDTH } from '../Navigation';
 import { CARD_WIDTH, CARD_PADDING } from './OneCard';
 import useMore from '../../hooks/useMore';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import * as mappings from '../../constants/oneCardMappings';
 
 export const getNumCards = (width, isMobile) => {
-  const navWidth = isMobile ? 0 : DRAWER_WIDTH;
+  const navWidth = isMobile ? 0 : SIDEBAR_WIDTH;
   const cols = Math.floor(
     (width - navWidth - CARD_PADDING) / (CARD_WIDTH + CARD_PADDING)
   );

@@ -1,27 +1,44 @@
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Tooltip from '@material-ui/core/Tooltip';
-import PersonIcon from '@material-ui/icons/PersonOutlined';
-import { getInitials } from '../utilities';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
 
-function SuperAvatar(props) {
-  const { className, data, tooltip, noInitialsIcon } = props;
+import { Avatar, Tooltip, CircularProgress } from '@material-ui/core';
+import PersonIcon from '@material-ui/icons/PersonOutlined';
+
+import { getInitials } from 'utilities';
+import UserContext from 'contexts/UserContext';
+
+const SuperAvatar = ({ className, size, tooltip, noInitialsIcon }) => {
+  const { authUser, user } = useContext(UserContext);
+
+  if (!authUser || !user) return <CircularProgress size={size} />;
 
   let name;
-  if (data.displayName) name = data.displayName;
-  else if (data.givenName) name = `${data.givenName} ${data.familyName}`;
-  else if (data.firstName) name = `${data.firstName} ${data.lastName}`;
+  if (user.firstName) name = `${user.firstName} ${user.lastName}`;
+  else if (authUser.displayName) name = authUser.displayName;
+  else if (authUser.givenName)
+    name = `${authUser.givenName} ${authUser.familyName}`;
 
-  const avatar = data.avatarURL ? (
-    <Avatar className={className} src={data.avatarURL} />
+  const avatar = user.avatarURL ? (
+    <Avatar
+      src={user.avatarURL}
+      className={className}
+      style={{ width: size, height: size }}
+    />
   ) : (
-    <Avatar className={className}>
+    <Avatar className={className} style={{ width: size, height: size }}>
       {name ? getInitials(name) : noInitialsIcon || <PersonIcon />}
     </Avatar>
   );
 
   if (tooltip) return <Tooltip title={name}>{avatar}</Tooltip>;
   return avatar;
-}
+};
+
+SuperAvatar.propTypes = {
+  className: PropTypes.string,
+  size: PropTypes.number,
+  tooltip: PropTypes.bool,
+  noInitialsIcon: PropTypes.node,
+};
 
 export default SuperAvatar;

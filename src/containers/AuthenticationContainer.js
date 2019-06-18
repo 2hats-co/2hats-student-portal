@@ -6,7 +6,6 @@ import queryString from 'query-string';
 
 //routing
 import * as routes from '../constants/routes';
-import { withRouter } from 'react-router-dom';
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 import { warmUp } from '../utilities/Authentication/warmUp';
@@ -407,6 +406,8 @@ class AuthenticationContainer extends React.Component {
 
 AuthenticationContainer.propTypes = {
   classes: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(AuthenticationContainer));
+export default withStyles(styles)(AuthenticationContainer);

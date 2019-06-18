@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, useState, useContext } from 'react';
 
+import { makeStyles, useTheme } from '@material-ui/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 
-import withNavigation from '../components/withNavigation';
 import Profile from '../components/Profile';
 import ProfileAssessments from '../components/Profile/ProfileAssessments';
 import ProfileCourses from '../components/Profile/ProfileCourses';
@@ -23,6 +21,7 @@ import {
 } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocument from '../hooks/useDocument';
 import useCollection from '../hooks/useCollection';
+import UserContext from 'contexts/UserContext';
 
 export const profileStyles = theme => ({
   infoPopper: { marginRight: -theme.spacing(1) * 2 },
@@ -75,7 +74,7 @@ export const profileStyles = theme => ({
   },
 });
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   ...STYLES.DETAIL_VIEW(theme),
 
   root: {
@@ -96,10 +95,12 @@ const styles = theme => ({
     margin: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     width: 240,
   },
-});
+}));
 
 const ProfileContainer = props => {
-  const { classes, theme, user } = props;
+  const { user } = useContext(UserContext);
+  const classes = useStyles();
+  const theme = useTheme();
 
   const [popperAnchor, setPopperAnchor] = useState(null);
 
@@ -197,11 +198,4 @@ const ProfileContainer = props => {
   );
 };
 
-ProfileContainer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
-  isMobile: PropTypes.bool.isRequired,
-};
-
-export default withNavigation(withStyles(styles)(ProfileContainer));
+export default ProfileContainer;

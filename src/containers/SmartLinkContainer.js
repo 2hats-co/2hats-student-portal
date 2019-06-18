@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import LogoInCard from '../components/LogoInCard';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -136,4 +135,4 @@ const SmartLinkContainer = props => {
   );
 };
 
-export default withRouter(SmartLinkContainer);
+export default SmartLinkContainer;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,7 +8,6 @@ import JobsIcon from '@material-ui/icons/BusinessCenterOutlined';
 import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
 import CoursesIcon from '@material-ui/icons/SchoolOutlined';
 
-import withNavigation from '../components/withNavigation';
 import ContainerHeader from '../components/ContainerHeader';
 // import Milestones from '../components/Milestones';
 import WhatsNext from '../components/WhatsNext';
@@ -16,6 +15,7 @@ import Announcement from '../components/Announcement';
 import Cards from '../components/Cards';
 
 import useWindowSize from '../hooks/useWindowSize';
+import UserContext from 'contexts/UserContext';
 import { getNumCards, getCardsWidth } from '../components/Cards';
 import * as ROUTES from '../constants/routes';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
@@ -30,7 +30,9 @@ const styles = theme => ({
 });
 
 const DashboardContainer = props => {
-  const { classes, isMobile, user } = props;
+  const { classes, isMobile } = props;
+
+  const { user } = useContext(UserContext);
 
   const windowSize = useWindowSize();
   const cardsCols = getNumCards(windowSize.width, isMobile);
@@ -184,4 +186,4 @@ DashboardContainer.propTypes = {
   user: PropTypes.object.isRequired,
 };
 
-export default withNavigation(withStyles(styles)(DashboardContainer));
+export default withStyles(styles)(DashboardContainer);

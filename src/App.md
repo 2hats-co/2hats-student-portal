@@ -1,5 +1,38 @@
 Handles routing and provides contexts.
 
+### `UserContext`
+
+Has two properties: `authUser` and `user`.
+
+#### `authUser`
+
+Stores whether a user is signed in or not. Can be one of three values:
+
+- `undefined`: Firebase auth hasn’t loaded yet. Show loading state.
+- `null`: No user is signed in.
+- [`User`](https://firebase.google.com/docs/reference/js/firebase.User.html): Current user info from `auth.onAuthStateChanged`
+
+#### `user`
+
+A snapshot of the user’s document from the `user` collection. It is attached via listener, so updates when user doc changes.
+
+**This will cause all components to re-render.** The remount issue has been
+fixed by using `<Route>`’s `render` prop instead of `component`, which created
+a new clone of the element passed every single time.
+
+If `null`, then no user is signed in or document hasn’t finished loading yet.
+
+**Do not use this to check if there is a user signed in; use `authUser`.**
+
+### Routing
+
+Routing is handled by `react-router-dom`. Routes that require user
+authentication are protected with [`ProtectedRoute`](#protectedroute), which is
+a drop-in replacement for `<Route>`.
+
+`<Route>` and `<ProtectedRoute>` pass down `match`, `history`, and `location`
+as props to its rendered components.
+
 ### Routes
 
 | Route             | Container                                           | Protected |
@@ -22,34 +55,10 @@ Handles routing and provides contexts.
 | `COURSES`         | [CoursesContainer](#coursescontainer)               | [x]       |
 | `COURSE_REDIRECT` | [CourseRedirectContainer](#courseredirectcontainer) | [x]       |
 | `SCHEDULER`       | [SchedulerContainer](#schedulercontainer)           | [x]       |
+| `ONBOARDING`      | [OnboardingContainer](#onboardingcontainer)         | [x]       |
 | `/`               | [Landing](#landing)                                 |           |
 | anything else     | [FourOhFour](#fourohfour)                           |           |
 
-### `UserContext`
-
-Has two properties: `authUser` and `user`.
-
-#### `authUser`
-
-Stores whether a user is signed in or not. Can be one of three values:
-
-- `undefined`: Firebase auth hasn’t loaded yet. Show loading state.
-- `null`: No user is signed in.
-- [`User`](https://firebase.google.com/docs/reference/js/firebase.User.html): Current user info from `auth.onAuthStateChanged`
-
-#### `user`
-
-A snapshot of the user’s document from the `user` collection. It is attached via listener, so updates when user doc changes. **This will cause all components to be remounted.**
-
-If `null`, then no user is signed in or document hasn’t finished loading yet.
-
-**Do not use this to check if there is a user signed in; use `authUser`.**
-
-### Routing
-
-Routing is handled by `react-router-dom`. Routes that require user
-authentication are protected with [`ProtectedRoute`](#protectedroute).
-
 ### `ThemeProvider`
 
-Takes theme from `src/Theme.js`
+Takes MUI theme generated from `src/Theme.js`

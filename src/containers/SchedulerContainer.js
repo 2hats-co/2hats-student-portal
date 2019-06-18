@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 
 import GoIcon from '@material-ui/icons/ArrowForward';
 
-import withNavigation from '../components/withNavigation';
 import DateSelector from '../components/Scheduler/DateSelector';
 import TimeSelector from '../components/Scheduler/TimeSelector';
 
@@ -187,4 +186,4 @@ SchedulerContainer.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withNavigation(withStyles(styles)(SchedulerContainer));
+export default withStyles(styles)(SchedulerContainer);
