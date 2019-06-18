@@ -21,10 +21,10 @@ const SmartLinkContainer = props => {
     const queryStr = history.location.search;
     const parsedQuery = queryString.parse(queryStr);
     console.log(parsedQuery);
-    handleKey(parsedQuery.slKey, parsedQuery.slSecret);
+    handleKey(parsedQuery.slKey, parsedQuery.slSecret, history.location);
   }, []);
 
-  const handleKey = (slKey, slSecret) => {
+  const handleKey = (slKey, slSecret, location) => {
     if (slKey) {
       if (slKey !== '') {
         const request = {
@@ -102,9 +102,20 @@ const SmartLinkContainer = props => {
             }
           },
           error => {
-            console.log('Call smartLink error: ', error.message);
-            setErrorMessage(error.message);
-            setIsLoading(false);
+            console.error('Call smartLink error: ', error.message);
+            if (slKey.includes('<route>')) {
+              const redirectRoute = decodeURIComponent(
+                location.search.split('?slKey=')[1]
+              )
+                .replace('{{<route>', '')
+                .replace('<route>}}', '');
+              setErrorMessage('Redirecting you…');
+              setIsLoading(false);
+              history.replace(redirectRoute);
+            } else {
+              setErrorMessage(error.message);
+              setIsLoading(false);
+            }
           }
         );
       }
