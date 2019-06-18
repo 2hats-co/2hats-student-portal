@@ -16,8 +16,8 @@ console.log(
 
 // Show react-axe warnings for development mode
 if (process.env.NODE_ENV !== 'production') {
-  var axe = require('react-axe');
-  axe(React, ReactDOM, 1000);
+  // var axe = require('react-axe');
+  // axe(React, ReactDOM, 1000);
 } else {
   // Enable React FB Pixel on production only
   ReactPixel.init('2178522349094498', {}, { debug: true, autoConfig: false });

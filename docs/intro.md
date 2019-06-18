@@ -15,6 +15,8 @@ Documentation started with version 3.1 in June 2019.
 
 - Upgraded to Material-UI v4.
 
+- Theme upgrades to latest Material Design guidelines.
+
 ### 3.0 – February 2019
 
 Released during UNSW O Week 2019.

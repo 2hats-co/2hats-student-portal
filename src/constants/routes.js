@@ -24,3 +24,5 @@ export const EVENTS = '/events';
 // SP3 MORE VIEWS
 export const COURSE_REDIRECT = '/courseRedirect';
 export const SCHEDULER = '/scheduler';
+
+export const ONBOARDING = '/welcome';

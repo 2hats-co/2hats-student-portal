@@ -40,6 +40,11 @@ const SmartLinkContainer = lazy(() =>
     'containers/SmartLinkContainer' /* webpackChunkName: "SmartLinkContainer" */
   )
 );
+const OnboardingContainer = lazy(() =>
+  import(
+    'containers/OnboardingContainer' /* webpackChunkName: "OnboardingContainer" */
+  )
+);
 const DashboardContainer = lazy(() =>
   import(
     'containers/DashboardContainer' /* webpackChunkName: "DashboardContainer" */
@@ -172,6 +177,12 @@ const App = () => {
                     exact
                     path={[ROUTES.SMART_LINK, ROUTES.SMART_LINK.toLowerCase()]}
                     render={props => <SmartLinkContainer {...props} />}
+                  />
+
+                  <ProtectedRoute
+                    exact
+                    path={ROUTES.ONBOARDING}
+                    render={props => <OnboardingContainer {...props} />}
                   />
 
                   <ProtectedRoute
