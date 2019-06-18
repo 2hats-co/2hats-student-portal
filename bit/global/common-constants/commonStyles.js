@@ -250,6 +250,8 @@ export const RENDERED_HTML = theme => ({
   renderedHtml: {
     ...theme.typography.body1,
 
+    color: theme.palette.text.primary,
+
     '& p, & h1, & h2, & h3, & h4, & h5, & h6, & blockquote': {
       margin: 0,
       padding: 0,

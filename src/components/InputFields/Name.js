@@ -10,26 +10,28 @@ function Name(props) {
       container
       justify="space-between"
       direction="row"
-      style={{ width: '100%', marginTop: -20 }}
+      spacing={1}
     >
-      <TextField
-        id="firstName"
-        label="First Name"
-        value={firstName}
-        onChange={changeHandler('firstName')}
-        style={{ width: '46%' }}
-        margin="normal"
-        color="primary"
-      />
-      <TextField
-        id="lastName"
-        label="Last Name"
-        value={lastName}
-        onChange={changeHandler('lastName')}
-        style={{ width: '46%' }}
-        margin="normal"
-        color="primary"
-      />
+      <Grid item xs={6}>
+        <TextField
+          id="firstName"
+          label="First Name"
+          value={firstName}
+          onChange={changeHandler('firstName')}
+          variant="filled"
+          color="primary"
+        />
+      </Grid>
+      <Grid item xs={6}>
+        <TextField
+          id="lastName"
+          label="Last Name"
+          value={lastName}
+          onChange={changeHandler('lastName')}
+          variant="filled"
+          color="primary"
+        />
+      </Grid>
     </Grid>
   );
 }

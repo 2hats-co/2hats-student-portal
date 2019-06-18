@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
 import DarkLogo from '../assets/images/Logo/DarkText.svg';
@@ -54,12 +54,19 @@ function LogoInCard(props) {
     classes,
     width,
     height,
-    // theme,
+    theme,
     isLoading,
     logoClass,
     snackBar,
   } = props;
-  setBackground('#FA5E4E', Background, false);
+
+  useEffect(() => {
+    setBackground('#FA5E4E', Background, false);
+    return () => {
+      setBackground(theme.palette.background.paper);
+    };
+  }, []);
+
   return (
     <div className={classes.root}>
       <div className={classes.middle}>

@@ -1,18 +1,32 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-// import { inherits } from 'util';
+import { getLetterSpacing } from 'utilities/styling';
+
 export const PRIMARY_COLOR = '#F15A29';
-export const PRIMARY_DARK_TEXT = 'hsl(15, 90%, 40%)';
-export const PRIMARY_LIGHT = 'hsl(15, 88%, 90%)';
+// export const PRIMARY_DARK_TEXT = 'hsl(15, 90%, 40%)';
+// export const PRIMARY_LIGHT = 'hsl(15, 88%, 90%)';
+
+export const PRIMARY_PALETTE = {
+  50: '#FAEAE8',
+  100: '#FDCEBF',
+  200: '#FDAE95',
+  300: '#FC8F6B',
+  400: '#FC774B',
+  500: '#FC602D',
+  600: '#F15A29',
+  700: '#E35324',
+  800: '#D54C21',
+  900: '#BB411A',
+};
+
+export const WHITE = '#fff';
+
 export const FONT_STACK =
   '"Helvetica Neue", Roboto, Helvetica, Arial, sans-serif';
-export const WHITE = '#fff';
-export const BLACK = '#2c2c2c';
-export const GREY = '#EDEDED';
 
 const primaryColor = PRIMARY_COLOR;
-const primaryDarkText = PRIMARY_DARK_TEXT;
-const primaryLight = PRIMARY_LIGHT;
-const BORDER_RADIUS = 20;
+const primaryDarkText = PRIMARY_PALETTE[900];
+const primaryLight = PRIMARY_PALETTE[50];
+const BORDER_RADIUS = 4;
 
 export const Theme = createMuiTheme({
   responsive: {},
@@ -23,6 +37,7 @@ export const Theme = createMuiTheme({
       contrastText: WHITE, //button text
       darkText: primaryDarkText,
       light: primaryLight,
+      ...PRIMARY_PALETTE,
     },
     secondary: {
       light: primaryColor, //
@@ -30,19 +45,16 @@ export const Theme = createMuiTheme({
       dark: primaryColor, //textfield label
       contrastText: WHITE, //button text
     },
-    action: {
-      disabled: '#ABABAB',
-    },
   },
   typography: {
     fontFamily: FONT_STACK,
     h4: { fontWeight: 500 },
     h6: { lineHeight: 1.4 },
     subtitle1: { fontWeight: 500 },
-    button: {
-      textTransform: 'none',
-      fontWeight: 700,
-    },
+    body1: { letterSpacing: getLetterSpacing(0.5, 1) },
+    body2: { letterSpacing: getLetterSpacing(0.25, 0.875) },
+    button: { letterSpacing: getLetterSpacing(1.25, 0.875) },
+    overline: { letterSpacing: getLetterSpacing(2, 0.875), fontWeight: 500 },
   },
   shadowsLight: [
     'none',
@@ -71,57 +83,32 @@ export const Theme = createMuiTheme({
     '0 0 0 1px rgba(0, 0, 0, .025), 0px 11px 14px -7px rgba(0,0,0,0.1), 0px 23px 36px 3px rgba(0,0,0,0.07), 0px 9px 44px 8px rgba(0,0,0,0.06)',
     '0 0 0 1px rgba(0, 0, 0, .025), 0px 11px 15px -7px rgba(0,0,0,0.1), 0px 24px 38px 3px rgba(0,0,0,0.07), 0px 9px 46px 8px rgba(0,0,0,0.06)',
   ],
-  shape: {
-    borderRadius: BORDER_RADIUS,
+  props: {
+    MuiFilledInput: {
+      disableUnderline: true,
+    },
   },
   overrides: {
     // LEGACY OVERRIDES
-    MuiStepIcon: {
-      root: {
-        color: GREY,
-      },
-    },
     MuiButton: {
+      root: {
+        borderRadius: '1000px',
+      },
       contained: {
         boxShadow: 'none',
       },
       label: {
+        // Icons in buttons go on the right
         '& svg': { marginLeft: 8, marginRight: -4 },
       },
-      sizeLarge: { borderRadius: 24 },
     },
     // ADMIN PORTAL OVERRIDES
-    MuiToggleButtonGroup: {
-      root: {
-        boxShadow: 'none !important',
-      },
-    },
-    MuiToggleButton: {
-      root: {
-        borderRadius: `${BORDER_RADIUS}px !important`,
-        flex: 1,
-        transition: 'background-color .2s, color .2s',
-      },
-      label: {
-        color: 'rgba(0,0,0,.87)',
-        position: 'relative',
-        zIndex: 99,
-      },
-      '&$selected': {
-        color: primaryColor,
-        '& > span': { color: primaryColor },
-        '&::after': {
-          backgroundColor: primaryLight,
-          opacity: 0.8,
-        },
-      },
-    },
-    MuiFab: {
-      primary: { color: '#fff' },
-      extended: {
-        '& svg': { marginRight: 8 },
-      },
-    },
+    // MuiFab: {
+    //   primary: { color: '#fff' },
+    //   extended: {
+    //     '& svg': { marginRight: 8 },
+    //   },
+    // },
     MuiTooltip: {
       tooltip: {
         backgroundColor: 'rgba(0,0,0,.75)',
@@ -129,24 +116,24 @@ export const Theme = createMuiTheme({
       },
       popper: { opacity: 1 },
     },
-    MuiTab: {
-      root: {
-        minWidth: '64px !important',
-        fontSize: '.875rem !important',
-      },
-      textColorPrimary: {
-        color: 'rgba(0,0,0,.87)',
-        '& svg': { opacity: 0.87 },
-      },
-    },
-    MuiChip: {
-      root: {
-        height: 'auto',
-        minHeight: 32,
-        '&:not(:last-of-type)': { marginRight: 8 },
-      },
-      label: { whiteSpace: 'normal' },
-    },
+    // MuiTab: {
+    //   root: {
+    //     minWidth: '64px !important',
+    //     fontSize: '.875rem !important',
+    //   },
+    //   textColorPrimary: {
+    //     color: 'rgba(0,0,0,.87)',
+    //     '& svg': { opacity: 0.87 },
+    //   },
+    // },
+    // MuiChip: {
+    //   root: {
+    //     height: 'auto',
+    //     minHeight: 32,
+    //     '&:not(:last-of-type)': { marginRight: 8 },
+    //   },
+    //   label: { whiteSpace: 'normal' },
+    // },
     MuiAvatar: {
       colorDefault: {
         backgroundColor: primaryLight,
@@ -159,25 +146,25 @@ export const Theme = createMuiTheme({
     },
     MuiFilledInput: {
       root: { borderRadius: `${BORDER_RADIUS * 0.75}px !important` },
-      underline: {
-        borderBottomLeftRadius: 0,
-        borderBottomRightRadius: 0,
-      },
     },
-    MuiBadge: {
-      badge: { fontWeight: 700 },
-    },
-    MuiInputAdornment: {
-      positionStart: { marginBottom: 2 },
-    },
+    // MuiBadge: {
+    //   badge: { fontWeight: 700 },
+    // },
+    // MuiInputAdornment: {
+    //   positionStart: { marginBottom: 2 },
+    // },
     // NEW OVERRIDES
-    MuiLink: {
-      root: { fontFamily: FONT_STACK },
-      button: { fontFamily: FONT_STACK },
-    },
+    // MuiLink: {
+    //   root: { fontFamily: FONT_STACK },
+    //   button: { fontFamily: FONT_STACK },
+    // },
+
+    // Disable grey highlight on card hover
     MuiCardActionArea: {
       focusHighlight: { opacity: '0 !important' },
     },
+
+    // iOS 13-style dialogs
     MuiDialog: {
       paperFullScreen: {
         marginTop: 16,
@@ -187,3 +174,5 @@ export const Theme = createMuiTheme({
     },
   },
 });
+
+console.log(Theme);

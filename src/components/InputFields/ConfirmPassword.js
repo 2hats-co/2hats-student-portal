@@ -11,7 +11,7 @@ function ConfirmPassword(props) {
       value={value}
       onChange={changeHandler('confirmPassword')}
       style={{ marginTop: 0, width: '100%', marginBottom: 5 }}
-      margin="normal"
+      variant="filled"
       type="password"
     />
   );

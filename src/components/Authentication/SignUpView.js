@@ -38,9 +38,12 @@ function SignUpView(props) {
         <ChangeAdapter changeHandler={changeHandler}>
           <Name firstName={firstName} lastName={lastName} />
         </ChangeAdapter>
-        <ChangeAdapter changeHandler={changeHandler}>
-          <Password primaryAction={passwordAction} password={password} />
-        </ChangeAdapter>
+
+        <div style={{ marginTop: 10 }}>
+          <ChangeAdapter changeHandler={changeHandler}>
+            <Password primaryAction={passwordAction} password={password} />
+          </ChangeAdapter>
+        </div>
       </div>
 
       <Disclaimer />

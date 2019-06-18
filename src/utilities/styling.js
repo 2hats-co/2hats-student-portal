@@ -18,5 +18,9 @@ export function setBackground(backgroundColor, backgroundImage, isMobile) {
     document.body.style.backgroundSize = 'cover';
     document.body.style.backgroundRepeat = 'no-repeat';
     document.body.style.backgroundPosition = 'center center';
+    document.body.style.backgroundAttachment = 'fixed';
   }
 }
+
+export const getLetterSpacing = (spacing, size) =>
+  `${spacing / (size * 16)}rem`;

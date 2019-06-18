@@ -13,7 +13,7 @@ function Email(props) {
       value={value}
       onKeyPress={handleKeyPress}
       style={{ marginTop: 0, width: '100%', marginBottom: 5 }}
-      margin="normal"
+      variant="filled"
       color="primary"
       type="email"
     />

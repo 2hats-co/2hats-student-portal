@@ -100,9 +100,7 @@ function Control(props) {
     <TextField
       fullWidth
       variant="filled"
-      margin="dense"
       InputProps={{
-        disableUnderline: true,
         inputComponent,
         inputProps: {
           className: classNames(

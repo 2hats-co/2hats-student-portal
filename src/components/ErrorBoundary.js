@@ -12,6 +12,8 @@ import Logo from '../assets/images/Logo/Black.svg';
 
 const styles = theme => ({
   root: {
+    backgroundColor: theme.palette.background.paper,
+
     width: '100%',
     height: '100%',
     minHeight: '100vh',
