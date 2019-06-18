@@ -137,14 +137,14 @@ const Assessment = props => {
 
         <StatusMsg data={data} isXs={isXs} />
 
-        {data.briefing && data.briefing.length > 0 ? (
-          <div className={classes.section}>
-            <div
-              className={classes.renderedHtml}
-              dangerouslySetInnerHTML={{ __html: data.briefing }}
-            />
-          </div>
-        ) : (
+        {/* {data.briefing && data.briefing.length > 0 ? ( */}
+        <div className={classes.section}>
+          <div
+            className={classes.renderedHtml}
+            dangerouslySetInnerHTML={{ __html: data.briefing || '' }}
+          />
+        </div>
+        {/* ) : (
           <>
             <div className={classes.section}>
               <Typography
@@ -174,9 +174,9 @@ const Assessment = props => {
               />
             </div>
           </>
-        )}
+        )} */}
 
-        {data.relatedMaterial && (
+        {/* {data.relatedMaterial && (
           <div className={classes.section}>
             <Typography variant="h6" gutterBottom className={classes.subtitle}>
               Related material
@@ -186,7 +186,7 @@ const Assessment = props => {
               dangerouslySetInnerHTML={{ __html: data.relatedMaterial }}
             />
           </div>
-        )}
+        )} */}
 
         <div
           className={classNames(

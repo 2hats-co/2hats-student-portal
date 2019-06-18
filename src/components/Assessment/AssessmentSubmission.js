@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import ReactPixel from 'react-facebook-pixel';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -161,6 +162,7 @@ const AssessmentSubmission = props => {
   };
 
   const handleSubmit = () => {
+    //TODO: add an answer validator here to only allow answers that are not empty whitespace
     updateDoc(
       `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
       submissionId,
@@ -172,6 +174,7 @@ const AssessmentSubmission = props => {
       }
     ).then(() => {
       console.log('Submitted');
+      ReactPixel.trackCustom('SubmitApplication');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     });
   };

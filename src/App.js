@@ -78,6 +78,9 @@ const SchedulerContainer = lazy(() =>
     'containers/SchedulerContainer' /* webpackChunkName: "SchedulerContainer" */
   )
 );
+const TestContainer = lazy(() =>
+  import('./containers/TestContainer' /* webpackChunkName: "TestContainer" */)
+);
 
 const App = () => {
   const authUser = useAuth();
@@ -258,6 +261,11 @@ const App = () => {
                         <SchedulerContainer {...props} />
                       </Navigation>
                     )}
+                  />
+                  <Route
+                    exact
+                    path={'/test'}
+                    component={() => <TestContainer {...props} />}
                   />
 
                   <Route
