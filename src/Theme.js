@@ -48,9 +48,9 @@ export const Theme = createMuiTheme({
   },
   typography: {
     fontFamily: FONT_STACK,
-    h4: { fontWeight: 500 },
+    // h4: { fontWeight: 500 },
     h6: { lineHeight: 1.4 },
-    subtitle1: { fontWeight: 500 },
+    // subtitle1: { fontWeight: 500 },
     body1: { letterSpacing: getLetterSpacing(0.5, 1) },
     body2: { letterSpacing: getLetterSpacing(0.25, 0.875) },
     button: { letterSpacing: getLetterSpacing(1.25, 0.875) },
@@ -86,6 +86,9 @@ export const Theme = createMuiTheme({
   props: {
     MuiFilledInput: {
       disableUnderline: true,
+    },
+    MuiTypography: {
+      color: 'textPrimary',
     },
   },
   overrides: {
@@ -170,6 +173,13 @@ export const Theme = createMuiTheme({
         marginTop: 16,
         borderRadius: `${BORDER_RADIUS}px ${BORDER_RADIUS}px 0 0`,
         height: 'calc(100% - 16px)',
+      },
+    },
+
+    // Less padding for ListItemIcon
+    MuiListItemIcon: {
+      root: {
+        minWidth: 44,
       },
     },
   },
