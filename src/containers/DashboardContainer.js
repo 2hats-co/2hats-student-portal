@@ -143,8 +143,8 @@ const DashboardContainer = props => {
         width={getCardsWidth(cardsCols)}
         isMobile={isMobile}
       /> */}
-      <Announcement width={getCardsWidth(cardsCols)} />
-      <WhatsNext user={user} width={getCardsWidth(cardsCols)} />
+      {/* <Announcement width={getCardsWidth(cardsCols)} /> */}
+      {/* <WhatsNext user={user} width={getCardsWidth(cardsCols)} /> */}
 
       <div
         style={{ width: getCardsWidth(cardsCols) }}

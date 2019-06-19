@@ -31,7 +31,7 @@ const JobsContainer = ({ isMobile }) => {
         maxWidth={getCardsWidth(cardsCols)}
         icon={<JobsIcon />}
       />
-      <Announcement width={getCardsWidth(cardsCols)} />
+      {/* <Announcement width={getCardsWidth(cardsCols)} /> */}
       <Cards
         title="Your Jobs"
         mapping="job"
