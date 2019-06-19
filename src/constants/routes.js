@@ -26,3 +26,10 @@ export const COURSE_REDIRECT = '/courseRedirect';
 export const SCHEDULER = '/scheduler';
 
 export const ONBOARDING = '/welcome';
+
+export const getBaseRoute = route => {
+  if (route === COURSE_REDIRECT) return COURSES;
+  if (route === ASSESSMENT) return ASSESSMENTS;
+  if (route === JOB) return JOBS;
+  return route;
+};

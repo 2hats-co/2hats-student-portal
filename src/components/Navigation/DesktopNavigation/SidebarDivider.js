@@ -7,6 +7,9 @@ const useStyles = makeStyles(theme => ({
   divider: { margin: theme.spacing(1.5, 1) },
 }));
 
+/**
+ * `Divider` with standard spacing to match design.
+ */
 const SidebarDivider = props => {
   const classes = useStyles();
 

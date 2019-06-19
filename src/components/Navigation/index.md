@@ -1,17 +1,36 @@
-HOC: wraps component with a standard left navigation bar.
+Handles both [desktop navigation](#desktopnavigation) and
+[mobile navigation](#mobilenavigation). Also has its own `ErrorBoundary` so nav
+is visible even when wrapped components crash.
 
-REMOVED: Uses `withAuthorisation` HOC to ensure authentication.
-If not, redirects user to sign in, adding a deep link to the current route as a
-URL parameter.
+Mobile navigation is used on
+[breakpoint `sm`](https://material-ui.com/customization/breakpoints/#breakpoints)
+and down (< 960px).
 
-Also has its own `ErrorBoundary` so nav is visible even when wrapped components
-crash.
+### HOC -> Functional component
 
-### Back-end calls
+`Navigation` is now a standard functional component with hooks. This, along with
+using the `render` prop in `<Route>` **prevents it from being remounted** every
+time a new route is loaded.
 
-- **`src/firebase/index.js`:** `auth`
+### Removed `withAuthorisation`
 
-### TODO
+`Navigation` is now primarily a display component that can also change routes
+(using `Link` components). It does not ensure the user is authenticated.
+Use [`ProtectedRoute`](#protectedroute) instead.
 
-Convert to functional component with hooks.  
-Need to modify `App.js`. See Business Portal code.
+### Ensures `user !== null`
+
+If `user` document has not been loaded in `UserContext`, will show
+[`LoadingScreen`](#loadingscreen) until it does. No need to check if `user` doc
+loaded in wrapped containers.
+
+### Styling
+
+On mount, sets background to white (`theme.palette.background.paper`).
+
+If mobile, pushes FB Messenger bubble up using a CSS class in `index.html`.
+
+### Animation
+
+On `location.pathname` change, animates wrapped component by setting CSS classes
+with `useLayoutEffect`. Also scrolls the new page to the top.

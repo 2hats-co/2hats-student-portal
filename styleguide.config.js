@@ -55,12 +55,13 @@ module.exports = {
       components: ['src/containers/SmartLinkContainer.js'],
     },
     {
-      name: 'Navigation sidebar',
+      name: 'Navigation',
       components: [
-        'src/components/withNavigation/**/*.js',
-        'src/components/AccountInfoDialog.js',
-        'src/components/SuperAvatar.js',
-        'src/components/SuperAvatarPlus.js',
+        'src/components/Navigation/index.js',
+        'src/components/Navigation/DesktopNavigation/index.js',
+        'src/components/Navigation/DesktopNavigation/SidebarItem.js',
+        'src/components/Navigation/DesktopNavigation/SidebarDivider.js',
+        'src/components/Navigation/MobileNavigation/*.js',
       ],
     },
     {

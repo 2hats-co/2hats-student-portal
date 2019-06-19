@@ -1,12 +1,13 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useLayoutEffect, useContext, useRef } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { Grid, Toolbar, useMediaQuery } from '@material-ui/core';
 
 import ErrorBoundary from '../ErrorBoundary';
 import LoadingScreen from '../LoadingScreen';
-import NavigationSidebar from './NavigationSidebar';
-import NavigationTabs from './NavigationTabs';
+import DesktopNavigation from './DesktopNavigation';
+import MobileNavigation from './MobileNavigation';
 
 import UserContext from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
@@ -31,17 +32,36 @@ const useStyles = makeStyles(theme => ({
   mainWrapper: {
     minHeight: '100vh',
   },
+  mainWrapperAnimation: {
+    animationName: '$main-wrapper-keyframes',
+    animationDuration: theme.transitions.duration.standard,
+    animationTimingFunction: theme.transitions.easing.easeOut,
+  },
+  '@keyframes main-wrapper-keyframes': {
+    from: { opacity: 0, transform: 'translateY(10px) scale(0.99)' },
+    to: { opacity: 1, transform: 'translateY(0) scale(1)' },
+  },
 }));
 
-const Navigation = ({ children }) => {
+const Navigation = ({ location, children }) => {
   const classes = useStyles();
   const theme = useTheme();
 
+  const mainWrapperRef = useRef(null);
+
   useEffect(() => {
-    console.log('MOUNT NAVIGATION');
     // resets background to white
     setBackground(theme.palette.background.paper);
   }, []);
+
+  useLayoutEffect(() => {
+    if (!mainWrapperRef || !mainWrapperRef.current) return;
+    window.scrollTo(0, 0);
+    mainWrapperRef.current.classList.add(classes.mainWrapperAnimation);
+    setTimeout(() => {
+      mainWrapperRef.current.classList.remove(classes.mainWrapperAnimation);
+    }, 300);
+  }, [location.pathname]);
 
   const { user } = useContext(UserContext);
 
@@ -55,23 +75,23 @@ const Navigation = ({ children }) => {
     <Grid container className={classes.root} wrap="nowrap">
       {!isMobile && (
         <Grid item className={classes.navWrapper}>
-          <NavigationSidebar />
+          <DesktopNavigation />
         </Grid>
       )}
 
-      <Grid item xs className={classes.mainWrapper}>
+      <Grid item xs className={classes.mainWrapper} ref={mainWrapperRef}>
         <ErrorBoundary>
           {isMobile && <Toolbar />}
+
           {// Can't assume user exists, since user did not necessarily sign
           // in during this session
           user ? children : <LoadingScreen showNav />}
           {isMobile && <Toolbar />}
         </ErrorBoundary>
       </Grid>
-
-      {isMobile && <NavigationTabs />}
+      {isMobile && <MobileNavigation />}
     </Grid>
   );
 };
 
-export default Navigation;
+export default withRouter(Navigation);

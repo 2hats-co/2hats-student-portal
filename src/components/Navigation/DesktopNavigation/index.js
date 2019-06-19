@@ -8,7 +8,7 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import JobsIcon from '@material-ui/icons/BusinessCenter';
 import AssessmentsIcon from '@material-ui/icons/Assignment';
 import CoursesIcon from '@material-ui/icons/School';
-import FaqIcon from '@material-ui/icons/Help';
+import FaqIcon from '@material-ui/icons/HelpOutline';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 
 import SidebarItem from './SidebarItem';
@@ -17,7 +17,7 @@ import SidebarDivider from './SidebarDivider';
 
 import logo from 'assets/images/Logo/DarkText.svg';
 import * as ROUTES from 'constants/routes';
-import { SIDEBAR_WIDTH } from './index';
+import { SIDEBAR_WIDTH } from '../index';
 
 const useStyles = makeStyles(theme => ({
   drawerPaper: {
@@ -42,7 +42,11 @@ const useStyles = makeStyles(theme => ({
   avatar: { marginLeft: theme.spacing(-0.5) },
 }));
 
-const NavigationSidebar = props => {
+/**
+ * Persistent sidebar for main navigation items. Largely the same as old
+ * withNavigation sidebar.
+ */
+const DesktopNavigation = () => {
   const classes = useStyles();
 
   const showBottomDivider = useMediaQuery('(max-height: 524px)');
@@ -98,12 +102,7 @@ const NavigationSidebar = props => {
           <List disablePadding>
             {MAIN_NAV_ITEMS.map((x, i) => (
               <li key={i}>
-                <SidebarItem
-                  data={x}
-                  /* selected={
-                  selectedRoute === x.route || selectedRoute + 's' === x.route
-                }*/
-                />
+                <SidebarItem data={x} />
               </li>
             ))}
           </List>
@@ -124,4 +123,4 @@ const NavigationSidebar = props => {
   );
 };
 
-export default NavigationSidebar;
+export default DesktopNavigation;

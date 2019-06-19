@@ -6,15 +6,16 @@ import { makeStyles } from '@material-ui/styles';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 import SidebarDivider from './SidebarDivider';
+import { getBaseRoute } from 'constants/routes';
 
 const useStyles = makeStyles(theme => ({
   listItemRoot: {
-    transition: theme.transitions.create(['background-color', 'color']),
     borderRadius: '0 100px 100px 0',
 
     margin: theme.spacing(0.5, 0),
-    marginRight: theme.spacing(1),
     width: 'auto',
+
+    paddingLeft: theme.spacing(2.5),
 
     '&$selected': {
       color: theme.palette.primary.darkText,
@@ -24,20 +25,21 @@ const useStyles = makeStyles(theme => ({
       '& *': { color: theme.palette.primary.main },
     },
   },
-  listItemIconRoot: { minWidth: theme.spacing(3 + 2) },
 
   selected: {},
 }));
 
 const isActiveItem = route => (match, location) => {
   if (match) return true;
-
-  if (route === '/courses' && location.pathname === '/courseRedirect')
-    return true;
-
-  return route === location.pathname + 's';
+  return route === getBaseRoute(location.pathname);
 };
 
+/**
+ * Renders an MUI `ListItem` that either links internally (`component={Link}`)
+ * or externally (`component="a"`) or a `SidebarDivider`, depending on props.
+ *
+ * Uses `isActiveItem` to set a `selected` class **(not prop)**.
+ */
 const SidebarItem = ({ data }) => {
   const classes = useStyles();
 
@@ -83,6 +85,16 @@ const SidebarItem = ({ data }) => {
 };
 
 SidebarItem.propTypes = {
+  /**
+   * | Key      | Type                |
+   * | -------- | ------------------- |
+   * | type     | 'link' or 'divider' |
+   * | href     | External URL        |
+   * | route    | Internal route      |
+   * | label    | string              |
+   * | disabled | bool                |
+   * | icon     | Node                |
+   */
   data: PropTypes.object.isRequired,
 };
 
