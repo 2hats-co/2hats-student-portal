@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -71,7 +71,7 @@ function ScrollyRolly(props) {
       >
         <List
           disablePadding={disablePadding || false}
-          className={classNames(
+          className={clsx(
             classes && classes.list,
             sortedDocs.length === 0 && classes.emptyList
           )}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -29,7 +29,7 @@ const AssessmentMetadata = props => {
   const { classes, className, data } = props;
 
   return (
-    <div className={classNames(classes.root, className)}>
+    <div className={clsx(classes.root, className)}>
       <Grid container alignItems="flex-end" className={classes.metaWrapper}>
         <IndustryIcon className={classes.icon} />
         <Typography variant="body1">

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -122,7 +122,7 @@ function Cards(props) {
   if (!cardsState.loading && cards.length === 0 && noneLeftMsg)
     return (
       <div
-        className={classNames(classes.root, inline && classes.inline)}
+        className={clsx(classes.root, inline && classes.inline)}
         style={{
           width: Math.min(
             getCardsWidth(cols),
@@ -144,7 +144,7 @@ function Cards(props) {
   if (cards.length > 0)
     return (
       <div
-        className={classNames(classes.root, inline && classes.inline)}
+        className={clsx(classes.root, inline && classes.inline)}
         style={{
           width: Math.min(
             getCardsWidth(cols),

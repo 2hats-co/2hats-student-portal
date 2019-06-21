@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -201,7 +201,7 @@ function OneCard(props) {
   return (
     <Card
       classes={{
-        root: classNames(classes.root, video && classes.withVideo),
+        root: clsx(classes.root, video && classes.withVideo),
       }}
     >
       <CardActionArea
@@ -246,7 +246,7 @@ function OneCard(props) {
 
               {banner && (
                 <div
-                  className={classNames(
+                  className={clsx(
                     classes.banner,
                     bannerColor === 'green' && classes.bannerGreen,
                     bannerColor === 'red' && classes.bannerRed,

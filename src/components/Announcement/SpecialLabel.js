@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -41,7 +41,7 @@ const SpecialLabel = props => {
 
   return (
     <div
-      className={classNames(
+      className={clsx(
         classes.root,
         color === 'primary' && classes.colorPrimary,
         color === 'green' && classes.colorGreen,

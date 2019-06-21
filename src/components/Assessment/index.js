@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -189,7 +189,7 @@ const Assessment = props => {
         )} */}
 
         <div
-          className={classNames(
+          className={clsx(
             classes.section,
             classes.getStartedSection,
             gotStarted && classes.gotStarted
@@ -233,7 +233,7 @@ const Assessment = props => {
         {gotStarted && <AssessmentSubmission data={data} user={user} />}
 
         {suggestedCourses.length > 0 && (
-          <div className={classNames(classes.section, classes.hideOnPrint)}>
+          <div className={clsx(classes.section, classes.hideOnPrint)}>
             <Typography variant="h6" gutterBottom className={classes.subtitle}>
               Need some help?
             </Typography>

@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 const styles = theme => ({
@@ -19,7 +19,7 @@ const styles = theme => ({
 
 const Bullhorn = props => (
   <svg
-    className={classNames(props.classes.root, props.className)}
+    className={clsx(props.classes.root, props.className)}
     focusable="false"
     viewBox="-1 1 24 24"
   >

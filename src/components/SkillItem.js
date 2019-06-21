@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -153,7 +153,7 @@ const SkillItem = props => {
           : () => {}
       }
       container
-      className={classNames(
+      className={clsx(
         classes.root,
         dense && classes.dense,
         achieved && classes.achieved,

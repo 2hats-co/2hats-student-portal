@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -67,10 +67,7 @@ const ActivityIcon = props => {
         <>
           <AssessmentIcon />
           <SendIcon
-            className={classNames(
-              classes.badgeIcon,
-              classes.badgeIconExtraPadding
-            )}
+            className={clsx(classes.badgeIcon, classes.badgeIconExtraPadding)}
           />
         </>
       );
@@ -94,10 +91,7 @@ const ActivityIcon = props => {
         <>
           <JobIcon />
           <SendIcon
-            className={classNames(
-              classes.badgeIcon,
-              classes.badgeIconExtraPadding
-            )}
+            className={clsx(classes.badgeIcon, classes.badgeIconExtraPadding)}
           />
         </>
       );
@@ -121,10 +115,7 @@ const ActivityIcon = props => {
         <>
           <EventIcon />
           <SendIcon
-            className={classNames(
-              classes.badgeIcon,
-              classes.badgeIconExtraPadding
-            )}
+            className={clsx(classes.badgeIcon, classes.badgeIconExtraPadding)}
           />
         </>
       );
@@ -134,10 +125,7 @@ const ActivityIcon = props => {
         <>
           <AssessmentCentreIcon />
           <SendIcon
-            className={classNames(
-              classes.badgeIcon,
-              classes.badgeIconExtraPadding
-            )}
+            className={clsx(classes.badgeIcon, classes.badgeIconExtraPadding)}
           />
         </>
       );

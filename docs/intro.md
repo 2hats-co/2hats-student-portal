@@ -17,6 +17,9 @@ Documentation started with version 3.1 in June 2019.
 
 - Theme upgrades to latest Material Design guidelines.
 
+- Switched to `clsx` from `classnames` for performance improvements. See
+  https://github.com/lukeed/clsx/tree/af19571baaf00d73c8e7600cc0f0ede163b45bca/bench
+
 ### 3.0 – February 2019
 
 Released during UNSW O Week 2019.

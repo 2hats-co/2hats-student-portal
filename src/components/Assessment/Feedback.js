@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -50,13 +50,9 @@ const FeedbackItem = withStyles(styles)(({ classes, data }) => (
   <div className={classes.feedbackItem}>
     {data.id &&
       (data.outcome === 'pass' ? (
-        <PassIcon
-          className={classNames(classes.feedbackIcon, classes.passIcon)}
-        />
+        <PassIcon className={clsx(classes.feedbackIcon, classes.passIcon)} />
       ) : (
-        <FailIcon
-          className={classNames(classes.feedbackIcon, classes.failIcon)}
-        />
+        <FailIcon className={clsx(classes.feedbackIcon, classes.failIcon)} />
       ))}
     {data.id && <Typography variant="subtitle1">{data.title}</Typography>}
     <div

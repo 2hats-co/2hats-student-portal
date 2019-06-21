@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
 import Grid from '@material-ui/core/Grid';
@@ -71,7 +71,7 @@ function LoadingScreen(props) {
       alignItems="center"
       //justify={showNav ? 'space-between' : 'center'}
       justify="center"
-      className={classNames(classes.root, contained && classes.contained)}
+      className={clsx(classes.root, contained && classes.contained)}
     >
       {/* {showNav && <Grid item className={classes.fakeNav} />} */}
 

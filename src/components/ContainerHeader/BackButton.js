@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -23,7 +23,7 @@ const BackButton = props => {
         history.goBack();
       }}
       color="primary"
-      className={classNames(classes.root, className)}
+      className={clsx(classes.root, className)}
     >
       <BackIcon className={classes.backIcon} />
       Back

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -147,7 +147,7 @@ class SuperAvatarPlus extends Component {
         className={classes.avatarButton}
         onClick={this.openDialog}
       >
-        <Avatar src={avatarURL} className={classNames(classes.avatar)}>
+        <Avatar src={avatarURL} className={clsx(classes.avatar)}>
           {firstName[0]}
           {lastName[0]}
         </Avatar>
@@ -158,14 +158,12 @@ class SuperAvatarPlus extends Component {
       <IconButton id="big-profile-button" className={classes.avatarButton}>
         <Avatar
           src={avatarURL}
-          className={classNames(classes.avatar, classes.bigAvatar)}
+          className={clsx(classes.avatar, classes.bigAvatar)}
         >
           {firstName[0]}
           {lastName[0]}
         </Avatar>
-        <EditIcon
-          className={classNames(classes.editIcon, classes.bigEditIcon)}
-        />
+        <EditIcon className={clsx(classes.editIcon, classes.bigEditIcon)} />
       </IconButton>
     );
     if (avatarURL || this.state.avatarURL) {
@@ -189,11 +187,9 @@ class SuperAvatarPlus extends Component {
           <Avatar
             alt={`${firstName} ${lastName}`}
             src={this.state.avatarURL}
-            className={classNames(classes.avatar, classes.bigAvatar)}
+            className={clsx(classes.avatar, classes.bigAvatar)}
           />
-          <EditIcon
-            className={classNames(classes.editIcon, classes.bigEditIcon)}
-          />
+          <EditIcon className={clsx(classes.editIcon, classes.bigEditIcon)} />
         </IconButton>
       );
     }

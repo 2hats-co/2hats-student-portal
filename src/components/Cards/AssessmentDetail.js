@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -50,7 +50,7 @@ export const AssessmentMeta = withStyles(styles)(({ classes, data }) => (
 
 const AssessmentDetail = ({ classes, data }) => (
   <div
-    className={classNames(classes.renderedHtml, classes.description)}
+    className={clsx(classes.renderedHtml, classes.description)}
     dangerouslySetInnerHTML={{
       __html: data.briefing
         ? `${data.briefing.substr(0, 180)}${

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -41,7 +41,7 @@ const ProfileCourses = props => {
       <Grid item xs>
         <Typography
           variant="h5"
-          className={classNames(classes.title, classes.titleWrapper)}
+          className={clsx(classes.title, classes.titleWrapper)}
         >
           Your Courses
         </Typography>

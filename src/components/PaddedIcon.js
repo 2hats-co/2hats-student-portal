@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import green from '@material-ui/core/colors/green';
@@ -39,9 +39,7 @@ const PaddedIcon = props => {
   const { classes, className, children, color } = props;
 
   return (
-    <span
-      className={classNames(classes.root, color && classes[color], className)}
-    >
+    <span className={clsx(classes.root, color && classes[color], className)}>
       {children}
     </span>
   );

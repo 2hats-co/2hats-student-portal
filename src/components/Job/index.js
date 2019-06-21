@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 import ReactPixel from 'react-facebook-pixel';
 
@@ -223,7 +223,7 @@ const Job = props => {
           />
         </div>
 
-        <div className={classNames(classes.section, classes.applyBigWrapper)}>
+        <div className={clsx(classes.section, classes.applyBigWrapper)}>
           <JobApply
             onClick={showApply}
             data={data}

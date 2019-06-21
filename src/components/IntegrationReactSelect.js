@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import Select from 'react-select';
 import CreatableSelect from 'react-select/lib/Creatable';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -103,7 +103,7 @@ function Control(props) {
       InputProps={{
         inputComponent,
         inputProps: {
-          className: classNames(
+          className: clsx(
             props.selectProps.classes.input,
             !props.selectProps.textFieldProps.label &&
               props.selectProps.classes.collapseInput
@@ -172,7 +172,7 @@ function MultiValue(props) {
     <Chip
       tabIndex={-1}
       label={props.children}
-      className={classNames(props.selectProps.classes.chip, {
+      className={clsx(props.selectProps.classes.chip, {
         [props.selectProps.classes.chipFocused]: props.isFocused,
       })}
       onDelete={props.removeProps.onClick}

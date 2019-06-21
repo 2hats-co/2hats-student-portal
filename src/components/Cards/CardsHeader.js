@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 import withStyles from '@material-ui/core/styles/withStyles';
 
@@ -57,7 +57,7 @@ const CardsHeader = props => {
       container
       wrap="nowrap"
       alignItems="center"
-      className={classNames(classes.root, route && classes.clickable)}
+      className={clsx(classes.root, route && classes.clickable)}
       onClick={
         route
           ? () => {

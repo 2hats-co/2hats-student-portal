@@ -1,5 +1,5 @@
 import React from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import green from '@material-ui/core/colors/green';
@@ -32,7 +32,7 @@ const SkillsCounter = props => {
 
   return (
     <span
-      className={classNames(
+      className={clsx(
         classes.root,
         skillsNotAchieved.length === 0 ? classes.green : classes.orange
       )}

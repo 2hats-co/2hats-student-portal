@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import LogoInCard from '../components/LogoInCard';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Grid from '@material-ui/core/Grid';
@@ -212,7 +212,7 @@ class SpeedySignupContainer extends PureComponent {
     if (isLoading)
       return (
         <div
-          className={classNames(
+          className={clsx(
             isMobile ? classes.mobileForm : classes.webForm,
             classes.loadingScreen
           )}

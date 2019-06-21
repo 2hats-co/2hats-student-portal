@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Paper from '@material-ui/core/Paper';
@@ -165,7 +165,7 @@ function ActivityLog(props) {
           <Paper
             elevation={24}
             classes={{
-              root: classNames(
+              root: clsx(
                 classes.paperRoot,
                 isMobile && classes.paperRootMobile
                 //showDialog === 'bottom' && classes.paperRootBottom

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
@@ -126,7 +126,7 @@ const ResumeUploader = props => {
       {({ getRootProps, getInputProps, isDragActive }) => (
         <div
           {...getRootProps()}
-          className={classNames(
+          className={clsx(
             classes.dropzone,
             isDragActive && classes.dropzoneDragActive,
             !!(file.url && file.name) && classes.dropzoneDisabled,

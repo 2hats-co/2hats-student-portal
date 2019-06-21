@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -72,7 +72,7 @@ const Uploader = props => {
         {({ getRootProps, getInputProps, isDragActive }) => (
           <div
             {...getRootProps()}
-            className={classNames(
+            className={clsx(
               classes.dropzone,
               isDragActive && classes.dropzoneDragActive
             )}

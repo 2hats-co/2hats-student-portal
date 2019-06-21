@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Link from '@material-ui/core/Link';
 
@@ -26,7 +26,7 @@ function StyledLink(props) {
   return (
     <Link
       component="button"
-      className={classNames(
+      className={clsx(
         classes.root,
         {
           [classes.primary]: variant === 'primary',

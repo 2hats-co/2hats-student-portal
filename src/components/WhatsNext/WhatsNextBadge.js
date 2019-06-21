@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { withRouter } from 'react-router-dom';
 
 import Grid from '@material-ui/core/Grid';
@@ -26,13 +26,13 @@ const WhatsNextBadge = props => {
           <Grid container direction={isMobile ? 'column' : 'row'}>
             <Grid item className={classes.iconWrapper}>
               <BadgeIcon
-                className={classNames(classes.whatsNextIcon, classes.green)}
+                className={clsx(classes.whatsNextIcon, classes.green)}
               />
             </Grid>
             <Grid item xs>
               <Typography
                 variant="h6"
-                className={classNames(classes.title, classes.green)}
+                className={clsx(classes.title, classes.green)}
                 gutterBottom
               >
                 Congratulations!

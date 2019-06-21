@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import CheckCircleIcon from '@material-ui/icons/CheckCircleOutlined';
 import ErrorIcon from '@material-ui/icons/ErrorOutlined';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
@@ -52,11 +52,11 @@ function MySnackbarContent(props) {
 
   return (
     <SnackbarContent
-      className={classNames(classes[variant], className)}
+      className={clsx(classes[variant], className)}
       aria-describedby="client-snackbar"
       message={
         <span id="client-snackbar" className={classes.message}>
-          <Icon className={classNames(classes.icon, classes.iconVariant)} />
+          <Icon className={clsx(classes.icon, classes.iconVariant)} />
           {message}
         </span>
       }

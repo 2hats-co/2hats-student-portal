@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -60,10 +60,7 @@ const MobileTopBar = ({ triggerHide, triggerElevation }) => {
           position="fixed"
           color="inherit"
           classes={{
-            root: classNames(
-              classes.topAppBar,
-              triggerElevation && classes.shadow
-            ),
+            root: clsx(classes.topAppBar, triggerElevation && classes.shadow),
           }}
           elevation={0}
         >
