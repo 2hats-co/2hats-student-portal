@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/styles';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
@@ -29,18 +29,11 @@ const useStyles = makeStyles(theme => ({
   selected: {},
 }));
 
-const isActiveItem = route => (match, location) => {
-  if (match) return true;
-  return route === getBaseRoute(location.pathname);
-};
-
 /**
  * Renders an MUI `ListItem` that either links internally (`component={Link}`)
  * or externally (`component="a"`) or a `SidebarDivider`, depending on props.
- *
- * Uses `isActiveItem` to set a `selected` class **(not prop)**.
  */
-const SidebarItem = ({ data }) => {
+const SidebarItem = ({ location, data }) => {
   const classes = useStyles();
 
   if (data.type === 'divider') return <SidebarDivider />;
@@ -56,10 +49,9 @@ const SidebarItem = ({ data }) => {
     };
   else
     listItemProps = {
-      component: NavLink,
+      component: Link,
       to: data.route,
-      activeClassName: classes.selected,
-      isActive: isActiveItem(data.route),
+      selected: getBaseRoute(location.pathname) === data.route,
     };
 
   return (
@@ -96,6 +88,8 @@ SidebarItem.propTypes = {
    * | icon     | Node                |
    */
   data: PropTypes.object.isRequired,
+  /** From withRouter */
+  location: PropTypes.object.isRequired,
 };
 
-export default SidebarItem;
+export default withRouter(SidebarItem);
