@@ -38,7 +38,10 @@ const BackButton = ({ history, location, isMobile }) => {
 
   if (
     !backButtonRoute ||
-    ROUTES_PREVENT_BACK.includes(historyStack[historyStack.length - 2].pathname)
+    (historyStack.length >= 2 &&
+      ROUTES_PREVENT_BACK.includes(
+        historyStack[historyStack.length - 2].pathname
+      ))
   )
     return null;
 
