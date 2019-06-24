@@ -27,6 +27,8 @@ import {
   //createIdeoSmartLink,
 } from '../../utilities/assessments';
 
+import DialogPrompt from 'components/routing/DialogPrompt';
+
 const styles = theme => ({
   root: {},
   section: { marginTop: theme.spacing(3) },
@@ -69,7 +71,7 @@ const styles = theme => ({
 });
 
 const AssessmentSubmission = props => {
-  const { classes, data, user } = props;
+  const { classes, data, user, history } = props;
 
   const [submissionId, setSubmissionId] = useState('');
   const [answers, setAnswers] = useState(
@@ -197,6 +199,8 @@ const AssessmentSubmission = props => {
           dangerouslySetInnerHTML={{ __html: data.taskInstructions }}
         />
       </div>
+
+      <DialogPrompt shouldBlockNavigation when navigate={history.push} />
 
       {data.copiedQuestions &&
         data.copiedQuestions.map((x, i) => (

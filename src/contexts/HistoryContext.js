@@ -9,7 +9,10 @@ export const HistoryContext = createContext();
 const historyReducer = (prevState, action) => {
   switch (action.action) {
     case 'PUSH':
-      return [...prevState, action.location];
+      // Only push if not the same
+      if (prevState[prevState.length - 1].key !== action.location.key)
+        return [...prevState, action.location];
+      else return prevState;
 
     case 'POP':
       if (
@@ -54,6 +57,8 @@ export const HistoryProvider = withRouter(({ history, location, children }) => {
   useEffect(() => {
     history.listen((location, action) => stackDispatch({ action, location }));
   }, []);
+
+  console.log(stack, location, history.action);
 
   return (
     <HistoryContext.Provider value={stack}>{children}</HistoryContext.Provider>
