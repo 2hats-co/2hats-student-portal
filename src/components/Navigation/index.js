@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useContext, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
 import { Grid, Toolbar, useMediaQuery } from '@material-ui/core';
@@ -8,6 +9,7 @@ import ErrorBoundary from '../ErrorBoundary';
 import LoadingScreen from '../LoadingScreen';
 import DesktopNavigation from './DesktopNavigation';
 import MobileNavigation from './MobileNavigation';
+import BackButton from './BackButton';
 
 import UserContext from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
@@ -82,6 +84,7 @@ const Navigation = ({ location, children }) => {
       <Grid item xs className={classes.mainWrapper} ref={mainWrapperRef}>
         <ErrorBoundary>
           {isMobile && <Toolbar />}
+          {!isMobile && <BackButton isMobile={false} />}
 
           {// Can't assume user exists, since user did not necessarily sign
           // in during this session
@@ -92,6 +95,11 @@ const Navigation = ({ location, children }) => {
       {isMobile && <MobileNavigation />}
     </Grid>
   );
+};
+
+Navigation.propTypes = {
+  location: PropTypes.object.isRequired,
+  children: PropTypes.node,
 };
 
 export default withRouter(Navigation);

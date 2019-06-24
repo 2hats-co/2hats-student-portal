@@ -14,21 +14,22 @@ const styles = theme => ({
 });
 
 const BackButton = props => {
-  const { classes, className, history } = props;
+  return null;
+  // const { classes, className, history } = props;
 
-  return (
-    <Button
-      id="back"
-      onClick={() => {
-        history.goBack();
-      }}
-      color="primary"
-      className={clsx(classes.root, className)}
-    >
-      <BackIcon className={classes.backIcon} />
-      Back
-    </Button>
-  );
+  // return (
+  //   <Button
+  //     id="back"
+  //     onClick={() => {
+  //       history.goBack();
+  //     }}
+  //     color="primary"
+  //     className={clsx(classes.root, className)}
+  //   >
+  //     <BackIcon className={classes.backIcon} />
+  //     Back
+  //   </Button>
+  // );
 };
 
 export default withRouter(withStyles(styles)(BackButton));

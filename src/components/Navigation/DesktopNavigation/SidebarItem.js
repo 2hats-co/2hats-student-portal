@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 import SidebarDivider from './SidebarDivider';
-import { getBaseRoute } from 'constants/routes';
+import { getBaseRoute } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   listItemRoot: {

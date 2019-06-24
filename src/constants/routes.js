@@ -27,9 +27,16 @@ export const SCHEDULER = '/scheduler';
 
 export const ONBOARDING = '/welcome';
 
-export const getBaseRoute = route => {
-  if (route === COURSE_REDIRECT) return COURSES;
-  if (route === ASSESSMENT) return ASSESSMENTS;
-  if (route === JOB) return JOBS;
-  return route;
-};
+export const AUTH_ROUTES = [
+  SIGN_UP,
+  LOG_OUT,
+  SPEEDY_SIGN_UP,
+  SIGN_IN,
+  RESET_PASSWORD,
+  VALIDATE_EMAIL,
+  CREATE_PASSWORD,
+  NO_PASSWORD,
+  SMART_LINK,
+];
+
+export const ROUTES_PREVENT_BACK = [...AUTH_ROUTES, LANDING, ONBOARDING];

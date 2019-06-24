@@ -17,6 +17,7 @@ import AssessmentsIcon from '@material-ui/icons/Assignment';
 import CoursesIcon from '@material-ui/icons/School';
 
 import * as ROUTES from 'constants/routes';
+import { getBaseRoute } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   bottomAppBar: {
@@ -74,7 +75,7 @@ const NavigationTabs = ({ location, triggerHide }) => {
   const [value, setValue] = useState(location.pathname);
 
   useEffect(() => {
-    const newValue = ROUTES.getBaseRoute(location.pathname);
+    const newValue = getBaseRoute(location.pathname);
     if (value !== newValue) setValue(newValue);
   }, [location.pathname, value]);
 

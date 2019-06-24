@@ -1,8 +1,8 @@
 Handles routing and provides contexts.
 
-### `UserContext`
+### Context: `UserContext`
 
-Has two properties: `authUser` and `user`.
+Has two properties, `authUser` and `user`:
 
 #### `authUser`
 
@@ -23,6 +23,11 @@ a new clone of the element passed every single time.
 If `null`, then no user is signed in or document hasn’t finished loading yet.
 
 **Do not use this to check if there is a user signed in; use `authUser`.**
+
+### Context: `HistoryContext`
+
+Stores a recreation of the history stack when `history.listen` is called.
+See [`HistoryProvider`](#historycontext) for more details.
 
 ### Routing
 

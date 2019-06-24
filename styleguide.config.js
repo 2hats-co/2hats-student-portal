@@ -20,6 +20,7 @@ module.exports = {
       components: [
         'src/App.js',
         'src/components/routing/**/*.js',
+        'src/contexts/HistoryContext.js',
         'src/components/TagTracker.js',
         'src/components/ErrorBoundary.js',
         'src/components/LoadingScreen.js',
@@ -62,6 +63,7 @@ module.exports = {
         'src/components/Navigation/DesktopNavigation/SidebarItem.js',
         'src/components/Navigation/DesktopNavigation/SidebarDivider.js',
         'src/components/Navigation/MobileNavigation/*.js',
+        'src/components/Navigation/BackButton.js',
       ],
     },
     {

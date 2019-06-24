@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -21,8 +21,11 @@ import LogOutIcon from '@material-ui/icons/ExitToApp';
 
 import logo from 'assets/images/Logo/DarkText.svg';
 import SuperAvatar from 'components/SuperAvatar';
+import BackButton from '../BackButton';
 
 import * as ROUTES from 'constants/routes';
+import { HistoryContext } from 'contexts/HistoryContext';
+import { getBackButtonRoute } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   topAppBar: {
@@ -47,11 +50,14 @@ const useStyles = makeStyles(theme => ({
   avatarButton: { padding: 0, width: 48, height: 48 },
 }));
 
-const MobileTopBar = ({ triggerHide, triggerElevation }) => {
+const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => setAnchorEl(null);
+
+  const historyStack = useContext(HistoryContext);
+  const backButtonRoute = getBackButtonRoute(historyStack, location);
 
   return (
     <>
@@ -71,14 +77,18 @@ const MobileTopBar = ({ triggerHide, triggerElevation }) => {
               justify="space-between"
               alignItems="center"
             >
-              <Grid
-                item
-                className={classes.logo}
-                component={Link}
-                to={ROUTES.DASHBOARD}
-              >
-                <img src={logo} alt="2hats" className={classes.logo} />
-              </Grid>
+              {backButtonRoute === null ? (
+                <Grid
+                  item
+                  className={classes.logo}
+                  component={Link}
+                  to={ROUTES.DASHBOARD}
+                >
+                  <img src={logo} alt="2hats" className={classes.logo} />
+                </Grid>
+              ) : (
+                <BackButton isMobile={true} />
+              )}
 
               <Grid item>
                 <IconButton
@@ -127,10 +137,11 @@ const MobileTopBar = ({ triggerHide, triggerElevation }) => {
 };
 
 MobileTopBar.propTypes = {
+  location: PropTypes.object.isRequired,
   /** Hook value from `MobileNavigation` */
   triggerHide: PropTypes.bool.isRequired,
   /** Hook value from `MobileNavigation` */
   triggerElevation: PropTypes.bool.isRequired,
 };
 
-export default MobileTopBar;
+export default withRouter(MobileTopBar);
