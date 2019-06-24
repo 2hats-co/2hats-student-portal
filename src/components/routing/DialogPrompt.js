@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Prompt } from 'react-router-dom';
+import ReactRouterPause from '@allpro/react-router-pause';
 
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -24,47 +24,41 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Grow ref={ref} style={{ transformOrigin: '50% 0 0' }} {...props} />;
 });
 
-const DialogPrompt = ({ shouldBlockNavigation, when, navigate }) => {
+const DialogPrompt = () => {
   const classes = useStyles();
 
-  const [modalVisible, setModalVisible] = useState(false);
-  const [lastLocation, setLastLoaction] = useState(null);
-  const [confirmedNavigation, setConfirmedNavigation] = useState(false);
+  const [dialogProps, setDialogProps] = useState({});
 
-  const showModal = location => {
-    setModalVisible(true);
-    setLastLoaction(location);
-  };
+  const handleNavigationAttempt = (navigation, location) => {
+    console.log('navigation attempt');
 
-  const handleBlockedNavigation = nextLocation => {
-    if (!confirmedNavigation && shouldBlockNavigation) {
-      showModal(nextLocation);
-      return false;
-    }
-    return true;
-  };
+    const close = () =>
+      new Promise((resolve, reject) => {
+        setDialogProps({});
+        resolve();
+      });
 
-  const handleClose = () => {
-    setModalVisible(false);
-  };
+    // If form is not dirty, then ALLOW navigation
+    // return true // allow navigation
 
-  const handleConfirm = () => {
-    handleClose();
-    if (lastLocation) {
-      setConfirmedNavigation(true);
-      // TODO navigate should have aritficial in state
-      navigate(lastLocation);
-    }
+    setDialogProps({
+      open: true,
+      cancel: () => close().then(() => navigation.cancel()),
+      resume: () => close().then(() => navigation.resume()),
+      redirect: () => close().then(() => navigation.push('/page4')),
+      onClose: () => close(),
+    });
+    return null; // null = PAUSE navigation
+    // navigation.pause() - Can also use method to signal pause
   };
 
   return (
     <>
-      <Prompt when={when} message={handleBlockedNavigation} />
+      <ReactRouterPause handler={handleNavigationAttempt} when={true} />
+
       <Dialog
-        open={modalVisible}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
         BackdropProps={{ classes: { root: classes.backdrop } }}
@@ -72,6 +66,7 @@ const DialogPrompt = ({ shouldBlockNavigation, when, navigate }) => {
           scrollPaper: classes.scrollPaper,
           paper: classes.dialogPaper,
         }}
+        {...dialogProps}
       >
         <DialogTitle id="alert-dialog-slide-title">
           {"Use Google's location service?"}
@@ -83,11 +78,11 @@ const DialogPrompt = ({ shouldBlockNavigation, when, navigate }) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Disagree
+          <Button onClick={dialogProps.cancel} color="primary">
+            Cancel
           </Button>
-          <Button onClick={handleConfirm} color="primary">
-            Agree
+          <Button onClick={dialogProps.resume} color="primary">
+            Continue
           </Button>
         </DialogActions>
       </Dialog>

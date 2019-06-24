@@ -12,7 +12,7 @@ const historyReducer = (prevState, action) => {
       // Only push if not the same
       if (prevState[prevState.length - 1].key !== action.location.key)
         return [...prevState, action.location];
-      else return prevState;
+      return prevState;
 
     case 'POP':
       if (
@@ -23,7 +23,9 @@ const historyReducer = (prevState, action) => {
         newState.pop();
         return newState;
       } else {
-        return [...prevState, action.location];
+        if (prevState[prevState.length - 1].key !== action.location.key)
+          return [...prevState, action.location];
+        return prevState;
       }
 
     case 'REPLACE':
