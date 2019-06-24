@@ -19,6 +19,8 @@ import LoadingScreen from 'components/LoadingScreen';
 import Navigation from 'components/Navigation';
 import ProtectedRoute from 'components/routing/ProtectedRoute';
 
+import { HistoryProvider } from 'contexts/HistoryContext';
+
 import { AUTHENTICATION_CONTAINER } from 'constants/views';
 const DetailedViewContainer = lazy(() =>
   import(
@@ -96,179 +98,184 @@ const App = () => {
       <ErrorBoundary>
         <UserContext.Provider value={{ authUser, user: userDocState.doc }}>
           <Router>
-            <div className="app">
-              <TagTracker />
-              <Suspense fallback={<LoadingScreen />}>
-                <Switch>
-                  <Route
-                    exact
-                    path={[ROUTES.SIGN_UP, ROUTES.SIGN_IN]}
-                    render={props => (
-                      <AuthenticationContainer isPublic {...props} />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path={ROUTES.LOG_OUT}
-                    render={props => (
-                      <AuthenticationContainer
-                        isPublic
-                        view={AUTHENTICATION_CONTAINER.logout}
-                        {...props}
-                      />
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.NO_PASSWORD}
-                    render={props => (
-                      <AuthenticationContainer
-                        isPublic
-                        view={AUTHENTICATION_CONTAINER.noPassword}
-                        {...props}
-                      />
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.CREATE_PASSWORD}
-                    render={props => (
-                      <AuthenticationContainer
-                        isPublic
-                        view={AUTHENTICATION_CONTAINER.createPassword}
-                        {...props}
-                      />
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.RESET_PASSWORD}
-                    render={props => (
-                      <AuthenticationContainer
-                        isPublic
-                        view={AUTHENTICATION_CONTAINER.resetPassword}
-                        {...props}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path={ROUTES.VALIDATE_EMAIL}
-                    render={props => (
-                      <AuthenticationContainer
-                        isPublic
-                        view={AUTHENTICATION_CONTAINER.validateEmail}
-                        {...props}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path={ROUTES.SPEEDY_SIGN_UP}
-                    render={props => (
-                      <SpeedySignupContainer
-                        isPublic
-                        authUser={authUser}
-                        {...props}
-                      />
-                    )}
-                  />
-                  <Route
-                    exact
-                    path={[ROUTES.SMART_LINK, ROUTES.SMART_LINK.toLowerCase()]}
-                    render={props => <SmartLinkContainer {...props} />}
-                  />
+            <HistoryProvider>
+              <div className="app">
+                <TagTracker />
+                <Suspense fallback={<LoadingScreen />}>
+                  <Switch>
+                    <Route
+                      exact
+                      path={[ROUTES.SIGN_UP, ROUTES.SIGN_IN]}
+                      render={props => (
+                        <AuthenticationContainer isPublic {...props} />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path={ROUTES.LOG_OUT}
+                      render={props => (
+                        <AuthenticationContainer
+                          isPublic
+                          view={AUTHENTICATION_CONTAINER.logout}
+                          {...props}
+                        />
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.NO_PASSWORD}
+                      render={props => (
+                        <AuthenticationContainer
+                          isPublic
+                          view={AUTHENTICATION_CONTAINER.noPassword}
+                          {...props}
+                        />
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.CREATE_PASSWORD}
+                      render={props => (
+                        <AuthenticationContainer
+                          isPublic
+                          view={AUTHENTICATION_CONTAINER.createPassword}
+                          {...props}
+                        />
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.RESET_PASSWORD}
+                      render={props => (
+                        <AuthenticationContainer
+                          isPublic
+                          view={AUTHENTICATION_CONTAINER.resetPassword}
+                          {...props}
+                        />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path={ROUTES.VALIDATE_EMAIL}
+                      render={props => (
+                        <AuthenticationContainer
+                          isPublic
+                          view={AUTHENTICATION_CONTAINER.validateEmail}
+                          {...props}
+                        />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path={ROUTES.SPEEDY_SIGN_UP}
+                      render={props => (
+                        <SpeedySignupContainer
+                          isPublic
+                          authUser={authUser}
+                          {...props}
+                        />
+                      )}
+                    />
+                    <Route
+                      exact
+                      path={[
+                        ROUTES.SMART_LINK,
+                        ROUTES.SMART_LINK.toLowerCase(),
+                      ]}
+                      render={props => <SmartLinkContainer {...props} />}
+                    />
 
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.ONBOARDING}
-                    render={props => <OnboardingContainer {...props} />}
-                  />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.ONBOARDING}
+                      render={props => <OnboardingContainer {...props} />}
+                    />
 
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.DASHBOARD}
-                    render={props => (
-                      <Navigation>
-                        <DashboardContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.PROFILE}
-                    render={props => (
-                      <Navigation>
-                        <ProfileContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.JOBS}
-                    render={props => (
-                      <Navigation>
-                        <JobsContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.ASSESSMENTS}
-                    render={props => (
-                      <Navigation>
-                        <AssessmentsContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={[ROUTES.ASSESSMENT, ROUTES.JOB]}
-                    render={props => (
-                      <Navigation>
-                        <DetailedViewContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.COURSES}
-                    render={props => (
-                      <Navigation>
-                        <CoursesContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.DASHBOARD}
+                      render={props => (
+                        <Navigation>
+                          <DashboardContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.PROFILE}
+                      render={props => (
+                        <Navigation>
+                          <ProfileContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.JOBS}
+                      render={props => (
+                        <Navigation>
+                          <JobsContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.ASSESSMENTS}
+                      render={props => (
+                        <Navigation>
+                          <AssessmentsContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={[ROUTES.ASSESSMENT, ROUTES.JOB]}
+                      render={props => (
+                        <Navigation>
+                          <DetailedViewContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.COURSES}
+                      render={props => (
+                        <Navigation>
+                          <CoursesContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
 
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.COURSE_REDIRECT}
-                    render={props => (
-                      <Navigation>
-                        <CourseRedirectContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.COURSE_REDIRECT}
+                      render={props => (
+                        <Navigation>
+                          <CourseRedirectContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
 
-                  <ProtectedRoute
-                    exact
-                    path={ROUTES.SCHEDULER}
-                    render={props => (
-                      <Navigation>
-                        <SchedulerContainer {...props} />
-                      </Navigation>
-                    )}
-                  />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.SCHEDULER}
+                      render={props => (
+                        <Navigation>
+                          <SchedulerContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
 
-                  <Route
-                    exact
-                    path={'/'}
-                    render={props => <Landing {...props} />}
-                  />
-                  <Route render={props => <FourOhFour />} />
-                </Switch>
-              </Suspense>
-            </div>
+                    <Route
+                      exact
+                      path={'/'}
+                      render={props => <Landing {...props} />}
+                    />
+                    <Route render={props => <FourOhFour />} />
+                  </Switch>
+                </Suspense>
+              </div>
+            </HistoryProvider>
           </Router>
         </UserContext.Provider>
       </ErrorBoundary>
