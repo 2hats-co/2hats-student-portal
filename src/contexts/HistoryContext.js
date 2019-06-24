@@ -4,34 +4,44 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import equals from 'ramda/es/equals';
 
+import { ROUTES_PREVENT_BACK } from 'constants/routes';
+
 export const HistoryContext = createContext();
 
 const historyReducer = (prevState, action) => {
+  const pushTo = stack => {
+    // Don't push if the same
+    if (stack.length > 0 && stack[stack.length - 1].key === action.location.key)
+      return stack;
+    // Don't push if auth route
+    if (ROUTES_PREVENT_BACK.includes(action.location.pathname)) return stack;
+    // Otherwise, push
+    return [...stack, action.location];
+  };
+
+  const push = () => pushTo(prevState);
+
+  const pop = () => {
+    const newState = [...prevState];
+    newState.pop();
+    return newState;
+  };
+
   switch (action.action) {
     case 'PUSH':
-      // Only push if not the same
-      if (prevState[prevState.length - 1].key !== action.location.key)
-        return [...prevState, action.location];
-      return prevState;
+      return push();
 
     case 'POP':
       if (
         prevState.length >= 2 &&
         equals(prevState[prevState.length - 2], action.location)
-      ) {
-        const newState = [...prevState];
-        newState.pop();
-        return newState;
-      } else {
-        if (prevState[prevState.length - 1].key !== action.location.key)
-          return [...prevState, action.location];
-        return prevState;
-      }
+      )
+        return pop();
+      return push();
 
     case 'REPLACE':
-      const newState = [...prevState];
-      newState.pop();
-      return [...newState, action.location];
+      const newStack = pop();
+      return pushTo(newStack);
 
     default:
       return prevState;
@@ -54,13 +64,15 @@ const historyReducer = (prevState, action) => {
  * is required in the future.
  */
 export const HistoryProvider = withRouter(({ history, location, children }) => {
-  const [stack, stackDispatch] = useReducer(historyReducer, [location]);
+  const [stack, stackDispatch] = useReducer(historyReducer, []);
 
   useEffect(() => {
+    // push current location on mount
+    stackDispatch({ action: 'PUSH', location });
     history.listen((location, action) => stackDispatch({ action, location }));
   }, []);
 
-  console.log(stack, location, history.action);
+  console.log(stack);
 
   return (
     <HistoryContext.Provider value={stack}>{children}</HistoryContext.Provider>

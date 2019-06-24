@@ -7,6 +7,7 @@ import { Button } from '@material-ui/core';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 
 import { HistoryContext } from 'contexts/HistoryContext';
+import { ROUTES_PREVENT_BACK } from 'constants/routes';
 import { getDisplayName, getBackButtonRoute } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
@@ -35,7 +36,11 @@ const BackButton = ({ history, location, isMobile }) => {
   const historyStack = useContext(HistoryContext);
   const backButtonRoute = getBackButtonRoute(historyStack, location);
 
-  if (!backButtonRoute) return null;
+  if (
+    !backButtonRoute ||
+    ROUTES_PREVENT_BACK.includes(historyStack[historyStack.length - 2].pathname)
+  )
+    return null;
 
   return (
     <Button
