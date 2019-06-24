@@ -80,8 +80,8 @@ export const HistoryProvider = withRouter(({ history, location, children }) => {
 });
 
 HistoryProvider.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
+  history: PropTypes.object,
+  location: PropTypes.object,
   /** Everything inside, from `App` */
   children: PropTypes.node.isRequired,
 };
