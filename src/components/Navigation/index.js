@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     animationName: '$main-wrapper-keyframes',
     animationDuration: theme.transitions.duration.standard,
     animationTimingFunction: theme.transitions.easing.easeOut,
+    '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
   },
   '@keyframes main-wrapper-keyframes': {
     from: { opacity: 0, transform: 'translateY(10px) scale(0.99)' },
@@ -73,6 +74,10 @@ const Navigation = ({ location, children }) => {
   if (isMobile) document.body.classList.add('fb_up');
   else document.body.classList.remove('fb_up');
 
+  // Can't assume user exists, since user did not necessarily sign
+  // in during this session
+  if (!user) return <LoadingScreen showNav />;
+
   return (
     <Grid container className={classes.root} wrap="nowrap">
       {!isMobile && (
@@ -86,9 +91,8 @@ const Navigation = ({ location, children }) => {
           {isMobile && <Toolbar />}
           {!isMobile && <BackButton isMobile={false} />}
 
-          {// Can't assume user exists, since user did not necessarily sign
-          // in during this session
-          user ? children : <LoadingScreen showNav />}
+          {children}
+
           {isMobile && <Toolbar />}
         </ErrorBoundary>
       </Grid>
