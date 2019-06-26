@@ -34,10 +34,14 @@ const useStyles = makeStyles(theme => ({
       theme.transitions.create('all', {
         duration: theme.transitions.duration.short,
       }) + ' !important',
+    // Stay below cards when not scrolled down:
+    zIndex: 'auto',
   },
   shadow: {
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadowsLight[4],
+    // Default behaviour:
+    zIndex: theme.zIndex.appBar,
   },
   topToolbar: {
     paddingLeft: theme.spacing(2),

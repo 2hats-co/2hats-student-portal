@@ -144,13 +144,13 @@ export const Theme = responsiveFontSizes(
       // },
       MuiAvatar: {
         colorDefault: {
-        backgroundColor: primaryLight,
-        color: primaryColor,
+          backgroundColor: 'rgba(0, 0, 0, 0.12)',
+          color: 'rgba(0, 0, 0, 0.54)',
           fontWeight: 500,
         },
-      img: {
-        backgroundColor: primaryLight,
-      },
+        // img: {
+        //   backgroundColor: primaryLight,
+        // },
       },
       MuiFilledInput: {
         root: { borderRadius: `${BORDER_RADIUS * 0.75}px !important` },

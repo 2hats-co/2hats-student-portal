@@ -77,26 +77,20 @@ module.exports = {
             'src/components/PaddedIcon.js',
           ],
         },
-        {
-          name: 'Milestones / Activity Log',
-          components: [
-            'src/components/Milestones/**/*.js',
-            'src/components/ActivityLog/**/*.js',
-          ],
-        },
-        {
-          name: 'What’s Next',
-          components: ['src/components/WhatsNext/**/*.js'],
-        },
-        {
-          name: 'Announcements',
-          components: ['src/components/Announcement/**/*.js'],
-        },
       ],
     },
     {
-      name: 'Cards',
-      components: ['src/components/Cards/**/*.js'],
+      name: 'OneCardTwo',
+      components: [
+        'src/components/OneCardTwo/index.js',
+        'src/components/OneCardTwo/CardImage.js',
+        'src/components/OneCardTwo/CardDescription.js',
+        'src/components/OneCardTwo/CardIcon.js',
+        'src/components/OneCardTwo/SkillsList.js',
+        'src/components/OneCardTwo/SkillChip.js',
+        'src/components/OneCardTwo/StatusChip.js',
+        'src/components/OneCardTwo/VideoPopup/*.js',
+      ],
     },
     {
       name: 'Courses',
@@ -131,10 +125,30 @@ module.exports = {
       ],
     },
     {
-      name: 'Scheduler',
-      components: [
-        'src/containers/SchedulerContainer.js',
-        'src/components/Scheduler/**/*.js',
+      name: 'Deprecated',
+      sections: [
+        {
+          name: 'Milestones / Activity Log',
+          components: [
+            'src/components/Milestones/**/*.js',
+            'src/components/ActivityLog/**/*.js',
+          ],
+        },
+        {
+          name: 'What’s Next',
+          components: ['src/components/WhatsNext/**/*.js'],
+        },
+        {
+          name: 'Announcements',
+          components: ['src/components/Announcement/**/*.js'],
+        },
+        {
+          name: 'Scheduler',
+          components: [
+            'src/containers/SchedulerContainer.js',
+            'src/components/Scheduler/**/*.js',
+          ],
+        },
       ],
     },
   ],

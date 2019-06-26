@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import MoreIcon from '@material-ui/icons/ExpandMore';
 
 import CardsHeader from './CardsHeader';
-import OneCard from './OneCard';
+import OneCard from 'components/OneCardTwo';
 import { SIDEBAR_WIDTH } from '../Navigation';
 import { CARD_WIDTH, CARD_PADDING } from './OneCard';
 import useMore from '../../hooks/useMore';

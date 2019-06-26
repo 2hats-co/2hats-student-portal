@@ -1,9 +1,16 @@
 import moment from 'moment';
 
-import * as ROUTES from './routes';
-import { removeHtmlTags } from 'utilities';
+import { GRADIENT_COLORS } from 'constants/cards';
+import * as ROUTES from 'constants/routes';
 
-export const course = data => {
+export const getIndustryGradient = industry => ({
+  colors: Array.isArray(industry)
+    ? industry.map(x => GRADIENT_COLORS[x])
+    : [GRADIENT_COLORS[industry]],
+  baseColor: GRADIENT_COLORS.BASE,
+});
+
+export const generateCourseCard = data => {
   let status = null;
 
   if (data.completed === false) {
@@ -39,7 +46,7 @@ export const course = data => {
   };
 };
 
-export const assessment = data => {
+export const generateAssessmentCard = data => {
   let action = 'Get started';
   let status = null;
 
@@ -76,7 +83,7 @@ export const assessment = data => {
     industry: data.category,
     time: data.duration,
 
-    description: data.briefing ? removeHtmlTags(data.briefing) : '',
+    description: data.briefing || '',
 
     status,
 
@@ -90,7 +97,7 @@ export const assessment = data => {
   };
 };
 
-export const job = data => {
+export const generateJobCard = data => {
   let status = null;
   let action = 'Learn more';
 
@@ -115,9 +122,7 @@ export const job = data => {
     industry: data.industry,
     time: moment(data.closingDate.toDate()).format('D MMMM'),
 
-    description: data.companyDescription
-      ? removeHtmlTags(data.companyDescription)
-      : '',
+    description: data.companyDescription || '',
 
     skills: data.skillsRequired,
     skillsHeader: 'Required',
