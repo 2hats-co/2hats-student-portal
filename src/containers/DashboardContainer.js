@@ -5,7 +5,7 @@ import OneCardTwo from 'components/OneCardTwo';
 const DashboardContainer = () => (
   <OneCardTwo
     title={<>Marketing & Growth Line 2 of Title</>}
-    industry={['tech']}
+    industry={['sales', 'tech']}
     time="3 June"
     description="What is sales? Why sales? What does sales people do? Tell you why sales is one of the most important skill to masterTell you why sales is one of the most important skill. What is sales? Why sales? What does sales people do? Tell you why sales is one of the most important skill to masterTell you why sales is one of the most important skill"
     status={{ label: 'Ongoing', variant: 'closed' }}

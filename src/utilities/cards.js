@@ -1,7 +1,8 @@
 import moment from 'moment';
 
-import { GRADIENT_COLORS } from 'constants/cards';
+import { GRADIENT_COLORS, CARD_TYPES } from 'constants/cards';
 import * as ROUTES from 'constants/routes';
+import { getSkillsNotAchieved } from './jobs';
 
 export const getIndustryGradient = industry => ({
   colors: Array.isArray(industry)
@@ -97,9 +98,11 @@ export const generateAssessmentCard = data => {
   };
 };
 
-export const generateJobCard = data => {
+export const generateJobCard = (data, user) => {
   let status = null;
-  let action = 'Learn more';
+
+  const canApply = getSkillsNotAchieved(user, data.skillsRequired).length === 0;
+  let action = canApply ? 'Apply now' : 'Learn more';
 
   const diffDays = -1 * moment().diff(data.closingDate.toDate(), 'days');
 
@@ -134,4 +137,10 @@ export const generateJobCard = data => {
     route: `${ROUTES.JOB}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
     action,
   };
+};
+
+export const CARD_GENERATORS = {
+  [CARD_TYPES.COURSE]: generateCourseCard,
+  [CARD_TYPES.ASSESSMENT]: generateAssessmentCard,
+  [CARD_TYPES.JOB]: generateJobCard,
 };

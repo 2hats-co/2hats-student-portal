@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
@@ -10,12 +10,16 @@ import Button from '@material-ui/core/Button';
 import MoreIcon from '@material-ui/icons/ExpandMore';
 
 import CardsHeader from './CardsHeader';
-import OneCard from 'components/OneCardTwo';
+import OneCardTwo from 'components/OneCardTwo';
 import { SIDEBAR_WIDTH } from '../Navigation';
 import { CARD_WIDTH, CARD_PADDING } from './OneCard';
 import useMore from '../../hooks/useMore';
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 import * as mappings from '../../constants/oneCardMappings';
+
+import UserContext from 'contexts/UserContext';
+import { CARD_TYPES } from 'constants/cards';
+import { CARD_GENERATORS } from 'utilities/cards';
 
 export const getNumCards = (width, isMobile) => {
   const navWidth = isMobile ? 0 : SIDEBAR_WIDTH;
@@ -88,6 +92,8 @@ function Cards(props) {
     extra,
   } = props;
 
+  const { user } = useContext(UserContext);
+
   const [rows, setRows] = useState(1);
   const [usedYourBackup, setUsedYourBackup] = useState(false);
 
@@ -157,9 +163,12 @@ function Cards(props) {
         <Grid container>
           {cards &&
             cards.map((x, i) => (
-              <OneCard
+              <OneCardTwo
                 key={i}
-                {...mappings[mapping]({ ...x, ...mappingOverrides })}
+                {...CARD_GENERATORS[mapping](
+                  { ...x, ...mappingOverrides },
+                  user
+                )}
               />
             ))}
         </Grid>

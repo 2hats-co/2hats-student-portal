@@ -25,3 +25,9 @@ export const INDUSTRY_ICONS = {
   [INDUSTRIES.MARKETING]: Bullhorn,
   [INDUSTRIES.TECH]: Memory,
 };
+
+export const CARD_TYPES = {
+  JOB: 'job',
+  ASSESSMENT: 'assessment',
+  COURSE: 'course',
+};
