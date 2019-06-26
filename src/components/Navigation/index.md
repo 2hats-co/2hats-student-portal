@@ -15,8 +15,8 @@ time a new route is loaded.
 ### Removed `withAuthorisation`
 
 `Navigation` is now primarily a display component that can also change routes
-(using `Link` components). It does not ensure the user is authenticated.
-Use [`ProtectedRoute`](#protectedroute) instead.
+(using `Link` components). It does not ensure the user is authenticated. Use
+[`ProtectedRoute`](#protectedroute) instead.
 
 ### Ensures `user !== null`
 
@@ -26,7 +26,7 @@ loaded in wrapped containers.
 
 ### Styling
 
-On mount, sets background to white (`theme.palette.background.paper`).
+On mount, sets background to white (`theme.palette.background.default`).
 
 If mobile, pushes FB Messenger bubble up using a CSS class in `index.html`.
 

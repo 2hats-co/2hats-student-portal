@@ -20,7 +20,7 @@ const styles = theme => ({
     right: 0,
     bottom: 0,
 
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     textAlign: 'center',
     zIndex: 1,
   },
@@ -30,7 +30,7 @@ const styles = theme => ({
   },
 
   fakeNav: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
 
     width: 0,
     height: '100vh',

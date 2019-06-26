@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     width: SIDEBAR_WIDTH,
     borderRight: 'none',
     zIndex: 'auto',
+    backgroundColor: theme.palette.background.default,
 
     '@media print': { display: 'none' },
   },

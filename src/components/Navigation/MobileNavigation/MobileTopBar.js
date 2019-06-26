@@ -29,12 +29,14 @@ import { getBackButtonRoute } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   topAppBar: {
+    backgroundColor: theme.palette.background.default,
     transition:
       theme.transitions.create('all', {
         duration: theme.transitions.duration.short,
       }) + ' !important',
   },
   shadow: {
+    backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadowsLight[4],
   },
   topToolbar: {
@@ -64,7 +66,7 @@ const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
       <Slide appear={false} direction="down" in={!triggerHide}>
         <AppBar
           position="fixed"
-          color="inherit"
+          color="default"
           classes={{
             root: clsx(classes.topAppBar, triggerElevation && classes.shadow),
           }}

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
+import PCancelable from 'p-cancelable';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +19,7 @@ import BackButton from '../components/ContainerHeader/BackButton';
 
 const styles = theme => ({
   root: {
-    background: theme.palette.background.paper,
+    background: theme.palette.background.default,
     height: '100vh',
     textAlign: 'center',
   },
@@ -75,18 +76,18 @@ function CourseRedirectContainer(props) {
     const cancelablePromise = new PCancelable((resolve, reject, onCancel) => {
       let _canceled = false;
 
-    // learnWorlds single sign on
-    cloudFunction(
-      CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
-      { courseId: parsedQuery.id },
-      res => {
+      // learnWorlds single sign on
+      cloudFunction(
+        CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
+        { courseId: parsedQuery.id },
+        res => {
           if (!_canceled) window.location.replace(res.data.url);
-      },
-      err => {
-        console.error(err);
-        setError(true);
-      }
-    );
+        },
+        err => {
+          console.error(err);
+          setError(true);
+        }
+      );
 
       onCancel.shouldReject = false;
       onCancel(() => {
