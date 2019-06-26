@@ -72,18 +72,33 @@ function CourseRedirectContainer(props) {
         interest: 'course',
       });
 
+    const cancelablePromise = new PCancelable((resolve, reject, onCancel) => {
+      let _canceled = false;
+
     // learnWorlds single sign on
     cloudFunction(
       CLOUD_FUNCTIONS.LW_SINGLE_SIGN_ON,
       { courseId: parsedQuery.id },
       res => {
-        window.location.replace(res.data.url);
+          if (!_canceled) window.location.replace(res.data.url);
       },
       err => {
         console.error(err);
         setError(true);
       }
     );
+
+      onCancel.shouldReject = false;
+      onCancel(() => {
+        console.log('canceled');
+        _canceled = true;
+      });
+    });
+
+    return () => {
+      console.log('unmount');
+      cancelablePromise.cancel();
+    };
   }, [user]);
 
   if (!user) return <LoadingScreen contained message="Loading…" />;

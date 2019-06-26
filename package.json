@@ -15,6 +15,7 @@
     "mailgun-validate": "^0.1.0",
     "material-ui-pickers": "^2.1.1",
     "moment": "^2.22.2",
+    "p-cancelable": "^2.0.0",
     "pica": "^5.0.0",
     "prop-types": "^15.6.2",
     "query-string": "^6.2.0",
