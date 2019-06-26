@@ -39,4 +39,15 @@ export const AUTH_ROUTES = [
   SMART_LINK,
 ];
 
+// Prevent showing the back button if it goes to these routes
 export const ROUTES_PREVENT_BACK = [...AUTH_ROUTES, LANDING, ONBOARDING];
+
+// Hide the back button on these routes
+export const ROUTES_HIDE_BACK = [
+  ...ROUTES_PREVENT_BACK,
+  DASHBOARD,
+  PROFILE,
+  JOBS,
+  ASSESSMENTS,
+  COURSES,
+];
