@@ -54,3 +54,11 @@ export const getBackButtonRoute = (historyStack, location) => {
   // Otherwise, don't show the back button
   return null;
 };
+
+export const hideBackButton = (historyStack, location) =>
+  !getBackButtonRoute(historyStack, location) ||
+  ROUTES.ROUTES_HIDE_BACK.includes(location.pathname) ||
+  (historyStack.length >= 2 &&
+    ROUTES.ROUTES_PREVENT_BACK.includes(
+      historyStack[historyStack.length - 2].pathname
+    ));

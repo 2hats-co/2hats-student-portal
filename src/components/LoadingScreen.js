@@ -2,15 +2,17 @@ import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { makeStyles, useTheme } from '@material-ui/styles';
+import {
+  Grid,
+  Typography,
+  CircularProgress,
+  useMediaQuery,
+} from '@material-ui/core';
 
-import withStyles from '@material-ui/core/styles/withStyles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 // import { SIDEBAR_WIDTH } from './Navigation';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     height: '100vh',
     width: '100vw',
@@ -20,9 +22,11 @@ const styles = theme => ({
     right: 0,
     bottom: 0,
 
-    backgroundColor: theme.palette.background.default,
     textAlign: 'center',
     zIndex: 1,
+
+    // prevent white flash in dark mode
+    backgroundColor: theme.palette.background.default,
   },
   contained: {
     width: '100%',
@@ -52,16 +56,15 @@ const styles = theme => ({
   message: {
     marginTop: theme.spacing(1),
   },
-});
+}));
 
-function LoadingScreen(props) {
-  const {
-    classes,
-    theme,
-    message,
-    // showNav,
-    contained,
-  } = props;
+function LoadingScreen({
+  message,
+  // showNav,
+  contained,
+}) {
+  const classes = useStyles();
+  const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
@@ -90,11 +93,9 @@ function LoadingScreen(props) {
 }
 
 LoadingScreen.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
   message: PropTypes.node,
   // showNav: PropTypes.bool,
   contained: PropTypes.bool,
 };
 
-export default withStyles(styles, { withTheme: true })(LoadingScreen);
+export default LoadingScreen;

@@ -7,8 +7,11 @@ import { Button } from '@material-ui/core';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 
 import { HistoryContext } from 'contexts/HistoryContext';
-import { ROUTES_PREVENT_BACK, ROUTES_HIDE_BACK } from 'constants/routes';
-import { getDisplayName, getBackButtonRoute } from 'utilities/routing';
+import {
+  getDisplayName,
+  getBackButtonRoute,
+  hideBackButton,
+} from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   desktop: { margin: theme.spacing(2) },
@@ -36,15 +39,7 @@ const BackButton = ({ history, location, isMobile }) => {
   const historyStack = useContext(HistoryContext);
   const backButtonRoute = getBackButtonRoute(historyStack, location);
 
-  if (
-    !backButtonRoute ||
-    ROUTES_HIDE_BACK.includes(location.pathname) ||
-    (historyStack.length >= 2 &&
-      ROUTES_PREVENT_BACK.includes(
-        historyStack[historyStack.length - 2].pathname
-      ))
-  )
-    return null;
+  if (hideBackButton(historyStack, location)) return null;
 
   return (
     <Button
