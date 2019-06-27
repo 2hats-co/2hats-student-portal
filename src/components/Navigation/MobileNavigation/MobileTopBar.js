@@ -25,7 +25,7 @@ import BackButton from '../BackButton';
 
 import * as ROUTES from 'constants/routes';
 import { HistoryContext } from 'contexts/HistoryContext';
-import { getBackButtonRoute } from 'utilities/routing';
+import { hideBackButton } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   topAppBar: {
@@ -63,7 +63,7 @@ const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
   const handleClose = () => setAnchorEl(null);
 
   const historyStack = useContext(HistoryContext);
-  const backButtonRoute = getBackButtonRoute(historyStack, location);
+  const showLogo = hideBackButton(historyStack, location);
 
   return (
     <>
@@ -83,7 +83,7 @@ const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
               justify="space-between"
               alignItems="center"
             >
-              {backButtonRoute === null ? (
+              {showLogo ? (
                 <Grid
                   item
                   className={classes.logo}
