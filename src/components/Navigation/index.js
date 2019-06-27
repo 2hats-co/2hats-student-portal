@@ -53,8 +53,8 @@ const Navigation = ({ location, children }) => {
   const mainWrapperRef = useRef(null);
 
   useEffect(() => {
-    // resets background to white
-    setBackground(theme.palette.background.default);
+    // resets background
+    setBackground();
   }, []);
 
   useLayoutEffect(() => {

@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import {
   AppBar,
   Toolbar,
@@ -19,7 +19,6 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import FaqIcon from '@material-ui/icons/HelpOutline';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 
-import logo from 'assets/images/Logo/DarkText.svg';
 import SuperAvatar from 'components/SuperAvatar';
 import BackButton from '../BackButton';
 
@@ -29,7 +28,7 @@ import { hideBackButton } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   topAppBar: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: 'transparent',
     transition:
       theme.transitions.create('all', {
         duration: theme.transitions.duration.short,
@@ -38,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: 'auto',
   },
   shadow: {
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.elevation[4],
     boxShadow: theme.shadowsLight[4],
     // Default behaviour:
     zIndex: theme.zIndex.appBar,
@@ -58,6 +57,7 @@ const useStyles = makeStyles(theme => ({
 
 const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClose = () => setAnchorEl(null);
@@ -90,7 +90,11 @@ const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
                   component={Link}
                   to={ROUTES.DASHBOARD}
                 >
-                  <img src={logo} alt="2hats" className={classes.logo} />
+                  <img
+                    src={theme.assets.logo}
+                    alt="2hats"
+                    className={classes.logo}
+                  />
                 </Grid>
               ) : (
                 <BackButton isMobile={true} />

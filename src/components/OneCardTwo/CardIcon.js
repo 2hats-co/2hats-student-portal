@@ -11,7 +11,6 @@ const useStyles = makeStyles(theme => ({
     width: 48,
     height: 48,
     position: 'relative',
-    backgroundColor: theme.palette.common.white,
   },
 
   colorDefault: {
@@ -19,6 +18,12 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.secondary,
     marginRight: theme.spacing(-1.5),
     overflow: 'visible',
+  },
+
+  img: {
+    backgroundColor: theme.palette.common.white,
+    // Dark theme
+    opacity: theme.palette.type === 'dark' ? 0.75 : 1,
   },
 
   icon1: {
@@ -85,7 +90,11 @@ const CardIcon = ({ icon, industry }) => {
   // Show logo
   return (
     <Avatar
-      classes={{ root: classes.root, colorDefault: classes.colorDefault }}
+      classes={{
+        root: classes.root,
+        colorDefault: classes.colorDefault,
+        img: classes.img,
+      }}
       src={icon}
     />
   );

@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
       backgroundColor: ({ gradient }) => gradient.baseColor,
       mixBlendMode: 'lighten',
     },
+
+    // Dark theme
+    opacity: theme.palette.type === 'dark' ? 0.75 : 1,
   },
 
   img: {

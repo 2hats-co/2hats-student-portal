@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
+import { makeStyles, useTheme } from '@material-ui/styles';
 import { Drawer, Grid, List, useMediaQuery } from '@material-ui/core';
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -15,7 +15,6 @@ import SidebarItem from './SidebarItem';
 import SuperAvatar from 'components/SuperAvatar';
 import SidebarDivider from './SidebarDivider';
 
-import logo from 'assets/images/Logo/DarkText.svg';
 import * as ROUTES from 'constants/routes';
 import { SIDEBAR_WIDTH } from '../index';
 
@@ -49,6 +48,7 @@ const useStyles = makeStyles(theme => ({
  */
 const DesktopNavigation = () => {
   const classes = useStyles();
+  const theme = useTheme();
 
   const showBottomDivider = useMediaQuery('(max-height: 524px)');
 
@@ -94,7 +94,7 @@ const DesktopNavigation = () => {
           component={Link}
           to={ROUTES.DASHBOARD}
         >
-          <img src={logo} alt="2hats" className={classes.logo} />
+          <img src={theme.assets.logo} alt="2hats" className={classes.logo} />
         </Grid>
 
         <SidebarDivider />

@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
 
+    // Dark theme
+    opacity: theme.palette.type === 'dark' ? 0.75 : 1,
+
     '&::before': {
       position: 'absolute',
       top: 0,

@@ -108,7 +108,7 @@ export const generateJobCard = (data, user) => {
 
   // From users/jobs subcollection
   if (data.jobId) {
-    status = { label: 'Applied', variant: 'submitted' };
+    status = { label: 'Applied', variant: 'pass' };
     action = 'View';
   }
   // Otherwise, if closed for applications

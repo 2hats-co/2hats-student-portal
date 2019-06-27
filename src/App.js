@@ -2,7 +2,8 @@ import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { ThemeProvider } from '@material-ui/styles';
-import { Theme } from './Theme';
+import { Theme, DarkTheme } from './Theme';
+import { CssBaseline, useMediaQuery } from '@material-ui/core';
 
 import useAuth from 'hooks/useAuth';
 import useDocument from 'hooks/useDocument';
@@ -91,10 +92,22 @@ const App = () => {
       userDocDispatch({ path: `${COLLECTIONS.users}/${authUser.uid}` });
   }, [authUser]);
 
-  if (authUser === undefined) return <LoadingScreen />;
+  const prefersDark = useMediaQuery('@media (prefers-color-scheme: dark)', {
+    noSsr: true,
+  });
+  const theme = prefersDark ? DarkTheme : Theme;
+  console.log('theme', prefersDark, theme);
+
+  if (authUser === undefined)
+    return (
+      <ThemeProvider theme={theme}>
+        <LoadingScreen />
+      </ThemeProvider>
+    );
 
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <ErrorBoundary>
         <UserContext.Provider value={{ authUser, user: userDocState.doc }}>
           <Router>

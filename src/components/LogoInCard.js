@@ -63,7 +63,7 @@ function LogoInCard(props) {
   useEffect(() => {
     setBackground('#FA5E4E', Background, false);
     return () => {
-      setBackground(theme.palette.background.paper);
+      setBackground();
     };
   }, []);
 
