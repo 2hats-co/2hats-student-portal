@@ -7,7 +7,8 @@ export const CLOUD_FUNCTIONS = {
   AUTHENTICATE_GOOGLE: 'callablesAuthGoogle',
   AUTHENTICATE_LINKEDIN: 'callablesAuthenticateLinkedIn', // not used
   CHECK_EMAIL: 'callablesCheckEmail',
-  SMART_LINK: 'callablesSmartLinkActivate',
+  // SMART_LINK: 'callablesSmartLinkActivate',//From old code
+  SMART_LINK: 'smartLinkActivate', //From new code
   RESET_PASSWORD: 'callablesAuthResetPassword',
   CREATE_PASSWORD: 'callablesAuthCreatePassword',
   DISABLE_SMART_LINK: 'callablesSmartLinkDisable',
