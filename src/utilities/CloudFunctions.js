@@ -11,12 +11,14 @@ export const CLOUD_FUNCTIONS = {
   SMART_LINK: 'smartLinkActivate', //From new code
   RESET_PASSWORD: 'callablesAuthResetPassword',
   CREATE_PASSWORD: 'callablesAuthCreatePassword',
-  DISABLE_SMART_LINK: 'callablesSmartLinkDisable',
+  // DISABLE_SMART_LINK: 'callablesSmartLinkDisable', //From old code
+  DISABLE_SMART_LINK: 'smartLinkDisable', //From new code
   LEARN_WORLD_SSO: 'callablesLearnWorldSignon',
   CHARGE_STRIPE_TOKEN: 'callablesStripeChargeToken', //not used
   LW_SINGLE_SIGN_ON: 'callablesLearnWorldSignon',
   WHATS_NEXT_AI: 'callablesWhatsNextAI',
-  CREATE_SMART_LINK: 'callablesSmartLinkCreate',
+  // CREATE_SMART_LINK: 'callablesSmartLinkCreate', //From old code
+  CREATE_SMART_LINK: 'smartLinkCreate', //From new code
   CHECK_FREE_TIMESLOTS: 'callablesCalendarFreeTimeslots',
   CACHED_STATS: 'callablesCachedStats',
 };
