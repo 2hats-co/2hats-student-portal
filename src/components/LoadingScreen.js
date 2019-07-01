@@ -54,7 +54,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   message: {
-    marginTop: theme.spacing(1),
+    marginTop: theme.spacing(2),
   },
 }));
 

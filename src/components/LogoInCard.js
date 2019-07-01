@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Paper from '@material-ui/core/Paper';
-import DarkLogo from '../assets/images/Logo/DarkText.svg';
+
 import { setBackground } from '../utilities/styling';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SnackBar from './SnackBar';
@@ -61,7 +61,8 @@ function LogoInCard(props) {
   } = props;
 
   useEffect(() => {
-    setBackground('#FA5E4E', Background, false);
+    if (theme.palette.type !== 'dark')
+      setBackground('#FA5E4E', Background, false);
     return () => {
       setBackground();
     };
@@ -82,7 +83,7 @@ function LogoInCard(props) {
           <img
             className={classes[logoClass] || classes.centeredLogo}
             alt="dark2hatsLogo"
-            src={DarkLogo}
+            src={theme.assets.logo}
           />
 
           {props.children}

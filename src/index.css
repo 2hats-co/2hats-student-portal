@@ -13,10 +13,22 @@ body {
   margin: 0;
   padding: 0 !important;
   font-family: sans-serif;
+  font-feature-settings: 'cv10' 1;
+}
+
+/* Fix for Firefox */
+iframe {
+  border: none;
 }
 
 @media (prefers-color-scheme: dark) {
   body {
     background-color: #121212;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
   }
 }

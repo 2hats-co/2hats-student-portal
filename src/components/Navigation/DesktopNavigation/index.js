@@ -16,7 +16,7 @@ import SuperAvatar from 'components/SuperAvatar';
 import SidebarDivider from './SidebarDivider';
 
 import * as ROUTES from 'constants/routes';
-import { SIDEBAR_WIDTH } from '../index';
+import { SIDEBAR_WIDTH } from 'constants/layout';
 
 const useStyles = makeStyles(theme => ({
   drawerPaper: {
@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     paddingBottom: theme.spacing(1),
     justifyContent: 'flex-start',
-    minHeight: 64,
+    lineHeight: 1,
   },
   logo: { width: 100, userSelect: 'none', userDrag: 'none' },
 

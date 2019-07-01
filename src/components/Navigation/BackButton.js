@@ -14,7 +14,7 @@ import {
 } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
-  desktop: { margin: theme.spacing(2) },
+  desktop: { margin: theme.spacing(-1, 2, 2) },
   mobile: { margin: 0 },
 
   backIcon: { margin: '0 !important' },

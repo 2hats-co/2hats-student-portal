@@ -165,18 +165,19 @@ const themeCommons = {
     //   },
     //   label: { whiteSpace: 'normal' },
     // },
+
+    // Neutral avatar colour
     MuiAvatar: {
       colorDefault: {
         backgroundColor: 'rgba(0, 0, 0, 0.12)',
         color: 'rgba(0, 0, 0, 0.54)',
         fontWeight: 500,
       },
-      // img: {
-      //   backgroundColor: primaryLight,
-      // },
     },
+
+    // Make all corners rounded
     MuiFilledInput: {
-      root: { borderRadius: `${BORDER_RADIUS * 0.75}px !important` },
+      root: { borderRadius: `${BORDER_RADIUS}px !important` },
     },
     // MuiBadge: {
     //   badge: { fontWeight: 700 },
@@ -184,11 +185,12 @@ const themeCommons = {
     // MuiInputAdornment: {
     //   positionStart: { marginBottom: 2 },
     // },
-    // NEW OVERRIDES
-    // MuiLink: {
-    //   root: { fontFamily: FONT_STACK },
-    //   button: { fontFamily: FONT_STACK },
-    // },
+
+    // Temporary - to be removed
+    MuiLink: {
+      root: { fontFamily: FONT_STACK },
+      button: { fontFamily: FONT_STACK },
+    },
 
     // Disable grey highlight on card hover
     MuiCardActionArea: {
@@ -270,6 +272,20 @@ export const DarkTheme = responsiveFontSizes(
         MuiBottomNavigation: {
           root: {
             backgroundColor: darkElevation[4],
+          },
+        },
+        // Fix text box label becoming unreadable
+        MuiFormLabel: {
+          root: {
+            '&$focused': { color: primaryColor },
+          },
+          focused: {},
+        },
+        // Neutral avatar colour
+        MuiAvatar: {
+          colorDefault: {
+            backgroundColor: 'rgba(255, 255, 255, 0.12)',
+            color: 'rgba(255, 255, 255, 0.7)',
           },
         },
       },

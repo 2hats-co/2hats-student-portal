@@ -1,7 +1,7 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { ThemeProvider } from '@material-ui/styles';
+import { ThemeProvider, makeStyles } from '@material-ui/styles';
 import { Theme, DarkTheme } from './Theme';
 import { CssBaseline, useMediaQuery } from '@material-ui/core';
 
@@ -82,9 +82,22 @@ const SchedulerContainer = lazy(() =>
   )
 );
 
+// Need to put this here to override <CssBaseline />
+const useStyles = makeStyles({
+  '@global': {
+    html: {
+      // Use subpixel antialiasing
+      WebkitFontSmoothing: 'subpixel-antialiased',
+      MozOsxFontSmoothing: 'auto',
+    },
+  },
+});
+
 const App = () => {
   const authUser = useAuth();
   const [userDocState, userDocDispatch] = useDocument({});
+
+  useStyles();
 
   useEffect(() => {
     console.log('authUser', authUser);
@@ -96,7 +109,6 @@ const App = () => {
     noSsr: true,
   });
   const theme = prefersDark ? DarkTheme : Theme;
-  console.log('theme', prefersDark, theme);
 
   if (authUser === undefined)
     return (

@@ -13,6 +13,7 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  Fade,
 } from '@material-ui/core';
 
 import MoreVertIcon from '@material-ui/icons/MoreVert';
@@ -28,7 +29,7 @@ import { hideBackButton } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   topAppBar: {
-    backgroundColor: 'transparent',
+    backgroundColor: theme.palette.background.default,
     transition:
       theme.transitions.create('all', {
         duration: theme.transitions.duration.short,
@@ -90,11 +91,13 @@ const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
                   component={Link}
                   to={ROUTES.DASHBOARD}
                 >
-                  <img
-                    src={theme.assets.logo}
-                    alt="2hats"
-                    className={classes.logo}
-                  />
+                  <Fade in>
+                    <img
+                      src={theme.assets.logo}
+                      alt="2hats"
+                      className={classes.logo}
+                    />
+                  </Fade>
                 </Grid>
               ) : (
                 <BackButton isMobile={true} />

@@ -1,26 +1,46 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-
+import { makeStyles } from '@material-ui/styles';
+import { Grid, IconButton, Typography } from '@material-ui/core';
 import BackIcon from '@material-ui/icons/ArrowBackOutlined';
 
-function BackBar(props) {
-  const { isLoading, email, backHandler } = props;
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    height: 40,
+
+    borderRadius: 1000,
+    border: `1px solid ${theme.palette.divider}`,
+
+    marginBottom: theme.spacing(2.5),
+  },
+
+  backButton: {
+    width: 32,
+    height: 32,
+    marginLeft: theme.spacing(0.5),
+    padding: 0,
+  },
+
+  email: {
+    marginLeft: theme.spacing(0.5),
+    color: theme.palette.text.primary,
+    maxWidth: '75%',
+
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+}));
+
+const BackBar = ({ isLoading, email, backHandler }) => {
+  const classes = useStyles();
 
   return (
     <Grid
       key="back-bar"
-      style={{
-        width: '100%',
-        borderStyle: 'solid',
-        borderRadius: 30,
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#aeaeae',
-        marginBottom: 20,
-      }}
+      className={classes.root}
       container
       direction="row"
       alignItems="center"
@@ -29,7 +49,7 @@ function BackBar(props) {
       <IconButton
         disabled={isLoading}
         aria-label="back"
-        style={{ marginLeft: 4, width: 32, height: 32, padding: 0 }}
+        className={classes.backButton}
         id="back-to-email"
         onClick={backHandler}
       >
@@ -37,19 +57,18 @@ function BackBar(props) {
       </IconButton>
       <Typography
         variant={email.length < 30 ? 'body2' : 'caption'}
-        style={{
-          marginLeft: 5,
-          color: '#000',
-          maxWidth: '75%',
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-        }}
+        className={classes.email}
       >
         {email}
       </Typography>
     </Grid>
   );
-}
+};
+
+BackBar.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  email: PropTypes.node.isRequired,
+  backHandler: PropTypes.func.isRequired,
+};
 
 export default BackBar;

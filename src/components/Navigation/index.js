@@ -13,8 +13,7 @@ import BackButton from './BackButton';
 
 import UserContext from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
-
-export const SIDEBAR_WIDTH = 256;
+import { SIDEBAR_WIDTH, IS_MOBILE_QUERY } from 'constants/layout';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,12 +32,13 @@ const useStyles = makeStyles(theme => ({
 
   mainWrapper: {
     minHeight: '100vh',
+    padding: theme.spacing(3, 0),
+    overflow: 'hidden',
   },
   mainWrapperAnimation: {
     animationName: '$main-wrapper-keyframes',
     animationDuration: theme.transitions.duration.standard,
     animationTimingFunction: theme.transitions.easing.easeOut,
-    '@media (prefers-reduced-motion: reduce)': { animation: 'none' },
   },
   '@keyframes main-wrapper-keyframes': {
     from: { opacity: 0, transform: 'translateY(10px) scale(0.99)' },
@@ -68,7 +68,7 @@ const Navigation = ({ location, children }) => {
 
   const { user } = useContext(UserContext);
 
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const isMobile = useMediaQuery(IS_MOBILE_QUERY);
 
   // Style override for FB Messenger chat
   if (isMobile) document.body.classList.add('fb_up');
