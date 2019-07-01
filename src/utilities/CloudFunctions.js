@@ -9,8 +9,10 @@ export const CLOUD_FUNCTIONS = {
   CHECK_EMAIL: 'callablesCheckEmail',
   // SMART_LINK: 'callablesSmartLinkActivate',//From old code
   SMART_LINK: 'smartLinkActivate', //From new code
-  RESET_PASSWORD: 'callablesAuthResetPassword',
-  CREATE_PASSWORD: 'callablesAuthCreatePassword',
+  // RESET_PASSWORD: 'callablesAuthResetPassword',//From old code
+  RESET_PASSWORD: 'authResetPassword', //From ts2
+  // CREATE_PASSWORD: 'callablesAuthCreatePassword',//From old code
+  CREATE_PASSWORD: 'authCreatePassword', //From ts2
   // DISABLE_SMART_LINK: 'callablesSmartLinkDisable', //From old code
   DISABLE_SMART_LINK: 'smartLinkDisable', //From new code
   LEARN_WORLD_SSO: 'callablesLearnWorldSignon',
