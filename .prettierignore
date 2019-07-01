@@ -2,3 +2,4 @@ bitbucket-pipelines.yml
 .yarn
 yarn.lock
 src/assets
+*.svg

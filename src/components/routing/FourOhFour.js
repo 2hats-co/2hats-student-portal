@@ -7,10 +7,10 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import DashboardIcon from '@material-ui/icons/DashboardOutlined';
+import GoIcon from 'assets/icons/Go';
 
 import { DASHBOARD } from 'constants/routes';
-import Logo from 'assets/images/Logo/Black.svg';
+import graphic from 'assets/images/graphics/PersonArmsOnHips.svg';
 
 const styles = theme => ({
   root: {
@@ -19,18 +19,22 @@ const styles = theme => ({
     textAlign: 'center',
     padding: theme.spacing(2),
     backgroundColor: theme.palette.background.default,
+
+    userSelect: 'none',
+  },
+
+  message: {
+    maxWidth: 280,
+  },
+
+  graphic: {
+    userSelect: 'none',
+    userDrag: 'none',
+    width: 60,
+    marginBottom: theme.spacing(1),
   },
 
   button: { margin: theme.spacing(4) },
-
-  logo: {
-    userSelect: 'none',
-    userDrag: 'none',
-    width: 80,
-    opacity: 0.5,
-
-    marginBottom: theme.spacing(1),
-  },
 });
 
 /**
@@ -39,8 +43,10 @@ const styles = theme => ({
 const FourOhFour = ({ classes, history }) => (
   <Grid container className={classes.root} justify="center" alignItems="center">
     <Grid item>
-      <img src={Logo} alt="2hats" className={classes.logo} />
-      <Typography variant="h5">This page was not found</Typography>
+      <img src={graphic} alt="2hats" className={classes.graphic} />
+      <Typography variant="h6" className={classes.message}>
+        Hmm… we can’t seem to find this page
+      </Typography>
       <Button
         color="primary"
         className={classes.button}
@@ -49,7 +55,7 @@ const FourOhFour = ({ classes, history }) => (
         }}
       >
         Go to Dashboard
-        <DashboardIcon />
+        <GoIcon />
       </Button>
     </Grid>
   </Grid>

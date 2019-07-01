@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 
 import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
+import { Grid, Typography, Button } from '@material-ui/core';
 
 import ReloadIcon from '@material-ui/icons/Refresh';
 
-import Logo from '../assets/images/Logo/Black.svg';
+import graphic from 'assets/images/graphics/PersonBedsick.svg';
 
 const styles = theme => ({
   root: {
@@ -19,6 +16,7 @@ const styles = theme => ({
     minHeight: '100vh',
 
     userSelect: 'none',
+    textAlign: 'center',
   },
 
   content: {
@@ -26,19 +24,14 @@ const styles = theme => ({
     maxWidth: 480,
   },
 
-  title: {
-    marginBottom: theme.spacing(1.5),
-    fontWeight: 500,
+  graphic: {
+    width: 120,
+    marginBottom: theme.spacing(1),
+    userDrag: 'none',
   },
-  subtitle: { fontWeight: 400 },
-  bodyText: { marginBottom: theme.spacing(2) },
 
-  divider: { margin: `${theme.spacing(4)}px 0` },
-
-  logo: {
-    marginTop: theme.spacing(2),
-    opacity: 0.33,
-    width: 100,
+  reloadButton: {
+    margin: theme.spacing(4),
   },
 });
 
@@ -68,47 +61,33 @@ class ErrorBoundary extends Component {
           wrap="nowrap"
         >
           <Grid item className={classes.content}>
-            <Typography variant="h4" className={classes.title}>
-              Something went wrong.
-            </Typography>
-            <Typography variant="h6" className={classes.subtitle}>
-              We’ve been notified of the error.
+            <img
+              src={graphic}
+              alt="Bedsick person"
+              className={classes.graphic}
+            />
+
+            <Typography variant="h6" className={classes.title} gutterBottom>
+              Something went wrong
             </Typography>
 
-            <Divider className={classes.divider} />
-
-            <Typography variant="h5" className={classes.title}>
+            <Typography variant="body1" color="textSecondary">
+              Try reloading the page.
+            </Typography>
+            <Typography variant="body1" color="textSecondary">
               You may have an old version of this site.
             </Typography>
 
-            <Typography variant="body1" className={classes.bodyText}>
-              Please <b>reload this page</b>.
-            </Typography>
-
-            <div className={classes.bodyText}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                onClick={() => {
-                  window.location.reload();
-                }}
-              >
-                Reload
-                <ReloadIcon />
-              </Button>
-            </div>
-
-            <Typography variant="body1" className={classes.bodyText}>
-              We’re constantly updating and improving this site to prevent
-              errors like this. You may have an old version that does not fix
-              this error.
-            </Typography>
-            <Typography variant="body1" className={classes.bodyText}>
-              Thank you for your patience.
-            </Typography>
-
-            <img src={Logo} alt="2hats" className={classes.logo} />
+            <Button
+              color="primary"
+              onClick={() => {
+                window.location.reload();
+              }}
+              className={classes.reloadButton}
+            >
+              Reload
+              <ReloadIcon />
+            </Button>
           </Grid>
         </Grid>
       );
