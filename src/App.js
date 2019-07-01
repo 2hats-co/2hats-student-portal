@@ -101,7 +101,7 @@ const App = () => {
   if (authUser === undefined)
     return (
       <ThemeProvider theme={theme}>
-        <LoadingScreen />
+        <LoadingScreen message="Signing you in…" />
       </ThemeProvider>
     );
 
@@ -114,7 +114,9 @@ const App = () => {
             <HistoryProvider>
               <div className="app">
                 <TagTracker />
-                <Suspense fallback={<LoadingScreen />}>
+                <Suspense
+                  fallback={<LoadingScreen message="Reticulating splines…" />}
+                >
                   <Switch>
                     <Route
                       exact

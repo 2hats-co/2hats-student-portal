@@ -65,12 +65,6 @@
     </script>
 
     <style>
-      @media (prefers-color-scheme: dark) {
-        body {
-          background-color: #121212;
-        }
-      }
-
       .basic-spinner-container {
         display: flex;
         align-items: center;
@@ -98,7 +92,7 @@
         animation: mui-progress-circular-dash 1.4s ease-in-out infinite;
         stroke-dasharray: 80px, 200px;
         stroke-dashoffset: 0px;
-        stroke: #f15a29;
+        stroke: #000;
       }
 
       @keyframes mui-progress-circular-dash {
@@ -113,6 +107,15 @@
         100% {
           stroke-dasharray: 100px, 200px;
           stroke-dashoffset: -120px;
+        }
+      }
+
+      @media (prefers-color-scheme: dark) {
+        body {
+          background-color: #121212;
+        }
+        .basic-spinner-circle {
+          stroke: #fff;
         }
       }
 

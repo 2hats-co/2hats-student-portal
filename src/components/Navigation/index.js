@@ -76,7 +76,7 @@ const Navigation = ({ location, children }) => {
 
   // Can't assume user exists, since user did not necessarily sign
   // in during this session
-  if (!user) return <LoadingScreen showNav />;
+  if (!user) return <LoadingScreen showNav message="Getting your data…" />;
 
   return (
     <Grid container className={classes.root} wrap="nowrap">
