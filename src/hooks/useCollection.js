@@ -24,8 +24,9 @@ const collectionIntialState = {
   prevPath: null,
   path: null,
   filters: [],
+  // sort: [], // needs to be disabled
   prevLimit: 0,
-  limit: 20,
+  limit: 30,
   loading: true,
   cap: CAP,
 };
@@ -64,6 +65,7 @@ const useCollection = intialOverrides => {
         query = query.orderBy(sort.field, sort.direction);
       }
     }
+
     const unsubscribe = query.limit(limit).onSnapshot(snapshot => {
       if (snapshot.docs.length > 0) {
         const documents = snapshot.docs.map(doc => {
@@ -82,7 +84,9 @@ const useCollection = intialOverrides => {
         });
       }
     });
-    collectionDispatch({ unsubscribe });
+
+    // collectionDispatch({ unsubscribe: Symbol.for(unsubscribe) });
+    return unsubscribe;
   };
   useEffect(() => {
     const {
@@ -93,19 +97,20 @@ const useCollection = intialOverrides => {
       prevPath,
       path,
       sort,
-      unsubscribe,
+      //unsubscribe,
     } = collectionState;
+
+    let unsubscribe;
     if (
       !equals(prevFilters, filters) ||
       prevLimit !== limit ||
       prevPath !== path
     ) {
-      if (path) getDocuments(filters, limit, sort);
+      if (path) unsubscribe = getDocuments(filters, limit, sort);
     }
     return () => {
-      if (unsubscribe) {
-        collectionState.unsubscribe();
-      }
+      console.log('unsubscribe', path);
+      if (unsubscribe) unsubscribe();
     };
   }, [collectionState.filters, collectionState.limit, collectionState.path]);
   return [collectionState, collectionDispatch];

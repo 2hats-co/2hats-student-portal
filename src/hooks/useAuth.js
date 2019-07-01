@@ -10,10 +10,12 @@ const useAuth = () => {
   const [authUser, setAuthUser] = useState(undefined);
 
   useEffect(() => {
-    auth.onAuthStateChanged(authUser => {
+    const unsubscribe = auth.onAuthStateChanged(authUser => {
       setAuthUser(authUser);
       if (authUser) setSmartlookUser(authUser);
     });
+
+    return () => unsubscribe();
   }, []);
 
   const setSmartlookUser = authUser => {
