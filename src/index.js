@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-import { unregister } from './registerServiceWorker';
+import * as serviceWorker from './serviceWorker';
 import ReactPixel from 'react-facebook-pixel';
 
 import metadata from './metadata.json';
@@ -25,4 +25,4 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
-unregister();
+serviceWorker.register();
