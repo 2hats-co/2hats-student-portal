@@ -4,7 +4,7 @@ console.log('Running staging deploy config script...');
 
 fs.writeFile(
   './.env',
-  `REACT_APP_ENV='STAGING'
+  `REACT_APP_ENV='PRODUCTION'
 SKIP_PREFLIGHT_CHECK=true
 `,
   function(err) {
