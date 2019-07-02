@@ -6,7 +6,7 @@ import { ButtonBase, Dialog, Slide } from '@material-ui/core';
 
 import PlayIcon from '@material-ui/icons/PlayCircleFilled';
 
-import { MEDIA_HEIGHT } from '../index';
+import { MEDIA_HEIGHT } from 'constants/cards';
 import PopupContents from './PopupContents';
 
 const useStyles = makeStyles(theme => ({

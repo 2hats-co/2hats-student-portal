@@ -1,5 +1,8 @@
+import { SIDEBAR_WIDTH, DESKTOP_WIDTH } from './layout';
+import { Theme } from 'Theme';
+
 import { Business, Memory } from '@material-ui/icons';
-import Bullhorn from 'assets/icons/Bullhorn';
+import Bullhorn from 'mdi-material-ui/Bullhorn';
 
 export const INDUSTRIES = {
   TECH: 'tech',
@@ -31,3 +34,19 @@ export const CARD_TYPES = {
   ASSESSMENT: 'assessment',
   COURSE: 'course',
 };
+
+export const CARD_WIDTH = 320;
+export const CARD_SPACING = 16;
+export const MEDIA_HEIGHT = CARD_WIDTH * 0.5625;
+
+export const CARD_COLS_WIDTHS = [0, 1, 2, 3, 4, 5].map(
+  x => CARD_WIDTH * x + CARD_SPACING * x
+);
+export const CARD_COLS_MEDIA_QUERIES = CARD_COLS_WIDTHS.map(x =>
+  x >= DESKTOP_WIDTH
+    ? `@media (min-width: ${x + SIDEBAR_WIDTH}px)`
+    : `@media (min-width: ${x}px)`
+);
+
+export const CARD_ANIMATION_DURATION = Theme.transitions.duration.standard;
+export const CARD_ANIMATION_DELAY = 0.075; // seconds

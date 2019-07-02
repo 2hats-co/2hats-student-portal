@@ -1,9 +1,10 @@
 import * as ROUTES from 'constants/routes';
 
 export const getBaseRoute = route => {
-  if (route === ROUTES.COURSE_REDIRECT) return ROUTES.COURSES;
-  if (route === ROUTES.ASSESSMENT) return ROUTES.ASSESSMENTS;
-  if (route === ROUTES.JOB) return ROUTES.JOBS;
+  if (route.includes(ROUTES.COURSE)) return ROUTES.COURSES;
+  if (route.includes(ROUTES.ASSESSMENT)) return ROUTES.ASSESSMENTS;
+  if (route.includes(ROUTES.JOB)) return ROUTES.JOBS;
+
   return route;
 };
 
@@ -13,9 +14,29 @@ export const getDisplayName = route => {
   switch (route) {
     case ROUTES.JOB:
       return 'Job Description';
-
     case ROUTES.COURSE_REDIRECT:
       return 'Course';
+
+    case ROUTES.ASSESSMENTS_ONGOING:
+      return 'Ongoing Assessments';
+    case ROUTES.ASSESSMENTS_ALL:
+      return 'All Assessments';
+    case ROUTES.ASSESSMENTS_COMPLETED:
+      return 'Completed Assessments';
+
+    case ROUTES.JOBS_NEW:
+      return 'New Jobs';
+    case ROUTES.JOBS_PAST:
+      return 'Past Jobs';
+    case ROUTES.JOBS_YOURS:
+      return 'Your Job Applications';
+
+    case ROUTES.COURSES_ONGOING:
+      return 'Ongoing Courses';
+    case ROUTES.COURSES_ALL:
+      return 'All Courses';
+    case ROUTES.COURSES_COMPLETED:
+      return 'Completed Courses';
 
     default:
       return route.replace('/', '');
@@ -46,9 +67,8 @@ export const getBackButtonRoute = (historyStack, location) => {
   // Otherwise, if we are "one level deep", show an "up" button
   if (historyStack.length === 1) {
     const { pathname } = historyStack[0];
-    if (pathname === ROUTES.ASSESSMENT) return ROUTES.ASSESSMENTS;
-    if (pathname === ROUTES.JOB) return ROUTES.JOBS;
-    if (pathname === ROUTES.COURSE_REDIRECT) return ROUTES.COURSES;
+    const baseRoute = getBaseRoute(pathname);
+    if (baseRoute !== pathname) return baseRoute;
   }
 
   // Otherwise, don't show the back button

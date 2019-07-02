@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/styles';
 import { CardMedia } from '@material-ui/core';
 
-import { MEDIA_HEIGHT } from './index';
+import { MEDIA_HEIGHT } from 'constants/cards';
 import { getIndustryGradient } from 'utilities/cards';
 
 const useStyles = makeStyles(theme => ({
@@ -13,6 +13,7 @@ const useStyles = makeStyles(theme => ({
 
     position: 'relative',
 
+    // Use pseudo-elements for duotone effect
     '&::before, &::after': {
       content: '""',
       display: 'block',

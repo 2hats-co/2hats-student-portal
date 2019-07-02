@@ -109,7 +109,7 @@ const useCollection = intialOverrides => {
       if (path) unsubscribe = getDocuments(filters, limit, sort);
     }
     return () => {
-      console.log('unsubscribe', path);
+      // console.log('unsubscribe', path);
       if (unsubscribe) unsubscribe();
     };
   }, [collectionState.filters, collectionState.limit, collectionState.path]);

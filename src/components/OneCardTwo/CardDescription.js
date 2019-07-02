@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 
-import { removeHtmlTags } from 'utilities';
+import { cleanTextForDisplay } from 'utilities';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,7 +47,7 @@ const CardDescription = ({ description }) => {
       component="p"
       classes={classes}
     >
-      {removeHtmlTags(description).substr(0, 200)}
+      {cleanTextForDisplay(description).substr(0, 200)}
     </Typography>
   );
 };

@@ -26,9 +26,21 @@ export const getInitials = displayName => {
 };
 
 export const removeHtmlTags = text => {
+  if (!text) return '';
   const htmlTags = /(<([^>]+)>)/gi;
   return text.replace(htmlTags, '');
 };
+
+export const removeUrls = text =>
+  text.replace(
+    /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/gi,
+    ''
+  );
+
+export const removeEmptyParens = text => text.replace('()', '');
+
+export const cleanTextForDisplay = text =>
+  removeEmptyParens(removeUrls(removeHtmlTags(text)));
 
 export const hexToRgb = hex => {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

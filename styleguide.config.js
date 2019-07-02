@@ -67,19 +67,6 @@ module.exports = {
       ],
     },
     {
-      name: 'Dashboard',
-      sections: [
-        {
-          name: 'Dashboard root',
-          components: [
-            'src/containers/DashboardContainer.js',
-            'src/components/ContainerHeader/**/*.js',
-            'src/components/PaddedIcon.js',
-          ],
-        },
-      ],
-    },
-    {
       name: 'OneCardTwo',
       components: [
         'src/components/OneCardTwo/index.js',
@@ -90,28 +77,42 @@ module.exports = {
         'src/components/OneCardTwo/SkillChip.js',
         'src/components/OneCardTwo/StatusChip.js',
         'src/components/OneCardTwo/VideoPopup/*.js',
+        'src/components/OneCardTwo/LoadingCard.js',
       ],
     },
     {
-      name: 'Courses',
+      name: 'CardGrid',
       components: [
-        'src/containers/CoursesContainer.js',
-        'src/containers/CourseRedirectContainer.js',
+        'src/components/CardGrid/index.js',
+        'src/components/CardGrid/CardGridHeader.js',
+        'src/components/CardGrid/EmptyState.js',
       ],
     },
     {
-      name: 'Assessments',
+      name: 'Dashboard',
+      components: [
+        'src/containers/DashboardContainer.js',
+        'src/components/Dashboard/**/*.js',
+      ],
+    },
+    {
+      name: 'Main cards pages',
       components: [
         'src/containers/AssessmentsContainer.js',
-        'src/components/Assessment/**/*.js',
+        'src/containers/JobsContainer.js',
+        'src/containers/CoursesContainer.js',
       ],
     },
     {
-      name: 'Jobs',
+      name: 'TODO Jobs',
       components: [
-        'src/containers/JobsContainer.js',
+        'src/components/Assessment/**/*.js',
         'src/components/Job/**/*.js',
       ],
+    },
+    {
+      name: 'TODO Courses',
+      components: ['src/containers/CourseRedirectContainer.js'],
     },
     {
       name: 'Detailed views',

@@ -14,16 +14,33 @@ export const SMART_LINK = '/smartLinks';
 
 // SP3 MAIN NAV ITEMS
 export const DASHBOARD = '/dashboard';
+
 export const PROFILE = '/profile';
+export const PROFILE_PREFERRED_INDUSTRIES = '/profile#preferredIndustries';
+export const PROFILE_SETTINGS = '/profile/settings';
+
 export const JOBS = '/jobs';
-export const JOB = '/job';
+export const JOBS_NEW = '/jobs/new';
+export const JOBS_PAST = '/jobs/past';
+export const JOBS_YOURS = '/jobs/yours';
+
 export const ASSESSMENTS = '/assessments';
-export const ASSESSMENT = '/assessment';
+export const ASSESSMENTS_ONGOING = '/assessments/ongoing';
+export const ASSESSMENTS_ALL = '/assessments/all';
+export const ASSESSMENTS_COMPLETED = '/assessments/completed';
+
 export const COURSES = '/courses';
-export const EVENTS = '/events';
-// SP3 MORE VIEWS
+export const COURSES_ONGOING = '/courses/ongoing';
+export const COURSES_ALL = '/courses/all';
+export const COURSES_COMPLETED = '/courses/completed';
+
+export const JOB = '/job';
+export const ASSESSMENT = '/assessment';
+export const COURSE = '/course';
 export const COURSE_REDIRECT = '/courseRedirect';
 export const SCHEDULER = '/scheduler';
+
+export const EVENTS = '/events';
 
 export const ONBOARDING = '/welcome';
 

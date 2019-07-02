@@ -1,115 +1,173 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import ContainerHeader from '../components/ContainerHeader';
+import { makeStyles } from '@material-ui/styles';
 
-import AssessmentsIcon from '@material-ui/icons/AssignmentOutlined';
-import YourIcon from '@material-ui/icons/AccountCircleOutlined';
+import CardGrid from 'components/CardGrid';
 
-import useWindowSize from '../hooks/useWindowSize';
 import UserContext from 'contexts/UserContext';
-import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
-// import Announcement from '../components/Announcement';
+import useCollection from 'hooks/useCollection';
+import { generateAssessmentCard } from 'utilities/cards';
+
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import * as ROUTES from 'constants/routes';
+import LightbulbBrain from 'assets/images/graphics/LightbulbBrain.svg';
 
-const AssessmentsContainer = props => {
-  const { isMobile } = props;
+const useStyles = makeStyles(() => ({
+  root: {
+    // Prevent scrollbar appearing during card animations in Firefox on Windows
+    overflow: 'hidden',
+  },
+}));
 
+const DISPATCH_PROPS = {
+  UNVIEWED_FEEDBACK: user => ({
+    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+    sort: { field: 'updatedAt', direction: 'desc' },
+    filters: [
+      { field: 'viewedFeedback', operator: '==', value: false },
+      { field: 'screened', operator: '==', value: true },
+    ],
+  }),
+  ONGOING: user => ({
+    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+    sort: { field: 'updatedAt', direction: 'desc' },
+    filters: [{ field: 'submitted', operator: '==', value: false }],
+  }),
+  ALL: () => ({
+    path: COLLECTIONS.assessments,
+    sort: { field: 'createdAt', direction: 'desc' },
+    filters: [{ field: 'published', operator: '==', value: true }],
+  }),
+  COMPLETED: user => ({
+    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+    sort: { field: 'updatedAt', direction: 'desc' },
+    filters: [{ field: 'submitted', operator: '==', value: true }],
+  }),
+};
+
+const AssessmentsContainer = ({ match }) => {
+  const classes = useStyles();
   const { user } = useContext(UserContext);
 
-  const windowSize = useWindowSize();
-  const cardsCols = getNumCards(windowSize.width, isMobile);
-
+  // Change tab title
   useEffect(() => {
-    document.title = '2hats – Assessments';
+    if (match.params && match.params.filter) {
+      switch (match.params.filter) {
+        case 'ongoing':
+          document.title = 'Ongoing Assessments – 2hats';
+          break;
+        case 'all':
+          document.title = 'All Assessments – 2hats';
+          break;
+        case 'completed':
+          document.title = 'Completed Assessments – 2hats';
+          break;
+        default:
+          break;
+      }
+    } else document.title = 'Assessments – 2hats';
+  }, [match]);
 
-    console.log('MOUNT ASSESSMENTSCONTAINER');
-  }, []);
+  // Set up empty useCollection queries to be filled in depending on match
+  const [unviewedFeedbackState, unviewedFeedbackDispatch] = useCollection();
+  const [ongoingState, ongoingDispatch] = useCollection();
+  const [allState, allDispatch] = useCollection();
+  const [completedState, completedDispatch] = useCollection();
 
-  return (
-    <div>
-      <ContainerHeader
-        title="Tasks"
-        isMobile={isMobile}
-        maxWidth={getCardsWidth(cardsCols)}
-        icon={<AssessmentsIcon />}
-      />
-      {/* <Announcement width={getCardsWidth(cardsCols)} /> */}
-      <Cards
-        title="Your Submissions"
-        mapping="assessment"
-        cols={cardsCols}
-        useCollectionInit={{
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-          limit: cardsCols,
-          sort: { field: 'updatedAt', direction: 'desc' },
-        }}
-        extra
-        Icon={YourIcon}
-      />
-      <Cards
-        title="Marketing Tasks"
-        mapping="assessment"
-        cols={cardsCols}
-        useCollectionInit={{
-          path: COLLECTIONS.assessments,
-          limit: cardsCols,
-          filters: [
-            { field: 'category', operator: '==', value: 'marketing' },
-            { field: 'published', operator: '==', value: true },
-          ],
-          sort: { field: 'createdAt', direction: 'desc' },
-        }}
-        filterIds={user.touchedAssessments}
-        NoneLeftIcon={AssessmentsIcon}
-        noneLeftMsg="There are no more marketing tasks available at the moment"
-        extra
-      />
-      <Cards
-        title="Sales Tasks"
-        mapping="assessment"
-        cols={cardsCols}
-        useCollectionInit={{
-          path: COLLECTIONS.assessments,
-          limit: cardsCols,
-          filters: [
-            { field: 'category', operator: '==', value: 'sales' },
-            { field: 'published', operator: '==', value: true },
-          ],
-          sort: { field: 'createdAt', direction: 'desc' },
-        }}
-        filterIds={user.touchedAssessments}
-        NoneLeftIcon={AssessmentsIcon}
-        noneLeftMsg="There are no more sales tasks available at the moment"
-        extra
-      />
-      <Cards
-        title="Tech Tasks"
-        mapping="assessment"
-        cols={cardsCols}
-        useCollectionInit={{
-          path: COLLECTIONS.assessments,
-          limit: cardsCols,
-          filters: [
-            { field: 'category', operator: '==', value: 'tech' },
-            { field: 'published', operator: '==', value: true },
-          ],
-          sort: { field: 'createdAt', direction: 'desc' },
-        }}
-        filterIds={user.touchedAssessments}
-        NoneLeftIcon={AssessmentsIcon}
-        noneLeftMsg="There are no more tech tasks available at the moment"
-        extra
-      />
-    </div>
+  // Store CardGrids here
+  const ongoingCardGrid = (
+    <CardGrid
+      key="ongoing-card-grid"
+      header="Ongoing Assessments"
+      route={ROUTES.ASSESSMENTS_ONGOING}
+      cardProps={[
+        ...unviewedFeedbackState.documents,
+        ...ongoingState.documents,
+      ].map(x => generateAssessmentCard(x, { showUpdatedAt: true }))}
+      loading={unviewedFeedbackState.loading || ongoingState.loading}
+      hideIfEmpty
+      LoadingCardProps={{ maxSkills: 0 }}
+    />
   );
+  const allCardGrid = (
+    <CardGrid
+      key="all-card-grid"
+      header="All Assessments"
+      route={ROUTES.ASSESSMENTS_ALL}
+      cardProps={allState.documents.map(x =>
+        generateAssessmentCard(x, { user })
+      )}
+      loading={allState.loading}
+      animationOffset={1}
+      filterIds={user.touchedAssessments}
+      deprioritiseByIndustry
+      LoadingCardProps={{ maxSkills: 0 }}
+    />
+  );
+  const completedCardGrid = (
+    <CardGrid
+      key="completed-card-grid"
+      header="Completed Assessments"
+      route={ROUTES.ASSESSMENTS_COMPLETED}
+      cardProps={completedState.documents.map(x =>
+        generateAssessmentCard(x, { showUpdatedAt: true })
+      )}
+      loading={completedState.loading}
+      animationOffset={2}
+      LoadingCardProps={{ maxSkills: 0 }}
+      EmptyStateProps={{
+        graphic: LightbulbBrain,
+        graphicWidth: 100,
+        message:
+          'Show off your super-skills by completing assessments and they’ll appear here',
+      }}
+    />
+  );
+
+  // Show only one CardGrid if a match exists and don't query collections
+  // not displayed, based on match
+  let contents = null;
+  if (match.params && match.params.filter) {
+    switch (match.params.filter) {
+      case 'ongoing':
+        contents = ongoingCardGrid;
+        if (!unviewedFeedbackState.path)
+          unviewedFeedbackDispatch(DISPATCH_PROPS.UNVIEWED_FEEDBACK(user));
+        if (!ongoingState.path) ongoingDispatch(DISPATCH_PROPS.ONGOING(user));
+        break;
+      case 'all':
+        contents = allCardGrid;
+        if (!allState.path) allDispatch(DISPATCH_PROPS.ALL());
+        break;
+      case 'completed':
+        contents = completedCardGrid;
+        if (!completedState.path)
+          completedDispatch(DISPATCH_PROPS.COMPLETED(user));
+        break;
+      // We shouldn't reach this default case.
+      // match.params.filter would not be a key in match.params
+      default:
+        break;
+    }
+  } else {
+    contents = [ongoingCardGrid, allCardGrid, completedCardGrid];
+    if (!unviewedFeedbackState.path)
+      unviewedFeedbackDispatch(DISPATCH_PROPS.UNVIEWED_FEEDBACK(user));
+    if (!ongoingState.path) ongoingDispatch(DISPATCH_PROPS.ONGOING(user));
+    if (!allState.path) allDispatch(DISPATCH_PROPS.ALL());
+    if (!completedState.path) completedDispatch(DISPATCH_PROPS.COMPLETED(user));
+  }
+
+  return <main className={classes.root}>{contents}</main>;
 };
 
 AssessmentsContainer.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  location: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired,
-  user: PropTypes.object.isRequired,
+  /** From React Router. Used to show only a specific grid using the URL:
+   * /assessments/:filter
+   */
+  match: PropTypes.object.isRequired,
 };
 
-export default AssessmentsContainer;
+export default withRouter(AssessmentsContainer);

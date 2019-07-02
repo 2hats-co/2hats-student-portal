@@ -1,91 +1,151 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import ContainerHeader from '../components/ContainerHeader';
+import { makeStyles } from '@material-ui/styles';
 
-import CoursesIcon from '@material-ui/icons/SchoolOutlined';
-import YourIcon from '@material-ui/icons/AccountCircleOutlined';
+import CardGrid from 'components/CardGrid';
 
-import useWindowSize from '../hooks/useWindowSize';
 import UserContext from 'contexts/UserContext';
-import Cards, { getNumCards, getCardsWidth } from '../components/Cards';
+import useCollection from 'hooks/useCollection';
+import { generateCourseCard } from 'utilities/cards';
+
 import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import * as ROUTES from 'constants/routes';
 
-const CoursesContainer = props => {
-  const { isMobile } = props;
+const useStyles = makeStyles(() => ({
+  root: {
+    // Prevent scrollbar appearing during card animations in Firefox on Windows
+    overflow: 'hidden',
+  },
+}));
 
+const DISPATCH_PROPS = {
+  ONGOING: user => ({
+    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
+    sort: { field: 'updatedAt', direction: 'desc' },
+    filters: [{ field: 'completed', operator: '==', value: false }],
+  }),
+  ALL: () => ({
+    path: COLLECTIONS.courses,
+    sort: { field: 'createdAt', direction: 'desc' },
+    filters: [{ field: 'published', operator: '==', value: true }],
+  }),
+  COMPLETED: user => ({
+    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
+    sort: { field: 'updatedAt', direction: 'desc' },
+    filters: [{ field: 'completed', operator: '==', value: true }],
+  }),
+};
+
+const CoursesContainer = ({ match }) => {
+  const classes = useStyles();
   const { user } = useContext(UserContext);
 
-  const windowSize = useWindowSize();
-  const cardsCols = getNumCards(windowSize.width, isMobile);
-
+  // Change tab title
   useEffect(() => {
-    document.title = '2hats – Courses';
-  }, []);
+    if (match.params && match.params.filter) {
+      switch (match.params.filter) {
+        case 'ongoing':
+          document.title = 'Ongoing Courses – 2hats';
+          break;
+        case 'all':
+          document.title = 'All Courses – 2hats';
+          break;
+        case 'completed':
+          document.title = 'Completed Courses – 2hats';
+          break;
+        default:
+          break;
+      }
+    } else document.title = 'Courses – 2hats';
+  }, [match]);
 
-  return (
-    <div>
-      <ContainerHeader
-        title="Courses"
-        isMobile={isMobile}
-        maxWidth={getCardsWidth(cardsCols)}
-        icon={<CoursesIcon />}
-      />
-      <Cards
-        title="Your Courses"
-        mapping="course"
-        cols={cardsCols}
-        useCollectionInit={{
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
-          limit: cardsCols,
-          sort: { field: 'ranking', direction: 'asc' },
-        }}
-        extra
-        Icon={YourIcon}
-      />
-      <Cards
-        title="Marketing Courses"
-        mapping="course"
-        cols={cardsCols}
-        useCollectionInit={{
-          path: COLLECTIONS.courses,
-          limit: cardsCols + 1,
-          filters: [
-            { field: 'category', operator: '==', value: 'marketing' },
-            { field: 'published', operator: '==', value: true },
-          ],
-          sort: { field: 'ranking', direction: 'asc' },
-        }}
-        filterIds={user.touchedCourses}
-        NoneLeftIcon={CoursesIcon}
-        noneLeftMsg="There are no more marketing courses available at the moment"
-        extra
-      />
-      <Cards
-        title="Sales Courses"
-        mapping="course"
-        cols={cardsCols}
-        useCollectionInit={{
-          path: COLLECTIONS.courses,
-          limit: cardsCols + 1,
-          filters: [
-            { field: 'category', operator: '==', value: 'sales' },
-            { field: 'published', operator: '==', value: true },
-          ],
-          sort: { field: 'ranking', direction: 'asc' },
-        }}
-        filterIds={user.touchedCourses}
-        NoneLeftIcon={CoursesIcon}
-        noneLeftMsg="There are no more sales courses available at the moment"
-        extra
-      />
-    </div>
+  // Set up empty useCollection queries to be filled in depending on match
+  const [ongoingState, ongoingDispatch] = useCollection();
+  const [allState, allDispatch] = useCollection();
+  const [completedState, completedDispatch] = useCollection();
+
+  // Store CardGrids here
+  const ongoingCardGrid = (
+    <CardGrid
+      key="ongoing-card-grid"
+      header="Ongoing Courses"
+      route={ROUTES.COURSES_ONGOING}
+      cardProps={ongoingState.documents.map(x =>
+        generateCourseCard(x, { showUpdatedAt: true })
+      )}
+      LoadingCardProps={{ maxSkills: 1 }}
+      loading={ongoingState.loading}
+      hideIfEmpty
+    />
   );
+  const allCardGrid = (
+    <CardGrid
+      key="all-card-grid"
+      header="All Courses"
+      route={ROUTES.COURSES_ALL}
+      cardProps={allState.documents.map(x => generateCourseCard(x))}
+      loading={allState.loading}
+      animationOffset={1}
+      LoadingCardProps={{ maxSkills: 1 }}
+      filterIds={user.touchedCourses}
+      deprioritiseByIndustry
+    />
+  );
+  const completedCardGrid = (
+    <CardGrid
+      key="completed-card-grid"
+      header="Completed Courses"
+      route={ROUTES.COURSES_COMPLETED}
+      cardProps={completedState.documents.map(x =>
+        generateCourseCard(x, { showUpdatedAt: true })
+      )}
+      loading={completedState.loading}
+      LoadingCardProps={{ maxSkills: 1 }}
+      animationOffset={2}
+      hideIfEmpty
+    />
+  );
+
+  // Show only one CardGrid if a match exists and don't query collections
+  // not displayed, based on match
+  let contents = null;
+  if (match.params && match.params.filter) {
+    switch (match.params.filter) {
+      case 'ongoing':
+        contents = ongoingCardGrid;
+        if (!ongoingState.path) ongoingDispatch(DISPATCH_PROPS.ONGOING(user));
+        break;
+      case 'all':
+        contents = allCardGrid;
+        if (!allState.path) allDispatch(DISPATCH_PROPS.ALL());
+        break;
+      case 'completed':
+        contents = completedCardGrid;
+        if (!completedState.path)
+          completedDispatch(DISPATCH_PROPS.COMPLETED(user));
+        break;
+      // We shouldn't reach this default case.
+      // match.params.filter would not be a key in match.params
+      default:
+        break;
+    }
+  } else {
+    contents = [ongoingCardGrid, allCardGrid, completedCardGrid];
+    if (!ongoingState.path) ongoingDispatch(DISPATCH_PROPS.ONGOING(user));
+    if (!allState.path) allDispatch(DISPATCH_PROPS.ALL());
+    if (!completedState.path) completedDispatch(DISPATCH_PROPS.COMPLETED(user));
+  }
+
+  return <main className={classes.root}>{contents}</main>;
 };
 
 CoursesContainer.propTypes = {
-  isMobile: PropTypes.bool.isRequired,
-  user: PropTypes.object.isRequired,
+  /** From React Router. Used to show only a specific grid using the URL:
+   * /courses/:filter
+   */
+  match: PropTypes.object.isRequired,
 };
 
-export default CoursesContainer;
+export default withRouter(CoursesContainer);

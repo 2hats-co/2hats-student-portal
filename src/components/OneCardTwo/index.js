@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -22,16 +23,18 @@ import CardDescription from './CardDescription';
 import SkillsList from './SkillsList';
 import StatusChip from './StatusChip';
 
-import { INDUSTRY_DISPLAY_NAMES } from 'constants/cards';
-
-export const CARD_WIDTH = 320;
-export const CARD_PADDING = 16;
-export const MEDIA_HEIGHT = CARD_WIDTH * 0.5625;
+import { CARD_WIDTH, CARD_SPACING } from 'constants/cards';
+import { getIndustryDisplayName } from 'utilities/cards';
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: CARD_WIDTH,
-    margin: CARD_PADDING / 2,
+    margin: CARD_SPACING / 2,
+
+    // On smaller widths, take up as much space as possible
+    [`@media (max-width: ${CARD_WIDTH + CARD_SPACING - 1}px)`]: {
+      width: `calc(100% - ${CARD_SPACING}px)`,
+    },
 
     // Fix Link default styling
     display: 'block',
@@ -64,7 +67,10 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.text.disabled,
   },
 
-  titleGrid: { marginBottom: theme.spacing(2) },
+  titleGrid: {
+    height: 56,
+    marginBottom: theme.spacing(1),
+  },
   title: { lineHeight: '24px' },
 
   cardActions: {
@@ -77,15 +83,30 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'transparent !important',
     '& svg': { marginLeft: theme.spacing(0.25) },
   },
+
+  animatedActionButton: {
+    animationName: '$bounce-alpha',
+    animationDuration: '1.6s',
+    animationIterationCount: 'infinite',
+    animationTimingFunction: theme.transitions.easing.easeInOut,
+  },
+  '@keyframes bounce-alpha': {
+    '0%': { opacity: 1, transform: ' translateX(0px) scale(1)' },
+    '25%': { opacity: 0, transform: 'translateX(10px) scale(0.9)' },
+    '26%': { opacity: 0, transform: 'translateX(-10px) scale(0.9)' },
+    '55%': { opacity: 1, transform: ' translateX(0px) scale(1)' },
+  },
 }));
 
 const getIndustry = industry => {
   if (Array.isArray(industry))
-    return industry.map(x => INDUSTRY_DISPLAY_NAMES[x]).join(' / ');
-  return industry;
+    return industry.map(x => getIndustryDisplayName(x)).join(' / ');
+  return getIndustryDisplayName(industry);
 };
 
 const OneCardTwo = ({
+  className,
+  style,
   title,
   industry,
   time,
@@ -98,11 +119,12 @@ const OneCardTwo = ({
   icon,
   route,
   action,
+  animatedActionButton,
 }) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root} elevation={3}>
+    <Card className={clsx(classes.root, className)} style={style} elevation={3}>
       {/* Card video - stays outside CardActionArea */}
       {media && media.type === 'video' && (
         <VideoPopup
@@ -177,7 +199,11 @@ const OneCardTwo = ({
             className={classes.actionButton}
           >
             {action}
-            <GoIcon />
+            <GoIcon
+              className={clsx(
+                animatedActionButton && classes.animatedActionButton
+              )}
+            />
           </Button>
         </CardActions>
       </CardActionArea>
@@ -186,6 +212,11 @@ const OneCardTwo = ({
 };
 
 OneCardTwo.propTypes = {
+  /** Optional override to card root */
+  className: PropTypes.string,
+  /** Optional override to card root */
+  styles: PropTypes.object,
+
   title: PropTypes.node.isRequired,
 
   /** Supply a single industry or an array of industries.
@@ -238,9 +269,15 @@ OneCardTwo.propTypes = {
   /** Supply `'industry'` to show industry icon or an image URL */
   icon: PropTypes.oneOfType([PropTypes.oneOf(['industry']), PropTypes.string]),
 
+  /** Route to go to when card is clicked */
   route: PropTypes.string.isRequired,
   /** Label for bottom-right action button */
   action: PropTypes.node.isRequired,
+  /** Animate action button go icon */
+  animatedActionButton: PropTypes.bool,
+};
+OneCardTwo.defaultProps = {
+  animatedActionButton: false,
 };
 
 export default OneCardTwo;

@@ -236,18 +236,23 @@ const App = () => {
                         </Navigation>
                       )}
                     />
+
                     <ProtectedRoute
                       exact
-                      path={ROUTES.JOBS}
+                      path={[ROUTES.JOBS, ROUTES.JOBS + '/:filter']}
                       render={props => (
                         <Navigation>
                           <JobsContainer {...props} />
                         </Navigation>
                       )}
                     />
+
                     <ProtectedRoute
                       exact
-                      path={ROUTES.ASSESSMENTS}
+                      path={[
+                        ROUTES.ASSESSMENTS,
+                        ROUTES.ASSESSMENTS + '/:filter',
+                      ]}
                       render={props => (
                         <Navigation>
                           <AssessmentsContainer {...props} />
@@ -256,16 +261,22 @@ const App = () => {
                     />
                     <ProtectedRoute
                       exact
-                      path={[ROUTES.ASSESSMENT, ROUTES.JOB]}
+                      path={[
+                        ROUTES.ASSESSMENT,
+                        ROUTES.ASSESSMENT + '/:id',
+                        ROUTES.JOB,
+                        ROUTES.JOB + '/:id',
+                      ]}
                       render={props => (
                         <Navigation>
                           <DetailedViewContainer {...props} />
                         </Navigation>
                       )}
                     />
+
                     <ProtectedRoute
                       exact
-                      path={ROUTES.COURSES}
+                      path={[ROUTES.COURSES, ROUTES.COURSES + '/:filter']}
                       render={props => (
                         <Navigation>
                           <CoursesContainer {...props} />

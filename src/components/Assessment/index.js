@@ -17,7 +17,7 @@ import AssessmentSubmission from './AssessmentSubmission';
 import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
 import StatusMsg from './StatusMsg';
 import LoadingScreen from '../LoadingScreen';
-import OneCard from '../Cards/OneCard';
+import OneCard from '../OneCardTwo';
 
 import * as ROUTES from '../../constants/routes';
 import UserContext from '../../contexts/UserContext';
