@@ -190,6 +190,9 @@ export const CARD_GENERATORS = {
 
 export const getPrioritisedCards = (cards, user, industryField) => {
   if (!industryField) industryField = 'industry';
+  if (!user) user = {};
+  if (!Array.isArray(user.deprioritisedIndustries))
+    user.deprioritisedIndustries = [];
 
   if (cards.length === 0)
     return { sortedCards: [], deprioritisedStartIndex: -1 };
