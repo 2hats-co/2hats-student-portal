@@ -16,6 +16,7 @@ function SocialView(props) {
     GTeventHandler,
     onSignupRoute,
     changeHandler,
+    goTo,
   } = props;
 
   return (
@@ -34,6 +35,7 @@ function SocialView(props) {
           GTevent={GTeventHandler}
           action={onSignupRoute ? 'Sign up' : 'Sign in'}
           changeHandler={changeHandler}
+          goTo={goTo}
         />
       ) : null}
       {type === 'LinkedIn' ? (

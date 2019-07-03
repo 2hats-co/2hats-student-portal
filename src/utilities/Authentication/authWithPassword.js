@@ -1,5 +1,5 @@
 import { auth, db } from '../../firebase/index';
-import { DASHBOARD } from '../../constants/routes';
+import { LANDING } from '../../constants/routes';
 import firebase from 'firebase/app';
 import ReactPixel from 'react-facebook-pixel';
 
@@ -35,7 +35,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               firstName,
               lastName,
             });
-          routeHandler(DASHBOARD);
+          routeHandler(LANDING);
         });
     })
     .catch(error => {

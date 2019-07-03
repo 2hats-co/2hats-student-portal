@@ -51,7 +51,7 @@ function AuthView(props) {
   useEffect(() => {
     if (authUser) {
       const parsedQuery = queryString.parse(location.search);
-      history.replace(parsedQuery.route ? parsedQuery.route : routes.DASHBOARD);
+      history.replace(parsedQuery.route ? parsedQuery.route : routes.LANDING);
     }
   }, [authUser]);
 

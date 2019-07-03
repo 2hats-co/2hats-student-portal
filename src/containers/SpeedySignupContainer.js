@@ -19,7 +19,7 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { warmUp } from '../utilities/Authentication/warmUp';
 // import { speedyAuth } from '../utilities/Authentication/speedySignup';
 import { UNIVERSITIES } from '../constants/universityList';
-import { DASHBOARD } from '../constants/routes';
+import { LANDING } from '../constants/routes';
 import { auth } from '../firebase';
 
 const styles = theme => ({
@@ -166,7 +166,7 @@ class SpeedySignupContainer extends PureComponent {
 
   goHome() {
     // window.open('https://2hats.com.au', '_self');
-    this.props.history.push(DASHBOARD);
+    this.props.history.push(LANDING);
   }
   errorBar(e) {
     this.setState({
@@ -314,7 +314,7 @@ class SpeedySignupContainer extends PureComponent {
           variant="contained"
           onClick={isPublic ? this.goHome : this.handleReset}
         >
-          {isPublic ? `Visit Dashboard` : `Reset Form`}
+          {isPublic ? `Continue` : `Reset Form`}
         </Button>
       </Grid>
     );

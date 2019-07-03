@@ -14,7 +14,7 @@ export const getTokenWithGoogle = async (user, callback) => {
       console.log(result.data);
 
       auth.signInWithCustomToken(result.data.token).then(() => {
-        callback(result.data.route);
+        callback(result.data.route); // this route is **not used**
       });
       console.log('Call authenticate3rdParty success: ', result);
     },

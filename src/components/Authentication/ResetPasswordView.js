@@ -41,7 +41,7 @@ function ResetPasswordView(props) {
         disabled={isLoading}
         style={{ width: 180, marginTop: 40 }}
         onClick={() => {
-          passwordAction(routes.DASHBOARD);
+          passwordAction(routes.LANDING);
         }}
       >
         Update password

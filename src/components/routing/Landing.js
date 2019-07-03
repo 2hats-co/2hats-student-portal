@@ -11,9 +11,9 @@ import * as ROUTES from 'constants/routes';
  */
 const Landing = () => {
   const userContext = useContext(UserContext);
-  const { user } = userContext;
+  const { authUser } = userContext;
 
-  return <Redirect to={user ? ROUTES.DASHBOARD : ROUTES.SIGN_IN} />;
+  return <Redirect to={authUser ? ROUTES.DASHBOARD : ROUTES.SIGN_IN} />;
 };
 
 export default Landing;

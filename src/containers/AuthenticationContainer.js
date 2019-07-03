@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import queryString from 'query-string';
 
 //routing
-import * as routes from '../constants/routes';
+import * as ROUTES from '../constants/routes';
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
 import { warmUp } from '../utilities/Authentication/warmUp';
@@ -29,7 +29,6 @@ import {
 } from '../utilities/Authentication/authWithPassword';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { auth } from '../firebase';
-import { DASHBOARD } from '../constants/routes';
 
 const styles = theme => ({
   root: {
@@ -91,7 +90,7 @@ class AuthenticationContainer extends React.Component {
     if (this.props.view === AUTHENTICATION_CONTAINER.logout) {
       await auth.signOut();
       this.setState({ view: AUTHENTICATION_CONTAINER.logout });
-      this.goTo(routes.LOG_OUT);
+      this.goTo(ROUTES.LOG_OUT);
     }
   }
 
@@ -114,7 +113,9 @@ class AuthenticationContainer extends React.Component {
     });
   }
   goTo(route) {
-    this.props.history.push(route);
+    if (route) this.props.history.push(route);
+    else if (this.state.route)
+      this.props.history.push(decodeURIComponent(this.state.route));
   }
   handleSignin() {
     this.setState({ isLoading: true });
@@ -125,7 +126,9 @@ class AuthenticationContainer extends React.Component {
       user,
       () => {
         this.goTo(
-          this.state.route ? decodeURIComponent(this.state.route) : DASHBOARD
+          this.state.route
+            ? decodeURIComponent(this.state.route)
+            : ROUTES.LANDING
         );
         this.handleGTevent('Signin');
       },
@@ -233,7 +236,7 @@ class AuthenticationContainer extends React.Component {
     } = this.state;
 
     const onSignupRoute =
-      this.props.history.location.pathname === routes.SIGN_UP;
+      this.props.history.location.pathname === ROUTES.SIGN_UP;
 
     let loadedView;
 
@@ -249,6 +252,7 @@ class AuthenticationContainer extends React.Component {
             GTeventHandler={this.handleGTevent}
             onSignupRoute={onSignupRoute}
             changeHandler={this.handleChange}
+            goTo={this.goTo}
           />
         );
         break;
@@ -263,6 +267,7 @@ class AuthenticationContainer extends React.Component {
             firstName={firstName}
             onSignupRoute={onSignupRoute}
             changeHandler={this.handleChange}
+            goTo={this.goTo}
           />
         );
         break;
@@ -328,7 +333,7 @@ class AuthenticationContainer extends React.Component {
         loadedView = (
           <MessageView
             message="You have successfully logged out"
-            destination={routes.SIGN_IN}
+            destination={ROUTES.SIGN_IN}
             destinationName="sign in"
           />
         );
@@ -350,7 +355,7 @@ class AuthenticationContainer extends React.Component {
         loadedView = (
           <MessageView
             message="Thank you, we have validated your email"
-            destination={routes.DASHBOARD}
+            destination={ROUTES.LANDING}
             destinationName="dashboard"
           />
         );

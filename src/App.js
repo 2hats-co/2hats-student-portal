@@ -309,6 +309,7 @@ const App = () => {
                       path={'/'}
                       render={props => <Landing {...props} />}
                     />
+
                     <Route render={props => <FourOhFour />} />
                   </Switch>
                 </Suspense>
