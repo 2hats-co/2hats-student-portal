@@ -66,7 +66,7 @@ function LogoInCard(props) {
     return () => {
       setBackground();
     };
-  }, []);
+  }, [theme.palette.type]);
 
   return (
     <div className={classes.root}>
