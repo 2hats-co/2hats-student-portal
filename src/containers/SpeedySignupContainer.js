@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import LogoInCard from '../components/LogoInCard';
 import classNames from 'classnames';
 import withStyles from '@material-ui/core/styles/withStyles';
@@ -8,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Disclaimer from '../components/Authentication/Disclaimer';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import MuiLink from '@material-ui/core/Link';
 
 import Form from '../components/Form';
 import speedySignupFields from '../constants/forms/speedySignup';
@@ -20,7 +22,7 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { warmUp } from '../utilities/Authentication/warmUp';
 // import { speedyAuth } from '../utilities/Authentication/speedySignup';
 import { UNIVERSITIES } from '../constants/universityList';
-import { DASHBOARD } from '../constants/routes';
+import { SIGN_IN, LANDING } from '../constants/routes';
 import { doSignInWithCustomToken } from '../firebase/auth';
 const styles = theme => ({
   root: {
@@ -81,6 +83,8 @@ const styles = theme => ({
 
     '& h6': { marginTop: theme.spacing.unit * 2 },
   },
+
+  signInInstead: { marginTop: theme.spacing.unit * 2 },
 });
 class SpeedySignupContainer extends PureComponent {
   constructor(props) {
@@ -153,6 +157,7 @@ class SpeedySignupContainer extends PureComponent {
           isLoading: false,
           view: SPEEDY_SIGNUP.success,
         });
+        this.props.history.push(LANDING);
       },
       error => {
         console.log('Call speedySignup error: ', error);
@@ -163,11 +168,28 @@ class SpeedySignupContainer extends PureComponent {
 
   goHome() {
     // window.open('https://2hats.com.au', '_self');
-    this.props.history.push(DASHBOARD);
+    this.props.history.push(LANDING);
   }
   errorBar(e) {
+    let message = e.message;
+
+    if (e.message.includes('is already in use'))
+      message = (
+        <>
+          {e.message}.&nbsp;
+          <MuiLink
+            component={Link}
+            color="inherit"
+            underline="always"
+            to={SIGN_IN + this.props.location.search}
+          >
+            Sign in instead?
+          </MuiLink>
+        </>
+      );
+
     this.setState({
-      snackBar: { message: e.message, variant: 'error' },
+      snackBar: { message, variant: 'error' },
       isLoading: false,
       link: 'signin',
     });
@@ -259,6 +281,13 @@ class SpeedySignupContainer extends PureComponent {
           data={speedySignupFields({ currentUniversity: defaultUni })}
           formFooter={<Disclaimer />}
         />
+
+        <Typography variant="caption" className={classes.signInInstead}>
+          Already have an account?{' '}
+          <MuiLink component={Link} to={SIGN_IN + this.props.location.search}>
+            Sign in instead
+          </MuiLink>
+        </Typography>
       </Grid>
     );
   }
