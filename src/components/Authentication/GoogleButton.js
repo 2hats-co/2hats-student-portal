@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import queryString from 'query-string';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Button from '@material-ui/core/Button';
 import { GOOGLE_CID_STAGING, GOOGLE_CID_PRODUCTION } from '../../config/auth';
@@ -54,11 +55,26 @@ class GoogleButton extends Component {
     console.log('google auth fail', error);
   };
 
+  getHomeReferrerId() {
+    const parsedQuery = queryString.parse(this.props.location.search);
+    if (parsedQuery.referrer) return parsedQuery.referrer;
+
+    if (parsedQuery.route) {
+      const parsedRedirectQuery = queryString.parse(
+        parsedQuery.route.split('?')[1]
+      );
+      if (parsedRedirectQuery.referrer) return parsedRedirectQuery.referrer;
+    }
+
+    return '';
+  }
+
   getToken(r) {
     this.props.changeHandler('isLoading', true);
     console.log(r); //See whats in the response
     let user = {};
     user.jwtToken = r.tokenId;
+    user.homeReferrerId = this.getHomeReferrerId();
     getTokenWithGoogle(user, this.handleRouting);
   }
   render() {

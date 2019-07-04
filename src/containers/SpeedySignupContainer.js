@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 import LogoInCard from '../components/LogoInCard';
 import classNames from 'classnames';
+import queryString from 'query-string';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 import Grid from '@material-ui/core/Grid';
@@ -135,6 +136,8 @@ class SpeedySignupContainer extends PureComponent {
   createUser(userInfo) {
     this.setState({ isLoading: true });
 
+    const parsedQuery = queryString.parse(this.props.location.search);
+
     const sanitisedUserInfo = {
       firstName: userInfo.firstName.trim(),
       lastName: userInfo.lastName.trim(),
@@ -142,7 +145,8 @@ class SpeedySignupContainer extends PureComponent {
       currentUniversity: userInfo.currentUniversity.trim(),
       currentDegree: userInfo.currentDegree.trim(),
       mobileNumber: userInfo.mobileNumber,
-      interest: userInfo.interest,
+      homeReferrerId: parsedQuery.referrer || '',
+      interest: '',
     };
 
     //speedyAuth(sanitisedUserInfo, this.handleSuccess, this.errorBar);
