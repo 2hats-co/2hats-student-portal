@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import queryString from 'query-string';
 import classNames from 'classnames';
 import { withRouter } from 'react-router-dom';
 import ReactPixel from 'react-facebook-pixel';
@@ -25,7 +26,12 @@ import {
   STYLES,
 } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocument from '../../hooks/useDocument';
-import { createDoc, updateDoc } from '../../utilities/firestore';
+import {
+  createDoc,
+  createDocWithId,
+  updateDoc,
+  getDoc,
+} from '../../utilities/firestore';
 
 const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
@@ -69,7 +75,7 @@ const styles = theme => ({
 });
 
 const Job = props => {
-  const { classes, theme, data, user, history } = props;
+  const { classes, theme, data, user, history, location } = props;
 
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -97,34 +103,58 @@ const Job = props => {
   useEffect(
     () => {
       setLoading(false);
+
+      // Check if there is a referrer in the URL
+      const parsedQuery = queryString.parse(location.search);
+      if (parsedQuery.referrer)
+        createDocWithId(
+          `${COLLECTIONS.users}/${user.id}/jobReferrers`,
+          data.id, // jobReferrers doc ID will have same ID as job doc
+          { referrerId: parsedQuery.referrer }
+        );
     },
     [data]
   );
 
-  const applyForJob = o => {
+  const applyForJob = async applicationData => {
     if (!data.jobId) {
-      const { id, ...rest } = data;
       setLoading(true);
-      createDoc(`${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`, {
+
+      const { id, ...rest } = data;
+
+      const jobSubmissionDoc = {
         ...rest,
         UID: user.id,
         outcome: 'pending',
         screened: false,
-        submissionContent: { ...o },
+        submissionContent: { ...applicationData },
         jobId: id,
         submitted: true,
-      }).then(docRef => {
-        console.log('Created job application doc', docRef.id);
-        ReactPixel.trackCustom('SubmitApplication');
+      };
 
-        const newTouchedJobs = user.touchedJobs || [];
-        newTouchedJobs.push(data.id);
-        updateDoc(COLLECTIONS.users, user.id, {
-          touchedJobs: newTouchedJobs,
-        });
+      const jobReferrerDoc = await getDoc(
+        `${COLLECTIONS.users}/${user.id}/jobReferrers`,
+        data.id
+      );
+      // Copy referrerId from jobReferrerDoc
+      if (jobReferrerDoc && jobReferrerDoc.referrerId)
+        jobSubmissionDoc.referrerId = jobReferrerDoc.referrerId;
 
-        history.push(`${ROUTES.JOB}?id=${docRef.id}&yours=true`);
+      const jobApplicationDoc = await createDoc(
+        `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
+        jobSubmissionDoc
+      );
+
+      console.log('Created job application doc', jobApplicationDoc.id);
+      // ReactPixel.trackCustom('SubmitApplication');
+
+      const newTouchedJobs = user.touchedJobs || [];
+      newTouchedJobs.push(data.id);
+      updateDoc(COLLECTIONS.users, user.id, {
+        touchedJobs: newTouchedJobs,
       });
+
+      history.push(`${ROUTES.JOB}?id=${jobApplicationDoc.id}&yours=true`);
     }
   };
 
