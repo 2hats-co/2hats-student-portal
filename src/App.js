@@ -177,6 +177,16 @@ const App = props => {
                   />
                   <Route
                     exact
+                    path={ROUTES.ASSESSMENT + '/:id'}
+                    component={() => <DetailedViewContainer {...props} />}
+                  />
+                  <Route
+                    exact
+                    path={ROUTES.JOB + '/:id'}
+                    component={() => <DetailedViewContainer {...props} />}
+                  />
+                  <Route
+                    exact
                     path={ROUTES.COURSES}
                     component={() => <CoursesContainer {...props} />}
                   />
