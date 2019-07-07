@@ -59,7 +59,7 @@ const PopupContents = ({ src, title, route, action, setModalOpen }) => {
 
       <div className={classes.video}>
         <iframe
-          src={src}
+          src={src + '?autoplay=1'}
           className={classes.iframe}
           title={title + ' video'}
           frameBorder="none"
