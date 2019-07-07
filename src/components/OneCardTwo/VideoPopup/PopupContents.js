@@ -63,7 +63,7 @@ const PopupContents = ({ src, title, route, action, setModalOpen }) => {
           className={classes.iframe}
           title={title + ' video'}
           frameBorder="none"
-          allow="accelerometer; encrypted-media; picture-in-picture"
+          allow="accelerometer; encrypted-media; picture-in-picture; autoplay"
           allowFullScreen
         />
       </div>
