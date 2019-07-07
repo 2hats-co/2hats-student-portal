@@ -140,9 +140,11 @@ export const generateJobCard = (data, options) => {
   // Get difference between today and closingDate
   const diffDays = -1 * moment().diff(data.closingDate.toDate(), 'days');
 
-  // user can apply if not closed && user has all the skills
+  // user can apply if not closed && user has all the skills &&
+  // user hasn't already applied
   const canApply =
     diffDays > 0 &&
+    !data.jobId &&
     getSkillsNotAchieved(options.user, data.skillsRequired).length === 0;
   let action = canApply ? 'Apply now' : 'Learn more';
   const animatedActionButton = !!canApply;
