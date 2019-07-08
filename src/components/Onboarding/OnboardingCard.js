@@ -2,36 +2,24 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
-import {
-  AppBar,
-  Toolbar,
-  LinearProgress,
-  Button,
-  Grid,
-  Paper,
-} from '@material-ui/core';
-import GoIcon from 'assets/icons/Go';
+import { Grid, Paper } from '@material-ui/core';
+
+import OnboardingHeader from './OnboardingHeader';
 
 import Background from 'assets/background/Colour.svg';
 import { setBackground } from 'utilities/styling';
 
 const useStyles = makeStyles(theme => ({
-  appBar: {
-    backgroundColor: 'transparent',
-  },
-  progressBar: {
-    width: 120,
-  },
-  skipButton: {
-    opacity: 0.6,
-  },
-
   root: {
     minHeight: '100vh',
-
-    padding: theme.spacing(2),
   },
 
+  // Use a wrapper with padding instead of setting a margin on the Paper
+  // component to prevent having to do width: calc(100% - 16px)
+  paperWrapper: {
+    width: '100%',
+    padding: theme.spacing(0, 1, 1),
+  },
   paper: {
     maxWidth: 960,
     minHeight: 620,
@@ -43,6 +31,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     justifyContent: 'center',
     padding: theme.spacing(3),
+    margin: 'auto',
+
+    backgroundColor: ({ fullScreen }) =>
+      fullScreen ? 'transparent' : theme.palette.background.paper,
   },
 
   contentWrapper: {
@@ -50,8 +42,12 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const OnboardingCard = ({ children, fullScreen }) => {
-  const classes = useStyles();
+/**
+ * Wraps content around a white card on an orange (or white) background.
+ * OnboardingHeader includes header with progress, logo, and skip button
+ */
+const OnboardingCard = ({ children, fullScreen, progressValue }) => {
+  const classes = useStyles({ fullScreen });
   const theme = useTheme();
 
   useEffect(() => {
@@ -64,38 +60,17 @@ const OnboardingCard = ({ children, fullScreen }) => {
   }, [fullScreen, theme.palette.type]);
 
   return (
-    <>
-      <AppBar
-        component="header"
-        color={fullScreen ? 'default' : 'primary'}
-        position="static"
-        elevation={0}
-        classes={{ root: classes.appBar }}
-      >
-        <Toolbar>
-          <Grid
-            container
-            justify="space-between"
-            alignItems="center"
-            wrap="nowrap"
-          >
-            <LinearProgress variant="determinate" value={25} />
+    <Grid
+      container
+      direction="column"
+      justify="space-between"
+      alignItems="center"
+      wrap="nowrap"
+      className={classes.root}
+    >
+      <OnboardingHeader fullScreen={fullScreen} progressValue={progressValue} />
 
-            <Button color="inherit" className={classes.skipButton}>
-              Skip
-              <GoIcon />
-            </Button>
-          </Grid>
-        </Toolbar>
-      </AppBar>
-      <Grid
-        container
-        direction="column"
-        justify="center"
-        alignItems="center"
-        wrap="nowrap"
-        className={classes.root}
-      >
+      <Grid item className={classes.paperWrapper}>
         <Paper
           elevation={fullScreen ? 0 : 3}
           component="main"
@@ -104,16 +79,23 @@ const OnboardingCard = ({ children, fullScreen }) => {
           <div className={classes.contentWrapper}>{children}</div>
         </Paper>
       </Grid>
-    </>
+
+      {/* Spacer div */}
+      <div />
+    </Grid>
   );
 };
 
 OnboardingCard.propTypes = {
   children: PropTypes.node,
+  /** Show a white screen (and logo) or not */
   fullScreen: PropTypes.bool,
+  /** Progress bar value */
+  progressValue: PropTypes.number,
 };
 OnboardingCard.defaultProps = {
   fullScreen: false,
+  progressValue: 50,
 };
 
 export default OnboardingCard;
