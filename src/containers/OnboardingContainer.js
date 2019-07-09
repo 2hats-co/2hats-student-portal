@@ -5,9 +5,6 @@ import { Redirect } from 'react-router-dom';
 import LoadingScreen from 'components/LoadingScreen';
 import OnboardingCard from 'components/Onboarding/OnboardingCard';
 
-import TestComponent from '@bit/sidney2hats.2hats.test-component';
-import TestThemedMuiComponent from '@bit/sidney2hats.2hats.test-themed-mui-component';
-
 import OnboardingA1 from 'components/Onboarding/OnboardingA1';
 import OnboardingB1 from 'components/Onboarding/OnboardingB1';
 import OnboardingB2 from 'components/Onboarding/OnboardingB2';
@@ -61,8 +58,7 @@ const OnboardingContainer = ({ match }) => {
       break;
   }
 
-  return <TestThemedMuiComponent />;
-  // return <OnboardingCard {...OnboardingCardProps} />;
+  return <OnboardingCard {...OnboardingCardProps} />;
 };
 
 OnboardingContainer.propTypes = {
