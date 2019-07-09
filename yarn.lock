@@ -923,14 +923,14 @@
 
 "@bit/sidney2hats.2hats.test-component@^0.0.1":
   version "0.0.1"
-  resolved "https://node.bitsrc.io/sidney2hats.2hats.test-component/-/sidney2hats.2hats.test-component-0.0.1.tgz#20d0c1b2486db3c5a134fe9009493e514bca4738"
+  resolved "https://node.bit.dev/sidney2hats.2hats.test-component/-/sidney2hats.2hats.test-component-0.0.1.tgz#20d0c1b2486db3c5a134fe9009493e514bca4738"
   integrity sha1-INDBskhts8WhNP6QCUk+UUvKRzg=
   dependencies:
     react "^16.8.6"
 
 "@bit/sidney2hats.2hats.test-themed-mui-component@^0.0.2":
   version "0.0.2"
-  resolved "https://node.bitsrc.io/sidney2hats.2hats.test-themed-mui-component/-/sidney2hats.2hats.test-themed-mui-component-0.0.2.tgz#e0afbdb7b3eeca6bce098b36368c6296acbe6691"
+  resolved "https://node.bit.dev/sidney2hats.2hats.test-themed-mui-component/-/sidney2hats.2hats.test-themed-mui-component-0.0.2.tgz#e0afbdb7b3eeca6bce098b36368c6296acbe6691"
   integrity sha1-4K+9t7PuymvOCYs2Noxilqy+ZpE=
   dependencies:
     "@material-ui/core" "^4.2.0"
