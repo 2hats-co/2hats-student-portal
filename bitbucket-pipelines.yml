@@ -18,9 +18,6 @@ pipelines:
             - cat .firebaserc
             - cat firebase.json
             - yarn global add firebase-tools
-            # Add bit auth token from `$ npm login`
-            - echo "@bit:registry=https://node.bit.dev" >> ~/.npmrc
-            - echo "//node.bit.dev/:_authToken={$BIT_NODE_TOKEN}" >> ~/.npmrc
             - yarn install
             - CI=false yarn build
             - firebase deploy --token "$FIREBASE_TOKEN" --project staging2hats --non-interactive --public build --only hosting
