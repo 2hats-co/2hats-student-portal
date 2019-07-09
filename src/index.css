@@ -14,6 +14,8 @@ body {
   padding: 0 !important;
   font-family: sans-serif;
   font-feature-settings: 'cv10' 1;
+
+  transition: background 0.5s;
 }
 
 /* Fix for Firefox */
@@ -30,5 +32,9 @@ iframe {
 @media (prefers-reduced-motion: reduce) {
   * {
     animation: none !important;
+  }
+
+  body {
+    transition: none;
   }
 }

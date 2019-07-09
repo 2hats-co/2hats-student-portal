@@ -214,7 +214,7 @@ const App = () => {
 
                     <ProtectedRoute
                       exact
-                      path={ROUTES.ONBOARDING}
+                      path={[ROUTES.ONBOARDING, ROUTES.ONBOARDING + '/:stage']}
                       render={props => <OnboardingContainer {...props} />}
                     />
 

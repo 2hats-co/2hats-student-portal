@@ -78,6 +78,8 @@ const useStyles = makeStyles(theme => ({
     '&-appear': {
       opacity: 0,
       transform: 'translateY(32px)',
+
+      '@media (prefers-reduced-motion: reduce)': { transform: 'translateY(0)' },
     },
     '&-appear-active': {
       opacity: 1,

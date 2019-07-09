@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter, Link } from 'react-router-dom';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
 import {
@@ -11,6 +12,8 @@ import {
 } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 import GoIcon from 'assets/icons/Go';
+
+import { getNextStageRoute } from 'utilities/onboarding';
 
 const useStyles = makeStyles(theme => ({
   appBar: {
@@ -49,7 +52,7 @@ const useStyles = makeStyles(theme => ({
  * Displays header with progress, logo, and skip button.
  * Broken out of OnboardingCard for better readability.
  */
-const OnboardingHeader = ({ fullScreen, progressValue }) => {
+const OnboardingHeader = ({ match, fullScreen, progressValue }) => {
   const classes = useStyles({ fullScreen });
   const theme = useTheme();
 
@@ -96,7 +99,11 @@ const OnboardingHeader = ({ fullScreen, progressValue }) => {
           />
 
           <Grid item xs={3} className={classes.skipButtonWrapper}>
-            <Button color="inherit">
+            <Button
+              color="inherit"
+              component={Link}
+              to={getNextStageRoute(match.params ? match.params.stage : '')}
+            >
               Skip
               <GoIcon />
             </Button>
@@ -108,8 +115,12 @@ const OnboardingHeader = ({ fullScreen, progressValue }) => {
 };
 
 OnboardingHeader.propTypes = {
+  /** From React Router. Uses /:stage to show specific onboarding stage */
+  match: PropTypes.object.isRequired,
+  /** Show a white screen (and logo) or not */
   fullScreen: PropTypes.bool,
+  /** Progress bar value */
   progressValue: PropTypes.number,
 };
 
-export default OnboardingHeader;
+export default withRouter(OnboardingHeader);

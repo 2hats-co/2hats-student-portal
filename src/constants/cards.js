@@ -5,9 +5,9 @@ import { Business, Memory } from '@material-ui/icons';
 import Bullhorn from 'mdi-material-ui/Bullhorn';
 
 export const INDUSTRIES = {
-  TECH: 'tech',
   MARKETING: 'marketing',
   SALES: 'sales',
+  TECH: 'tech',
 };
 
 export const INDUSTRY_DISPLAY_NAMES = {

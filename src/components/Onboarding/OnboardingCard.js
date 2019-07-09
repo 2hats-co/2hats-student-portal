@@ -22,23 +22,31 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     maxWidth: 960,
-    minHeight: 620,
 
     width: '100%',
-    height: '100%',
 
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: theme.spacing(3),
+    padding: ({ fullScreen }) =>
+      fullScreen ? theme.spacing(1) : theme.spacing(4, 3),
     margin: 'auto',
 
     backgroundColor: ({ fullScreen }) =>
-      fullScreen ? 'transparent' : theme.palette.background.paper,
+      fullScreen
+        ? theme.palette.type === 'dark'
+          ? theme.palette.background.default
+          : theme.palette.background.paper
+        : theme.palette.background.paper,
+
+    transition: theme.transitions.create('background-color'),
+
+    // Optically-correct vertical centering
+    // '@media (min-height: 740px)': { marginTop: theme.spacing(-3) },
   },
 
   contentWrapper: {
-    maxWidth: 360,
+    maxWidth: 480,
   },
 }));
 

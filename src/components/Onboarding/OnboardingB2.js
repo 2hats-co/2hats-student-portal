@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
 
 import OnboardingCta from './OnboardingCta';
-import animationB1 from 'assets/animations/onboardingB1.json';
+import animationB2 from 'assets/animations/onboardingB2.json';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,39 +17,40 @@ const useStyles = makeStyles(theme => ({
 const defaultOptions = {
   loop: true,
   autoplay: true,
-  animationData: animationB1,
+  animationData: animationB2,
   rendererSettings: {
     preserveAspectRatio: 'xMidYMid meet',
   },
 };
 
-const OnboardingB1 = props => {
+const OnboardingB2 = props => {
   const classes = useStyles();
 
   return (
     <main className={classes.root}>
       <Typography variant="h6" component="h1" color="primary">
-        Sharpen and display your skills to employers!
+        Let’s begin with an assessment!
       </Typography>
 
       <Lottie
         options={defaultOptions}
         // Need a larger width to make up for padding around animation
-        width="150%"
-        style={{ position: 'relative', left: '-25%', marginTop: -16 }}
+        width="125%"
+        style={{ position: 'relative', left: '-12.5%', marginTop: -16 }}
       />
 
       <Typography variant="h6" component="p" color="textSecondary" gutterBottom>
-        Show off your super-skills by completing assessments and shine like an
-        enabled Apply button.
+        Completed assessments make your skills counted, so we know you’re going
+        to rock at your new workplace.
       </Typography>
       <Typography variant="h6" component="p" color="textSecondary" gutterBottom>
-        That’s why it actually works on 2hats.
+        Start with one and get to your first job interview sooner than you
+        think.
       </Typography>
 
-      <OnboardingCta action="Piece of cake" />
+      <OnboardingCta action="Here we go!" />
     </main>
   );
 };
 
-export default OnboardingB1;
+export default OnboardingB2;
