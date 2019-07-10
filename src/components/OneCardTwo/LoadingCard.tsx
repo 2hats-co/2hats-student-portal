@@ -1,95 +1,118 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import { makeStyles } from '@material-ui/styles';
-import { Card, CardActions, CardContent, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 
 import { CARD_WIDTH, CARD_SPACING, MEDIA_HEIGHT } from 'constants/cards';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: `calc(100% - ${CARD_SPACING}px)`,
-    maxWidth: CARD_WIDTH,
-    margin: CARD_SPACING / 2,
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      width: `calc(100% - ${CARD_SPACING}px)`,
+      maxWidth: CARD_WIDTH,
+      margin: CARD_SPACING / 2,
 
-    userSelect: 'none',
+      userSelect: 'none',
 
-    display: 'flex',
-    flexDirection: 'column',
+      display: 'flex',
+      flexDirection: 'column',
 
-    animationName: '$fade-in',
-    animationDuration: theme.transitions.duration.standard,
-    animationTimingFunction: theme.transitions.easing.easeIn,
-    animationFillMode: 'both',
-  },
-  '@keyframes fade-in': {
-    from: { opacity: 0 },
-    to: { opacity: 1 },
-  },
+      animationName: '$fade-in',
+      animationDuration: `${theme.transitions.duration.standard}ms`,
+      animationTimingFunction: `${theme.transitions.easing.easeIn}ms`,
+      animationFillMode: 'both',
+    },
+    '@keyframes fade-in': {
+      from: { opacity: 0 },
+      to: { opacity: 1 },
+    },
 
-  animated: {
-    backgroundColor: fade(theme.palette.divider, 0.04),
-    backgroundImage: `linear-gradient(to right, ${fade(
-      theme.palette.divider,
-      0
-    )} 0%, ${fade(theme.palette.divider, 0.06)} 15%, ${fade(
-      theme.palette.divider,
-      0
-    )} 30%)`,
-    backgroundSize: `800px auto`,
+    animated: {
+      backgroundColor: fade(theme.palette.divider, 0.04),
+      backgroundImage: `linear-gradient(to right, ${fade(
+        theme.palette.divider,
+        0
+      )} 0%, ${fade(theme.palette.divider, 0.06)} 15%, ${fade(
+        theme.palette.divider,
+        0
+      )} 30%)`,
+      backgroundSize: `800px auto`,
 
-    animationName: '$loading-shimmer',
-    animationDuration: '1.25s',
-    animationIterationCount: 'infinite',
-    animationTimingFunction: 'linear',
-    animationFillMode: 'forwards',
+      animationName: '$loading-shimmer',
+      animationDuration: '1.25s',
+      animationIterationCount: 'infinite',
+      animationTimingFunction: 'linear',
+      animationFillMode: 'forwards',
 
-    borderRadius: theme.shape.borderRadius,
-  },
-  '@keyframes loading-shimmer': {
-    from: { backgroundPosition: '-468px 0' },
-    to: { backgroundPosition: '468px 0' },
-  },
+      borderRadius: theme.shape.borderRadius,
+    },
+    '@keyframes loading-shimmer': {
+      from: { backgroundPosition: '-468px 0' },
+      to: { backgroundPosition: '468px 0' },
+    },
 
-  media: {
-    height: MEDIA_HEIGHT,
-    borderRadius: 0,
-  },
+    media: {
+      height: MEDIA_HEIGHT,
+      borderRadius: 0,
+    },
 
-  content: {
-    paddingTop: theme.spacing(1.5),
-    flex: 1,
-  },
+    content: {
+      paddingTop: theme.spacing(1.5),
+      flex: 1,
+    },
 
-  meta: {
-    lineHeight: 16 / 12,
-    color: theme.palette.text.disabled,
-  },
+    meta: {
+      lineHeight: 16 / 12,
+      color: theme.palette.text.disabled,
+    },
 
-  titleGrid: {
-    height: 56 - 6,
-    marginBottom: theme.spacing(1),
-  },
-  title: { lineHeight: '24px' },
+    titleGrid: {
+      height: 56 - 6,
+      marginBottom: theme.spacing(1),
+    },
+    title: { lineHeight: '24px' },
 
-  skillsList: { marginTop: theme.spacing(2) },
+    skillsList: { marginTop: theme.spacing(2) },
 
-  cardActions: {
-    boxSizing: 'border-box',
-    height: 50,
-    justifyContent: 'space-between',
-    padding: theme.spacing(0, 1, 0, 2),
-  },
-}));
+    cardActions: {
+      boxSizing: 'border-box',
+      height: 50,
+      justifyContent: 'space-between',
+      padding: theme.spacing(0, 1, 0, 2),
+    },
+  })
+);
+
+export interface LoadingCardProps {
+  /** Optional override */
+  className?: string;
+  /** Optional override */
+  style?: object;
+  /** Optionally, hide media */
+  hideMedia?: boolean;
+  /** Number of rows for skillsList */
+  maxSkills?: number;
+}
 
 /**
  * Drop-in, metric-compatible replacement for
  * [`OneCardTwo`](#section-onecardtwo).
  * Used to show the card is loading. Fades into view.
  */
-const LoadingCard = ({ className, style, hideMedia, maxSkills }) => {
+const LoadingCard: React.FC<LoadingCardProps> = ({
+  className,
+  style,
+  hideMedia = false,
+  maxSkills = 2,
+}) => {
   const classes = useStyles();
 
   return (
@@ -187,21 +210,6 @@ const LoadingCard = ({ className, style, hideMedia, maxSkills }) => {
       </CardActions>
     </Card>
   );
-};
-
-LoadingCard.propTypes = {
-  /** Optional override */
-  className: PropTypes.string,
-  /** Optional override */
-  styles: PropTypes.object,
-  /** Optionally, hide media */
-  hideMedia: PropTypes.bool,
-  /** Number of rows for skillsList */
-  maxSkills: PropTypes.number,
-};
-LoadingCard.defaultProps = {
-  hideMedia: false,
-  maxSkills: 2,
 };
 
 export default LoadingCard;

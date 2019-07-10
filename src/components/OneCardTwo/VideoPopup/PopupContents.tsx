@@ -1,41 +1,56 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
-import { Typography, IconButton, Button } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  Typography,
+  IconButton,
+  Button,
+} from '@material-ui/core';
 
 import GoIcon from '@material-ui/icons/KeyboardArrowRight';
 import CloseIcon from '@material-ui/icons/Close';
 
-const useStyles = makeStyles(theme => ({
-  closeButton: {
-    marginBottom: theme.spacing(1),
-    display: 'block',
-  },
-  video: {
-    width: '100%',
-    height: 0,
-    position: 'relative',
-    paddingBottom: '56.25%',
-    backgroundColor: theme.palette.common.black,
-    marginBottom: theme.spacing(4),
-  },
-  iframe: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-  },
-  title: {
-    marginBottom: theme.spacing(2),
-  },
-  actionButton: {
-    marginBottom: theme.spacing(1),
-    '& svg': { marginLeft: theme.spacing(0.25) },
-  },
-}));
+const useStyles = makeStyles(theme =>
+  createStyles({
+    closeButton: {
+      marginBottom: theme.spacing(1),
+      display: 'block',
+    },
+    video: {
+      width: '100%',
+      height: 0,
+      position: 'relative',
+      paddingBottom: '56.25%',
+      backgroundColor: theme.palette.common.black,
+      marginBottom: theme.spacing(4),
+    },
+    iframe: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+    },
+    title: {
+      marginBottom: theme.spacing(2),
+    },
+    actionButton: {
+      marginBottom: theme.spacing(1),
+      '& svg': { marginLeft: theme.spacing(0.25) },
+    },
+  })
+);
+
+export interface PopupContentsProps {
+  src: string;
+  title: React.ReactNode;
+  route: string;
+  action: React.ReactNode;
+  /** From `useState` call in `VideoPopup`. Used to close the modal. */
+  setModalOpen: (state: boolean) => void;
+}
 
 /**
  * Contents of the video popup modal.
@@ -44,7 +59,13 @@ const useStyles = makeStyles(theme => ({
  * Broken out of `VideoPopup` for
  * [performance reasons](https://material-ui.com/components/modal/#performance).
  */
-const PopupContents = ({ src, title, route, action, setModalOpen }) => {
+const PopupContents: React.FC<PopupContentsProps> = ({
+  src,
+  title,
+  route,
+  action,
+  setModalOpen,
+}) => {
   const classes = useStyles();
 
   return (
@@ -88,15 +109,6 @@ const PopupContents = ({ src, title, route, action, setModalOpen }) => {
       </Button>
     </>
   );
-};
-
-PopupContents.propTypes = {
-  src: PropTypes.string.isRequired,
-  title: PropTypes.node.isRequired,
-  route: PropTypes.string.isRequired,
-  action: PropTypes.node.isRequired,
-  /** From `useState` call in `VideoPopup`. Used to close the modal. */
-  setModalOpen: PropTypes.func.isRequired,
 };
 
 export default PopupContents;

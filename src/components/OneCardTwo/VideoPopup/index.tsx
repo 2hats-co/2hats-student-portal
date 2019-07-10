@@ -1,72 +1,92 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/styles';
-import { ButtonBase, Dialog, Slide } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  ButtonBase,
+  Dialog,
+  Slide,
+} from '@material-ui/core';
+import { TransitionProps } from '@material-ui/core/transitions';
 
 import PlayIcon from '@material-ui/icons/PlayCircleFilled';
 
 import { MEDIA_HEIGHT } from 'constants/cards';
 import PopupContents from './PopupContents';
 
-const useStyles = makeStyles(theme => ({
-  preview: {
-    width: '100%',
-    height: MEDIA_HEIGHT,
-    position: 'relative',
+const useStyles = makeStyles(theme =>
+  createStyles({
+    preview: {
+      width: '100%',
+      height: MEDIA_HEIGHT,
+      position: 'relative',
 
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
 
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center',
 
-    // Dark theme
-    opacity: theme.palette.type === 'dark' ? 0.75 : 1,
+      // Dark theme
+      opacity: theme.palette.type === 'dark' ? 0.75 : 1,
 
-    '&::before': {
-      position: 'absolute',
-      top: 0,
-      right: 0,
-      left: 0,
-      bottom: 0,
+      '&::before': {
+        position: 'absolute',
+        top: 0,
+        right: 0,
+        left: 0,
+        bottom: 0,
 
-      backgroundColor: 'rgba(0, 0, 0, 0.25)',
+        backgroundColor: 'rgba(0, 0, 0, 0.25)',
 
-      content: '""',
-      display: 'block',
+        content: '""',
+        display: 'block',
+      },
     },
-  },
-  playButton: {
-    color: theme.palette.common.white,
-    fontSize: theme.spacing(8),
-    zIndex: 0,
-  },
+    playButton: {
+      color: theme.palette.common.white,
+      fontSize: theme.spacing(8),
+      zIndex: 0,
+    },
 
-  backdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.67)',
-    '-webkit-backdrop-filter': 'saturate(180%) blur(20px)',
-    backdropFilter: 'saturate(180%) blur(20px)',
-  },
-  paper: {
-    color: theme.palette.common.white,
+    backdrop: {
+      backgroundColor: 'rgba(0, 0, 0, 0.67)',
+      '-webkit-backdrop-filter': 'saturate(180%) blur(20px)',
+      backdropFilter: 'saturate(180%) blur(20px)',
+    },
+    paper: {
+      color: theme.palette.common.white,
 
-    maxWidth: `${theme.breakpoints.values.sm}px !important`,
-    width: '100%',
+      maxWidth: `${theme.breakpoints.values.sm}px !important`,
+      width: '100%',
 
-    margin: 0,
-    padding: theme.spacing(1),
-    boxSizing: 'border-box',
+      margin: 0,
+      padding: theme.spacing(1),
+      boxSizing: 'border-box',
 
-    userSelect: 'none',
-  },
-}));
+      userSelect: 'none',
+    },
+  })
+);
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
-});
+const Transition = React.forwardRef<unknown, TransitionProps>(
+  function Transition(props, ref) {
+    return <Slide direction="up" ref={ref} {...props} />;
+  }
+);
+
+export interface VideoPopupProps {
+  /** Video embed URL */
+  src: string;
+  /** Used by `PopupContents` */
+  title: React.ReactNode;
+  /** Used by `PopupContents` */
+  route: string;
+  /** Used by `PopupContents` */
+  action: React.ReactNode;
+}
 
 /**
  * Displays preview image using video thumbnail. Similar behaviour as
@@ -77,7 +97,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
  * and play only one video at a time. It will also not load the video embed
  * until the user has clicked on a preview image.
  */
-const VideoPopup = props => {
+const VideoPopup: React.FC<VideoPopupProps> = props => {
   const { src } = props;
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -124,27 +144,16 @@ const VideoPopup = props => {
         open={modalOpen}
         TransitionComponent={Transition}
         onClose={() => setModalOpen(false)}
-        PaperComponent="div"
+        //PaperComponent="div"
         classes={{ paper: classes.paper }}
         BackdropProps={{ classes: { root: classes.backdrop } }}
         scroll="body"
-        timeout={{ enter: 800, exit: 600 }}
+        transitionDuration={{ enter: 800, exit: 600 }}
       >
         <PopupContents {...props} setModalOpen={setModalOpen} />
       </Dialog>
     </>
   );
-};
-
-VideoPopup.propTypes = {
-  /** Video embed URL */
-  src: PropTypes.string.isRequired,
-  /** Used by `PopupContents` */
-  title: PropTypes.node.isRequired,
-  /** Used by `PopupContents` */
-  route: PropTypes.string.isRequired,
-  /** Used by `PopupContents` */
-  action: PropTypes.node.isRequired,
 };
 
 export default VideoPopup;
