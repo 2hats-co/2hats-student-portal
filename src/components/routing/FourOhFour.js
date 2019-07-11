@@ -16,10 +16,15 @@ const styles = theme => ({
   root: {
     minHeight: '100vh',
     minWidth: '100vw',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+
     textAlign: 'center',
     padding: theme.spacing(2),
     backgroundColor: theme.palette.background.default,
-
     userSelect: 'none',
   },
 
