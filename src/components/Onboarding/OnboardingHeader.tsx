@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  withRouter,
-  Link,
-  match as ReactRouterMatch,
-  RouteComponentProps,
-} from 'react-router-dom';
+import { withRouter, Link, RouteComponentProps } from 'react-router-dom';
 
 import {
   makeStyles,
@@ -56,9 +51,8 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export interface OnboardingHeaderProps extends RouteComponentProps<any> {
-  /** From React Router. Uses /:stage to show specific onboarding stage */
-  match: ReactRouterMatch<{ stage: string }>;
+export interface OnboardingHeaderProps
+  extends RouteComponentProps<{ stage: string }> {
   /** Show a white screen (and logo) or not */
   fullScreen?: boolean;
   /** Progress bar value */

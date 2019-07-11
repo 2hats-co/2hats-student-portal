@@ -1,9 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import {
-  Redirect,
-  match as ReactRouterMatch,
-  RouteComponentProps,
-} from 'react-router-dom';
+import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import LoadingScreen from 'components/LoadingScreen';
 import OnboardingCard, {
@@ -21,10 +17,8 @@ import { ONBOARDING_STAGES } from 'utilities/onboarding';
 import { updateDoc } from 'utilities/firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 
-export interface OnboardingCtaProps extends RouteComponentProps<any> {
-  /** From React Router */
-  match: ReactRouterMatch<{ stage?: string }>;
-}
+export interface OnboardingCtaProps
+  extends RouteComponentProps<{ stage?: string }> {}
 
 const OnboardingContainer: React.FC<OnboardingCtaProps> = ({ match }) => {
   // Scroll to top and change title

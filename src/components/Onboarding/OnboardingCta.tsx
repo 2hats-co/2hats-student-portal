@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  withRouter,
-  Link,
-  match as ReactRouterMatch,
-  RouteComponentProps,
-} from 'react-router-dom';
+import { withRouter, Link, RouteComponentProps } from 'react-router-dom';
 
 import {
   makeStyles,
@@ -32,9 +27,8 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export interface OnboardingCtaProps extends RouteComponentProps<any> {
-  /** From React Router */
-  match: ReactRouterMatch<{ stage: string }>;
+export interface OnboardingCtaProps
+  extends RouteComponentProps<{ stage: string }> {
   /** Action text used inside the button */
   action: React.ReactNode;
   /** Show the secondary style instead */
