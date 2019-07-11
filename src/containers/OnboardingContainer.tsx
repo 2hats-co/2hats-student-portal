@@ -54,6 +54,7 @@ const OnboardingContainer: React.FC<OnboardingCtaProps> = ({ match }) => {
     return <Redirect to={ROUTES.ONBOARDING + '/' + stage} />;
   }
 
+  // Render the stage based off the URL
   const passedProps: OnboardingCardProps = {
     children: null,
     progressValue: 0,

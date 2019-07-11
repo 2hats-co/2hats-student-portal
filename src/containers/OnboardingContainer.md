@@ -15,3 +15,9 @@ If the user has not been onboarded, i.e. there is no `onboardingStage` field in
 the user document, or if they have not finished onboarding, i.e. they have not
 reached the last onboarding stage, they will be redirected to here via the
 [`Landing`](#landing) component.
+
+## WARNING: Do not have two different stages open in different sessions
+
+The container will update the `onboardingStage` so when another session updates
+the field with its value, the current one will try to update the field again,
+causing an **infinite loop**.
