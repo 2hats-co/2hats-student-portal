@@ -2,8 +2,7 @@ import React, { useEffect, useLayoutEffect, useContext, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-import { makeStyles, useTheme } from '@material-ui/styles';
-import { Grid, Toolbar, useMediaQuery } from '@material-ui/core';
+import { makeStyles, Grid, Toolbar, useMediaQuery } from '@material-ui/core';
 
 import ErrorBoundary from '../ErrorBoundary';
 import LoadingScreen from '../LoadingScreen';
@@ -48,7 +47,6 @@ const useStyles = makeStyles(theme => ({
 
 const Navigation = ({ location, children }) => {
   const classes = useStyles();
-  const theme = useTheme();
 
   const mainWrapperRef = useRef(null);
 
@@ -64,7 +62,7 @@ const Navigation = ({ location, children }) => {
     setTimeout(() => {
       mainWrapperRef.current.classList.remove(classes.mainWrapperAnimation);
     }, 300);
-  }, [location.pathname]);
+  }, [location.pathname, classes.mainWrapperAnimation]);
 
   const { user } = useContext(UserContext);
 

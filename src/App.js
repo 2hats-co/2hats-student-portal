@@ -100,10 +100,9 @@ const App = () => {
   useStyles();
 
   useEffect(() => {
-    console.log('authUser', authUser);
     if (authUser && authUser.uid)
       userDocDispatch({ path: `${COLLECTIONS.users}/${authUser.uid}` });
-  }, [authUser]);
+  }, [authUser, userDocDispatch]);
 
   const prefersDark = useMediaQuery('@media (prefers-color-scheme: dark)', {
     noSsr: true,

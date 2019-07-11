@@ -189,7 +189,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
         if (onUpload) onUpload(file.name, file.url);
       });
     }
-  }, [file.url]);
+  }, [file, onUpload, resetOnUpload, uid]);
 
   return (
     <Dropzone
