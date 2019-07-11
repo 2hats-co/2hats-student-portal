@@ -70,7 +70,7 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
     );
 
     handleSave(deprioritisedIndustries);
-  }, [debouncedPrioritised, handleSave]);
+  }, [debouncedPrioritised]);
 
   return (
     <FormControl component="fieldset" className={classes.root}>

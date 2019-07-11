@@ -138,7 +138,6 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
   const profile = profileState.doc;
   // Once the profile loads, set the resume file if it exists
   useEffect(() => {
-    console.log(profile);
     if (profile && profile.resume && profile.resume.name && profile.resume.url)
       setFile(profile.resume);
   }, [profile]);
@@ -189,7 +188,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
         if (onUpload) onUpload(file.name, file.url);
       });
     }
-  }, [file, onUpload, resetOnUpload, uid]);
+  }, [file.url]);
 
   return (
     <Dropzone
