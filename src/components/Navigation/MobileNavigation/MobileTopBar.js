@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     zIndex: theme.zIndex.appBar,
   },
   topToolbar: {
-    paddingLeft: theme.spacing(2),
+    paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(0.5),
   },
   logo: {

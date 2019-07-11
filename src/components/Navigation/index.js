@@ -43,6 +43,9 @@ const useStyles = makeStyles(theme => ({
     from: { opacity: 0, transform: 'translateY(10px) scale(0.99)' },
     to: { opacity: 1, transform: 'translateY(0) scale(1)' },
   },
+
+  topBarSpacer: { margin: theme.spacing(-3, 0, 2) },
+  bottomBarSpacer: { margin: theme.spacing(2, 0, -3) },
 }));
 
 const Navigation = ({ location, children }) => {
@@ -86,12 +89,12 @@ const Navigation = ({ location, children }) => {
 
       <Grid item xs className={classes.mainWrapper} ref={mainWrapperRef}>
         <ErrorBoundary>
-          {isMobile && <Toolbar />}
+          {isMobile && <Toolbar className={classes.topBarSpacer} />}
           {!isMobile && <BackButton isMobile={false} />}
 
           {children}
 
-          {isMobile && <Toolbar />}
+          {isMobile && <Toolbar className={classes.bottomBarSpacer} />}
         </ErrorBoundary>
       </Grid>
       {isMobile && <MobileNavigation />}
