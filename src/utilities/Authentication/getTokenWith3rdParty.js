@@ -1,6 +1,10 @@
 import { auth } from '../../firebase';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
+import firebase from 'firebase/app';
+import { getDoc, updateDoc } from '../firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+
 export const getTokenWithGoogle = async (user, callback) => {
   const request = {
     jwtToken: user.jwtToken,
@@ -13,8 +17,21 @@ export const getTokenWithGoogle = async (user, callback) => {
     result => {
       console.log(result.data);
 
-      auth.signInWithCustomToken(result.data.token).then(() => {
-        callback(result.data.route); // this route is **not used**
+      auth.signInWithCustomToken(result.data.token).then(async authUser => {
+        const uid = authUser.user.uid;
+        const userDoc = await getDoc(COLLECTIONS.users, uid);
+
+        const userDocUpdates = {
+          lastSignedInAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+        };
+
+        if (!userDoc.homeReferrerId)
+          userDocUpdates.homeReferrerId = user.homeReferrerId;
+
+        updateDoc(COLLECTIONS.users, uid, userDocUpdates);
+
+        callback(result.data.route); // this route is NOT USED
       });
       console.log('Call authenticate3rdParty success: ', result);
     },

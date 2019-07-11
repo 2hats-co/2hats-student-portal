@@ -84,23 +84,23 @@ const speedySignupFields = initialData => {
         .max(13, 'Please enter a 10-digit mobile number')
         .required('Please enter a 10-digit mobile number'),
     },
-    {
-      type: FIELDS.radio,
-      name: 'interest',
-      label: 'What are you most interested in?',
-      value: null,
-      options: [
-        { value: 'courses', label: 'Learn crucial skills with online courses' },
-        {
-          value: 'assessments',
-          label: 'Practice & upskill with digital tasks',
-        },
-        { value: 'jobs', label: 'Apply for part-time paid internships' },
-      ],
-      validation: yup
-        .string(['courses', 'jobs', 'assessments'], 'Not a valid interest')
-        .required('Required'),
-    },
+    // {
+    //   type: FIELDS.radio,
+    //   name: 'interest',
+    //   label: 'What are you most interested in?',
+    //   value: null,
+    //   options: [
+    //     { value: 'courses', label: 'Learn crucial skills with online courses' },
+    //     {
+    //       value: 'assessments',
+    //       label: 'Practice & upskill with digital tasks',
+    //     },
+    //     { value: 'jobs', label: 'Apply for part-time paid internships' },
+    //   ],
+    //   validation: yup
+    //     .string(['courses', 'jobs', 'assessments'], 'Not a valid interest')
+    //     .required('Required'),
+    // },
   ];
 };
 

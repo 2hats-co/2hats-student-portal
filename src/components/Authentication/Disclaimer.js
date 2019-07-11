@@ -27,7 +27,7 @@ function Disclaimer(props) {
   return (
     <div className={classes.root}>
       <div className={classes.large}>
-        {`By clicking Sign Up, you agree to our `}
+        {`By signing up, you agree to our `}
         <a
           href="https://www.2hats.com.au/terms"
           target="_blank"

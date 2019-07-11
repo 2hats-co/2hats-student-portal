@@ -29,7 +29,7 @@ const useDocument = intialOverrides => {
             doc,
             loading: false,
           });
-        }
+        } else documentDispatch({ loading: false });
       });
     documentDispatch({ unsubscribe });
   };

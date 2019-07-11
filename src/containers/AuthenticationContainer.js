@@ -117,10 +117,25 @@ class AuthenticationContainer extends React.Component {
     else if (this.state.route)
       this.props.history.push(decodeURIComponent(this.state.route));
   }
+
+  getHomeReferrerId() {
+    const parsedQuery = queryString.parse(this.props.location.search);
+    if (parsedQuery.referrer) return parsedQuery.referrer;
+
+    if (parsedQuery.route) {
+      const parsedRedirectQuery = queryString.parse(
+        parsedQuery.route.split('?')[1]
+      );
+      if (parsedRedirectQuery.referrer) return parsedRedirectQuery.referrer;
+    }
+
+    return '';
+  }
+
   handleSignin() {
     this.setState({ isLoading: true });
     const { email, password } = this.state;
-    const user = { email, password };
+    const user = { email, password, homeReferrerId: this.getHomeReferrerId() };
 
     signInWithPassword(
       user,
@@ -141,11 +156,18 @@ class AuthenticationContainer extends React.Component {
       isLoading: false,
     });
   };
+
   handleSignup() {
     if (!this.state.isLoading) {
       const { firstName, lastName, email, password } = this.state;
       if (firstName !== '' || lastName !== '') {
-        const user = { firstName, lastName, email, password };
+        const user = {
+          firstName,
+          lastName,
+          email,
+          password,
+          homeReferrerId: this.getHomeReferrerId(),
+        };
         this.setState({ isLoading: true });
         createUserWithPassword(
           user,

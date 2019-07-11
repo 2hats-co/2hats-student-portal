@@ -2,9 +2,11 @@ import { auth, db } from '../../firebase/index';
 import { LANDING } from '../../constants/routes';
 import firebase from 'firebase/app';
 import ReactPixel from 'react-facebook-pixel';
+import { getDoc, updateDoc } from '../firestore';
+import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
 
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
-  const { firstName, lastName, email, password } = user;
+  const { firstName, lastName, email, password, homeReferrerId } = user;
 
   auth
     .createUserWithEmailAndPassword(email, password)
@@ -25,6 +27,8 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               firstName,
               lastName,
               createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+              lastSignedInAt: firebase.firestore.FieldValue.serverTimestamp(),
               signupMethod: 'password',
             });
           db.collection('profiles')
@@ -32,6 +36,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
             .set({
               bio: '',
               createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
               firstName,
               lastName,
             });
@@ -44,10 +49,25 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
 };
 
 export const signInWithPassword = (user, successHandler, errorHandler) => {
-  const { email, password } = user;
+  const { email, password, homeReferrerId } = user;
   auth
     .signInWithEmailAndPassword(email, password)
-    .then(successHandler)
+    .then(async authUser => {
+      const uid = authUser.user.uid;
+      const userDoc = await getDoc(COLLECTIONS.users, uid);
+
+      const userDocUpdates = {
+        lastSignedInAt: firebase.firestore.FieldValue.serverTimestamp(),
+        updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+      };
+
+      if (!userDoc.homeReferrerId)
+        userDocUpdates.homeReferrerId = homeReferrerId;
+
+      updateDoc(COLLECTIONS.users, uid, userDocUpdates);
+
+      successHandler(authUser);
+    })
     .catch(error => {
       errorHandler(error);
     });
@@ -63,6 +83,8 @@ export const updateUserPassword = (password, routeHandler, errorHandler) => {
         .update({
           noPassword: false,
           providers: [{ id: auth.currentUser.uid, service: 'password' }],
+          lastSignedInAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
         });
       routeHandler();
     })
