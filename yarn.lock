@@ -921,6 +921,18 @@
 "@bit/sidney2hats.2hats.global.common-constants@file:./bit/global/common-constants":
   version "0.0.49"
 
+"@bit/twohats.common.constants@^0.0.1":
+  version "0.0.1"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-0.0.1.tgz#810991152312ee5ae5875bbb15c8bcee8464d696"
+  integrity sha1-gQmRFSMS7lrlh1u7Fci87oRk1pY=
+
+"@bit/twohats.common.use-debounce@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/twohats.common.use-debounce/-/twohats.common.use-debounce-1.0.0.tgz#e7aa4b5544d6a36d1afe16c888e496a8177e728d"
+  integrity sha1-56pLVUTWo20a/hbIiOSWqBd+co0=
+  dependencies:
+    react "^16.8.6"
+
 "@cnakazawa/watch@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.3.tgz#099139eaec7ebf07a27c1786a3ff64f39464d2ef"
@@ -1841,6 +1853,13 @@
   version "16.8.4"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-16.8.4.tgz#7fb7ba368857c7aa0f4e4511c4710ca2c5a12a88"
   integrity sha512-eIRpEW73DCzPIMaNBDP5pPIpK1KXyZwNgfxiVagb5iGiz6da+9A5hslSX6GAQKdO7SayVCS/Fr2kjqprgAvkfA==
+  dependencies:
+    "@types/react" "*"
+
+"@types/react-lottie@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/@types/react-lottie/-/react-lottie-1.2.2.tgz#2d4f8a7fb6831f89e915c1944c2f37721f06f167"
+  integrity sha512-ARFwpddiJXSz0k/Cgvu4tkc7kXmutoUmF4f2xBnSgDG7vF9i8ChOGb++kpo+Zt5SNyRsZvI5wJTCHwGn7ATiwQ==
   dependencies:
     "@types/react" "*"
 

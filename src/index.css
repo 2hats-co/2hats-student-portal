@@ -15,7 +15,7 @@ body {
   font-family: sans-serif;
   font-feature-settings: 'cv10' 1;
 
-  transition: background 0.5s;
+  transition: background-color 0.5s;
 }
 
 /* Fix for Firefox */

@@ -56,6 +56,13 @@ module.exports = {
       components: ['src/containers/SmartLinkContainer.js'],
     },
     {
+      name: 'Onboarding',
+      components: [
+        'src/containers/OnboardingContainer.tsx',
+        'src/components/Onboarding/*',
+      ],
+    },
+    {
       name: 'Navigation',
       components: [
         'src/components/Navigation/index.js',
@@ -155,6 +162,9 @@ module.exports = {
   ],
   usageMode: 'expand',
   exampleMode: 'expand',
+  propsParser: require('react-docgen-typescript').withCustomConfig(
+    './tsconfig.json'
+  ).parse,
   theme: {
     fontFamily: {
       monospace: [

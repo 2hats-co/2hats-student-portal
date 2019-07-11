@@ -59,6 +59,12 @@ const darkElevation = {
   24: '#383838',
 };
 
+declare module '@material-ui/core/styles/createMuiTheme' {
+  interface Theme {
+    assets?: any;
+  }
+}
+
 declare module '@material-ui/core/styles/createPalette' {
   interface PaletteColor {
     50?: string;
@@ -238,6 +244,11 @@ const themeCommons = {
       root: {
         backgroundColor: elevation[4],
       },
+    },
+
+    // Larger gutterBottom for Typography
+    MuiTypography: {
+      gutterBottom: { marginBottom: '1em' },
     },
   },
 };
