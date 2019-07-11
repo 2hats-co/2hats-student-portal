@@ -52,11 +52,12 @@ const useStyles = makeStyles(theme =>
     },
 
     backdrop: {
-      backgroundColor: 'rgba(0, 0, 0, 0.67)',
+      backgroundColor: 'rgba(0, 0, 0, 0.8)',
       '-webkit-backdrop-filter': 'saturate(180%) blur(20px)',
       backdropFilter: 'saturate(180%) blur(20px)',
     },
     paper: {
+      backgroundColor: 'transparent',
       color: theme.palette.common.white,
 
       maxWidth: `${theme.breakpoints.values.sm}px !important`,
@@ -144,11 +145,10 @@ const VideoPopup: React.FC<VideoPopupProps> = props => {
         open={modalOpen}
         TransitionComponent={Transition}
         onClose={() => setModalOpen(false)}
-        //PaperComponent="div"
         classes={{ paper: classes.paper }}
+        PaperProps={{ elevation: 0 }}
         BackdropProps={{ classes: { root: classes.backdrop } }}
         scroll="body"
-        transitionDuration={{ enter: 800, exit: 600 }}
       >
         <PopupContents {...props} setModalOpen={setModalOpen} />
       </Dialog>
