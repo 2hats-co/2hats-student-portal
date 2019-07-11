@@ -18,7 +18,7 @@ import UserContext from 'contexts/UserContext';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { uploader } from 'utilities/Uploader';
 import { CLOUD_FUNCTIONS, cloudFunction } from 'utilities/CloudFunctions';
-import { updateDoc } from '@bit/twohats.common.utilities.firestore';
+import { updateDoc } from 'utilities/firestore';
 import useDocument from 'hooks/useDocument';
 
 export const DROPZONE_HEIGHT = 140;

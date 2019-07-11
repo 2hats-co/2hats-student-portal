@@ -1,4 +1,4 @@
-import { updateDoc } from '@bit/twohats.common.utilities.firestore';
+import { updateDoc } from './firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 export const saveDeprioritisedIndustries = (

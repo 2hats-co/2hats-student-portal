@@ -18,7 +18,7 @@ import OnboardingB2 from 'components/Onboarding/OnboardingB2';
 import UserContext from 'contexts/UserContext';
 import * as ROUTES from 'constants/routes';
 import { ONBOARDING_STAGES } from 'utilities/onboarding';
-import { updateDoc } from '@bit/twohats.common.utilities.firestore';
+import { updateDoc } from 'utilities/firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 export interface OnboardingCtaProps extends RouteComponentProps<any> {
