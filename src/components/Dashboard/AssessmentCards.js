@@ -7,7 +7,7 @@ import UserContext from 'contexts/UserContext';
 import useCollection from 'hooks/useCollection';
 import { getPrioritisedCards, generateAssessmentCard } from 'utilities/cards';
 import * as ROUTES from 'constants/routes';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 const DISPATCH_PROPS = {
   UNVIEWED_FEEDBACK: user => ({

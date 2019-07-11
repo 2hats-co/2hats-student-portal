@@ -20,7 +20,7 @@ import EditIcon from '@material-ui/icons/Edit';
 
 import Dropzone from 'react-dropzone';
 import { db } from '../firebase';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { blobAvatarUploader } from '../utilities/Uploader';
 
 const styles = theme => ({

@@ -2,7 +2,7 @@ import { getRandomId } from './index';
 import { createDoc, updateDoc, getDoc } from './firestore';
 import { CLOUD_FUNCTIONS, cloudFunction } from './CloudFunctions';
 
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import * as ROUTES from '../constants/routes';
 
 export const copyAssessment = (data, user, history, oldId) => {

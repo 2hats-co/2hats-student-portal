@@ -12,7 +12,7 @@ import SaveIcon from '@material-ui/icons/CheckCircle';
 
 import SuperAvatarPlus from '../SuperAvatarPlus';
 
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { updateDoc } from '../../utilities/firestore';
 
 const BIO_MAX_LENGTH = 1000;

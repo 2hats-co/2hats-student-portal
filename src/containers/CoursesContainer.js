@@ -10,7 +10,7 @@ import UserContext from 'contexts/UserContext';
 import useCollection from 'hooks/useCollection';
 import { generateCourseCard } from 'utilities/cards';
 
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import * as ROUTES from 'constants/routes';
 
 const useStyles = makeStyles(() => ({

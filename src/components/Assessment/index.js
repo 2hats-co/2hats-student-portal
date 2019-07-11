@@ -23,7 +23,7 @@ import * as ROUTES from '../../constants/routes';
 import UserContext from '../../contexts/UserContext';
 import { copyAssessment } from '../../utilities/assessments';
 import useCollection from '../../hooks/useCollection';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { course as courseMapping } from '../../constants/oneCardMappings';
 
 const styles = theme => ({

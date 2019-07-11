@@ -11,7 +11,7 @@ import ErrorIcon from '@material-ui/icons/ErrorOutline';
 
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { updateDoc } from '../utilities/firestore';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import UserContext from '../contexts/UserContext';
 
 import LoadingScreen from '../components/LoadingScreen';

@@ -1,4 +1,4 @@
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 export const LISTENER = (COLLECTION, UID) => {
   switch (COLLECTION) {

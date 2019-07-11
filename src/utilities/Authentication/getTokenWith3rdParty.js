@@ -3,7 +3,7 @@ import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
 import firebase from 'firebase/app';
 import { getDoc, updateDoc } from '../firestore';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 export const getTokenWithGoogle = async (user, callback) => {
   const request = {

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Form from './Form';
 
 import accountInfoFields from '../constants/forms/accountInfo';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import useDocument from '../hooks/useDocument';
 import { updateDoc } from '../utilities/firestore';
 import isEmpty from 'ramda/es/isEmpty';

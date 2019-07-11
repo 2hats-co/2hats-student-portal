@@ -20,7 +20,7 @@ import ActivityItem from './ActivityItem';
 
 import ScrollyRolly from '../ScrollyRolly';
 import useCollection from '../../hooks/useCollection';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 import moment from 'moment';
 import { MOMENT_LOCALES } from '@bit/sidney2hats.2hats.global.common-constants';

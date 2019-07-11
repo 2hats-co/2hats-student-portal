@@ -3,7 +3,7 @@ import { LANDING } from '../../constants/routes';
 import firebase from 'firebase/app';
 import ReactPixel from 'react-facebook-pixel';
 import { getDoc, updateDoc } from '../firestore';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   const { firstName, lastName, email, password, homeReferrerId } = user;

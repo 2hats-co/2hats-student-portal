@@ -16,7 +16,7 @@ import MilestoneItem from './MilestoneItem';
 import ActivityLog from '../ActivityLog';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import * as ROUTES from '../../constants/routes';
 import useAnalytics from '../../hooks/useAnalytics';
 

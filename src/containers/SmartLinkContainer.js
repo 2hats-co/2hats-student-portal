@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { auth, db } from '../firebase';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import * as routes from '../constants/routes';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 import queryString from 'query-string';
 

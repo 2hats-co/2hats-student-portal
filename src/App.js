@@ -10,7 +10,7 @@ import useDocument from 'hooks/useDocument';
 import UserContext from 'contexts/UserContext';
 
 import * as ROUTES from 'constants/routes';
-import { COLLECTIONS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 import Landing from 'components/routing/Landing';
 import TagTracker from 'components/TagTracker';
