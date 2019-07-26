@@ -5,7 +5,9 @@
   "dependencies": {
     "@allpro/react-router-pause": "^1.1.3",
     "@bit/sidney2hats.2hats.global.common-constants": "file:./bit/global/common-constants",
-    "@bit/twohats.common.constants": "^0.0.1",
+    "@bit/twohats.common.constants": "^1.0.8",
+    "@bit/twohats.common.db-types": "^0.0.21",
+    "@bit/twohats.common.styles": "^0.0.9",
     "@bit/twohats.common.use-debounce": "^1.0.0",
     "@date-io/moment": "^1.0.1",
     "@material-ui/core": "^4.2.0",

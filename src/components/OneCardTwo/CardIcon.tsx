@@ -2,7 +2,7 @@ import React from 'react';
 
 import { makeStyles, createStyles, Avatar } from '@material-ui/core';
 
-import { INDUSTRY_ICONS } from 'constants/cards';
+import { INDUSTRIES, INDUSTRY_ICONS } from 'constants/cards';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme =>
 export interface CardIconProps {
   /** Supply `'industry'` to show industry icon or an image URL */
   icon?: 'industry' | string;
-  industry?: string | string[];
+  industry?: INDUSTRIES | INDUSTRIES[];
 }
 
 /**

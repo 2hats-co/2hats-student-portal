@@ -16,6 +16,8 @@ import useColsWidth from 'hooks/useColsWidth';
 import {
   INDUSTRIES,
   INDUSTRY_DISPLAY_NAMES,
+} from '@bit/twohats.common.constants';
+import {
   CARD_SPACING,
   CARD_COLS_WIDTHS,
   CARD_COLS_MEDIA_QUERIES,
