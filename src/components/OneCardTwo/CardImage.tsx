@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import { makeStyles, createStyles, CardMedia } from '@material-ui/core';
 
@@ -53,7 +54,11 @@ const useStyles = makeStyles(theme =>
 );
 
 export interface CardImageProps {
+  /** Optional style override for the root component */
+  className?: string;
+  /** Image URL */
   src: string;
+  /** Industry as a string or array of strings */
   industry: string | string[];
 }
 
@@ -64,12 +69,12 @@ export interface CardImageProps {
  * Uses `industry` prop to get correct gradient colours with
  * `getIndustryGradient` utility for duotone effect.
  */
-const CardImage: React.FC<CardImageProps> = ({ src, industry }) => {
+const CardImage: React.FC<CardImageProps> = ({ className, src, industry }) => {
   const gradient = getIndustryGradient(industry);
   const classes = useStyles({ gradient });
 
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, className)}>
       <CardMedia image={src} className={classes.img} />
     </div>
   );

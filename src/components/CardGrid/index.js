@@ -101,6 +101,7 @@ const CardGrid = ({
   hideCount,
   location,
   route,
+  routeLabel,
   cardProps,
   loading,
   animationOffset,
@@ -239,6 +240,7 @@ const CardGrid = ({
             header={'Other ' + header.replace('All', '')}
             hideCount={hideCount}
             route={route}
+            routeLabel={routeLabel}
             showPreviewOnly={showPreviewOnly}
             description={
               <>
@@ -277,6 +279,7 @@ const CardGrid = ({
           header={headerOverride || header}
           hideCount={hideCount}
           route={route}
+          routeLabel={routeLabel}
           showPreviewOnly={showPreviewOnly}
           description={headerDescription}
           length={cardProps.length}
@@ -301,6 +304,8 @@ CardGrid.propTypes = {
   location: PropTypes.object.isRequired,
   /** Used to show either just a preview or all the cards.*/
   route: PropTypes.string.isRequired,
+  /** Optionally, override the route label */
+  routeLabel: PropTypes.node,
   /** Array of [`OneCardTwo`](#onecardtwo-1) props used to make the components */
   cardProps: PropTypes.arrayOf(PropTypes.object).isRequired,
   /** Used to show [`LoadingCard`](#loadingcard)

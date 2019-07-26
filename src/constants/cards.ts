@@ -1,27 +1,29 @@
 import { SIDEBAR_WIDTH, DESKTOP_WIDTH } from './layout';
 import { Theme } from 'Theme';
 
+// import { INDUSTRIES } from '@bit/twohats.common.constants';
+
 import { Business, Memory } from '@material-ui/icons';
 import Bullhorn from 'mdi-material-ui/Bullhorn';
 
-export const INDUSTRIES = {
-  MARKETING: 'marketing',
-  SALES: 'sales',
-  TECH: 'tech',
-};
+export enum INDUSTRIES {
+  MARKETING = 'marketing',
+  SALES = 'sales',
+  TECH = 'tech',
+}
 
-export const INDUSTRY_DISPLAY_NAMES = {
-  [INDUSTRIES.TECH]: 'Tech',
-  [INDUSTRIES.MARKETING]: 'Marketing',
-  [INDUSTRIES.SALES]: 'Business',
-};
+export enum INDUSTRY_DISPLAY_NAMES {
+  tech = 'Tech',
+  marketing = 'Marketing',
+  sales = 'Business',
+}
 
-export const GRADIENT_COLORS = {
-  [INDUSTRIES.SALES]: '#acfffa',
-  [INDUSTRIES.MARKETING]: '#ffacf4',
-  [INDUSTRIES.TECH]: '#dfffac',
-  BASE: '#432e73',
-};
+export enum GRADIENT_COLORS {
+  sales = '#acfffa',
+  marketing = '#ffacf4',
+  tech = '#dfffac',
+  BASE = '#432e73',
+}
 
 export const INDUSTRY_ICONS = {
   [INDUSTRIES.SALES]: Business,

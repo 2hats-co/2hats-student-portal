@@ -47,6 +47,8 @@ const useStyles = makeStyles(theme =>
 );
 
 export interface CardIconProps {
+  /** Optional style override on root Avatar component */
+  className?: string;
   /** Supply `'industry'` to show industry icon or an image URL */
   icon?: 'industry' | string;
   industry?: INDUSTRIES | INDUSTRIES[];
@@ -61,7 +63,7 @@ export interface CardIconProps {
  * If there are multiple industries, the primary industry (`industry[0]`)
  * overlaps the secondary.
  */
-const CardIcon: React.FC<CardIconProps> = ({ icon, industry }) => {
+const CardIcon: React.FC<CardIconProps> = ({ className, icon, industry }) => {
   const classes = useStyles();
 
   // Show industry icon
@@ -86,6 +88,7 @@ const CardIcon: React.FC<CardIconProps> = ({ icon, industry }) => {
 
     return (
       <Avatar
+        className={className}
         classes={{ root: classes.root, colorDefault: classes.colorDefault }}
       >
         {icons}
@@ -96,6 +99,7 @@ const CardIcon: React.FC<CardIconProps> = ({ icon, industry }) => {
   // Show logo
   return (
     <Avatar
+      className={className}
       classes={{
         root: classes.root,
         colorDefault: classes.colorDefault,

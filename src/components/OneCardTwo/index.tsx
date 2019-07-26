@@ -23,8 +23,8 @@ import CardDescription from './CardDescription';
 import SkillsList, { SkillsProp } from './SkillsList';
 import StatusChip, { StatusChipProps } from './StatusChip';
 
-import { CARD_WIDTH, CARD_SPACING } from 'constants/cards';
-import { getIndustryDisplayName } from 'utilities/cards';
+import { CARD_WIDTH, CARD_SPACING, INDUSTRIES } from 'constants/cards';
+import { getIndustry } from 'utilities/cards';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -102,30 +102,21 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const getIndustry = (industry: string | string[]) => {
-  if (Array.isArray(industry))
-    return industry.map(x => getIndustryDisplayName(x)).join(' / ');
-  return getIndustryDisplayName(industry);
-};
-
-export type MediaProp = {
-  /** Either `'image'` or `'video'` */
-  type: 'image' | 'video';
-  /** Image src or video embed URL */
-  src: string;
-};
 export interface OneCardTwoProps {
   /** Optional override to card root */
   className?: string;
   /** Optional override to card root */
   style?: object;
 
+  /** Added to appease the TypeScript compiler */
+  id?: string;
+
   title: React.ReactNode;
 
   /** Supply a single industry or an array of industries.
    * Used to display the correct gradient(s) and icon(s).
    */
-  industry: string | string[];
+  industry: INDUSTRIES | INDUSTRIES[];
   /** Used to display approximate duration or closing date */
   time: React.ReactNode;
 
@@ -142,7 +133,12 @@ export interface OneCardTwoProps {
   /** Used to display [`StatusChip`](#statuschip) in bottom-left */
   status?: StatusChipProps;
 
-  media?: MediaProp;
+  media?: {
+    /** Either `'image'` or `'video'` */
+    type: 'image' | 'video';
+    /** Image src or video embed URL */
+    src: string;
+  };
   /** Supply `'industry'` to show industry icon or an image URL */
   icon?: 'industry' | string;
 

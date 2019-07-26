@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme =>
       },
     },
     label: {
-      padding: theme.spacing(0, 1.5),
+      padding: theme.spacing(0, 1.2, 0, 1.5),
     },
   })
 );

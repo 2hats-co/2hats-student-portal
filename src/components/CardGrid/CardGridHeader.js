@@ -67,6 +67,7 @@ const useStyles = makeStyles(theme => ({
 const CardGridHeader = ({
   header,
   route,
+  routeLabel,
   showPreviewOnly,
   description,
   length,
@@ -120,7 +121,7 @@ const CardGridHeader = ({
         {showLink &&
           (showButtonLabel ? (
             <Button color="primary">
-              Show All
+              {routeLabel || 'Show All'}
               <GoIcon />
             </Button>
           ) : (
@@ -138,6 +139,8 @@ CardGridHeader.propTypes = {
   header: PropTypes.node.isRequired,
   /** Route used as link for Show All button */
   route: PropTypes.string.isRequired,
+  /** Optionally, override the route label */
+  routeLabel: PropTypes.node,
   /** Calculated in CardGrid. Used to show the Show All button */
   showPreviewOnly: PropTypes.bool.isRequired,
   /** Optional description text for the card */
