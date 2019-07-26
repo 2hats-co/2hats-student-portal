@@ -7,8 +7,8 @@ import GoIcon from '@material-ui/icons/KeyboardArrowRight';
 
 const useStyles = makeStyles(() => ({
   root: {
-    marginLeft: 0,
-    'svg&': { marginLeft: 0, },
+    marginLeft: 4,
+    'svg&': { marginLeft: '4px !important', },
   },
 }));
 
