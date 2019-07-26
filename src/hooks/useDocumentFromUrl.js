@@ -12,16 +12,17 @@ const useDocumentFromUrl = (location, match, path) => {
 
   useEffect(() => {
     if (match.params && match.params.id) {
-      const parsedQuery = queryString.parse(location.search);
+      const docPath = `${COLLECTIONS.users}/${userContext.user.id}/${path}/${
+        match.params.id
+      }`;
 
-      if (parsedQuery.yours && parsedQuery.yours === 'true')
-        docDispatch({
-          path: `${COLLECTIONS.users}/${userContext.user.id}/${path}/${
-            match.params.id
-          }`,
-          valid: true,
-        });
-      else docDispatch({ path: `${path}/${match.params.id}`, valid: true });
+      if (docPath !== docState.path) {
+        const parsedQuery = queryString.parse(location.search);
+
+        if (parsedQuery.yours && parsedQuery.yours === 'true')
+          docDispatch({ path: docPath, valid: true, loading: true });
+        else docDispatch({ path: `${path}/${match.params.id}`, valid: true });
+      }
     } else {
       docDispatch({ doc: null, path: null, prevPath: null });
       if (docState.unsubscribe) docState.unsubscribe();
@@ -32,7 +33,7 @@ const useDocumentFromUrl = (location, match, path) => {
     () => () => {
       if (docState.unsubscribe) docState.unsubscribe();
     },
-    []
+    [docState]
   );
 
   return [docState, docDispatch];
