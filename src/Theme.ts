@@ -148,10 +148,20 @@ const themeCommons = {
       },
       contained: {
         boxShadow: 'none',
+        // Grey default button
+        backgroundColor: '#808080',
+        color: '#fff',
+        '&:hover': { backgroundColor: '#808080' },
       },
       label: {
         // Icons in buttons go on the right
         '& svg': { marginLeft: 8, marginRight: -4 },
+        // Increased spacing for large button
+        '$sizeLarge & svg': { marginLeft: 12 },
+      },
+      sizeLarge: {
+        padding: '12px 48px', // Make large button larger
+        fontSize: 'inherit', // Don't make font size larger
       },
     },
     // ADMIN PORTAL OVERRIDES
