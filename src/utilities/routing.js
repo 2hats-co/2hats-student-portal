@@ -39,7 +39,7 @@ export const getDisplayName = route => {
       return 'Completed Courses';
 
     default:
-      return route.replace('/', '');
+      return route.split('/')[1];
   }
 };
 
