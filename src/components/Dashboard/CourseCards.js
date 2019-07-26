@@ -44,8 +44,7 @@ const CourseCards = () => {
   const ongoingCards = ongoingState.documents;
 
   const [allState, allDispatch] = useCollection();
-  const allCards = getPrioritisedCards(allState.documents, user, 'category')
-    .sortedCards;
+  const allCards = getPrioritisedCards(allState.documents, user).sortedCards;
 
   const [completedState, completedDispatch] = useCollection();
   const completedCards = completedState.documents;
