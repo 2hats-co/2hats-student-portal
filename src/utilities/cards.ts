@@ -1,36 +1,76 @@
 import moment from 'moment';
 
 import {
+  DocWithId,
+  CoursesDoc,
+  UsersCoursesDoc,
+  AssessmentsDoc,
+  UsersAssessmentsDoc,
+  JobsDoc,
+  UsersJobsDoc,
+  UsersDoc,
+} from '@bit/twohats.common.db-types';
+import { OneCardTwoProps } from 'components/OneCardTwo';
+import { StatusChipProps } from 'components/OneCardTwo/StatusChip';
+
+import {
+  INDUSTRIES,
   GRADIENT_COLORS,
-  CARD_TYPES,
   INDUSTRY_DISPLAY_NAMES,
-} from 'constants/cards';
+} from '@bit/twohats.common.constants';
+import { CARD_TYPES } from 'constants/cards';
+
 import * as ROUTES from 'constants/routes';
 import { getSkillsNotAchieved } from './jobs';
 import { getPrettyDateString } from './date';
 
-// Returns display name or name given if not found
-export const getIndustryDisplayName = industry =>
+/**
+ * Cards can take documents of type assessment, job, or course
+ */
+export type CardDoc =
+  | DocWithId<AssessmentsDoc>
+  | DocWithId<UsersAssessmentsDoc>
+  | DocWithId<JobsDoc>
+  | DocWithId<UsersJobsDoc>
+  | DocWithId<CoursesDoc>
+  | DocWithId<UsersCoursesDoc>;
+
+/**
+ * Returns display name or name given if not found
+ */
+export const getIndustryDisplayName = (industry: INDUSTRIES) =>
   INDUSTRY_DISPLAY_NAMES[industry] || industry;
 
-export const getIndustryGradient = industry => ({
+/**
+ * Gets a displayable string for a list of industries
+ */
+export const getIndustry = (industry: INDUSTRIES) => {
+  if (Array.isArray(industry))
+    return industry.map(x => getIndustryDisplayName(x)).join(' / ');
+  return getIndustryDisplayName(industry);
+};
+
+export const getIndustryGradient = (industry: INDUSTRIES) => ({
   colors: Array.isArray(industry)
-    ? industry.map(x => GRADIENT_COLORS[x])
+    ? industry.map((x: INDUSTRIES) => GRADIENT_COLORS[x])
     : [GRADIENT_COLORS[industry]],
   baseColor: GRADIENT_COLORS.BASE,
 });
 
-export const generateCourseCard = (data, options) => {
-  if (!options) options = {};
+export const generateCourseCard = (
+  data: DocWithId<CoursesDoc> | DocWithId<UsersCoursesDoc>,
+  options: { showUpdatedAt?: boolean } = {}
+): OneCardTwoProps => {
+  let status: StatusChipProps | undefined = undefined;
 
-  let status = null;
-
-  if (data.completed === false) {
-    status = { label: 'Ongoing', variant: 'ongoing' };
-  } else if (data.completed === true) {
-    status = { label: 'Completed', variant: 'pass' };
-  } else if (moment().diff(data.createdAt.toDate(), 'weeks') < 2) {
-    status = { label: 'New', variant: 'new' };
+  if ('completed' in data) {
+    if (data.completed === false) {
+      status = { label: 'Ongoing', variant: 'ongoing' };
+    } else if (data.completed === true) {
+      status = { label: 'Completed', variant: 'pass' };
+    } else if (moment().diff(data.createdAt.toDate(), 'weeks') < 2) {
+      status = { label: 'New', variant: 'new' };
+    }
   }
 
   return {
@@ -49,7 +89,7 @@ export const generateCourseCard = (data, options) => {
     maxSkills: 1,
 
     action: data.hasOwnProperty('completed')
-      ? data.completed
+      ? 'completed' in data && data.completed
         ? 'View'
         : 'Continue'
       : 'Get started',
@@ -61,14 +101,15 @@ export const generateCourseCard = (data, options) => {
   };
 };
 
-export const generateAssessmentCard = (data, options) => {
-  if (!options) options = {};
-
+export const generateAssessmentCard = (
+  data: DocWithId<AssessmentsDoc> | DocWithId<UsersAssessmentsDoc>,
+  options: { user?: UsersDoc; showUpdatedAt?: boolean } = {}
+): OneCardTwoProps => {
   let action = 'Get started';
-  let status = null;
+  let status: StatusChipProps | undefined = undefined;
 
   // From users/assessments subcollection
-  if (data.assessmentId) {
+  if ('assessmentId' in data) {
     if (!data.submitted) {
       action = 'Continue';
       status = { label: 'Ongoing', variant: 'ongoing' };
@@ -94,13 +135,25 @@ export const generateAssessmentCard = (data, options) => {
       }
     }
   }
+  // Otherwise, if user has gotten the skill
+  else if (
+    options.user &&
+    Array.isArray(options.user.skills) &&
+    options.user.skills.includes(data.id)
+  ) {
+    // We only know that they started this, so show ongoing
+    action = 'View';
+    status = { label: 'Passed', variant: 'pass' };
+  }
   // Otherwise, if user is supplied, check if in touchedAssessments
-  else if (options.user && Array.isArray(options.user.touchedAssessments)) {
-    if (options.user.touchedAssessments.includes(data.id)) {
-      // We only know that they started this, so show ongoing
-      action = 'View';
-      status = { label: 'Ongoing', variant: 'ongoing' };
-    }
+  else if (
+    options.user &&
+    Array.isArray(options.user.touchedAssessments) &&
+    options.user.touchedAssessments.includes(data.id)
+  ) {
+    // We only know that they started this, so show ongoing
+    action = 'View';
+    status = { label: 'Ongoing', variant: 'ongoing' };
   }
   // Otherwise, mark as new
   else if (moment().diff(data.createdAt.toDate(), 'weeks') < 2) {
@@ -121,21 +174,21 @@ export const generateAssessmentCard = (data, options) => {
 
     status,
 
-    media: { type: 'image', src: data.image && data.image.url },
+    media: data.image ? { type: 'image', src: data.image.url } : undefined,
     icon: 'industry',
 
     route: `${ROUTES.ASSESSMENT}?id=${data.id}${
-      data.assessmentId ? '&yours=true' : ''
+      'assessmentId' in data && data.assessmentId ? '&yours=true' : ''
     }`,
     action,
   };
 };
 
-export const generateJobCard = (data, options) => {
-  if (!options) options = {};
-  if (!options.user) options.user = {};
-
-  let status = null;
+export const generateJobCard = (
+  data: DocWithId<JobsDoc> | DocWithId<UsersJobsDoc>,
+  options: { user?: UsersDoc } = {}
+): OneCardTwoProps => {
+  let status: StatusChipProps | undefined = undefined;
 
   // Get difference between today and closingDate
   const diffDays = -1 * moment().diff(data.closingDate.toDate(), 'days');
@@ -144,13 +197,13 @@ export const generateJobCard = (data, options) => {
   // user hasn't already applied
   const canApply =
     diffDays > 0 &&
-    !data.jobId &&
+    (!('jobId' in data) || !data.jobId) &&
     getSkillsNotAchieved(options.user, data.skillsRequired).length === 0;
   let action = canApply ? 'Apply now' : 'Learn more';
   const animatedActionButton = !!canApply;
 
   // From users/jobs subcollection
-  if (data.jobId) {
+  if ('jobId' in data && data.jobId) {
     status = { label: 'Applied', variant: 'pass' };
     action = 'View';
   }
@@ -178,7 +231,9 @@ export const generateJobCard = (data, options) => {
 
     icon: data.image && data.image.url,
 
-    route: `${ROUTES.JOB}?id=${data.id}${data.jobId ? '&yours=true' : ''}`,
+    route: `${ROUTES.JOB}?id=${data.id}${
+      'jobId' in data && data.jobId ? '&yours=true' : ''
+    }`,
     action,
     animatedActionButton,
   };
@@ -190,9 +245,7 @@ export const CARD_GENERATORS = {
   [CARD_TYPES.JOB]: generateJobCard,
 };
 
-export const getPrioritisedCards = (cards, user, industryField) => {
-  if (!industryField) industryField = 'industry';
-  if (!user) user = {};
+export const getPrioritisedCards = (cards: CardDoc[], user: UsersDoc) => {
   if (!Array.isArray(user.deprioritisedIndustries))
     user.deprioritisedIndustries = [];
 
@@ -200,19 +253,26 @@ export const getPrioritisedCards = (cards, user, industryField) => {
     return { sortedCards: [], deprioritisedStartIndex: -1 };
 
   let deprioritisedStartIndex = -1;
-  const prioritisedCards = [];
-  const deprioritisedCards = [];
+  const prioritisedCards: CardDoc[] = [];
+  const deprioritisedCards: CardDoc[] = [];
 
-  cards.forEach(x => {
+  cards.forEach((x: CardDoc) => {
     let isDeprioritised = false;
 
+    let industry: INDUSTRIES | INDUSTRIES[];
+    if ('industry' in x) industry = x.industry;
+    else if ('category' in x) industry = x.category;
+    else return;
+
     // Support for hybrid-industry assessments
-    if (Array.isArray(x[industryField])) {
-      isDeprioritised =
-        x[industryField].length === 1 &&
-        user.deprioritisedIndustries.includes(x[industryField][0]);
-    } else {
-      isDeprioritised = user.deprioritisedIndustries.includes(x[industryField]);
+    if (user.deprioritisedIndustries) {
+      if (Array.isArray(industry)) {
+        isDeprioritised =
+          industry.length === 1 &&
+          user.deprioritisedIndustries.includes(industry[0]);
+      } else {
+        isDeprioritised = user.deprioritisedIndustries.includes(industry);
+      }
     }
 
     if (isDeprioritised) deprioritisedCards.push(x);
@@ -228,12 +288,14 @@ export const getPrioritisedCards = (cards, user, industryField) => {
   return { sortedCards, deprioritisedStartIndex };
 };
 
-export const prioritiseJobListings = (cards, user) => {
-  const canApplyJobs = [];
-  let openJobs = [];
-  let pastJobs = [];
+export const prioritiseJobListings = (cards: CardDoc[], user: any) => {
+  const canApplyJobs: CardDoc[] = [];
+  let openJobs: CardDoc[] = [];
+  let pastJobs: CardDoc[] = [];
 
   cards.forEach(data => {
+    if (!('closingDate' in data) || !('skillsRequired' in data)) return;
+
     // Get difference between today and closingDate
     const diffDays = -1 * moment().diff(data.closingDate.toDate(), 'days');
 
@@ -248,10 +310,15 @@ export const prioritiseJobListings = (cards, user) => {
   });
 
   // Sort canApplyJobs and openJobs by closingDate ascending
-  const sortByClosingDate = descending => (a, b) =>
-    descending
-      ? b.closingDate.toDate() - a.closingDate.toDate()
-      : a.closingDate.toDate() - b.closingDate.toDate();
+  const sortByClosingDate = (descending: boolean) => (
+    a: CardDoc,
+    b: CardDoc
+  ) => {
+    if (!('closingDate' in a) || !('closingDate' in b)) return -1;
+    return descending
+      ? b.closingDate.toDate().getTime() - a.closingDate.toDate().getTime()
+      : a.closingDate.toDate().getTime() - b.closingDate.toDate().getTime();
+  };
 
   // Make sure can apply is always first
   // Then prioritise all open jobs, by industry

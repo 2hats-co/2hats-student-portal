@@ -1,12 +1,12 @@
 import { firestore } from '../firebase';
 import firebase from 'firebase/app';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 /**
- * Create a document with an automatic ID. Returns a promise
+ * Create a document with an automatic ID. Returns a promise.
+ * Document will have createdAt and updatedAt time.
  */
 export const createDoc = (
-  collection: COLLECTIONS,
+  collection: string,
   docData: firebase.firestore.DocumentData
 ) =>
   firestore.collection(collection).add({
@@ -16,10 +16,11 @@ export const createDoc = (
   });
 
 /**
- * Create a document with a specific ID. Returns a promise
+ * Create a document with a specific ID. Returns a promise.
+ * Document will have createdAt and updatedAt time.
  */
 export const createDocWithId = (
-  collection: COLLECTIONS,
+  collection: string,
   docId: string,
   docData: firebase.firestore.DocumentData
 ) =>
@@ -36,20 +37,24 @@ export const createDocWithId = (
  * Get the data for a document (not a listener), given an collection and ID.
  * Returns the document data when it is available. (async function)
  */
-export const getDoc = async (collection: COLLECTIONS, docId: string) => {
+export const getDoc = async (
+  collection: string,
+  docId: string
+): Promise<any> => {
   const doc = await firestore
     .collection(collection)
     .doc(docId)
     .get();
-
-  return { id: doc.id, ...doc.data() };
+  const data = doc.data();
+  return { id: doc.id, ...data };
 };
 
 /**
- * Update a document, given an collection and ID. Returns a promise
+ * Update a document, given an collection and ID. Returns a promise.
+ * Also sets updatedAt time.
  */
 export const updateDoc = (
-  collection: COLLECTIONS,
+  collection: string,
   docId: string,
   properties: firebase.firestore.UpdateData
 ) =>
@@ -62,28 +67,59 @@ export const updateDoc = (
     });
 
 /**
+ * Update a document WITHOUT updating the updatedAt time, given an collection
+ * and ID. Returns a promise.
+ *
+ * DO NOT use this as the default. Use updateDoc instead.
+ */
+export const updateDocSilently = (
+  collection: string,
+  docId: string,
+  properties: firebase.firestore.UpdateData
+) =>
+  firestore
+    .collection(collection)
+    .doc(docId)
+    .update(properties);
+
+/**
  * Delete a document, given an collection and ID. Returns a promise
  */
-export const deleteDoc = (collection: COLLECTIONS, docId: string) =>
+export const deleteDoc = (collection: string, docId: string) =>
   firestore
     .collection(collection)
     .doc(docId)
     .delete();
 
-// export const getFirstIdOfQuery = async (collectionPath, filters, sorts) => {
-//   let query = firestore.collection(collectionPath);
-//   filters.forEach(filter => {
-//     query = query.where(filter.field, filter.operator, filter.value);
-//   });
-//   sorts.forEach(sort => {
-//     query = query.orderBy(sort.field, sort.direction || 'asc');
-//   });
-//   const results = await query.get();
-//   if (results.empty) {
-//     return false;
-//   } else {
-//     return results.docs[0].id;
-//   }
-// };
+/**
+ * Gets the first ID of the document that matches a particular query
+ *
+ * @returns {string | false} Either the ID of the document or `false`
+ */
+export const getFirstIdOfQuery = async (
+  collectionPath: string,
+  filters: {
+    field: string | firebase.firestore.FieldPath;
+    operator: firebase.firestore.WhereFilterOp;
+    value: any;
+  }[],
+  sorts: {
+    field: string | firebase.firestore.FieldPath;
+    direction?: 'desc' | 'asc' | undefined;
+  }[]
+) => {
+  let collection = firestore.collection(collectionPath);
+  let query: firebase.firestore.Query = collection.limit(1);
 
-export const getFirstIdOfQuery = () => {};
+  filters.forEach(filter => {
+    query = collection.where(filter.field, filter.operator, filter.value);
+  });
+  sorts.forEach(sort => {
+    query = query.orderBy(sort.field, sort.direction || 'asc');
+  });
+
+  const results = await query.get();
+
+  if (results.empty) return false;
+  return results.docs[0].id;
+};

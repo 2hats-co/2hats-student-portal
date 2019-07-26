@@ -99,3 +99,8 @@ export const compareByGivenName = (a, b) => {
 };
 
 export const capitalise = str => str.charAt(0).toUpperCase() + str.slice(1);
+
+export const sanitiseHtml = str =>
+  str
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');

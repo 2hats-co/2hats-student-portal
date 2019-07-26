@@ -25,7 +25,19 @@ export const CLOUD_FUNCTIONS = {
   CACHED_STATS: 'callablesCachedStats',
 };
 
-export const cloudFunction = (name, input, success, fail) => {
+/**
+ * Original CloudFunction wrapper function, with success/fail callbacks
+ * @param name - CloudFunction name
+ * @param input - input to the CloudFunction
+ * @param success - callback on success
+ * @param fail - callback on fail
+ */
+export const cloudFunction = (
+  name: string,
+  input: any,
+  success: (result: any) => void,
+  fail: (result: any) => void
+) => {
   const callable = functions.httpsCallable(name);
 
   callable(input)
@@ -40,3 +52,15 @@ export const cloudFunction = (name, input, success, fail) => {
       }
     });
 };
+
+/**
+ * Updated CloudFunction wrapper function. Returns the promise directly.
+ * @param name - CloudFunction name
+ * @param input - input to the CloudFunction
+ * @param options - optional CloudFunction options
+ */
+export const cloudFn = (
+  name: string,
+  input: any,
+  options?: firebase.functions.HttpsCallableOptions
+) => functions.httpsCallable(name, options)(input);
