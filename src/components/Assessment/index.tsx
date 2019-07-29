@@ -67,16 +67,6 @@ interface IAssessmentProps extends RouteComponentProps {
   assessmentData: DocWithId<AssessmentsDoc> | DocWithId<UsersAssessmentsDoc>;
 }
 
-/**
- * Smart component to get data for each part of assessment detail page.
- * Will display assessment doc data using `AssessmentHeader`,
- * `AssessmentBriefing`, `AssessmentSubmission`, `AssessmentQuestion`.
- * Will also show related courses, jobs, and assessments
- * through `AssessmentRelated`.
- *
- * If it has the query string ?yours=true&completed=true, it will show the user
- * delight screen.
- */
 const Assessment: React.FunctionComponent<IAssessmentProps> = ({
   assessmentData,
   history,
