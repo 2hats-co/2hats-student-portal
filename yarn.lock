@@ -941,6 +941,16 @@
     clsx "1.0.4"
     react "^16.8.6"
 
+"@bit/twohats.common.components.skill-chip@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.0.tgz#b9243acf1f4f19f5cb3e155d6404ffd8445ebeb8"
+  integrity sha1-uSQ6zx9PGfXLPhVdZAT/2ERevrg=
+  dependencies:
+    "@bit/twohats.common.db-types" "0.0.21"
+    "@material-ui/core" "^4.2.0"
+    react "^16.8.6"
+    react-router-dom "^5.0.1"
+
 "@bit/twohats.common.components.styled-dropzone@^1.0.0":
   version "1.0.0"
   resolved "https://node.bit.dev/twohats.common.components.styled-dropzone/-/twohats.common.components.styled-dropzone-1.0.0.tgz#a831c1ddb2a67efb5dcfe75acfb3c71c81548217"
@@ -968,7 +978,7 @@
   resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.8.tgz#8497b9890628e755bf459450aaabe74de1490c5f"
   integrity sha1-hJe5iQYo51W/RZRQqqvnTeFJDF8=
 
-"@bit/twohats.common.db-types@^0.0.21":
+"@bit/twohats.common.db-types@0.0.21", "@bit/twohats.common.db-types@^0.0.21":
   version "0.0.21"
   resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.21.tgz#56329011110c6ee784c534740921747adbe533f3"
   integrity sha1-VjKQEREMbueExTR0CSF0etvlM/M=

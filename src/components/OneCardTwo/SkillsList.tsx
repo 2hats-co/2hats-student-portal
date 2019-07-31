@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { makeStyles, createStyles, Typography } from '@material-ui/core';
 
-import SkillChip from './SkillChip';
+import UserContext from 'contexts/UserContext';
+import SkillChip from '@bit/twohats.common.components.skill-chip';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -50,6 +51,7 @@ const SkillsList: React.FC<SkillsListProps> = ({
   maxSkills,
 }) => {
   const classes = useStyles({ maxSkills });
+  const { user } = useContext(UserContext);
 
   if (skills.length === 0) return <div className={classes.root} />;
 
@@ -62,7 +64,7 @@ const SkillsList: React.FC<SkillsListProps> = ({
       <ul className={classes.skillsList}>
         {skills.map(x => (
           <li key={x.id}>
-            <SkillChip {...x} clickable={false} />
+            <SkillChip {...x} clickable={false} user={user} />
           </li>
         ))}
       </ul>
