@@ -4,6 +4,7 @@ import { makeStyles, createStyles } from '@material-ui/core';
 
 import CardGrid from 'components/CardGrid';
 import CardGridHeader from 'components/CardGrid/CardGridHeader';
+import SuggestedCourseDialog from './SuggestedCourseDialog';
 
 import UserContext from 'contexts/UserContext';
 import {
@@ -11,6 +12,7 @@ import {
   AssessmentsDoc,
   UsersAssessmentsDoc,
   JobsDoc,
+  CoursesDoc,
 } from '@bit/twohats.common.db-types';
 import useCollection from 'hooks/useCollection';
 import { generateJobCard, generateAssessmentCard } from 'utilities/cards';
@@ -41,6 +43,14 @@ interface IAssessmentRelatedProps {
   showDelight: boolean;
 }
 
+/**
+ * Displays the related course, jobs, and assessments via useCollection +
+ * CardGrid components.
+ *
+ * Also renders the SuggestedCourseDialog when the user backs out of their
+ * submission and a course is available for them. This is here because the
+ * relevant useCollection call is in this component.
+ */
 const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
   assessmentData,
   showDelight = false,
@@ -65,7 +75,7 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
       },
     ],
   });
-  const relatedCourse = relatedCourseState.documents[0];
+  const relatedCourse: DocWithId<CoursesDoc> = relatedCourseState.documents[0];
 
   // Get related open jobs, in ascending order of closingDate
   const [relatedJobsState] = useCollection({
@@ -152,6 +162,13 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
         animationOffset={0}
         hideIfEmpty
       />
+
+      {/* Suggest a course when the user tries to exit, if submission */}
+      {'submitted' in assessmentData &&
+        !assessmentData.submitted &&
+        relatedCourse && (
+          <SuggestedCourseDialog relatedCourse={relatedCourse} />
+        )}
     </section>
   );
 };

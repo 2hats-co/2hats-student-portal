@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import ReactPixel from 'react-facebook-pixel';
 
 import {
@@ -19,7 +18,6 @@ import CheckIcon from '@material-ui/icons/Check';
 import GoIcon from 'assets/icons/Go';
 
 import AssessmentQuestion from './AssessmentQuestion';
-import DialogPrompt from 'components/routing/DialogPrompt';
 
 import UserContext from 'contexts/UserContext';
 import {
@@ -54,7 +52,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-interface IAssessmentSubmissionProps extends RouteComponentProps {
+interface IAssessmentSubmissionProps {
   assessmentData: DocWithId<AssessmentsDoc> | DocWithId<UsersAssessmentsDoc>;
 }
 
@@ -79,7 +77,7 @@ interface IAssessmentSubmissionProps extends RouteComponentProps {
  */
 const AssessmentSubmission: React.FunctionComponent<
   IAssessmentSubmissionProps
-> = ({ assessmentData, history }) => {
+> = ({ assessmentData }) => {
   // TypeScript can't do runtime type checking, so we have to check for fields
   // individually like this – again, not very cashmoney
   if (!('submitted' in assessmentData))
@@ -230,14 +228,8 @@ const AssessmentSubmission: React.FunctionComponent<
           horizontal: 'right',
         }}
       />
-
-      <DialogPrompt
-      //shouldBlockNavigation
-      //when
-      // navigate={history.push}
-      />
     </>
   );
 };
 
-export default withRouter(AssessmentSubmission);
+export default AssessmentSubmission;

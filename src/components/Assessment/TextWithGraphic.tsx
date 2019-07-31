@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 import {
   makeStyles,
@@ -34,6 +35,8 @@ interface ITextWithGraphicProps {
   graphicWidth?: number | string;
   /** Optionally, specify the height of the graphic */
   graphicHeight?: number | string;
+  /** Header to display above the graphic */
+  header?: React.ReactNode;
   /** Message to display */
   message?: React.ReactNode;
   /** Link to which the CTA button points */
@@ -42,29 +45,40 @@ interface ITextWithGraphicProps {
   buttonLabel?: React.ReactNode;
   /** Optionally, override the icon */
   buttonIcon?: React.ReactNode;
+  /** Optional classes overrides */
+  classes?: {
+    root?: string;
+    graphic?: string;
+    button?: string;
+  };
 }
 
 const TextWithGraphic: React.FunctionComponent<ITextWithGraphicProps> = ({
   graphic,
   graphicWidth,
   graphicHeight,
+  header,
   message,
   buttonRoute,
   buttonLabel,
   buttonIcon,
+  classes = {},
 }) => {
-  const classes = useStyles();
+  const defaultClasses = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div className={clsx(defaultClasses.root, classes.root)}>
+      <Typography variant="h6" component="h1" color="primary" gutterBottom>
+        {header}
+      </Typography>
       <img
         src={graphic}
         alt="2hats graphic"
-        className={classes.graphic}
+        className={clsx(defaultClasses.graphic, classes.graphic)}
         width={graphicWidth}
         height={graphicHeight}
       />
-      <Typography variant="h6" color="textSecondary">
+      <Typography variant="h6" component="p" color="textSecondary">
         {message}
       </Typography>
       {buttonRoute && buttonLabel && (
@@ -72,7 +86,7 @@ const TextWithGraphic: React.FunctionComponent<ITextWithGraphicProps> = ({
           color="primary"
           variant="contained"
           size="large"
-          className={classes.button}
+          className={clsx(defaultClasses.button, classes.button)}
           component={Link}
           to={buttonRoute}
         >
