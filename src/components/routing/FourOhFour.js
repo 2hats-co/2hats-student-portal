@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import GoIcon from 'assets/icons/Go';
+import GoIcon from '@bit/twohats.common.icons.go';
 
 import { DASHBOARD } from 'constants/routes';
 import graphic from 'assets/images/graphics/PersonArmsOnHips.svg';

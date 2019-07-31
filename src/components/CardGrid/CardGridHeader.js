@@ -12,7 +12,7 @@ import {
   Chip,
   useMediaQuery,
 } from '@material-ui/core';
-import GoIcon from 'assets/icons/Go';
+import GoIcon from '@bit/twohats.common.icons.go';
 
 import { CARD_SPACING, CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
 

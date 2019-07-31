@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 
-import HelpPopup from './HelpPopup';
+import HelpPopup from '@bit/twohats.common.components.help-popup';
 
 import {
   DocWithId,

@@ -5,7 +5,7 @@ import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 import CardImage from 'components/OneCardTwo/CardImage';
 import CardIcon from 'components/OneCardTwo/CardIcon';
 import StatusChip from 'components/OneCardTwo/StatusChip';
-import HelpPopup from './HelpPopup';
+import HelpPopup from '@bit/twohats.common.components.help-popup';
 
 import { generateAssessmentCard, getIndustry } from 'utilities/cards';
 import {

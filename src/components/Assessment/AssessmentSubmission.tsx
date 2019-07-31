@@ -15,7 +15,7 @@ import {
 } from '@bit/twohats.common.db-types';
 
 import CheckIcon from '@material-ui/icons/Check';
-import GoIcon from 'assets/icons/Go';
+import GoIcon from '@bit/twohats.common.icons.go';
 
 import AssessmentQuestion from './AssessmentQuestion';
 

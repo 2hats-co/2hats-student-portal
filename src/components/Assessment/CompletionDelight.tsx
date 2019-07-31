@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import { Typography } from '@material-ui/core';
-import TextWithGraphic from './TextWithGraphic';
+import TextWithGraphic from '@bit/twohats.common.components.text-with-graphic';
 import RibbonGraphic from 'assets/images/graphics/ribbon.svg';
 
 import { DASHBOARD } from 'constants/routes';

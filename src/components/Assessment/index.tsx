@@ -21,7 +21,7 @@ import AssessmentRelated from './AssessmentRelated';
 import LoadingScreen from 'components/LoadingScreen';
 import CompletionDelight from './CompletionDelight';
 
-import GoIcon from 'assets/icons/Go';
+import GoIcon from '@bit/twohats.common.icons.go';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import UserContext from 'contexts/UserContext';

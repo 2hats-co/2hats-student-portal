@@ -13,7 +13,7 @@ import CopyIcon from '@material-ui/icons/FileCopyOutlined';
 import LaunchIcon from '@material-ui/icons/Launch';
 import FileIcon from '@material-ui/icons/Attachment';
 
-import StyledDropzone from './StyledDropzone';
+import StyledDropzone from '@bit/twohats.common.components.styled-dropzone';
 import { DropFilesEventHandler } from 'react-dropzone';
 import { uploader } from '../../utilities/Uploader';
 import ReactQuill from 'react-quill';

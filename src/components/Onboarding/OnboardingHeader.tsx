@@ -12,7 +12,7 @@ import {
   Button,
 } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
-import GoIcon from 'assets/icons/Go';
+import GoIcon from '@bit/twohats.common.icons.go';
 
 import { getNextStageRoute } from 'utilities/onboarding';
 

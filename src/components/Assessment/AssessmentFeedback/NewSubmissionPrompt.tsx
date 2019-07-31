@@ -8,7 +8,7 @@ import {
   Divider,
   Button,
 } from '@material-ui/core';
-import GoIcon from 'assets/icons/Go';
+import GoIcon from '@bit/twohats.common.icons.go';
 
 import LoadingScreen from 'components/LoadingScreen';
 

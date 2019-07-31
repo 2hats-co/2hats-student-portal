@@ -2,10 +2,10 @@ import React from 'react';
 
 import { makeStyles, createStyles, Grid, Button } from '@material-ui/core';
 
-import DialogPrompt from 'components/routing/DialogPrompt';
-import TextWithGraphic from './TextWithGraphic';
+import DialogPrompt from '@bit/twohats.common.components.dialog-prompt';
+import TextWithGraphic from '@bit/twohats.common.components.text-with-graphic';
 import SuggestedCourseGraphic from 'assets/images/graphics/SuggestedCourse.svg';
-import GoIcon from 'assets/icons/Go';
+import GoIcon from '@bit/twohats.common.icons.go';
 
 import { DocWithId, CoursesDoc } from '@bit/twohats.common.db-types';
 import { COURSE_REDIRECT } from 'constants/routes';
