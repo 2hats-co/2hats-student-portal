@@ -177,8 +177,8 @@ export const generateAssessmentCard = (
     media: data.image ? { type: 'image', src: data.image.url } : undefined,
     icon: 'industry',
 
-    route: `${ROUTES.ASSESSMENT}?id=${data.id}${
-      'assessmentId' in data && data.assessmentId ? '&yours=true' : ''
+    route: `${ROUTES.ASSESSMENT}/${data.id}${
+      'assessmentId' in data && data.assessmentId ? '?yours=true' : ''
     }`,
     action,
   };
@@ -231,8 +231,8 @@ export const generateJobCard = (
 
     icon: data.image && data.image.url,
 
-    route: `${ROUTES.JOB}?id=${data.id}${
-      'jobId' in data && data.jobId ? '&yours=true' : ''
+    route: `${ROUTES.JOB}/${data.id}${
+      'jobId' in data && data.jobId ? '?yours=true' : ''
     }`,
     action,
     animatedActionButton,
