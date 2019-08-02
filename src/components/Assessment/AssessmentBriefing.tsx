@@ -132,7 +132,7 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
 
   // Get task instructions
   let taskInstructions = assessmentData.taskInstructions;
-  if (taskInstructions.startsWith('<ol'))
+  if (taskInstructions && taskInstructions.startsWith('<ol'))
     taskInstructions = taskInstructions
       // Add instructionList class to the first <ol> tag
       .replace('<ol', `<ol class="${classes.instructionList}"`)
