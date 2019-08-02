@@ -6,6 +6,15 @@ Will display assessment doc data using `AssessmentHeader`, `AssessmentBriefing`,
 Will also show related courses, jobs, and assessments through
 `AssessmentRelated`.
 
+### Assessments related to job
+
+If the user visited this page from a job page, it will show a progress bar with
+all the other skills the user needs to complete to apply for the job. This is
+stored in the location state (React Router). It must have `previousRoute`,
+`skillsRequired`, `title`, and `companyName`.
+
+This is displayed by the [`JobProgress`](#jobprogress) component.
+
 ### Stages
 
 Assessments has four different stages:

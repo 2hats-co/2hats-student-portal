@@ -18,8 +18,10 @@ import AssessmentBriefing from './AssessmentBriefing';
 import AssessmentSubmission from './AssessmentSubmission';
 import AssessmentFeedback from './AssessmentFeedback';
 import AssessmentRelated from './AssessmentRelated';
-import LoadingScreen from 'components/LoadingScreen';
 import CompletionDelight from './CompletionDelight';
+import JobProgress from './JobProgress';
+
+import LoadingScreen from 'components/LoadingScreen';
 
 import GoIcon from '@bit/twohats.common.icons.go';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -31,6 +33,7 @@ import {
   UsersAssessmentsDoc,
 } from '@bit/twohats.common.db-types';
 import { copyAssessment, markViewedFeedback } from 'utilities/assessments';
+import { JOB } from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -205,7 +208,13 @@ const Assessment: React.FunctionComponent<IAssessmentProps> = ({
   return (
     <main>
       <Container maxWidth="sm" component="article">
+        {/* Show progress towards completing assessments for a job */}
+        {location.state &&
+          location.state.previousRoute &&
+          location.state.previousRoute.startsWith(JOB) && <JobProgress />}
+
         <AssessmentHeader assessmentData={assessmentData} />
+
         {mainContent}
       </Container>
 
