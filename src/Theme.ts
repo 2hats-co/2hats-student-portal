@@ -103,7 +103,11 @@ const themeCommons = {
     body1: { letterSpacing: getLetterSpacing(0.5, 1) },
     body2: { letterSpacing: getLetterSpacing(0.25, 0.875) },
     button: { letterSpacing: getLetterSpacing(1.25, 0.875) },
-    overline: { letterSpacing: getLetterSpacing(2, 0.875), fontWeight: 500 },
+    overline: {
+      letterSpacing: getLetterSpacing(2, 0.875),
+      fontWeight: 500,
+      lineHeight: 1.5,
+    },
   },
   shadowsLight: [
     'none',
@@ -258,7 +262,7 @@ const themeCommons = {
 
     // Larger gutterBottom for Typography
     MuiTypography: {
-      gutterBottom: { marginBottom: '1em' },
+      gutterBottom: { marginBottom: 12 },
     },
   },
 };

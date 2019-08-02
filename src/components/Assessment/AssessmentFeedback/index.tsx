@@ -38,7 +38,12 @@ const AssessmentFeedback: React.FunctionComponent<IAssessmentFeedbackProps> = ({
 
   return (
     <section className={classes.root}>
-      <Typography variant="overline" color="textSecondary" component="h2">
+      <Typography
+        variant="overline"
+        color="textSecondary"
+        component="h2"
+        gutterBottom
+      >
         Feedback
       </Typography>
 

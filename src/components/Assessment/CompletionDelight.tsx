@@ -8,7 +8,12 @@ import { DASHBOARD } from 'constants/routes';
 
 const CompletionDelight: React.FunctionComponent = () => (
   <>
-    <Typography variant="overline" color="textSecondary" component="h2">
+    <Typography
+      variant="overline"
+      color="textSecondary"
+      component="h2"
+      gutterBottom
+    >
       You’re going places!
     </Typography>
     <TextWithGraphic

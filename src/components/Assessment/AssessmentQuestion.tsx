@@ -266,7 +266,12 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
   return (
     <div className={classes.root}>
       {/* Render the heading */}
-      <Typography variant="overline" color="textSecondary" component="h2">
+      <Typography
+        variant="overline"
+        color="textSecondary"
+        component="h2"
+        gutterBottom
+      >
         {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
       </Typography>
 

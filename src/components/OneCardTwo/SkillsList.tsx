@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme =>
 
     skillsList: {
       margin: theme.spacing(-0.375),
+      marginTop: 0,
       padding: 0,
       listStyleType: 'none',
 

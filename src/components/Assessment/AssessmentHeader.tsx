@@ -29,6 +29,8 @@ const useStyles = makeStyles(theme =>
       marginRight: theme.spacing(0),
       marginTop: theme.spacing(-1.75),
     },
+
+    overline: { marginTop: theme.spacing(0.5) },
   })
 );
 
@@ -56,7 +58,7 @@ const AssessmentHeader: React.FunctionComponent<IAssessmentHeaderProps> = ({
         />
       )}
 
-      <Typography variant="h5" component="h1">
+      <Typography variant="h5" component="h1" gutterBottom>
         {assessmentData.title}
       </Typography>
 
@@ -81,7 +83,7 @@ const AssessmentHeader: React.FunctionComponent<IAssessmentHeaderProps> = ({
           <Grid item xs={12} sm={8}>
             <Typography variant="h5">{assessmentData.duration}</Typography>
 
-            <Grid container alignItems="center">
+            <Grid container alignItems="center" className={classes.overline}>
               <Typography variant="overline" color="textSecondary">
                 Approx. time
               </Typography>
@@ -101,6 +103,7 @@ const AssessmentHeader: React.FunctionComponent<IAssessmentHeaderProps> = ({
                 variant="overline"
                 color="textSecondary"
                 component="div"
+                className={classes.overline}
               >
                 Status
               </Typography>

@@ -19,6 +19,7 @@ const useStyles = makeStyles(theme =>
     ...RenderedHtmlStyles(theme),
 
     section: { marginBottom: theme.spacing(3) },
+    overline: { marginBottom: theme.spacing(1.5) },
 
     maskedSection: {
       maxHeight: 240,
@@ -142,7 +143,7 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
   return (
     <>
       <section className={classes.section}>
-        <Grid container alignItems="center">
+        <Grid container alignItems="center" className={classes.overline}>
           <Typography variant="overline" color="textSecondary" component="h2">
             Scenario: The Company
           </Typography>
@@ -164,7 +165,12 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
           previewInstructionsOnly && classes.maskedSection
         )}
       >
-        <Typography variant="overline" color="textSecondary" component="h2">
+        <Typography
+          variant="overline"
+          color="textSecondary"
+          component="h2"
+          gutterBottom
+        >
           Instructions
         </Typography>
 
