@@ -16,8 +16,9 @@ const useDocument = intialOverrides => {
     ...documentIntialState,
     ...intialOverrides,
   });
+
   const setDocumentListner = () => {
-    documentDispatch({ prevPath: documentState.path });
+    documentDispatch({ prevPath: documentState.path, loading: true });
     const unsubscribe = firestore
       .doc(documentState.path)
       .onSnapshot(snapshot => {
@@ -33,18 +34,31 @@ const useDocument = intialOverrides => {
       });
     documentDispatch({ unsubscribe });
   };
+
   useEffect(() => {
-    const { path, prevPath, unsubscribe } = documentState;
+    const { path, prevPath, unsubscribe, loading } = documentState;
     if (path && path !== prevPath) {
       if (unsubscribe) unsubscribe();
       setDocumentListner();
     }
+    // Make sure documentState is set to loading: false if we are dispatched
+    // the same path and prevPath from the component that calls useDocument
+    else if (
+      path &&
+      path === prevPath &&
+      documentState.doc &&
+      path.includes(documentState.doc.id) &&
+      loading
+    ) {
+      documentDispatch({ loading: false });
+    }
   }, [documentState]);
+
   useEffect(
     () => () => {
       if (documentState.unsubscribe) documentState.unsubscribe();
     },
-    []
+    [documentState]
   );
   return [documentState, documentDispatch];
 };

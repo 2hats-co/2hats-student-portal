@@ -7,7 +7,8 @@ import Job from 'components/Job';
 import Assessment from 'components/Assessment';
 import FourOhFour from 'components/routing/FourOhFour';
 
-import useDocumentFromUrl from 'hooks/useDocumentFromUrl';
+import useDocument from 'hooks/useDocument';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { capitalise } from 'utilities';
 import UserContext from 'contexts/UserContext';
 import { getFirstIdOfQuery } from 'utilities/firestore';
@@ -23,7 +24,8 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   const { user } = useContext(UserContext);
   const docType = location.pathname.split('/')[1];
 
-  const [docState] = useDocumentFromUrl(location, match, `${docType}s`);
+  const [docState, docDispatch] = useDocument();
+  const [loading, setLoading] = useState(false);
 
   // Show generic title on location change, before document loads
   useEffect(() => {
@@ -56,7 +58,6 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   // The most common use case of this is when the user opens an email with a
   // smartlink to a particular job/assessment **multiple times** (ugh)
   // and they'll always see the original and not their submission
-  const [loading, setLoading] = useState(false);
   useEffect(() => {
     // But only if in the new URL format
     if (!match.params || !match.params.id) return;
@@ -88,7 +89,10 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
             ...parsedQuery,
           });
 
-          history.replace(`/${docType}/${lastSubmission}?${newQuery}`);
+          history.replace(
+            `/${docType}/${lastSubmission}?${newQuery}`,
+            location.state
+          );
         }
         setLoading(false);
       })
@@ -99,6 +103,20 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
         )
       );
   }, [match, location]);
+
+  // Get the document
+  useEffect(() => {
+    if (!match.params || !match.params.id) return;
+
+    const parsedQuery = queryString.parse(location.search);
+    const isYours = parsedQuery.yours && parsedQuery.yours === 'true';
+
+    const docPath = isYours
+      ? `${COLLECTIONS.users}/${user.id}/${docType}s/${match.params.id}`
+      : `${docType}s/${match.params.id}`;
+
+    docDispatch({ path: docPath, loading: true });
+  }, [match.params]);
 
   // Scroll to top and change window title on load
   // of new assessment/submission/document
@@ -115,7 +133,11 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   }, [docState.doc]);
 
   // Render a loading state
-  if (docState.loading || loading)
+  if (
+    docState.loading ||
+    loading ||
+    (docState.path && !docState.path.includes(match.params.id))
+  )
     return <LoadingScreen contained message={`Loading ${docType}…`} />;
 
   // Render the corresponding components

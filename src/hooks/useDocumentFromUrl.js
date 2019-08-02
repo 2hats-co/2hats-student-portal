@@ -1,33 +1,40 @@
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useState } from 'react';
 import queryString from 'query-string';
 
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import useDocument from './useDocument';
 import UserContext from '../contexts/UserContext';
 
+/** CURRENTLY UNUSED */
 const useDocumentFromUrl = (location, match, path) => {
   const [docState, docDispatch] = useDocument();
-
-  const userContext = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (match.params && match.params.id) {
-      const docPath = `${COLLECTIONS.users}/${userContext.user.id}/${path}/${
-        match.params.id
-      }`;
+      const parsedQuery = queryString.parse(location.search);
+      const isYours = parsedQuery.yours && parsedQuery.yours === 'true';
+
+      const docPath = isYours
+        ? `${COLLECTIONS.users}/${user.id}/${path}/${match.params.id}`
+        : `${path}/${match.params.id}`;
+
+      console.log(docPath, docPath !== docState.path);
 
       if (docPath !== docState.path) {
-        const parsedQuery = queryString.parse(location.search);
-
-        if (parsedQuery.yours && parsedQuery.yours === 'true')
-          docDispatch({ path: docPath, valid: true, loading: true });
-        else docDispatch({ path: `${path}/${match.params.id}`, valid: true });
+        docDispatch({ path: docPath, valid: true, loading: true });
+        setLoading(true);
       }
     } else {
-      docDispatch({ doc: null, path: null, prevPath: null });
+      docDispatch({ doc: null, path: null, loading: false });
       if (docState.unsubscribe) docState.unsubscribe();
     }
   }, [match.params]);
+
+  useEffect(() => {
+    setLoading(docState.loading);
+  }, [docState]);
 
   useEffect(
     () => () => {
@@ -36,7 +43,7 @@ const useDocumentFromUrl = (location, match, path) => {
     [docState]
   );
 
-  return [docState, docDispatch];
+  return [docState, docDispatch, loading];
 };
 
 export default useDocumentFromUrl;
