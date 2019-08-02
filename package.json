@@ -7,7 +7,7 @@
     "@bit/sidney2hats.2hats.global.common-constants": "file:./bit/global/common-constants",
     "@bit/twohats.common.components.dialog-prompt": "^1.0.0",
     "@bit/twohats.common.components.help-popup": "^1.0.0",
-    "@bit/twohats.common.components.skill-chip": "^1.0.0",
+    "@bit/twohats.common.components.skill-chip": "^1.0.3",
     "@bit/twohats.common.components.styled-dropzone": "^1.0.0",
     "@bit/twohats.common.components.text-with-graphic": "^1.0.0",
     "@bit/twohats.common.constants": "^1.0.8",

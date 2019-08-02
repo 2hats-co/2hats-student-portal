@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import queryString from 'query-string';
@@ -32,6 +32,9 @@ import {
   updateDoc,
   getDoc,
 } from '../../utilities/firestore';
+import UserContext from 'contexts/UserContext';
+
+import SkillChip from '@bit/twohats.common.components.skill-chip';
 
 const styles = theme => ({
   ...STYLES.DETAIL_VIEW(theme),
@@ -75,7 +78,8 @@ const styles = theme => ({
 });
 
 const Job = props => {
-  const { classes, theme, data, user, history, location } = props;
+  const { classes, theme, data, history, location } = props;
+  const { user } = useContext(UserContext);
 
   const [showDialog, setShowDialog] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -229,6 +233,24 @@ const Job = props => {
           <div className={classes.skillsWrapper}>
             {data.skillsRequired.map((x, i) => (
               <SkillItem key={`${i}-${x}`} value={x} clickable />
+            ))}
+            {data.skillsRequired.map((x, i) => (
+              <SkillChip
+                key={`${i}-${x.id}`}
+                id={x.id}
+                title={x.title}
+                clickable
+                route={{
+                  pathname: `${ROUTES.ASSESSMENT}/${x.id}`,
+                  state: {
+                    skillsRequired: data.skillsRequired,
+                    title: data.title,
+                    companyName: data.companyName,
+                    previousRoute: location.pathname,
+                  },
+                }}
+                user={user}
+              />
             ))}
           </div>
         </div>
