@@ -332,6 +332,7 @@ export const submitAssessment = (
       screened: false,
       submissionContent: answers,
       submitted: true,
+      viewedFeedback: false,
     }
   );
 
