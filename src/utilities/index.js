@@ -38,9 +38,10 @@ export const removeUrls = text =>
   );
 
 export const removeEmptyParens = text => text.replace('()', '');
+export const removeNbsp = text => text.replace(/&nbsp;/gm, '');
 
 export const cleanTextForDisplay = text =>
-  removeEmptyParens(removeUrls(removeHtmlTags(text)));
+  removeEmptyParens(removeNbsp(removeUrls(removeHtmlTags(text))));
 
 export const hexToRgb = hex => {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
