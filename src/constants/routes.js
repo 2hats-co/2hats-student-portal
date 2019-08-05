@@ -35,6 +35,7 @@ export const COURSES_ALL = '/courses/all';
 export const COURSES_COMPLETED = '/courses/completed';
 
 export const JOB = '/job';
+export const JOB_APPLICATION = '/apply';
 export const ASSESSMENT = '/assessment';
 export const COURSE = '/course';
 export const COURSE_REDIRECT = '/courseRedirect';

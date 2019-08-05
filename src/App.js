@@ -265,6 +265,7 @@ const App = () => {
                         ROUTES.ASSESSMENT + '/:id',
                         ROUTES.JOB,
                         ROUTES.JOB + '/:id',
+                        ROUTES.JOB + '/:id' + ROUTES.JOB_APPLICATION,
                       ]}
                       render={props => (
                         <Navigation>
