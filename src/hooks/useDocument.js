@@ -36,9 +36,8 @@ const useDocument = intialOverrides => {
   };
 
   useEffect(() => {
-    const { path, prevPath, unsubscribe, loading } = documentState;
+    const { path, prevPath, loading } = documentState;
     if (path && path !== prevPath) {
-      if (unsubscribe) unsubscribe();
       setDocumentListner();
     }
     // Make sure documentState is set to loading: false if we are dispatched
@@ -58,7 +57,7 @@ const useDocument = intialOverrides => {
     () => () => {
       if (documentState.unsubscribe) documentState.unsubscribe();
     },
-    [documentState]
+    [documentState.unsubscribe]
   );
   return [documentState, documentDispatch];
 };
