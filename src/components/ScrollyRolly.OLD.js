@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import LinearProgress from '@material-ui/core/LinearProgress';
@@ -14,7 +13,7 @@ function ScrollyRolly(props) {
     classes,
     theme,
     dataState,
-    dataDispatch,
+    loadMore,
     disablePadding,
     reverse,
     sort,
@@ -24,14 +23,6 @@ function ScrollyRolly(props) {
 
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(false);
-
-  const loadMore = num => {
-    if (hasMore) {
-      setHasMore(false);
-      setLoading(true);
-      dataDispatch({ type: 'more' });
-    }
-  };
 
   useEffect(() => {
     if (
@@ -51,7 +42,7 @@ function ScrollyRolly(props) {
   if (sort) sortedDocs = sort(dataState.documents);
 
   return (
-    <React.Fragment>
+    <>
       {reverse && loading && (
         <LinearProgress
           key="listLoader"
@@ -61,9 +52,7 @@ function ScrollyRolly(props) {
       <InfiniteScroll
         initialLoad={false}
         pageStart={0}
-        loadMore={() => {
-          loadMore();
-        }}
+        loadMore={loadMore}
         hasMore={hasMore}
         useWindow={false}
         threshold={100}
@@ -71,10 +60,7 @@ function ScrollyRolly(props) {
       >
         <List
           disablePadding={disablePadding || false}
-          className={clsx(
-            classes && classes.list,
-            sortedDocs.length === 0 && classes.emptyList
-          )}
+          className={classes && classes.list}
         >
           {sortedDocs.length > 0 ? (
             sortedDocs.map(props.children)
@@ -112,8 +98,8 @@ function ScrollyRolly(props) {
           className={classes && classes.listLoader}
         />
       )}
-    </React.Fragment>
+    </>
   );
 }
 
-export default withTheme(ScrollyRolly);
+export default withTheme()(ScrollyRolly);
