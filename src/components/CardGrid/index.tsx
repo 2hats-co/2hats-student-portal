@@ -344,7 +344,7 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
           routeLabel={routeLabel}
           showPreviewOnly={showPreviewOnly}
           description={headerDescription}
-          length={cardProps.length}
+          length={filteredCards.length}
         />
         {cardGrid}
       </section>
