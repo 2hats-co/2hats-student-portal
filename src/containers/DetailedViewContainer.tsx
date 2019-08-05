@@ -115,7 +115,8 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
       ? `${COLLECTIONS.users}/${user.id}/${docType}s/${match.params.id}`
       : `${docType}s/${match.params.id}`;
 
-    docDispatch({ path: docPath, loading: true });
+    if (docState.path !== docPath)
+      docDispatch({ path: docPath, loading: true });
   }, [match.params]);
 
   // Scroll to top and change window title on load
