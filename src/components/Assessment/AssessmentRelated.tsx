@@ -108,9 +108,9 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
     <section className={classes.relatedCards}>
       {/* Related courses — but don't show if passed or user just completed */}
       {relatedCourse &&
-        !showDelight &&
-        'outcome' in assessmentData &&
-        assessmentData.outcome === 'pass' && (
+        (!showDelight ||
+          ('outcome' in assessmentData &&
+            assessmentData.outcome === 'pass')) && (
           <div className={classes.relatedCourseWrapper}>
             <CardGridHeader
               header="Prepare with a quick 2hats course for this assessment."
