@@ -72,11 +72,14 @@ const CoursesContainer = ({ match }) => {
       key="ongoing-card-grid"
       header="Ongoing Courses"
       route={ROUTES.COURSES_ONGOING}
-      cardProps={ongoingState.documents.map(x =>
-        generateCourseCard(x, { showUpdatedAt: true })
-      )}
+      cardProps={ongoingState.documents}
+      cardGenerator={x => generateCourseCard(x, { showUpdatedAt: true })}
       LoadingCardProps={{ maxSkills: 1 }}
       loading={ongoingState.loading}
+      loadMore={page => {
+        ongoingDispatch({ type: 'more' });
+      }}
+      hasMore={ongoingState.documents.length === ongoingState.limit}
       hideIfEmpty
     />
   );
@@ -85,8 +88,13 @@ const CoursesContainer = ({ match }) => {
       key="all-card-grid"
       header="All Courses"
       route={ROUTES.COURSES_ALL}
-      cardProps={allState.documents.map(x => generateCourseCard(x))}
+      cardProps={allState.documents}
+      cardGenerator={x => generateCourseCard(x)}
       loading={allState.loading}
+      loadMore={page => {
+        allDispatch({ type: 'more' });
+      }}
+      hasMore={allState.documents.length === allState.limit}
       animationOffset={1}
       LoadingCardProps={{ maxSkills: 1 }}
       filterIds={user.touchedCourses}
@@ -98,10 +106,13 @@ const CoursesContainer = ({ match }) => {
       key="completed-card-grid"
       header="Completed Courses"
       route={ROUTES.COURSES_COMPLETED}
-      cardProps={completedState.documents.map(x =>
-        generateCourseCard(x, { showUpdatedAt: true })
-      )}
+      cardProps={completedState.documents}
+      cardGenerator={x => generateCourseCard(x, { showUpdatedAt: true })}
       loading={completedState.loading}
+      loadMore={page => {
+        completedDispatch({ type: 'more' });
+      }}
+      hasMore={completedState.documents.length === completedState.limit}
       LoadingCardProps={{ maxSkills: 1 }}
       animationOffset={2}
       hideIfEmpty

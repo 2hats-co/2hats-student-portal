@@ -71,7 +71,8 @@ const CourseCards = () => {
       hideCount
       loading={loading}
       route={ROUTES.COURSES}
-      cardProps={combinedCards.map(x => generateCourseCard(x, { user }))}
+      cardProps={combinedCards}
+      cardGenerator={x => generateCourseCard(x, { user })}
       LoadingCardProps={{ maxSkills: 1 }}
     />
   );

@@ -91,7 +91,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export interface LoadingCardProps {
+export interface ILoadingCardProps {
   /** Optional override */
   className?: string;
   /** Optional override */
@@ -107,7 +107,7 @@ export interface LoadingCardProps {
  * [`OneCardTwo`](#section-onecardtwo).
  * Used to show the card is loading. Fades into view.
  */
-const LoadingCard: React.FC<LoadingCardProps> = ({
+const LoadingCard: React.FunctionComponent<ILoadingCardProps> = ({
   className,
   style,
   hideMedia = false,

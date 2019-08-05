@@ -85,8 +85,18 @@ const AssessmentsContainer = ({ match }) => {
       cardProps={[
         ...unviewedFeedbackState.documents,
         ...ongoingState.documents,
-      ].map(x => generateAssessmentCard(x, { showUpdatedAt: true }))}
+      ]}
+      cardGenerator={x => generateAssessmentCard(x, { showUpdatedAt: true })}
       loading={unviewedFeedbackState.loading || ongoingState.loading}
+      loadMore={page => {
+        unviewedFeedbackDispatch({ type: 'more' });
+        ongoingDispatch({ type: 'more' });
+      }}
+      hasMore={
+        unviewedFeedbackState.documents.length ===
+          unviewedFeedbackState.limit ||
+        ongoingState.documents.length === ongoingState.limit
+      }
       hideIfEmpty
       LoadingCardProps={{ maxSkills: 0 }}
     />
@@ -96,10 +106,13 @@ const AssessmentsContainer = ({ match }) => {
       key="all-card-grid"
       header="All Assessments"
       route={ROUTES.ASSESSMENTS_ALL}
-      cardProps={allState.documents.map(x =>
-        generateAssessmentCard(x, { user })
-      )}
+      cardProps={allState.documents}
+      cardGenerator={x => generateAssessmentCard(x, { user })}
       loading={allState.loading}
+      loadMore={page => {
+        allDispatch({ type: 'more' });
+      }}
+      hasMore={allState.documents.length === allState.limit}
       animationOffset={1}
       filterIds={user.touchedAssessments}
       deprioritiseByIndustry
@@ -111,10 +124,13 @@ const AssessmentsContainer = ({ match }) => {
       key="completed-card-grid"
       header="Completed Assessments"
       route={ROUTES.ASSESSMENTS_COMPLETED}
-      cardProps={completedState.documents.map(x =>
-        generateAssessmentCard(x, { showUpdatedAt: true })
-      )}
+      cardProps={completedState.documents}
+      cardGenerator={x => generateAssessmentCard(x, { showUpdatedAt: true })}
       loading={completedState.loading}
+      loadMore={page => {
+        completedDispatch({ type: 'more' });
+      }}
+      hasMore={completedState.documents.length === completedState.limit}
       animationOffset={2}
       LoadingCardProps={{ maxSkills: 0 }}
       EmptyStateProps={{

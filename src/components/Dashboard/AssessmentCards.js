@@ -104,7 +104,8 @@ const AssessmentCards = () => {
       hideCount
       loading={loading}
       route={ROUTES.ASSESSMENTS}
-      cardProps={combinedCards.map(x => generateAssessmentCard(x))}
+      cardProps={combinedCards}
+      cardGenerator={x => generateAssessmentCard(x)}
       LoadingCardProps={{ maxSkills: 0 }}
       EmptyStateProps={{
         graphic: LightbulbBrain,

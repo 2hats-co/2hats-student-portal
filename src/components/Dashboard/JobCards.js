@@ -75,7 +75,8 @@ const JobCards = () => {
       hideCount
       loading={loading}
       route={ROUTES.JOBS}
-      cardProps={combinedCards.map(x => generateJobCard(x, { user }))}
+      cardProps={combinedCards}
+      cardGenerator={x => generateJobCard(x, { user })}
       LoadingCardProps={{ hideMedia: true }}
     />
   );

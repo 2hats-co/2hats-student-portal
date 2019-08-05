@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
@@ -15,6 +14,7 @@ import {
 import GoIcon from '@bit/twohats.common.icons.go';
 
 import { CARD_SPACING, CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
+import { INITIAL_LIMIT } from 'hooks/useCollection';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,21 +25,6 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(0.5),
 
     userSelect: 'none',
-  },
-
-  // Styles for Link
-  link: {
-    transition: theme.transitions.create('color', {
-      duration: theme.transitions.duration.short,
-    }),
-    '&:hover': {
-      color: theme.palette.primary.main,
-
-      '& $lengthChip': {
-        backgroundColor: theme.palette.primary.light,
-        color: theme.palette.primary.main,
-      },
-    },
   },
 
   grid: {
@@ -64,7 +49,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CardGridHeader = ({
+export interface ICardGridHeaderProps {
+  /** Header text for the card */
+  header: React.ReactNode;
+  /** Route used as link for Show All button */
+  route: string;
+  /** Optionally, override the route label */
+  routeLabel?: React.ReactNode;
+  /** Calculated in CardGrid. Used to show the Show All button */
+  showPreviewOnly: boolean;
+  /** Optional description text for the card */
+  description?: React.ReactNode;
+  /** Number of cards total. If `length === 0`, also hide Show All button */
+  length: number;
+  /** Optionally, hide the count */
+  hideCount?: boolean;
+}
+
+const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
   header,
   route,
   routeLabel,
@@ -97,11 +99,8 @@ const CardGridHeader = ({
         container
         justify="space-between"
         alignItems={showButtonLabel ? 'baseline' : 'center'}
-        component={showLink ? Link : 'div'}
-        to={route}
         className={clsx(
           classes.grid,
-          showLink && classes.link,
           !showButtonLabel && classes.hideButtonLabel
         )}
       >
@@ -115,40 +114,27 @@ const CardGridHeader = ({
             {header}
           </Typography>
           {length > 0 && !hideCount && (
-            <Chip label={length} size="small" className={classes.lengthChip} />
+            <Chip
+              label={`${length}${length === INITIAL_LIMIT ? '+' : ''}`}
+              size="small"
+              className={classes.lengthChip}
+            />
           )}
         </Grid>
         {showLink &&
           (showButtonLabel ? (
-            <Button color="primary">
+            <Button color="primary" component={Link} to={route}>
               {routeLabel || 'Show All'}
               <GoIcon />
             </Button>
           ) : (
-            <IconButton color="primary" className={classes.iconButton}>
+            <IconButton color="primary" component={Link} to={route}>
               <GoIcon />
             </IconButton>
           ))}
       </Grid>
     </header>
   );
-};
-
-CardGridHeader.propTypes = {
-  /** Header text for the card */
-  header: PropTypes.node.isRequired,
-  /** Route used as link for Show All button */
-  route: PropTypes.string.isRequired,
-  /** Optionally, override the route label */
-  routeLabel: PropTypes.node,
-  /** Calculated in CardGrid. Used to show the Show All button */
-  showPreviewOnly: PropTypes.bool.isRequired,
-  /** Optional description text for the card */
-  description: PropTypes.node,
-  /** Number of cards total. If `length === 0`, also hide Show All button */
-  length: PropTypes.number.isRequired,
-  /** Optionally, hide the count */
-  hideCount: PropTypes.bool,
 };
 
 export default CardGridHeader;

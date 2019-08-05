@@ -28,11 +28,12 @@ We use only one query to get all the cards of that type, regardless of which
 cards are deprioritised. This is instead of using three separate queries for
 each industry and filtering using that.
 
-But, in the future when we have to load more cards via `InfiniteScroll`, the
-cards would appear in the middle of the list and the user might not see that the
-new cards are loaded. It’s easier to see if the two sections are separated.
+But we have to load more cards via `InfiniteScroll`. So the cards would appear
+in the middle of the list and the user might not see that the new cards are
+loaded. It’s easier to see if the two sections are separated.
 
 ### TODO
 
-Allow for `InfiniteScroll` to load more items. Currently just increased the
-default `useCollection` limit from 20 to 30.
+Have a loading bar for when `InfiniteScroll` triggers new items to be loaded.
+Right now, it’s the same as first load, so it will kick the user back to the top
+of the page.

@@ -90,18 +90,9 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
       { field: 'closingDate', operator: '>=', value: new Date() },
     ],
     sort: { field: 'closingDate', direction: 'asc' },
-    limit: 5,
+    limit: 10,
   });
 
-  // Get related user assessments from the same industry
-  const [relatedUserAssessmentsState] = useCollection({
-    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
-    filters: [
-      { field: 'category', operator: '==', value: assessmentData.category },
-    ],
-    sort: { field: 'updatedAt', direction: 'desc' },
-    limit: 5,
-  });
   // Get related assessments from the same industry
   const [relatedAssessmentsState] = useCollection({
     path: COLLECTIONS.assessments,
@@ -138,9 +129,8 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
         header="Jobs for this skill"
         route={ROUTES.JOBS}
         routeLabel="All Jobs"
-        cardProps={relatedJobsState.documents.map((x: DocWithId<JobsDoc>) =>
-          generateJobCard(x, { user })
-        )}
+        cardProps={relatedJobsState.documents}
+        cardGenerator={(x: DocWithId<JobsDoc>) => generateJobCard(x, { user })}
         loading={relatedJobsState.loading}
         animationOffset={0}
         LoadingCardProps={{ maxSkills: 0 }}
@@ -152,15 +142,19 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
         header="Related assessments"
         route={ROUTES.ASSESSMENTS}
         routeLabel="All Assessments"
-        cardProps={[
-          ...relatedUserAssessmentsState.documents,
-          ...relatedAssessmentsState.documents,
-        ].map((x: DocWithId<UsersAssessmentsDoc> | DocWithId<AssessmentsDoc>) =>
-          generateAssessmentCard(x, { user })
-        )}
+        cardProps={relatedAssessmentsState.documents}
+        cardGenerator={(
+          x: DocWithId<UsersAssessmentsDoc> | DocWithId<AssessmentsDoc>
+        ) => generateAssessmentCard(x, { user })}
         loading={relatedJobsState.loading}
         animationOffset={0}
         hideIfEmpty
+        // Filter out same submission or assessmentId
+        filterIds={
+          'assessmentId' in assessmentData
+            ? [assessmentData.assessmentId]
+            : undefined
+        }
       />
 
       {/* Suggest a course when the user tries to exit, if submission */}

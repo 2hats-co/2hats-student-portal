@@ -89,11 +89,14 @@ const JobsContainer = ({ match }) => {
       key="new-card-grid"
       header="New Jobs"
       route={ROUTES.JOBS_NEW}
-      cardProps={prioritiseJobListings(newState.documents, user).map(x =>
-        generateJobCard(x, { user })
-      )}
+      cardProps={prioritiseJobListings(newState.documents, user)}
+      cardGenerator={x => generateJobCard(x, { user })}
       filterIds={user.touchedJobs}
       loading={newState.loading}
+      loadMore={page => {
+        newDispatch({ type: 'more' });
+      }}
+      hasMore={newState.documents.length === newState.limit}
       LoadingCardProps={{ hideMedia: true }}
       hideIfEmpty
     />
@@ -103,10 +106,13 @@ const JobsContainer = ({ match }) => {
       key="yours-card-grid"
       header="Your Job Applications"
       route={ROUTES.JOBS_YOURS}
-      cardProps={yoursState.documents.map(x =>
-        generateJobCard(x, { showUpdatedAt: true, user })
-      )}
+      cardProps={yoursState.documents}
+      cardGenerator={x => generateJobCard(x, { showUpdatedAt: true, user })}
       loading={yoursState.loading}
+      loadMore={page => {
+        yoursDispatch({ type: 'more' });
+      }}
+      hasMore={yoursState.documents.length === yoursState.limit}
       LoadingCardProps={{ hideMedia: true }}
       animationOffset={2}
       hideIfEmpty
@@ -117,8 +123,13 @@ const JobsContainer = ({ match }) => {
       key="past-card-grid"
       header="Past Jobs"
       route={ROUTES.JOBS_PAST}
-      cardProps={pastState.documents.map(x => generateJobCard(x, { user }))}
+      cardProps={pastState.documents}
+      cardGenerator={x => generateJobCard(x, { user })}
       loading={pastState.loading}
+      loadMore={page => {
+        pastDispatch({ type: 'more' });
+      }}
+      hasMore={pastState.documents.length === pastState.limit}
       LoadingCardProps={{ hideMedia: true }}
       animationOffset={1}
       filterIds={user.touchedJobs}

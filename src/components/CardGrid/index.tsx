@@ -1,15 +1,18 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, Link, RouteComponentProps } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
+import InfiniteScroll from 'react-infinite-scroller';
 
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 import { Grid, Link as MuiLink } from '@material-ui/core';
 
 import CardGridHeader from './CardGridHeader';
-import OneCardTwo from 'components/OneCardTwo';
-import LoadingCard from 'components/OneCardTwo/LoadingCard';
-import EmptyState from './EmptyState';
+import OneCardTwo, { IOneCardTwoProps } from 'components/OneCardTwo';
+import LoadingCard, {
+  ILoadingCardProps,
+} from 'components/OneCardTwo/LoadingCard';
+import EmptyState, { IEmptyStateProps } from './EmptyState';
 
 import UserContext from 'contexts/UserContext';
 import useColsWidth from 'hooks/useColsWidth';
@@ -24,89 +27,145 @@ import {
   CARD_ANIMATION_DURATION,
   CARD_ANIMATION_DELAY,
 } from 'constants/cards';
-import { getPrioritisedCards } from 'utilities/cards';
+import { CardDoc, getPrioritisedCards } from 'utilities/cards';
 import { PROFILE_PREFERRED_INDUSTRIES } from 'constants/routes';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    transition: theme.transitions.create('max-width'),
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      width: '100%',
+      transition: theme.transitions.create('max-width'),
 
-    margin: '0 auto', // Horizontally center
+      margin: '0 auto', // Horizontally center
 
-    // Fix width to width of card columns
-    maxWidth: 'none',
-    [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
-    [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
-    [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
-    [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
-    [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
+      // Fix width to width of card columns
+      maxWidth: 'none',
+      [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
+      [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
+      [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
+      [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
+      [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
 
-    // Add margin in between two adjacent CardGrids
-    '& + &': {
-      marginTop: theme.spacing(4),
+      // Add margin in between two adjacent CardGrids
+      '& + &': {
+        marginTop: theme.spacing(4),
+      },
     },
-  },
-  header: {
-    minHeight: 36, // Height of Show All button
+    header: {
+      minHeight: 36, // Height of Show All button
 
-    // Align horizontally with card ends
-    paddingLeft: theme.spacing(CARD_SPACING / 8 / 2),
-    marginBottom: theme.spacing(0.5),
+      // Align horizontally with card ends
+      paddingLeft: theme.spacing(CARD_SPACING / 8 / 2),
+      marginBottom: theme.spacing(0.5),
 
-    userSelect: 'none',
-  },
-  headerGrid: {
-    textDecoration: 'none', // Fix for Link component
-    color: theme.palette.text.primary, // Allows Typography to inherit color
-  },
-  headerLink: {
-    transition: theme.transitions.create('color', {
-      duration: theme.transitions.duration.short,
-    }),
-    '&:hover': { color: theme.palette.primary.main },
-  },
-  showAllButton: {
-    '& svg': { marginLeft: 0 },
-  },
-
-  cardGrid: {
-    listStyleType: 'none',
-    margin: 0,
-    padding: 0,
-  },
-
-  animatedCard: {
-    '&-appear': {
-      opacity: 0,
-      transform: 'translateY(32px)',
-
-      '@media (prefers-reduced-motion: reduce)': { transform: 'translateY(0)' },
+      userSelect: 'none',
     },
-    '&-appear-active': {
-      opacity: 1,
-      transform: 'translateY(0)',
-      transition: theme.transitions.create(['opacity, transform']),
-      transitionDuration: CARD_ANIMATION_DURATION,
+    headerGrid: {
+      textDecoration: 'none', // Fix for Link component
+      color: theme.palette.text.primary, // Allows Typography to inherit color
     },
-    '&-appear-done': {
-      opacity: 1,
-      transform: 'translateY(0)',
+    headerLink: {
+      transition: theme.transitions.create('color', {
+        duration: theme.transitions.duration.short,
+      }),
+      '&:hover': { color: theme.palette.primary.main },
     },
-  },
-}));
+    showAllButton: {
+      '& svg': { marginLeft: 0 },
+    },
 
-const CardGrid = ({
-  header,
-  hideCount,
+    cardGrid: {
+      listStyleType: 'none',
+      margin: 0,
+      padding: 0,
+    },
+
+    animatedCard: {
+      '&-appear': {
+        opacity: 0,
+        transform: 'translateY(32px)',
+
+        '@media (prefers-reduced-motion: reduce)': {
+          transform: 'translateY(0)',
+        },
+      },
+      '&-appear-active': {
+        opacity: 1,
+        transform: 'translateY(0)',
+        transition: theme.transitions.create(['opacity, transform']),
+        transitionDuration: `${CARD_ANIMATION_DURATION}ms`,
+      },
+      '&-appear-done': {
+        opacity: 1,
+        transform: 'translateY(0)',
+      },
+    },
+  })
+);
+
+export interface ICardGridProps extends RouteComponentProps {
+  /**
+   * Header text for the card.
+   *
+   * Note: this is also used to get the header for the
+   * Other [type] section, for deprioritised cards.
+   */
+  header: string;
+  /** Show/hide number of cards in [`CardGridHeader`](#cardgridheader) */
+  hideCount?: boolean;
+  /** Used to show either just a preview or all the cards.*/
+  route: string;
+  /** Optionally, override the route label */
+  routeLabel?: React.ReactNode;
+  /** Array of card documents (direct from Firestore) used to make the cards */
+  cardProps: CardDoc[];
+  /** The card prop generator function used on cardProps */
+  cardGenerator: (data: any) => IOneCardTwoProps;
+  /**
+   * Used to show [`LoadingCard`](#loadingcard)
+   * if not `hideIfEmpty` and not `showPreviewOnly`
+   */
+  loading: boolean;
+  /** Function called by `InfiniteScroll` to load more cards */
+  loadMore?: (page: number) => void;
+  /** Flag from useCollection call(s) passed down to `InfiniteScroll` */
+  hasMore?: boolean;
+  /**
+   * Used to delay the enter animations for all the cards if appearing after
+   * another `CardGrid`
+   */
+  animationOffset?: number;
+  /**
+   * Used to hide certain cards by their ID, e.g. if user has already started
+   * an assessment, then don't show in the All Assessments section
+   */
+  filterIds?: string[];
+  /** If `true`, puts industries the user does not want (from user doc) at the
+   * end. Splits the cards into two sections if not `showPreviewOnly`
+   */
+  deprioritiseByIndustry?: boolean;
+  /** Don't show anything if there are no cards for this section or loading */
+  hideIfEmpty?: boolean;
+  /** Passed down to [`LoadingCard`](#loadingcard) */
+  LoadingCardProps?: Partial<ILoadingCardProps>;
+  /** Passed down to [`EmptyState`](#emptystate) */
+  EmptyStateProps?: Partial<IEmptyStateProps>;
+}
+
+const CardGrid: React.FunctionComponent<ICardGridProps> = ({
+  header = '',
+  hideCount = false,
   location,
   route,
   routeLabel,
   cardProps,
+  cardGenerator,
   loading,
-  animationOffset,
-  filterIds,
-  deprioritiseByIndustry,
+  loadMore,
+  hasMore,
+  animationOffset = 0,
+  filterIds = [],
+  deprioritiseByIndustry = false,
   hideIfEmpty,
   LoadingCardProps,
   EmptyStateProps,
@@ -119,7 +178,9 @@ const CardGrid = ({
   // Filter out specific assessment IDs, if supplied and if only showing preview
   let filteredCards = cardProps;
   if (Array.isArray(filterIds) && showPreviewOnly)
-    filteredCards = cardProps.filter(x => !filterIds.includes(x.id));
+    filteredCards = cardProps.filter(
+      x => 'id' in x && !filterIds.includes(x.id)
+    );
 
   // Move deprioritised cards to the end, if required
   let deprioritisedStartIndex = -1;
@@ -145,7 +206,7 @@ const CardGrid = ({
     : filteredCards;
 
   // Calculate animation delay
-  const getAnimationDelay = i => {
+  const getAnimationDelay = (i: number) => {
     // If we show a preview only, we must account for animationOffset
     if (showPreviewOnly) {
       const baseDelay = CARD_ANIMATION_DELAY * i;
@@ -178,15 +239,15 @@ const CardGrid = ({
         in
         timeout={CARD_ANIMATION_DURATION}
         classNames={classes.animatedCard}
-        key={`${i}-${x.title}`}
+        key={`${i}-${x.id}`}
       >
         <li
-          key={`${i}-${x.title}`}
+          key={`${i}-${x.id}`}
           style={{
             transitionDelay: `${getAnimationDelay(i)}s`,
           }}
         >
-          <OneCardTwo {...x} />
+          <OneCardTwo {...cardGenerator(x)} />
         </li>
       </CSSTransition>
     ));
@@ -195,7 +256,7 @@ const CardGrid = ({
   // Generate the card grid(s)
   let cardGrid = null;
   let headerOverride = '';
-  let headerDescription = '';
+  let headerDescription: React.ReactNode = '';
   let toAppend = null;
 
   // Display empty state
@@ -272,11 +333,12 @@ const CardGrid = ({
     );
   }
 
-  return (
+  // Holder variable needed for conditionally rendering IniniteScroll
+  const toRender = (
     <>
       <section className={classes.root}>
         <CardGridHeader
-          header={headerOverride || header}
+          header={headerOverride || header || ''}
           hideCount={hideCount}
           route={route}
           routeLabel={routeLabel}
@@ -289,53 +351,23 @@ const CardGrid = ({
       {toAppend}
     </>
   );
-};
 
-CardGrid.propTypes = {
-  /** Header text for the card.
-   *
-   * Note: this is also used to get the header for the
-   * Other [type] section, for deprioritised cards.
-   */
-  header: PropTypes.node.isRequired,
-  /** Show/hide number of cards in [`CardGridHeader`](#cardgridheader) */
-  hideCount: PropTypes.bool,
-  /** Used to see if current location matches `route` */
-  location: PropTypes.object.isRequired,
-  /** Used to show either just a preview or all the cards.*/
-  route: PropTypes.string.isRequired,
-  /** Optionally, override the route label */
-  routeLabel: PropTypes.node,
-  /** Array of [`OneCardTwo`](#onecardtwo-1) props used to make the components */
-  cardProps: PropTypes.arrayOf(PropTypes.object).isRequired,
-  /** Used to show [`LoadingCard`](#loadingcard)
-   * if not `hideIfEmpty` and not `showPreviewOnly`
-   */
-  loading: PropTypes.bool.isRequired,
-  /** Used to delay the enter animations for all the cards if appearing after
-   * another `CardGrid`
-   */
-  animationOffset: PropTypes.number,
-  /** Used to hide certain cards by their ID, e.g. if user has already started
-   * an assessment, then don't show in the All Assessments section
-   */
-  filterIds: PropTypes.array,
-  /** If `true`, puts industries the user does not want (from user doc) at the
-   * end. Splits the cards into two sections if not `showPreviewOnly`
-   */
-  deprioritiseByIndustry: PropTypes.bool,
-  /** Don't show anything if there are no cards for this section or loading */
-  hideIfEmpty: PropTypes.bool,
-  /** Passed down to [`LoadingCard`](#loadingcard) */
-  LoadingCardProps: PropTypes.object,
-  /** Passed down to [`EmptyState`](#emptystate) */
-  EmptyStateProps: PropTypes.object,
-};
+  // Display the contents WITHOUT InfiniteScroll if showPreviewOnly
+  if (showPreviewOnly || !loadMore) return toRender;
 
-CardGrid.defaultProps = {
-  hideCount: false,
-  animationOffset: 0,
-  deprioritiseByIndustry: false,
+  // Display contents WITH InfiniteScroll otherwise
+  return (
+    <InfiniteScroll
+      initialLoad={true}
+      pageStart={0}
+      loadMore={loadMore}
+      hasMore={hasMore}
+      useWindow={true}
+      threshold={100}
+    >
+      {toRender}
+    </InfiniteScroll>
+  );
 };
 
 export default withRouter(CardGrid);

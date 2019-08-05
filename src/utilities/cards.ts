@@ -10,7 +10,7 @@ import {
   UsersJobsDoc,
   UsersDoc,
 } from '@bit/twohats.common.db-types';
-import { OneCardTwoProps } from 'components/OneCardTwo';
+import { IOneCardTwoProps } from 'components/OneCardTwo';
 import { StatusChipProps } from 'components/OneCardTwo/StatusChip';
 
 import {
@@ -60,7 +60,7 @@ export const getIndustryGradient = (industry: INDUSTRIES) => ({
 export const generateCourseCard = (
   data: DocWithId<CoursesDoc> | DocWithId<UsersCoursesDoc>,
   options: { showUpdatedAt?: boolean } = {}
-): OneCardTwoProps => {
+): IOneCardTwoProps => {
   let status: StatusChipProps | undefined = undefined;
 
   if ('completed' in data) {
@@ -104,7 +104,7 @@ export const generateCourseCard = (
 export const generateAssessmentCard = (
   data: DocWithId<AssessmentsDoc> | DocWithId<UsersAssessmentsDoc>,
   options: { user?: UsersDoc; showUpdatedAt?: boolean } = {}
-): OneCardTwoProps => {
+): IOneCardTwoProps => {
   let action = 'Get started';
   let status: StatusChipProps | undefined = undefined;
 
@@ -187,7 +187,7 @@ export const generateAssessmentCard = (
 export const generateJobCard = (
   data: DocWithId<JobsDoc> | DocWithId<UsersJobsDoc>,
   options: { user?: UsersDoc } = {}
-): OneCardTwoProps => {
+): IOneCardTwoProps => {
   let status: StatusChipProps | undefined = undefined;
 
   // Get difference between today and closingDate

@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-export interface OneCardTwoProps {
+export interface IOneCardTwoProps {
   /** Optional override to card root */
   className?: string;
   /** Optional override to card root */
@@ -150,7 +150,7 @@ export interface OneCardTwoProps {
   animatedActionButton?: boolean;
 }
 
-const OneCardTwo: React.FC<OneCardTwoProps> = ({
+const OneCardTwo: React.FC<IOneCardTwoProps> = ({
   className,
   style,
   title,

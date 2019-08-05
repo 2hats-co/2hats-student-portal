@@ -2,6 +2,7 @@ import { firestore } from '../firebase';
 import { useEffect, useReducer } from 'react';
 import equals from 'ramda/es/equals';
 const CAP = 50;
+export const INITIAL_LIMIT = 30;
 
 const collectionReducer = (prevState, newProps) => {
   if (newProps.type) {
@@ -26,7 +27,7 @@ const collectionIntialState = {
   filters: [],
   // sort: [], // needs to be disabled
   prevLimit: 0,
-  limit: 30,
+  limit: INITIAL_LIMIT,
   loading: true,
   cap: CAP,
 };
