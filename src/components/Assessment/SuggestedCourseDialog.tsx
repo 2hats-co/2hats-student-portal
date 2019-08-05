@@ -8,7 +8,7 @@ import SuggestedCourseGraphic from 'assets/images/graphics/SuggestedCourse.svg';
 import GoIcon from '@bit/twohats.common.icons.go';
 
 import { DocWithId, CoursesDoc } from '@bit/twohats.common.db-types';
-import { COURSE_REDIRECT } from 'constants/routes';
+import * as ROUTES from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -52,7 +52,10 @@ const SuggestedCourseDialog: React.FunctionComponent<
   const classes = useStyles();
 
   return (
-    <DialogPrompt classes={{ dialogPaper: classes.dialogPaper }}>
+    <DialogPrompt
+      classes={{ dialogPaper: classes.dialogPaper }}
+      alwaysAllowPaths={[ROUTES.JOBS, ROUTES.JOB, ROUTES.COURSE_REDIRECT]}
+    >
       {dialogCustomProps => (
         <div className={classes.root}>
           <TextWithGraphic
@@ -79,7 +82,7 @@ const SuggestedCourseDialog: React.FunctionComponent<
                 onClick={() => {
                   if (dialogCustomProps.redirect)
                     dialogCustomProps.redirect(
-                      `${COURSE_REDIRECT}/?id=${relatedCourse.id}`
+                      `${ROUTES.COURSE_REDIRECT}/?id=${relatedCourse.id}`
                     );
                 }}
               >
