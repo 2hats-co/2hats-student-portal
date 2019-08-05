@@ -46,6 +46,7 @@ const useStyles = makeStyles(theme => ({
   topToolbar: {
     paddingLeft: theme.spacing(1),
     paddingRight: theme.spacing(0.5),
+    [theme.breakpoints.up('sm')]: { paddingLeft: theme.spacing(2) },
   },
   logo: {
     height: 30,
