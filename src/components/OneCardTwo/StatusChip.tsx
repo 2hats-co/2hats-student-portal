@@ -10,6 +10,7 @@ const useStyles = makeStyles(theme =>
       cursor: 'inherit',
 
       ...theme.typography.overline,
+      lineHeight: 'inherit',
 
       backgroundColor: (props: any) => {
         switch (props.variant) {
