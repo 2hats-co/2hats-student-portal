@@ -1007,10 +1007,10 @@
     clsx "1.0.4"
     react "^16.8.6"
 
-"@bit/twohats.common.styles@^0.0.9":
-  version "0.0.9"
-  resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.9.tgz#59defb79c70ece9756bd0aecb147e9df21672c5f"
-  integrity sha1-Wd77eccOzpdWvQrssUfp3yFnLF8=
+"@bit/twohats.common.styles@^0.0.12":
+  version "0.0.12"
+  resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.12.tgz#0249f6683e89acd926dbc1cad82fcac277a323cd"
+  integrity sha1-Akn2aD6JrNkm28HK2C/KwnejI80=
   dependencies:
     "@material-ui/core" "^4.2.0"
     "@material-ui/styles" "4.2.0"
