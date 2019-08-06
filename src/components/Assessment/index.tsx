@@ -33,7 +33,6 @@ import {
   UsersAssessmentsDoc,
 } from '@bit/twohats.common.db-types';
 import { copyAssessment, markViewedFeedback } from 'utilities/assessments';
-import { JOB } from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -209,9 +208,7 @@ const Assessment: React.FunctionComponent<IAssessmentProps> = ({
     <main>
       <Container maxWidth="sm" component="article">
         {/* Show progress towards completing assessments for a job */}
-        {location.state &&
-          location.state.previousRoute &&
-          location.state.previousRoute.startsWith(JOB) && <JobProgress />}
+        {location.state && location.state.skillsRequired && <JobProgress />}
 
         <AssessmentHeader assessmentData={assessmentData} />
 

@@ -7,19 +7,11 @@ import {
   Paper,
   Typography,
   Slider,
-  Grid,
 } from '@material-ui/core';
 
-import SkillChip from '@bit/twohats.common.components.skill-chip';
+import RequiredSkills from 'components/Job/RequiredSkills';
+
 import UserContext from 'contexts/UserContext';
-import {
-  DocWithId,
-  JobsDoc,
-  AssessmentsDoc,
-} from '@bit/twohats.common.db-types';
-import { ASSESSMENT } from 'constants/routes';
-import { getDoc } from 'utilities/firestore';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -37,10 +29,6 @@ const useStyles = makeStyles(theme =>
       margin: `${theme.spacing(2)}px auto`,
       display: 'block',
     },
-    skillsSection: { marginBottom: theme.spacing(4) },
-    skillsHeader: { marginBottom: theme.spacing(1) },
-
-    disabledText: { color: theme.palette.text.disabled },
   })
 );
 
@@ -64,25 +52,16 @@ const useSliderStyles = makeStyles(theme =>
   })
 );
 
-type RelatdAssessmentDataState = { [id: string]: AssessmentsDoc };
-type RelatedAssessmentDataAction = {
-  type: 'UPDATE';
-  id: string;
-  data: DocWithId<AssessmentsDoc>;
-};
-
-const relatedAsseessmentDataReducer = (
-  state: RelatdAssessmentDataState,
-  action: RelatedAssessmentDataAction
-): RelatdAssessmentDataState => {
-  if (action.type === 'UPDATE' && !!action.id)
-    return { ...state, [action.id]: action.data };
-
-  return state;
-};
-
 interface IJobProgressProps extends RouteComponentProps {}
 
+/**
+ * Displays a card at the top of the assessments page to display the user’s
+ * progress towards becoming allowed to apply for a job.
+ *
+ * Only triggered if there are `skillsRequired` in `location.state`, which is
+ * from the job page (or other instances of
+ * [`RequiredSkills`](#required-skills), usually)
+ */
 const JobProgress: React.FunctionComponent<IJobProgressProps> = ({
   location,
 }) => {
@@ -97,31 +76,6 @@ const JobProgress: React.FunctionComponent<IJobProgressProps> = ({
     !location.state.companyName;
 
   const { user } = useContext(UserContext);
-  // Store the data for each asseessment document here, to get the approx time
-  const [relatedAssessmentData, relatedAssessmentDataDispatch] = useReducer(
-    relatedAsseessmentDataReducer,
-    {}
-  );
-
-  // Get assessment document data
-  useEffect(() => {
-    if (invalidData) return;
-
-    sortedSkills.forEach(x => {
-      if (
-        !relatedAssessmentData[x.id] &&
-        user.skills &&
-        !user.skills.includes(x.id)
-      )
-        getDoc(COLLECTIONS.assessments, x.id).then(docData =>
-          relatedAssessmentDataDispatch({
-            type: 'UPDATE',
-            id: x.id,
-            data: docData,
-          })
-        );
-    });
-  }, [location.state]);
 
   // Don't render if location.state is missing some stuff
   if (invalidData) return null;
@@ -132,11 +86,6 @@ const JobProgress: React.FunctionComponent<IJobProgressProps> = ({
   const numUnattainedSkills = skillsRequired.filter(
     (x: any) => !user.skills || !user.skills.includes(x.id)
   ).length;
-  // Sort skills to show unattained assessments first
-  const sortedSkills: JobsDoc['skillsRequired'] = [...skillsRequired];
-  sortedSkills.sort((a, b) =>
-    !user.skills || !user.skills.includes(b.id) ? 1 : -1
-  );
 
   // Don't show if the user has all the skills
   if (numUnattainedSkills === 0) return null;
@@ -162,57 +111,10 @@ const JobProgress: React.FunctionComponent<IJobProgressProps> = ({
         className={classes.slider}
       />
 
-      <section className={classes.skillsSection}>
-        <Grid container className={classes.skillsHeader}>
-          <Grid item xs={9}>
-            <Typography variant="overline" component="p" color="textSecondary">
-              Required&nbsp;Skills: {numUnattainedSkills}&nbsp;/&nbsp;
-              {skillsRequired.length}
-            </Typography>
-          </Grid>
-          <Grid item xs={3}>
-            <Typography
-              variant="overline"
-              component="p"
-              color="textSecondary"
-              align="right"
-            >
-              Approx. time
-            </Typography>
-          </Grid>
-        </Grid>
-
-        {sortedSkills.map(x => (
-          <Grid key={x.id} container alignItems="baseline">
-            <Grid item xs={9}>
-              <SkillChip
-                id={x.id}
-                title={x.title}
-                user={user}
-                clickable
-                route={`${ASSESSMENT}/${x.id}`}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <Typography
-                variant="body2"
-                component="p"
-                color="textSecondary"
-                align="right"
-                className={
-                  user.skills.includes(x.id) ? classes.disabledText : ''
-                }
-              >
-                {user.skills.includes(x.id)
-                  ? 'Done'
-                  : relatedAssessmentData[x.id]
-                  ? relatedAssessmentData[x.id].duration
-                  : 'Loading…'}
-              </Typography>
-            </Grid>
-          </Grid>
-        ))}
-      </section>
+      <RequiredSkills
+        skillsRequired={skillsRequired}
+        routeState={{ title: jobTitle, companyName, skillsRequired }}
+      />
 
       <Typography
         variant="h6"
