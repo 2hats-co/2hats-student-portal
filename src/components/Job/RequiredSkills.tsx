@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect } from 'react';
+import React, { useContext } from 'react';
 
 import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 
@@ -12,7 +12,7 @@ import {
   AssessmentsDoc,
 } from '@bit/twohats.common.db-types';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
-import { getDoc } from 'utilities/firestore';
+import useDocumentsOnce from 'hooks/useDocumentsOnce';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -24,23 +24,6 @@ const useStyles = makeStyles(theme =>
     disabledText: { color: theme.palette.text.disabled },
   })
 );
-
-type RelatdAssessmentDataState = { [id: string]: AssessmentsDoc };
-type RelatedAssessmentDataAction = {
-  type: 'UPDATE';
-  id: string;
-  data: DocWithId<AssessmentsDoc>;
-};
-
-const relatedAsseessmentDataReducer = (
-  state: RelatdAssessmentDataState,
-  action: RelatedAssessmentDataAction
-): RelatdAssessmentDataState => {
-  if (action.type === 'UPDATE' && !!action.id)
-    return { ...state, [action.id]: action.data };
-
-  return state;
-};
 
 interface IRequiredSkillsProps {
   /** A list of the skills required, from the JobsDoc */
@@ -61,16 +44,11 @@ const RequiredSkills: React.FunctionComponent<IRequiredSkillsProps> = ({
   const classes = useStyles();
   const { user } = useContext(UserContext);
 
-  // Store the data for each asseessment document here, to get the approx time
-  const [relatedAssessmentData, relatedAssessmentDataDispatch] = useReducer(
-    relatedAsseessmentDataReducer,
-    {}
-  );
-
   // Calculate no. unattained skills
-  const numUnattainedSkills = skillsRequired.filter(
+  const unattainedSkills = skillsRequired.filter(
     (x: any) => !user.skills || !user.skills.includes(x.id)
-  ).length;
+  );
+  const numUnattainedSkills = unattainedSkills.length;
 
   // Sort skills to show unattained assessments first
   const sortedSkills: JobsDoc['skillsRequired'] = [...skillsRequired];
@@ -78,23 +56,10 @@ const RequiredSkills: React.FunctionComponent<IRequiredSkillsProps> = ({
     !user.skills || !user.skills.includes(b.id) ? 1 : -1
   );
 
-  // Get assessment document data
-  useEffect(() => {
-    sortedSkills.forEach(x => {
-      if (
-        !relatedAssessmentData[x.id] &&
-        user.skills &&
-        !user.skills.includes(x.id)
-      )
-        getDoc(COLLECTIONS.assessments, x.id).then(docData =>
-          relatedAssessmentDataDispatch({
-            type: 'UPDATE',
-            id: x.id,
-            data: docData,
-          })
-        );
-    });
-  }, [skillsRequired]);
+  const [relatedAssessmentData] = useDocumentsOnce<DocWithId<AssessmentsDoc>>(
+    COLLECTIONS.assessments,
+    unattainedSkills.map(x => x.id)
+  );
 
   return (
     <section className={classes.root}>
