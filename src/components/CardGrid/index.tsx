@@ -29,6 +29,7 @@ import {
 } from 'constants/cards';
 import { CardDoc, getPrioritisedCards } from 'utilities/cards';
 import { PROFILE_PREFERRED_INDUSTRIES } from 'constants/routes';
+import { INITIAL_LIMIT } from 'hooks/useCollection';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -150,6 +151,8 @@ export interface ICardGridProps extends RouteComponentProps {
   LoadingCardProps?: Partial<ILoadingCardProps>;
   /** Passed down to [`EmptyState`](#emptystate) */
   EmptyStateProps?: Partial<IEmptyStateProps>;
+  /** Number at which the count will show + at the end */
+  maxCount?: number;
 }
 
 const CardGrid: React.FunctionComponent<ICardGridProps> = ({
@@ -169,6 +172,7 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
   hideIfEmpty,
   LoadingCardProps,
   EmptyStateProps,
+  maxCount = INITIAL_LIMIT,
 }) => {
   const classes = useStyles();
   const { user } = useContext(UserContext);
@@ -315,6 +319,7 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
               </>
             }
             length={cardProps.length}
+            maxCount={maxCount}
           />
 
           <Grid container component="ul" className={classes.cardGrid}>
@@ -345,6 +350,7 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
           showPreviewOnly={showPreviewOnly}
           description={headerDescription}
           length={filteredCards.length}
+          maxCount={maxCount}
         />
         {cardGrid}
       </section>

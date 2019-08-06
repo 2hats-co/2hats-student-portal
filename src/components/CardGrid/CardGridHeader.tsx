@@ -64,6 +64,8 @@ export interface ICardGridHeaderProps {
   length: number;
   /** Optionally, hide the count */
   hideCount?: boolean;
+  /** Number at which the count will show + at the end */
+  maxCount?: number;
 }
 
 const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
@@ -74,6 +76,7 @@ const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
   description,
   length,
   hideCount,
+  maxCount = INITIAL_LIMIT,
 }) => {
   const classes = useStyles();
 
@@ -115,7 +118,7 @@ const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
           </Typography>
           {length > 0 && !hideCount && (
             <Chip
-              label={`${length}${length === INITIAL_LIMIT ? '+' : ''}`}
+              label={`${length}${length === maxCount ? '+' : ''}`}
               size="small"
               className={classes.lengthChip}
             />
