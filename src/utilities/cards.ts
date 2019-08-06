@@ -21,7 +21,7 @@ import {
 import { CARD_TYPES } from 'constants/cards';
 
 import * as ROUTES from 'constants/routes';
-import { getSkillsNotAchieved } from './jobs';
+import { getSkillsNotAchieved, getJobAvailability, getCanApply } from './jobs';
 import { getPrettyDateString } from './date';
 
 /**
@@ -191,14 +191,12 @@ export const generateJobCard = (
   let status: StatusChipProps | undefined = undefined;
 
   // Get difference between today and closingDate
-  const diffDays = -1 * moment().diff(data.closingDate.toDate(), 'days');
+  const { jobClosed, diffDays } = getJobAvailability(data);
 
   // user can apply if not closed && user has all the skills &&
   // user hasn't already applied
-  const canApply =
-    diffDays > 0 &&
-    (!('jobId' in data) || !data.jobId) &&
-    getSkillsNotAchieved(options.user, data.skillsRequired).length === 0;
+  const canApply = options.user ? getCanApply(options.user, data) : false;
+
   let action = canApply ? 'Apply now' : 'Learn more';
   const animatedActionButton = !!canApply;
 
@@ -208,7 +206,7 @@ export const generateJobCard = (
     action = 'View';
   }
   // Otherwise, if closed for applications
-  else if (diffDays <= 0) status = { label: 'Closed', variant: 'closed' };
+  else if (jobClosed) status = { label: 'Closed', variant: 'closed' };
   // Otherwise, if less than 3 days to closing date
   else if (diffDays <= 3) status = { label: 'Closing soon', variant: 'fail' };
   // Otherwise, mark as new
