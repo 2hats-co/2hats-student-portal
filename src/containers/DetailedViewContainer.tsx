@@ -145,7 +145,7 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   if (docState.doc) {
     switch (docType) {
       case 'job':
-        return <Job data={docState.doc} user={user} />;
+        return <Job jobData={docState.doc} />;
       case 'assessment':
         return <Assessment assessmentData={docState.doc} />;
       default:
