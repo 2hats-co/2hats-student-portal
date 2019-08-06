@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme =>
     ...QuillStyles(theme),
 
     root: { margin: theme.spacing(4, 0) },
-    section: { marginTop: theme.spacing(3) },
+    section: { marginTop: theme.spacing(4) },
 
     answerInputWrapper: { marginTop: theme.spacing(2) },
 

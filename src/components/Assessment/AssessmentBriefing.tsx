@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme =>
   createStyles({
     ...RenderedHtmlStyles(theme),
 
-    section: { marginBottom: theme.spacing(3) },
+    section: { marginBottom: theme.spacing(4) },
     overline: { marginBottom: theme.spacing(1.5) },
 
     maskedSection: {

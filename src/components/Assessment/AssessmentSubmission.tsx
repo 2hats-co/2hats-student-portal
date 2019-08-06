@@ -30,7 +30,7 @@ import {
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {},
-    section: { marginTop: theme.spacing(3) },
+    section: { marginTop: theme.spacing(4) },
 
     loading: {
       marginTop: theme.spacing(3),

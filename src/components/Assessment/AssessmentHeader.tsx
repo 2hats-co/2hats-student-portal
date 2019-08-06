@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme =>
       marginBottom: theme.spacing(3),
     },
 
-    section: { marginBottom: theme.spacing(3) },
+    section: { marginBottom: theme.spacing(4) },
 
     industryIcon: {
       margin: theme.spacing(-1.5),
@@ -62,12 +62,7 @@ const AssessmentHeader: React.FunctionComponent<IAssessmentHeaderProps> = ({
         {assessmentData.title}
       </Typography>
 
-      <Grid
-        container
-        alignItems="center"
-        className={classes.section}
-        component="section"
-      >
+      <Grid container alignItems="center" className={classes.section}>
         <CardIcon
           className={classes.industryIcon}
           industry={assessmentData.category}
