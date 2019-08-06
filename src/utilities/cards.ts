@@ -152,7 +152,7 @@ export const generateAssessmentCard = (
     options.user.touchedAssessments.includes(data.id)
   ) {
     // We only know that they started this, so show ongoing
-    action = 'View';
+    action = 'Continue';
     status = { label: 'Ongoing', variant: 'ongoing' };
   }
   // Otherwise, mark as new
