@@ -3,19 +3,21 @@ import { Theme } from 'Theme';
 
 // import { INDUSTRIES } from '@bit/twohats.common.constants';
 
-import { Business, Memory } from '@material-ui/icons';
+import { Business, Memory, Palette } from '@material-ui/icons';
 import Bullhorn from 'mdi-material-ui/Bullhorn';
 
 export enum INDUSTRIES {
   MARKETING = 'marketing',
   SALES = 'sales',
   TECH = 'tech',
+  DESIGN = 'design',
 }
 
 export enum INDUSTRY_DISPLAY_NAMES {
   tech = 'Tech',
   marketing = 'Marketing',
   sales = 'Business',
+  design = 'design',
 }
 
 export enum GRADIENT_COLORS {
@@ -29,6 +31,7 @@ export const INDUSTRY_ICONS = {
   [INDUSTRIES.SALES]: Business,
   [INDUSTRIES.MARKETING]: Bullhorn,
   [INDUSTRIES.TECH]: Memory,
+  [INDUSTRIES.DESIGN]: Palette,
 };
 
 export const CARD_TYPES = {
