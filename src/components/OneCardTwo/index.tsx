@@ -14,7 +14,7 @@ import {
   Button,
 } from '@material-ui/core';
 
-import GoIcon from '@material-ui/icons/KeyboardArrowRight';
+import GoIcon from '@bit/twohats.common.icons.go';
 
 import CardImage from './CardImage';
 import VideoPopup from './VideoPopup';
@@ -85,19 +85,6 @@ const useStyles = makeStyles(theme =>
     actionButton: {
       backgroundColor: 'transparent !important',
       '& svg': { marginLeft: theme.spacing(0.25) },
-    },
-
-    animatedActionButton: {
-      animationName: '$bounce-alpha',
-      animationDuration: '1.6s',
-      animationIterationCount: 'infinite',
-      animationTimingFunction: theme.transitions.easing.easeInOut,
-    },
-    '@keyframes bounce-alpha': {
-      '0%': { opacity: 1, transform: ' translateX(0px) scale(1)' },
-      '25%': { opacity: 0, transform: 'translateX(10px) scale(0.9)' },
-      '26%': { opacity: 0, transform: 'translateX(-10px) scale(0.9)' },
-      '55%': { opacity: 1, transform: ' translateX(0px) scale(1)' },
     },
   })
 );
@@ -245,11 +232,7 @@ const OneCardTwo: React.FC<IOneCardTwoProps> = ({
             className={classes.actionButton}
           >
             {action}
-            <GoIcon
-              className={clsx(
-                animatedActionButton && classes.animatedActionButton
-              )}
-            />
+            <GoIcon animated={animatedActionButton} />
           </Button>
         </CardActions>
       </CardActionArea>
