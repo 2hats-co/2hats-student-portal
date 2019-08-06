@@ -987,13 +987,23 @@
     "@bit/twohats.common.constants" "1.0.8"
     firebase "^6.2.4"
 
-"@bit/twohats.common.icons.go@1.0.0", "@bit/twohats.common.icons.go@^1.0.0":
+"@bit/twohats.common.icons.go@1.0.0":
   version "1.0.0"
   resolved "https://node.bit.dev/twohats.common.icons.go/-/twohats.common.icons.go-1.0.0.tgz#00f7f35368605d8285b4e4dd4a94c075736d88c3"
   integrity sha1-APfzU2hgXYKFtOTdSpTAdXNtiMM=
   dependencies:
     "@material-ui/icons" "^4.2.0"
     "@material-ui/styles" "4.2.0"
+    clsx "1.0.4"
+    react "^16.8.6"
+
+"@bit/twohats.common.icons.go@^1.0.2":
+  version "1.0.2"
+  resolved "https://node.bit.dev/twohats.common.icons.go/-/twohats.common.icons.go-1.0.2.tgz#04b162dadcaf716092679cb171b83e5a9c92a344"
+  integrity sha1-BLFi2tyvcWCSZ5yxcbg+WpySo0Q=
+  dependencies:
+    "@material-ui/core" "^4.2.0"
+    "@material-ui/icons" "^4.2.0"
     clsx "1.0.4"
     react "^16.8.6"
 
