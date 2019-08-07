@@ -941,6 +941,16 @@
     clsx "1.0.4"
     react "^16.8.6"
 
+"@bit/twohats.common.components.naked-expansion-panel@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.0.tgz#a06782a30006de600b59a4a0a18ff0accea0c919"
+  integrity sha1-oGeCowAG3mALWaSgoY/wrM6gyRk=
+  dependencies:
+    "@bit/twohats.common.styles" "0.0.15"
+    "@material-ui/core" "^4.2.0"
+    "@material-ui/icons" "^4.2.0"
+    react "^16.8.6"
+
 "@bit/twohats.common.components.skill-chip@^1.0.3":
   version "1.0.3"
   resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.3.tgz#f785ea2531957113d603459a3384658914f6300a"
@@ -1007,10 +1017,10 @@
     clsx "1.0.4"
     react "^16.8.6"
 
-"@bit/twohats.common.styles@^0.0.12":
-  version "0.0.12"
-  resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.12.tgz#0249f6683e89acd926dbc1cad82fcac277a323cd"
-  integrity sha1-Akn2aD6JrNkm28HK2C/KwnejI80=
+"@bit/twohats.common.styles@0.0.15", "@bit/twohats.common.styles@^0.0.15":
+  version "0.0.15"
+  resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.15.tgz#6ee5cde2a70531cd848a27524810d6eb3d28786d"
+  integrity sha1-buXN4qcFMc2EiidSSBDW6z0oeG0=
   dependencies:
     "@material-ui/core" "^4.2.0"
     "@material-ui/styles" "4.2.0"

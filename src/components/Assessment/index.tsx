@@ -6,10 +6,6 @@ import {
   createStyles,
   Container,
   Button,
-  ExpansionPanel,
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-  Typography,
   Divider,
 } from '@material-ui/core';
 
@@ -22,9 +18,9 @@ import CompletionDelight from './CompletionDelight';
 import JobProgress from './JobProgress';
 
 import LoadingScreen from 'components/LoadingScreen';
+import NakedExpansionPanel from '@bit/twohats.common.components.naked-expansion-panel';
 
 import GoIcon from '@bit/twohats.common.icons.go';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import UserContext from 'contexts/UserContext';
 import {
@@ -33,35 +29,12 @@ import {
   UsersAssessmentsDoc,
 } from '@bit/twohats.common.db-types';
 import { copyAssessment, markViewedFeedback } from 'utilities/assessments';
+import { NakedExpansionPanelStyles } from '@bit/twohats.common.styles';
 
 const useStyles = makeStyles(theme =>
   createStyles({
     centered: { textAlign: 'center' },
-
-    expansionPanel: {
-      boxShadow: 'none',
-      backgroundColor: 'transparent',
-      '&::before': { display: 'none' },
-
-      '&$expansionPanelExpanded': { margin: 0 },
-    },
-    expansionPanelExpanded: {},
-
-    expansionPanelSummary: {
-      padding: 0,
-      '&$expansionPanelSummaryExpanded': { minHeight: 48 },
-    },
-    expansionPanelSummaryExpanded: {},
-    expansionPanelSummaryExpandIcon: { right: theme.spacing(-1.75) },
-    expansionPanelSummaryContent: {
-      '&$expansionPanelSummaryExpanded': {
-        margin: '12px 0',
-      },
-    },
-    expansionPanelDetails: {
-      flexDirection: 'column',
-      padding: 0,
-    },
+    ...NakedExpansionPanelStyles(theme),
   })
 );
 
@@ -117,65 +90,21 @@ const Assessment: React.FunctionComponent<IAssessmentProps> = ({
         {'screened' in assessmentData && assessmentData.screened && (
           <AssessmentFeedback assessmentData={assessmentData} />
         )}
+
         <Divider />
-        <ExpansionPanel
-          classes={{
-            root: classes.expansionPanel,
-            expanded: classes.expansionPanelExpanded,
-          }}
-        >
-          <ExpansionPanelSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.expansionPanelSummaryExpandIcon}
-              />
-            }
-            classes={{
-              root: classes.expansionPanelSummary,
-              expanded: classes.expansionPanelSummaryExpanded,
-              content: classes.expansionPanelSummaryContent,
-            }}
-          >
-            <Typography variant="overline" component="h2">
-              Assessment Details
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-            {/* Briefing */}
-            <AssessmentBriefing
-              assessmentData={assessmentData}
-              previewInstructionsOnly={!isUserSubmission}
-            />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+
+        <NakedExpansionPanel header="Assessment Details">
+          <AssessmentBriefing
+            assessmentData={assessmentData}
+            previewInstructionsOnly={!isUserSubmission}
+          />
+        </NakedExpansionPanel>
+
         <Divider />
-        <ExpansionPanel
-          classes={{
-            root: classes.expansionPanel,
-            expanded: classes.expansionPanelExpanded,
-          }}
-        >
-          <ExpansionPanelSummary
-            expandIcon={
-              <ExpandMoreIcon
-                className={classes.expansionPanelSummaryExpandIcon}
-              />
-            }
-            classes={{
-              root: classes.expansionPanelSummary,
-              expanded: classes.expansionPanelSummaryExpanded,
-              content: classes.expansionPanelSummaryContent,
-            }}
-          >
-            <Typography variant="overline" component="h2">
-              Your Submission
-            </Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails className={classes.expansionPanelDetails}>
-            {/* Submission */}
-            <AssessmentSubmission assessmentData={assessmentData} />
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+
+        <NakedExpansionPanel header="Your Submission">
+          <AssessmentSubmission assessmentData={assessmentData} />
+        </NakedExpansionPanel>
       </>
     );
   else
