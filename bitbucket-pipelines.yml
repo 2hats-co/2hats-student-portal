@@ -16,7 +16,7 @@ pipelines:
           # Run script to write config files
             - node scripts/deployconfig-staging
             # Add bit repo authentication
-            - echo "$BIT_NODE_TOKEN_INFO2HATS" >> .npmrc
+            - echo "//node.bit.dev/:_authToken = $BIT_NODE_TOKEN_INFO2HATS" >> .npmrc
             # Verify files are correct
             - cat .env
             - cat .firebaserc
@@ -37,7 +37,7 @@ pipelines:
           # Run script to write config files
           - node scripts/deployconfig-production
           # Add bit repo authentication
-          - echo "$BIT_NODE_TOKEN_INFO2HATS" >> .npmrc
+          - echo "//node.bit.dev/:_authToken = $BIT_NODE_TOKEN_INFO2HATS" >> .npmrc
           # Verify files are correct
           - cat .env
           - cat .firebaserc
