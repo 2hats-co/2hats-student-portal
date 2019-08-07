@@ -79,7 +79,7 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
       </Grid>
 
       <section className={classes.section}>
-        <Grid container alignItems="center" spacing={3}>
+        <Grid container alignItems="flex-end" spacing={3}>
           <Grid item xs={12} sm={4}>
             <Typography variant="h5">
               {jobData.commitment.toString().replace('-', '–')}
@@ -113,7 +113,13 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
           <Grid item xs={12} sm={4}>
             <Typography variant="h5">
               <StatusChip
-                label={jobClosed ? 'Closed' : `${diffDays} days`}
+                label={
+                  jobClosed
+                    ? 'Closed'
+                    : diffDays === 0
+                    ? 'Last day'
+                    : `${diffDays} day${diffDays !== 1 ? 's' : ''}`
+                }
                 variant={jobClosed ? 'closed' : diffDays <= 3 ? 'fail' : 'new'}
               />
             </Typography>

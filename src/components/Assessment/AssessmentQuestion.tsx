@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme =>
     ...RenderedHtmlStyles(theme),
     ...QuillStyles(theme),
 
-    root: { margin: theme.spacing(4, 0) },
+    root: { margin: theme.spacing(0, 0, 4) },
     section: { marginTop: theme.spacing(4) },
 
     answerInputWrapper: { marginTop: theme.spacing(2) },
@@ -242,6 +242,7 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
                 variant="overline"
                 color="textSecondary"
                 component="h2"
+                gutterBottom
               >
                 Having issues?
               </Typography>
