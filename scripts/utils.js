@@ -42,7 +42,6 @@ module.exports.writeFirebaserc = function(env) {
 module.exports.writeFirebaseJson = function(env) {
   let fileContents = {
     hosting: {
-      target: 'SP3',
       public: 'build',
       ignore: ['firebase.json', '**/.*', '**/node_modules/**'],
       rewrites: [
