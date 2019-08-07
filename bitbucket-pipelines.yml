@@ -13,13 +13,20 @@ pipelines:
             - node
             - globalnode
           script: # Modify the commands below to build your repository.
+          # Run script to write config files
             - node scripts/deployconfig-staging
+            # Add bit repo authentication
+            - echo "$BIT_NODE_TOKEN_INFO2HATS" >> .npmrc
+            # Verify files are correct
             - cat .env
             - cat .firebaserc
             - cat firebase.json
+            # Install dependencies
             - yarn global add firebase-tools
             - yarn install
+            # Build
             - CI=false yarn build
+            # Deploy to hosting
             - firebase deploy --token "$FIREBASE_TOKEN" --project staging2hats --non-interactive --public build --only hosting
     SP3-production:
       - step:
@@ -27,13 +34,20 @@ pipelines:
           - node
           - globalnode
           script: # Modify the commands below to build your repository.
+          # Run script to write config files
           - node scripts/deployconfig-production
+          # Add bit repo authentication
+          - echo "$BIT_NODE_TOKEN_INFO2HATS" >> .npmrc
+          # Verify files are correct
           - cat .env
           - cat .firebaserc
           - cat firebase.json
+          # Install dependencies
           - yarn global add firebase-tools
           - yarn install
+          # Build
           - CI=false yarn build
+          # Deploy to hosting
           - firebase deploy --token "$FIREBASE_TOKEN" --project production2hats --non-interactive --public build --only hosting
 definitions: 
    caches: 
