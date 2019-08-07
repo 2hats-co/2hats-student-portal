@@ -15,7 +15,7 @@ module.exports.writeEnv = function(env) {
   fs.writeFile(
     './.env',
     `REACT_APP_ENV='${env}'
-  SKIP_PREFLIGHT_CHECK=true
+SKIP_PREFLIGHT_CHECK=true
   `,
     fsCallback('.env')
   );
