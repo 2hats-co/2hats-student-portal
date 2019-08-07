@@ -1,5 +1,6 @@
 import { auth } from '../../firebase';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
+import ReactPixel from 'react-facebook-pixel';
 
 export const speedyAuth = (userInfo, router, errorBar) =>
   cloudFunction(
@@ -7,6 +8,7 @@ export const speedyAuth = (userInfo, router, errorBar) =>
     userInfo,
     result => {
       auth.signInWithCustomToken(result.data.token).then(() => {
+        ReactPixel.trackCustom('CompleteRegistration');
         router(result.data.route);
       });
       console.log('success: ', result);
