@@ -42,10 +42,18 @@ export const getJobAvailability = (
   return { jobClosed, diffDays: Math.round(diffDays) };
 };
 
+export const getHasApplied = (
+  user: UsersDoc,
+  jobData: DocWithId<JobsDoc> | DocWithId<UsersJobsDoc>
+) =>
+  ('jobId' in jobData && jobData.jobId) ||
+  (user.touchedJobs &&
+    user.touchedJobs.includes('jobId' in jobData ? jobData.jobId : jobData.id));
+
 /**
  * Returns whether the student can apply for the job or not, based on:
  * 1. If the job is still open
- * 2. If the job doc given is not a submission doc
+ * 2. If the user has not applied (not a submission doc, not in touched jobs)
  * 3. If the user has all the skills required
  * @param user User document
  * @param jobData The job doc
@@ -59,7 +67,7 @@ export const getCanApply = (
 
   return (
     !jobClosed &&
-    (!('jobId' in jobData) || !jobData.jobId) &&
+    !getHasApplied(user, jobData) &&
     getSkillsNotAchieved(user, jobData.skillsRequired).length === 0
   );
 };

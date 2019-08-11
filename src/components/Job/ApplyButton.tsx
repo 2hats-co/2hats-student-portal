@@ -13,7 +13,11 @@ import GoIcon from '@bit/twohats.common.icons.go';
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { JOB_APPLICATION } from 'constants/routes';
 import UserContext from 'contexts/UserContext';
-import { getSkillsNotAchieved, getCanApply } from 'utilities/jobs';
+import {
+  getSkillsNotAchieved,
+  getCanApply,
+  getJobAvailability,
+} from 'utilities/jobs';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -28,6 +32,8 @@ const useStyles = makeStyles(theme =>
       marginRight: 'auto',
       '&:last-of-type': { marginBottom: theme.spacing(4) },
     },
+
+    closedMessage: { margin: theme.spacing(8, 0) },
   })
 );
 
@@ -45,12 +51,28 @@ const ApplyButton: React.FunctionComponent<IApplyButtonProps> = ({
   const skillsNotAchieved = getSkillsNotAchieved(user, jobData.skillsRequired);
   const canApply = getCanApply(user, jobData);
 
+  const { jobClosed } = getJobAvailability(jobData);
+  if (jobClosed)
+    return (
+      <div className={classes.root}>
+        <Typography
+          variant="h6"
+          color="textSecondary"
+          className={classes.closedMessage}
+          component="p"
+        >
+          We are no longer accepting applications for this job.
+        </Typography>
+      </div>
+    );
+
   return (
     <div className={classes.root}>
       {!canApply && (
         <>
           <Typography
             variant="h6"
+            component="p"
             color="primary"
             gutterBottom
             className={classes.messageText}
@@ -61,6 +83,7 @@ const ApplyButton: React.FunctionComponent<IApplyButtonProps> = ({
           </Typography>
           <Typography
             variant="h6"
+            component="p"
             color="primary"
             gutterBottom
             className={classes.messageText}
