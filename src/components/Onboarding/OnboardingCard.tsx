@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 import {
   makeStyles,
@@ -9,9 +10,12 @@ import {
 } from '@material-ui/core';
 
 import OnboardingHeader from './OnboardingHeader';
+import { OnboardingContainerProps } from 'containers/OnboardingContainer';
 
 import Background from 'assets/background/Colour.svg';
 import { setBackground } from 'utilities/styling';
+
+const TRANSITION_DURATION = 350;
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -57,10 +61,26 @@ const useStyles = makeStyles(theme =>
       minHeight: ({ fullScreen }: any) =>
         fullScreen ? 0 : 640 - theme.spacing(4 * 2),
     },
+
+    slide: {
+      '&-enter': {
+        opacity: 0,
+        transform: 'translateX(40px)',
+      },
+      '&-enter-active': {
+        opacity: 1,
+        transform: 'translateX(0)',
+        transition: theme.transitions.create(['opacity', 'transform'], {
+          duration: TRANSITION_DURATION,
+        }),
+      },
+
+      '&-exit': { display: 'none' },
+    },
   })
 );
 
-export interface OnboardingCardProps {
+export interface OnboardingCardProps extends OnboardingContainerProps {
   children?: React.ReactNode;
   /** Show a white screen (and logo) or not */
   fullScreen?: boolean;
@@ -76,6 +96,7 @@ const OnboardingCard: React.FC<OnboardingCardProps> = ({
   children,
   fullScreen = false,
   progressValue = 50,
+  location,
 }) => {
   const classes = useStyles({ fullScreen });
   const theme = useTheme();
@@ -109,7 +130,15 @@ const OnboardingCard: React.FC<OnboardingCardProps> = ({
             component="main"
             className={classes.contentWrapper}
           >
-            {children}
+            <TransitionGroup component={null}>
+              <CSSTransition
+                timeout={TRANSITION_DURATION}
+                classNames={classes.slide}
+                key={location.key}
+              >
+                <div>{children}</div>
+              </CSSTransition>
+            </TransitionGroup>
           </Grid>
         </Paper>
       </Grid>

@@ -17,10 +17,12 @@ import { ONBOARDING_STAGES } from 'utilities/onboarding';
 import { updateDoc } from 'utilities/firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 
-export interface OnboardingCtaProps
+export interface OnboardingContainerProps
   extends RouteComponentProps<{ stage?: string }> {}
 
-const OnboardingContainer: React.FC<OnboardingCtaProps> = ({ match }) => {
+const OnboardingContainer: React.FC<OnboardingContainerProps> = props => {
+  const { match } = props;
+
   // Scroll to top and change title
   useEffect(() => {
     document.title = 'Welcome – 2hats';
@@ -56,6 +58,7 @@ const OnboardingContainer: React.FC<OnboardingCtaProps> = ({ match }) => {
 
   // Render the stage based off the URL
   const passedProps: OnboardingCardProps = {
+    ...props,
     children: null,
     progressValue: 0,
     fullScreen: false,
