@@ -76,7 +76,9 @@ const AssessmentHeader: React.FunctionComponent<IAssessmentHeaderProps> = ({
       <section className={classes.section}>
         <Grid container alignItems="center" spacing={3}>
           <Grid item xs={12} sm={8}>
-            <Typography variant="h5">{assessmentData.duration}</Typography>
+            <Typography variant="h5" component="div">
+              {assessmentData.duration}
+            </Typography>
 
             <Grid container alignItems="center" className={classes.overline}>
               <Typography variant="overline" color="textSecondary">
@@ -90,7 +92,7 @@ const AssessmentHeader: React.FunctionComponent<IAssessmentHeaderProps> = ({
           </Grid>
           {cardData.status && cardData.status.label && (
             <Grid item xs={12} sm={4}>
-              <Typography variant="h5">
+              <Typography variant="h5" component="div">
                 <StatusChip {...cardData.status} />
               </Typography>
 
