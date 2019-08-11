@@ -15,7 +15,6 @@ import { COLLECTIONS } from '@bit/twohats.common.constants';
 import UserContext from '../contexts/UserContext';
 
 import LoadingScreen from '../components/LoadingScreen';
-import BackButton from '../components/ContainerHeader/BackButton';
 
 const styles = theme => ({
   root: {
@@ -124,7 +123,6 @@ function CourseRedirectContainer(props) {
         <Typography variant="h6" className={classes.message}>
           This link is invalid
         </Typography>
-        <BackButton className={classes.backButton} />
       </Grid>
     </Grid>
   );
