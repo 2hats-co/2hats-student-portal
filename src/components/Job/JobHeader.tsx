@@ -9,6 +9,7 @@ import StatusChip from 'components/OneCardTwo/StatusChip';
 import { getIndustry } from 'utilities/cards';
 import { getJobAvailability } from 'utilities/jobs';
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
+import { convertToEnDash } from 'utilities';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -16,6 +17,12 @@ const useStyles = makeStyles(theme =>
       width: 80,
       height: 80,
       marginRight: theme.spacing(4),
+
+      [theme.breakpoints.down('xs')]: {
+        width: 64,
+        height: 64,
+        marginRight: theme.spacing(2),
+      },
     },
     jobTitle: { marginBottom: theme.spacing(1) },
 
@@ -81,8 +88,8 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
       <section className={classes.section}>
         <Grid container alignItems="flex-end" spacing={3}>
           <Grid item xs={12} sm={4}>
-            <Typography variant="h5">
-              {jobData.commitment.toString().replace('-', '–')}
+            <Typography variant="h5" component="div">
+              {convertToEnDash(jobData.commitment)}
             </Typography>
 
             <Typography
@@ -96,8 +103,8 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <Typography variant="h5">
-              ${jobData.payRate.toString().replace('-', '–')}
+            <Typography variant="h5" component="div">
+              ${convertToEnDash(jobData.payRate)}
             </Typography>
 
             <Typography
@@ -111,7 +118,7 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
           </Grid>
 
           <Grid item xs={12} sm={4}>
-            <Typography variant="h5">
+            <Typography variant="h5" component="div">
               <StatusChip
                 label={
                   jobClosed

@@ -105,3 +105,5 @@ export const sanitiseHtml = str =>
   str
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
+
+export const convertToEnDash = input => input.toString().replace('-', '–');
