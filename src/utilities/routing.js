@@ -11,9 +11,10 @@ export const getBaseRoute = route => {
 export const getDisplayName = route => {
   if (!route) return '';
 
+  if (!route.startsWith(ROUTES.JOBS) && route.startsWith(ROUTES.JOB))
+    return 'Job Description';
+
   switch (route) {
-    case ROUTES.JOB:
-      return 'Job Description';
     case ROUTES.COURSE_REDIRECT:
       return 'Course';
 
