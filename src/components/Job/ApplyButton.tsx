@@ -75,7 +75,16 @@ const ApplyButton: React.FunctionComponent<IApplyButtonProps> = ({
         variant="contained"
         size="large"
         component={Link}
-        to={{ ...location, pathname: location.pathname + JOB_APPLICATION }}
+        to={{
+          ...location,
+          pathname: location.pathname + JOB_APPLICATION,
+          state: {
+            ...location.state,
+            // Prevents a second loading screen to show, which
+            // will stop DialogPrompt from being properly loaded
+            preventDoubleSubmissionCheck: true,
+          },
+        }}
         disabled={!canApply}
       >
         Apply

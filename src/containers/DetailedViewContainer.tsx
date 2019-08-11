@@ -30,6 +30,14 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   const [docState, docDispatch] = useDocument();
   const [loading, setLoading] = useState(false);
 
+  // Find out if this is a submission document from location.search
+  const parsedQuery = queryString.parse(location.search);
+  const isYours = parsedQuery.yours && parsedQuery.yours === 'true';
+  // Get corresponding docPath from URL
+  const docPath = isYours
+    ? `${COLLECTIONS.users}/${user.id}/${docType}s/${match.params.id}`
+    : `${docType}s/${match.params.id}`;
+
   // Show generic title on location change, before document loads
   useEffect(() => {
     document.title = `2hats – ${capitalise(docType)}s`;
@@ -40,7 +48,6 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
     // If not in the /type/:id format, check if it's
     // in the old /type?id=<id> format first
     if (!match.params || !match.params.id) {
-      const parsedQuery = queryString.parse(location.search);
       // Redirect to new URL format
       if (parsedQuery.id) {
         const newParsedQuery = { ...parsedQuery };
@@ -65,8 +72,9 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
     // But only if in the new URL format
     if (!match.params || !match.params.id) return;
     // And only if we're not in a user submission document
-    const parsedQuery = queryString.parse(location.search);
-    if (parsedQuery.yours) return;
+    if (isYours) return;
+    // And as long as we haven't set the flag in location.state to prevent this
+    if (location.state && location.state.preventDoubleSubmissionCheck) return;
 
     setLoading(true);
 
@@ -105,18 +113,11 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
           error
         )
       );
-  }, [match, location]);
+  }, [match]);
 
   // Get the document
   useEffect(() => {
     if (!match.params || !match.params.id) return;
-
-    const parsedQuery = queryString.parse(location.search);
-    const isYours = parsedQuery.yours && parsedQuery.yours === 'true';
-
-    const docPath = isYours
-      ? `${COLLECTIONS.users}/${user.id}/${docType}s/${match.params.id}`
-      : `${docType}s/${match.params.id}`;
 
     if (docState.path !== docPath)
       docDispatch({ path: docPath, loading: true });
