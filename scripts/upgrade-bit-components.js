@@ -6,7 +6,7 @@
 const fs = require('fs');
 const child_process = require('child_process');
 
-const filterRegex = /@bit\/.*/;
+const filterRegex = /@bit\/twohats.*/;
 
 fs.readFile('./package.json', function(err, data) {
   if (err) throw err;
