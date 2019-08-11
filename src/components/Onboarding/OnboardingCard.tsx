@@ -17,6 +17,8 @@ const useStyles = makeStyles(theme =>
   createStyles({
     root: {
       minHeight: '100vh',
+      padding:
+        'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
     },
 
     // Use a wrapper with padding instead of setting a margin on the Paper

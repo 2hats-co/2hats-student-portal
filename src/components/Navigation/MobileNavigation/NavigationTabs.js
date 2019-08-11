@@ -23,6 +23,8 @@ const useStyles = makeStyles(theme => ({
   bottomAppBar: {
     top: 'auto',
     bottom: 0,
+    padding:
+      '0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
   },
 
   BottomNavigationActionRoot: {
@@ -83,7 +85,12 @@ const NavigationTabs = ({ location, triggerHide }) => {
 
   return (
     <Slide appear={false} direction="up" in={!triggerHide}>
-      <AppBar position="fixed" className={classes.bottomAppBar}>
+      <AppBar
+        position="fixed"
+        className={classes.bottomAppBar}
+        color="default"
+        component="footer"
+      >
         <BottomNavigation
           value={value}
           onChange={(e, val) => setValue(val)}

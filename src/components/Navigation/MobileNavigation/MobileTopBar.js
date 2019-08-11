@@ -36,6 +36,8 @@ const useStyles = makeStyles(theme => ({
       }) + ' !important',
     // Stay below cards when not scrolled down:
     zIndex: 'auto',
+    padding:
+      'env(safe-area-inset-top) env(safe-area-inset-right) 0 env(safe-area-inset-left)',
   },
   shadow: {
     backgroundColor: theme.palette.background.elevation[4],
