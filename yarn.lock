@@ -938,10 +938,10 @@
     clsx "1.0.4"
     react "^16.8.6"
 
-"@bit/twohats.common.components.help-popup@^1.0.2":
-  version "1.0.2"
-  resolved "https://node.bit.dev/twohats.common.components.help-popup/-/twohats.common.components.help-popup-1.0.2.tgz#b76ce2f37fce19e859574c22b51589b46ebc3f0b"
-  integrity sha1-t2zi83/OGehZV0witRWJtG68Pws=
+"@bit/twohats.common.components.help-popup@^1.1.1":
+  version "1.1.1"
+  resolved "https://node.bit.dev/twohats.common.components.help-popup/-/twohats.common.components.help-popup-1.1.1.tgz#4d52f9b5ad13ee9547e339455cd1b07ac1b3414e"
+  integrity sha1-TVL5ta0T7pVH4zlFXNGwesGzQU4=
   dependencies:
     "@material-ui/core" "^4.3.1"
     "@material-ui/icons" "^4.2.1"
