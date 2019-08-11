@@ -62,7 +62,8 @@
     "test": "node test/index",
     "eject": "react-scripts eject",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "upgrade-bit": "node scripts/upgrade-bit-components.js"
   },
   "eslintConfig": {
     "extends": "react-app"
