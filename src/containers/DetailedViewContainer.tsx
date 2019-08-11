@@ -1,10 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { lazy, Suspense, useEffect, useState, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import queryString from 'query-string';
 
 import LoadingScreen from 'components/LoadingScreen';
-import Job from 'components/Job';
-import Assessment from 'components/Assessment';
 import FourOhFour from 'components/routing/FourOhFour';
 
 import useDocument from 'hooks/useDocument';
@@ -12,6 +10,11 @@ import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { capitalise } from 'utilities';
 import UserContext from 'contexts/UserContext';
 import { getFirstIdOfQuery } from 'utilities/firestore';
+
+const Assessment = lazy(() =>
+  import('components/Assessment' /* webpackChunkName: "Assessment" */)
+);
+const Job = lazy(() => import('components/Job' /* webpackChunkName: "Job" */));
 
 export interface DetailedViewContainerProps
   extends RouteComponentProps<{ id: string }> {}
@@ -145,9 +148,25 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   if (docState.doc) {
     switch (docType) {
       case 'job':
-        return <Job jobData={docState.doc} />;
+        return (
+          <Suspense
+            fallback={
+              <LoadingScreen message="Reticulating splines…" contained />
+            }
+          >
+            <Job jobData={docState.doc} />
+          </Suspense>
+        );
       case 'assessment':
-        return <Assessment assessmentData={docState.doc} />;
+        return (
+          <Suspense
+            fallback={
+              <LoadingScreen message="Reticulating splines…" contained />
+            }
+          >
+            <Assessment assessmentData={docState.doc} />
+          </Suspense>
+        );
       default:
         return <FourOhFour />;
     }

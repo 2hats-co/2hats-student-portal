@@ -23,11 +23,14 @@ import ProtectedRoute from 'components/routing/ProtectedRoute';
 import { HistoryProvider } from 'contexts/HistoryContext';
 
 import { AUTHENTICATION_CONTAINER } from 'constants/views';
-const DetailedViewContainer = lazy(() =>
-  import(
-    'containers/DetailedViewContainer' /* webpackChunkName: "DetailedViewContainer" */
-  )
-);
+
+import DashboardContainer from 'containers/DashboardContainer';
+import AssessmentsContainer from 'containers/AssessmentsContainer';
+import JobsContainer from 'containers/JobsContainer';
+import CoursesContainer from 'containers/CoursesContainer';
+import CourseRedirectContainer from 'containers/CourseRedirectContainer';
+import DetailedViewContainer from 'containers/DetailedViewContainer';
+
 const AuthenticationContainer = lazy(() =>
   import(
     'containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */
@@ -48,32 +51,9 @@ const OnboardingContainer = lazy(() =>
     'containers/OnboardingContainer' /* webpackChunkName: "OnboardingContainer" */
   )
 );
-const DashboardContainer = lazy(() =>
-  import(
-    'containers/DashboardContainer' /* webpackChunkName: "DashboardContainer" */
-  )
-);
 const ProfileContainer = lazy(() =>
   import(
     'containers/ProfileContainer' /* webpackChunkName: "ProfileContainer" */
-  )
-);
-const JobsContainer = lazy(() =>
-  import('containers/JobsContainer' /* webpackChunkName: "JobsContainer" */)
-);
-const AssessmentsContainer = lazy(() =>
-  import(
-    'containers/AssessmentsContainer' /* webpackChunkName: "AssessmentsContainer" */
-  )
-);
-const CoursesContainer = lazy(() =>
-  import(
-    'containers/CoursesContainer' /* webpackChunkName: "CoursesContainer" */
-  )
-);
-const CourseRedirectContainer = lazy(() =>
-  import(
-    'containers/CourseRedirectContainer' /* webpackChunkName: "CourseRedirectContainer" */
   )
 );
 const SchedulerContainer = lazy(() =>
