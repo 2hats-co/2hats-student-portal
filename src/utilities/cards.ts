@@ -294,13 +294,8 @@ export const prioritiseJobListings = (cards: CardDoc[], user: any) => {
   cards.forEach(data => {
     if (!('closingDate' in data) || !('skillsRequired' in data)) return;
 
-    // Get difference between today and closingDate
-    const diffDays = -1 * moment().diff(data.closingDate.toDate(), 'days');
-
-    // user can apply if not closed && user has all the skills
-    const canApply =
-      diffDays > 0 &&
-      getSkillsNotAchieved(user, data.skillsRequired).length === 0;
+    const { diffDays } = getJobAvailability(data);
+    const canApply = getCanApply(user, data);
 
     if (canApply) canApplyJobs.push(data);
     else if (diffDays > 0) openJobs.push(data);
