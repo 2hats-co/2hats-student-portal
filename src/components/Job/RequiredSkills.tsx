@@ -99,9 +99,13 @@ const RequiredSkills: React.FunctionComponent<IRequiredSkillsProps> = ({
               component="p"
               color="textSecondary"
               align="right"
-              className={user.skills.includes(x.id) ? classes.disabledText : ''}
+              className={
+                user.skills && user.skills.includes(x.id)
+                  ? classes.disabledText
+                  : ''
+              }
             >
-              {user.skills.includes(x.id)
+              {user.skills && user.skills.includes(x.id)
                 ? 'Done'
                 : relatedAssessmentData[x.id]
                 ? relatedAssessmentData[x.id].duration

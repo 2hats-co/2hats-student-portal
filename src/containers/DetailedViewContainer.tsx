@@ -146,7 +146,7 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
     return <LoadingScreen contained message={`Loading ${docType}…`} />;
 
   // Render the corresponding components
-  if (docState.doc) {
+  if (docState.doc !== null) {
     switch (docType) {
       case 'job':
         return (
