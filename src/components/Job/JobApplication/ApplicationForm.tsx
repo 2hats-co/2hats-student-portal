@@ -2,6 +2,7 @@ import React, { useContext, MouseEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Formik, Field, FieldProps, Form } from 'formik';
 import { TextField } from 'formik-material-ui';
+import isEmpty from 'ramda/es/isEmpty';
 
 import {
   makeStyles,
@@ -113,131 +114,134 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
         });
       }}
       validationSchema={JobApplicationSchema}
-      render={({ errors, submitForm, dirty, isSubmitting, status }) => {
-        return (
-          <Form className={classes.root}>
-            <Field
-              name="jobAvailabilityStartDate"
-              component={(fieldProps: FieldProps<Date>) => (
-                <StartDateField {...fieldProps} />
-              )}
-            />
-
-            <div>
-              <FormLabel htmlFor="field-coverLetter">
-                <Typography variant="overline" color="textSecondary">
-                  About Me
-                </Typography>
-              </FormLabel>
-              <Field
-                name="coverLetter"
-                id="field-coverLetter"
-                component={TextField}
-                variant="filled"
-                multiline
-                fullWidth
-                hiddenLabel
-                margin="none"
-                placeholder="Description of why I am a good fit for this position…"
-                rows="4"
-                error={errors.coverLetter}
-              />
-            </div>
-
-            <div>
-              <FormLabel htmlFor="field-workRestriction">
-                <Grid container alignItems="center">
-                  <Typography variant="overline" color="textSecondary">
-                    Work Condition
-                  </Typography>
-                  <HelpPopup
-                    variant="besideOverline"
-                    message="We do not judge job applications based on working conditions or restrictions. "
-                  />
-                </Grid>
-              </FormLabel>
-              <Field
-                name="workRestriction"
-                inputProps={{ id: 'field-workRestriction' }}
-                component={TextField}
-                variant="filled"
-                select
-                fullWidth
-                hiddenLabel
-                margin="none"
-                aria-label="Work Condition"
-                error={errors.workRestriction}
-                SelectProps={{
-                  displayEmpty: true,
-                  renderValue: (value: string) =>
-                    WORK_RESTRICTIONS_LABELS[value] || (
-                      <Typography color="textSecondary">Choose one…</Typography>
-                    ),
-                }}
-              >
-                {WORK_RESTRICTIONS.map((x: string) => (
-                  <MenuItem key={x} value={x}>
-                    {WORK_RESTRICTIONS_LABELS[x]}
-                  </MenuItem>
-                ))}
-              </Field>
-            </div>
-
-            <Field name="pay" component={PaySliderField} jobData={jobData} />
-
-            <Field
-              name="workCultureSliders"
-              component={WorkCultureSlidersField}
-            />
-
-            {(!profile.resume ||
-              !profile.resume.name ||
-              !profile.resume.url) && (
-              <Field name="resume" component={ResumeField} />
+      render={({ errors, submitForm, dirty, isSubmitting, status }) => (
+        <Form className={classes.root}>
+          <Field
+            name="jobAvailabilityStartDate"
+            component={(fieldProps: FieldProps<Date>) => (
+              <StartDateField {...fieldProps} />
             )}
+          />
 
-            <Field name="portfolioFile" component={PortfolioFileField} />
+          <div>
+            <FormLabel htmlFor="field-coverLetter">
+              <Typography variant="overline" color="textSecondary">
+                About Me
+              </Typography>
+            </FormLabel>
+            <Field
+              name="coverLetter"
+              id="field-coverLetter"
+              component={TextField}
+              variant="filled"
+              multiline
+              fullWidth
+              hiddenLabel
+              margin="none"
+              placeholder="Description of why I am a good fit for this position…"
+              rows="4"
+              error={errors.coverLetter}
+            />
+          </div>
 
-            <div>
-              <FormLabel htmlFor="field-portfolio-external">
+          <div>
+            <FormLabel htmlFor="field-workRestriction">
+              <Grid container alignItems="center">
                 <Typography variant="overline" color="textSecondary">
-                  Link to Your Work (Online Portfolio, GitHub, etc.)
+                  Work Condition
                 </Typography>
-              </FormLabel>
-
-              <Field
-                name="portfolioExternal"
-                inputProps={{ id: 'field-portfolio-external' }}
-                component={TextField}
-                variant="filled"
-                fullWidth
-                hiddenLabel
-                margin="none"
-                placeholder="https://www."
-              />
-            </div>
-
-            <Button
-              onClick={(event: MouseEvent) => {
-                if (!isSubmitting) submitForm();
+                <HelpPopup
+                  variant="besideOverline"
+                  message="We do not judge job applications based on working conditions or restrictions. "
+                />
+              </Grid>
+            </FormLabel>
+            <Field
+              name="workRestriction"
+              inputProps={{ id: 'field-workRestriction' }}
+              component={TextField}
+              variant="filled"
+              select
+              fullWidth
+              hiddenLabel
+              margin="none"
+              aria-label="Work Condition"
+              error={errors.workRestriction}
+              SelectProps={{
+                displayEmpty: true,
+                renderValue: (value: string) =>
+                  WORK_RESTRICTIONS_LABELS[value] || (
+                    <Typography color="textSecondary">Choose one…</Typography>
+                  ),
               }}
-              color="primary"
-              variant="contained"
-              type="submit"
-              size="large"
-              className={classes.submitButton}
-              disabled={isSubmitting}
             >
-              Submit
-              <GoIcon />
-            </Button>
+              {WORK_RESTRICTIONS.map((x: string) => (
+                <MenuItem key={x} value={x}>
+                  {WORK_RESTRICTIONS_LABELS[x]}
+                </MenuItem>
+              ))}
+            </Field>
+          </div>
 
-            {isSubmitting && <LinearProgress />}
+          <Field name="pay" component={PaySliderField} jobData={jobData} />
 
-            {dirty && status !== 'submitted' && <DialogPrompt />}
-          </Form>
-        );
-      }}
+          <Field
+            name="workCultureSliders"
+            component={WorkCultureSlidersField}
+          />
+
+          {(!profile.resume || !profile.resume.name || !profile.resume.url) && (
+            <Field name="resume" component={ResumeField} />
+          )}
+
+          <Field name="portfolioFile" component={PortfolioFileField} />
+
+          <div>
+            <FormLabel htmlFor="field-portfolio-external">
+              <Typography variant="overline" color="textSecondary">
+                Link to Your Work (Online Portfolio, GitHub, etc.)
+              </Typography>
+            </FormLabel>
+
+            <Field
+              name="portfolioExternal"
+              inputProps={{ id: 'field-portfolio-external' }}
+              component={TextField}
+              variant="filled"
+              fullWidth
+              hiddenLabel
+              margin="none"
+              placeholder="https://www."
+            />
+          </div>
+
+          <Button
+            onClick={(event: MouseEvent) => {
+              if (!isSubmitting) submitForm();
+            }}
+            color="primary"
+            variant="contained"
+            type="submit"
+            size="large"
+            className={classes.submitButton}
+            disabled={isSubmitting}
+          >
+            Submit
+            <GoIcon />
+          </Button>
+
+          {isSubmitting && <LinearProgress />}
+
+          {!isEmpty(errors) && (
+            <Typography variant="body2" align="center" color="error">
+              There’s something missing in your submission. Scroll up to
+              complete your submission.
+            </Typography>
+          )}
+
+          {dirty && status !== 'submitted' && <DialogPrompt />}
+        </Form>
+      )}
     />
   );
 };
