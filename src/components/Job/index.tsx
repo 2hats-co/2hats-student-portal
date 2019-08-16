@@ -1,5 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { withRouter, RouteComponentProps, Redirect } from 'react-router-dom';
+import queryString from 'query-string';
 
 import { Container, Divider } from '@material-ui/core';
 
@@ -17,6 +18,8 @@ import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { getCanApply, getHasApplied } from 'utilities/jobs';
 import UserContext from 'contexts/UserContext';
 import { JOB_APPLICATION } from 'constants/routes';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
+import { createDocWithId } from 'utilities/firestore';
 
 interface IJobProps extends RouteComponentProps {
   jobData: DocWithId<JobsDoc> | DocWithId<UsersJobsDoc>;
@@ -24,6 +27,17 @@ interface IJobProps extends RouteComponentProps {
 
 const Job: React.FunctionComponent<IJobProps> = ({ jobData, location }) => {
   const { user } = useContext(UserContext);
+
+  useEffect(() => {
+    // Check if there is a referrer in the URL
+    const parsedQuery = queryString.parse(location.search);
+    if (parsedQuery.referrer)
+      createDocWithId(
+        `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobReferrers}`,
+        jobData.id, // jobReferrers doc ID will have same ID as job doc
+        { referrerId: parsedQuery.referrer }
+      );
+  }, [jobData]);
 
   const canApply = getCanApply(user, jobData);
   // If the user is on the /apply route, verify they can apply first
