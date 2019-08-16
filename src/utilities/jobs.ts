@@ -136,12 +136,14 @@ export const submitJobApplication = async (
 
   // Log and track on FB Pixel
   console.log('Created job application doc', jobApplicationDoc.id);
-  ReactPixel.trackCustom('SubmitApplication');
+  setTimeout(() => {
+    ReactPixel.trackCustom('SubmitApplication');
+  }, 1000);
 
   // Store that the user has "touched" this job in their user document
   const newTouchedJobs = user.touchedJobs || [];
   newTouchedJobs.push(jobData.id);
-  updateDoc(COLLECTIONS.users, user.id, {
+  await updateDoc(COLLECTIONS.users, user.id, {
     touchedJobs: newTouchedJobs,
   });
 
