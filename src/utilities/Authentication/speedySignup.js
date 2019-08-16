@@ -8,7 +8,9 @@ export const speedyAuth = (userInfo, router, errorBar) =>
     userInfo,
     result => {
       auth.signInWithCustomToken(result.data.token).then(() => {
-        ReactPixel.trackCustom('CompleteRegistration');
+        setTimeout(() => {
+          ReactPixel.trackCustom('CompleteRegistration');
+        }, 1000);
         router(result.data.route);
       });
       console.log('success: ', result);
