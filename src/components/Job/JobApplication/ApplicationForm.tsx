@@ -106,14 +106,14 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
         );
         console.log('JOB APPLICATION ID', jobApplicationId);
         actions.setSubmitting(false);
-        // Currently this does not work, but it seems to work fine otherwise
+        actions.setStatus('submitted');
         history.replace({
           pathname: `${JOB}/${jobApplicationId}?yours=true`,
           state: { ...location.state, preventDoubleSubmissionCheck: false },
         });
       }}
       validationSchema={JobApplicationSchema}
-      render={({ errors, submitForm, dirty, isSubmitting }) => {
+      render={({ errors, submitForm, dirty, isSubmitting, status }) => {
         return (
           <Form className={classes.root}>
             <Field
@@ -234,7 +234,7 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
 
             {isSubmitting && <LinearProgress />}
 
-            {dirty && <DialogPrompt />}
+            {dirty && status !== 'submitted' && <DialogPrompt />}
           </Form>
         );
       }}
