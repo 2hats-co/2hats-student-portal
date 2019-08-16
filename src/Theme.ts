@@ -210,9 +210,11 @@ const themeCommons = {
       },
     },
 
-    // Make all corners rounded
     MuiFilledInput: {
+      // Make all corners rounded
       root: { borderRadius: `${BORDER_RADIUS}px !important` },
+      // Fix hiddenLabel for multiline input
+      inputMultiline: { '&$inputHiddenLabel': { marginTop: -10 } },
     },
     // MuiBadge: {
     //   badge: { fontWeight: 700 },
@@ -263,6 +265,19 @@ const themeCommons = {
     // Larger gutterBottom for Typography
     MuiTypography: {
       gutterBottom: { marginBottom: 12 },
+    },
+
+    // Spacing for multiline FormControlLabel
+    MuiFormControlLabel: {
+      label: { padding: '8px 0 8px 8px' },
+    },
+
+    // Neutral slider background – same as FilledInput
+    MuiSlider: {
+      rail: {
+        opacity: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.09)',
+      },
     },
   },
 };
@@ -327,6 +342,10 @@ export const DarkTheme = responsiveFontSizes(
             backgroundColor: 'rgba(255, 255, 255, 0.12)',
             color: 'rgba(255, 255, 255, 0.7)',
           },
+        },
+        // Neutral slider background – slightly brighter than FilledInput
+        MuiSlider: {
+          rail: { backgroundColor: 'rgba(255, 255, 255, 0.12)' },
         },
       },
     })

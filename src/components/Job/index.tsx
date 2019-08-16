@@ -9,6 +9,7 @@ import ApplyButton from './ApplyButton';
 import JobDescription from './JobDescription';
 import JobRelated from './JobRelated';
 import ApplicationDelight from './ApplicationDelight';
+import JobApplication from './JobApplication';
 
 import NakedExpansionPanel from '@bit/twohats.common.components.naked-expansion-panel';
 
@@ -54,6 +55,17 @@ const Job: React.FunctionComponent<IJobProps> = ({ jobData, location }) => {
         </Container>
 
         <JobRelated jobData={jobData} />
+      </main>
+    );
+
+  // Show the job application form if they’re on this route
+  if (location.pathname.endsWith(JOB_APPLICATION))
+    return (
+      <main>
+        <Container maxWidth="sm" component="article">
+          <JobHeader jobData={jobData} />
+          <JobApplication jobData={jobData} />
+        </Container>
       </main>
     );
 
