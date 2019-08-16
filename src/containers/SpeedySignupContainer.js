@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
+import ReactPixel from 'react-facebook-pixel';
+
 import LogoInCard from '../components/LogoInCard';
 import clsx from 'clsx';
 import queryString from 'query-string';
@@ -159,6 +161,9 @@ class SpeedySignupContainer extends PureComponent {
       async result => {
         console.log(result);
         await auth.signInWithCustomToken(result.data.token);
+        setTimeout(() => {
+          ReactPixel.trackCustom('CompleteRegistration');
+        }, 1000);
         this.setState({
           isLoading: false,
           view: SPEEDY_SIGNUP.success,
