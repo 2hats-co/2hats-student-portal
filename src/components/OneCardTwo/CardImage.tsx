@@ -5,6 +5,7 @@ import { makeStyles, createStyles, CardMedia } from '@material-ui/core';
 
 import { MEDIA_HEIGHT } from 'constants/cards';
 import { getIndustryGradient } from 'utilities/cards';
+import { INDUSTRIES } from '@bit/twohats.common.constants';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -59,7 +60,7 @@ export interface CardImageProps {
   /** Image URL */
   src: string;
   /** Industry as a string or array of strings */
-  industry: string | string[];
+  industry: INDUSTRIES | INDUSTRIES[];
 }
 
 /**

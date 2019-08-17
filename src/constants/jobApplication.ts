@@ -7,7 +7,7 @@ import {
   WorkCultureSliderField,
 } from '@bit/twohats.common.constants';
 
-const WorkCultureSlidersSchema: WorkCultureSliderField = {};
+const WorkCultureSlidersSchema: { [key: string]: Yup.NumberSchema } = {};
 Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(
   x =>
     (WorkCultureSlidersSchema[x] = Yup.number()

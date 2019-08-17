@@ -169,13 +169,13 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
               error={errors.workRestriction}
               SelectProps={{
                 displayEmpty: true,
-                renderValue: (value: string) =>
+                renderValue: (value: 'restricted' | 'unrestricted') =>
                   WORK_RESTRICTIONS_LABELS[value] || (
                     <Typography color="textSecondary">Choose one…</Typography>
                   ),
               }}
             >
-              {WORK_RESTRICTIONS.map((x: string) => (
+              {WORK_RESTRICTIONS.map((x: 'restricted' | 'unrestricted') => (
                 <MenuItem key={x} value={x}>
                   {WORK_RESTRICTIONS_LABELS[x]}
                 </MenuItem>

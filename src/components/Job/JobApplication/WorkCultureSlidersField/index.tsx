@@ -37,9 +37,9 @@ const useStyles = makeStyles(theme =>
 
 const getDefaultSliderValues = (initialValues?: WorkCultureSliderField) => {
   const output: WorkCultureSliderField = {};
-  Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(
-    x => (output[x] = initialValues ? initialValues[x] : undefined)
-  );
+  Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(x => {
+    if (initialValues && initialValues[x]) output[x] = initialValues[x];
+  });
   return output;
 };
 
@@ -54,10 +54,15 @@ const WorkCultureSlidersField: React.FunctionComponent<
     getDefaultSliderValues(field.value)
   );
   const updateValue = (valueName: string) => (newValue: number) => {
+    let castedNewValue: WorkCultureSliderField['key'];
+    if (newValue < 0) castedNewValue = 0;
+    else if (newValue > 3) castedNewValue = 3;
+    else castedNewValue = newValue as WorkCultureSliderField['key'];
+
     if (newValue !== sliderValues[valueName])
       setSliderValues((oldValues: WorkCultureSliderField) => ({
         ...oldValues,
-        [valueName]: newValue,
+        [valueName]: castedNewValue,
       }));
   };
 
@@ -74,16 +79,19 @@ const WorkCultureSlidersField: React.FunctionComponent<
       </FormLabel>
 
       <fieldset className={classes.root}>
-        {Object.keys(WORK_CULTURE_SLIDER_LABELS).map((x, i) => (
-          <WorkCultureSlider
-            key={x}
-            minLabel={WORK_CULTURE_SLIDER_LABELS[x][0]}
-            maxLabel={WORK_CULTURE_SLIDER_LABELS[x][1]}
-            flipped={flipped[i]}
-            value={sliderValues[x]}
-            onChange={updateValue(x)}
-          />
-        ))}
+        {Object.keys(WORK_CULTURE_SLIDER_LABELS).map((x, i) => {
+          const name = x as keyof typeof WORK_CULTURE_SLIDER_LABELS;
+          return (
+            <WorkCultureSlider
+              key={x}
+              minLabel={WORK_CULTURE_SLIDER_LABELS[name][0]}
+              maxLabel={WORK_CULTURE_SLIDER_LABELS[name][1]}
+              flipped={flipped[i]}
+              value={sliderValues[x]}
+              onChange={updateValue(x)}
+            />
+          );
+        })}
       </fieldset>
 
       <ErrorMessage name={field.name}>

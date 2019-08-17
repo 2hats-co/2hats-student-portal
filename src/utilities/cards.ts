@@ -44,13 +44,13 @@ export const getIndustryDisplayName = (industry: INDUSTRIES) =>
 /**
  * Gets a displayable string for a list of industries
  */
-export const getIndustry = (industry: INDUSTRIES) => {
+export const getIndustry = (industry: INDUSTRIES | INDUSTRIES[]) => {
   if (Array.isArray(industry))
     return industry.map(x => getIndustryDisplayName(x)).join(' / ');
   return getIndustryDisplayName(industry);
 };
 
-export const getIndustryGradient = (industry: INDUSTRIES) => ({
+export const getIndustryGradient = (industry: INDUSTRIES | INDUSTRIES[]) => ({
   colors: Array.isArray(industry)
     ? industry.map((x: INDUSTRIES) => GRADIENT_COLORS[x])
     : [GRADIENT_COLORS[industry]],
