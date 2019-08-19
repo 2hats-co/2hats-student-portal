@@ -9,10 +9,10 @@ import {
   Slider,
   IconButton,
 } from '@material-ui/core';
-import { SliderProps } from '@material-ui/core/Slider';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import InitialThumb from './InitialThumb';
 
 import { WORK_CULTURE_SLIDER_VALUES } from '@bit/twohats.common.constants';
 
@@ -57,6 +57,10 @@ const useStyles = makeStyles(theme =>
       height: 20,
       marginTop: -9,
       marginLeft: -10,
+
+      transition: theme.transitions.create('left', {
+        duration: theme.transitions.duration.shortest,
+      }),
     },
     sliderThumbUndefined: { opacity: 0.5 },
   })
@@ -102,9 +106,19 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   const getCorrectValue = (val: number) => (flipped ? maxValue - val : val);
 
   const increment = () =>
-    onChange(Math.min((value || Math.floor(defaultValue)) + 1, maxValue));
+    onChange(
+      Math.min(
+        (value === undefined ? Math.floor(defaultValue) : value) + 1,
+        maxValue
+      )
+    );
   const decrement = () =>
-    onChange(Math.max((value || Math.ceil(defaultValue)) - 1, minValue));
+    onChange(
+      Math.max(
+        (value === undefined ? Math.ceil(defaultValue) : value) - 1,
+        minValue
+      )
+    );
 
   return (
     <div className={classes.root}>
@@ -150,6 +164,7 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
                 value === undefined && classes.sliderThumbUndefined
               ),
             }}
+            ThumbComponent={value === undefined ? InitialThumb : 'span'}
           />
         </Grid>
 
