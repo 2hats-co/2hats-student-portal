@@ -44,7 +44,14 @@ const PaySliderField: React.FunctionComponent<IPaySliderFieldProps> = ({
   return (
     <div>
       <FormLabel htmlFor="field-pay">
-        <Typography variant="overline" color="textSecondary">
+        <Typography
+          variant="overline"
+          color={
+            form.errors[field.name] && form.touched[field.name]
+              ? 'error'
+              : 'textSecondary'
+          }
+        >
           My Preferred Salary
         </Typography>
       </FormLabel>

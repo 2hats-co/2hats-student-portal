@@ -73,7 +73,14 @@ const WorkCultureSlidersField: React.FunctionComponent<
   return (
     <div>
       <FormLabel htmlFor="field-workCultureSliders">
-        <Typography variant="overline" color="textSecondary">
+        <Typography
+          variant="overline"
+          color={
+            form.errors[field.name] && form.touched[field.name]
+              ? 'error'
+              : 'textSecondary'
+          }
+        >
           My Workplace Culture
         </Typography>
       </FormLabel>

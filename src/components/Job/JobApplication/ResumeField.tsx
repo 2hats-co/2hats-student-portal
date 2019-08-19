@@ -62,7 +62,11 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
       <FormLabel htmlFor="field-resume-upload">
         <Typography
           variant="overline"
-          color="textSecondary"
+          color={
+            form.errors[field.name] && form.touched[field.name]
+              ? 'error'
+              : 'textSecondary'
+          }
           gutterBottom
           className={classes.overline}
         >

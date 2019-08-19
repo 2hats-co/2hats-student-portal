@@ -58,7 +58,11 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
       <FormLabel htmlFor="field-portfolio-upload">
         <Typography
           variant="overline"
-          color="textSecondary"
+          color={
+            form.errors[field.name] && form.touched[field.name]
+              ? 'error'
+              : 'textSecondary'
+          }
           gutterBottom
           className={classes.overline}
         >

@@ -24,10 +24,10 @@ export const JobApplicationSchema = Yup.object().shape({
         .toDate()
     )
     .required('Required'),
+  coverLetter: Yup.string().required('Required'),
   workRestriction: Yup.string()
     .oneOf(['restricted', 'unrestricted'])
     .required('Required'),
-  coverLetter: Yup.string().required('Required'),
   pay: Yup.number()
     .min(100)
     .max(150)
@@ -49,3 +49,14 @@ export const JobApplicationSchema = Yup.object().shape({
   }),
   portfolioExternal: Yup.string().url('Must be a valid URL'),
 });
+
+export const jobApplicationFormDisplayLabels: { [key: string]: string } = {
+  jobAvailabilityStartDate: 'When I can start',
+  coverLetter: 'About me',
+  workRestriction: 'Work condition',
+  pay: 'My preferred salary',
+  workCultureSliders: 'My workplace culture',
+  resume: 'Resume',
+  portfolioFile: 'Portfolio (file)',
+  portfolioExternal: 'Link to your portfolio',
+};

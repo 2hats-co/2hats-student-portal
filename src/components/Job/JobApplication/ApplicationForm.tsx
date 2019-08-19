@@ -35,7 +35,10 @@ import {
 import useDocument from 'hooks/useDocument';
 import { JOB } from 'constants/routes';
 
-import { JobApplicationSchema } from 'constants/jobApplication';
+import {
+  JobApplicationSchema,
+  jobApplicationFormDisplayLabels,
+} from 'constants/jobApplication';
 import { submitJobApplication } from 'utilities/jobs';
 
 const useStyles = makeStyles(theme =>
@@ -56,6 +59,11 @@ const useStyles = makeStyles(theme =>
       display: 'flex',
       margin: '0 auto',
       marginBottom: theme.spacing(4),
+    },
+
+    errorList: {
+      margin: theme.spacing(0.5, 0, 1),
+      padding: '0 0 0 1.25em',
     },
   })
 );
@@ -114,24 +122,38 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
         });
       }}
       validationSchema={JobApplicationSchema}
-      render={({ errors, submitForm, dirty, isSubmitting, status }) => (
+      render={({
+        errors,
+        touched,
+        submitForm,
+        dirty,
+        isSubmitting,
+        status,
+      }) => (
         <Form className={classes.root}>
           <Field
             name="jobAvailabilityStartDate"
+            id="field-jobAvailabilityStartDate"
             component={(fieldProps: FieldProps<Date>) => (
               <StartDateField {...fieldProps} />
             )}
           />
 
-          <div>
+          <div id="field-coverLetter">
             <FormLabel htmlFor="field-coverLetter">
-              <Typography variant="overline" color="textSecondary">
+              <Typography
+                variant="overline"
+                color={
+                  errors.coverLetter && touched.workRestriction
+                    ? 'error'
+                    : 'textSecondary'
+                }
+              >
                 About Me
               </Typography>
             </FormLabel>
             <Field
               name="coverLetter"
-              id="field-coverLetter"
               component={TextField}
               variant="filled"
               multiline
@@ -144,10 +166,17 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
             />
           </div>
 
-          <div>
+          <div id="field-workRestriction">
             <FormLabel htmlFor="field-workRestriction">
               <Grid container alignItems="center">
-                <Typography variant="overline" color="textSecondary">
+                <Typography
+                  variant="overline"
+                  color={
+                    errors.workRestriction && touched.workRestriction
+                      ? 'error'
+                      : 'textSecondary'
+                  }
+                >
                   Work Condition
                 </Typography>
                 <HelpPopup
@@ -183,29 +212,46 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
             </Field>
           </div>
 
-          <Field name="pay" component={PaySliderField} jobData={jobData} />
+          <Field
+            name="pay"
+            id="field-pay"
+            component={PaySliderField}
+            jobData={jobData}
+          />
 
           <Field
+            id="field-workCultureSliders"
             name="workCultureSliders"
             component={WorkCultureSlidersField}
           />
 
           {(!profile.resume || !profile.resume.name || !profile.resume.url) && (
-            <Field name="resume" component={ResumeField} />
+            <Field name="resume" id="field-resume" component={ResumeField} />
           )}
 
-          <Field name="portfolioFile" component={PortfolioFileField} />
+          <Field
+            name="portfolioFile"
+            id="field-portfolioFile"
+            component={PortfolioFileField}
+          />
 
-          <div>
-            <FormLabel htmlFor="field-portfolio-external">
-              <Typography variant="overline" color="textSecondary">
+          <div id="field-portfolioExternal">
+            <FormLabel htmlFor="field-portfolioExternal">
+              <Typography
+                variant="overline"
+                color={
+                  errors.portfolioExternal && touched.portfolioExternal
+                    ? 'error'
+                    : 'textSecondary'
+                }
+              >
                 Link to Your Work (Online Portfolio, GitHub, etc.)
               </Typography>
             </FormLabel>
 
             <Field
               name="portfolioExternal"
-              inputProps={{ id: 'field-portfolio-external' }}
+              inputProps={{ id: 'field-portfolioExternal' }}
               component={TextField}
               variant="filled"
               fullWidth
@@ -233,10 +279,20 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
           {isSubmitting && <LinearProgress />}
 
           {!isEmpty(errors) && (
-            <Typography variant="body2" align="center" color="error">
-              There’s something missing in your submission. Scroll up to
-              complete your submission.
-            </Typography>
+            <Grid container justify="center">
+              <Grid item>
+                <Typography variant="subtitle2" color="error">
+                  There’s something wrong with your submission:
+                </Typography>
+                <Typography variant="body2" color="textSecondary">
+                  <ul className={classes.errorList}>
+                    {Object.keys(errors).map(x => (
+                      <li>{jobApplicationFormDisplayLabels[x]}</li>
+                    ))}
+                  </ul>
+                </Typography>
+              </Grid>
+            </Grid>
           )}
 
           {dirty && status !== 'submitted' && <DialogPrompt />}

@@ -91,7 +91,14 @@ const StartDateField: React.FunctionComponent<IStartDateFieldProps> = ({
   return (
     <div>
       <FormLabel htmlFor="field-jobAvailabilityStartDate">
-        <Typography variant="overline" color="textSecondary">
+        <Typography
+          variant="overline"
+          color={
+            form.errors[field.name] && form.touched[field.name]
+              ? 'error'
+              : 'textSecondary'
+          }
+        >
           When I Can Start
         </Typography>
       </FormLabel>
