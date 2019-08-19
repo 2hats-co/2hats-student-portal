@@ -943,19 +943,19 @@
   dependencies:
     clsx "^1.0.4"
 
-"@bit/twohats.common.components.naked-expansion-panel@^1.0.6":
-  version "1.0.6"
-  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.6.tgz#a82b7a3b44883c8b10d9c4be4e0ce7e1568eb91f"
-  integrity sha1-qCt6O0SIPIsQ2cS+Tgzn4VaOuR8=
+"@bit/twohats.common.components.naked-expansion-panel@^1.0.9":
+  version "1.0.9"
+  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.9.tgz#f42ac351008d36ceb7a57c44c763b5e65adb0db2"
+  integrity sha1-9CrDUQCNNs63pXxEx2O15lrbDbI=
   dependencies:
-    "@bit/twohats.common.styles" "0.0.19"
+    "@bit/twohats.common.styles" "0.0.21"
 
-"@bit/twohats.common.components.skill-chip@^1.0.17":
-  version "1.0.17"
-  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.17.tgz#7aa6eacf39a4ff73f26d99cd12162f7e6d753a36"
-  integrity sha1-eqbqzzmk/3PybZnNEhYvfm11OjY=
+"@bit/twohats.common.components.skill-chip@^1.0.20":
+  version "1.0.20"
+  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.20.tgz#b99de574a1fa6e89aca7d45051849802372d31d5"
+  integrity sha1-uZ3ldKH6bomsp9RQUYSYAjctMdU=
   dependencies:
-    "@bit/twohats.common.db-types" "0.0.34"
+    "@bit/twohats.common.db-types" "0.0.37"
     history "4.9.0"
     react-router-dom "^5.0.1"
 
@@ -976,17 +976,22 @@
     clsx "^1.0.4"
     react-router-dom "^5.0.1"
 
-"@bit/twohats.common.constants@1.0.15", "@bit/twohats.common.constants@^1.0.15":
+"@bit/twohats.common.constants@1.0.11":
+  version "1.0.11"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.11.tgz#eef2a71002c521c19d39f1f4d6cd9f35c8447491"
+  integrity sha1-7vKnEALFIcGdOfH01s2fNchEdJE=
+
+"@bit/twohats.common.constants@^1.0.15":
   version "1.0.15"
   resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.15.tgz#f22c0a8ff09e94a5ce73350d1f65e0ec942c936f"
   integrity sha1-8iwKj/CelKXOczUNH2Xg7JQsk28=
 
-"@bit/twohats.common.db-types@0.0.34", "@bit/twohats.common.db-types@^0.0.34":
-  version "0.0.34"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.34.tgz#71aa04ddc0a9c2b2ccdca54fdfbc3579fd4bb2d9"
-  integrity sha1-caoE3cCpwrLM3KVP37w1ef1Lstk=
+"@bit/twohats.common.db-types@0.0.37", "@bit/twohats.common.db-types@^0.0.37":
+  version "0.0.37"
+  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.37.tgz#3ae5e8fcf53b31bdf89648af8013b0ecc4539456"
+  integrity sha1-OuXo/PU7Mb34lkivgBOw7MRTlFY=
   dependencies:
-    "@bit/twohats.common.constants" "1.0.15"
+    "@bit/twohats.common.constants" "1.0.11"
 
 "@bit/twohats.common.icons.go@1.0.4", "@bit/twohats.common.icons.go@^1.0.4":
   version "1.0.4"
@@ -995,10 +1000,10 @@
   dependencies:
     clsx "^1.0.4"
 
-"@bit/twohats.common.styles@0.0.19", "@bit/twohats.common.styles@^0.0.19":
-  version "0.0.19"
-  resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.19.tgz#bb37dfa70234b3cc6b4c0c1d7413c4bf53f1a0a7"
-  integrity sha1-uzffpwI0s8xrTAwddBPEv1PxoKc=
+"@bit/twohats.common.styles@0.0.21", "@bit/twohats.common.styles@^0.0.21":
+  version "0.0.21"
+  resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.21.tgz#500acc8da3680e3b5ed9b9e3e2be104b308e5e86"
+  integrity sha1-UArMjaNoDjte2bnj4r4QSzCOXoY=
 
 "@bit/twohats.common.use-debounce@^1.0.1":
   version "1.0.1"
@@ -1515,14 +1520,14 @@
   resolved "https://registry.yarnpkg.com/@material-ui/codemod/-/codemod-4.0.1.tgz#c236ae23b6a3a5f53f4d57b72f59afc27bfca20e"
   integrity sha512-jeD84kwMyoXKu5407MOWbD/Byu0qP43XagnB3ToxBoStKqMwXczxlG9VIcyTz8+n9Bz+s38wCMGfKHYPoZ/r/w==
 
-"@material-ui/core@^4.3.1":
-  version "4.3.1"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.3.1.tgz#f30c43811c87abe577a3ce6ddbd20e3297378ee7"
-  integrity sha512-nzJSYmNsWzaLVf7y0eiDdgWYL850iEOG3HI7Qb/G9YSZfPsqx/+yxx6vIkZCE82VHwvYE92uMP9Ogb3qLYzcOA==
+"@material-ui/core@^4.3.2":
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.3.2.tgz#ca21c4c077035c0a03192f7bcef4728c584de71b"
+  integrity sha512-TLKEUw3/R/pOInnJkx0x78zqMos34SPL3HfuRRZMxInRQ6AKUlyglOFyvSwFITknTmc8AGRFknGpZt05g2XFTg==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/styles" "^4.3.0"
-    "@material-ui/system" "^4.3.2"
+    "@material-ui/system" "^4.3.3"
     "@material-ui/types" "^4.1.1"
     "@material-ui/utils" "^4.3.0"
     "@types/react-transition-group" "^4.2.0"
@@ -1591,10 +1596,10 @@
     prop-types "^15.7.2"
     warning "^4.0.1"
 
-"@material-ui/system@^4.3.2":
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-4.3.2.tgz#2f8f0d5bae29647f5a4e74efaaa82755dbac2b3b"
-  integrity sha512-jSQLtjKvD956UgEeh4b9ojg4gSrlLpuNvlZzS2ML6KWW7gCXhGx0tKMbpUn4qHzD5IpoF+86SS8JFBWdYdnH0Q==
+"@material-ui/system@^4.3.3":
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/@material-ui/system/-/system-4.3.3.tgz#8534fe76adbd3938a8dea833e69d84a7a143ecff"
+  integrity sha512-j7JyvlhcTdc1wV6HzrDTU7XXlarxYXEUyzyHawOA0kCGmYVN2uFHENQRARLUdl+mEmuXO4TsAhNAiqiKakkFMg==
   dependencies:
     "@babel/runtime" "^7.4.4"
     deepmerge "^4.0.0"
