@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useLayoutEffect, useRef } from 'react';
 import clsx from 'clsx';
 
 import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
@@ -115,6 +115,19 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
 }) => {
   const classes = useStyles();
 
+  const instructionsRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    if (
+      !previewInstructionsOnly &&
+      instructionsRef &&
+      instructionsRef.current
+    ) {
+      console.log('scroll into view', instructionsRef.current);
+      instructionsRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [previewInstructionsOnly, instructionsRef]);
+
   /**
    * Returns either the assessment briefing or
    * companyDescription + jobDescription, separated by line break
@@ -164,6 +177,7 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
           classes.section,
           previewInstructionsOnly && classes.maskedSection
         )}
+        ref={instructionsRef}
       >
         <Typography
           variant="overline"
@@ -171,7 +185,7 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
           component="h2"
           gutterBottom
         >
-          Instructions
+          Instructions{previewInstructionsOnly && ': ‘Begin’ to See More'}
         </Typography>
 
         <div

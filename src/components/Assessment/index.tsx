@@ -20,7 +20,7 @@ import JobProgress from './JobProgress';
 import LoadingScreen from 'components/LoadingScreen';
 import NakedExpansionPanel from '@bit/twohats.common.components.naked-expansion-panel';
 
-import GoIcon from '@bit/twohats.common.icons.go';
+import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 import UserContext from 'contexts/UserContext';
 import {
@@ -125,8 +125,8 @@ const Assessment: React.FunctionComponent<IAssessmentProps> = ({
               size="large"
               onClick={handleNewSubmission}
             >
-              Let’s Do It
-              <GoIcon />
+              Let’s Begin
+              <DownIcon />
             </Button>
           </section>
         )}
