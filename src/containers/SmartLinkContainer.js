@@ -119,33 +119,36 @@ const SmartLinkContainer = props => {
           }
         );
       }
+    } else {
+      setErrorMessage('Invalid link');
+      setIsLoading(false);
     }
-
-    return (
-      <Grid
-        container
-        style={{ height: '100vh' }}
-        alignItems="center"
-        justify="center"
-      >
-        <Grid item>
-          <LogoInCard isLoading={isLoading} height={330} snackBar={snackbar}>
-            <Typography
-              variant="h6"
-              style={{
-                paddingTop: 50,
-                width: '100%',
-                textAlign: 'center',
-                whiteSpace: 'pre-line',
-              }}
-            >
-              {isLoading ? 'Hold on to your hat 🤠' : errorMessage}
-            </Typography>
-          </LogoInCard>
-        </Grid>
-      </Grid>
-    );
   };
+
+  return (
+    <Grid
+      container
+      style={{ height: '100vh' }}
+      alignItems="center"
+      justify="center"
+    >
+      <Grid item>
+        <LogoInCard isLoading={isLoading} height={330} snackBar={snackbar}>
+          <Typography
+            variant="h6"
+            style={{
+              paddingTop: 50,
+              width: '100%',
+              textAlign: 'center',
+              whiteSpace: 'pre-line',
+            }}
+          >
+            {isLoading ? 'Hold on to your hat 🤠' : errorMessage}
+          </Typography>
+        </LogoInCard>
+      </Grid>
+    </Grid>
+  );
 };
 
 export default SmartLinkContainer;
