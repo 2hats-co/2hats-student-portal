@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper';
 import { setBackground } from '../utilities/styling';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import SnackBar from './SnackBar';
+import Button from '@material-ui/core/Button';
 
 import Background from '../assets/background/Colour.svg';
 
@@ -47,6 +48,16 @@ const styles = theme => ({
     top: 0,
     width: '100%',
   },
+
+  termsButton: {
+    color: 'rgba(255,255,255,.67)',
+    margin: theme.spacing(1, 0),
+
+    display: 'flex',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    maxWidth: 240,
+  },
 });
 
 function LogoInCard(props) {
@@ -88,6 +99,15 @@ function LogoInCard(props) {
 
           {props.children}
         </Paper>
+
+        <Button
+          component="a"
+          href="https://2hats.com.au/terms"
+          target="_blank"
+          className={classes.termsButton}
+        >
+          Terms and Conditions
+        </Button>
       </div>
       <SnackBar data={snackBar} />
     </div>
