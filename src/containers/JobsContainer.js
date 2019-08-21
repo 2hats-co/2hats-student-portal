@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 
 import { makeStyles } from '@material-ui/styles';
 
@@ -55,7 +55,7 @@ const DISPATCH_PROPS = {
   }),
 };
 
-const JobsContainer = ({ match }) => {
+const JobsContainer = ({ match, location }) => {
   const classes = useStyles();
   const { user } = useContext(UserContext);
 
@@ -154,10 +154,12 @@ const JobsContainer = ({ match }) => {
         contents = pastCardGrid;
         if (!pastState.path) pastDispatch(DISPATCH_PROPS.PAST());
         break;
-      // We shouldn't reach this default case.
-      // match.params.filter would not be a key in match.params
+      // Otherwise, this category does not exist.
+      // It might be an assessment ID, so try to redirect to there.
       default:
-        break;
+        return (
+          <Redirect to={location.pathname.replace(ROUTES.JOBS, ROUTES.JOB)} />
+        );
     }
   } else {
     contents = [newCardGrid, yoursCardGrid, pastCardGrid];
