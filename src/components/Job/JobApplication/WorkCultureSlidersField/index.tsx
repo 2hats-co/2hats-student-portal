@@ -9,11 +9,16 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 
+import WorkCultureSlider from './WorkCultureSlider';
+
 import {
   WORK_CULTURE_SLIDER_LABELS,
   WorkCultureSliderField,
 } from '@bit/twohats.common.constants';
-import WorkCultureSlider from './WorkCultureSlider';
+import {
+  sanitiseValue,
+  getDefaultSliderValues,
+} from 'utilities/workCultureSliders';
 
 /**
  * Flips the left/right arrangement of certain sliders randomly.
@@ -25,7 +30,7 @@ Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach((x, i) => {
   flipped[i] = Math.random() >= 0.5;
 });
 
-const useStyles = makeStyles(theme =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       border: 'none',
@@ -35,37 +40,32 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const getDefaultSliderValues = (initialValues?: WorkCultureSliderField) => {
-  const output: WorkCultureSliderField = {};
-  Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(x => {
-    if (initialValues && initialValues[x]) output[x] = initialValues[x];
-  });
-  return output;
-};
-
 interface IWorkCultureSlidersFieldProps extends FieldProps {}
 
+/**
+ * A Formik field to handle Work Culture sliders
+ */
 const WorkCultureSlidersField: React.FunctionComponent<
   IWorkCultureSlidersFieldProps
 > = ({ field, form }) => {
   const classes = useStyles();
 
+  // Store values in this local state
   const [sliderValues, setSliderValues] = useState<WorkCultureSliderField>(
+    // Get default values from default values in Formik state
     getDefaultSliderValues(field.value)
   );
+  // Updater helper function to update the state. Prevents multiple state
+  // updates if values are the same
   const updateValue = (valueName: string) => (newValue: number) => {
-    let castedNewValue: WorkCultureSliderField['key'];
-    if (newValue < 0) castedNewValue = 0;
-    else if (newValue > 3) castedNewValue = 3;
-    else castedNewValue = newValue as WorkCultureSliderField['key'];
-
     if (newValue !== sliderValues[valueName])
       setSliderValues((oldValues: WorkCultureSliderField) => ({
         ...oldValues,
-        [valueName]: castedNewValue,
+        [valueName]: sanitiseValue(newValue),
       }));
   };
 
+  // Sync local state with Formik form state for this field
   useEffect(() => {
     form.setFieldValue(field.name, sliderValues);
   }, [sliderValues]);
@@ -102,7 +102,7 @@ const WorkCultureSlidersField: React.FunctionComponent<
       </fieldset>
 
       <ErrorMessage name={field.name}>
-        {msg => <FormHelperText error>Required</FormHelperText>}
+        {() => <FormHelperText error>Required</FormHelperText>}
       </ErrorMessage>
     </div>
   );

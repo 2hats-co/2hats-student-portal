@@ -12,17 +12,16 @@ import {
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import InitialThumb from './InitialThumb';
+import SliderThumb from './SliderThumb';
 
-import { WORK_CULTURE_SLIDER_VALUES } from '@bit/twohats.common.constants';
-
-export const SLIDER_COLOR = '#2979b7';
-export const SLIDER_LIGHT_COLOR = '#90b2cc';
-
-const minValue = WORK_CULTURE_SLIDER_VALUES[0];
-const maxValue =
-  WORK_CULTURE_SLIDER_VALUES[WORK_CULTURE_SLIDER_VALUES.length - 1];
-const defaultValue = (minValue + maxValue) / 2;
+import {
+  MIN_VALUE,
+  MAX_VALUE,
+  DEFAULT_VALUE,
+  STEP,
+  SLIDER_COLOR,
+  SLIDER_LIGHT_COLOR,
+} from 'utilities/workCultureSliders';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -51,6 +50,7 @@ const useStyles = makeStyles(theme =>
       marginLeft: -3,
       marginTop: -2,
     },
+
     sliderThumb: {
       color: theme.palette.primary.main,
       width: 20,
@@ -58,20 +58,20 @@ const useStyles = makeStyles(theme =>
       marginTop: -9,
       marginLeft: -10,
 
-      transition: theme.transitions.create('left', {
+      transition: theme.transitions.create(['box-shadow', 'left'], {
         duration: theme.transitions.duration.shortest,
       }),
+      // Hide arrows
+      '& > svg': { opacity: 0 },
     },
-    sliderThumbUndefined: { opacity: 0.5 },
+    // Show arrows when thumb in middle
+    sliderThumbMiddle: {
+      '$sliderThumb& > svg': { opacity: 1 },
+    },
   })
 );
 
 interface IWorkCultureSliderProps {
-  // /**
-  //  * Canonical name for the slider value, with a higher score indicating a
-  //  * preference for the label that matches `sliderName`
-  //  */
-  // sliderName: string;
   /** Label for the "min value" — should be opposite of `sliderName` */
   minLabel: string;
   /**
@@ -85,10 +85,15 @@ interface IWorkCultureSliderProps {
    * If true, min = right & max = left; otherwise, min = left & max = right
    */
   flipped: boolean;
+  /** The value from Formik */
   value: number | undefined;
+  /** Called by MUI Slider’s onChange callback */
   onChange: (value: number) => void;
 }
 
+/**
+ * An individual slider, using a styled MUI Slider.
+ */
 const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   minLabel,
   maxLabel,
@@ -98,25 +103,27 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
 }) => {
   const classes = useStyles();
 
-  // Show the defaultValue (in the middle) if value is initially undefined
+  // Show the DEFAULT_VALUE (in the middle) if value is initially undefined
   // Otherwise, show the flipped value or the original value
   const displayValue =
-    value === undefined ? defaultValue : flipped ? maxValue - value : value;
+    value === undefined ? DEFAULT_VALUE : flipped ? MAX_VALUE - value : value;
 
-  const getCorrectValue = (val: number) => (flipped ? maxValue - val : val);
+  // Gets the actual value, accounting for flip
+  const getFlipCorrectedValue = (val: number) =>
+    flipped ? MAX_VALUE - val : val;
 
   const increment = () =>
     onChange(
       Math.min(
-        (value === undefined ? Math.floor(defaultValue) : value) + 1,
-        maxValue
+        (value === undefined ? Math.floor(DEFAULT_VALUE) : value) + STEP,
+        MAX_VALUE
       )
     );
   const decrement = () =>
     onChange(
       Math.max(
-        (value === undefined ? Math.ceil(defaultValue) : value) - 1,
-        minValue
+        (value === undefined ? Math.ceil(DEFAULT_VALUE) : value) - STEP,
+        MIN_VALUE
       )
     );
 
@@ -135,9 +142,18 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
         </Typography>
       </Grid>
 
-      <Grid container alignItems="center" className={classes.sliderWrapper}>
+      <Grid
+        container
+        alignItems="center"
+        className={classes.sliderWrapper}
+        spacing={2}
+      >
         <Grid item>
-          <IconButton color="inherit" onClick={flipped ? increment : decrement}>
+          <IconButton
+            color="inherit"
+            onClick={flipped ? increment : decrement}
+            size="small"
+          >
             <ChevronLeftIcon />
           </IconButton>
         </Grid>
@@ -146,12 +162,13 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
           <Slider
             value={displayValue}
             onChange={(e, v) => {
+              // Only call the onChange method if the values are not the same
               if (v !== displayValue)
-                onChange(getCorrectValue(Array.isArray(v) ? v[0] : v));
+                onChange(getFlipCorrectedValue(Array.isArray(v) ? v[0] : v));
             }}
-            min={minValue}
-            max={maxValue}
-            step={1}
+            min={MIN_VALUE}
+            max={MAX_VALUE}
+            step={STEP}
             valueLabelDisplay="off"
             marks
             classes={{
@@ -161,15 +178,20 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
               markActive: classes.sliderMark,
               thumb: clsx(
                 classes.sliderThumb,
-                value === undefined && classes.sliderThumbUndefined
+                (value === DEFAULT_VALUE || value === undefined) &&
+                  classes.sliderThumbMiddle
               ),
             }}
-            ThumbComponent={value === undefined ? InitialThumb : 'span'}
+            ThumbComponent={SliderThumb}
           />
         </Grid>
 
         <Grid item>
-          <IconButton color="inherit" onClick={flipped ? decrement : increment}>
+          <IconButton
+            color="inherit"
+            onClick={flipped ? decrement : increment}
+            size="small"
+          >
             <ChevronRightIcon />
           </IconButton>
         </Grid>

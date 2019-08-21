@@ -2,17 +2,17 @@ import * as Yup from 'yup';
 import moment from 'moment';
 
 import {
-  WORK_CULTURE_SLIDER_VALUES,
+  WORK_CULTURE_SLIDER_MIN,
+  WORK_CULTURE_SLIDER_MAX,
   WORK_CULTURE_SLIDER_LABELS,
-  WorkCultureSliderField,
 } from '@bit/twohats.common.constants';
 
 const WorkCultureSlidersSchema: { [key: string]: Yup.NumberSchema } = {};
 Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(
   x =>
     (WorkCultureSlidersSchema[x] = Yup.number()
-      .min(WORK_CULTURE_SLIDER_VALUES[0])
-      .max(WORK_CULTURE_SLIDER_VALUES[WORK_CULTURE_SLIDER_VALUES.length - 1])
+      .min(WORK_CULTURE_SLIDER_MIN)
+      .max(WORK_CULTURE_SLIDER_MAX)
       .required('Required'))
 );
 

@@ -10,15 +10,23 @@ const useStyles = makeStyles(theme =>
   createStyles({
     root: { opacity: 0.5 },
 
-    icon: { position: 'absolute' },
+    icon: {
+      position: 'absolute',
+      transition: theme.transitions.create('box-shadow', {
+        duration: theme.transitions.duration.shortest,
+      }),
+    },
     iconLeft: { left: theme.spacing(-3) },
     iconRight: { right: theme.spacing(-3) },
   })
 );
 
-interface IInitialThumbProps {}
+interface ISliderThumbProps {}
 
-const InitialThumb: React.FunctionComponent<IInitialThumbProps> = props => {
+/**
+ * A component for MUI Slider that shows left/right arrows next to it.
+ */
+const SliderThumb: React.FunctionComponent<ISliderThumbProps> = props => {
   const classes = useStyles();
 
   return (
@@ -35,4 +43,4 @@ const InitialThumb: React.FunctionComponent<IInitialThumbProps> = props => {
   );
 };
 
-export default InitialThumb;
+export default SliderThumb;
