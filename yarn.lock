@@ -943,19 +943,19 @@
   dependencies:
     clsx "^1.0.4"
 
-"@bit/twohats.common.components.naked-expansion-panel@^1.0.9":
-  version "1.0.9"
-  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.9.tgz#f42ac351008d36ceb7a57c44c763b5e65adb0db2"
-  integrity sha1-9CrDUQCNNs63pXxEx2O15lrbDbI=
+"@bit/twohats.common.components.naked-expansion-panel@^1.0.12":
+  version "1.0.12"
+  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.12.tgz#069dc3b2adccef140e9b3000627ca6d6501a33f6"
+  integrity sha1-Bp3Dsq3M7xQOmzAAYnym1lAaM/Y=
   dependencies:
-    "@bit/twohats.common.styles" "0.0.21"
+    "@bit/twohats.common.styles" "0.0.18"
 
-"@bit/twohats.common.components.skill-chip@^1.0.20":
-  version "1.0.20"
-  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.20.tgz#b99de574a1fa6e89aca7d45051849802372d31d5"
-  integrity sha1-uZ3ldKH6bomsp9RQUYSYAjctMdU=
+"@bit/twohats.common.components.skill-chip@^1.0.23":
+  version "1.0.23"
+  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.23.tgz#0e6b1d388121994d918b6d10cc8e346f6c6fdf47"
+  integrity sha1-DmsdOIEhmU2Ri20QzI40b2xv30c=
   dependencies:
-    "@bit/twohats.common.db-types" "0.0.37"
+    "@bit/twohats.common.db-types" "0.0.40"
     history "4.9.0"
     react-router-dom "^5.0.1"
 
@@ -976,22 +976,17 @@
     clsx "^1.0.4"
     react-router-dom "^5.0.1"
 
-"@bit/twohats.common.constants@1.0.11":
-  version "1.0.11"
-  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.11.tgz#eef2a71002c521c19d39f1f4d6cd9f35c8447491"
-  integrity sha1-7vKnEALFIcGdOfH01s2fNchEdJE=
+"@bit/twohats.common.constants@1.0.18", "@bit/twohats.common.constants@^1.0.18":
+  version "1.0.18"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.18.tgz#3b8cbd819c7765755894e7954be22022e52b8477"
+  integrity sha1-O4y9gZx3ZXVYlOeVS+IgIuUrhHc=
 
-"@bit/twohats.common.constants@^1.0.15":
-  version "1.0.15"
-  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.15.tgz#f22c0a8ff09e94a5ce73350d1f65e0ec942c936f"
-  integrity sha1-8iwKj/CelKXOczUNH2Xg7JQsk28=
-
-"@bit/twohats.common.db-types@0.0.37", "@bit/twohats.common.db-types@^0.0.37":
-  version "0.0.37"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.37.tgz#3ae5e8fcf53b31bdf89648af8013b0ecc4539456"
-  integrity sha1-OuXo/PU7Mb34lkivgBOw7MRTlFY=
+"@bit/twohats.common.db-types@0.0.40", "@bit/twohats.common.db-types@^0.0.40":
+  version "0.0.40"
+  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.40.tgz#9a28ec0fd2b9b2e66836ea4a63e5d23a8d97f381"
+  integrity sha1-mijsD9K5suZoNupKY+XSOo2X84E=
   dependencies:
-    "@bit/twohats.common.constants" "1.0.11"
+    "@bit/twohats.common.constants" "1.0.18"
 
 "@bit/twohats.common.icons.go@1.0.4", "@bit/twohats.common.icons.go@^1.0.4":
   version "1.0.4"
@@ -1000,7 +995,12 @@
   dependencies:
     clsx "^1.0.4"
 
-"@bit/twohats.common.styles@0.0.21", "@bit/twohats.common.styles@^0.0.21":
+"@bit/twohats.common.styles@0.0.18":
+  version "0.0.18"
+  resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.18.tgz#7846bc2dc5ae93e08cd087611b74b2ff2b6b4950"
+  integrity sha1-eEa8LcWuk+CM0IdhG3Sy/ytrSVA=
+
+"@bit/twohats.common.styles@^0.0.21":
   version "0.0.21"
   resolved "https://node.bit.dev/twohats.common.styles/-/twohats.common.styles-0.0.21.tgz#500acc8da3680e3b5ed9b9e3e2be104b308e5e86"
   integrity sha1-UArMjaNoDjte2bnj4r4QSzCOXoY=
