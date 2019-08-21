@@ -284,10 +284,14 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
                 <Typography variant="subtitle2" color="error">
                   There’s something wrong with your submission:
                 </Typography>
-                <Typography variant="body2" color="textSecondary">
+                <Typography
+                  variant="body2"
+                  color="textSecondary"
+                  component="div"
+                >
                   <ul className={classes.errorList}>
                     {Object.keys(errors).map(x => (
-                      <li>{jobApplicationFormDisplayLabels[x]}</li>
+                      <li key={x}>{jobApplicationFormDisplayLabels[x]}</li>
                     ))}
                   </ul>
                 </Typography>
