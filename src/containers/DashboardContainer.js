@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 
 import { makeStyles } from '@material-ui/styles';
 import { Typography } from '@material-ui/core';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { CARD_COLS_WIDTHS, CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
 
 import AssessmentCards from 'components/Dashboard/AssessmentCards';
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const DashboardContainer = () => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   useEffect(() => {
     document.title = 'Dashboard – 2hats';

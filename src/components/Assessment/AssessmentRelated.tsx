@@ -6,7 +6,7 @@ import CardGrid from 'components/CardGrid';
 import CardGridHeader from 'components/CardGrid/CardGridHeader';
 import SuggestedCourseDialog from './SuggestedCourseDialog';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import {
   DocWithId,
   AssessmentsDoc,
@@ -56,7 +56,7 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
   showDelight = false,
 }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // Get real assessment ID
   let assessmentId = assessmentData.id;

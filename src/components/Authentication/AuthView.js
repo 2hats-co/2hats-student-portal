@@ -5,7 +5,7 @@ import queryString from 'query-string';
 import Typography from '@material-ui/core/Typography';
 
 import * as routes from '../../constants/routes';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 
 import Header from './Header';
 import GoogleButton from './GoogleButton';
@@ -45,7 +45,7 @@ function AuthView(props) {
     urlParams,
   } = props;
 
-  const userContext = useContext(UserContext);
+  const userContext = useUser();
   const { authUser } = userContext;
 
   useEffect(() => {

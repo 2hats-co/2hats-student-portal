@@ -12,7 +12,7 @@ import GoIcon from '@bit/twohats.common.icons.go';
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { JOB_APPLICATION } from 'constants/routes';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import {
   getSkillsNotAchieved,
   getCanApply,
@@ -46,7 +46,7 @@ const ApplyButton: React.FunctionComponent<IApplyButtonProps> = ({
   location,
 }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const skillsNotAchieved = getSkillsNotAchieved(user, jobData.skillsRequired);
   const canApply = getCanApply(user, jobData);

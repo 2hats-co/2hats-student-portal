@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/styles';
 
 import CardGrid from 'components/CardGrid';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import useCollection from 'hooks/useCollection';
 import { generateCourseCard } from 'utilities/cards';
 
@@ -40,7 +40,7 @@ const DISPATCH_PROPS = {
 
 const CoursesContainer = ({ match }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // Change tab title
   useEffect(() => {

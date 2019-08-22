@@ -15,7 +15,7 @@ import StyledDropzone, {
 } from '@bit/twohats.common.components.styled-dropzone';
 
 import { uploader } from 'utilities/Uploader';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -32,7 +32,7 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
 }) => {
   const classes = useStyles();
 
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const setFile: IStyledDropzoneProps['setFile'] = val =>
     form.setFieldValue(field.name, val);

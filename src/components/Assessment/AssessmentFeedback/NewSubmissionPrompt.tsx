@@ -15,7 +15,7 @@ import LoadingScreen from 'components/LoadingScreen';
 import { copyAssessmentForResubmission } from 'utilities/assessments';
 import * as ROUTES from 'constants/routes';
 import { DocWithId, UsersAssessmentsDoc } from '@bit/twohats.common.db-types';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -40,7 +40,7 @@ const NewSubmissionPrompt: React.FunctionComponent<
   INewSubmissionPromptProps
 > = ({ assessmentData, history }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // Loading state for resubmission
   const [loading, setLoading] = useState(false);

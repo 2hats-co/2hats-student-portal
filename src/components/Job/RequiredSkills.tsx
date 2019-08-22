@@ -4,7 +4,7 @@ import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 
 import SkillChip from '@bit/twohats.common.components.skill-chip';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { ASSESSMENT } from 'constants/routes';
 import {
   DocWithId,
@@ -42,7 +42,7 @@ const RequiredSkills: React.FunctionComponent<IRequiredSkillsProps> = ({
   routeState,
 }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // Calculate no. unattained skills
   const unattainedSkills = skillsRequired.filter(

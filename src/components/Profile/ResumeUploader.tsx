@@ -14,7 +14,7 @@ import FileIcon from '@material-ui/icons/Attachment';
 
 import Dropzone, { DropFilesEventHandler } from 'react-dropzone';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { uploader } from 'utilities/Uploader';
 import { CLOUD_FUNCTIONS, cloudFunction } from 'utilities/CloudFunctions';
@@ -124,7 +124,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
 }) => {
   const classes = useDropzoneStyles();
 
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const uid = user.id;
 
   // If name exists, a file has been selected and is uploading

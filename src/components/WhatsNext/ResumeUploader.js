@@ -12,7 +12,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUploadOutlined';
 import CloudDoneIcon from '@material-ui/icons/CloudDoneOutlined';
 import FileIcon from '@material-ui/icons/AttachmentOutlined';
 
-import UserContext from '../../contexts/UserContext';
+import { useUser } from '../../contexts/UserContext';
 import {
   STYLES,
   COLLECTIONS,
@@ -85,7 +85,7 @@ const ResumeUploader = props => {
     }
   }, [file]);
 
-  const userContext = useContext(UserContext);
+  const userContext = useUser();
   const uid = userContext.user.id;
 
   return (

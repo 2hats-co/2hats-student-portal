@@ -5,10 +5,10 @@ import { Avatar, Tooltip, CircularProgress } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/PersonOutlined';
 
 import { getInitials } from 'utilities';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 
 const SuperAvatar = ({ className, size, tooltip, noInitialsIcon }) => {
-  const { authUser, user } = useContext(UserContext);
+  const { authUser, user } = useUser();
 
   if (!authUser || !user) return <CircularProgress size={size} />;
 

@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom';
 
 import LoadingScreen from 'components/LoadingScreen';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import * as ROUTES from 'constants/routes';
 import { hasFinishedOnboarding } from 'utilities/onboarding';
 
@@ -16,7 +16,7 @@ import { hasFinishedOnboarding } from 'utilities/onboarding';
  * onboarded yet or has not finished onboarding, they will be redirected there.
  */
 const Landing: React.FC = () => {
-  const { authUser, user } = useContext(UserContext);
+  const { authUser, user } = useUser();
 
   if (!authUser) return <Redirect to={ROUTES.SIGN_IN} />;
 

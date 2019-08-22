@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import { makeStyles, createStyles, Typography } from '@material-ui/core';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import SkillChip from '@bit/twohats.common.components.skill-chip';
 
 const useStyles = makeStyles(theme =>
@@ -52,7 +52,7 @@ const SkillsList: React.FC<SkillsListProps> = ({
   maxSkills,
 }) => {
   const classes = useStyles({ maxSkills });
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   if (skills.length === 0) return <div className={classes.root} />;
 

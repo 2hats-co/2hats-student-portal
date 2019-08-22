@@ -12,7 +12,7 @@ import ErrorIcon from '@material-ui/icons/ErrorOutline';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
 import { updateDoc } from '../utilities/firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
-import UserContext from '../contexts/UserContext';
+import { useUser } from '../contexts/UserContext';
 
 import LoadingScreen from '../components/LoadingScreen';
 
@@ -46,7 +46,7 @@ function CourseRedirectContainer(props) {
   const parsedQuery = queryString.parse(location.search);
   const hasId = parsedQuery.id && parsedQuery.id.length > 0;
 
-  const userContext = useContext(UserContext);
+  const userContext = useUser();
   const user = userContext.user;
 
   useEffect(() => {

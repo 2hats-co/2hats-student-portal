@@ -11,7 +11,7 @@ import {
 
 import RequiredSkills from 'components/Job/RequiredSkills';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -75,7 +75,7 @@ const JobProgress: React.FunctionComponent<IJobProgressProps> = ({
     !location.state.title ||
     !location.state.companyName;
 
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // Don't render if location.state is missing some stuff
   if (invalidData) return null;

@@ -1,14 +1,14 @@
-import { useEffect, useContext, useState } from 'react';
+import { useEffect, useState } from 'react';
 import queryString from 'query-string';
 
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import useDocument from './useDocument';
-import UserContext from '../contexts/UserContext';
+import { useUser } from '../contexts/UserContext';
 
 /** CURRENTLY UNUSED */
 const useDocumentFromUrl = (location, match, path) => {
   const [docState, docDispatch] = useDocument();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

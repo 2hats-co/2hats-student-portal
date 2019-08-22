@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { SIGN_IN } from 'constants/routes';
 
 /**
@@ -33,7 +33,7 @@ import { SIGN_IN } from 'constants/routes';
  * smartLink callable multiple times, which is undesirable.
  */
 const ProtectedRoute = ({ render, location, ...rest }) => {
-  const { authUser } = useContext(UserContext);
+  const { authUser } = useUser();
 
   let redirectRoute = SIGN_IN;
   if (location.pathname)

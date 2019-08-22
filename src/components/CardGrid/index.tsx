@@ -14,7 +14,7 @@ import LoadingCard, {
 } from 'components/OneCardTwo/LoadingCard';
 import EmptyState, { IEmptyStateProps } from './EmptyState';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import useColsWidth from 'hooks/useColsWidth';
 import {
   INDUSTRIES,
@@ -175,7 +175,7 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
   maxCount = INITIAL_LIMIT,
 }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const showPreviewOnly = location.pathname !== route;
 

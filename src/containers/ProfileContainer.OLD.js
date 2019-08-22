@@ -21,7 +21,7 @@ import {
 } from '@bit/sidney2hats.2hats.global.common-constants';
 import useDocument from '../hooks/useDocument';
 import useCollection from '../hooks/useCollection';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 
 export const profileStyles = theme => ({
   infoPopper: { marginRight: -theme.spacing(1) * 2 },
@@ -98,7 +98,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProfileContainer = props => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const classes = useStyles();
   const theme = useTheme();
 

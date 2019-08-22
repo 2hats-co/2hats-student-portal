@@ -22,7 +22,7 @@ import NakedExpansionPanel from '@bit/twohats.common.components.naked-expansion-
 
 import DownIcon from '@material-ui/icons/KeyboardArrowDown';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import {
   DocWithId,
   AssessmentsDoc,
@@ -48,7 +48,7 @@ const Assessment: React.FunctionComponent<IAssessmentProps> = ({
   location,
 }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // The assessmentData prop is definitely of type UsersAssessmentsDoc
   // if and only if it has the field assessmentId

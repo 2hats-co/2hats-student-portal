@@ -26,7 +26,7 @@ import PortfolioFileField from './PortfolioFileField';
 import ResumeField from './ResumeField';
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import {
   COLLECTIONS,
   WORK_RESTRICTIONS,
@@ -80,7 +80,7 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
   const classes = useStyles();
 
   // Get profile document to get already inputted data
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const [profileState] = useDocument({
     path: `${COLLECTIONS.profiles}/${user.id}`,
   });

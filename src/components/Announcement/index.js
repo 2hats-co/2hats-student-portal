@@ -14,7 +14,7 @@ import SkillItem from '../SkillItem';
 import SkillsCounter from '../Job/SkillsCounter';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import UserContext from '../../contexts/UserContext';
+import { useUser } from '../../contexts/UserContext';
 import useCollection from '../../hooks/useCollection';
 import useDocument from '../../hooks/useDocument';
 import {
@@ -131,7 +131,7 @@ const Announcement = props => {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const userContext = useContext(UserContext);
+  const userContext = useUser();
   const user = userContext.user;
 
   const [announcementsState] = useCollection({

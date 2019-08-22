@@ -14,7 +14,7 @@ import green from '@material-ui/core/colors/green';
 
 import { getSkillLabel } from '@bit/sidney2hats.2hats.global.common-constants';
 
-import UserContext from '../contexts/UserContext';
+import { useUser } from '../contexts/UserContext';
 import { getFirstIdOfQuery } from '../utilities/firestore';
 
 import { COLLECTIONS } from '@bit/twohats.common.constants';
@@ -77,7 +77,7 @@ const SkillItem = props => {
     clickable,
   } = props;
 
-  const userContext = useContext(UserContext);
+  const userContext = useUser();
   const user = userContext.user;
   const [skillLabel, setSkillLabel] = useState(getSkillLabel(value));
   const [assessmentRoute, setAssessmentRoute] = useState(

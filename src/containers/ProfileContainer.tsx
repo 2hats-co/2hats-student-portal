@@ -5,7 +5,7 @@ import { Container } from '@material-ui/core';
 import LoadingScreen from 'components/LoadingScreen';
 import ProfileHeader from 'components/Profile/ProfileHeader';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import useDocument from 'hooks/useDocument';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
@@ -19,7 +19,7 @@ interface IProfileContainerProps {}
 const ProfileContainer: React.FunctionComponent<
   IProfileContainerProps
 > = props => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const [profileState] = useDocument({
     path: `${COLLECTIONS.profiles}/${user.id}`,
   });

@@ -10,7 +10,7 @@ import DesktopNavigation from './DesktopNavigation';
 import MobileNavigation from './MobileNavigation';
 import BackButton from './BackButton';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
 import { SIDEBAR_WIDTH, IS_MOBILE_QUERY } from 'constants/layout';
 
@@ -67,7 +67,7 @@ const Navigation = ({ location, children }) => {
     }, 300);
   }, [location.pathname, classes.mainWrapperAnimation]);
 
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const isMobile = useMediaQuery(IS_MOBILE_QUERY);
 

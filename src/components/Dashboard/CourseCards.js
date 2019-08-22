@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 
 import CardGrid from 'components/CardGrid';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import useCollection from 'hooks/useCollection';
 import { getPrioritisedCards, generateCourseCard } from 'utilities/cards';
 import * as ROUTES from 'constants/routes';
@@ -38,7 +38,7 @@ const DISPATCH_PROPS = {
  * 3. Completed courses
  */
 const CourseCards = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const [ongoingState] = useCollection(DISPATCH_PROPS.ONGOING(user));
   const ongoingCards = ongoingState.documents;

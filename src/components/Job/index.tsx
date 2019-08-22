@@ -16,7 +16,7 @@ import NakedExpansionPanel from '@bit/twohats.common.components.naked-expansion-
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { getCanApply, getHasApplied } from 'utilities/jobs';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { JOB_APPLICATION } from 'constants/routes';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { createDocWithId } from 'utilities/firestore';
@@ -26,7 +26,7 @@ interface IJobProps extends RouteComponentProps {
 }
 
 const Job: React.FunctionComponent<IJobProps> = ({ jobData, location }) => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   useEffect(() => {
     // Check if there is a referrer in the URL

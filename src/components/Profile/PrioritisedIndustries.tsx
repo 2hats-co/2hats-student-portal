@@ -11,7 +11,7 @@ import {
 } from '@material-ui/core';
 
 import useDebounce from '@bit/twohats.common.use-debounce';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { INDUSTRIES, INDUSTRY_DISPLAY_NAMES } from 'constants/cards';
 
 const useStyles = makeStyles(theme =>
@@ -39,7 +39,7 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
   handleSave,
 }) => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const defaultPrioritised: { [industry: string]: boolean } = {};
   // Set everything to prioritised, by default

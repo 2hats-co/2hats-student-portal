@@ -11,7 +11,7 @@ import OnboardingA2 from 'components/Onboarding/OnboardingA2';
 import OnboardingB1 from 'components/Onboarding/OnboardingB1';
 import OnboardingB2 from 'components/Onboarding/OnboardingB2';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import * as ROUTES from 'constants/routes';
 import { ONBOARDING_STAGES } from 'utilities/onboarding';
 import { updateDoc } from 'utilities/firestore';
@@ -29,7 +29,7 @@ const OnboardingContainer: React.FC<OnboardingContainerProps> = props => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [match.params]);
 
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // Update the user doc’s onboardingStage
   useEffect(() => {

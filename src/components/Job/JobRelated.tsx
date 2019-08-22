@@ -4,7 +4,7 @@ import { makeStyles, createStyles } from '@material-ui/core';
 import CardGrid from 'components/CardGrid';
 
 import * as ROUTES from 'constants/routes';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import {
   DocWithId,
   JobsDoc,
@@ -51,7 +51,7 @@ interface IJobRelatedProps {
  */
 const JobRelated: React.FunctionComponent<IJobRelatedProps> = ({ jobData }) => {
   const classes = useStyles({ numCards: jobData.skillsRequired.length });
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   // Get related open jobs, in ascending order of closingDate
   const [relatedJobsState] = useCollection({

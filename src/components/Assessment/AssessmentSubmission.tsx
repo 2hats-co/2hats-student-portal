@@ -19,7 +19,7 @@ import GoIcon from '@bit/twohats.common.icons.go';
 
 import AssessmentQuestion from './AssessmentQuestion';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import {
   submitAssessment,
   saveAssessment,
@@ -83,7 +83,7 @@ const AssessmentSubmission: React.FunctionComponent<
   if (!('submitted' in assessmentData))
     throw new Error('Assessment document is invalid');
 
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const classes = useStyles();
   // Show/hide the "Saved" snackbar
   const [showSnackbar, setShowSnackbar] = useState(false);

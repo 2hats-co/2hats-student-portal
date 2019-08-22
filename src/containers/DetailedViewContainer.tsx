@@ -8,7 +8,7 @@ import FourOhFour from 'components/routing/FourOhFour';
 import useDocument from 'hooks/useDocument';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { capitalise } from 'utilities';
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { getFirstIdOfQuery } from 'utilities/firestore';
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 
@@ -29,7 +29,7 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   location,
   history,
 }) => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
   const docType = location.pathname.split('/')[1];
 
   const [docState, docDispatch] = useDocument();

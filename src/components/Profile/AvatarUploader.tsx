@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import UploadIcon from '@material-ui/icons/CloudUpload';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { blobAvatarUploader } from 'utilities/Uploader';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { updateDoc } from 'utilities/firestore';
@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme =>
  */
 const AvatarUploader: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const [loading, setLoading] = useState(false);
 

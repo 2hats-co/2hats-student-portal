@@ -7,7 +7,7 @@ import Graphic from 'assets/images/graphics/Rocket.svg';
 import PrioritisedIndustries from '../Profile/PrioritisedIndustries';
 import OnboardingCta from './OnboardingCta';
 
-import UserContext from 'contexts/UserContext';
+import { useUser } from 'contexts/UserContext';
 import { saveDeprioritisedIndustries } from 'utilities/profile';
 
 const useStyles = makeStyles(theme =>
@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme =>
 
 const OnboardingA1: React.FC = () => {
   const classes = useStyles();
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   const handleSavePrioritisedIndustries = (data: string[]) =>
     saveDeprioritisedIndustries(user.id, data)
