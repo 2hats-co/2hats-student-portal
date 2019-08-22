@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect, Reducer } from 'react';
+import React, { useReducer, useEffect, Reducer } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {

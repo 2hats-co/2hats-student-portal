@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { makeStyles, createStyles, Typography } from '@material-ui/core';
 

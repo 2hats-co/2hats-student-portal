@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { withRouter, RouteComponentProps, Redirect } from 'react-router-dom';
 import queryString from 'query-string';
 

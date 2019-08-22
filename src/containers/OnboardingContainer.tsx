@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 
 import LoadingScreen from 'components/LoadingScreen';

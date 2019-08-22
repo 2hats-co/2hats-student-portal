@@ -1,4 +1,4 @@
-import React, { useContext, useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 import { makeStyles, createStyles } from '@material-ui/core';
 import CardGrid from 'components/CardGrid';
