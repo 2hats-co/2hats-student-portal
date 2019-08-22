@@ -10,11 +10,16 @@ import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { capitalise } from 'utilities';
 import UserContext from 'contexts/UserContext';
 import { getFirstIdOfQuery } from 'utilities/firestore';
+import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 
 const Assessment = lazy(() =>
   import('components/Assessment' /* webpackChunkName: "Assessment" */)
 );
 const Job = lazy(() => import('components/Job' /* webpackChunkName: "Job" */));
+
+export interface JobComponentProps {
+  jobData: DocWithId<JobsDoc> | DocWithId<UsersJobsDoc>;
+}
 
 export interface DetailedViewContainerProps
   extends RouteComponentProps<{ id: string }> {}
