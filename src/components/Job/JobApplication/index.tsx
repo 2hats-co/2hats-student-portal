@@ -11,6 +11,11 @@ interface IJobApplicationProps {
   jobData: DocWithId<JobsDoc> | DocWithId<UsersJobsDoc>;
 }
 
+/**
+ * Wrapper component to hide `ApplicationForm` before user confirms their
+ * availability and TFN/ABN. This prevents requesting the user’s Profile
+ * document before it’s necessary.
+ */
 const JobApplication: React.FunctionComponent<IJobApplicationProps> = ({
   jobData,
 }) => {

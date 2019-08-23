@@ -26,6 +26,10 @@ const useStyles = makeStyles(theme =>
 
 interface IPortfolioFileFieldProps extends FieldProps {}
 
+/**
+ * Uploads any file the user selects to our G Cloud Storage bucket.
+ * In the future, this should probably only happen on submit.
+ */
 const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
   field,
   form,
@@ -55,7 +59,7 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
 
   return (
     <div>
-      <FormLabel htmlFor="field-portfolio-upload">
+      <FormLabel htmlFor={`field-${field.name}`}>
         <Typography
           variant="overline"
           color={
@@ -82,7 +86,7 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
         dropHandler={handleDrop}
         fileLabel="PDF portfolio"
         className={classes.dropzone}
-        id="field-portfolio-upload"
+        id={`field-${field.name}`}
       />
 
       <ErrorMessage name={field.name}>

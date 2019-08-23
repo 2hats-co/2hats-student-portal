@@ -1,37 +1,31 @@
 import React, { MouseEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
-import { Formik, Field, FieldProps, Form } from 'formik';
-import { TextField } from 'formik-material-ui';
+import { Formik, Field, Form } from 'formik';
 import isEmpty from 'ramda/es/isEmpty';
 
 import {
   makeStyles,
   createStyles,
-  FormLabel,
   Typography,
-  MenuItem,
   LinearProgress,
   Grid,
   Button,
 } from '@material-ui/core';
 
 import DialogPrompt from '@bit/twohats.common.components.dialog-prompt';
-import HelpPopup from '@bit/twohats.common.components.help-popup';
 import GoIcon from '@bit/twohats.common.icons.go';
 
-import StartDateField from './StartDateField';
+import StartDateField from 'components/FormikFields/StartDateField';
+import StyledTextField from 'components/FormikFields/StyledTextField';
+import WorkRestrictionField from 'components/FormikFields/WorkRestrictionField';
 import PaySliderField from './PaySliderField';
-import WorkCultureSlidersField from './WorkCultureSlidersField';
-import PortfolioFileField from './PortfolioFileField';
-import ResumeField from './ResumeField';
+import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersField';
+import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
+import ResumeField from 'components/FormikFields/ResumeField';
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { useUser } from 'contexts/UserContext';
-import {
-  COLLECTIONS,
-  WORK_RESTRICTIONS,
-  WORK_RESTRICTIONS_LABELS,
-} from '@bit/twohats.common.constants';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 import useDocument from 'hooks/useDocument';
 import { JOB } from 'constants/routes';
 
@@ -72,6 +66,13 @@ interface IApplicationFormProps extends RouteComponentProps {
   jobData: DocWithId<JobsDoc> | DocWithId<UsersJobsDoc>;
 }
 
+/**
+ * The Formik-based application form for applying for jobs.
+ *
+ * When the component is mounted, it will get the user’s Profile document and
+ * store it in state. (The listener is unsubscribed to since Formik won’t
+ * update the fields when Profile changes)
+ */
 const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
   jobData,
   history,
@@ -85,6 +86,8 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
     path: `${COLLECTIONS.profiles}/${user.id}`,
   });
   const profile = profileState.doc;
+  // Unsubscribe since Formik won’t update when initialValues changes
+  if (profileState.unsubscribe) profileState.unsubscribe();
 
   // Show loading screen while profile is loading
   if (!profile || profileState.loading)
@@ -122,144 +125,40 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
         });
       }}
       validationSchema={JobApplicationSchema}
-      render={({
-        errors,
-        touched,
-        submitForm,
-        dirty,
-        isSubmitting,
-        status,
-      }) => (
+      render={({ errors, submitForm, dirty, isSubmitting, status }) => (
         <Form className={classes.root}>
+          <Field name="jobAvailabilityStartDate" component={StartDateField} />
+
           <Field
-            name="jobAvailabilityStartDate"
-            id="field-jobAvailabilityStartDate"
-            component={(fieldProps: FieldProps<Date>) => (
-              <StartDateField {...fieldProps} />
-            )}
+            name="coverLetter"
+            component={StyledTextField}
+            label="About Me"
+            multiline
+            placeholder="Description of why I am a good fit for this position…"
+            rows="4"
           />
 
-          <div id="field-coverLetter">
-            <FormLabel htmlFor="field-coverLetter">
-              <Typography
-                variant="overline"
-                color={
-                  errors.coverLetter && touched.workRestriction
-                    ? 'error'
-                    : 'textSecondary'
-                }
-              >
-                About Me
-              </Typography>
-            </FormLabel>
-            <Field
-              name="coverLetter"
-              component={TextField}
-              variant="filled"
-              multiline
-              fullWidth
-              hiddenLabel
-              margin="none"
-              placeholder="Description of why I am a good fit for this position…"
-              rows="4"
-              error={errors.coverLetter}
-            />
-          </div>
+          <Field name="workRestriction" component={WorkRestrictionField} />
 
-          <div id="field-workRestriction">
-            <FormLabel htmlFor="field-workRestriction">
-              <Grid container alignItems="center">
-                <Typography
-                  variant="overline"
-                  color={
-                    errors.workRestriction && touched.workRestriction
-                      ? 'error'
-                      : 'textSecondary'
-                  }
-                >
-                  Work Condition
-                </Typography>
-                <HelpPopup
-                  variant="besideOverline"
-                  message="We do not judge job applications based on working conditions or restrictions. "
-                />
-              </Grid>
-            </FormLabel>
-            <Field
-              name="workRestriction"
-              inputProps={{ id: 'field-workRestriction' }}
-              component={TextField}
-              variant="filled"
-              select
-              fullWidth
-              hiddenLabel
-              margin="none"
-              aria-label="Work Condition"
-              error={errors.workRestriction}
-              SelectProps={{
-                displayEmpty: true,
-                renderValue: (value: 'restricted' | 'unrestricted') =>
-                  WORK_RESTRICTIONS_LABELS[value] || (
-                    <Typography color="textSecondary">Choose one…</Typography>
-                  ),
-              }}
-            >
-              {WORK_RESTRICTIONS.map((x: 'restricted' | 'unrestricted') => (
-                <MenuItem key={x} value={x}>
-                  {WORK_RESTRICTIONS_LABELS[x]}
-                </MenuItem>
-              ))}
-            </Field>
-          </div>
+          <Field name="pay" component={PaySliderField} jobData={jobData} />
 
           <Field
-            name="pay"
-            id="field-pay"
-            component={PaySliderField}
-            jobData={jobData}
-          />
-
-          <Field
-            id="field-workCultureSliders"
             name="workCultureSliders"
             component={WorkCultureSlidersField}
           />
 
           {(!profile.resume || !profile.resume.name || !profile.resume.url) && (
-            <Field name="resume" id="field-resume" component={ResumeField} />
+            <Field name="resume" component={ResumeField} />
           )}
 
+          <Field name="portfolioFile" component={PortfolioFileField} />
+
           <Field
-            name="portfolioFile"
-            id="field-portfolioFile"
-            component={PortfolioFileField}
+            name="portfolioExternal"
+            component={StyledTextField}
+            label="Link to Your Work (Online Portfolio, GitHub, etc.)"
+            placeholder="https://www."
           />
-
-          <div id="field-portfolioExternal">
-            <FormLabel htmlFor="field-portfolioExternal">
-              <Typography
-                variant="overline"
-                color={
-                  errors.portfolioExternal && touched.portfolioExternal
-                    ? 'error'
-                    : 'textSecondary'
-                }
-              >
-                Link to Your Work (Online Portfolio, GitHub, etc.)
-              </Typography>
-            </FormLabel>
-
-            <Field
-              name="portfolioExternal"
-              inputProps={{ id: 'field-portfolioExternal' }}
-              component={TextField}
-              variant="filled"
-              fullWidth
-              hiddenLabel
-              margin="none"
-              placeholder="https://www."
-            />
-          </div>
 
           <Button
             onClick={(event: MouseEvent) => {

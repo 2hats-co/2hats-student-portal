@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme =>
 
 interface IStartDateFieldProps extends FieldProps {}
 
+/**
+ * User says they’re either available now or a later month
+ */
 const StartDateField: React.FunctionComponent<IStartDateFieldProps> = ({
   field,
   form,
@@ -90,7 +93,7 @@ const StartDateField: React.FunctionComponent<IStartDateFieldProps> = ({
 
   return (
     <div>
-      <FormLabel htmlFor="field-jobAvailabilityStartDate">
+      <FormLabel htmlFor={`field-${field.name}`}>
         <Typography
           variant="overline"
           color={
@@ -104,7 +107,7 @@ const StartDateField: React.FunctionComponent<IStartDateFieldProps> = ({
       </FormLabel>
 
       <MuiPickersUtilsProvider utils={MomentUtils}>
-        <FormControl component="fieldset" id="field-jobAvailabilityStartDate">
+        <FormControl component="fieldset" id={`field-${field.name}`}>
           <RadioGroup
             aria-label="Job Availability Start Date"
             name={field.name}

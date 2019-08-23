@@ -71,8 +71,8 @@ const WorkCultureSlidersField: React.FunctionComponent<
   }, [sliderValues]);
 
   return (
-    <div>
-      <FormLabel htmlFor="field-workCultureSliders">
+    <div id={`field-${field.name}`}>
+      <FormLabel htmlFor={`field-${field.name}`}>
         <Typography
           variant="overline"
           color={

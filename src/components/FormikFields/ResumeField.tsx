@@ -59,7 +59,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
 
   return (
     <div>
-      <FormLabel htmlFor="field-resume-upload">
+      <FormLabel htmlFor={`field-${field.name}`}>
         <Typography
           variant="overline"
           color={
@@ -86,7 +86,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
         dropHandler={handleDrop}
         fileLabel="PDF resume"
         className={classes.dropzone}
-        id="field-resume-upload"
+        id={`field-${field.name}`}
       />
 
       <ErrorMessage name={field.name}>
