@@ -5,6 +5,8 @@ import { getLetterSpacing } from 'utilities/styling';
 import logo from 'assets/images/Logo/DarkText.svg';
 import darkLogo from 'assets/images/Logo/WhiteText.svg';
 
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+
 export const PRIMARY_COLOR = '#F15A29';
 // export const PRIMARY_DARK_TEXT = 'hsl(15, 90%, 40%)';
 // export const PRIMARY_LIGHT = 'hsl(15, 88%, 90%)';
@@ -143,6 +145,9 @@ const themeCommons = {
     MuiTypography: {
       color: 'textPrimary',
     },
+    MuiSelect: {
+      IconComponent: KeyboardArrowDownIcon,
+    },
   },
   overrides: {
     // LEGACY OVERRIDES
@@ -215,6 +220,8 @@ const themeCommons = {
       root: { borderRadius: `${BORDER_RADIUS}px !important` },
       // Fix hiddenLabel for multiline input
       inputMultiline: { '&$inputHiddenLabel': { marginTop: -10 } },
+
+      inputSelect: { paddingRight: 40 },
     },
     // MuiBadge: {
     //   badge: { fontWeight: 700 },
@@ -278,6 +285,11 @@ const themeCommons = {
         opacity: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.09)',
       },
+    },
+
+    // More spacing for alt Slider dropdown icon
+    MuiSelect: {
+      icon: { right: 12 },
     },
   },
 };

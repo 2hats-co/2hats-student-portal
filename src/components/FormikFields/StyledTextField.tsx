@@ -1,8 +1,22 @@
 import React from 'react';
 import { FieldProps } from 'formik';
 
-import { FormLabel, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  FormLabel,
+  Typography,
+} from '@material-ui/core';
 import { TextField, TextFieldProps } from 'formik-material-ui';
+
+const useStyles = makeStyles(theme =>
+  createStyles({
+    label: {
+      display: 'block',
+      marginBottom: theme.spacing(0.5),
+    },
+  })
+);
 
 interface IStyledTextFieldProps extends FieldProps, TextFieldProps {}
 
@@ -13,6 +27,7 @@ const StyledTextField: React.FunctionComponent<
   IStyledTextFieldProps
 > = props => {
   const { form, field, label } = props;
+  const classes = useStyles();
 
   return (
     <div>
@@ -24,6 +39,7 @@ const StyledTextField: React.FunctionComponent<
               ? 'error'
               : 'textSecondary'
           }
+          className={classes.label}
         >
           {label}
         </Typography>
