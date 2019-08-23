@@ -943,19 +943,19 @@
   dependencies:
     clsx "^1.0.4"
 
-"@bit/twohats.common.components.naked-expansion-panel@^1.0.12":
-  version "1.0.12"
-  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.12.tgz#069dc3b2adccef140e9b3000627ca6d6501a33f6"
-  integrity sha1-Bp3Dsq3M7xQOmzAAYnym1lAaM/Y=
+"@bit/twohats.common.components.naked-expansion-panel@^1.0.14":
+  version "1.0.14"
+  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.14.tgz#d75c7d8d2d0956ab40473cead04ff315635d66bd"
+  integrity sha1-11x9jS0JVqtARzzq0E/zFWNdZr0=
   dependencies:
     "@bit/twohats.common.styles" "0.0.18"
 
-"@bit/twohats.common.components.skill-chip@^1.0.23":
-  version "1.0.23"
-  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.23.tgz#0e6b1d388121994d918b6d10cc8e346f6c6fdf47"
-  integrity sha1-DmsdOIEhmU2Ri20QzI40b2xv30c=
+"@bit/twohats.common.components.skill-chip@^1.0.25":
+  version "1.0.25"
+  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.25.tgz#bd68345af35e19d34258af8f0b60bd57f8efc08e"
+  integrity sha1-vWg0WvNeGdNCWK+PC2C9V/jvwI4=
   dependencies:
-    "@bit/twohats.common.db-types" "0.0.40"
+    "@bit/twohats.common.db-types" "0.0.42"
     history "4.9.0"
     react-router-dom "^5.0.1"
 
@@ -981,10 +981,10 @@
   resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.18.tgz#3b8cbd819c7765755894e7954be22022e52b8477"
   integrity sha1-O4y9gZx3ZXVYlOeVS+IgIuUrhHc=
 
-"@bit/twohats.common.db-types@0.0.40", "@bit/twohats.common.db-types@^0.0.40":
-  version "0.0.40"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.40.tgz#9a28ec0fd2b9b2e66836ea4a63e5d23a8d97f381"
-  integrity sha1-mijsD9K5suZoNupKY+XSOo2X84E=
+"@bit/twohats.common.db-types@0.0.42", "@bit/twohats.common.db-types@^0.0.42":
+  version "0.0.42"
+  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.42.tgz#34da9eeff21d18ac6a14a253c72c11ffb813a5eb"
+  integrity sha1-NNqe7/IdGKxqFKJTxywR/7gTpes=
   dependencies:
     "@bit/twohats.common.constants" "1.0.18"
 
