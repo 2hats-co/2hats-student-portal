@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import {
-  makeStyles,
-  createStyles,
   useTheme,
   LinearProgress,
   List,
