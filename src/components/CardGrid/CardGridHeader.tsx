@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   button: {
-    '$a&': {
+    'a&': {
       color: theme.palette.primary.main,
       transition: theme.transitions.create('background-color', {
         duration: theme.transitions.duration.short,
@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
   },
 
   iconButton: { margin: '-3px 0' }, // Stop IconButton making header larger
-  iconButtonGo: { '$svg&': { marginLeft: '0 !important' } }, // Stop Go icon from adding left padding
+  iconButtonGo: { 'svg&': { marginLeft: '0 !important' } }, // Stop Go icon from adding left padding
 
   header: { display: 'inline-block' },
   lengthChip: {
