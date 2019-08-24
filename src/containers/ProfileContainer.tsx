@@ -33,7 +33,7 @@ const ProfileContainer: React.FunctionComponent<
   if (profileState.loading)
     return <LoadingScreen message="Getting your data…" contained />;
 
-  if (!profileData) throw `Profile data for ${user.id} is empty`;
+  if (!profileData) throw new Error(`Profile data for ${user.id} is empty`);
 
   return (
     <Container maxWidth="sm" component="main">
