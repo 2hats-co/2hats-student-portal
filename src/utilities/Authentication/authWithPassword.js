@@ -32,6 +32,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
               lastSignedInAt: firebase.firestore.FieldValue.serverTimestamp(),
               signupMethod: 'password',
+              homeReferrerId,
             });
           db.collection('profiles')
             .doc(uid)
