@@ -23,6 +23,7 @@ import ProfileFormAutosave from './ProfileFormAutosave';
 
 import { ProfileComponentProps } from 'containers/ProfileContainer';
 import { useUser } from 'contexts/UserContext';
+import { ProfileFormSchema } from 'constants/profile';
 import { UNIVERSITIES } from '@bit/twohats.common.constants';
 
 const useStyles = makeStyles(theme =>
@@ -79,10 +80,6 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
     portfolioExternal: profileData.portfolioExternal || '',
   };
 
-  const ProfileFormSchema = Yup.object().shape({
-    bio: Yup.string().required('Required'),
-  });
-
   return (
     <Formik
       initialValues={initialValues}
@@ -132,7 +129,13 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
             label="Current University"
             select
             aria-label="Current University"
+            SelectProps={{ displayEmpty: true }}
           >
+            <MenuItem value="" disabled>
+              <Typography color="textSecondary">
+                Choose a university…
+              </Typography>
+            </MenuItem>
             {UNIVERSITIES.map((x: string) => (
               <MenuItem key={x} value={x.split('\u2063')[0]}>
                 {x}
@@ -144,6 +147,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
             name="currentDegree"
             component={StyledTextField}
             label="Current Degree"
+            placeholder="Bachelor of … or Master of …"
           />
 
           <Field name="workRestriction" component={WorkRestrictionField} />
@@ -172,7 +176,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
             name="mobileNumber"
             component={StyledTextField}
             label="Mobile Number"
-            placeholder="0412345678"
+            placeholder="e.g. 0412 345 678"
           />
 
           <Typography
@@ -189,7 +193,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
             component={StyledTextField}
             label="My Bio"
             multiline
-            placeholder="Description of why I am a good fit for this position…"
+            placeholder="Your bio goes here…"
             rows="4"
           />
 

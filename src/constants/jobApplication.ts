@@ -1,27 +1,15 @@
 import * as Yup from 'yup';
 import moment from 'moment';
 
-import {
-  WORK_CULTURE_SLIDER_MIN,
-  WORK_CULTURE_SLIDER_MAX,
-  WORK_CULTURE_SLIDER_LABELS,
-} from '@bit/twohats.common.constants';
-
-const WorkCultureSlidersSchema: { [key: string]: Yup.NumberSchema } = {};
-Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(
-  x =>
-    (WorkCultureSlidersSchema[x] = Yup.number()
-      .min(WORK_CULTURE_SLIDER_MIN)
-      .max(WORK_CULTURE_SLIDER_MAX)
-      .required('Required'))
-);
+import { WorkCultureSlidersSchema } from './profile';
 
 export const JobApplicationSchema = Yup.object().shape({
   jobAvailabilityStartDate: Yup.date()
     .min(
       moment()
         .startOf('month')
-        .toDate()
+        .toDate(),
+      'Must be at least this month'
     )
     .required('Required'),
   coverLetter: Yup.string().required('Required'),
