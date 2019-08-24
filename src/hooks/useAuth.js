@@ -5,6 +5,8 @@ import { auth } from '../firebase';
  * Authenticates user using Firebase Auth. For use in [App](#app) component.
  * @returns {(undefined | null | object)} undefined if loading, null if not
  * signed in, or object for user auth object
+ *
+ * Plus, it registers the user against Smartlook
  */
 const useAuth = () => {
   const [authUser, setAuthUser] = useState(undefined);
@@ -12,7 +14,10 @@ const useAuth = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(authUser => {
       setAuthUser(authUser);
-      if (authUser) setSmartlookUser(authUser);
+      if (authUser) {
+        setSmartlookUser(authUser);
+        console.log('Signed in', authUser.uid, authUser);
+      }
     });
 
     return () => unsubscribe();

@@ -364,4 +364,4 @@ export const DarkTheme = responsiveFontSizes(
   )
 );
 
-console.log(Theme, DarkTheme);
+// console.log(Theme, DarkTheme);
