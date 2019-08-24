@@ -19,6 +19,8 @@ import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersF
 import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
 import ResumeField from 'components/FormikFields/ResumeField';
 
+import ProfileFormAutosave from './ProfileFormAutosave';
+
 import { ProfileComponentProps } from 'containers/ProfileContainer';
 import { useUser } from 'contexts/UserContext';
 import { UNIVERSITIES } from '@bit/twohats.common.constants';
@@ -41,6 +43,12 @@ interface IProfileFormProps
   extends RouteComponentProps,
     ProfileComponentProps {}
 
+/**
+ * The Formik form allowing the user to update their information.
+ *
+ * Autosaving and updating the relevant documents is handled by
+ * [`ProfileFormAutosave`](#profileformautosave)
+ */
 const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
   profileData,
 }) => {
@@ -78,128 +86,132 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={async (values, actions) => {
-        console.log('FORM SUBMISSION', values);
+      onSubmit={(values, actions) => {
+        // does nothing, just sets submitting to false again
+        actions.setSubmitting(false);
       }}
       validationSchema={ProfileFormSchema}
-      render={({ errors, touched, values }) => {
-        console.log(values, errors, touched);
-        return (
-          <Form className={classes.root}>
-            <Typography
-              variant="h6"
-              component="h1"
-              color="textSecondary"
-              gutterBottom
-            >
-              Personal Info
-            </Typography>
+      render={({ values, errors }) => (
+        <Form className={classes.root}>
+          <ProfileFormAutosave
+            values={values}
+            errors={errors}
+            profileData={profileData}
+          />
 
-            <Grid container spacing={3}>
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="firstName"
-                  component={StyledTextField}
-                  label="First Name"
-                />
-              </Grid>
+          <Typography
+            variant="h6"
+            component="h1"
+            color="textSecondary"
+            gutterBottom
+          >
+            Personal Info
+          </Typography>
 
-              <Grid item xs={12} sm={6}>
-                <Field
-                  name="lastName"
-                  component={StyledTextField}
-                  label="Last Name"
-                />
-              </Grid>
+          <Grid container spacing={3}>
+            <Grid item xs={12} sm={6}>
+              <Field
+                name="firstName"
+                component={StyledTextField}
+                label="First Name"
+              />
             </Grid>
 
-            <Field
-              name="currentUniversity"
-              component={StyledTextField}
-              label="Current University"
-              select
-              aria-label="Current University"
-            >
-              {UNIVERSITIES.map((x: string) => (
-                <MenuItem key={x} value={x.split('\u2063')[0]}>
-                  {x}
-                </MenuItem>
-              ))}
-            </Field>
+            <Grid item xs={12} sm={6}>
+              <Field
+                name="lastName"
+                component={StyledTextField}
+                label="Last Name"
+              />
+            </Grid>
+          </Grid>
 
-            <Field
-              name="currentDegree"
-              component={StyledTextField}
-              label="Current Degree"
-            />
+          <Field
+            name="currentUniversity"
+            component={StyledTextField}
+            label="Current University"
+            select
+            aria-label="Current University"
+          >
+            {UNIVERSITIES.map((x: string) => (
+              <MenuItem key={x} value={x.split('\u2063')[0]}>
+                {x}
+              </MenuItem>
+            ))}
+          </Field>
 
-            <Field name="workRestriction" component={WorkRestrictionField} />
+          <Field
+            name="currentDegree"
+            component={StyledTextField}
+            label="Current Degree"
+          />
 
-            <Field
-              name="jobAvailabilityStartDate"
-              id="field-jobAvailabilityStartDate"
-              component={(fieldProps: FieldProps<Date>) => (
-                <StartDateField {...fieldProps} />
-              )}
-            />
+          <Field name="workRestriction" component={WorkRestrictionField} />
 
-            <Field
-              name="availableDays"
-              component={SliderField}
-              label="Minimum Available Days / Week"
-              min={1}
-              max={5}
-              step={0.5}
-              marks={[1, 2, 3, 4, 5].map(x => ({ value: x }))}
-              valueLabelDisplay="auto"
-              rightValueFormat={(val: number) => `${val.toFixed(1)} days/week`}
-            />
+          <Field
+            name="jobAvailabilityStartDate"
+            id="field-jobAvailabilityStartDate"
+            component={(fieldProps: FieldProps<Date>) => (
+              <StartDateField {...fieldProps} />
+            )}
+          />
 
-            <Field
-              name="mobileNumber"
-              component={StyledTextField}
-              label="Mobile Number"
-              placeholder="0412345678"
-            />
+          <Field
+            name="availableDays"
+            component={SliderField}
+            label="Minimum Available Days / Week"
+            min={1}
+            max={5}
+            step={0.5}
+            marks={[1, 2, 3, 4, 5].map(x => ({ value: x }))}
+            valueLabelDisplay="auto"
+            rightValueFormat={(val: number) => `${val.toFixed(1)} days/week`}
+          />
 
-            <Typography
-              variant="h6"
-              component="h1"
-              color="textSecondary"
-              gutterBottom
-            >
-              About Me
-            </Typography>
+          <Field
+            name="mobileNumber"
+            component={StyledTextField}
+            label="Mobile Number"
+            placeholder="0412345678"
+          />
 
-            <Field
-              name="bio"
-              component={StyledTextField}
-              label="My Bio"
-              multiline
-              placeholder="Description of why I am a good fit for this position…"
-              rows="4"
-            />
+          <Typography
+            variant="h6"
+            component="h1"
+            color="textSecondary"
+            gutterBottom
+          >
+            About Me
+          </Typography>
 
-            <Field
-              name="workCultureSliders"
-              component={WorkCultureSlidersField}
-            />
+          <Field
+            name="bio"
+            component={StyledTextField}
+            label="My Bio"
+            multiline
+            placeholder="Description of why I am a good fit for this position…"
+            rows="4"
+          />
 
-            {/** CURIOUS THING GOES HERE */}
+          <Field
+            name="workCultureSliders"
+            component={WorkCultureSlidersField}
+          />
 
-            <Field name="resume" component={ResumeField} />
+          {/** CURIOUS THING GOES HERE */}
 
-            <Field name="portfolioFile" component={PortfolioFileField} />
+          <Field name="resume" component={ResumeField} />
 
-            <Field
-              name="portfolioExternal"
-              component={StyledTextField}
-              label="Link to Your Work (Online Portfolio, GitHub, etc.)"
-              placeholder="https://www."
-            />
-          </Form>
-        );
-      }}
+          <Field name="portfolioFile" component={PortfolioFileField} />
+
+          <Field
+            name="portfolioExternal"
+            component={StyledTextField}
+            label="Link to Your Work (Online Portfolio, GitHub, etc.)"
+            placeholder="https://www."
+          />
+        </Form>
+      )}
     />
   );
 };
