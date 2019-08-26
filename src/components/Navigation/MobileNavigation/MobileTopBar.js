@@ -51,6 +51,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('sm')]: { paddingLeft: theme.spacing(2) },
   },
   logo: {
+    width: 84,
     height: 30,
     userSelect: 'none',
     userDrag: 'none',

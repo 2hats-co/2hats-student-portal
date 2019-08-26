@@ -35,7 +35,12 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'flex-start',
     lineHeight: 1,
   },
-  logo: { width: 100, userSelect: 'none', userDrag: 'none' },
+  logo: {
+    width: 100,
+    height: 36,
+    userSelect: 'none',
+    userDrag: 'none',
+  },
 
   listWrapper: { marginTop: theme.spacing(3) },
 
