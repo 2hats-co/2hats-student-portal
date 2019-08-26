@@ -92,7 +92,7 @@ const StartDateField: React.FunctionComponent<IStartDateFieldProps> = ({
   }, [radioValue, datePickerValue]);
 
   return (
-    <div>
+    <div className="field-wrapper">
       <FormLabel htmlFor={`field-${field.name}`}>
         <HeadingCaps
           component="span"

@@ -20,7 +20,7 @@ interface IWorkRestrictionFieldProps extends FieldProps {}
 const WorkRestrictionField: React.FunctionComponent<
   IWorkRestrictionFieldProps
 > = ({ form, field }) => (
-  <div>
+  <div className="field-wrapper">
     <FormLabel htmlFor={`field-${field.name}`}>
       <Grid container alignItems="center">
         <HeadingCaps
@@ -34,7 +34,7 @@ const WorkRestrictionField: React.FunctionComponent<
           Work Condition
         </HeadingCaps>
         <HelpPopup
-          variant="besideOverline"
+          variant="besideHeadingCaps"
           message="We do not judge job applications based on working conditions or restrictions. "
         />
       </Grid>

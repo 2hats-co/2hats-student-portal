@@ -16,7 +16,7 @@ const StyledTextField: React.FunctionComponent<
   const { form, field, label } = props;
 
   return (
-    <div>
+    <div className="field-wrapper">
       <FormLabel htmlFor={`field-${field.name}`}>
         <HeadingCaps
           component="span"

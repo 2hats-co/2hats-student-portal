@@ -73,7 +73,7 @@ const WorkCultureSlidersField: React.FunctionComponent<
   }, [sliderValues]);
 
   return (
-    <div id={`field-${field.name}`}>
+    <div className="field-wrapper" id={`field-${field.name}`}>
       <FormLabel htmlFor={`field-${field.name}`}>
         <HeadingCaps
           component="span"

@@ -58,7 +58,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
   };
 
   return (
-    <div>
+    <div className="field-wrapper">
       <FormLabel htmlFor={`field-${field.name}`}>
         <HeadingCaps
           component="span"

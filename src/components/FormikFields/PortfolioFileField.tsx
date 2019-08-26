@@ -58,7 +58,7 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
   };
 
   return (
-    <div>
+    <div className="field-wrapper">
       <FormLabel htmlFor={`field-${field.name}`}>
         <HeadingCaps
           component="span"

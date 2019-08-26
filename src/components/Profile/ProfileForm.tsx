@@ -20,6 +20,7 @@ import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
 import ResumeField from 'components/FormikFields/ResumeField';
 
 import ProfileFormAutosave from './ProfileFormAutosave';
+import HeadingTitle from '@bit/twohats.common.components.heading-title';
 
 import { ProfileComponentProps } from 'containers/ProfileContainer';
 import { useUser } from 'contexts/UserContext';
@@ -31,12 +32,11 @@ const useStyles = makeStyles(theme =>
     root: {
       marginTop: theme.spacing(4),
 
-      '& > div': { marginBottom: theme.spacing(2) },
-      '& > div > label': {
-        display: 'block',
-        marginBottom: theme.spacing(0.5),
-      },
+      '& section': { marginBottom: theme.spacing(4) },
+      '& .field-wrapper': { marginBottom: theme.spacing(2) },
     },
+
+    nameFieldsWrapper: { marginBottom: theme.spacing(-1.5) },
   })
 );
 
@@ -96,124 +96,114 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
             profileData={profileData}
           />
 
-          <Typography
-            variant="h6"
-            component="h1"
-            color="textSecondary"
-            gutterBottom
-          >
-            Personal Info
-          </Typography>
+          <section>
+            <HeadingTitle>Personal Info</HeadingTitle>
 
-          <Grid container spacing={3}>
-            <Grid item xs={12} sm={6}>
-              <Field
-                name="firstName"
-                component={StyledTextField}
-                label="First Name"
-              />
+            <Grid container spacing={3} className={classes.nameFieldsWrapper}>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  name="firstName"
+                  component={StyledTextField}
+                  label="First Name"
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={6}>
+                <Field
+                  name="lastName"
+                  component={StyledTextField}
+                  label="Last Name"
+                />
+              </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <Field
-                name="lastName"
-                component={StyledTextField}
-                label="Last Name"
-              />
-            </Grid>
-          </Grid>
-
-          <Field
-            name="currentUniversity"
-            component={StyledTextField}
-            label="Current University"
-            select
-            aria-label="Current University"
-            SelectProps={{ displayEmpty: true }}
-          >
-            <MenuItem value="" disabled>
-              <Typography color="textSecondary">
-                Choose a university…
-              </Typography>
-            </MenuItem>
-            {UNIVERSITIES.map((x: string) => (
-              <MenuItem key={x} value={x.split('\u2063')[0]}>
-                {x}
+            <Field
+              name="currentUniversity"
+              component={StyledTextField}
+              label="Current University"
+              select
+              aria-label="Current University"
+              SelectProps={{ displayEmpty: true }}
+            >
+              <MenuItem value="" disabled>
+                <Typography color="textSecondary">
+                  Choose a university…
+                </Typography>
               </MenuItem>
-            ))}
-          </Field>
+              {UNIVERSITIES.map((x: string) => (
+                <MenuItem key={x} value={x.split('\u2063')[0]}>
+                  {x}
+                </MenuItem>
+              ))}
+            </Field>
 
-          <Field
-            name="currentDegree"
-            component={StyledTextField}
-            label="Current Degree"
-            placeholder="Bachelor of … or Master of …"
-          />
+            <Field
+              name="currentDegree"
+              component={StyledTextField}
+              label="Current Degree"
+              placeholder="Bachelor of … or Master of …"
+            />
 
-          <Field name="workRestriction" component={WorkRestrictionField} />
+            <Field name="workRestriction" component={WorkRestrictionField} />
 
-          <Field
-            name="jobAvailabilityStartDate"
-            id="field-jobAvailabilityStartDate"
-            component={(fieldProps: FieldProps<Date>) => (
-              <StartDateField {...fieldProps} />
-            )}
-          />
+            <Field
+              name="jobAvailabilityStartDate"
+              id="field-jobAvailabilityStartDate"
+              component={(fieldProps: FieldProps<Date>) => (
+                <StartDateField {...fieldProps} />
+              )}
+            />
 
-          <Field
-            name="availableDays"
-            component={SliderField}
-            label="Minimum Available Days / Week"
-            min={1}
-            max={5}
-            step={0.5}
-            marks={[1, 2, 3, 4, 5].map(x => ({ value: x }))}
-            valueLabelDisplay="auto"
-            rightValueFormat={(val: number) => `${val.toFixed(1)} days/week`}
-          />
+            <Field
+              name="availableDays"
+              component={SliderField}
+              label="Minimum Available Days / Week"
+              min={1}
+              max={5}
+              step={0.5}
+              marks={[1, 2, 3, 4, 5].map(x => ({ value: x }))}
+              valueLabelDisplay="auto"
+              rightValueFormat={(val: number) => `${val.toFixed(1)} days/week`}
+            />
 
-          <Field
-            name="mobileNumber"
-            component={StyledTextField}
-            label="Mobile Number"
-            placeholder="e.g. 0412 345 678"
-          />
+            <Field
+              name="mobileNumber"
+              component={StyledTextField}
+              label="Mobile Number"
+              placeholder="e.g. 0412 345 678"
+            />
+          </section>
 
-          <Typography
-            variant="h6"
-            component="h1"
-            color="textSecondary"
-            gutterBottom
-          >
-            About Me
-          </Typography>
+          <section>
+            <HeadingTitle>About Me</HeadingTitle>
 
-          <Field
-            name="bio"
-            component={StyledTextField}
-            label="My Bio"
-            multiline
-            placeholder="Your bio goes here…"
-            rows="4"
-          />
+            <Field
+              name="bio"
+              component={StyledTextField}
+              label="My Bio"
+              multiline
+              placeholder="Your bio goes here…"
+              rows="4"
+            />
 
-          <Field
-            name="workCultureSliders"
-            component={WorkCultureSlidersField}
-          />
+            <Field
+              name="workCultureSliders"
+              component={WorkCultureSlidersField}
+            />
 
-          {/** CURIOUS THING GOES HERE */}
+            {/** CURIOUS THING GOES HERE */}
 
-          <Field name="resume" component={ResumeField} />
+            <Field name="resume" component={ResumeField} />
 
-          <Field name="portfolioFile" component={PortfolioFileField} />
+            <Field name="portfolioFile" component={PortfolioFileField} />
 
-          <Field
-            name="portfolioExternal"
-            component={StyledTextField}
-            label="Link to Your Work (Online Portfolio, GitHub, etc.)"
-            placeholder="https://www."
-          />
+            <Field
+              name="portfolioExternal"
+              component={StyledTextField}
+              label="Link to Your Work (Online Portfolio, GitHub, etc.)"
+              placeholder="https://www."
+            />
+          </section>
         </Form>
       )}
     />

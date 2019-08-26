@@ -943,10 +943,13 @@
   dependencies:
     clsx "^1.0.4"
 
-"@bit/twohats.common.components.naked-expansion-panel@^1.0.14":
-  version "1.0.14"
-  resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.14.tgz#d75c7d8d2d0956ab40473cead04ff315635d66bd"
-  integrity sha1-11x9jS0JVqtARzzq0E/zFWNdZr0=
+"@bit/twohats.common.components.heading-title@^1.0.0":
+  version "1.0.0"
+  resolved "https://node.bit.dev/twohats.common.components.heading-title/-/twohats.common.components.heading-title-1.0.0.tgz#14165fe60716d0f5df73a631bea5c5efd9a4c261"
+  integrity sha1-FBZf5gcW0PXfc6YxvqXF79mkwmE=
+  dependencies:
+    clsx "^1.0.4"
+
 "@bit/twohats.common.components.help-popup@^1.1.4":
   version "1.1.4"
   resolved "https://node.bit.dev/twohats.common.components.help-popup/-/twohats.common.components.help-popup-1.1.4.tgz#7207d24157b214726ff992224d08d35a424d6760"
