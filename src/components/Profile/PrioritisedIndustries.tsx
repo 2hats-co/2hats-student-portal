@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import clsx from 'clsx';
+import equals from 'ramda/es/equals';
 
 import {
   makeStyles,
@@ -13,16 +15,18 @@ import {
 import useDebounce from '@bit/twohats.common.use-debounce';
 import { useUser } from 'contexts/UserContext';
 import { INDUSTRIES, INDUSTRY_DISPLAY_NAMES } from 'constants/cards';
+import { saveDeprioritisedIndustries } from 'utilities/profile';
 
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {
       width: '100%',
       maxWidth: 300,
-      margin: 'auto',
+      marginLeft: theme.spacing(-1),
 
       display: 'flex',
     },
+    centred: { margin: 'auto' },
 
     label: {
       justifyContent: 'space-between',
@@ -32,11 +36,16 @@ const useStyles = makeStyles(theme =>
 );
 
 export interface PrioritisedIndustriesProps {
-  handleSave: (deprioritisedIndustries: string[]) => void;
+  /** Whether or not to horizontally centre the switches */
+  centred?: boolean;
 }
 
+/**
+ * Handles saving the user’s preferred/prioritised industries to their
+ * profile document using MUI switches.
+ */
 const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
-  handleSave,
+  centred = false,
 }) => {
   const classes = useStyles();
   const { user } = useUser();
@@ -69,11 +78,24 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
       []
     );
 
-    handleSave(deprioritisedIndustries);
+    if (!equals(deprioritisedIndustries, user.deprioritisedIndustries))
+      saveDeprioritisedIndustries(user.id, deprioritisedIndustries)
+        .then(() =>
+          console.log(
+            'Saved user deprioritised industries',
+            deprioritisedIndustries
+          )
+        )
+        .catch((e: any) =>
+          console.error('Failed to save user deprioritised industries' + e)
+        );
   }, [debouncedPrioritised]);
 
   return (
-    <FormControl component="fieldset" className={classes.root}>
+    <FormControl
+      component="fieldset"
+      className={clsx(classes.root, centred && classes.centred)}
+    >
       <FormGroup>
         {Object.values(INDUSTRIES).map(x => (
           <FormControlLabel

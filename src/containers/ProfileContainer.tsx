@@ -1,15 +1,23 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
-import { Container } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 
 import LoadingScreen from 'components/LoadingScreen';
+import HeadingTitle from '@bit/twohats.common.components.heading-title';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
+import RightButtonLayout from 'components/Profile/RightButtonLayout';
+
 import ProfileHeader from 'components/Profile/ProfileHeader';
 import ProfileForm from 'components/Profile/ProfileForm';
+import PrioritisedIndustries from 'components/Profile/PrioritisedIndustries';
+import ProfileAssessments from 'components/Profile/ProfileAssessments';
 
 import { useUser } from 'contexts/UserContext';
 import useDocument from 'hooks/useDocument';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
+import * as ROUTES from 'constants/routes';
 
 export interface ProfileComponentProps {
   profileData: DocWithId<ProfilesDoc>;
@@ -39,6 +47,29 @@ const ProfileContainer: React.FunctionComponent<
     <Container maxWidth="sm" component="main">
       <ProfileHeader profileData={profileData} />
       <ProfileForm profileData={profileData} />
+
+      <section>
+        <HeadingTitle id={ROUTES.PROFILE_PREFERRED_INDUSTRIES.split('#')[1]}>
+          My Application Profile
+        </HeadingTitle>
+        <HeadingCaps>Areas of Interest</HeadingCaps>
+        <Typography variant="body1" color="textSecondary" gutterBottom>
+          Which of these sound like your future workplace? Pick at least one of
+          the fields to view the jobs and tasks that relate to you!
+        </Typography>
+
+        <PrioritisedIndustries />
+
+        <ProfileAssessments />
+
+        <RightButtonLayout
+          title="Settings & Privacy"
+          buttonLabel="Manage"
+          ButtonProps={{ component: Link, to: ROUTES.PROFILE_SETTINGS }}
+          description="This section includes terms and conditions, including your privacy settings. You may change your password and remove your account."
+          // description="This section includes terms and conditions, including your privacy settings. You may change your password, remove your account, and set communication preferences."
+        />
+      </section>
     </Container>
   );
 };

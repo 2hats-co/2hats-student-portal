@@ -137,7 +137,7 @@ const AssessmentsContainer = ({ match, location }) => {
         graphic: LightbulbBrain,
         graphicWidth: 100,
         message:
-          'Show off your super-skills by completing assessments and they’ll appear here',
+          'Show off your super skills by completing assessments and they’ll appear here',
       }}
     />
   );

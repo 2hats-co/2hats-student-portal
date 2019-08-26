@@ -8,7 +8,6 @@ import PrioritisedIndustries from '../Profile/PrioritisedIndustries';
 import OnboardingCta from './OnboardingCta';
 
 import { useUser } from 'contexts/UserContext';
-import { saveDeprioritisedIndustries } from 'utilities/profile';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -20,15 +19,6 @@ const useStyles = makeStyles(theme =>
 const OnboardingA1: React.FC = () => {
   const classes = useStyles();
   const { user } = useUser();
-
-  const handleSavePrioritisedIndustries = (data: string[]) =>
-    saveDeprioritisedIndustries(user.id, data)
-      .then((data: any) =>
-        console.log('Saved user deprioritised industries', data)
-      )
-      .catch((e: any) =>
-        console.error('Failed to save user deprioritised industries' + e)
-      );
 
   return (
     <>
@@ -71,7 +61,7 @@ const OnboardingA1: React.FC = () => {
           below to start.
         </Typography>
 
-        <PrioritisedIndustries handleSave={handleSavePrioritisedIndustries} />
+        <PrioritisedIndustries centred />
       </Grid>
 
       <Grid item className={classes.center}>

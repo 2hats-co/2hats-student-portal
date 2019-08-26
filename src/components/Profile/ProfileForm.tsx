@@ -36,7 +36,12 @@ const useStyles = makeStyles(theme =>
       '& .field-wrapper': { marginBottom: theme.spacing(2) },
     },
 
-    nameFieldsWrapper: { marginBottom: theme.spacing(-1.5) },
+    nameFieldsWrapper: {
+      [theme.breakpoints.down('xs')]: {
+        '& > div:first-of-type': { paddingBottom: 0 },
+        '& > div:last-of-type': { paddingTop: 0 },
+      },
+    },
   })
 );
 

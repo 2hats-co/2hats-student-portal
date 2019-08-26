@@ -50,6 +50,42 @@ export const getDoc = async (
 };
 
 /**
+ * Get the data for documents (not a listener), given a collection
+ * and optionally, filters.
+ * Returns the array of document data when it is available. (async function)
+ *
+ * Uses the same procedure as `useCollection`
+ */
+export const getDocsFromQuery = async (
+  collection: string,
+  filters?: {
+    field: string;
+    operator: firebase.firestore.WhereFilterOp;
+    value: any;
+  }[],
+  sorts?: { field: string; direction?: 'desc' | 'asc' }[]
+): Promise<any> => {
+  let query = firestore.collection(collection).limit(50);
+
+  if (filters)
+    filters.forEach(filter => {
+      query = query.where(filter.field, filter.operator, filter.value);
+    });
+
+  if (sorts)
+    sorts.forEach(order => {
+      query = query.orderBy(order.field, order.direction);
+    });
+
+  const res = await query.get();
+
+  return res.docs.map(queryDocSnapshot => ({
+    ...queryDocSnapshot.data(),
+    id: queryDocSnapshot.id,
+  }));
+};
+
+/**
  * Update a document, given an collection and ID. Returns a promise.
  * Also sets updatedAt time.
  */
