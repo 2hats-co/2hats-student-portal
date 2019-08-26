@@ -1,9 +1,10 @@
 import React, { useLayoutEffect, useRef } from 'react';
 import clsx from 'clsx';
 
-import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, createStyles, Grid } from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import HelpPopup from '@bit/twohats.common.components.help-popup';
 
 import {
@@ -19,7 +20,6 @@ const useStyles = makeStyles(theme =>
     ...RenderedHtmlStyles(theme),
 
     section: { marginBottom: theme.spacing(4) },
-    overline: { marginBottom: theme.spacing(1.5) },
 
     maskedSection: {
       maxHeight: 240,
@@ -156,12 +156,10 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
   return (
     <>
       <section className={classes.section}>
-        <Grid container alignItems="center" className={classes.overline}>
-          <Typography variant="overline" color="textSecondary" component="h2">
-            Scenario: The Company
-          </Typography>
+        <Grid container alignItems="center">
+          <HeadingCaps>Scenario: The Company</HeadingCaps>
           <HelpPopup
-            variant="besideOverline"
+            variant="besideHeadingCaps"
             message="Use the following scenario as guidance on how to approach this assessment."
           />
         </Grid>
@@ -179,14 +177,9 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
         )}
         ref={instructionsRef}
       >
-        <Typography
-          variant="overline"
-          color="textSecondary"
-          component="h2"
-          gutterBottom
-        >
+        <HeadingCaps>
           Instructions{previewInstructionsOnly && ': ‘Begin’ to See More'}
-        </Typography>
+        </HeadingCaps>
 
         <div
           className={classes.renderedHtml}

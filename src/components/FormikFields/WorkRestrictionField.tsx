@@ -4,6 +4,7 @@ import { FieldProps } from 'formik';
 import { FormLabel, Typography, Grid, MenuItem } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
 
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import HelpPopup from '@bit/twohats.common.components.help-popup';
 
 import {
@@ -22,8 +23,8 @@ const WorkRestrictionField: React.FunctionComponent<
   <div>
     <FormLabel htmlFor={`field-${field.name}`}>
       <Grid container alignItems="center">
-        <Typography
-          variant="overline"
+        <HeadingCaps
+          component="span"
           color={
             form.errors[field.name] && form.touched[field.name]
               ? 'error'
@@ -31,7 +32,7 @@ const WorkRestrictionField: React.FunctionComponent<
           }
         >
           Work Condition
-        </Typography>
+        </HeadingCaps>
         <HelpPopup
           variant="besideOverline"
           message="We do not judge job applications based on working conditions or restrictions. "

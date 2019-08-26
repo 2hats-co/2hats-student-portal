@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { makeStyles, createStyles, Typography } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 import AssessmentOutcome from './AssessmentOutcome';
 import AssessmentFeedbackItem from './AssessmentFeedbackItem';
@@ -38,14 +39,7 @@ const AssessmentFeedback: React.FunctionComponent<IAssessmentFeedbackProps> = ({
 
   return (
     <section className={classes.root}>
-      <Typography
-        variant="overline"
-        color="textSecondary"
-        component="h2"
-        gutterBottom
-      >
-        Feedback
-      </Typography>
+      <HeadingCaps>Feedback</HeadingCaps>
 
       <AssessmentOutcome assessmentData={assessmentData} />
 

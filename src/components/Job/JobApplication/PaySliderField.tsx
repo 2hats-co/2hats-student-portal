@@ -11,6 +11,7 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 import { SliderProps } from '@material-ui/core/Slider';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 
@@ -44,8 +45,7 @@ const PaySliderField: React.FunctionComponent<IPaySliderFieldProps> = ({
   return (
     <div>
       <FormLabel htmlFor="field-pay">
-        <Typography
-          variant="overline"
+        <HeadingCaps
           color={
             form.errors[field.name] && form.touched[field.name]
               ? 'error'
@@ -53,7 +53,7 @@ const PaySliderField: React.FunctionComponent<IPaySliderFieldProps> = ({
           }
         >
           My Preferred Salary
-        </Typography>
+        </HeadingCaps>
       </FormLabel>
 
       <Grid container spacing={3} className={classes.root}>

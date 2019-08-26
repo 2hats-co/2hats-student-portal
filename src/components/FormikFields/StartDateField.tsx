@@ -14,7 +14,6 @@ import {
   makeStyles,
   createStyles,
   FormLabel,
-  Typography,
   FormControl,
   RadioGroup,
   FormControlLabel,
@@ -23,6 +22,7 @@ import {
   Grid,
   FormHelperText,
 } from '@material-ui/core';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -94,8 +94,8 @@ const StartDateField: React.FunctionComponent<IStartDateFieldProps> = ({
   return (
     <div>
       <FormLabel htmlFor={`field-${field.name}`}>
-        <Typography
-          variant="overline"
+        <HeadingCaps
+          component="span"
           color={
             form.errors[field.name] && form.touched[field.name]
               ? 'error'
@@ -103,7 +103,7 @@ const StartDateField: React.FunctionComponent<IStartDateFieldProps> = ({
           }
         >
           When I Can Start
-        </Typography>
+        </HeadingCaps>
       </FormLabel>
 
       <MuiPickersUtilsProvider utils={MomentUtils}>

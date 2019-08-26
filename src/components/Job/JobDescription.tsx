@@ -1,7 +1,8 @@
 import * as React from 'react';
 
-import { makeStyles, createStyles, Typography } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { RenderedHtmlStyles } from '@bit/twohats.common.styles';
 
@@ -28,14 +29,7 @@ const JobDescription: React.FunctionComponent<IJobDescriptionProps> = ({
   return (
     <>
       <section className={classes.section}>
-        <Typography
-          variant="overline"
-          color="textSecondary"
-          component="h2"
-          gutterBottom
-        >
-          About the company
-        </Typography>
+        <HeadingCaps>About the company</HeadingCaps>
 
         <div
           className={classes.renderedHtml}
@@ -44,14 +38,7 @@ const JobDescription: React.FunctionComponent<IJobDescriptionProps> = ({
       </section>
 
       <section className={classes.section}>
-        <Typography
-          variant="overline"
-          color="textSecondary"
-          component="h2"
-          gutterBottom
-        >
-          Job Description
-        </Typography>
+        <HeadingCaps>Job Description</HeadingCaps>
 
         <div
           className={classes.renderedHtml}

@@ -5,9 +5,9 @@ import {
   makeStyles,
   createStyles,
   FormLabel,
-  Typography,
   FormHelperText,
 } from '@material-ui/core';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 import WorkCultureSlider from './WorkCultureSlider';
 
@@ -37,6 +37,8 @@ const useStyles = makeStyles(() =>
       margin: 0,
       padding: 0,
     },
+
+    heading: { marginBottom: 0 },
   })
 );
 
@@ -73,16 +75,17 @@ const WorkCultureSlidersField: React.FunctionComponent<
   return (
     <div id={`field-${field.name}`}>
       <FormLabel htmlFor={`field-${field.name}`}>
-        <Typography
-          variant="overline"
+        <HeadingCaps
+          component="span"
           color={
             form.errors[field.name] && form.touched[field.name]
               ? 'error'
               : 'textSecondary'
           }
+          className={classes.heading}
         >
           My Workplace Culture
-        </Typography>
+        </HeadingCaps>
       </FormLabel>
 
       <fieldset className={classes.root}>

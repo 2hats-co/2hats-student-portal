@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Typography } from '@material-ui/core';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import TextWithGraphic from '@bit/twohats.common.components.text-with-graphic';
 import RibbonGraphic from 'assets/images/graphics/ribbon.svg';
 
@@ -8,14 +8,7 @@ import { DASHBOARD } from 'constants/routes';
 
 const CompletionDelight: React.FunctionComponent = () => (
   <>
-    <Typography
-      variant="overline"
-      color="textSecondary"
-      component="h2"
-      gutterBottom
-    >
-      You’re going places!
-    </Typography>
+    <HeadingCaps>You’re going places!</HeadingCaps>
     <TextWithGraphic
       graphic={RibbonGraphic}
       graphicWidth={109}

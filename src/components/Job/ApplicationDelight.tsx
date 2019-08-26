@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { Typography } from '@material-ui/core';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import TextWithGraphic from '@bit/twohats.common.components.text-with-graphic';
 import TargetGraphic from 'assets/images/graphics/Target.svg';
 
@@ -8,14 +8,7 @@ import { DASHBOARD } from 'constants/routes';
 
 const ApplicationDelight: React.FunctionComponent = () => (
   <>
-    <Typography
-      variant="overline"
-      color="textSecondary"
-      component="h2"
-      gutterBottom
-    >
-      Yay, fingers crossed!
-    </Typography>
+    <HeadingCaps>Yay, fingers crossed!</HeadingCaps>
     <TextWithGraphic
       graphic={TargetGraphic}
       graphicWidth={109}

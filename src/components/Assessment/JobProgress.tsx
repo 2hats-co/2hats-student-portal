@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, Reducer } from 'react';
+import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 import {
@@ -9,6 +9,7 @@ import {
   Slider,
 } from '@material-ui/core';
 
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import RequiredSkills from 'components/Job/RequiredSkills';
 
 import { useUser } from 'contexts/UserContext';
@@ -92,9 +93,9 @@ const JobProgress: React.FunctionComponent<IJobProgressProps> = ({
 
   return (
     <Paper className={classes.root} elevation={3}>
-      <Typography variant="overline" component="h1" color="textSecondary">
+      <HeadingCaps component="h1">
         My Progress: {jobTitle} ({companyName})
-      </Typography>
+      </HeadingCaps>
 
       <Slider
         value={skillsRequired.length - numUnattainedSkills}

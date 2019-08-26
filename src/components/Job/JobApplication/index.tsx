@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Typography, FormControlLabel, Checkbox } from '@material-ui/core';
 
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import ApplicationForm from './ApplicationForm';
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
@@ -25,14 +26,7 @@ const JobApplication: React.FunctionComponent<IJobApplicationProps> = ({
   return (
     <>
       <section>
-        <Typography
-          variant="overline"
-          color="textSecondary"
-          component="h2"
-          gutterBottom
-        >
-          We’re almost there
-        </Typography>
+        <HeadingCaps>We’re almost there</HeadingCaps>
 
         <Typography variant="body1" gutterBottom>
           We would like you to answer some questions about your application.

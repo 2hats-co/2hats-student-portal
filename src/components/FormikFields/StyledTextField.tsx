@@ -1,22 +1,9 @@
 import React from 'react';
 import { FieldProps } from 'formik';
 
-import {
-  makeStyles,
-  createStyles,
-  FormLabel,
-  Typography,
-} from '@material-ui/core';
+import { FormLabel } from '@material-ui/core';
 import { TextField, TextFieldProps } from 'formik-material-ui';
-
-const useStyles = makeStyles(theme =>
-  createStyles({
-    label: {
-      display: 'block',
-      marginBottom: theme.spacing(0.5),
-    },
-  })
-);
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 interface IStyledTextFieldProps extends FieldProps, TextFieldProps {}
 
@@ -27,22 +14,20 @@ const StyledTextField: React.FunctionComponent<
   IStyledTextFieldProps
 > = props => {
   const { form, field, label } = props;
-  const classes = useStyles();
 
   return (
     <div>
       <FormLabel htmlFor={`field-${field.name}`}>
-        <Typography
-          variant="overline"
+        <HeadingCaps
+          component="span"
           color={
             form.errors[field.name] && form.touched[field.name]
               ? 'error'
               : 'textSecondary'
           }
-          className={classes.label}
         >
           {label}
-        </Typography>
+        </HeadingCaps>
       </FormLabel>
 
       <TextField

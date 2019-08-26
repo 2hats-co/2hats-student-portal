@@ -13,6 +13,7 @@ import CopyIcon from '@material-ui/icons/FileCopyOutlined';
 import LaunchIcon from '@material-ui/icons/Launch';
 import FileIcon from '@material-ui/icons/Attachment';
 
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import StyledDropzone from '@bit/twohats.common.components.styled-dropzone';
 import { DropFilesEventHandler } from 'react-dropzone';
 import { uploader } from '../../utilities/Uploader';
@@ -187,14 +188,7 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
               <CopyIcon />
             </Button>
           </Typography>
-          <Typography
-            variant="overline"
-            color="textSecondary"
-            component="h2"
-            className={classes.section}
-          >
-            Email preview
-          </Typography>
+          <HeadingCaps className={classes.section}>Email preview</HeadingCaps>
           {answer ? (
             <div
               className={classes.renderedHtmlOriginal}
@@ -238,14 +232,7 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
             </Button>
 
             <div className={classes.section}>
-              <Typography
-                variant="overline"
-                color="textSecondary"
-                component="h2"
-                gutterBottom
-              >
-                Having issues?
-              </Typography>
+              <HeadingCaps>Having issues?</HeadingCaps>
               <Typography variant="body1">
                 Alternatively, upload your code to GitHub and submit a link to
                 your repo through our code editor.
@@ -267,14 +254,9 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
   return (
     <div className={classes.root}>
       {/* Render the heading */}
-      <Typography
-        variant="overline"
-        color="textSecondary"
-        component="h2"
-        gutterBottom
-      >
+      <HeadingCaps>
         {questionNum > 0 ? `Question ${questionNum}` : 'Submission'}
-      </Typography>
+      </HeadingCaps>
 
       <div
         className={classes.renderedHtml}

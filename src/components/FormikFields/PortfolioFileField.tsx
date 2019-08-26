@@ -9,6 +9,7 @@ import {
   Typography,
   FormHelperText,
 } from '@material-ui/core';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 import StyledDropzone, {
   IStyledDropzoneProps,
@@ -20,7 +21,6 @@ import { useUser } from 'contexts/UserContext';
 const useStyles = makeStyles(theme =>
   createStyles({
     dropzone: { marginBottom: theme.spacing(3) },
-    overline: { display: 'block' },
   })
 );
 
@@ -60,18 +60,16 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
   return (
     <div>
       <FormLabel htmlFor={`field-${field.name}`}>
-        <Typography
-          variant="overline"
+        <HeadingCaps
+          component="span"
           color={
             form.errors[field.name] && form.touched[field.name]
               ? 'error'
               : 'textSecondary'
           }
-          gutterBottom
-          className={classes.overline}
         >
           Additional Work (Portfolio)
-        </Typography>
+        </HeadingCaps>
 
         <Typography variant="body1" color="textSecondary" gutterBottom>
           Show us what you are proud of! If you have a portfolio, details of

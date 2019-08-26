@@ -11,6 +11,7 @@ import {
   FormHelperText,
 } from '@material-ui/core';
 import { SliderProps } from '@material-ui/core/Slider';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -37,8 +38,8 @@ const SliderField: React.FunctionComponent<ISliderFieldProps> = props => {
   return (
     <div>
       <FormLabel htmlFor={`field-${field.name}`}>
-        <Typography
-          variant="overline"
+        <HeadingCaps
+          component="span"
           color={
             form.errors[field.name] && form.touched[field.name]
               ? 'error'
@@ -46,7 +47,7 @@ const SliderField: React.FunctionComponent<ISliderFieldProps> = props => {
           }
         >
           {label}
-        </Typography>
+        </HeadingCaps>
       </FormLabel>
 
       <Grid container spacing={3} className={classes.root}>
