@@ -4,6 +4,7 @@ export const getBaseRoute = route => {
   if (route.includes(ROUTES.COURSE)) return ROUTES.COURSES;
   if (route.includes(ROUTES.ASSESSMENT)) return ROUTES.ASSESSMENTS;
   if (route.includes(ROUTES.JOB)) return ROUTES.JOBS;
+  if (route.includes(ROUTES.PROFILE)) return ROUTES.PROFILE;
 
   return route;
 };
@@ -38,6 +39,9 @@ export const getDisplayName = route => {
       return 'All Courses';
     case ROUTES.COURSES_COMPLETED:
       return 'Completed Courses';
+
+    case ROUTES.PROFILE_SETTINGS:
+      return 'Settings';
 
     default:
       return route.split('/')[1];

@@ -30,6 +30,7 @@ import JobsContainer from 'containers/JobsContainer';
 import CoursesContainer from 'containers/CoursesContainer';
 import CourseRedirectContainer from 'containers/CourseRedirectContainer';
 import DetailedViewContainer from 'containers/DetailedViewContainer';
+import ProfileContainer from 'containers/ProfileContainer';
 
 const AuthenticationContainer = lazy(() =>
   import(
@@ -51,9 +52,9 @@ const OnboardingContainer = lazy(() =>
     'containers/OnboardingContainer' /* webpackChunkName: "OnboardingContainer" */
   )
 );
-const ProfileContainer = lazy(() =>
+const ProfileSettingsContainer = lazy(() =>
   import(
-    'containers/ProfileContainer' /* webpackChunkName: "ProfileContainer" */
+    'containers/ProfileSettingsContainer' /* webpackChunkName: "ProfileSettingsContainer" */
   )
 );
 const SchedulerContainer = lazy(() =>
@@ -206,12 +207,22 @@ const App = () => {
                         </Navigation>
                       )}
                     />
+
                     <ProtectedRoute
                       exact
                       path={ROUTES.PROFILE}
                       render={props => (
                         <Navigation>
                           <ProfileContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.PROFILE_SETTINGS}
+                      render={props => (
+                        <Navigation>
+                          <ProfileSettingsContainer {...props} />
                         </Navigation>
                       )}
                     />
