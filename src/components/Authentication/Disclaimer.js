@@ -34,7 +34,7 @@ function Disclaimer(props) {
           rel="noopener noreferrer"
           className={classes.link}
         >
-          Terms and Conditions
+          Terms & Conditions
         </a>
         {` and `}
         <a

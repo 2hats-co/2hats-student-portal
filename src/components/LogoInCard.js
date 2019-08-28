@@ -106,7 +106,7 @@ function LogoInCard(props) {
           target="_blank"
           className={classes.termsButton}
         >
-          Terms and Conditions
+          Terms & Conditions
         </Button>
       </div>
       <SnackBar data={snackBar} />
