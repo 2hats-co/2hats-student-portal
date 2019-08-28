@@ -964,10 +964,10 @@
   dependencies:
     "@bit/twohats.common.styles" "0.0.21"
 
-"@bit/twohats.common.components.skill-chip@^1.0.25":
-  version "1.0.25"
-  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.25.tgz#bd68345af35e19d34258af8f0b60bd57f8efc08e"
-  integrity sha1-vWg0WvNeGdNCWK+PC2C9V/jvwI4=
+"@bit/twohats.common.components.skill-chip@^1.0.26":
+  version "1.0.26"
+  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.26.tgz#9c1993f0b78f1364576acf97028e827fa76ed0a8"
+  integrity sha1-nBmT8LePE2RXas+XAo6Cf6du0Kg=
   dependencies:
     "@bit/twohats.common.db-types" "0.0.42"
     history "4.9.0"

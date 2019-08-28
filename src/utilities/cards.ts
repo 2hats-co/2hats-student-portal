@@ -21,7 +21,7 @@ import {
 import { CARD_TYPES } from 'constants/cards';
 
 import * as ROUTES from 'constants/routes';
-import { getSkillsNotAchieved, getJobAvailability, getCanApply } from './jobs';
+import { getJobAvailability, getCanApply } from './jobs';
 import { getPrettyDateString } from './date';
 
 /**

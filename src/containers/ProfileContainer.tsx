@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { Container, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  Container,
+  Typography,
+} from '@material-ui/core';
 
 import LoadingScreen from 'components/LoadingScreen';
 import HeadingTitle from '@bit/twohats.common.components.heading-title';
@@ -12,12 +17,21 @@ import ProfileHeader from 'components/Profile/ProfileHeader';
 import ProfileForm from 'components/Profile/ProfileForm';
 import PrioritisedIndustries from 'components/Profile/PrioritisedIndustries';
 import ProfileAssessments from 'components/Profile/ProfileAssessments';
+import ProfileCourses from 'components/Profile/ProfileCourses';
 
 import { useUser } from 'contexts/UserContext';
 import useDocument from 'hooks/useDocument';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 import * as ROUTES from 'constants/routes';
+
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      '& section': { marginBottom: theme.spacing(4) },
+    },
+  })
+);
 
 export interface ProfileComponentProps {
   profileData: DocWithId<ProfilesDoc>;
@@ -28,6 +42,8 @@ interface IProfileContainerProps {}
 const ProfileContainer: React.FunctionComponent<
   IProfileContainerProps
 > = () => {
+  const classes = useStyles();
+
   const { user } = useUser();
   const [profileState] = useDocument({
     path: `${COLLECTIONS.profiles}/${user.id}`,
@@ -44,7 +60,7 @@ const ProfileContainer: React.FunctionComponent<
   if (!profileData) throw new Error(`Profile data for ${user.id} is empty`);
 
   return (
-    <Container maxWidth="sm" component="main">
+    <Container maxWidth="sm" component="main" className={classes.root}>
       <ProfileHeader profileData={profileData} />
       <ProfileForm profileData={profileData} />
 
@@ -52,15 +68,22 @@ const ProfileContainer: React.FunctionComponent<
         <HeadingTitle id={ROUTES.PROFILE_PREFERRED_INDUSTRIES.split('#')[1]}>
           My Application Profile
         </HeadingTitle>
-        <HeadingCaps>Areas of Interest</HeadingCaps>
-        <Typography variant="body1" color="textSecondary" gutterBottom>
-          Which of these sound like your future workplace? Pick at least one of
-          the fields to view the jobs and tasks that relate to you!
-        </Typography>
 
-        <PrioritisedIndustries />
+        <section>
+          <HeadingCaps>Areas of Interest</HeadingCaps>
+          <Typography variant="body1" color="textSecondary" gutterBottom>
+            Which of these sound like your future workplace? Pick at least one
+            of the fields to view the jobs and tasks that relate to you!
+          </Typography>
+          <PrioritisedIndustries />
+        </section>
 
-        <ProfileAssessments />
+        <section>
+          <ProfileAssessments />
+        </section>
+        <section>
+          <ProfileCourses />
+        </section>
 
         <RightButtonLayout
           title="Settings & Privacy"
