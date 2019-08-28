@@ -17,9 +17,13 @@ const useStyles = makeStyles(theme =>
           case 'fail':
             return theme.palette.text.primary;
           case 'pass':
-            return theme.palette.primary.main;
+            return theme.palette.type !== 'dark'
+              ? theme.palette.primary.main
+              : theme.palette.primary[300];
           case 'submitted':
-            return theme.palette.primary[300];
+            return theme.palette.type !== 'dark'
+              ? theme.palette.primary[300]
+              : theme.palette.primary.main;
           case 'new':
             return theme.palette.primary.light;
           case 'ongoing':
