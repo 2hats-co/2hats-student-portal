@@ -128,8 +128,8 @@ const ProfileCourses: React.FunctionComponent = () => {
       <RightButtonLayout
         title={`My Courses ${
           Array.isArray(usersCourses) && usersCourses.length > 0
-            ? `(${usersCourses.length} ${
-                Array.isArray(allCourses) ? `/ ${allCourses.length}` : ''
+            ? `(${usersCourses.length}${
+                Array.isArray(allCourses) ? ` / ${allCourses.length}` : ''
               })`
             : ''
         }`}
