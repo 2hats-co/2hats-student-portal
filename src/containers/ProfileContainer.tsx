@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useLayoutEffect } from 'react';
+import { RouteComponentProps, Link } from 'react-router-dom';
 
 import {
   makeStyles,
@@ -37,11 +37,9 @@ export interface ProfileComponentProps {
   profileData: DocWithId<ProfilesDoc>;
 }
 
-interface IProfileContainerProps {}
-
-const ProfileContainer: React.FunctionComponent<
-  IProfileContainerProps
-> = () => {
+const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
+  location,
+}) => {
   const classes = useStyles();
 
   const { user } = useUser();
@@ -53,6 +51,13 @@ const ProfileContainer: React.FunctionComponent<
   useEffect(() => {
     document.title = 'Profile – 2hats';
   }, []);
+
+  useLayoutEffect(() => {
+    const elemId = ROUTES.PROFILE_PREFERRED_INDUSTRIES.split('#')[1];
+    const elem = document.getElementById(elemId);
+
+    if (location.hash === '#' + elemId && elem !== null) elem.scrollIntoView();
+  }, [location, profileState.loading]);
 
   if (profileState.loading)
     return <LoadingScreen message="Getting your data…" contained />;
