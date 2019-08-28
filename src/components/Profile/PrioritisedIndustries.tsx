@@ -22,16 +22,16 @@ const useStyles = makeStyles(theme =>
     root: {
       width: '100%',
       maxWidth: 300,
-      marginLeft: theme.spacing(-1),
-
       display: 'flex',
     },
     centred: { margin: 'auto' },
 
     label: {
       justifyContent: 'space-between',
-      marginLeft: 0,
+      marginLeft: theme.spacing(-1),
     },
+
+    switch: { left: theme.spacing(-0.25) },
   })
 );
 
@@ -106,6 +106,7 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
                 color="primary"
                 checked={prioritised[x]}
                 onChange={handleChange(x)}
+                className={classes.switch}
               />
             }
             label={

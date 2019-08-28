@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme =>
       maxWidth: 520,
       minHeight: ({ fullScreen }: any) =>
         fullScreen ? 0 : 640 - theme.spacing(4 * 2),
+      overflowX: 'hidden',
     },
 
     slide: {
