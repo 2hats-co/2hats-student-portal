@@ -1,5 +1,4 @@
 import React from 'react';
-import withStyles from '@material-ui/core/styles/withStyles';
 
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
