@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React from 'react';
 
 import {
   makeStyles,
@@ -13,7 +13,11 @@ import CTPoweredBy from './CTPoweredBy';
 
 import { ProfileComponentProps } from 'containers/ProfileContainer';
 import { PROFILE_CURIOUS_THING } from 'constants/routes';
-import { CURIOUS_PURPLE, externalLinkProps } from 'constants/curiousThing';
+import {
+  CURIOUS_PURPLE,
+  CURIOUS_THING_COBRANDED_URL,
+  externalLinkProps,
+} from 'constants/curiousThing';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -55,6 +59,7 @@ const CuriousThing: React.FunctionComponent<ICuriousThingProps> = ({
           size="large"
           className={classes.button}
           {...externalLinkProps}
+          href={CURIOUS_THING_COBRANDED_URL}
         >
           Let’s Start <ExternalIcon />
         </Button>
