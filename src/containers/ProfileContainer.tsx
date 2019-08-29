@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect } from 'react';
+import React, { useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 
 import {
@@ -54,6 +54,9 @@ const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
   }, []);
 
   useScrollIntoView(ROUTES.PROFILE_PREFERRED_INDUSTRIES, location, [
+    profileState.loading,
+  ]);
+  useScrollIntoView(ROUTES.PROFILE_CURIOUS_THING, location, [
     profileState.loading,
   ]);
 

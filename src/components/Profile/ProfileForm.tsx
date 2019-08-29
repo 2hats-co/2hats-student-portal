@@ -16,8 +16,10 @@ import StartDateField from 'components/FormikFields/StartDateField';
 import WorkRestrictionField from 'components/FormikFields/WorkRestrictionField';
 import SliderField from 'components/FormikFields/SliderField';
 import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersField';
-import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
 import ResumeField from 'components/FormikFields/ResumeField';
+import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
+
+import CuriousThing from 'components/CuriousThing';
 
 import ProfileFormAutosave from './ProfileFormAutosave';
 import HeadingTitle from '@bit/twohats.common.components.heading-title';
@@ -196,7 +198,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
               component={WorkCultureSlidersField}
             />
 
-            {/** CURIOUS THING GOES HERE */}
+            <CuriousThing profileData={profileData} />
 
             <Field name="resume" component={ResumeField} />
 

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 
-import { makeStyles } from '@material-ui/styles';
-import { Typography } from '@material-ui/core';
+import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { useUser } from 'contexts/UserContext';
 import { CARD_COLS_WIDTHS, CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
 
+import CTDashboardButton from 'components/CuriousThing/CTDashboardButton';
 import AssessmentCards from 'components/Dashboard/AssessmentCards';
 import JobCards from 'components/Dashboard/JobCards';
 import CourseCards from 'components/Dashboard/CourseCards';
@@ -24,11 +24,23 @@ const useStyles = makeStyles(theme => ({
     [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
   },
 
-  greeting: {
+  greetingBar: {
     padding: theme.spacing(0, 1),
     marginBottom: theme.spacing(3),
 
     userSelect: 'none',
+  },
+  curiousThingButton: {
+    [theme.breakpoints.up('md')]: { marginRight: theme.spacing(-2) },
+
+    // Full width on single-column size
+    marginTop: theme.spacing(1),
+    width: '100%',
+    // Unset for 2+ columns
+    [CARD_COLS_MEDIA_QUERIES[2]]: {
+      marginTop: 0,
+      width: 'auto',
+    },
   },
 }));
 
@@ -42,14 +54,19 @@ const DashboardContainer = () => {
 
   return (
     <main className={classes.root}>
-      <Typography
-        variant="button"
-        color="textSecondary"
-        className={classes.greeting}
-        component="p"
+      <Grid
+        container
+        justify="space-between"
+        alignItems="center"
+        className={classes.greetingBar}
       >
-        Hi {user.firstName}!
-      </Typography>
+        <Typography variant="button" color="textSecondary" component="p">
+          Hi {user.firstName}!
+        </Typography>
+
+        <CTDashboardButton className={classes.curiousThingButton} />
+      </Grid>
+
       <AssessmentCards />
       <JobCards />
       <CourseCards />
