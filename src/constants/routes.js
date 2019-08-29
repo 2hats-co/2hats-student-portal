@@ -16,7 +16,7 @@ export const SMART_LINK = '/smartLinks';
 export const DASHBOARD = '/dashboard';
 
 export const PROFILE = '/profile';
-export const PROFILE_PREFERRED_INDUSTRIES = '/profile#preferredIndustries';
+export const PROFILE_PREFERRED_INDUSTRIES = 'preferredIndustries';
 export const PROFILE_SETTINGS = '/profile/settings';
 
 export const JOBS = '/jobs';

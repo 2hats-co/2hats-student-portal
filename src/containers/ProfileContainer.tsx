@@ -24,6 +24,7 @@ import useDocument from 'hooks/useDocument';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 import * as ROUTES from 'constants/routes';
+import useScrollIntoView from 'hooks/useScrollIntoView';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -52,12 +53,9 @@ const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
     document.title = 'Profile – 2hats';
   }, []);
 
-  useLayoutEffect(() => {
-    const elemId = ROUTES.PROFILE_PREFERRED_INDUSTRIES.split('#')[1];
-    const elem = document.getElementById(elemId);
-
-    if (location.hash === '#' + elemId && elem !== null) elem.scrollIntoView();
-  }, [location, profileState.loading]);
+  useScrollIntoView(ROUTES.PROFILE_PREFERRED_INDUSTRIES, location, [
+    profileState.loading,
+  ]);
 
   if (profileState.loading)
     return <LoadingScreen message="Getting your data…" contained />;
@@ -70,7 +68,7 @@ const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
       <ProfileForm profileData={profileData} />
 
       <section>
-        <HeadingTitle id={ROUTES.PROFILE_PREFERRED_INDUSTRIES.split('#')[1]}>
+        <HeadingTitle id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>
           My Application Profile
         </HeadingTitle>
 

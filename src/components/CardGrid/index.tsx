@@ -28,7 +28,7 @@ import {
   CARD_ANIMATION_DELAY,
 } from 'constants/cards';
 import { CardDoc, getPrioritisedCards } from 'utilities/cards';
-import { PROFILE_PREFERRED_INDUSTRIES } from 'constants/routes';
+import { PROFILE, PROFILE_PREFERRED_INDUSTRIES } from 'constants/routes';
 import { INITIAL_LIMIT } from 'hooks/useCollection';
 
 const useStyles = makeStyles(theme =>
@@ -284,7 +284,10 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
       <>
         These are all the {header.replace('All', '').toLowerCase()} from the
         industries you told us you’re interested in. You can{' '}
-        <MuiLink component={Link} to={PROFILE_PREFERRED_INDUSTRIES}>
+        <MuiLink
+          component={Link}
+          to={PROFILE + '#' + PROFILE_PREFERRED_INDUSTRIES}
+        >
           change your preferences here
         </MuiLink>
         .
@@ -312,7 +315,10 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
                 These are all the other{' '}
                 {header.replace('All', '').toLowerCase()} from industries you
                 told us you’re not interested in. You can{' '}
-                <MuiLink component={Link} to={PROFILE_PREFERRED_INDUSTRIES}>
+                <MuiLink
+                  component={Link}
+                  to={PROFILE + '#' + PROFILE_PREFERRED_INDUSTRIES}
+                >
                   change your preferences here
                 </MuiLink>
                 .
