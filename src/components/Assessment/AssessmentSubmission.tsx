@@ -134,12 +134,6 @@ const AssessmentSubmission: React.FunctionComponent<
       console.log('Submitted');
       ReactPixel.trackCustom('SubmitApplication');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-      // // Also add &completed=true to the URL
-      // const parsedQuery = { ...queryString.parse(location.search) };
-      // parsedQuery.completed = 'true';
-      // history.replace(
-      //   `${location.pathname}?${queryString.stringify(parsedQuery)}`
-      // );
     });
   };
 

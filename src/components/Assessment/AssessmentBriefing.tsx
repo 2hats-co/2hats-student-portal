@@ -121,7 +121,8 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
     if (
       !previewInstructionsOnly &&
       instructionsRef &&
-      instructionsRef.current
+      instructionsRef.current &&
+      (!('submitted' in assessmentData) || !assessmentData.submitted)
     ) {
       console.log('scroll into view', instructionsRef.current);
       instructionsRef.current.scrollIntoView({ behavior: 'smooth' });
