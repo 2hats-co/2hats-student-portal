@@ -77,7 +77,14 @@ const JobRelated: React.FunctionComponent<IJobRelatedProps> = ({ jobData }) => {
         routeLabel="All Assessments"
         cardProps={Object.values(relatedAssessmentData)}
         cardGenerator={(x: DocWithId<AssessmentsDoc>) =>
-          generateAssessmentCard(x, { user })
+          generateAssessmentCard(x, {
+            user,
+            routeState: {
+              title: jobData.title,
+              companyName: jobData.companyName,
+              skillsRequired: jobData.skillsRequired,
+            },
+          })
         }
         loading={relatedAssessmentsLoading}
       />

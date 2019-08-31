@@ -103,7 +103,11 @@ export const generateCourseCard = (
 
 export const generateAssessmentCard = (
   data: DocWithId<AssessmentsDoc> | DocWithId<UsersAssessmentsDoc>,
-  options: { user?: UsersDoc; showUpdatedAt?: boolean } = {}
+  options: {
+    user?: UsersDoc;
+    showUpdatedAt?: boolean;
+    routeState?: { [key: string]: any };
+  } = {}
 ): IOneCardTwoProps => {
   let action = 'Get started';
   let status: StatusChipProps | undefined = undefined;
@@ -177,9 +181,12 @@ export const generateAssessmentCard = (
     media: data.image ? { type: 'image', src: data.image.url } : undefined,
     icon: 'industry',
 
-    route: `${ROUTES.ASSESSMENT}/${data.id}${
-      'assessmentId' in data && data.assessmentId ? '?yours=true' : ''
-    }`,
+    route: {
+      pathname: `${ROUTES.ASSESSMENT}/${data.id}${
+        'assessmentId' in data && data.assessmentId ? '?yours=true' : ''
+      }`,
+      state: options.routeState,
+    },
     action,
   };
 };

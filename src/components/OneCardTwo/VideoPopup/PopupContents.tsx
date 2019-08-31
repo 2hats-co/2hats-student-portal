@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 
 import {
   makeStyles,
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme =>
 export interface PopupContentsProps {
   src: string;
   title: React.ReactNode;
-  route: string;
+  route: LinkProps['to'];
   action: React.ReactNode;
   /** From `useState` call in `VideoPopup`. Used to close the modal. */
   setModalOpen: (state: boolean) => void;

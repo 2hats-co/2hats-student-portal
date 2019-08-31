@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { LinkProps } from 'react-router-dom';
 
 import {
   makeStyles,
@@ -84,7 +85,7 @@ export interface VideoPopupProps {
   /** Used by `PopupContents` */
   title: React.ReactNode;
   /** Used by `PopupContents` */
-  route: string;
+  route: LinkProps['to'];
   /** Used by `PopupContents` */
   action: React.ReactNode;
 }

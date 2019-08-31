@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 import clsx from 'clsx';
 
 import {
@@ -136,7 +136,7 @@ export interface IOneCardTwoProps {
   icon?: 'industry' | string;
 
   /** Route to go to when card is clicked */
-  route: string;
+  route: LinkProps['to'];
   /** Label for bottom-right action button */
   action: React.ReactNode;
   /** Animate action button go icon */
