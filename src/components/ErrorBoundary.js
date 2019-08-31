@@ -38,17 +38,16 @@ const styles = theme => ({
 class ErrorBoundary extends Component {
   constructor(props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, errorMessage: '' };
   }
 
   componentDidCatch(error, info) {
-    this.setState({ hasError: true });
-    console.log(error, info);
+    this.setState({ hasError: true, errorMessage: error.message });
   }
 
   render() {
     const { classes, children } = this.props;
-    const { hasError } = this.state;
+    const { hasError, errorMessage } = this.state;
 
     if (hasError)
       return (
@@ -72,10 +71,7 @@ class ErrorBoundary extends Component {
             </Typography>
 
             <Typography variant="body1" color="textSecondary">
-              Try reloading the page.
-            </Typography>
-            <Typography variant="body1" color="textSecondary">
-              You may have an old version of this site.
+              Please try reloading and re-opening this page
             </Typography>
 
             <Button
@@ -88,6 +84,10 @@ class ErrorBoundary extends Component {
               Reload
               <ReloadIcon />
             </Button>
+
+            <Typography variant="body2" color="textSecondary">
+              ERROR: {errorMessage}
+            </Typography>
           </Grid>
         </Grid>
       );
