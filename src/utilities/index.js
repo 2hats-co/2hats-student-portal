@@ -1,3 +1,5 @@
+import { decomposeColor, recomposeColor } from '@material-ui/core/styles';
+
 export const sleep = millis => {
   return new Promise(resolve => setTimeout(resolve, millis));
 };
@@ -107,3 +109,27 @@ export const sanitiseHtml = str =>
     .replace(/<style\b[^<]*(?:(?!<\/style>)<[^<]*)*<\/style>/gi, '');
 
 export const convertToEnDash = input => input.toString().replace('-', '–');
+
+/**
+ * Gets the intermediate color in a gradient, given a ratio
+ * @param {string} color1 String in format: rgb, rgba, hsl, or hsla
+ * @param {string} color2 String in format: rgb, rgba, hsl, or hsla
+ * @param {number} [ratio=0.5] Optional
+ * @returns {string} RGB formatted color string
+ */
+export const getIntermediateColor = (color1, color2, ratio) => {
+  if (ratio <= 0) return color1;
+  if (ratio >= 1) return color2;
+
+  const decomposed1 = decomposeColor(color1);
+  const decomposed2 = decomposeColor(color2);
+
+  const intermediate = {
+    type: 'rgb',
+    values: decomposed1.values.map((x, i) =>
+      Math.round(x * (1 - ratio) + decomposed2.values[i] * ratio)
+    ),
+  };
+
+  return recomposeColor(intermediate);
+};
