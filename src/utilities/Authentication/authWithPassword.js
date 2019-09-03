@@ -1,5 +1,5 @@
 import { auth, db } from '../../store/index';
-import { DASHBOARD } from '../../constants/routes';
+import { LANDING } from '../../constants/routes';
 import firebase from 'firebase/app';
 import ReactPixel from 'react-facebook-pixel';
 import { getDoc, updateDoc } from '../firestore';
@@ -11,9 +11,9 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   auth
     .createUserWithEmailAndPassword(email, password)
     .then(authUser => {
-      setTimeout(() => {
-        ReactPixel.trackCustom('CompleteRegistration');
-      }, 1000);
+      // setTimeout(() => {
+      //   ReactPixel.trackCustom('CompleteRegistration');
+      // }, 1000);
       authUser.user
         .updateProfile({
           displayName: `${firstName} ${lastName}`,
@@ -42,7 +42,7 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               firstName,
               lastName,
             });
-          routeHandler(DASHBOARD);
+          routeHandler(LANDING);
         });
     })
     .catch(error => {

@@ -2,15 +2,16 @@ import { auth } from '../../store';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 import ReactPixel from 'react-facebook-pixel';
 
+// This is currently unused
 export const speedyAuth = (userInfo, router, errorBar) =>
   cloudFunction(
     CLOUD_FUNCTIONS.SPEEDY_SIGNUP,
     userInfo,
     result => {
       auth.signInWithCustomToken(result.data.token).then(() => {
-        setTimeout(() => {
-          ReactPixel.trackCustom('CompleteRegistration');
-        }, 1000);
+        // setTimeout(() => {
+        //   ReactPixel.trackCustom('CompleteRegistration');
+        // }, 1000);
         router(result.data.route);
       });
       console.log('success: ', result);

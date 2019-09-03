@@ -14,6 +14,7 @@ import Landing from './components/Landing';
 import TagTracker from './components/TagTracker';
 import ErrorBoundary from './components/ErrorBoundary';
 import FourOhFour from './components/FourOhFour';
+import CompletedRegistrationTracker from './components/CompletedRegistrationTracker';
 
 import LoadingScreen from './components/LoadingScreen';
 const DetailedViewContainer = lazy(() =>
@@ -68,6 +69,7 @@ const App = props => {
           <ErrorBoundary>
             <div className="app">
               <TagTracker />
+              <CompletedRegistrationTracker />
               <Suspense fallback={<LoadingScreen />}>
                 <Switch>
                   <Route
