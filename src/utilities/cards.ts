@@ -182,10 +182,9 @@ export const generateAssessmentCard = (
     icon: 'industry',
 
     route: {
-      pathname: `${ROUTES.ASSESSMENT}/${data.id}${
-        'assessmentId' in data && data.assessmentId ? '?yours=true' : ''
-      }`,
+      pathname: `${ROUTES.ASSESSMENT}/${data.id}`,
       state: options.routeState,
+      search: 'assessmentId' in data && data.assessmentId ? '?yours=true' : '',
     },
     action,
   };
