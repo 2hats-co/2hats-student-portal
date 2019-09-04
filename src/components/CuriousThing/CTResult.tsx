@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 import ReactApexChart from 'react-apexcharts';
 
 import {
@@ -104,6 +103,9 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({ resultData }) => {
               tickAmount: 2,
               min: 0,
               max: 100,
+              labels: {
+                style: { color: theme.palette.text.secondary },
+              },
             },
             chart: {
               fontFamily: 'inherit',
@@ -112,6 +114,7 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({ resultData }) => {
             dataLabels: {
               style: {
                 fontSize: isXs ? '0.75rem' : '0.875rem',
+                colors: [theme.palette.text.primary],
               },
             },
             theme: {
@@ -121,6 +124,11 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({ resultData }) => {
             plotOptions: {
               radar: {
                 size: isXs ? 80 : 120,
+                polygons: {
+                  strokeColors: theme.palette.divider,
+                  connectorColors: theme.palette.divider,
+                  fill: { colors: ['transparent'] },
+                },
               },
             },
             tooltip: {
