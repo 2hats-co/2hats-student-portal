@@ -11,9 +11,9 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
   auth
     .createUserWithEmailAndPassword(email, password)
     .then(authUser => {
-      setTimeout(() => {
-        ReactPixel.trackCustom('CompleteRegistration');
-      }, 1000);
+      // setTimeout(() => {
+      //   ReactPixel.trackCustom('CompleteRegistration');
+      // }, 1000);
       authUser.user
         .updateProfile({
           displayName: `${firstName} ${lastName}`,

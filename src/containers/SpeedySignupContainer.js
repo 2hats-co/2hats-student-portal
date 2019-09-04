@@ -161,14 +161,14 @@ class SpeedySignupContainer extends PureComponent {
       async result => {
         console.log(result);
         await auth.signInWithCustomToken(result.data.token);
-        setTimeout(() => {
-          ReactPixel.trackCustom('CompleteRegistration');
-        }, 1000);
+        // setTimeout(() => {
+        //   ReactPixel.trackCustom('CompleteRegistration');
+        // }, 1000);
         this.setState({
           isLoading: false,
           view: SPEEDY_SIGNUP.success,
         });
-        this.props.history.push(LANDING);
+        this.props.history.push(LANDING + '?completedRegistration=true');
       },
       error => {
         console.log('Call speedySignup error: ', error);
