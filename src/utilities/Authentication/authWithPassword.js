@@ -1,7 +1,7 @@
 import { auth, db } from '../../firebase/index';
 import { LANDING } from '../../constants/routes';
 import firebase from 'firebase/app';
-import ReactPixel from 'react-facebook-pixel';
+// import ReactPixel from 'react-facebook-pixel';
 import { getDoc, updateDoc } from '../firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 

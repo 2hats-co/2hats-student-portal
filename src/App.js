@@ -19,6 +19,7 @@ import FourOhFour from 'components/routing/FourOhFour';
 import LoadingScreen from 'components/LoadingScreen';
 import Navigation from 'components/Navigation';
 import ProtectedRoute from 'components/routing/ProtectedRoute';
+import CompletedRegistrationTracker from './components/CompletedRegistrationTracker';
 
 import { HistoryProvider } from 'contexts/HistoryContext';
 
@@ -106,6 +107,7 @@ const App = () => {
             <HistoryProvider>
               <div className="app">
                 <TagTracker />
+                <CompletedRegistrationTracker />
                 <Suspense
                   fallback={<LoadingScreen message="Reticulating splines…" />}
                 >
