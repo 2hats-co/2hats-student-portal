@@ -49,41 +49,66 @@ export const getDisplayName = route => {
 };
 
 /**
+ * Returns the up button route. If same as current route, then returns `null`
+ * @param {string} pathname
+ */
+const getUpButtonRoute = pathname => {
+  const baseRoute = getBaseRoute(pathname);
+
+  if (baseRoute !== pathname) return baseRoute;
+  return null;
+};
+
+/**
  * Returns the correct back button route. It can be either a proper "back"
  * button or an "up" button
  * @param {str[]} historyStack
  */
 export const getBackButtonRoute = (historyStack, location) => {
+  // If there is nothing in the history stack for some reason,
+  // don't show the button at all
+  if (historyStack.length < 1) return null;
+
   // If there *is* a route to go back to, then use normal behaviour
   if (historyStack.length >= 2) {
     const last = historyStack[historyStack.length - 2];
-    // If previous route is the same for some reason, don't show the button
+    const { pathname } = historyStack[0];
+
+    // If previous route is the same for some reason,
+    // try and see if we're "one level deep" and show an "up" button
     if (
       last.pathname === location.pathname &&
       last.search === location.search &&
       last.hash === location.hash
     )
-      return null;
+      return getUpButtonRoute(pathname);
+
+    // If the previous route is something we should not display a back button
+    // for, check if we have an alt route (up button)
+    if (ROUTES.ROUTES_PREVENT_BACK.includes(last.pathname))
+      return getUpButtonRoute(pathname);
 
     // Normal behaviour
     return 'back';
   }
 
   // Otherwise, if we are "one level deep", show an "up" button
-  if (historyStack.length === 1) {
-    const { pathname } = historyStack[0];
-    const baseRoute = getBaseRoute(pathname);
-    if (baseRoute !== pathname) return baseRoute;
-  }
+  if (historyStack.length === 1)
+    return getUpButtonRoute(historyStack[0].pathname);
 
   // Otherwise, don't show the back button
   return null;
 };
 
-export const hideBackButton = (historyStack, location) =>
-  !getBackButtonRoute(historyStack, location) ||
-  ROUTES.ROUTES_HIDE_BACK.includes(location.pathname) ||
-  (historyStack.length >= 2 &&
-    ROUTES.ROUTES_PREVENT_BACK.includes(
-      historyStack[historyStack.length - 2].pathname
-    ));
+export const hideBackButton = (historyStack, location) => {
+  const a = !getBackButtonRoute(historyStack, location);
+  const b = ROUTES.ROUTES_HIDE_BACK.includes(location.pathname);
+
+  console.log(
+    historyStack,
+    location,
+    getBackButtonRoute(historyStack, location),
+    b
+  );
+  return a || b;
+};
