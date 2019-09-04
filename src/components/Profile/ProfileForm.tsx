@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Formik, Field, FieldProps, Form } from 'formik';
-import * as Yup from 'yup';
 
 import {
   makeStyles,
@@ -19,7 +18,7 @@ import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersF
 import ResumeField from 'components/FormikFields/ResumeField';
 import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
 
-import CuriousThing from 'components/CuriousThing';
+// import CuriousThing from 'components/CuriousThing';
 
 import ProfileFormAutosave from './ProfileFormAutosave';
 import HeadingTitle from '@bit/twohats.common.components.heading-title';
@@ -200,7 +199,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
               component={WorkCultureSlidersField}
             />
 
-            <CuriousThing profileData={profileData} />
+            {/* <CuriousThing profileData={profileData} /> */}
 
             <Field name="resume" component={ResumeField} />
 
