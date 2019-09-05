@@ -973,10 +973,10 @@
     history "4.9.0"
     react-router-dom "^5.0.1"
 
-"@bit/twohats.common.components.styled-dropzone@^1.0.3":
-  version "1.0.3"
-  resolved "https://node.bit.dev/twohats.common.components.styled-dropzone/-/twohats.common.components.styled-dropzone-1.0.3.tgz#f61964dd23a9f2c66e761ed88b19922e68656112"
-  integrity sha1-9hlk3SOp8sZudh7YixmSLmhlYRI=
+"@bit/twohats.common.components.styled-dropzone@^1.0.4":
+  version "1.0.4"
+  resolved "https://node.bit.dev/twohats.common.components.styled-dropzone/-/twohats.common.components.styled-dropzone-1.0.4.tgz#501106a7f16a5ea98d6372029d3b40706d46d2ae"
+  integrity sha1-UBEGp/FqXqmNY3ICnTtAcG1G0q4=
   dependencies:
     clsx "^1.0.4"
     react-dropzone "^8.1.0"

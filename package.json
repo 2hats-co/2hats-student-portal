@@ -11,7 +11,7 @@
     "@bit/twohats.common.components.help-popup": "^1.1.4",
     "@bit/twohats.common.components.naked-expansion-panel": "^1.0.15",
     "@bit/twohats.common.components.skill-chip": "^1.0.26",
-    "@bit/twohats.common.components.styled-dropzone": "^1.0.3",
+    "@bit/twohats.common.components.styled-dropzone": "^1.0.4",
     "@bit/twohats.common.components.text-with-graphic": "^1.0.4",
     "@bit/twohats.common.constants": "^1.0.18",
     "@bit/twohats.common.db-types": "^0.0.42",
