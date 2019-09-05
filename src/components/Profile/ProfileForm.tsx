@@ -170,7 +170,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
               marks={[1, 2, 3, 4, 5].map(x => ({ value: x }))}
               valueLabelDisplay="auto"
               rightValueFormat={(val: number) =>
-                `${!isNaN(val) && val.toFixed(1)} days/week`
+                `${!isNaN(val) ? val.toFixed(1) : '—'} days/week`
               }
             />
 
