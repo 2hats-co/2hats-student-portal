@@ -163,7 +163,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
             <Field
               name="availableDays"
               component={SliderField}
-              label="Minimum Available Days / Week"
+              label="Available Days / Week"
               min={1}
               max={5}
               step={0.5}
