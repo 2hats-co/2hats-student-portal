@@ -131,7 +131,7 @@ export const generateAssessmentCard = (
         }
       } else if (data.outcome === 'disqualify') {
         action = data.resubmitted ? 'View' : 'Resubmit';
-        status = { label: 'Disqualified', variant: 'fail' };
+        status = { label: 'Unsuccessful', variant: 'fail' };
       } else {
         // Submitted but no outcome yet/not screened
         action = 'View';

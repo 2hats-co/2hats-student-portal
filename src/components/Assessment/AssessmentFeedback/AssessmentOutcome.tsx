@@ -36,11 +36,11 @@ const AssessmentOutcome: React.FunctionComponent<IAssessmentOutcomeProps> = ({
       break;
     case 'fail':
       outcomeIcon = <FailIcon className={classes.icon} htmlColor={red[500]} />;
-      outcomeLabel = 'Unsuccessful';
+      outcomeLabel = 'Try Again';
       break;
     case 'disqualify':
       outcomeIcon = <DisqualifyIcon className={classes.icon} />;
-      outcomeLabel = 'Disqualified';
+      outcomeLabel = 'Unsuccessful';
       break;
 
     default:
