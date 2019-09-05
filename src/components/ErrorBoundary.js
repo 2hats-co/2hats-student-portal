@@ -33,6 +33,10 @@ const styles = theme => ({
   reloadButton: {
     margin: theme.spacing(4),
   },
+
+  error: {
+    userSelect: 'auto',
+  },
 });
 
 class ErrorBoundary extends Component {
@@ -42,6 +46,8 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, info) {
+    // Throw error to console so Smartlook can catch it
+    console.error(error);
     this.setState({ hasError: true, errorMessage: error.message });
   }
 
@@ -85,7 +91,11 @@ class ErrorBoundary extends Component {
               <ReloadIcon />
             </Button>
 
-            <Typography variant="body2" color="textSecondary">
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              className={classes.error}
+            >
               ERROR: {errorMessage}
             </Typography>
           </Grid>
