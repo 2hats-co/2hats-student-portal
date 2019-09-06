@@ -12,7 +12,11 @@ import GoIcon from '@bit/twohats.common.icons.go';
 
 import LoadingScreen from 'components/LoadingScreen';
 
-import { copyAssessmentForResubmission } from 'utilities/assessments';
+import {
+  copyAssessmentForResubmission,
+  MAX_ASSESSMENT_ATTEMPTS,
+  ASSESSMENT_ATTEMPT_PERIOD_MONTHS,
+} from 'utilities/assessments';
 import * as ROUTES from 'constants/routes';
 import { DocWithId, UsersAssessmentsDoc } from '@bit/twohats.common.db-types';
 import { useUser } from 'contexts/UserContext';
@@ -30,6 +34,8 @@ const useStyles = makeStyles(theme =>
 
 interface INewSubmissionPromptProps extends RouteComponentProps {
   assessmentData: DocWithId<UsersAssessmentsDoc>;
+  allSubmissions: DocWithId<UsersAssessmentsDoc>[];
+  submissionsRemaining: number;
 }
 
 /**
@@ -38,15 +44,20 @@ interface INewSubmissionPromptProps extends RouteComponentProps {
  */
 const NewSubmissionPrompt: React.FunctionComponent<
   INewSubmissionPromptProps
-> = ({ assessmentData, history }) => {
+> = ({ assessmentData, history, allSubmissions, submissionsRemaining }) => {
   const classes = useStyles();
   const { user } = useUser();
+
+  const otherSubmissions = allSubmissions.filter(
+    submissionDoc => submissionDoc.id !== assessmentData.id
+  );
 
   // Loading state for resubmission
   const [loading, setLoading] = useState(false);
   if (loading) return <LoadingScreen message="Creating submission…" />;
 
-  if (assessmentData.resubmitted)
+  // If resubmitted, link to the latest submission
+  if (assessmentData.resubmitted && otherSubmissions.length > 1) {
     return (
       <section className={classes.root}>
         <Divider className={classes.divider} />
@@ -60,22 +71,56 @@ const NewSubmissionPrompt: React.FunctionComponent<
           color="primary"
           size="large"
           component={Link}
-          to={`${ROUTES.ASSESSMENT}?id=${
-            assessmentData.resubmitted
-          }&yours=true`}
+          to={`${ROUTES.ASSESSMENT}/${otherSubmissions[0].id}?yours=true`}
         >
           View Submission
           <GoIcon />
         </Button>
       </section>
     );
+  }
+
+  // Otherwise, check if they can resubmit
+  // (less than 3 submissions in the last 6 months AND not disableSubmissions)
+  let message: React.ReactNode;
+  if (submissionsRemaining > 0)
+    message = (
+      <>
+        <Typography variant="body1" gutterBottom>
+          You can make up to {submissionsRemaining} more attempt
+          {submissionsRemaining !== 1 && 's'}.
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Please note you only have up to {MAX_ASSESSMENT_ATTEMPTS} attempts
+          within a {ASSESSMENT_ATTEMPT_PERIOD_MONTHS} month time period.
+        </Typography>
+      </>
+    );
+  else
+    message = (
+      <>
+        <Typography variant="body1" gutterBottom>
+          You have no attempts remaining.
+        </Typography>
+
+        <Typography variant="body1" gutterBottom>
+          Please take the time to read the feedback above and check out{' '}
+          <Link to={ROUTES.COURSES}>our courses</Link> for further guidance.
+        </Typography>
+
+        <Typography variant="body1" gutterBottom>
+          You can make a new attempt in {ASSESSMENT_ATTEMPT_PERIOD_MONTHS}{' '}
+          months.
+        </Typography>
+      </>
+    );
 
   return (
     <section className={classes.root}>
       <Divider className={classes.divider} />
-      <Typography variant="body1" gutterBottom>
-        You can make one more submission.
-      </Typography>
+
+      {message}
+
       <Button
         onClick={() => {
           setLoading(true);
@@ -84,6 +129,7 @@ const NewSubmissionPrompt: React.FunctionComponent<
         variant="contained"
         color="primary"
         size="large"
+        disabled={submissionsRemaining <= 0}
       >
         Resubmit
         <GoIcon />

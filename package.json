@@ -14,7 +14,7 @@
     "@bit/twohats.common.components.styled-dropzone": "^1.0.4",
     "@bit/twohats.common.components.text-with-graphic": "^1.0.4",
     "@bit/twohats.common.constants": "^1.0.18",
-    "@bit/twohats.common.db-types": "^0.0.42",
+    "@bit/twohats.common.db-types": "^0.0.49",
     "@bit/twohats.common.icons.go": "^1.0.4",
     "@bit/twohats.common.styles": "^0.0.21",
     "@bit/twohats.common.use-debounce": "^1.0.2",

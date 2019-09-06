@@ -1,4 +1,5 @@
 import firebase from 'firebase/app';
+import moment from 'moment';
 
 import { getRandomId, removeHtmlTags } from './index';
 import { createDoc, updateDoc, updateDocSilently, getDoc } from './firestore';
@@ -337,6 +338,11 @@ export const submitAssessment = (
     }
   );
 
+/**
+ * Marks this assessment’s feedback as viewed by the user
+ * @param assessmentData Used to check submission doc validity
+ * @param UID Used to update the correct document
+ */
 export const markViewedFeedback = (
   assessmentData: SuperAssessmentDoc,
   UID: string
@@ -369,4 +375,37 @@ export const markViewedFeedback = (
         viewedFeedbackAt: firebase.firestore.FieldValue.serverTimestamp(),
       }
     );
+};
+
+/** The total amount of assessment attempts the user can make in a specified time period */
+export const MAX_ASSESSMENT_ATTEMPTS = 3;
+/** The time period for which we limit assessment attempts */
+export const ASSESSMENT_ATTEMPT_PERIOD_MONTHS = 6;
+
+/**
+ * Gets the total amount of submissions the user can still make for this
+ * assessment, based on MAX_ASSESSMENT_ATTEMPTS and
+ * ASSESSMENT_ATTEMPT_PERIOD_MONTHS
+ * @param submissions All the submissions the user has made for this assessment
+ */
+export const getSubmissionsRemaining = (
+  assessmentData: DocWithId<UsersAssessmentsDoc>,
+  submissions: DocWithId<UsersAssessmentsDoc>[]
+) => {
+  if (
+    'disableSubmissions' in assessmentData &&
+    assessmentData.disableSubmissions
+  )
+    return 0;
+
+  const noFailedSubmissions = submissions.filter(
+    submissionDoc =>
+      submissionDoc.submitted === true &&
+      submissionDoc.screened === true &&
+      submissionDoc.outcome !== 'pass' &&
+      moment().diff(submissionDoc.createdAt.toDate(), 'months', true) <
+        ASSESSMENT_ATTEMPT_PERIOD_MONTHS
+  ).length;
+
+  return MAX_ASSESSMENT_ATTEMPTS - noFailedSubmissions;
 };

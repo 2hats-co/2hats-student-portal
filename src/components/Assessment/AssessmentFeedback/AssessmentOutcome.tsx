@@ -12,16 +12,27 @@ import { DocWithId, UsersAssessmentsDoc } from '@bit/twohats.common.db-types';
 const useStyles = makeStyles(theme =>
   createStyles({
     icon: { marginRight: theme.spacing(1) },
-    label: { fontWeight: 500 },
+
+    label: {
+      fontWeight: 500,
+      textTransform: 'uppercase',
+      letterSpacing: theme.typography.overline.letterSpacing,
+    },
   })
 );
 
 interface IAssessmentOutcomeProps {
   assessmentData: DocWithId<UsersAssessmentsDoc>;
+  /** The number of submissions the user can still make */
+  submissionsRemaining: number;
 }
 
+/**
+ * Displays the user’s outcome with icon and label.
+ */
 const AssessmentOutcome: React.FunctionComponent<IAssessmentOutcomeProps> = ({
   assessmentData,
+  submissionsRemaining,
 }) => {
   const classes = useStyles();
 
@@ -36,7 +47,8 @@ const AssessmentOutcome: React.FunctionComponent<IAssessmentOutcomeProps> = ({
       break;
     case 'fail':
       outcomeIcon = <FailIcon className={classes.icon} htmlColor={red[500]} />;
-      outcomeLabel = 'Try Again';
+      // Display Try Again if they can still make submissions
+      outcomeLabel = submissionsRemaining > 0 ? 'Try Again' : 'Unsuccessful';
       break;
     case 'disqualify':
       outcomeIcon = <DisqualifyIcon className={classes.icon} />;
