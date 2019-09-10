@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import * as Yup from 'yup';
 
 import { Typography, TextField } from '@material-ui/core';
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
+import {
+  TextMaskCustom,
+  MobileNumberFieldSchema,
+} from 'components/FormikFields/MobileNumberField';
 
 import { updateDoc } from 'utilities/firestore';
 import useDebounce from '@bit/twohats.common.use-debounce';
@@ -29,12 +32,8 @@ const MobileNumberField: React.FunctionComponent<IMobileNumberFieldProps> = ({
   }>({ type: 'untouched' });
 
   useEffect(() => {
-    Yup.string()
-      .min(10)
-      .max(15)
-      .required()
-      .isValid(debouncedMobileNumber)
-      .then(async (isValid: boolean) => {
+    MobileNumberFieldSchema.isValid(debouncedMobileNumber).then(
+      async (isValid: boolean) => {
         setMobileNumberState({
           type: isValid ? 'loading' : 'error',
           message: isValid
@@ -48,7 +47,8 @@ const MobileNumberField: React.FunctionComponent<IMobileNumberFieldProps> = ({
           });
           setMobileNumberState({ type: 'success', message: 'We’ve got it!' });
         }
-      });
+      }
+    );
   }, [debouncedMobileNumber]);
 
   return (
@@ -68,7 +68,7 @@ const MobileNumberField: React.FunctionComponent<IMobileNumberFieldProps> = ({
         margin="none"
         label=""
         inputProps={{ id: `field-mobileNumber` }}
-        placeholder="e.g. 0412 345 678"
+        InputProps={{ inputComponent: TextMaskCustom as any }}
         value={mobileNumber}
         onChange={e => setMobileNumber(e.target.value)}
         error={mobileNumberState.type === 'error'}

@@ -14,6 +14,7 @@ import StyledTextField from 'components/FormikFields/StyledTextField';
 import StartDateField from 'components/FormikFields/StartDateField';
 import WorkRestrictionField from 'components/FormikFields/WorkRestrictionField';
 import SliderField from 'components/FormikFields/SliderField';
+import MobileNumberField from 'components/FormikFields/MobileNumberField';
 import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersField';
 import ResumeField from 'components/FormikFields/ResumeField';
 import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
@@ -176,9 +177,8 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
 
             <Field
               name="mobileNumber"
-              component={StyledTextField}
+              component={MobileNumberField}
               label="Mobile Number"
-              placeholder="e.g. 0412 345 678"
             />
           </section>
 
