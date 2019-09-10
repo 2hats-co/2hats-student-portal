@@ -104,11 +104,5 @@ export const hideBackButton = (historyStack, location) => {
   const a = !getBackButtonRoute(historyStack, location);
   const b = ROUTES.ROUTES_HIDE_BACK.includes(location.pathname);
 
-  console.log(
-    historyStack,
-    location,
-    getBackButtonRoute(historyStack, location),
-    b
-  );
   return a || b;
 };
