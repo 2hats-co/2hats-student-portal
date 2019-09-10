@@ -366,7 +366,7 @@ export const markViewedFeedback = (
     return;
 
   // Otherwise, mark assessment as viewed, with a timestamp
-  if (!assessmentData.viewedFeedback || !assessmentData.viewedFeedbackAt)
+  if (!assessmentData.viewedFeedback)
     updateDocSilently(
       `${COLLECTIONS.users}/${UID}/${COLLECTIONS.assessments}`,
       assessmentData.id,
