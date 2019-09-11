@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import * as ROUTES from '../constants/routes';
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
-import { warmUp } from '../utilities/Authentication/warmUp';
+// import { warmUp } from '../utilities/Authentication/warmUp';
 import LogoInCard from '../components/LogoInCard';
 import SignUpIntro from '../components/Authentication/SignUpIntro';
 // Views
@@ -71,7 +71,7 @@ class AuthenticationContainer extends React.Component {
     this.handleForgotPassword = this.handleForgotPassword.bind(this);
   }
   async componentWillMount() {
-    warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL);
+    // warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL);
     const parsedQuery = queryString.parse(this.props.history.location.search);
     // console.log(parsedQuery);
     const linkParams = ['firstName', 'smartKey', 'route', 'email'];

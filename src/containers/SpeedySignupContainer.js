@@ -21,7 +21,7 @@ import girlWithLaptop from '../assets/images/graphics/girlWithLaptop.png';
 import celebratingMan from '../assets/images/graphics/congratsMan.svg';
 import { SPEEDY_SIGNUP } from '../constants/views';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../utilities/CloudFunctions';
-import { warmUp } from '../utilities/Authentication/warmUp';
+// import { warmUp } from '../utilities/Authentication/warmUp';
 // import { speedyAuth } from '../utilities/Authentication/speedySignup';
 import { UNIVERSITIES } from '../constants/universityList';
 import { SIGN_IN, LANDING } from '../constants/routes';
@@ -118,9 +118,9 @@ class SpeedySignupContainer extends PureComponent {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  componentWillMount() {
-    warmUp(CLOUD_FUNCTIONS.SPEEDY_SIGNUP);
-  }
+  // componentWillMount() {
+  //   warmUp(CLOUD_FUNCTIONS.SPEEDY_SIGNUP);
+  // }
 
   goTo(route) {
     this.props.history.replace(route);
