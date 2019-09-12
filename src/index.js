@@ -24,11 +24,5 @@ if (process.env.NODE_ENV !== 'production') {
   ReactPixel.pageView();
 }
 
-// Hide FB Customer Chat Dialog when it pops up
-window.FB.Event.subscribe('customerchat.dialogShow', function() {
-  console.log('fb customer chat dialog hidden');
-  window.FB.CustomerChat.hideDialog();
-});
-
 ReactDOM.render(<App />, document.getElementById('root'));
 // serviceWorker.register();
