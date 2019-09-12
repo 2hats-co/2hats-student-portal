@@ -72,8 +72,9 @@ const Navigation = ({ location, children }) => {
   const isMobile = useMediaQuery(IS_MOBILE_QUERY);
 
   // Style override for FB Messenger chat
-  if (isMobile) document.body.classList.add('fb_up');
-  else document.body.classList.remove('fb_up');
+  const shouldPushFbChatBubbleUp = !!isMobile;
+  if (document.body.classList.contains('fb_up') !== shouldPushFbChatBubbleUp)
+    document.body.classList[isMobile ? 'add' : 'remove']('fb_up');
 
   // Can't assume user exists, since user did not necessarily sign
   // in during this session
