@@ -53,7 +53,7 @@ export const getDisplayName = route => {
  * @param {string} pathname
  */
 const getUpButtonRoute = pathname => {
-  const baseRoute = getBaseRoute(pathname);
+  const baseRoute = getBaseRoute(`/${pathname.split('/')[1]}`);
 
   if (baseRoute !== pathname) return baseRoute;
   return null;
@@ -72,7 +72,7 @@ export const getBackButtonRoute = (historyStack, location) => {
   // If there *is* a route to go back to, then use normal behaviour
   if (historyStack.length >= 2) {
     const last = historyStack[historyStack.length - 2];
-    const { pathname } = historyStack[0];
+    const { pathname } = historyStack[historyStack.length - 1];
 
     // If previous route is the same for some reason,
     // try and see if we're "one level deep" and show an "up" button
@@ -85,7 +85,7 @@ export const getBackButtonRoute = (historyStack, location) => {
 
     // If the previous route is something we should not display a back button
     // for, check if we have an alt route (up button)
-    if (ROUTES.ROUTES_PREVENT_BACK.includes(last.pathname))
+    if (ROUTES.ROUTES_PREVENT_BACK.includes(`/${last.pathname.split('/')[1]}`))
       return getUpButtonRoute(pathname);
 
     // Normal behaviour
@@ -94,7 +94,7 @@ export const getBackButtonRoute = (historyStack, location) => {
 
   // Otherwise, if we are "one level deep", show an "up" button
   if (historyStack.length === 1)
-    return getUpButtonRoute(historyStack[0].pathname);
+    return getUpButtonRoute(historyStack[historyStack.length - 1].pathname);
 
   // Otherwise, don't show the back button
   return null;
@@ -102,7 +102,9 @@ export const getBackButtonRoute = (historyStack, location) => {
 
 export const hideBackButton = (historyStack, location) => {
   const a = !getBackButtonRoute(historyStack, location);
-  const b = ROUTES.ROUTES_HIDE_BACK.includes(location.pathname);
+  const b = ROUTES.ROUTES_HIDE_BACK.includes(
+    `/${location.pathname.split('/')[1]}`
+  );
 
   return a || b;
 };

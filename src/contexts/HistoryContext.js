@@ -72,6 +72,8 @@ export const HistoryProvider = withRouter(({ history, location, children }) => {
     history.listen((location, action) => stackDispatch({ action, location }));
   }, []);
 
+  console.log(location);
+
   return (
     <HistoryContext.Provider value={stack}>{children}</HistoryContext.Provider>
   );

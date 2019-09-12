@@ -114,8 +114,8 @@ class AuthenticationContainer extends React.Component {
   }
   goTo(route) {
     if (route) this.props.history.push(route);
-    else if (this.state.route)
-      this.props.history.push(decodeURIComponent(this.state.route));
+    // else if (this.state.route)
+    // this.props.history.push(decodeURIComponent(this.state.route));
   }
 
   getHomeReferrerId() {
@@ -141,9 +141,9 @@ class AuthenticationContainer extends React.Component {
       user,
       () => {
         this.goTo(
-          this.state.route
-            ? decodeURIComponent(this.state.route)
-            : ROUTES.LANDING
+          `${ROUTES.LANDING}${
+            this.state.route ? `?route=${this.state.route}` : ''
+          }`
         );
         this.handleGTevent('Signin');
       },
@@ -172,11 +172,11 @@ class AuthenticationContainer extends React.Component {
         createUserWithPassword(
           user,
           route => {
-            console.log('going to ' + route);
+            console.log('Signed up. Going to ' + ROUTES.LANDING);
             this.goTo(
-              `${
-                this.state.route ? decodeURIComponent(this.state.route) : route
-              }?completedRegistration=true`
+              `${ROUTES.LANDING}?completedRegistration=true${
+                this.state.route ? `&route=${this.state.route}` : ''
+              }`
             );
             this.handleGTevent('Signup');
           },
