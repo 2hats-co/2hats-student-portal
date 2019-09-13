@@ -7,6 +7,8 @@ import {
   WORK_CULTURE_SLIDER_LABELS,
 } from '@bit/twohats.common.constants';
 
+import { MobileNumberFieldSchema } from 'components/FormikFields/MobileNumberField';
+
 export const WorkCultureSlidersSchema: { [key: string]: Yup.NumberSchema } = {};
 Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(
   x =>
@@ -45,10 +47,7 @@ export const ProfileFormSchema = Yup.object().shape({
     .max(5, 'Must be at most 5 days/week')
     .required('Required'),
 
-  mobileNumber: Yup.string()
-    .min(10, 'Please enter an Australian mobile number')
-    .max(15, 'Please enter an Australian mobile number')
-    .required('Please enter an Australian mobile number'),
+  mobileNumber: MobileNumberFieldSchema,
 
   bio: Yup.string()
     .ensure()

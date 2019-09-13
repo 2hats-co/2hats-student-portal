@@ -1,20 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import withStyles from '@material-ui/core/styles/withStyles';
+import Div100vh from 'react-div-100vh';
 
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { makeStyles, Grid, Typography, Button } from '@material-ui/core';
 
 import GoIcon from '@bit/twohats.common.icons.go';
 
 import { DASHBOARD } from 'constants/routes';
 import graphic from 'assets/images/graphics/PersonArmsOnHips.svg';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: '100vh',
     minWidth: '100vw',
     position: 'absolute',
     top: 0,
@@ -40,35 +37,45 @@ const styles = theme => ({
   },
 
   button: { margin: theme.spacing(4) },
-});
+}));
 
 /**
  * Renders a 404 page.
  */
-const FourOhFour = ({ classes, history }) => (
-  <Grid container className={classes.root} justify="center" alignItems="center">
-    <Grid item>
-      <img src={graphic} alt="2hats" className={classes.graphic} />
-      <Typography variant="h6" className={classes.message}>
-        Hmm… we can’t seem to find this page
-      </Typography>
-      <Button
-        color="primary"
-        className={classes.button}
-        onClick={() => {
-          history.push(DASHBOARD);
-        }}
-      >
-        Go to Dashboard
-        <GoIcon />
-      </Button>
+const FourOhFour = ({ history }) => {
+  const classes = useStyles();
+
+  return (
+    <Grid
+      container
+      className={classes.root}
+      justify="center"
+      alignItems="center"
+      component={Div100vh}
+      style={{ minHeight: '100rvh' }}
+    >
+      <Grid item>
+        <img src={graphic} alt="2hats" className={classes.graphic} />
+        <Typography variant="h6" className={classes.message}>
+          Hmm… we can’t seem to find this page
+        </Typography>
+        <Button
+          color="primary"
+          className={classes.button}
+          onClick={() => {
+            history.push(DASHBOARD);
+          }}
+        >
+          Go to Dashboard
+          <GoIcon />
+        </Button>
+      </Grid>
     </Grid>
-  </Grid>
-);
+  );
+};
 
 FourOhFour.propTypes = {
-  classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
 };
 
-export default withRouter(withStyles(styles)(FourOhFour));
+export default withRouter(FourOhFour);

@@ -131,7 +131,7 @@ export const generateAssessmentCard = (
         }
       } else if (data.outcome === 'disqualify') {
         action = data.resubmitted ? 'View' : 'Resubmit';
-        status = { label: 'Disqualified', variant: 'fail' };
+        status = { label: 'Unsuccessful', variant: 'fail' };
       } else {
         // Submitted but no outcome yet/not screened
         action = 'View';
@@ -182,10 +182,9 @@ export const generateAssessmentCard = (
     icon: 'industry',
 
     route: {
-      pathname: `${ROUTES.ASSESSMENT}/${data.id}${
-        'assessmentId' in data && data.assessmentId ? '?yours=true' : ''
-      }`,
+      pathname: `${ROUTES.ASSESSMENT}/${data.id}`,
       state: options.routeState,
+      search: 'assessmentId' in data && data.assessmentId ? '?yours=true' : '',
     },
     action,
   };

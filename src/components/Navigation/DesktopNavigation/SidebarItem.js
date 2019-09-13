@@ -2,8 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import {
+  makeStyles,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
+import { fade } from '@material-ui/core/styles';
 
 import SidebarDivider from './SidebarDivider';
 import { getBaseRoute } from 'utilities/routing';
@@ -18,13 +23,20 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(2.5),
 
     '&$selected': {
-      color: theme.palette.primary.darkText,
       backgroundColor: theme.palette.primary.light,
-
+      color: theme.palette.primary.main, // Orange ripple colour
       '&:hover': { backgroundColor: theme.palette.primary.light },
-      '& *': { color: theme.palette.primary.main },
+
+      '& .nav-sidebar-avatar': {
+        // Optical adjustment to stop initials-containing Avatar from
+        // overpowering other icons since it’s larger than them
+        backgroundColor: fade(theme.palette.primary.main, 0.87),
+      },
+      '& $listItemIconRoot': { color: theme.palette.primary.main },
     },
   },
+
+  listItemIconRoot: { color: theme.palette.text.secondary },
 
   selected: {},
 }));
@@ -69,7 +81,7 @@ const SidebarItem = ({ location, data }) => {
         primary={data.label}
         primaryTypographyProps={{
           variant: 'button',
-          color: 'textSecondary',
+          color: listItemProps.selected ? 'primary' : 'textSecondary',
         }}
       />
     </ListItem>

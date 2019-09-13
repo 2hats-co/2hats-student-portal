@@ -154,6 +154,8 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
     if (acceptedFiles.length > 0) {
       // Set file name for display
       setFile({ name: acceptedFiles[0].name });
+      // Reset rejected file
+      setRejectedFile('');
       uploader(
         `candidates/${uid}/resumes/${new Date().getTime()}/${
           acceptedFiles[0].name

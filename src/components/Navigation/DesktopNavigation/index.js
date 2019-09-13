@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
 import { makeStyles, useTheme } from '@material-ui/styles';
@@ -44,7 +45,10 @@ const useStyles = makeStyles(theme => ({
 
   listWrapper: { marginTop: theme.spacing(3) },
 
-  avatar: { marginLeft: theme.spacing(-0.5) },
+  avatar: {
+    marginLeft: theme.spacing(-0.5),
+    fontSize: '1rem',
+  },
 }));
 
 /**
@@ -60,7 +64,13 @@ const DesktopNavigation = () => {
   const MAIN_NAV_ITEMS = [
     {
       label: 'Profile',
-      icon: <SuperAvatar size={32} className={classes.avatar} />,
+      icon: (
+        <SuperAvatar
+          size={32}
+          // Add global CSS class name so `SidebarItem` can access it too
+          className={clsx(classes.avatar, 'nav-sidebar-avatar')}
+        />
+      ),
       route: ROUTES.PROFILE,
     },
     { label: 'Dashboard', icon: <DashboardIcon />, route: ROUTES.DASHBOARD },

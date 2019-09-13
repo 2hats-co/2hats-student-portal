@@ -41,6 +41,7 @@ export interface OnboardingCtaProps
  * Padded CTA button for Onboarding screens. Also routes to the next stage
  */
 const OnboardingCta: React.FC<OnboardingCtaProps> = ({
+  location,
   match,
   action = 'Let’s go!',
   secondary = false,
@@ -57,7 +58,10 @@ const OnboardingCta: React.FC<OnboardingCtaProps> = ({
       size={normalSize ? 'medium' : 'large'}
       className={classes.root}
       component={Link}
-      to={getNextStageRoute(match.params.stage)}
+      to={{
+        ...location,
+        pathname: getNextStageRoute(match.params.stage),
+      }}
       disabled={disabled}
     >
       {action}

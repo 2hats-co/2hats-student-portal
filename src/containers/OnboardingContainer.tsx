@@ -21,7 +21,7 @@ export interface OnboardingContainerProps
   extends RouteComponentProps<{ stage?: string }> {}
 
 const OnboardingContainer: React.FC<OnboardingContainerProps> = props => {
-  const { match } = props;
+  const { location, match } = props;
 
   // Scroll to top and change title
   useEffect(() => {
@@ -53,7 +53,11 @@ const OnboardingContainer: React.FC<OnboardingContainerProps> = props => {
     let stage = user.onboardingStage || ONBOARDING_STAGES[0];
     if (stage === ONBOARDING_STAGES[ONBOARDING_STAGES.length - 1])
       stage = ONBOARDING_STAGES[0];
-    return <Redirect to={ROUTES.ONBOARDING + '/' + stage} />;
+    return (
+      <Redirect
+        to={{ ...location, pathname: ROUTES.ONBOARDING + '/' + stage }}
+      />
+    );
   }
 
   // Render the stage based off the URL

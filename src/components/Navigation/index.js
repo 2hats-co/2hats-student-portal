@@ -1,6 +1,8 @@
-import React, { useEffect, useLayoutEffect, useContext, useRef } from 'react';
+import React, { useEffect } from 'react';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Div100vh from 'react-div-100vh';
 
 import { makeStyles, Grid, Toolbar, useMediaQuery } from '@material-ui/core';
 
@@ -13,6 +15,8 @@ import BackButton from './BackButton';
 import { useUser } from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
 import { SIDEBAR_WIDTH, IS_MOBILE_QUERY } from 'constants/layout';
+
+const TRANSITION_DURATION = 200;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -30,18 +34,24 @@ const useStyles = makeStyles(theme => ({
   mobileNavWrapper: { width: 0 },
 
   mainWrapper: {
-    minHeight: '100vh',
     padding: theme.spacing(3, 0),
     overflow: 'hidden',
   },
+
   mainWrapperAnimation: {
-    animationName: '$main-wrapper-keyframes',
-    animationDuration: theme.transitions.duration.standard,
-    animationTimingFunction: theme.transitions.easing.easeOut,
-  },
-  '@keyframes main-wrapper-keyframes': {
-    from: { opacity: 0, transform: 'translateY(10px) scale(0.99)' },
-    to: { opacity: 1, transform: 'translateY(0) scale(1)' },
+    '&-enter': {
+      transform: 'scale(0.97)',
+
+      transition: theme.transitions.create(['opacity', 'transform'], {
+        duration: TRANSITION_DURATION,
+        easing: theme.transitions.easing.easeOut,
+      }),
+    },
+    '&-enter-active': {
+      transform: 'scale(1)',
+    },
+
+    '&-exit': { display: 'none' },
   },
 
   topBarSpacer: { margin: theme.spacing(-3, 0, 2) },
@@ -51,29 +61,19 @@ const useStyles = makeStyles(theme => ({
 const Navigation = ({ location, children }) => {
   const classes = useStyles();
 
-  const mainWrapperRef = useRef(null);
-
   useEffect(() => {
     // resets background
     setBackground();
   }, []);
 
-  useLayoutEffect(() => {
-    if (!mainWrapperRef || !mainWrapperRef.current) return;
+  useEffect(() => {
+    // Scroll to top on path name change
     window.scrollTo(0, 0);
-    mainWrapperRef.current.classList.add(classes.mainWrapperAnimation);
-    setTimeout(() => {
-      mainWrapperRef.current.classList.remove(classes.mainWrapperAnimation);
-    }, 300);
-  }, [location.pathname, classes.mainWrapperAnimation]);
+  }, [location.pathname]);
 
   const { user } = useUser();
 
   const isMobile = useMediaQuery(IS_MOBILE_QUERY);
-
-  // Style override for FB Messenger chat
-  if (isMobile) document.body.classList.add('fb_up');
-  else document.body.classList.remove('fb_up');
 
   // Can't assume user exists, since user did not necessarily sign
   // in during this session
@@ -87,16 +87,32 @@ const Navigation = ({ location, children }) => {
         </Grid>
       )}
 
-      <Grid item xs className={classes.mainWrapper} ref={mainWrapperRef}>
-        <ErrorBoundary>
-          {isMobile && <Toolbar className={classes.topBarSpacer} />}
-          {!isMobile && <BackButton isMobile={false} />}
+      <TransitionGroup component={null}>
+        <CSSTransition
+          timeout={TRANSITION_DURATION}
+          classNames={classes.mainWrapperAnimation}
+          key={location.key}
+          appear
+        >
+          <Grid
+            item
+            xs
+            className={classes.mainWrapper}
+            component={Div100vh}
+            style={{ minHeight: '100rvh' }}
+          >
+            <ErrorBoundary>
+              {isMobile && <Toolbar className={classes.topBarSpacer} />}
+              {!isMobile && <BackButton isMobile={false} />}
 
-          {children}
+              {children}
 
-          {isMobile && <Toolbar className={classes.bottomBarSpacer} />}
-        </ErrorBoundary>
-      </Grid>
+              {isMobile && <Toolbar className={classes.bottomBarSpacer} />}
+            </ErrorBoundary>
+          </Grid>
+        </CSSTransition>
+      </TransitionGroup>
+
       {isMobile && <MobileNavigation />}
     </Grid>
   );

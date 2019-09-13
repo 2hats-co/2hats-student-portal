@@ -1,5 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
+import Div100vh from 'react-div-100vh';
 
 import {
   makeStyles,
@@ -16,7 +17,6 @@ import { IS_MOBILE_QUERY } from 'constants/layout';
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {
-      height: '100vh',
       width: '100vw',
 
       position: 'absolute',
@@ -73,6 +73,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({
       alignItems="center"
       justify="center"
       className={clsx(classes.root, contained && classes.contained)}
+      component={Div100vh}
+      style={{ minHeight: '100rvh' }}
     >
       <Grid item>
         <CircularProgress size={64} className={classes.circularProgress} />

@@ -3,8 +3,9 @@ import clsx from 'clsx';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
-import { makeStyles, useTheme } from '@material-ui/styles';
 import {
+  makeStyles,
+  useTheme,
   AppBar,
   Toolbar,
   Grid,
@@ -26,6 +27,7 @@ import BackButton from '../BackButton';
 import * as ROUTES from 'constants/routes';
 import { HistoryContext } from 'contexts/HistoryContext';
 import { hideBackButton } from 'utilities/routing';
+import { getBaseRoute } from 'utilities/routing';
 
 const useStyles = makeStyles(theme => ({
   topAppBar: {
@@ -57,7 +59,21 @@ const useStyles = makeStyles(theme => ({
     userDrag: 'none',
     cursor: 'pointer',
   },
-  avatarButton: { padding: 0, width: 48, height: 48 },
+
+  avatarButton: {
+    padding: 0,
+    width: 48,
+    height: 48,
+  },
+  avatarButtonColorPrimary: {
+    '& $avatar': {
+      backgroundColor: theme.palette.primary.main,
+      boxShadow: `0 0 0 2px ${theme.palette.background.default}, 0 0 0 4px ${
+        theme.palette.primary.main
+      }`,
+    },
+  },
+  avatar: { fontSize: '1rem' },
 }));
 
 const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
@@ -109,11 +125,20 @@ const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
 
               <Grid item>
                 <IconButton
+                  classes={{
+                    root: classes.avatarButton,
+                    colorPrimary: classes.avatarButtonColorPrimary,
+                  }}
                   className={classes.avatarButton}
                   component={Link}
                   to={ROUTES.PROFILE}
+                  color={
+                    getBaseRoute(location.pathname) === ROUTES.PROFILE
+                      ? 'primary'
+                      : 'default'
+                  }
                 >
-                  <SuperAvatar size={32} />
+                  <SuperAvatar size={32} className={classes.avatar} />
                 </IconButton>
                 <IconButton onClick={e => setAnchorEl(e.target)}>
                   <MoreVertIcon />

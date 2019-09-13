@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
+import Div100vh from 'react-div-100vh';
 
 import {
   makeStyles,
@@ -20,7 +21,6 @@ const TRANSITION_DURATION = 350;
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {
-      minHeight: '100vh',
       padding:
         'env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)',
     },
@@ -119,6 +119,8 @@ const OnboardingCard: React.FC<OnboardingCardProps> = ({
       alignItems="center"
       wrap="nowrap"
       className={classes.root}
+      component={Div100vh}
+      style={{ minHeight: '100rvh' }}
     >
       <OnboardingHeader fullScreen={fullScreen} progressValue={progressValue} />
 

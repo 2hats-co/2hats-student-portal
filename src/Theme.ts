@@ -209,8 +209,8 @@ const themeCommons = {
     // Neutral avatar colour
     MuiAvatar: {
       colorDefault: {
-        backgroundColor: 'rgba(0, 0, 0, 0.12)',
-        color: 'rgba(0, 0, 0, 0.54)',
+        backgroundColor: 'rgba(0, 0, 0, 0.46)',
+        color: WHITE,
         fontWeight: 500,
       },
     },
@@ -351,8 +351,8 @@ export const DarkTheme = responsiveFontSizes(
         // Neutral avatar colour
         MuiAvatar: {
           colorDefault: {
-            backgroundColor: 'rgba(255, 255, 255, 0.12)',
-            color: 'rgba(255, 255, 255, 0.7)',
+            backgroundColor: 'rgba(255, 255, 255, 0.6)',
+            color: DARK_BG,
           },
         },
         // Neutral slider background – slightly brighter than FilledInput

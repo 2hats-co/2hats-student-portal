@@ -31,6 +31,10 @@ interface IAssessmentFeedbackItemProps {
   feedbackData: AssessmentFeedback;
 }
 
+/**
+ * Component for each assessment feedback item to show a standard icon
+ * and styling
+ */
 const AssessmentFeedbackItem: React.FunctionComponent<
   IAssessmentFeedbackItemProps
 > = ({ feedbackData }) => {

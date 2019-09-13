@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import * as ROUTES from '../constants/routes';
 import { AUTHENTICATION_CONTAINER } from '../constants/views';
 
-import { warmUp } from '../utilities/Authentication/warmUp';
+// import { warmUp } from '../utilities/Authentication/warmUp';
 import LogoInCard from '../components/LogoInCard';
 import SignUpIntro from '../components/Authentication/SignUpIntro';
 // Views
@@ -71,7 +71,7 @@ class AuthenticationContainer extends React.Component {
     this.handleForgotPassword = this.handleForgotPassword.bind(this);
   }
   async componentWillMount() {
-    warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL);
+    // warmUp(CLOUD_FUNCTIONS.CHECK_EMAIL);
     const parsedQuery = queryString.parse(this.props.history.location.search);
     // console.log(parsedQuery);
     const linkParams = ['firstName', 'smartKey', 'route', 'email'];
@@ -114,8 +114,8 @@ class AuthenticationContainer extends React.Component {
   }
   goTo(route) {
     if (route) this.props.history.push(route);
-    else if (this.state.route)
-      this.props.history.push(decodeURIComponent(this.state.route));
+    // else if (this.state.route)
+    // this.props.history.push(decodeURIComponent(this.state.route));
   }
 
   getHomeReferrerId() {
@@ -141,9 +141,9 @@ class AuthenticationContainer extends React.Component {
       user,
       () => {
         this.goTo(
-          this.state.route
-            ? decodeURIComponent(this.state.route)
-            : ROUTES.LANDING
+          `${ROUTES.LANDING}${
+            this.state.route ? `?route=${this.state.route}` : ''
+          }`
         );
         this.handleGTevent('Signin');
       },
@@ -172,9 +172,11 @@ class AuthenticationContainer extends React.Component {
         createUserWithPassword(
           user,
           route => {
-            console.log('going to ' + route);
+            console.log('Signed up. Going to ' + ROUTES.LANDING);
             this.goTo(
-              this.state.route ? decodeURIComponent(this.state.route) : route
+              `${ROUTES.LANDING}?completedRegistration=true${
+                this.state.route ? `&route=${this.state.route}` : ''
+              }`
             );
             this.handleGTevent('Signup');
           },

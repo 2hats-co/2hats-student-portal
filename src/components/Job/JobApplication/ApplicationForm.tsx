@@ -87,7 +87,8 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
   });
   const profile = profileState.doc;
   // Unsubscribe since Formik won’t update when initialValues changes
-  if (profileState.unsubscribe) profileState.unsubscribe();
+  if (!profileState.loading && profile && profileState.unsubscribe)
+    profileState.unsubscribe();
 
   // Show loading screen while profile is loading
   if (!profile || profileState.loading)

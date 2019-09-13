@@ -1,7 +1,6 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Formik, Field, FieldProps, Form } from 'formik';
-import * as Yup from 'yup';
 
 import {
   makeStyles,
@@ -15,11 +14,12 @@ import StyledTextField from 'components/FormikFields/StyledTextField';
 import StartDateField from 'components/FormikFields/StartDateField';
 import WorkRestrictionField from 'components/FormikFields/WorkRestrictionField';
 import SliderField from 'components/FormikFields/SliderField';
+import MobileNumberField from 'components/FormikFields/MobileNumberField';
 import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersField';
 import ResumeField from 'components/FormikFields/ResumeField';
 import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
 
-import CuriousThing from 'components/CuriousThing';
+// import CuriousThing from 'components/CuriousThing';
 
 import ProfileFormAutosave from './ProfileFormAutosave';
 import HeadingTitle from '@bit/twohats.common.components.heading-title';
@@ -164,22 +164,21 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
             <Field
               name="availableDays"
               component={SliderField}
-              label="Minimum Available Days / Week"
+              label="Available Days / Week"
               min={1}
               max={5}
               step={0.5}
               marks={[1, 2, 3, 4, 5].map(x => ({ value: x }))}
               valueLabelDisplay="auto"
               rightValueFormat={(val: number) =>
-                `${!isNaN(val) && val.toFixed(1)} days/week`
+                `${!isNaN(val) ? val.toFixed(1) : '—'} days/week`
               }
             />
 
             <Field
               name="mobileNumber"
-              component={StyledTextField}
+              component={MobileNumberField}
               label="Mobile Number"
-              placeholder="e.g. 0412 345 678"
             />
           </section>
 
@@ -200,7 +199,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
               component={WorkCultureSlidersField}
             />
 
-            <CuriousThing profileData={profileData} />
+            {/* <CuriousThing profileData={profileData} /> */}
 
             <Field name="resume" component={ResumeField} />
 

@@ -64,6 +64,7 @@ export interface OnboardingHeaderProps
  * Broken out of OnboardingCard for better readability.
  */
 const OnboardingHeader: React.FC<OnboardingHeaderProps> = ({
+  location,
   match,
   fullScreen,
   progressValue,
@@ -115,9 +116,14 @@ const OnboardingHeader: React.FC<OnboardingHeaderProps> = ({
 
           <Grid item xs={3} className={classes.skipButtonWrapper}>
             <Button
-              color="inherit"
+              color={fullScreen ? 'primary' : 'inherit'}
               component={Link}
-              to={getNextStageRoute(match.params ? match.params.stage : '')}
+              to={{
+                ...location,
+                pathname: getNextStageRoute(
+                  match.params ? match.params.stage : ''
+                ),
+              }}
             >
               Skip
               <GoIcon />
