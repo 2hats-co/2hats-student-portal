@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Div100vh from 'react-div-100vh';
 
 import withStyles from '@material-ui/core/styles/withStyles';
 import { Grid, Typography, Button } from '@material-ui/core';
@@ -13,7 +14,6 @@ const styles = theme => ({
 
     width: '100%',
     height: '100%',
-    minHeight: '100vh',
 
     userSelect: 'none',
     textAlign: 'center',
@@ -64,6 +64,8 @@ class ErrorBoundary extends Component {
           alignItems="center"
           direction="column"
           wrap="nowrap"
+          component={Div100vh}
+          style={{ minHeight: '100rvh' }}
         >
           <Grid item className={classes.content}>
             <img

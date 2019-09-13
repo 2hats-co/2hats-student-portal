@@ -1,6 +1,7 @@
-import React, { useEffect, useLayoutEffect, useContext, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import Div100vh from 'react-div-100vh';
 
 import { makeStyles, Grid, Toolbar, useMediaQuery } from '@material-ui/core';
 
@@ -30,7 +31,6 @@ const useStyles = makeStyles(theme => ({
   mobileNavWrapper: { width: 0 },
 
   mainWrapper: {
-    minHeight: '100vh',
     padding: theme.spacing(3, 0),
     overflow: 'hidden',
   },
@@ -83,7 +83,14 @@ const Navigation = ({ location, children }) => {
         </Grid>
       )}
 
-      <Grid item xs className={classes.mainWrapper} ref={mainWrapperRef}>
+      <Grid
+        item
+        xs
+        className={classes.mainWrapper}
+        ref={mainWrapperRef}
+        component={Div100vh}
+        style={{ minHeight: '100rvh' }}
+      >
         <ErrorBoundary>
           {isMobile && <Toolbar className={classes.topBarSpacer} />}
           {!isMobile && <BackButton isMobile={false} />}
