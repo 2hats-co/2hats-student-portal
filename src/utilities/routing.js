@@ -102,9 +102,9 @@ export const getBackButtonRoute = (historyStack, location) => {
 
 export const hideBackButton = (historyStack, location) => {
   const a = !getBackButtonRoute(historyStack, location);
-  const b = ROUTES.ROUTES_HIDE_BACK.includes(
-    `/${location.pathname.split('/')[1]}`
-  );
+  const b = ROUTES.ROUTES_HIDE_BACK.includes(location.pathname);
+  //   `/${location.pathname.split('/')[1]}`
+  // );
 
   return a || b;
 };
