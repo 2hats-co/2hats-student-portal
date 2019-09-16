@@ -3,10 +3,12 @@ import React from 'react';
 import {
   makeStyles,
   createStyles,
+  Grid,
   Typography,
   Button,
 } from '@material-ui/core';
 import ExternalIcon from '@material-ui/icons/OpenInNew';
+import InfoIcon from '@material-ui/icons/Info';
 
 import CTPoweredBy from './CTPoweredBy';
 
@@ -29,6 +31,8 @@ const useStyles = makeStyles(theme =>
 
       margin: theme.spacing(0, 1),
     },
+
+    infoIcon: { color: theme.palette.text.secondary },
   })
 );
 
@@ -58,9 +62,19 @@ const CTPrompt: React.FunctionComponent = () => {
         <CTPoweredBy />
       </div>
 
-      <Typography variant="body1" color="textSecondary" gutterBottom>
-        Your results will be displayed here, but may take a few hours to do so.
-      </Typography>
+      <Grid container spacing={2}>
+        <Grid item>
+          <InfoIcon className={classes.infoIcon} />
+        </Grid>
+
+        <Grid item xs>
+          <Typography variant="body1" color="textSecondary" gutterBottom>
+            Your results will be displayed here, but may take a few hours to do
+            so. Make sure you use the <strong>promo code</strong> from the
+            sign-up page to get your results!
+          </Typography>
+        </Grid>
+      </Grid>
     </>
   );
 };

@@ -4,7 +4,7 @@ import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { useUser } from 'contexts/UserContext';
 import { CARD_COLS_WIDTHS, CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
 
-// import CTDashboardButton from 'components/CuriousThing/CTDashboardButton';
+import CTDashboardButton from 'components/CuriousThing/CTDashboardButton';
 import AssessmentCards from 'components/Dashboard/AssessmentCards';
 import JobCards from 'components/Dashboard/JobCards';
 import CourseCards from 'components/Dashboard/CourseCards';
@@ -64,7 +64,7 @@ const DashboardContainer = () => {
           Hi {user.firstName}!
         </Typography>
 
-        {/* <CTDashboardButton className={classes.curiousThingButton} /> */}
+        <CTDashboardButton className={classes.curiousThingButton} />
       </Grid>
 
       <AssessmentCards />

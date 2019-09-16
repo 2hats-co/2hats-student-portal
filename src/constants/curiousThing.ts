@@ -5,7 +5,7 @@ export const CURIOUS_THING_COBRANDED_URL =
 
 export const externalLinkProps = {
   component: 'a',
-  href: CURIOUS_THING_URL,
+  href: CURIOUS_THING_COBRANDED_URL,
   target: '_blank',
   rel: 'noopener noreferrer',
 };

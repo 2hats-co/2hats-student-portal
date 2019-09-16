@@ -14,8 +14,8 @@ interface ICuriousThingProps extends ProfileComponentProps {}
 const CuriousThing: React.FunctionComponent<ICuriousThingProps> = ({
   profileData,
 }) => {
-  // let contents = <CTPrompt />;
-  let contents = <CTResult resultData={sampleData} />;
+  let contents = <CTPrompt />;
+  // let contents = <CTResult resultData={sampleData} />;
 
   return (
     <section id={PROFILE_CURIOUS_THING}>
