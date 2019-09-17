@@ -10,6 +10,7 @@ import {
 import ExternalIcon from '@material-ui/icons/OpenInNew';
 import InfoIcon from '@material-ui/icons/Info';
 
+import CTSamplePopup from './CTSamplePopup';
 import CTPoweredBy from './CTPoweredBy';
 
 import {
@@ -60,6 +61,8 @@ const CTPrompt: React.FunctionComponent = () => {
         </Button>
 
         <CTPoweredBy />
+
+        <CTSamplePopup />
       </div>
 
       <Grid container spacing={2}>

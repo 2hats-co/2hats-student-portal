@@ -2,19 +2,19 @@
   "timestamp": "Tue Jul 30 2019 05:58:11 GMT+0000 (UTC)",
   "candidate_info": {
     "current_company": null,
-    "family_name": "Alcantara",
-    "email": "theisidney@gmail.com",
+    "family_name": "{{lastName}}",
+    "email": "{{email}}",
     "current_job_title": null,
-    "given_name": "Sidney"
+    "given_name": "{{firstName}}"
   },
   "result": [
     {
       "topic": "personality_analysis",
-      "text": "Sidney is imaginative and outgoing. Sidney is interested in learning through new experiences. They are creative and curious, and are open to change and variety. They are flexible, great at coming up with out-of-the-box solutions and very empathetic towards others. They are great at working with others. They enjoy discussing problems and have no problem voicing their opinions. People often describe them as friendly and energetic."
+      "text": "{{firstName}} is imaginative and outgoing. {{firstName}} is interested in learning through new experiences. They are creative and curious, and are open to change and variety. They are flexible, great at coming up with out-of-the-box solutions and very empathetic towards others. They are great at working with others. They enjoy discussing problems and have no problem voicing their opinions. People often describe them as friendly and energetic."
     },
     {
       "topic": "attribute_analysis",
-      "text": "Sidney's top soft skills are problem solving and adaptivity."
+      "text": "{{firstName}}'s top soft skills are problem solving and adaptivity."
     },
     {
       "topic": "career_suggestion",
@@ -22,7 +22,7 @@
     },
     {
       "topic": "attribute_fact",
-      "text": "As Sidney was ranked better than the majority of their peers in their problem solving skills, they are relatively good thinkers who use a mix of intuition and logic to come up with solutions. This attribute helps them with viewing problems as challenges and learning from them. As Sidney was also ranked better than the majority of their peers in adaptivity, they are also relatively adaptable and open to change. This attribute helps them with looking ahead and having the situational awareness to persist against challenges."
+      "text": "As {{firstName}} was ranked better than the majority of their peers in their problem solving skills, they are relatively good thinkers who use a mix of intuition and logic to come up with solutions. This attribute helps them with viewing problems as challenges and learning from them. As {{firstName}} was also ranked better than the majority of their peers in adaptivity, they are also relatively adaptable and open to change. This attribute helps them with looking ahead and having the situational awareness to persist against challenges."
     }
   ],
   "analytics": {

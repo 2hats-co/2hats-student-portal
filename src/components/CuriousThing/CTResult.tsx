@@ -12,6 +12,8 @@ import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import CTPerformanceBar from './CTPerformanceBar';
 import CTPoweredBy from './CTPoweredBy';
 
+import { useUser } from 'contexts/UserContext';
+
 const useStyles = makeStyles(theme =>
   createStyles({
     section: {
@@ -83,6 +85,8 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({ resultData }) => {
   const classes = useStyles();
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
+
+  const { user } = useUser();
 
   return (
     <>
@@ -177,20 +181,18 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({ resultData }) => {
       <section className={classes.section}>
         <HeadingCaps component="h3">Personality</HeadingCaps>
         <Typography variant="body2" color="textSecondary">
-          {
-            resultData.result.filter(x => x.topic === 'personality_analysis')[0]
-              .text
-          }
+          {resultData.result
+            .filter(x => x.topic === 'personality_analysis')[0]
+            .text.replace(/{{firstName}}/g, user.firstName)}
         </Typography>
       </section>
 
       <section className={classes.section}>
         <HeadingCaps component="h3">Career Suggestion</HeadingCaps>
         <Typography variant="body2" color="textSecondary">
-          {
-            resultData.result.filter(x => x.topic === 'career_suggestion')[0]
-              .text
-          }
+          {resultData.result
+            .filter(x => x.topic === 'career_suggestion')[0]
+            .text.replace(/{{firstName}}/g, user.firstName)}
         </Typography>
       </section>
 
