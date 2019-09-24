@@ -43,6 +43,7 @@ const CTPoweredBy: React.FunctionComponent = () => {
       alignItems="center"
       className={classes.root}
       {...externalLinkProps}
+      id="curious-thing-powered-by"
     >
       <Typography variant="subtitle2" color="textSecondary">
         Powered by

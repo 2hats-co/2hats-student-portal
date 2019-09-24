@@ -54,6 +54,7 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
       classes={{ root: classes.root, label: classes.label }}
       component={Link}
       to={PROFILE + '#' + PROFILE_CURIOUS_THING}
+      id="curious-thing-dashboard-button"
     >
       <PersonSpeakingIcon className={classes.phoneIcon} />
       {!smallerButton && 'Start '}Discovery Interview
