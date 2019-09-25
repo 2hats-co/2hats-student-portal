@@ -121,7 +121,8 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
         actions.setSubmitting(false);
         actions.setStatus('submitted');
         history.replace({
-          pathname: `${JOB}/${jobApplicationId}?yours=true`,
+          pathname: `${JOB}/${jobApplicationId}`,
+          search: '?yours=true',
           state: { ...location.state, preventDoubleSubmissionCheck: false },
         });
       }}
