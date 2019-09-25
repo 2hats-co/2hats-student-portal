@@ -40,15 +40,15 @@ const useStyles = makeStyles(theme => ({
 
   mainWrapperAnimation: {
     '&-enter': {
-      transform: 'scale(0.97)',
+      transform: 'scale(0.97, 0.95)',
+    },
+    '&-enter-active': {
+      transform: 'scale(1)',
 
       transition: theme.transitions.create(['opacity', 'transform'], {
         duration: TRANSITION_DURATION,
         easing: theme.transitions.easing.easeOut,
       }),
-    },
-    '&-enter-active': {
-      transform: 'scale(1)',
     },
 
     '&-exit': { display: 'none' },
