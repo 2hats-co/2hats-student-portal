@@ -8,7 +8,7 @@ import {
   Avatar,
   CircularProgress,
 } from '@material-ui/core';
-import UploadIcon from '@material-ui/icons/CloudUpload';
+import ProfileImageUploadIcon from 'assets/icons/ProfileImageUpload';
 
 import { useUser } from 'contexts/UserContext';
 import { blobAvatarUploader } from 'utilities/Uploader';
@@ -86,9 +86,9 @@ const AvatarUploader: React.FunctionComponent = () => {
               src={loading ? undefined : user.avatarURL}
               className={classes.avatar}
             >
-              <UploadIcon fontSize="large" />
+              <ProfileImageUploadIcon fontSize="large" />
             </Avatar>
-            <UploadIcon
+            <ProfileImageUploadIcon
               fontSize="large"
               className={classes.uploadIconOverlay}
             />
