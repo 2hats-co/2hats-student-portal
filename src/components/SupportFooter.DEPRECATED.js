@@ -6,6 +6,12 @@ import Footer from '../assets/images/graphics/Footer.svg';
 import FooterMobile from '../assets/images/graphics/FooterMobile.svg';
 // import ChatIcon from '@material-ui/icons/QuestionAnswerOutlined';
 import HelpIcon from '@material-ui/icons/HelpOutlined';
+
+/**
+ * Please leave this code for historical reasons.
+ * This is the first-ever code I wrote at this company, on 27 Aug 2018.
+ * — Sidney
+ */
 function SupportFooter(props) {
   const FooterStyle = props.mobile
     ? {
