@@ -190,7 +190,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
               component={StyledTextField}
               label="My Bio"
               multiline
-              placeholder="Your bio goes here…"
+              placeholder="e.g. Currently a curious computer science student. Interested in front-end web development, UI/UX design, and blockchain technology. I love sci-fi, cats, wine, yoga, and wine."
               rows="4"
             />
 
