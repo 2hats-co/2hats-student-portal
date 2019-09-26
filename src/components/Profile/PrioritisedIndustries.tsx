@@ -15,7 +15,10 @@ import {
 import useDebounce from '@bit/twohats.common.use-debounce';
 import { useUser } from 'contexts/UserContext';
 import { INDUSTRIES, INDUSTRY_DISPLAY_NAMES } from 'constants/cards';
-import { saveDeprioritisedIndustries } from 'utilities/profile';
+import {
+  getDeprioritisedIndustries,
+  saveDeprioritisedIndustries,
+} from 'utilities/profile';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -32,6 +35,8 @@ const useStyles = makeStyles(theme =>
     },
 
     switch: { left: theme.spacing(-0.25) },
+
+    onlyOneIndustryPrioritised: { marginTop: theme.spacing(2) },
   })
 );
 
@@ -67,15 +72,12 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
 
   // Debounce the prioritised list to prevent calling Firestore too many times
   const debouncedPrioritised = useDebounce(prioritised, 500);
-  // Transform prioritised object to a list of deprioritisedIndustries
+
+  // After the debounce has completed, save it to the user document if there are any changes
   useEffect(() => {
-    const deprioritisedIndustries = Object.keys(debouncedPrioritised).reduce(
-      (acc: string[], cur: string) => {
-        // If false, i.e. not prioritised, add to the list
-        if (!debouncedPrioritised[cur]) return [...acc, cur];
-        return acc;
-      },
-      []
+    // Transform prioritised object to a list of deprioritisedIndustries
+    const deprioritisedIndustries = getDeprioritisedIndustries(
+      debouncedPrioritised
     );
 
     if (!equals(deprioritisedIndustries, user.deprioritisedIndustries))
@@ -90,6 +92,11 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
           console.error('Failed to save user deprioritised industries' + e)
         );
   }, [debouncedPrioritised]);
+
+  // Store whether only one industry is prioritised at the moment
+  const isOneIndustryPrioritised =
+    getDeprioritisedIndustries(prioritised).length ===
+    Object.keys(INDUSTRIES).length - 1;
 
   return (
     <FormControl
@@ -107,6 +114,7 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
                 checked={prioritised[x]}
                 onChange={handleChange(x)}
                 className={classes.switch}
+                disabled={prioritised[x] && isOneIndustryPrioritised}
               />
             }
             label={
@@ -119,6 +127,16 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
           />
         ))}
       </FormGroup>
+
+      {isOneIndustryPrioritised && (
+        <Typography
+          variant="overline"
+          color="primary"
+          className={classes.onlyOneIndustryPrioritised}
+        >
+          You must pick at least one field of interest
+        </Typography>
+      )}
     </FormControl>
   );
 };
