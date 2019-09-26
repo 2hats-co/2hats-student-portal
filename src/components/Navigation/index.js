@@ -16,7 +16,7 @@ import { useUser } from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
 import { SIDEBAR_WIDTH, IS_MOBILE_QUERY } from 'constants/layout';
 
-const TRANSITION_DURATION = 200;
+const TRANSITION_DURATION = 250;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,10 +40,12 @@ const useStyles = makeStyles(theme => ({
 
   mainWrapperAnimation: {
     '&-enter': {
-      transform: 'scale(0.97, 0.95)',
+      transform: 'scale(0.95)',
+      opacity: 0,
     },
     '&-enter-active': {
       transform: 'scale(1)',
+      opacity: 1,
 
       transition: theme.transitions.create(['opacity', 'transform'], {
         duration: TRANSITION_DURATION,
