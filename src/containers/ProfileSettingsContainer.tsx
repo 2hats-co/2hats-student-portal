@@ -112,7 +112,21 @@ const ProfileSettingsContainer: React.FunctionComponent = () => {
             color: 'default',
             classes: { root: classes.deleteButton },
           }}
-          description="You may choose to delete your account. However, it is impossible to revert this decision. This removes your assessments, progress, and personal information from our database. You will no longer be shortlisted by possible employers by making this decision."
+          description={
+            <>
+              You may choose to delete your account. However, it is impossible
+              to revert this decision. We will remove your personal information,
+              résumé, and portfolio information from our database. We will also
+              anonymise your assessment submissions and progress. You will no
+              longer be shortlisted by possible employers or receive emails from
+              us.
+              <br />
+              <br />
+              After you confirm with us that you want to delete your account,
+              there will be a 2-week grace period in which you can cancel this
+              request.
+            </>
+          }
         />
       </section>
     </Container>
