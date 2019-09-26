@@ -115,7 +115,7 @@ export interface ResumeUploaderProps {
  * `UserContext`
  *
  * ## CloudFunctions
- * On upload, calls WhatsNextAI and Resume Scraper functions.
+ * On upload, calls Resume Scraper functions.
  */
 const ResumeUploader: React.FC<ResumeUploaderProps> = ({
   className,
@@ -167,17 +167,10 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
     }
   };
 
-  // After the file has been uploaded, call WhatsNextAI and Resume Scraper
-  // Cloud Functions
+  // After the file has been uploaded, calls Resume Scraper Cloud Function
   useEffect(() => {
     if (file.name && file.url) {
       updateDoc(COLLECTIONS.profiles, uid, { resume: file }).then(() => {
-        cloudFunction(
-          CLOUD_FUNCTIONS.WHATS_NEXT_AI,
-          {},
-          (o: any) => console.log('whatsNextAi', o),
-          (o: any) => console.error('whatsNextAi error', o)
-        );
         cloudFunction(
           CLOUD_FUNCTIONS.RESUME_SCRAPER,
           { uid, url: file.url },
