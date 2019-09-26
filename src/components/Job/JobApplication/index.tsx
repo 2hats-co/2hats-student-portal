@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 
-import { Typography, FormControlLabel, Checkbox } from '@material-ui/core';
+import {
+  Typography,
+  FormControlLabel,
+  Checkbox,
+  Toolbar,
+} from '@material-ui/core';
 
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import ApplicationForm from './ApplicationForm';
@@ -62,7 +67,12 @@ const JobApplication: React.FunctionComponent<IJobApplicationProps> = ({
         />
       </section>
 
-      {confirmCommitment && confirmTfn && <ApplicationForm jobData={jobData} />}
+      {confirmCommitment && confirmTfn ? (
+        <ApplicationForm jobData={jobData} />
+      ) : (
+        // Spacer toolbar for mobile—otherwise loading progress would not appear
+        <Toolbar />
+      )}
     </>
   );
 };
