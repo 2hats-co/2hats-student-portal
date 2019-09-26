@@ -44,7 +44,7 @@ export const jobApplicationFormDisplayLabels: { [key: string]: string } = {
   workRestriction: 'Work condition',
   pay: 'My preferred salary',
   workCultureSliders: 'My workplace culture',
-  resume: 'Resume',
+  resume: 'Résumé',
   portfolioFile: 'Portfolio (file)',
   portfolioExternal: 'Link to your portfolio',
 };

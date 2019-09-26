@@ -23,7 +23,7 @@ const OnboardingA2: React.FC = () => {
     <>
       <Grid item className={classes.center}>
         <Typography variant="h6" component="h1" color="primary">
-          It all starts with a… resume!
+          It all starts with a… résumé!
         </Typography>
       </Grid>
 
@@ -46,7 +46,7 @@ const OnboardingA2: React.FC = () => {
           gutterBottom
         >
           We know… but this is just the tip of the iceberg. Your potential and
-          abilities count at 2hats — not your background. Your resume will only
+          abilities count at 2hats — not your background. Your résumé will only
           make it easy for us to see your interests and reach out.
         </Typography>
 

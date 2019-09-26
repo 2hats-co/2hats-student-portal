@@ -68,12 +68,12 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
               : 'textSecondary'
           }
         >
-          My Resume
+          My Résumé
         </HeadingCaps>
 
         <Typography variant="body1" color="textSecondary" gutterBottom>
           Your potential and abilities count at 2hats – not your background. The
-          resume only makes it easy for us to see your interests and reach out.
+          résumé only makes it easy for us to see your interests and reach out.
         </Typography>
       </FormLabel>
 
@@ -82,7 +82,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
         file={field.value}
         setFile={setFile}
         dropHandler={handleDrop}
-        fileLabel="PDF resume"
+        fileLabel="PDF résumé"
         className={classes.dropzone}
         id={`field-${field.name}`}
       />

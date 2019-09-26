@@ -217,7 +217,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
         else if (file.name && file.url) uploadText = 'We’ve got it!';
         else if (profileState.loading) uploadText = 'Loading…';
         else if (file.name) uploadText = 'Uploading…';
-        else uploadText = 'Drag and drop or click to upload your PDF resume';
+        else uploadText = 'Drag and drop or click to upload your PDF résumé';
 
         return (
           <div
