@@ -137,6 +137,7 @@ const MobileTopBar = ({ location, triggerHide, triggerElevation }) => {
                       ? 'primary'
                       : 'default'
                   }
+                  id="mobilenav-profile"
                 >
                   <SuperAvatar size={32} className={classes.avatar} />
                 </IconButton>

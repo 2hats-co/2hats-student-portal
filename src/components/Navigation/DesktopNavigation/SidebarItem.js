@@ -69,7 +69,7 @@ const SidebarItem = ({ location, data }) => {
   return (
     <ListItem
       button
-      id={data.label.replace(/ /g, '').toLowerCase()}
+      id={`sidebar-${data.label.replace(/ /g, '').toLowerCase()}`}
       {...listItemProps}
       classes={{ root: classes.listItemRoot, selected: classes.selected }}
       disabled={data.disabled}

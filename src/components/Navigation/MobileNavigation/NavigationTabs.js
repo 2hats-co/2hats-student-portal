@@ -112,6 +112,7 @@ const NavigationTabs = ({ location, triggerHide }) => {
             <BottomNavigationAction
               key={i}
               label={x.label}
+              id={`mobilenav-${x.label.replace(/ /g, '').toLowerCase()}`}
               icon={x.icon}
               value={x.route}
               to={x.route}
