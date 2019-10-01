@@ -2,7 +2,7 @@ import { useLayoutEffect } from 'react';
 import { Location } from 'history';
 
 /**
- * Scrolls a specific element with ID into view when the page loads
+ * Scrolls a specific element with ID into view **when the page loads**
  *
  * @param elemId The ID of the element to scroll into view
  * @param location From `react-router-dom`, used to match hashes

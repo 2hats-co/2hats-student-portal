@@ -20,8 +20,6 @@ import ProfileAssessments from 'components/Profile/ProfileAssessments';
 import ProfileCourses from 'components/Profile/ProfileCourses';
 
 import { useUser } from 'contexts/UserContext';
-import useDocument from 'hooks/useDocument';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 import * as ROUTES from 'constants/routes';
 import useScrollIntoView from 'hooks/useScrollIntoView';
@@ -43,32 +41,19 @@ const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
 }) => {
   const classes = useStyles();
 
-  const { user } = useUser();
-  const [profileState] = useDocument({
-    path: `${COLLECTIONS.profiles}/${user.id}`,
-  });
-  const profileData = profileState.doc;
+  const { profile } = useUser();
 
   useEffect(() => {
     document.title = 'Profile – 2hats';
   }, []);
 
-  useScrollIntoView(ROUTES.PROFILE_PREFERRED_INDUSTRIES, location, [
-    profileState.loading,
-  ]);
-  useScrollIntoView(ROUTES.PROFILE_CURIOUS_THING, location, [
-    profileState.loading,
-  ]);
-
-  if (profileState.loading)
-    return <LoadingScreen message="Getting your data…" contained />;
-
-  if (!profileData) throw new Error(`Profile data for ${user.id} is empty`);
+  useScrollIntoView(ROUTES.PROFILE_PREFERRED_INDUSTRIES, location);
+  useScrollIntoView(ROUTES.PROFILE_CURIOUS_THING, location);
 
   return (
     <Container maxWidth="sm" component="main" className={classes.root}>
-      <ProfileHeader profileData={profileData} />
-      <ProfileForm profileData={profileData} />
+      <ProfileHeader profileData={profile} />
+      <ProfileForm profileData={profile} />
 
       <section>
         <HeadingTitle id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>

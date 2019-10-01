@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 import {
   makeStyles,
@@ -16,10 +16,13 @@ import { PROFILE, PROFILE_CURIOUS_THING } from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
   createStyles({
+    hashLink: { textDecoration: 'none' },
+
     root: {
       backgroundColor: CURIOUS_PURPLE,
       '&:hover': { backgroundColor: CURIOUS_PURPLE },
       padding: theme.spacing(1.5, 2),
+      textDecoration: 'none',
     },
 
     label: {
@@ -46,20 +49,23 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
   const smallerButton = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
-    <Button
-      variant="contained"
-      color="primary"
-      size={'large'}
-      className={className}
-      classes={{ root: classes.root, label: classes.label }}
-      component={Link}
+    <HashLink
+      className={classes.hashLink}
       to={PROFILE + '#' + PROFILE_CURIOUS_THING}
-      id="curious-thing-dashboard-button"
     >
-      <PersonSpeakingIcon className={classes.phoneIcon} />
-      {!smallerButton && 'Start '}Discovery Interview
-      <GoIcon />
-    </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        size={'large'}
+        className={className}
+        classes={{ root: classes.root, label: classes.label }}
+        id="curious-thing-dashboard-button"
+      >
+        <PersonSpeakingIcon className={classes.phoneIcon} />
+        {!smallerButton && 'Start '}Discovery Interview
+        <GoIcon />
+      </Button>
+    </HashLink>
   );
 };
 
