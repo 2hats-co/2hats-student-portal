@@ -11,6 +11,7 @@ import LoadingScreen from '../LoadingScreen';
 import DesktopNavigation from './DesktopNavigation';
 import MobileNavigation from './MobileNavigation';
 import BackButton from './BackButton';
+import UserPrompts from './UserPrompts';
 
 import { useUser } from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
@@ -116,6 +117,8 @@ const Navigation = ({ location, children }) => {
       </TransitionGroup>
 
       {isMobile && <MobileNavigation />}
+
+      <UserPrompts />
     </Grid>
   );
 };
