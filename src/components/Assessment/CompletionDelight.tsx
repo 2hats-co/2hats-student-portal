@@ -17,10 +17,7 @@ import SkillsPlantGraphic from 'assets/images/graphics/SkillsPlant.svg';
 import GoIcon from '@bit/twohats.common.icons.go';
 
 import { DASHBOARD } from 'constants/routes';
-import { getDoc } from 'utilities/firestore';
 import { useUser } from 'contexts/UserContext';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
-import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -46,14 +43,7 @@ const useStyles = makeStyles(theme =>
  */
 const CompletionDelight: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user } = useUser();
-
-  const [profile, setProfile] = useState<DocWithId<ProfilesDoc> | null>();
-
-  useEffect(() => {
-    if (profile === undefined)
-      getDoc(COLLECTIONS.profiles, user.id).then(result => setProfile(result));
-  }, [user]);
+  const { user, profile } = useUser();
 
   if (!profile)
     return (

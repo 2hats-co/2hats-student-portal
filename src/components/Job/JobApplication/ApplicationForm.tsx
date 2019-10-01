@@ -23,8 +23,6 @@ import ErrorDialog from './ErrorDialog';
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { useUser } from 'contexts/UserContext';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
-import useDocument from 'hooks/useDocument';
 import { JOB } from 'constants/routes';
 
 import {
@@ -78,18 +76,10 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
   const handleCloseErrorDialog = () => setOpenErrorDialog(false);
 
   // Get profile document to get already inputted data
-  const { user } = useUser();
-  const [profileState] = useDocument({
-    path: `${COLLECTIONS.profiles}/${user.id}`,
-  });
-  const profile = profileState.doc;
-  // Unsubscribe since Formik won’t update when initialValues changes
-  if (!profileState.loading && profile && profileState.unsubscribe)
-    profileState.unsubscribe();
+  const { user, profile } = useUser();
 
   // Show loading screen while profile is loading
-  if (!profile || profileState.loading)
-    return <LinearProgress className={classes.progress} />;
+  if (!profile) return <LinearProgress className={classes.progress} />;
 
   const initialValues = {
     jobAvailabilityStartDate: profile.jobAvailabilityStartDate
