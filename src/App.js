@@ -78,13 +78,15 @@ const useStyles = makeStyles({
 const App = () => {
   const authUser = useAuth();
   const [userDocState, userDocDispatch] = useDocument({});
+  const [profileDocState, profileDocDispatch] = useDocument({});
 
   useStyles();
 
   useEffect(() => {
-    if (authUser && authUser.uid)
-      userDocDispatch({ path: `${COLLECTIONS.users}/${authUser.uid}` });
-  }, [authUser, userDocDispatch]);
+    if (!authUser || !authUser.uid) return;
+    userDocDispatch({ path: `${COLLECTIONS.users}/${authUser.uid}` });
+    profileDocDispatch({ path: `${COLLECTIONS.profiles}/${authUser.uid}` });
+  }, [authUser, userDocDispatch, profileDocDispatch]);
 
   const prefersDark = useMediaQuery('@media (prefers-color-scheme: dark)', {
     noSsr: true,
@@ -102,7 +104,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ErrorBoundary>
-        <UserContext.Provider value={{ authUser, user: userDocState.doc }}>
+        <UserContext.Provider
+          value={{
+            authUser,
+            UID: authUser ? authUser.uid : null,
+            user: userDocState.doc,
+            profile: profileDocState.doc,
+          }}
+        >
           <Router>
             <HistoryProvider>
               <div className="app">
