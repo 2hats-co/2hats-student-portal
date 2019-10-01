@@ -1,7 +1,7 @@
 import { auth, db } from '../../firebase/index';
 import firebase from 'firebase/app';
 // import ReactPixel from 'react-facebook-pixel';
-import { getDoc, updateDoc } from '../firestore';
+import { getDoc, updateDoc, createDoc } from '../firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 export const createUserWithPassword = (user, routeHandler, errorHandler) => {
@@ -67,6 +67,11 @@ export const signInWithPassword = (user, successHandler, errorHandler) => {
         userDocUpdates.homeReferrerId = homeReferrerId;
 
       updateDoc(COLLECTIONS.users, uid, userDocUpdates);
+
+      createDoc(`${COLLECTIONS.users}/${uid}/${COLLECTIONS.activityLog}`, {
+        type: 'user-signin',
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      });
 
       successHandler(authUser);
     })
