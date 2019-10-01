@@ -32,6 +32,7 @@ import CoursesContainer from 'containers/CoursesContainer';
 import CourseRedirectContainer from 'containers/CourseRedirectContainer';
 import DetailedViewContainer from 'containers/DetailedViewContainer';
 import ProfileContainer from 'containers/ProfileContainer';
+import ProfileSettingsContainer from 'containers/ProfileSettingsContainer';
 
 const AuthenticationContainer = lazy(() =>
   import(
@@ -51,11 +52,6 @@ const SmartLinkContainer = lazy(() =>
 const OnboardingContainer = lazy(() =>
   import(
     'containers/OnboardingContainer' /* webpackChunkName: "OnboardingContainer" */
-  )
-);
-const ProfileSettingsContainer = lazy(() =>
-  import(
-    'containers/ProfileSettingsContainer' /* webpackChunkName: "ProfileSettingsContainer" */
   )
 );
 const SchedulerContainer = lazy(() =>
