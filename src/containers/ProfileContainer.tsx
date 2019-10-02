@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
+import ScrollableAnchor from 'react-scrollable-anchor';
 
 import {
   makeStyles,
@@ -47,18 +48,17 @@ const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
     document.title = 'Profile – 2hats';
   }, []);
 
-  useScrollIntoView(ROUTES.PROFILE_PREFERRED_INDUSTRIES, location);
-  useScrollIntoView(ROUTES.PROFILE_CURIOUS_THING, location);
-
   return (
     <Container maxWidth="sm" component="main" className={classes.root}>
       <ProfileHeader profileData={profile} />
       <ProfileForm profileData={profile} />
 
       <section>
-        <HeadingTitle id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>
-          My Application Profile
-        </HeadingTitle>
+        <ScrollableAnchor id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>
+          <span>
+            <HeadingTitle>My Application Profile</HeadingTitle>
+          </span>
+        </ScrollableAnchor>
 
         <section>
           <HeadingCaps>Areas of Interest</HeadingCaps>

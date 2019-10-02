@@ -1,5 +1,5 @@
 import React from 'react';
-import { HashLink } from 'react-router-hash-link';
+import { Link } from 'react-router-dom';
 
 import {
   makeStyles,
@@ -16,8 +16,6 @@ import { PROFILE, PROFILE_CURIOUS_THING } from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    hashLink: { textDecoration: 'none' },
-
     root: {
       backgroundColor: CURIOUS_PURPLE,
       '&:hover': { backgroundColor: CURIOUS_PURPLE },
@@ -49,23 +47,20 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
   const smallerButton = useMediaQuery(theme.breakpoints.down('xs'));
 
   return (
-    <HashLink
-      className={classes.hashLink}
+    <Button
+      variant="contained"
+      color="primary"
+      size={'large'}
+      className={className}
+      classes={{ root: classes.root, label: classes.label }}
+      id="curious-thing-dashboard-button"
+      component={Link}
       to={PROFILE + '#' + PROFILE_CURIOUS_THING}
     >
-      <Button
-        variant="contained"
-        color="primary"
-        size={'large'}
-        className={className}
-        classes={{ root: classes.root, label: classes.label }}
-        id="curious-thing-dashboard-button"
-      >
-        <PersonSpeakingIcon className={classes.phoneIcon} />
-        {!smallerButton && 'Start '}Discovery Interview
-        <GoIcon />
-      </Button>
-    </HashLink>
+      <PersonSpeakingIcon className={classes.phoneIcon} />
+      {!smallerButton && 'Start '}Discovery Interview
+      <GoIcon />
+    </Button>
   );
 };
 

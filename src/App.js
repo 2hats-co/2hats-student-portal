@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { configureAnchors } from 'react-scrollable-anchor';
 
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
 import { Theme, DarkTheme } from './Theme';
@@ -59,6 +60,9 @@ const SchedulerContainer = lazy(() =>
     'containers/SchedulerContainer' /* webpackChunkName: "SchedulerContainer" */
   )
 );
+
+// Configure ScrollableAnchors to have a top offset so nothing gets cut off
+configureAnchors({ offset: -50 });
 
 // Need to put this here to override <CssBaseline />
 const useStyles = makeStyles({

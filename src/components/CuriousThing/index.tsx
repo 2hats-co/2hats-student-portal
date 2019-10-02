@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollableAnchor from 'react-scrollable-anchor';
 
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import CTPrompt from './CTPrompt';
@@ -28,13 +29,15 @@ const CuriousThing: React.FunctionComponent<ICuriousThingProps> = ({
     contents = <CTResult resultData={sampleData} />;
 
   return (
-    <section id={PROFILE_CURIOUS_THING}>
-      {/* <Grid container alignItems="center"> */}
-      <HeadingCaps>My Workplace Vibe</HeadingCaps>
-      {/* </Grid> */}
+    <ScrollableAnchor id={PROFILE_CURIOUS_THING}>
+      <section>
+        {/* <Grid container alignItems="center"> */}
+        <HeadingCaps>My Workplace Vibe</HeadingCaps>
+        {/* </Grid> */}
 
-      {contents}
-    </section>
+        {contents}
+      </section>
+    </ScrollableAnchor>
   );
 };
 

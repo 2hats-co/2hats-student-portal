@@ -1,6 +1,5 @@
 import React from 'react';
 import { withRouter, Link, RouteComponentProps } from 'react-router-dom';
-import { HashLink } from 'react-router-hash-link';
 import { CSSTransition } from 'react-transition-group';
 import InfiniteScroll from 'react-infinite-scroller';
 
@@ -74,7 +73,6 @@ const useStyles = makeStyles(theme =>
     showAllButton: {
       '& svg': { marginLeft: 0 },
     },
-    hashLink: { textDecoration: 'none' },
 
     cardGrid: {
       listStyleType: 'none',
@@ -285,12 +283,12 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
       <>
         These are all the {header.replace('All', '').toLowerCase()} from the
         industries you told us you’re interested in. You can{' '}
-        <HashLink
+        <MuiLink
+          component={Link}
           to={PROFILE + '#' + PROFILE_PREFERRED_INDUSTRIES}
-          className={classes.hashLink}
         >
-          <MuiLink component="span">change your preferences here</MuiLink>
-        </HashLink>
+          change your preferences here
+        </MuiLink>
         .
       </>
     );
