@@ -97,11 +97,12 @@ const UserPrompts: React.FunctionComponent = () => {
   if (hasBeenPromptedRecently) return null;
 
   // If they haven’t mark the current sign in as having been prompted
-  updateDoc(
-    `${COLLECTIONS.users}/${UID}/${COLLECTIONS.activityLog}`,
-    lastFiveSignIns[0].id,
-    { data: { promptedCompleteProfile: true } }
-  );
+  if (!!lastFiveSignIns[0])
+    updateDoc(
+      `${COLLECTIONS.users}/${UID}/${COLLECTIONS.activityLog}`,
+      lastFiveSignIns[0].id,
+      { data: { promptedCompleteProfile: true } }
+    );
 
   // Show the prompt to complete profile
   return (
