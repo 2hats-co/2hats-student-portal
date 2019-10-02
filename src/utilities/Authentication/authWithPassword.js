@@ -42,6 +42,15 @@ export const createUserWithPassword = (user, routeHandler, errorHandler) => {
               firstName,
               lastName,
             });
+
+          createDoc(`${COLLECTIONS.users}/${uid}/${COLLECTIONS.activityLog}`, {
+            type: 'user-signup',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          });
+          createDoc(`${COLLECTIONS.users}/${uid}/${COLLECTIONS.activityLog}`, {
+            type: 'user-signin',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          });
           routeHandler();
         });
     })
