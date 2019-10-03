@@ -127,15 +127,31 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
     <div className={classes.root}>
       <Grid
         container
-        justify="space-between"
+        spacing={7} // Add spacing for "Pick" text
+        alignItems="flex-end"
         direction={flipped ? 'row-reverse' : 'row'}
       >
-        <Typography variant="overline" color="inherit">
+        <Grid item xs={6}>
+          <Typography
+            variant="overline"
+            color="inherit"
+            component="p"
+            align={flipped ? 'right' : 'left'}
+          >
           {minLabel}
         </Typography>
-        <Typography variant="overline" color="inherit">
+        </Grid>
+
+        <Grid item xs={6}>
+          <Typography
+            variant="overline"
+            color="inherit"
+            component="p"
+            align={flipped ? 'left' : 'right'}
+          >
           {maxLabel}
         </Typography>
+      </Grid>
       </Grid>
 
       <Grid
