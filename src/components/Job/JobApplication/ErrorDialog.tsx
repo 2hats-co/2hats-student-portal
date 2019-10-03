@@ -47,7 +47,7 @@ const ErrorDialog: React.FunctionComponent<IErrorDialogProps> = ({
     </DialogTitle>
 
     <DialogContent>
-      <DialogContentText id="alert-dialog-description">
+      <DialogContentText id="alert-dialog-description" component="div">
         <ul>
           {erroredFields.map(x => (
             <li key={x}>{x}</li>
