@@ -47,7 +47,7 @@ const useStyles = makeStyles(theme =>
       color: fade(theme.palette.primary.main, 0.8),
 
       '$activeAnimation&': { animationName: '$thumb-animation' },
-      '$activeAnimation$finishAnimation&': { animationName: '' },
+      '$activeAnimation$finishAnimation&': { animationName: 'none' },
       animationDuration: '3.5s',
       animationFillMode: 'both',
       animationTimingFunction: 'ease',

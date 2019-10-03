@@ -18,6 +18,7 @@ import {
 import {
   sanitiseValue,
   getDefaultSliderValues,
+  DEFAULT_VALUE,
 } from 'utilities/workCultureSliders';
 
 /**
@@ -72,6 +73,33 @@ const WorkCultureSlidersField: React.FunctionComponent<
     form.setFieldValue(field.name, sliderValues);
   }, [sliderValues]);
 
+  // Render the actual sliders
+  let firstUnsetSliderIndex = -1; // Store the first unset slider
+  const sliders = Object.keys(WORK_CULTURE_SLIDER_LABELS).map((label, i) => {
+    const name = label as keyof typeof WORK_CULTURE_SLIDER_LABELS;
+
+    // Define unset as being `undefined` or `DEFAULT_VALUE`
+    const valueUnset =
+      sliderValues[label] === undefined ||
+      sliderValues[label] === DEFAULT_VALUE;
+
+    // Update `firstUnsetSliderIndex` if necessary
+    if (firstUnsetSliderIndex === -1 && valueUnset) firstUnsetSliderIndex = i;
+
+    return (
+      <WorkCultureSlider
+        key={label}
+        minLabel={WORK_CULTURE_SLIDER_LABELS[name][0]}
+        maxLabel={WORK_CULTURE_SLIDER_LABELS[name][1]}
+        flipped={flipped[i]}
+        value={sliderValues[label]}
+        onChange={updateValue(label)}
+        // Disable if unset **and** not `firstUnsetSliderIndex`
+        disabled={valueUnset && i !== firstUnsetSliderIndex}
+      />
+    );
+  });
+
   return (
     <div className="field-wrapper" id={`field-${field.name}`}>
       <FormLabel htmlFor={`field-${field.name}`}>
@@ -88,21 +116,7 @@ const WorkCultureSlidersField: React.FunctionComponent<
         </HeadingCaps>
       </FormLabel>
 
-      <fieldset className={classes.root}>
-        {Object.keys(WORK_CULTURE_SLIDER_LABELS).map((x, i) => {
-          const name = x as keyof typeof WORK_CULTURE_SLIDER_LABELS;
-          return (
-            <WorkCultureSlider
-              key={x}
-              minLabel={WORK_CULTURE_SLIDER_LABELS[name][0]}
-              maxLabel={WORK_CULTURE_SLIDER_LABELS[name][1]}
-              flipped={flipped[i]}
-              value={sliderValues[x]}
-              onChange={updateValue(x)}
-            />
-          );
-        })}
-      </fieldset>
+      <fieldset className={classes.root}>{sliders}</fieldset>
 
       <ErrorMessage name={field.name}>
         {() => <FormHelperText error>Required</FormHelperText>}

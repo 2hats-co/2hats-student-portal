@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 import {
   makeStyles,
@@ -30,6 +31,11 @@ const useStyles = makeStyles(theme =>
     root: {
       color: SLIDER_COLOR,
       marginTop: theme.spacing(2),
+      transition: theme.transitions.create('opacity'),
+    },
+    disabled: {
+      opacity: 0.5,
+      userSelect: 'none',
     },
 
     sliderWrapper: {
@@ -42,6 +48,8 @@ const useStyles = makeStyles(theme =>
       height: 20,
       boxSizing: 'border-box',
       padding: '11px 0 9px',
+
+      '&$sliderDisabled': { color: 'inherit' },
     },
     sliderRail: { backgroundColor: 'currentColor', opacity: 1 },
     sliderMark: {
@@ -58,6 +66,11 @@ const useStyles = makeStyles(theme =>
         backgroundColor: fade(SLIDER_COLOR, theme.palette.action.hoverOpacity),
       },
     },
+
+    sliderDisabled: {
+      '& $sliderThumb': { display: 'none' },
+    },
+    sliderThumb: {},
   })
 );
 
@@ -85,6 +98,8 @@ interface IWorkCultureSliderProps {
   value: number | undefined;
   /** Called by MUI Slider’s onChange callback */
   onChange: (value: number) => void;
+  /** Disable the slider if it’s not the next one for the user to input */
+  disabled?: boolean;
 }
 
 /**
@@ -97,6 +112,7 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   flipped = false,
   value,
   onChange,
+  disabled = true,
 }) => {
   const classes = useStyles();
 
@@ -120,7 +136,7 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
     );
 
   return (
-    <div className={classes.root}>
+    <div className={clsx(classes.root, disabled && classes.disabled)}>
       <Grid
         container
         spacing={7} // Add spacing for "Pick" text
@@ -162,7 +178,7 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             onClick={flipped ? increment : decrement}
             size="small"
             className={classes.chevronButton}
-            disabled={displayValue === MIN_VALUE}
+            disabled={disabled || displayValue === MIN_VALUE}
           >
             <ChevronLeftIcon />
           </IconButton>
@@ -187,8 +203,11 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
                 rail: classes.sliderRail,
                 mark: classes.sliderMark,
                 markActive: classes.sliderMark,
+                disabled: classes.sliderDisabled,
+                thumb: classes.sliderThumb,
               }}
-              ThumbComponent={SliderThumb}
+              ThumbComponent={disabled ? 'span' : SliderThumb}
+              disabled={disabled}
             />
           </SliderContext.Provider>
         </Grid>
@@ -199,7 +218,7 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             onClick={flipped ? decrement : increment}
             size="small"
             className={classes.chevronButton}
-            disabled={displayValue === MAX_VALUE}
+            disabled={disabled || displayValue === MAX_VALUE}
           >
             <ChevronRightIcon />
           </IconButton>
