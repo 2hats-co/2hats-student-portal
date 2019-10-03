@@ -165,6 +165,8 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             color="inherit"
             onClick={flipped ? increment : decrement}
             size="small"
+            className={classes.chevronButton}
+            disabled={displayValue === MIN_VALUE}
           >
             <ChevronLeftIcon />
           </IconButton>
@@ -203,6 +205,8 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             color="inherit"
             onClick={flipped ? decrement : increment}
             size="small"
+            className={classes.chevronButton}
+            disabled={displayValue === MAX_VALUE}
           >
             <ChevronRightIcon />
           </IconButton>
