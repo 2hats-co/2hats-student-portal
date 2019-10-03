@@ -6,7 +6,7 @@ import {
   createStyles,
   ButtonBase,
   Dialog,
-  Slide,
+  Grow,
 } from '@material-ui/core';
 import { TransitionProps } from '@material-ui/core/transitions';
 
@@ -75,7 +75,7 @@ const useStyles = makeStyles(theme =>
 
 const Transition = React.forwardRef<unknown, TransitionProps>(
   function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
+    return <Grow ref={ref} {...props} />;
   }
 );
 
