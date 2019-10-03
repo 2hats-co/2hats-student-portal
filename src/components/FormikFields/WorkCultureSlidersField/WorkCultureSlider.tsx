@@ -1,5 +1,4 @@
 import React from 'react';
-import clsx from 'clsx';
 
 import {
   makeStyles,
@@ -9,6 +8,7 @@ import {
   Slider,
   IconButton,
 } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -53,25 +53,19 @@ const useStyles = makeStyles(theme =>
       marginTop: -2,
     },
 
-    sliderThumb: {
-      color: theme.palette.primary.main,
-      width: 20,
-      height: 20,
-      marginTop: -9,
-      marginLeft: -10,
-
-      transition: theme.transitions.create(['box-shadow', 'left'], {
-        duration: theme.transitions.duration.shortest,
-      }),
-      // Hide arrows
-      '& > svg': { opacity: 0 },
-    },
-    // Show arrows when thumb in middle
-    sliderThumbMiddle: {
-      '$sliderThumb& > svg': { opacity: 1 },
+    chevronButton: {
+      '&:hover': {
+        backgroundColor: fade(SLIDER_COLOR, theme.palette.action.hoverOpacity),
+      },
     },
   })
 );
+
+/**
+ * A context to pass down the current Slider displayValue to trigger
+ * whether to show the middle animation or not
+ */
+export const SliderContext = React.createContext({ value: DEFAULT_VALUE });
 
 interface IWorkCultureSliderProps {
   /** Label for the "min value" — should be opposite of `sliderName` */
@@ -94,7 +88,8 @@ interface IWorkCultureSliderProps {
 }
 
 /**
- * An individual slider, using a styled MUI Slider.
+ * An individual slider, using a styled MUI Slider. Has its own context
+ * to make `SliderThumb` work.
  */
 const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   minLabel,
@@ -114,6 +109,7 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   const getFlipCorrectedValue = (val: number) =>
     flipped ? MAX_VALUE - val : val;
 
+  // Move increment/decrement logic to utilities
   const increment = () =>
     onChange(
       incrementSlider(value === undefined ? Math.floor(DEFAULT_VALUE) : value)
@@ -138,8 +134,8 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             component="p"
             align={flipped ? 'right' : 'left'}
           >
-          {minLabel}
-        </Typography>
+            {minLabel}
+          </Typography>
         </Grid>
 
         <Grid item xs={6}>
@@ -149,9 +145,9 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             component="p"
             align={flipped ? 'left' : 'right'}
           >
-          {maxLabel}
-        </Typography>
-      </Grid>
+            {maxLabel}
+          </Typography>
+        </Grid>
       </Grid>
 
       <Grid
@@ -173,31 +169,28 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
         </Grid>
 
         <Grid item xs>
-          <Slider
-            value={displayValue}
-            onChange={(e, v) => {
-              // Only call the onChange method if the values are not the same
-              if (v !== displayValue)
-                onChange(getFlipCorrectedValue(Array.isArray(v) ? v[0] : v));
-            }}
-            min={MIN_VALUE}
-            max={MAX_VALUE}
-            step={STEP}
-            valueLabelDisplay="off"
-            marks
-            classes={{
-              root: classes.sliderRoot,
-              rail: classes.sliderRail,
-              mark: classes.sliderMark,
-              markActive: classes.sliderMark,
-              thumb: clsx(
-                classes.sliderThumb,
-                (value === DEFAULT_VALUE || value === undefined) &&
-                  classes.sliderThumbMiddle
-              ),
-            }}
-            ThumbComponent={SliderThumb}
-          />
+          <SliderContext.Provider value={{ value: displayValue }}>
+            <Slider
+              value={displayValue}
+              onChange={(e, v) => {
+                // Only call the onChange method if the values are not the same
+                if (v !== displayValue)
+                  onChange(getFlipCorrectedValue(Array.isArray(v) ? v[0] : v));
+              }}
+              min={MIN_VALUE}
+              max={MAX_VALUE}
+              step={STEP}
+              valueLabelDisplay="off"
+              marks
+              classes={{
+                root: classes.sliderRoot,
+                rail: classes.sliderRail,
+                mark: classes.sliderMark,
+                markActive: classes.sliderMark,
+              }}
+              ThumbComponent={SliderThumb}
+            />
+          </SliderContext.Provider>
         </Grid>
 
         <Grid item>
