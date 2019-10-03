@@ -21,6 +21,8 @@ import {
   STEP,
   SLIDER_COLOR,
   SLIDER_LIGHT_COLOR,
+  incrementSlider,
+  decrementSlider,
 } from 'utilities/workCultureSliders';
 
 const useStyles = makeStyles(theme =>
@@ -114,17 +116,11 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
 
   const increment = () =>
     onChange(
-      Math.min(
-        (value === undefined ? Math.floor(DEFAULT_VALUE) : value) + STEP,
-        MAX_VALUE
-      )
+      incrementSlider(value === undefined ? Math.floor(DEFAULT_VALUE) : value)
     );
   const decrement = () =>
     onChange(
-      Math.max(
-        (value === undefined ? Math.ceil(DEFAULT_VALUE) : value) - STEP,
-        MIN_VALUE
-      )
+      decrementSlider(value === undefined ? Math.ceil(DEFAULT_VALUE) : value)
     );
 
   return (
