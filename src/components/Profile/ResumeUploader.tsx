@@ -162,16 +162,10 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
     }
   };
 
-  // After the file has been uploaded, calls Resume Scraper Cloud Function
+  // Updates the profiles doc to include the resume URL
   useEffect(() => {
     if (file.name && file.url) {
       updateDoc(COLLECTIONS.profiles, uid, { resume: file }).then(() => {
-        cloudFunction(
-          CLOUD_FUNCTIONS.RESUME_SCRAPER,
-          { uid, url: file.url },
-          (o: any) => console.log('resume scraper cloud function', o),
-          (o: any) => console.error('resume scraper cloud function error', o)
-        );
         // Optionally reset file picker on upload
         if (resetOnUpload) setFile({});
         // Call the callback if it exists

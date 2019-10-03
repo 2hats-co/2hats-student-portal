@@ -2,7 +2,6 @@ import { functions } from '../firebase';
 
 export const CLOUD_FUNCTIONS = {
   TAG_TRACKER: 'callablesEventTracker',
-  RESUME_SCRAPER: 'callablesAlgoliaResumes',
   SPEEDY_SIGNUP: 'callablesAuthSpeedySignup',
   AUTHENTICATE_GOOGLE: 'callablesAuthGoogle',
   AUTHENTICATE_LINKEDIN: 'callablesAuthenticateLinkedIn', // not used
