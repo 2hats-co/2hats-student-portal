@@ -64,6 +64,7 @@
     "react-select": "^2.0.0",
     "react-stripe-checkout": "^2.6.3",
     "react-text-mask": "^5.4.3",
+    "react-visibility-sensor": "^5.1.1",
     "typescript": "^3.5.3",
     "yup": "^0.26.7"
   },

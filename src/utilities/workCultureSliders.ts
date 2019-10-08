@@ -1,3 +1,5 @@
+import { useRef, useCallback, useEffect, useState } from 'react';
+
 import {
   WORK_CULTURE_SLIDER_MIN,
   WORK_CULTURE_SLIDER_MAX,
@@ -103,3 +105,81 @@ export const decrementSlider = (value: number) => {
 
 export const SLIDER_COLOR = '#2979b7';
 export const SLIDER_LIGHT_COLOR = '#90b2cc';
+
+export const HOVER_SENTINEL_VALUE = -1;
+
+/**
+ * A hook that attaches listeners to mouse movement to get the current hover
+ * value to “preview” the thumb position.
+ *
+ * Requires `sliderRef` to point to the actual Slider component.
+ *
+ * @param disabled If the whole field is disabled, no listeners will be added
+ */
+export const useSliderHover = (disabled: boolean) => {
+  // Ref to the slider component
+  const sliderRef = useRef<HTMLElement>(null);
+  // Hover value that will be returned later
+  const [hoverValue, setHoverValue] = useState(HOVER_SENTINEL_VALUE);
+
+  // Get the current hover value
+  const sliderHoverHandler = useCallback(function(
+    this: HTMLElement,
+    event: MouseEvent
+  ) {
+    const dimensions = this.getBoundingClientRect();
+    const pctValue =
+      ((event.clientX - dimensions.left) / dimensions.width) * 100;
+
+    const distanceToDefault = Math.abs(pctValue - DEFAULT_VALUE);
+
+    // If too close to `DEFAULT_VALUE`, don’t change the `hoverValue` so that
+    // the thumb won’t bounce around when the user hovers near the thumb in
+    // the `DEFAULT_VALUE`
+    if (distanceToDefault > STEP / 4) {
+      const nearestPoint = fixValueToSteps(pctValue);
+      setHoverValue(current =>
+        nearestPoint !== current ? nearestPoint : current
+      );
+    }
+  },
+  []);
+
+  // On leave, reset the `hoverValue`
+  const sliderLeaveHandler = useCallback(
+    () => setHoverValue(HOVER_SENTINEL_VALUE),
+    []
+  );
+
+  // Attaches event listeners
+  useEffect(() => {
+    if (sliderRef && sliderRef.current) {
+      if (!disabled) {
+        sliderRef.current.addEventListener('mousemove', sliderHoverHandler);
+        sliderRef.current.addEventListener('mouseleave', sliderLeaveHandler);
+
+        // Removes event listeners on unmount
+        return () => {
+          if (sliderRef && sliderRef.current) {
+            sliderRef.current.removeEventListener(
+              'mousemove',
+              sliderHoverHandler
+            );
+            sliderRef.current.removeEventListener(
+              'mouseleave',
+              sliderLeaveHandler
+            );
+          }
+        };
+      } else {
+        // Removes event listeners when `disabled`
+        sliderRef.current.removeEventListener('mousemove', sliderHoverHandler);
+        sliderRef.current.removeEventListener('mouseleave', sliderLeaveHandler);
+      }
+    }
+  }, [sliderRef, disabled]);
+
+  // Return to be used by main component. Must have `as const` to prevent
+  // type widening issues
+  return [sliderRef, hoverValue] as const;
+};

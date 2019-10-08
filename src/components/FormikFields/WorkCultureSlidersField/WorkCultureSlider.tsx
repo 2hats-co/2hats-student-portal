@@ -24,6 +24,7 @@ import {
   SLIDER_LIGHT_COLOR,
   incrementSlider,
   decrementSlider,
+  useSliderHover,
 } from 'utilities/workCultureSliders';
 
 const useStyles = makeStyles(theme =>
@@ -75,10 +76,17 @@ const useStyles = makeStyles(theme =>
 );
 
 /**
- * A context to pass down the current Slider displayValue to trigger
- * whether to show the middle animation or not
+ * A context to pass down the current Slider:
+ * - `displayValue` to trigger whether to show the middle animation or not,
+ *   and where to display the thumb
+ * - `hoverValue` to move the thumb on hover
+ * - `showInitialThumbAnimation` from props
  */
-export const SliderContext = React.createContext({ value: DEFAULT_VALUE });
+export const SliderContext = React.createContext({
+  value: DEFAULT_VALUE,
+  hoverValue: -1,
+  showInitialThumbAnimation: false,
+});
 
 interface IWorkCultureSliderProps {
   /** Label for the "min value" — should be opposite of `sliderName` */
@@ -100,6 +108,8 @@ interface IWorkCultureSliderProps {
   onChange: (value: number) => void;
   /** Disable the slider if it’s not the next one for the user to input */
   disabled?: boolean;
+  /** Whether or not to show the initial animation for `SliderThumb` */
+  showInitialThumbAnimation?: boolean;
 }
 
 /**
@@ -113,8 +123,13 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   value,
   onChange,
   disabled = true,
+  showInitialThumbAnimation = false,
 }) => {
   const classes = useStyles();
+
+  // Get the current hover value using this hook, which was broken out
+  // of this component’s main logic
+  const [sliderRef, hoverValue] = useSliderHover(disabled);
 
   // Show the DEFAULT_VALUE (in the middle) if value is initially undefined
   // Otherwise, show the flipped value or the original value
@@ -185,7 +200,13 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
         </Grid>
 
         <Grid item xs>
-          <SliderContext.Provider value={{ value: displayValue }}>
+          <SliderContext.Provider
+            value={{
+              value: displayValue,
+              hoverValue,
+              showInitialThumbAnimation,
+            }}
+          >
             <Slider
               value={displayValue}
               onChange={(e, v) => {
@@ -208,6 +229,7 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
               }}
               ThumbComponent={disabled ? 'span' : SliderThumb}
               disabled={disabled}
+              ref={sliderRef}
             />
           </SliderContext.Provider>
         </Grid>

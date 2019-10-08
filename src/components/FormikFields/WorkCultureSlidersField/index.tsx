@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FieldProps, ErrorMessage } from 'formik';
+import VisibilitySensor from 'react-visibility-sensor';
 
 import {
   makeStyles,
@@ -73,6 +74,12 @@ const WorkCultureSlidersField: React.FunctionComponent<
     form.setFieldValue(field.name, sliderValues);
   }, [sliderValues]);
 
+  // Store in state whether the animation should be enabled or not.
+  // Will be set to `true` when this component is first visible in viewport.
+  // Currently **disables** the entire field, which may produce undesirable
+  // effects in the future, so this might need to be changed to its own prop.
+  const [animationEnabled, setAnimationEnabled] = useState(false);
+
   // Render the actual sliders
   let firstUnsetSliderIndex = -1; // Store the first unset slider
   const sliders = Object.keys(WORK_CULTURE_SLIDER_LABELS).map((label, i) => {
@@ -94,8 +101,12 @@ const WorkCultureSlidersField: React.FunctionComponent<
         flipped={flipped[i]}
         value={sliderValues[label]}
         onChange={updateValue(label)}
-        // Disable if unset **and** not `firstUnsetSliderIndex`
-        disabled={valueUnset && i !== firstUnsetSliderIndex}
+        // Disable if unset **and** not `firstUnsetSliderIndex`.
+        // Also disable so we can enable the animation later.
+        disabled={
+          !animationEnabled || (valueUnset && i !== firstUnsetSliderIndex)
+        }
+        showInitialThumbAnimation={i === 0}
       />
     );
   });
@@ -116,7 +127,20 @@ const WorkCultureSlidersField: React.FunctionComponent<
         </HeadingCaps>
       </FormLabel>
 
-      <fieldset className={classes.root}>{sliders}</fieldset>
+      {/**
+       * Use `react-visibility-sensor` to find out when the component is first
+       * visible in the viewport. After that, disable the listener entirely
+       */}
+      <VisibilitySensor
+        onChange={isVisible => setAnimationEnabled(isVisible)}
+        partialVisibility
+        minTopValue={
+          50 // Must have at least 50px of the component visible to trigger
+        }
+        active={!animationEnabled}
+      >
+        <fieldset className={classes.root}>{sliders}</fieldset>
+      </VisibilitySensor>
 
       <ErrorMessage name={field.name}>
         {() => <FormHelperText error>Required</FormHelperText>}

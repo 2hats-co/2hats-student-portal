@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useContext, useRef, useEffect, useState } from 'react';
 import clsx from 'clsx';
 
 import {
@@ -27,6 +27,11 @@ const DEFAULT_POINT = (DEFAULT_VALUE / MAX_VALUE) * 100;
 
 const useStyles = makeStyles(theme =>
   createStyles({
+    // The 3 animation states used to trigger animations
+    initialAnimation: {},
+    restingAnimation: {},
+    noneAnimation: {},
+
     root: {
       color: theme.palette.primary.main,
       width: 24,
@@ -36,26 +41,30 @@ const useStyles = makeStyles(theme =>
       borderRadius: 500,
 
       transition: theme.transitions.create(
-        ['box-shadow', 'left', 'width', 'transform'],
+        ['box-shadow', 'left', 'width', 'transform', 'color'],
         { duration: theme.transitions.duration.shortest }
       ),
     },
+
     // Show arrows when thumb in middle
     defaultValue: {
       width: 48,
       transform: 'translate(-24px, -11px)',
       color: fade(theme.palette.primary.main, 0.8),
 
-      '$activeAnimation&': { animationName: '$thumb-animation' },
-      '$activeAnimation$finishAnimation&': { animationName: 'none' },
-      animationDuration: '3.5s',
-      animationFillMode: 'both',
-      animationTimingFunction: 'ease',
+      // Initial animation
+      '$initialAnimation&': {
+        animationName: '$thumb-initial-animation',
+        animationDuration: '3.5s',
+        animationFillMode: 'both',
+        animationTimingFunction: 'ease',
+      },
     },
-    activeAnimation: {},
-    finishAnimation: {},
 
-    '@keyframes thumb-animation': {
+    // Fade on hover so user knows to click (hopefully)
+    hoverState: { color: fade(theme.palette.primary.main, 0.6) },
+
+    '@keyframes thumb-initial-animation': {
       '0%': {
         opacity: 0,
         width: 24,
@@ -80,38 +89,50 @@ const useStyles = makeStyles(theme =>
       '100%': { color: fade(theme.palette.primary.main, 0.8) },
     },
 
-    button: {
+    // Left/right arrow buttons
+    arrowButton: {
       color: theme.palette.primary.contrastText,
       '&:hover': { backgroundColor: 'transparent' },
 
-      '$activeAnimation &': { animationName: '$fade-in' },
+      // Fade arrow buttons in whenever they are re-mounted
+      // i.e. when we switch to `restingAnimation` state and
+      //      when we go from hover state back to `restingAnimation`
+      animationName: '$arrowButtons-initial-animation',
       animationDuration: '0.5s',
       animationFillMode: 'backwards',
       animationTimingFunction: 'ease-out',
     },
+    // Staggered fade-in
+    leftButton: {
+      animationDelay: '0.1s',
+      // Increased delay for `initialAnimation`
+      '$initialAnimation &': { animationDelay: '2.5s' },
+    },
+    rightButton: {
+      animationDelay: '0.35s',
+      '$initialAnimation &': { animationDelay: '2.75s' },
+    },
 
-    leftButton: { animationDelay: '2.5s' },
-    rightButton: { animationDelay: '2.75s' },
-
-    '@keyframes fade-in': {
+    '@keyframes arrowButtons-initial-animation': {
       from: { opacity: 0 },
       to: { opacity: 1 },
     },
 
+    // Pick your side text + animation
     pickYourSide: {
       position: 'absolute',
       width: 200,
       top: -29,
       textAlign: 'center',
 
-      '$activeAnimation &': { animationName: '$text-pulse' },
-      animationDuration: '1s',
-      animationFillMode: 'both',
-      animationTimingFunction: 'ease-in-out',
-      animationDelay: '3s',
-      animationIterationCount: 'infinite',
+      '$restingAnimation &': {
+        animationName: '$text-pulse',
+        animationDuration: '1s',
+        animationFillMode: 'both',
+        animationTimingFunction: 'ease-in-out',
+        animationIterationCount: 'infinite',
+      },
     },
-
     '@keyframes text-pulse': {
       '0%': { opacity: 0 },
       '50%': { opacity: 1 },
@@ -128,20 +149,39 @@ const SliderThumb: SliderProps['ThumbComponent'] = props => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const { value } = useContext(SliderContext);
+  const { value, hoverValue, showInitialThumbAnimation } = useContext(
+    SliderContext
+  );
   const isDefaultValue = value === DEFAULT_VALUE;
+
+  // Get the current animation state
+  const [animationState, setAnimationState] = useState<
+    'initialAnimation' | 'restingAnimation' | 'noneAnimation'
+  >(
+    value !== DEFAULT_VALUE // If not in default value, no animation
+      ? 'noneAnimation'
+      : showInitialThumbAnimation
+      ? 'initialAnimation'
+      : 'restingAnimation'
+  );
 
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   const thumbRef = useRef<HTMLElement>(null);
   useEffect(() => {
-    // On animation end, remove the animation so the transition on `left` works
+    // On `initialAnimation` end, remove the animation
+    // so the transition on `left` works
+    // and we can move on to the next animation state, `restingAnimation`
     if (thumbRef && thumbRef.current)
       thumbRef.current.addEventListener('animationend', function(event) {
         if (event.target !== this) return;
-        this.classList.add(classes.finishAnimation);
+        if (animationState === 'initialAnimation')
+          setAnimationState('restingAnimation');
       });
   }, [thumbRef]);
+
+  // Whether or not the user is currently hovering
+  const hoverState = value !== hoverValue && hoverValue >= 0;
 
   return (
     <span
@@ -149,37 +189,46 @@ const SliderThumb: SliderProps['ThumbComponent'] = props => {
       className={clsx(
         props.className,
         classes.root,
-        isDefaultValue && classes.defaultValue,
-        classes.activeAnimation
+        // Show arrows when thumb in middle
+        isDefaultValue && !hoverState && classes.defaultValue,
+        // Show correct animation state when not hovering
+        !hoverState && classes[animationState],
+        // Hover state
+        hoverState && classes.hoverState
       )}
       ref={thumbRef}
+      // Put in the proper position, based on current value or `hoverValue`
+      style={{ left: hoverValue >= 0 ? `${hoverValue}%` : `${value}%` }}
     >
-      {isDefaultValue && (
+      {isDefaultValue && !hoverState && (
+        // Display arrows wehn thumb in middle
         <>
           <IconButton
             size="small"
             color="inherit"
-            className={clsx(classes.button, classes.leftButton)}
+            className={clsx(classes.arrowButton, classes.leftButton)}
           >
             <ChevronLeftIcon />
           </IconButton>
           <IconButton
             size="small"
             color="inherit"
-            className={clsx(classes.button, classes.rightButton)}
+            className={clsx(classes.arrowButton, classes.rightButton)}
           >
             <ChevronRightIcon />
           </IconButton>
-
-          <Typography
-            variant="overline"
-            color="primary"
-            className={classes.pickYourSide}
-            component="div"
-          >
-            Pick{!isXs && ' Your Side'}
-          </Typography>
         </>
+      )}
+      {isDefaultValue && !hoverState && animationState === 'restingAnimation' && (
+        // Display Pick text when thumb in middle and in correct animation state
+        <Typography
+          variant="overline"
+          color="primary"
+          className={classes.pickYourSide}
+          component="div"
+        >
+          Pick{!isXs && ' Your Side'}
+        </Typography>
       )}
     </span>
   );
