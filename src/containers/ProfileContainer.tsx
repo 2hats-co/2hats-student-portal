@@ -9,7 +9,6 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import LoadingScreen from 'components/LoadingScreen';
 import HeadingTitle from '@bit/twohats.common.components.heading-title';
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import RightButtonLayout from 'components/Profile/RightButtonLayout';
@@ -23,7 +22,6 @@ import ProfileCourses from 'components/Profile/ProfileCourses';
 import { useUser } from 'contexts/UserContext';
 import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 import * as ROUTES from 'constants/routes';
-import useScrollIntoView from 'hooks/useScrollIntoView';
 
 const useStyles = makeStyles(theme =>
   createStyles({
