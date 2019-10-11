@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     minHeight: '100%',
-    overflowX: 'hidden',
+    // overflowX: 'hidden',
   },
 
   navWrapper: {
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
 
   mainWrapper: {
     padding: theme.spacing(3, 0),
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
 
   mainWrapperAnimation: {

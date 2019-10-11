@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
-
 import CardGrid from 'components/CardGrid';
 
 import { useUser } from 'contexts/UserContext';
@@ -13,13 +11,6 @@ import { generateAssessmentCard } from 'utilities/cards';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import * as ROUTES from 'constants/routes';
 import LightbulbBrain from 'assets/images/graphics/LightbulbBrain.svg';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    // Prevent scrollbar appearing during card animations in Firefox on Windows
-    overflow: 'hidden',
-  },
-}));
 
 const DISPATCH_PROPS = {
   UNVIEWED_FEEDBACK: user => ({
@@ -48,7 +39,6 @@ const DISPATCH_PROPS = {
 };
 
 const AssessmentsContainer = ({ match, location }) => {
-  const classes = useStyles();
   const { user } = useUser();
 
   // Change tab title
@@ -183,7 +173,7 @@ const AssessmentsContainer = ({ match, location }) => {
     if (!completedState.path) completedDispatch(DISPATCH_PROPS.COMPLETED(user));
   }
 
-  return <main className={classes.root}>{contents}</main>;
+  return <main>{contents}</main>;
 };
 
 AssessmentsContainer.propTypes = {
