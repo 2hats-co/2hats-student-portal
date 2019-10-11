@@ -276,11 +276,6 @@ const themeCommons = {
       },
     },
 
-    // Larger gutterBottom for Typography
-    MuiTypography: {
-      gutterBottom: { marginBottom: 12 },
-    },
-
     // Spacing for multiline FormControlLabel
     MuiFormControlLabel: {
       label: { padding: '8px 0 8px 8px' },
