@@ -23,14 +23,6 @@ import * as ROUTES from 'constants/routes';
 const useStyles = makeStyles(theme =>
   createStyles({
     relatedCards: {
-      // Fix width to width of card columns
-      maxWidth: 'none',
-      [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
-      [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
-      [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
-      [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
-      [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
-
       margin: '0 auto',
       marginTop: theme.spacing(7),
     },
