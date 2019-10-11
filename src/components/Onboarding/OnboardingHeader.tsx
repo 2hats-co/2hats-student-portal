@@ -27,12 +27,19 @@ const useStyles = makeStyles(theme =>
     },
     toolbarGutters: { padding: theme.spacing(0, 1, 0, 1.5) },
 
-    logoWrapper: { lineHeight: 1 },
+    logoWrapper: {
+      height: 36,
+      [theme.breakpoints.down('xs')]: { height: 25 },
+    },
     logo: {
       width: 100,
+      height: 36,
       userSelect: 'none',
       userDrag: 'none',
-      [theme.breakpoints.down('xs')]: { width: 70 },
+      [theme.breakpoints.down('xs')]: {
+        width: 70,
+        height: 25,
+      },
     },
 
     progress: {
