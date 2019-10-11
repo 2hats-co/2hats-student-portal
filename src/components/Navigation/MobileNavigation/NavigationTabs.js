@@ -70,9 +70,6 @@ const NAV_TABS = [
  * Can’t just set a `selected` class directly like before—have to use a
  * state and check with `useEffect` on `location.pathname` because of
  * Material UI `BottomNavigation`.
- *
- * Also pushes the FB Customer Chat button up/down by setting the `.fb_up`
- * CSS class on the `body`
  */
 const NavigationTabs = ({ location, triggerHide }) => {
   const classes = useStyles();
@@ -85,14 +82,6 @@ const NavigationTabs = ({ location, triggerHide }) => {
   }, [location.pathname, value]);
 
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
-
-  // Style override for FB Messenger chat — pushes up when the navigation
-  // tabs are visible
-  const shouldPushFbChatBubbleUp = !triggerHide;
-  if (document.body.classList.contains('fb_up') !== shouldPushFbChatBubbleUp)
-    document.body.classList[shouldPushFbChatBubbleUp ? 'add' : 'remove'](
-      'fb_up'
-    );
 
   return (
     <Slide appear={false} direction="up" in={!triggerHide}>

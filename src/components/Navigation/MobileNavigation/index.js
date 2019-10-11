@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useScrollTrigger } from '@material-ui/core';
 
@@ -21,6 +21,20 @@ const MobileNavigation = () => {
     disableHysteresis: true,
     threshold: 0,
   });
+
+  useEffect(() => {
+    document.body.classList.toggle('mobilenav-show', !triggerHide);
+    document.body.classList.toggle('mobilenav-hide', triggerHide);
+    document.body.classList.toggle('fb_up', !triggerHide);
+
+    return () => {
+      document.body.classList.remove(
+        'mobilenav-show',
+        'mobilenav-hide',
+        'fb_up'
+      );
+    };
+  }, [triggerHide]);
 
   return (
     <>
