@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { configureAnchors } from 'react-scrollable-anchor';
 
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
-import { Theme, DarkTheme } from './Theme';
+import { Theme, DarkTheme, useGlobalStyles } from './Theme';
 import { CssBaseline, useMediaQuery } from '@material-ui/core';
 
 import useAuth from 'hooks/useAuth';
@@ -64,23 +64,12 @@ const SchedulerContainer = lazy(() =>
 // Configure ScrollableAnchors to have a top offset so nothing gets cut off
 configureAnchors({ offset: -50 });
 
-// Need to put this here to override <CssBaseline />
-const useStyles = makeStyles({
-  '@global': {
-    html: {
-      // Use subpixel antialiasing
-      WebkitFontSmoothing: 'subpixel-antialiased',
-      MozOsxFontSmoothing: 'auto',
-    },
-  },
-});
-
 const App = () => {
   const authUser = useAuth();
   const [userDocState, userDocDispatch] = useDocument({});
   const [profileDocState, profileDocDispatch] = useDocument({});
 
-  useStyles();
+  useGlobalStyles();
 
   useEffect(() => {
     if (!authUser || !authUser.uid) return;

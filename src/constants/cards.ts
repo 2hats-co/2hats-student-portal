@@ -1,5 +1,4 @@
 import { SIDEBAR_WIDTH, DESKTOP_WIDTH } from './layout';
-import { Theme } from 'Theme';
 
 // import { INDUSTRIES } from '@bit/twohats.common.constants';
 
@@ -57,5 +56,5 @@ export const CARD_COLS_MEDIA_QUERIES = CARD_COLS_WIDTHS.map(x =>
     : `@media (min-width: ${x}px)`
 );
 
-export const CARD_ANIMATION_DURATION = Theme.transitions.duration.standard;
+export const CARD_ANIMATION_DURATION = 300;
 export const CARD_ANIMATION_DELAY = 0.075; // seconds

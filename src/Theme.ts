@@ -1,6 +1,13 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import {
+  createMuiTheme,
+  responsiveFontSizes,
+  makeStyles,
+  createStyles,
+} from '@material-ui/core/styles';
 import mergeDeepRight from 'ramda/es/mergeDeepRight';
+
 import { getLetterSpacing } from 'utilities/styling';
+import { CARD_COLS_WIDTHS, CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
 
 import logo from 'assets/images/Logo/DarkText.svg';
 import darkLogo from 'assets/images/Logo/WhiteText.svg';
@@ -364,4 +371,25 @@ export const DarkTheme = responsiveFontSizes(
   )
 );
 
-// console.log(Theme, DarkTheme);
+export const useGlobalStyles = makeStyles(
+  createStyles({
+    '@global': {
+      // Overrides <CSSBaseline />
+      html: {
+        // Use subpixel antialiasing
+        WebkitFontSmoothing: 'subpixel-antialiased',
+        MozOsxFontSmoothing: 'auto',
+      },
+
+      // Fix width to width of card columns
+      '.width-fixed-cards-cols': {
+        maxWidth: 'none',
+        [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
+        [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
+        [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
+        [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
+        [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
+      },
+    },
+  })
+);
