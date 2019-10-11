@@ -183,6 +183,11 @@ const SliderThumb: SliderProps['ThumbComponent'] = props => {
   // Whether or not the user is currently hovering
   const hoverState = value !== hoverValue && hoverValue >= 0;
 
+  useEffect(() => {
+    if (hoverState && animationState === 'initialAnimation')
+      setAnimationState('restingAnimation');
+  }, [hoverState, animationState]);
+
   return (
     <span
       {...props}
