@@ -39,6 +39,8 @@ const useStyles = makeStyles(theme =>
       userSelect: 'none',
     },
 
+    labelWrapper: { overflow: 'hidden' },
+
     sliderWrapper: {
       margin: theme.spacing(0, -1.5),
       width: 'auto',
@@ -152,34 +154,38 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
 
   return (
     <div className={clsx(classes.root, disabled && classes.disabled)}>
-      <Grid
-        container
-        spacing={7} // Add spacing for "Pick" text
-        alignItems="flex-end"
-        direction={flipped ? 'row-reverse' : 'row'}
+      <div
+        className={classes.labelWrapper} // Wrapper to prevent horizontal scrolling on mobile
       >
-        <Grid item xs={6}>
-          <Typography
-            variant="overline"
-            color="inherit"
-            component="p"
-            align={flipped ? 'right' : 'left'}
-          >
-            {minLabel}
-          </Typography>
-        </Grid>
+        <Grid
+          container
+          spacing={7} // Add spacing for "Pick" text
+          alignItems="flex-end"
+          direction={flipped ? 'row-reverse' : 'row'}
+        >
+          <Grid item xs={6}>
+            <Typography
+              variant="overline"
+              color="inherit"
+              component="p"
+              align={flipped ? 'right' : 'left'}
+            >
+              {minLabel}
+            </Typography>
+          </Grid>
 
-        <Grid item xs={6}>
-          <Typography
-            variant="overline"
-            color="inherit"
-            component="p"
-            align={flipped ? 'left' : 'right'}
-          >
-            {maxLabel}
-          </Typography>
+          <Grid item xs={6}>
+            <Typography
+              variant="overline"
+              color="inherit"
+              component="p"
+              align={flipped ? 'left' : 'right'}
+            >
+              {maxLabel}
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
 
       <Grid
         container
