@@ -13,6 +13,7 @@ import GoIcon from '@bit/twohats.common.icons.go';
 
 import { CURIOUS_PURPLE } from 'constants/curiousThing';
 import { PROFILE, PROFILE_CURIOUS_THING } from 'constants/routes';
+import { CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -43,8 +44,7 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
   className,
 }) => {
   const classes = useStyles();
-  const theme = useTheme();
-  const smallerButton = useMediaQuery(theme.breakpoints.down('xs'));
+  const fullButton = useMediaQuery(CARD_COLS_MEDIA_QUERIES[2]);
 
   return (
     <Button
@@ -58,7 +58,7 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
       to={PROFILE + '#' + PROFILE_CURIOUS_THING}
     >
       <PersonSpeakingIcon className={classes.phoneIcon} />
-      {!smallerButton && 'Start '}Discovery Interview
+      {fullButton && 'Start '}Discovery Interview
       <GoIcon />
     </Button>
   );
