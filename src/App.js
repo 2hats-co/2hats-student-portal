@@ -55,11 +55,6 @@ const OnboardingContainer = lazy(() =>
     'containers/OnboardingContainer' /* webpackChunkName: "OnboardingContainer" */
   )
 );
-const SchedulerContainer = lazy(() =>
-  import(
-    'containers/SchedulerContainer' /* webpackChunkName: "SchedulerContainer" */
-  )
-);
 
 // Configure ScrollableAnchors to have a top offset so nothing gets cut off
 configureAnchors({ offset: -50 });
@@ -281,16 +276,6 @@ const App = () => {
                       render={props => (
                         <Navigation>
                           <CourseRedirectContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
-
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.SCHEDULER}
-                      render={props => (
-                        <Navigation>
-                          <SchedulerContainer {...props} />
                         </Navigation>
                       )}
                     />

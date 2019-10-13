@@ -40,9 +40,6 @@ export const JOB_APPLICATION = '/apply';
 export const ASSESSMENT = '/assessment';
 export const COURSE = '/course';
 export const COURSE_REDIRECT = '/courseRedirect';
-export const SCHEDULER = '/scheduler';
-
-export const EVENTS = '/events';
 
 export const ONBOARDING = '/welcome';
 
