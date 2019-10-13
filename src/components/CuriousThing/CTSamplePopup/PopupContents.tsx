@@ -17,6 +17,7 @@ import DownIcon from '@material-ui/icons/ExpandMore';
 
 import CTResult from '../CTResult';
 import sampleData from './sampleData.json';
+import { useUser } from 'contexts/UserContext';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -62,6 +63,8 @@ const PopupContents: React.FunctionComponent<IPopupContentsProps> = ({
   handleClose,
 }) => {
   const classes = useStyles();
+  // Get a firebase timestamp from the user document
+  const { user } = useUser();
   // Get the DOM node of the `DialogContent` elem
   const dialogContentRef = useRef<HTMLDivElement>(null);
 
@@ -115,7 +118,14 @@ const PopupContents: React.FunctionComponent<IPopupContentsProps> = ({
         ref={dialogContentRef}
         dividers={triggerScrolledDown}
       >
-        <CTResult resultData={sampleData} />
+        <CTResult
+          sample
+          resultData={{
+            ...sampleData,
+            reportUrl: '',
+            timestamp: user.createdAt, // Use this as sample firebase timestamp
+          }}
+        />
       </DialogContent>
 
       <Slide

@@ -8,8 +8,6 @@ import CTResult from './CTResult';
 import { ProfileComponentProps } from 'containers/ProfileContainer';
 import { PROFILE_CURIOUS_THING } from 'constants/routes';
 
-import sampleData from './CTSamplePopup/sampleData.json';
-
 interface ICuriousThingProps extends ProfileComponentProps {}
 
 /**
@@ -26,14 +24,12 @@ const CuriousThing: React.FunctionComponent<ICuriousThingProps> = ({
   let contents = <CTPrompt />;
   // Or show results if it exists in the user’s profile doc
   if ('curiousThingResult' in profileData && !!profileData.curiousThingResult)
-    contents = <CTResult resultData={sampleData} />;
+    contents = <CTResult resultData={profileData.curiousThingResult} />;
 
   return (
     <ScrollableAnchor id={PROFILE_CURIOUS_THING}>
       <section>
-        {/* <Grid container alignItems="center"> */}
         <HeadingCaps>My Workplace Vibe</HeadingCaps>
-        {/* </Grid> */}
 
         {contents}
       </section>

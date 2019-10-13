@@ -11,6 +11,8 @@ import {
 import PersonSpeakingIcon from '@material-ui/icons/RecordVoiceOver';
 import GoIcon from '@bit/twohats.common.icons.go';
 
+import { useUser } from 'contexts/UserContext';
+
 import { CURIOUS_PURPLE } from 'constants/curiousThing';
 import { PROFILE, PROFILE_CURIOUS_THING } from 'constants/routes';
 import { CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
@@ -38,13 +40,20 @@ export interface ICTDashboardButtonProps {
 
 /**
  * The button to display on the dashboard that links to the Curious Thing
- * section on the Profile page
+ * section on the Profile page. Displays either Start Discovery Interview
+ * or View Results if the user has completed the interview
  */
 const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
   className,
 }) => {
   const classes = useStyles();
   const fullButton = useMediaQuery(CARD_COLS_MEDIA_QUERIES[2]);
+
+  const { profile } = useUser();
+
+  let buttonText = 'Discovery Interview';
+  if (fullButton) buttonText = 'Start Discovery Interview';
+  if (!!profile.curiousThingResult) buttonText = 'View Results';
 
   return (
     <Button
@@ -58,7 +67,7 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
       to={PROFILE + '#' + PROFILE_CURIOUS_THING}
     >
       <PersonSpeakingIcon className={classes.phoneIcon} />
-      {fullButton && 'Start '}Discovery Interview
+      {buttonText}
       <GoIcon />
     </Button>
   );

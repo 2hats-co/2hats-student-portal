@@ -1002,10 +1002,17 @@
   resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.18.tgz#3b8cbd819c7765755894e7954be22022e52b8477"
   integrity sha1-O4y9gZx3ZXVYlOeVS+IgIuUrhHc=
 
-"@bit/twohats.common.constants@1.0.25", "@bit/twohats.common.constants@^1.0.25":
-  version "1.0.25"
-  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.25.tgz#beeaa4c17e47de068ba2fbdf854c42deee8bbb3d"
-  integrity sha1-vuqkwX5H3gaLovvfhUxC3u6Luz0=
+"@bit/twohats.common.constants@1.0.26":
+  version "1.0.26"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.26.tgz#d98089a52670260b95cbc0041290e7bbfe0db120"
+  integrity sha1-2YCJpSZwJguVy8AEEpDnu/4NsSA=
+  dependencies:
+    firebase "^6.2.4"
+
+"@bit/twohats.common.constants@^1.0.28":
+  version "1.0.28"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.28.tgz#cca157e104555c203896ad56e876a79fa6e916ec"
+  integrity sha1-zKFX4QRVXCA4lq1W6Hann6bpFuw=
   dependencies:
     firebase "^6.2.4"
 
@@ -1016,12 +1023,12 @@
   dependencies:
     "@bit/twohats.common.constants" "1.0.18"
 
-"@bit/twohats.common.db-types@^0.0.53":
-  version "0.0.53"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.53.tgz#239e3fac339a745a9654e16ee4206cf09a20d73a"
-  integrity sha1-I54/rDOadFqWVOFu5CBs8Jog1zo=
+"@bit/twohats.common.db-types@^0.0.54":
+  version "0.0.54"
+  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.54.tgz#1dea307ea57205f1e26c77e814251a6a1d64baa0"
+  integrity sha1-HeowfqVyBfHibHfoFCUaah1kuqA=
   dependencies:
-    "@bit/twohats.common.constants" "1.0.25"
+    "@bit/twohats.common.constants" "1.0.26"
 
 "@bit/twohats.common.icons.go@1.0.4", "@bit/twohats.common.icons.go@^1.0.4":
   version "1.0.4"
