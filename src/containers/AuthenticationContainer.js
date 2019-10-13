@@ -142,7 +142,9 @@ class AuthenticationContainer extends React.Component {
       () => {
         this.goTo(
           `${ROUTES.LANDING}${
-            this.state.route ? `?route=${this.state.route}` : ''
+            this.state.route
+              ? `?route=${encodeURIComponent(this.state.route)}`
+              : ''
           }`
         );
         this.handleGTevent('Signin');

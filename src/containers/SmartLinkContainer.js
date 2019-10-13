@@ -57,7 +57,7 @@ const SmartLinkContainer = props => {
                     .update({ emailVerified: true });
                   history.replace(route);
                 } else {
-                  history.replace({ pathname: route });
+                  history.replace(route);
                 }
               });
             } else {
