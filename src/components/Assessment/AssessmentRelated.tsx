@@ -26,7 +26,6 @@ const useStyles = makeStyles(theme =>
       margin: '0 auto',
       marginTop: theme.spacing(7),
     },
-    relatedCourseWrapper: { marginBottom: theme.spacing(4) },
   })
 );
 
@@ -103,17 +102,15 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
         (!showDelight ||
           ('outcome' in assessmentData &&
             assessmentData.outcome === 'pass')) && (
-          <div className={classes.relatedCourseWrapper}>
-            <CardGridHeader
-              header="Prepare with a quick 2hats course for this assessment."
-              route={`${ROUTES.COURSE_REDIRECT}?id=${relatedCourse.id}`}
-              routeLabel={`Course: ${relatedCourse.title}`}
-              // Needed to appease the TypeScript gods and actually show the link
-              showPreviewOnly
-              length={1}
-              hideCount
-            />
-          </div>
+          <CardGridHeader
+            header="Prepare with a quick 2hats course for this assessment."
+            route={`${ROUTES.COURSE_REDIRECT}?id=${relatedCourse.id}`}
+            routeLabel={`Course: ${relatedCourse.title}`}
+            // Needed to appease the TypeScript gods and actually show the link
+            showPreviewOnly
+            length={1}
+            hideCount
+          />
         )}
 
       {/* Related jobs, if available */}
