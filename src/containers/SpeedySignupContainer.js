@@ -325,7 +325,7 @@ class SpeedySignupContainer extends PureComponent {
               variant="body2"
               className={classes.subhead}
               style={isMobile ? { textAlign: 'center' } : {}}
-              gutterBottom
+              paragraph
             >
               We’ve <b>sent you an email</b> to finish the sign up process.
             </Typography>

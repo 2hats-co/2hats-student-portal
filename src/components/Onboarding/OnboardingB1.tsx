@@ -41,12 +41,7 @@ const OnboardingB1: React.FC = () => {
       </Grid>
 
       <Grid item className={classes.center} xs>
-        <Typography
-          variant="h6"
-          component="p"
-          color="textSecondary"
-          gutterBottom
-        >
+        <Typography variant="h6" component="p" color="textSecondary" paragraph>
           Show off your super-skills by completing assessments and shine like an
           enabled Apply button.
         </Typography>

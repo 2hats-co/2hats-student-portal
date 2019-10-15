@@ -55,7 +55,7 @@ const RightButtonLayout: React.FunctionComponent<IRightButtonLayoutProps> = ({
       </Grid>
 
       {description && (
-        <Typography variant="body1" color="textSecondary" gutterBottom>
+        <Typography variant="body1" color="textSecondary" paragraph>
           {description}
         </Typography>
       )}

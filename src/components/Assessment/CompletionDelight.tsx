@@ -80,7 +80,7 @@ const CompletionDelight: React.FunctionComponent = () => {
       {(!profile.resume || !profile.resume.name || !profile.resume.url) && (
         <section>
           <HeadingCaps>My Résumé</HeadingCaps>
-          <Typography variant="body1" color="textSecondary" gutterBottom>
+          <Typography variant="body1" color="textSecondary" paragraph>
             You’re on our radar! Uploading a résumé makes it easier for us to
             contact you about jobs and uni events such as hackathons and
             workshops.

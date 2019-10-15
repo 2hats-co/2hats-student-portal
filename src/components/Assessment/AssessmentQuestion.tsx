@@ -211,7 +211,7 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
               Write your code using our <b>code editor</b>, where you can make
               changes in real time and submit with one click.
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="body1" paragraph>
               Note: You <b>must</b> submit in the code editor, not on this page.
             </Typography>
             <Button

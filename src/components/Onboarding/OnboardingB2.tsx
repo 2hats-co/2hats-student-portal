@@ -41,12 +41,7 @@ const OnboardingB2: React.FC = () => {
       </Grid>
 
       <Grid item className={classes.center} xs>
-        <Typography
-          variant="h6"
-          component="p"
-          color="textSecondary"
-          gutterBottom
-        >
+        <Typography variant="h6" component="p" color="textSecondary" paragraph>
           Completed assessments make your skills counted, so we know you’re
           going to rock at your new workplace.
         </Typography>

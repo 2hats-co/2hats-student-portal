@@ -61,7 +61,7 @@ const NewSubmissionPrompt: React.FunctionComponent<
     return (
       <section className={classes.root}>
         <Divider className={classes.divider} />
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" paragraph>
           This feedback is for an old submission.
           <br />
           You’ve already made a new submission.
@@ -86,11 +86,11 @@ const NewSubmissionPrompt: React.FunctionComponent<
   if (submissionsRemaining > 0)
     message = (
       <>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" paragraph>
           You can make up to {submissionsRemaining} more attempt
           {submissionsRemaining !== 1 && 's'}.
         </Typography>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" paragraph>
           Please note you only have up to {MAX_ASSESSMENT_ATTEMPTS} attempts
           within a {ASSESSMENT_ATTEMPT_PERIOD_MONTHS} month time period.
         </Typography>
@@ -99,16 +99,16 @@ const NewSubmissionPrompt: React.FunctionComponent<
   else
     message = (
       <>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" paragraph>
           You have no attempts remaining.
         </Typography>
 
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" paragraph>
           Please take the time to read the feedback above and check out{' '}
           <Link to={ROUTES.COURSES}>our courses</Link> for further guidance.
         </Typography>
 
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" paragraph>
           You can make a new attempt in {ASSESSMENT_ATTEMPT_PERIOD_MONTHS}{' '}
           months.
         </Typography>

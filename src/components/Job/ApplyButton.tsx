@@ -74,7 +74,7 @@ const ApplyButton: React.FunctionComponent<IApplyButtonProps> = ({
             variant="h6"
             component="p"
             color="primary"
-            gutterBottom
+            paragraph
             className={classes.messageText}
           >
             You need {skillsNotAchieved.length} more skill

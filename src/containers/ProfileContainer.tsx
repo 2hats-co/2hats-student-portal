@@ -60,7 +60,7 @@ const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
 
         <section>
           <HeadingCaps>Areas of Interest</HeadingCaps>
-          <Typography variant="body1" color="textSecondary" gutterBottom>
+          <Typography variant="body1" color="textSecondary" paragraph>
             Which of these sound like your future workplace? Pick at least one
             of the fields to view the jobs and tasks that relate to you!
           </Typography>

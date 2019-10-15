@@ -46,7 +46,7 @@ class NoPasswordView extends React.Component {
         <Header greeting="Welcome back" name={firstName} />
 
         <div>
-          <Typography variant="body2" gutterBottom>
+          <Typography variant="body2" paragraph>
             We’ve sent you a confirmation email. Please check your inbox.
           </Typography>
           <Typography variant="body2">
@@ -55,7 +55,7 @@ class NoPasswordView extends React.Component {
         </div>
 
         <Divider style={{ width: '100%', margin: '16px 0' }} />
-        <Typography variant="body2" gutterBottom color="textSecondary">
+        <Typography variant="body2" paragraph color="textSecondary">
           Didn’t receive the email?
         </Typography>
 

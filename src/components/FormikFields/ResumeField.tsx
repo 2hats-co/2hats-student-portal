@@ -71,7 +71,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
           My Résumé
         </HeadingCaps>
 
-        <Typography variant="body1" color="textSecondary" gutterBottom>
+        <Typography variant="body1" color="textSecondary" paragraph>
           Your potential and abilities count at 2hats – not your background. The
           résumé only makes it easy for us to see your interests and reach out.
         </Typography>

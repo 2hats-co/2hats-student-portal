@@ -55,7 +55,7 @@ const MobileNumberField: React.FunctionComponent<IMobileNumberFieldProps> = ({
     <section>
       <label htmlFor="field-mobileNumber">
         <HeadingCaps>My Mobile Number</HeadingCaps>
-        <Typography variant="body1" color="textSecondary" gutterBottom>
+        <Typography variant="body1" color="textSecondary" paragraph>
           Let us know your mobile number so we can contact you for job
           opportunities as soon as possible, after passing assessments.
         </Typography>

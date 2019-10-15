@@ -33,7 +33,7 @@ const JobApplication: React.FunctionComponent<IJobApplicationProps> = ({
       <section>
         <HeadingCaps>We’re almost there</HeadingCaps>
 
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1" paragraph>
           We would like you to answer some questions about your application.
           These answers are <strong>application-specific</strong> and do not
           apply to your future applications.
