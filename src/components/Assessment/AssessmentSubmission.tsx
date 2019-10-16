@@ -183,9 +183,9 @@ const AssessmentSubmission: React.FunctionComponent<
                 onClick={handleSave}
                 size="large"
                 fullWidth
+                endIcon={<GoIcon />}
               >
                 Save
-                <GoIcon />
               </Button>
             </Grid>
           )}
@@ -198,9 +198,9 @@ const AssessmentSubmission: React.FunctionComponent<
               fullWidth
               id={`submit-${!disableSubmission}`}
               disabled={disableSubmission || readOnly}
+              endIcon={readOnly ? <CheckIcon /> : <GoIcon />}
             >
               {readOnly ? 'Submitted' : 'Submit'}
-              {readOnly ? <CheckIcon /> : <GoIcon />}
             </Button>
           </Grid>
         </Grid>

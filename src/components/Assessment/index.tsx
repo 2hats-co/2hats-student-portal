@@ -124,9 +124,9 @@ const Assessment: React.FunctionComponent<IAssessmentProps> = ({
               color="primary"
               size="large"
               onClick={handleNewSubmission}
+              endIcon={<DownIcon />}
             >
               Let’s Begin
-              <DownIcon />
             </Button>
           </section>
         )}

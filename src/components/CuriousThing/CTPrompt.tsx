@@ -57,8 +57,9 @@ const CTPrompt: React.FunctionComponent = () => {
           {...externalLinkProps}
           href={CURIOUS_THING_COBRANDED_URL}
           id="curious-thing-profile-button"
+          endIcon={<ExternalIcon />}
         >
-          Let’s Start <ExternalIcon />
+          Let’s Start
         </Button>
 
         <CTPoweredBy />

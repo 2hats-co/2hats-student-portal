@@ -183,9 +183,9 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
                 copyToClipboard(mcEmail);
                 alert(`Copied to ${mcEmail} clipboard`);
               }}
+              endIcon={<CopyIcon />}
             >
               Copy
-              <CopyIcon />
             </Button>
           </Typography>
           <HeadingCaps className={classes.section}>Email preview</HeadingCaps>
@@ -226,9 +226,9 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               size="large"
+              endIcon={<LaunchIcon />}
             >
               Open in new tab
-              <LaunchIcon />
             </Button>
 
             <div className={classes.section}>

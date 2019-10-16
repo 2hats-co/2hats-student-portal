@@ -131,9 +131,9 @@ const OnboardingHeader: React.FC<OnboardingHeaderProps> = ({
                   match.params ? match.params.stage : ''
                 ),
               }}
+              endIcon={<GoIcon />}
             >
               Skip
-              <GoIcon />
             </Button>
           </Grid>
         </Grid>

@@ -160,58 +160,32 @@ const themeCommons = {
     // LEGACY OVERRIDES
     MuiButton: {
       root: {
-        borderRadius: '1000px',
+        borderRadius: '1000px', // Pill-shaped buttons
       },
       contained: {
-        boxShadow: 'none',
+        boxShadow: 'none', // Flat buttons
+
         // Grey default button
         backgroundColor: '#808080',
         color: '#fff',
         '&:hover': { backgroundColor: '#808080' },
       },
-      label: {
-        // Icons in buttons go on the right
-        '& svg': { marginLeft: 8, marginRight: -4 },
-        // Increased spacing for large button
-        '$sizeLarge & svg': { marginLeft: 12 },
-      },
       sizeLarge: {
         padding: '12px 48px', // Make large button larger
         fontSize: 'inherit', // Don't make font size larger
       },
-    },
-    // ADMIN PORTAL OVERRIDES
-    // MuiFab: {
-    //   primary: { color: '#fff' },
-    //   extended: {
-    //     '& svg': { marginRight: 8 },
-    //   },
-    // },
-    MuiTooltip: {
-      tooltip: {
-        backgroundColor: 'rgba(0,0,0,.75)',
-        fontSize: 12,
+
+      // Larger icons
+      iconSizeSmall: {
+        '& > *:first-child': { fontSize: 24 },
       },
-      popper: { opacity: 1 },
+      iconSizeMedium: {
+        '& > *:first-child': { fontSize: 24 },
+      },
+      iconSizeLarge: {
+        '& > *:first-child': { fontSize: 24 },
+      },
     },
-    // MuiTab: {
-    //   root: {
-    //     minWidth: '64px !important',
-    //     fontSize: '.875rem !important',
-    //   },
-    //   textColorPrimary: {
-    //     color: 'rgba(0,0,0,.87)',
-    //     '& svg': { opacity: 0.87 },
-    //   },
-    // },
-    // MuiChip: {
-    //   root: {
-    //     height: 'auto',
-    //     minHeight: 32,
-    //     '&:not(:last-of-type)': { marginRight: 8 },
-    //   },
-    //   label: { whiteSpace: 'normal' },
-    // },
 
     // Neutral avatar colour
     MuiAvatar: {
@@ -230,12 +204,6 @@ const themeCommons = {
 
       inputSelect: { paddingRight: 40 },
     },
-    // MuiBadge: {
-    //   badge: { fontWeight: 700 },
-    // },
-    // MuiInputAdornment: {
-    //   positionStart: { marginBottom: 2 },
-    // },
 
     // Temporary - to be removed
     MuiLink: {

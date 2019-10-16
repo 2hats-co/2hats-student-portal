@@ -167,9 +167,9 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
             size="large"
             className={classes.submitButton}
             disabled={isSubmitting}
+            endIcon={<GoIcon />}
           >
             Submit
-            <GoIcon />
           </Button>
 
           {isSubmitting && <LinearProgress />}

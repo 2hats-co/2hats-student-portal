@@ -93,8 +93,6 @@ const useStyles = makeStyles(theme => ({
 
   button: {},
 
-  iconButtonGo: { 'svg&': { marginLeft: '0 !important' } }, // Stop Go icon from adding left padding
-
   header: { display: 'inline-block' },
   lengthChip: {
     minWidth: 24,
@@ -204,9 +202,12 @@ const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
 
           {showLink &&
             (showButtonLabel ? (
-              <Button color="primary" className={classes.button}>
+              <Button
+                color="primary"
+                className={classes.button}
+                endIcon={<GoIcon />}
+              >
                 {routeLabel || 'Show All'}
-                <GoIcon />
               </Button>
             ) : (
               <IconButton
@@ -214,7 +215,7 @@ const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
                 size="small"
                 className={classes.button}
               >
-                <GoIcon className={classes.iconButtonGo} />
+                <GoIcon compact={false} />
               </IconButton>
             ))}
         </Grid>

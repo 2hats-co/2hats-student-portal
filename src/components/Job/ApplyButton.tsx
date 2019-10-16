@@ -109,9 +109,9 @@ const ApplyButton: React.FunctionComponent<IApplyButtonProps> = ({
           },
         }}
         disabled={!canApply}
+        endIcon={<GoIcon animated={canApply} />}
       >
         Apply
-        <GoIcon animated={canApply} />
       </Button>
     </div>
   );

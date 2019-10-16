@@ -59,9 +59,13 @@ class NoPasswordView extends React.Component {
           Didn’t receive the email?
         </Typography>
 
-        <Button variant="outlined" color="primary" onClick={this.resendEmail}>
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={this.resendEmail}
+          endIcon={<GoIcon />}
+        >
           Resend Email
-          <GoIcon />
         </Button>
       </React.Fragment>
     );

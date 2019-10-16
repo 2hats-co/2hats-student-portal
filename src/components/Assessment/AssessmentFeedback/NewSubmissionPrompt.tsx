@@ -72,9 +72,9 @@ const NewSubmissionPrompt: React.FunctionComponent<
           size="large"
           component={Link}
           to={`${ROUTES.ASSESSMENT}/${otherSubmissions[0].id}?yours=true`}
+          endIcon={<GoIcon />}
         >
           View Submission
-          <GoIcon />
         </Button>
       </section>
     );
@@ -130,9 +130,9 @@ const NewSubmissionPrompt: React.FunctionComponent<
         color="primary"
         size="large"
         disabled={submissionsRemaining <= 0}
+        endIcon={<GoIcon />}
       >
         Resubmit
-        <GoIcon />
       </Button>
     </section>
   );

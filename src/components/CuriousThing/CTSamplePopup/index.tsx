@@ -34,13 +34,7 @@ const useStyles = makeStyles(theme =>
           theme.palette.action.hoverOpacity
         ),
       },
-
-      '& svg$helpIcon': {
-        margin: theme.spacing(0, 1, 0, 0),
-      },
     },
-
-    helpIcon: {},
 
     dialogPaper: { overflow: 'hidden' },
   })
@@ -72,8 +66,8 @@ const CTSamplePopup: React.FunctionComponent = () => {
         color="inherit"
         className={classes.button}
         onClick={() => setShowDialog(true)}
+        startIcon={<HelpIcon />}
       >
-        <HelpIcon className={classes.helpIcon} />
         What to Expect
       </Button>
 

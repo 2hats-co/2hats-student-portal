@@ -146,9 +146,9 @@ const PopupContents: React.FunctionComponent<IPopupContentsProps> = ({
             variant="contained"
             className={classes.scrollIndicatorButton}
             onClick={clickScrollDown}
+            endIcon={<DownIcon />}
           >
             Scroll for more
-            <DownIcon />
           </Button>
         </Grid>
       </Slide>

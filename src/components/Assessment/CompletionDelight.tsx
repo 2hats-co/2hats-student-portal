@@ -98,9 +98,9 @@ const CompletionDelight: React.FunctionComponent = () => {
           size="large"
           component={Link}
           to={DASHBOARD}
+          endIcon={<GoIcon />}
         >
           Go to Dashboard
-          <GoIcon />
         </Button>
       </section>
     </div>

@@ -1027,11 +1027,19 @@
   dependencies:
     "@bit/twohats.common.constants" "1.0.26"
 
-"@bit/twohats.common.icons.go@1.0.4", "@bit/twohats.common.icons.go@^1.0.4":
+"@bit/twohats.common.icons.go@1.0.4":
   version "1.0.4"
   resolved "https://node.bit.dev/twohats.common.icons.go/-/twohats.common.icons.go-1.0.4.tgz#c071b6cdb4b1d257f49756f95f851e0b7a36b5e9"
   integrity sha1-wHG2zbSx0lf0l1b5X4UeC3o2tek=
   dependencies:
+    clsx "^1.0.4"
+
+"@bit/twohats.common.icons.go@^1.0.8":
+  version "1.0.8"
+  resolved "https://node.bit.dev/twohats.common.icons.go/-/twohats.common.icons.go-1.0.8.tgz#ad1688c675b912b74a42dcff64a6911607c04f6c"
+  integrity sha1-rRaIxnW5ErdKQtz/ZKaRFgfAT2w=
+  dependencies:
+    "@types/react" "16.8.23"
     clsx "^1.0.4"
 
 "@bit/twohats.common.styles@0.0.21", "@bit/twohats.common.styles@^0.0.21":

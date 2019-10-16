@@ -48,9 +48,13 @@ const RightButtonLayout: React.FunctionComponent<IRightButtonLayoutProps> = ({
       >
         <HeadingCaps {...HeadingCapsProps}>{title}</HeadingCaps>
 
-        <Button color="primary" className={classes.button} {...ButtonProps}>
+        <Button
+          color="primary"
+          className={classes.button}
+          endIcon={<GoIcon />}
+          {...ButtonProps}
+        >
           {buttonLabel}
-          <GoIcon />
         </Button>
       </Grid>
 

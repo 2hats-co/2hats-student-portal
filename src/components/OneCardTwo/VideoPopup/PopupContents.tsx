@@ -38,7 +38,6 @@ const useStyles = makeStyles(theme =>
     },
     actionButton: {
       marginBottom: theme.spacing(1),
-      '& svg': { marginLeft: theme.spacing(0.25) },
     },
   })
 );
@@ -103,9 +102,9 @@ const PopupContents: React.FC<PopupContentsProps> = ({
         to={route}
         className={classes.actionButton}
         size="large"
+        endIcon={<GoIcon />}
       >
         {action}
-        <GoIcon />
       </Button>
     </>
   );

@@ -23,13 +23,14 @@ const useStyles = makeStyles(theme =>
       backgroundColor: CURIOUS_PURPLE,
       '&:hover': { backgroundColor: CURIOUS_PURPLE },
       padding: theme.spacing(1.5, 2),
+      paddingLeft: theme.spacing(3),
       textDecoration: 'none',
     },
 
-    label: {
-      '& svg$phoneIcon': { margin: theme.spacing(0, 1.5, 0, 0.5) },
+    startIcon: {
+      // marginLeft: 0,
+      marginRight: theme.spacing(1.5),
     },
-    phoneIcon: {},
   })
 );
 
@@ -61,14 +62,14 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
       color="primary"
       size={'large'}
       className={className}
-      classes={{ root: classes.root, label: classes.label }}
+      classes={{ root: classes.root, startIcon: classes.startIcon }}
       id="curious-thing-dashboard-button"
       component={Link}
       to={PROFILE + '#' + PROFILE_CURIOUS_THING}
+      startIcon={<PersonSpeakingIcon />}
+      endIcon={<GoIcon />}
     >
-      <PersonSpeakingIcon className={classes.phoneIcon} />
       {buttonText}
-      <GoIcon />
     </Button>
   );
 };
