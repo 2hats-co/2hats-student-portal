@@ -966,12 +966,12 @@
   resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.23.tgz#a69a29477b9743f3fcf26292780a919a8cf00fc2"
   integrity sha1-ppopR3uXQ/P88mKSeAqRmozwD8I=
 
-"@bit/twohats.common.components.skill-chip@1.0.31":
-  version "1.0.31"
-  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.31.tgz#629cb66f4714882f1e6bd6199b3d9f0a8a99e37e"
-  integrity sha1-Ypy2b0cUiC8ea9YZmz2fCoqZ434=
+"@bit/twohats.common.components.skill-chip@^1.0.51":
+  version "1.0.51"
+  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.51.tgz#4c13b1a3dfdd64e3b6f1bf1db16ed52c6fd545ba"
+  integrity sha1-TBOxo9/dZOO28b8dsW7VLG/VRbo=
   dependencies:
-    "@bit/twohats.common.db-types" "0.0.47"
+    "@types/react-router-dom" "^4.3.4"
     history "4.9.0"
     react-router-dom "^5.0.1"
 
@@ -993,26 +993,12 @@
     clsx "^1.0.4"
     react-router-dom "^5.0.1"
 
-"@bit/twohats.common.constants@1.0.23":
-  version "1.0.23"
-  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.23.tgz#087cfa743892e65a0c65d9c2d883b90047245688"
-  integrity sha1-CHz6dDiS5loMZdnC2IO5AEckVog=
-  dependencies:
-    firebase "^6.2.4"
-
 "@bit/twohats.common.constants@1.0.28", "@bit/twohats.common.constants@^1.0.28":
   version "1.0.28"
   resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.28.tgz#cca157e104555c203896ad56e876a79fa6e916ec"
   integrity sha1-zKFX4QRVXCA4lq1W6Hann6bpFuw=
   dependencies:
     firebase "^6.2.4"
-
-"@bit/twohats.common.db-types@0.0.47":
-  version "0.0.47"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.47.tgz#2ec16b253fe96d074a5a1643a6346e4ea58582cc"
-  integrity sha1-LsFrJT/pbQdKWhZDpjRuTqWFgsw=
-  dependencies:
-    "@bit/twohats.common.constants" "1.0.23"
 
 "@bit/twohats.common.db-types@^0.0.62":
   version "0.0.62"

@@ -9,7 +9,7 @@
     "@bit/twohats.common.components.heading-title": "^1.0.3",
     "@bit/twohats.common.components.help-popup": "^1.1.6",
     "@bit/twohats.common.components.naked-expansion-panel": "^1.0.23",
-    "@bit/twohats.common.components.skill-chip": "1.0.31",
+    "@bit/twohats.common.components.skill-chip": "^1.0.51",
     "@bit/twohats.common.components.styled-dropzone": "^1.0.6",
     "@bit/twohats.common.components.text-with-graphic": "^1.0.9",
     "@bit/twohats.common.constants": "^1.0.28",
