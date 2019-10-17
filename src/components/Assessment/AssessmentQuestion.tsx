@@ -21,14 +21,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import { DocWithId, UsersDoc } from '@bit/twohats.common.db-types';
-import { RenderedHtmlStyles, QuillStyles } from '@bit/twohats.common.styles';
+import {
+  useRenderedHtmlStyles,
+  useQuillStyles,
+} from '@bit/twohats.common.styles';
 import { copyToClipboard, sanitiseHtml } from '../../utilities';
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    ...RenderedHtmlStyles(theme),
-    ...QuillStyles(theme),
-
     root: { margin: theme.spacing(0, 0, 4) },
     section: { marginTop: theme.spacing(4) },
 
@@ -93,7 +93,11 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
   user,
   readOnly,
 }) => {
-  const classes = useStyles();
+  const classes = {
+    ...useRenderedHtmlStyles({}),
+    ...useQuillStyles({}),
+    ...useStyles(),
+  };
 
   const handleDrop: DropFilesEventHandler = (acceptedFiles, rejectedFiles) => {
     // Upload file

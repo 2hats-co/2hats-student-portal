@@ -29,12 +29,10 @@ import {
   UsersAssessmentsDoc,
 } from '@bit/twohats.common.db-types';
 import { copyAssessment, markViewedFeedback } from 'utilities/assessments';
-import { NakedExpansionPanelStyles } from '@bit/twohats.common.styles';
 
 const useStyles = makeStyles(theme =>
   createStyles({
     centered: { textAlign: 'center' },
-    ...NakedExpansionPanelStyles(theme),
   })
 );
 

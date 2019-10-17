@@ -4,12 +4,10 @@ import { makeStyles, createStyles } from '@material-ui/core';
 
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
-import { RenderedHtmlStyles } from '@bit/twohats.common.styles';
+import { useRenderedHtmlStyles } from '@bit/twohats.common.styles';
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    ...RenderedHtmlStyles(theme),
-
     section: { marginBottom: theme.spacing(4) },
   })
 );
@@ -24,7 +22,7 @@ interface IJobDescriptionProps {
 const JobDescription: React.FunctionComponent<IJobDescriptionProps> = ({
   jobData,
 }) => {
-  const classes = useStyles();
+  const classes = { ...useRenderedHtmlStyles({}), ...useStyles() };
 
   return (
     <>

@@ -8,7 +8,7 @@ import PassIcon from '@material-ui/icons/CheckCircle';
 import FailIcon from '@material-ui/icons/Error';
 
 import { AssessmentFeedback } from '@bit/twohats.common.db-types';
-import { RenderedHtmlStyles } from '@bit/twohats.common.styles';
+import { useRenderedHtmlStyles } from '@bit/twohats.common.styles';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -22,8 +22,6 @@ const useStyles = makeStyles(theme =>
     },
 
     feedbackTitle: { fontWeight: 500 },
-
-    ...RenderedHtmlStyles(theme),
   })
 );
 
@@ -38,7 +36,7 @@ interface IAssessmentFeedbackItemProps {
 const AssessmentFeedbackItem: React.FunctionComponent<
   IAssessmentFeedbackItemProps
 > = ({ feedbackData }) => {
-  const classes = useStyles();
+  const classes = { ...useStyles(), ...useRenderedHtmlStyles({}) };
 
   return (
     <li className={classes.root}>
