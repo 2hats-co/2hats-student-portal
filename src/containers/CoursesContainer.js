@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
-
 import CardGrid from 'components/CardGrid';
 
 import { useUser } from 'contexts/UserContext';
@@ -12,13 +10,6 @@ import { generateCourseCard } from 'utilities/cards';
 
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import * as ROUTES from 'constants/routes';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    // Prevent scrollbar appearing during card animations in Firefox on Windows
-    overflow: 'hidden',
-  },
-}));
 
 const DISPATCH_PROPS = {
   ONGOING: user => ({
@@ -39,7 +30,6 @@ const DISPATCH_PROPS = {
 };
 
 const CoursesContainer = ({ match }) => {
-  const classes = useStyles();
   const { user } = useUser();
 
   // Change tab title
@@ -149,7 +139,7 @@ const CoursesContainer = ({ match }) => {
     if (!completedState.path) completedDispatch(DISPATCH_PROPS.COMPLETED(user));
   }
 
-  return <main className={classes.root}>{contents}</main>;
+  return <main>{contents}</main>;
 };
 
 CoursesContainer.propTypes = {

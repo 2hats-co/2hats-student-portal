@@ -63,7 +63,8 @@ export const getDocsFromQuery = async (
     operator: firebase.firestore.WhereFilterOp;
     value: any;
   }[],
-  sorts?: { field: string; direction?: 'desc' | 'asc' }[]
+  sorts?: { field: string; direction?: 'desc' | 'asc' }[],
+  limit?: number
 ): Promise<any> => {
   let query = firestore.collection(collection).limit(50);
 
@@ -76,6 +77,8 @@ export const getDocsFromQuery = async (
     sorts.forEach(order => {
       query = query.orderBy(order.field, order.direction);
     });
+
+  if (typeof limit === 'number') query = query.limit(limit);
 
   const res = await query.get();
 

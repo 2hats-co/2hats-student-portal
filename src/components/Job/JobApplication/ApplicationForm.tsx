@@ -1,14 +1,11 @@
-import React, { MouseEvent } from 'react';
+import React, { useState } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Formik, Field, Form } from 'formik';
-import isEmpty from 'ramda/es/isEmpty';
 
 import {
   makeStyles,
   createStyles,
-  Typography,
   LinearProgress,
-  Grid,
   Button,
 } from '@material-ui/core';
 
@@ -22,11 +19,10 @@ import PaySliderField from './PaySliderField';
 import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersField';
 import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
 import ResumeField from 'components/FormikFields/ResumeField';
+import ErrorDialog from './ErrorDialog';
 
 import { DocWithId, JobsDoc, UsersJobsDoc } from '@bit/twohats.common.db-types';
 import { useUser } from 'contexts/UserContext';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
-import useDocument from 'hooks/useDocument';
 import { JOB } from 'constants/routes';
 
 import {
@@ -54,11 +50,6 @@ const useStyles = makeStyles(theme =>
       margin: '0 auto',
       marginBottom: theme.spacing(4),
     },
-
-    errorList: {
-      margin: theme.spacing(0.5, 0, 1),
-      padding: '0 0 0 1.25em',
-    },
   })
 );
 
@@ -80,19 +71,15 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
 }) => {
   const classes = useStyles();
 
+  // Show error dialog when the user clicks Submit and there are errors
+  const [openErrorDialog, setOpenErrorDialog] = useState(false);
+  const handleCloseErrorDialog = () => setOpenErrorDialog(false);
+
   // Get profile document to get already inputted data
-  const { user } = useUser();
-  const [profileState] = useDocument({
-    path: `${COLLECTIONS.profiles}/${user.id}`,
-  });
-  const profile = profileState.doc;
-  // Unsubscribe since Formik won’t update when initialValues changes
-  if (!profileState.loading && profile && profileState.unsubscribe)
-    profileState.unsubscribe();
+  const { user, profile } = useUser();
 
   // Show loading screen while profile is loading
-  if (!profile || profileState.loading)
-    return <LinearProgress className={classes.progress} />;
+  if (!profile) return <LinearProgress className={classes.progress} />;
 
   const initialValues = {
     jobAvailabilityStartDate: profile.jobAvailabilityStartDate
@@ -127,7 +114,14 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
         });
       }}
       validationSchema={JobApplicationSchema}
-      render={({ errors, submitForm, dirty, isSubmitting, status }) => (
+      render={({
+        errors,
+        submitForm,
+        dirty,
+        isSubmitting,
+        status,
+        isValid,
+      }) => (
         <Form className={classes.root}>
           <Field name="jobAvailabilityStartDate" component={StartDateField} />
 
@@ -163,8 +157,9 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
           />
 
           <Button
-            onClick={(event: MouseEvent) => {
-              if (!isSubmitting) submitForm();
+            onClick={() => {
+              if (!isValid) setOpenErrorDialog(true);
+              else if (!isSubmitting) submitForm();
             }}
             color="primary"
             variant="contained"
@@ -172,33 +167,20 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
             size="large"
             className={classes.submitButton}
             disabled={isSubmitting}
+            endIcon={<GoIcon />}
           >
             Submit
-            <GoIcon />
           </Button>
 
           {isSubmitting && <LinearProgress />}
 
-          {!isEmpty(errors) && (
-            <Grid container justify="center">
-              <Grid item>
-                <Typography variant="subtitle2" color="error">
-                  There’s something wrong with your submission:
-                </Typography>
-                <Typography
-                  variant="body2"
-                  color="textSecondary"
-                  component="div"
-                >
-                  <ul className={classes.errorList}>
-                    {Object.keys(errors).map(x => (
-                      <li key={x}>{jobApplicationFormDisplayLabels[x]}</li>
-                    ))}
-                  </ul>
-                </Typography>
-              </Grid>
-            </Grid>
-          )}
+          <ErrorDialog
+            open={openErrorDialog}
+            handleClose={handleCloseErrorDialog}
+            erroredFields={Object.keys(errors).map(
+              x => jobApplicationFormDisplayLabels[x]
+            )}
+          />
 
           {dirty && status !== 'submitted' && <DialogPrompt />}
         </Form>

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
+import moment from 'moment';
 
 import {
   makeStyles,
@@ -7,12 +8,24 @@ import {
   useTheme,
   useMediaQuery,
   Typography,
+  Grid,
+  Button,
+  FormControlLabel,
+  Switch,
 } from '@material-ui/core';
+import { lighten, fade } from '@material-ui/core/styles';
+import ExternalIcon from '@material-ui/icons/OpenInNew';
+
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import CTPerformanceBar from './CTPerformanceBar';
 import CTPoweredBy from './CTPoweredBy';
 
 import { useUser } from 'contexts/UserContext';
+
+import { CURIOUS_PURPLE, externalLinkProps } from 'constants/curiousThing';
+import { updateCuriousThingSharing } from 'utilities/curiousThing';
+import { CuriousThingResultData } from '@bit/twohats.common.constants';
+import { MOMENT_FORMATS } from '@bit/twohats.common.constants';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -20,76 +33,102 @@ const useStyles = makeStyles(theme =>
       'section&&': { marginBottom: theme.spacing(2) },
     },
 
+    switchLabel: {
+      justifyContent: 'space-between',
+      marginLeft: theme.spacing(-1),
+      marginBottom: theme.spacing(3),
+      display: 'flex',
+    },
+
     chartWrapper: {
       'section&&': { marginBottom: '0' },
       '& .apexcharts-canvas': { background: 'transparent' },
+    },
+
+    button: {
+      color:
+        theme.palette.type === 'dark'
+          ? lighten(CURIOUS_PURPLE, 0.5)
+          : CURIOUS_PURPLE,
+
+      '&:hover': {
+        backgroundColor: fade(
+          theme.palette.type === 'dark'
+            ? lighten(CURIOUS_PURPLE, 0.5)
+            : CURIOUS_PURPLE,
+          theme.palette.action.hoverOpacity
+        ),
+      },
     },
   })
 );
 
 interface ICTResultProps {
-  resultData: {
-    timestamp: string;
-    candidate_info: {
-      current_company?: string | null;
-      family_name: string;
-      email: string;
-      current_job_title?: string | null;
-      given_name: string;
-    };
-    result: {
-      topic: string;
-      text: string;
-    }[];
-    analytics: {
-      key_performance_score: {
-        percentile_interview_level: number;
-        confidence: string;
-        attribute_name: string;
-        min: number;
-        max: number;
-        average: number;
-        percentile_interview_level_phrase: string;
-        benchmark: number;
-        comments: string;
-        score: number;
-        percentile_phrase?: string;
-      }[];
-      personality: {
-        important_values: {
-          category: string;
-          trait_id: string;
-          name: string;
-          percentile: number;
-          raw_score: number;
-          significant: boolean;
-        }[];
-        big_five_normalised: {
-          [attribute: string]: { percentile: number };
-        };
-        important_needs: {
-          category: string;
-          trait_id: string;
-          name: string;
-          percentile: number;
-          raw_score: number;
-          significant: boolean;
-        }[];
-      };
-    };
+  /** Whether or not this is a sample result to hide the Switch */
+  sample?: boolean;
+  resultData: CuriousThingResultData & {
     shareWithEmployers?: boolean;
   };
 }
 
-const CTResult: React.FunctionComponent<ICTResultProps> = ({ resultData }) => {
+/**
+ * Displays:
+ * - a subset of the interview result
+ *
+ * If not `sample`, also displays:
+ * - Timestamp
+ * - Share With Employers setting
+ * - View Full Report and Try Again buttons
+ */
+const CTResult: React.FunctionComponent<ICTResultProps> = ({
+  sample = false,
+  resultData,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
-  const { user } = useUser();
+  const { user, UID } = useUser();
 
   return (
     <>
+      {!sample && (
+        <>
+          <section className={classes.section}>
+            <Typography variant="body2" color="textSecondary" gutterBottom>
+              These are your results from your Curious Thing interview{' '}
+              <abbr
+                title={moment(resultData.timestamp.toDate()).format(
+                  MOMENT_FORMATS.dateTime
+                )}
+              >
+                {moment(resultData.timestamp.toDate()).fromNow()}
+              </abbr>
+              .
+            </Typography>
+
+            <Typography variant="body2" color="textSecondary">
+              You may choose to not share it with potential employers below.
+            </Typography>
+          </section>
+
+          <FormControlLabel
+            control={
+              <Switch
+                color="primary"
+                defaultChecked={resultData.shareWithEmployers}
+                onChange={updateCuriousThingSharing(UID, resultData)}
+              />
+            }
+            label={
+              <Typography variant="overline">Share With Employers</Typography>
+            }
+            labelPlacement="start"
+            className={classes.switchLabel}
+          />
+        </>
+      )}
+
       <section className={classes.section}>
         {resultData.analytics.key_performance_score.map(x => (
           <CTPerformanceBar key={x.attribute_name} result={x} />
@@ -195,6 +234,37 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({ resultData }) => {
             .text.replace(/{{firstName}}/g, user.firstName)}
         </Typography>
       </section>
+
+      {!sample && (
+        <Grid
+          container
+          justify="center"
+          spacing={3}
+          component="section"
+          className={classes.section}
+        >
+          <Grid item>
+            <Button
+              {...externalLinkProps}
+              href={resultData.reportUrl}
+              className={classes.button}
+              endIcon={<ExternalIcon />}
+            >
+              View Full Report
+            </Button>
+          </Grid>
+
+          <Grid item>
+            <Button
+              {...externalLinkProps}
+              className={classes.button}
+              endIcon={<ExternalIcon />}
+            >
+              Try Again
+            </Button>
+          </Grid>
+        </Grid>
+      )}
 
       <CTPoweredBy />
     </>

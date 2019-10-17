@@ -9,7 +9,7 @@ import {
   Slide,
   Dialog,
 } from '@material-ui/core';
-import { fade } from '@material-ui/core/styles';
+import { fade, lighten } from '@material-ui/core/styles';
 import { TransitionProps } from '@material-ui/core/transitions';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 
@@ -21,21 +21,20 @@ const useStyles = makeStyles(theme =>
   createStyles({
     button: {
       marginTop: theme.spacing(3),
-      color: CURIOUS_PURPLE,
+      color:
+        theme.palette.type === 'dark'
+          ? lighten(CURIOUS_PURPLE, 0.5)
+          : CURIOUS_PURPLE,
 
       '&:hover': {
         backgroundColor: fade(
-          CURIOUS_PURPLE,
+          theme.palette.type === 'dark'
+            ? lighten(CURIOUS_PURPLE, 0.5)
+            : CURIOUS_PURPLE,
           theme.palette.action.hoverOpacity
         ),
       },
-
-      '& svg$helpIcon': {
-        margin: theme.spacing(0, 1, 0, 0),
-      },
     },
-
-    helpIcon: {},
 
     dialogPaper: { overflow: 'hidden' },
   })
@@ -67,8 +66,8 @@ const CTSamplePopup: React.FunctionComponent = () => {
         color="inherit"
         className={classes.button}
         onClick={() => setShowDialog(true)}
+        startIcon={<HelpIcon />}
       >
-        <HelpIcon className={classes.helpIcon} />
         What to Expect
       </Button>
 

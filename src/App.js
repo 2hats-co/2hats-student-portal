@@ -1,8 +1,9 @@
 import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { configureAnchors } from 'react-scrollable-anchor';
 
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
-import { Theme, DarkTheme } from './Theme';
+import { Theme, DarkTheme, useGlobalStyles } from './Theme';
 import { CssBaseline, useMediaQuery } from '@material-ui/core';
 
 import useAuth from 'hooks/useAuth';
@@ -32,6 +33,7 @@ import CoursesContainer from 'containers/CoursesContainer';
 import CourseRedirectContainer from 'containers/CourseRedirectContainer';
 import DetailedViewContainer from 'containers/DetailedViewContainer';
 import ProfileContainer from 'containers/ProfileContainer';
+import ProfileSettingsContainer from 'containers/ProfileSettingsContainer';
 
 const AuthenticationContainer = lazy(() =>
   import(
@@ -53,38 +55,22 @@ const OnboardingContainer = lazy(() =>
     'containers/OnboardingContainer' /* webpackChunkName: "OnboardingContainer" */
   )
 );
-const ProfileSettingsContainer = lazy(() =>
-  import(
-    'containers/ProfileSettingsContainer' /* webpackChunkName: "ProfileSettingsContainer" */
-  )
-);
-const SchedulerContainer = lazy(() =>
-  import(
-    'containers/SchedulerContainer' /* webpackChunkName: "SchedulerContainer" */
-  )
-);
 
-// Need to put this here to override <CssBaseline />
-const useStyles = makeStyles({
-  '@global': {
-    html: {
-      // Use subpixel antialiasing
-      WebkitFontSmoothing: 'subpixel-antialiased',
-      MozOsxFontSmoothing: 'auto',
-    },
-  },
-});
+// Configure ScrollableAnchors to have a top offset so nothing gets cut off
+configureAnchors({ offset: -50 });
 
 const App = () => {
   const authUser = useAuth();
   const [userDocState, userDocDispatch] = useDocument({});
+  const [profileDocState, profileDocDispatch] = useDocument({});
 
-  useStyles();
+  useGlobalStyles();
 
   useEffect(() => {
-    if (authUser && authUser.uid)
-      userDocDispatch({ path: `${COLLECTIONS.users}/${authUser.uid}` });
-  }, [authUser, userDocDispatch]);
+    if (!authUser || !authUser.uid) return;
+    userDocDispatch({ path: `${COLLECTIONS.users}/${authUser.uid}` });
+    profileDocDispatch({ path: `${COLLECTIONS.profiles}/${authUser.uid}` });
+  }, [authUser, userDocDispatch, profileDocDispatch]);
 
   const prefersDark = useMediaQuery('@media (prefers-color-scheme: dark)', {
     noSsr: true,
@@ -102,7 +88,14 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ErrorBoundary>
-        <UserContext.Provider value={{ authUser, user: userDocState.doc }}>
+        <UserContext.Provider
+          value={{
+            authUser,
+            UID: authUser ? authUser.uid : null,
+            user: userDocState.doc,
+            profile: profileDocState.doc,
+          }}
+        >
           <Router>
             <HistoryProvider>
               <div className="app">
@@ -283,16 +276,6 @@ const App = () => {
                       render={props => (
                         <Navigation>
                           <CourseRedirectContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
-
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.SCHEDULER}
-                      render={props => (
-                        <Navigation>
-                          <SchedulerContainer {...props} />
                         </Navigation>
                       )}
                     />

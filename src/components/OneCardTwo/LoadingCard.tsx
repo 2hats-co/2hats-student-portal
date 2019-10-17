@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme =>
 
       animationName: '$fade-in',
       animationDuration: `${theme.transitions.duration.standard}ms`,
-      animationTimingFunction: `${theme.transitions.easing.easeIn}ms`,
+      animationTimingFunction: theme.transitions.easing.easeIn,
       animationFillMode: 'both',
     },
     '@keyframes fade-in': {

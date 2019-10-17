@@ -65,9 +65,9 @@ const FourOhFour = ({ history }) => {
           onClick={() => {
             history.push(DASHBOARD);
           }}
+          endIcon={<GoIcon />}
         >
           Go to Dashboard
-          <GoIcon />
         </Button>
       </Grid>
     </Grid>

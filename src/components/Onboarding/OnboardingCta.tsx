@@ -63,9 +63,9 @@ const OnboardingCta: React.FC<OnboardingCtaProps> = ({
         pathname: getNextStageRoute(match.params.stage),
       }}
       disabled={disabled}
+      endIcon={!secondary && <GoIcon />}
     >
       {action}
-      {!secondary && <GoIcon />}
     </Button>
   );
 };

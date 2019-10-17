@@ -23,18 +23,9 @@ import * as ROUTES from 'constants/routes';
 const useStyles = makeStyles(theme =>
   createStyles({
     relatedCards: {
-      // Fix width to width of card columns
-      maxWidth: 'none',
-      [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
-      [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
-      [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
-      [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
-      [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
-
       margin: '0 auto',
       marginTop: theme.spacing(7),
     },
-    relatedCourseWrapper: { marginBottom: theme.spacing(4) },
   })
 );
 
@@ -111,17 +102,15 @@ const AssessmentRelated: React.FunctionComponent<IAssessmentRelatedProps> = ({
         (!showDelight ||
           ('outcome' in assessmentData &&
             assessmentData.outcome === 'pass')) && (
-          <div className={classes.relatedCourseWrapper}>
-            <CardGridHeader
-              header="Prepare with a quick 2hats course for this assessment."
-              route={`${ROUTES.COURSE_REDIRECT}?id=${relatedCourse.id}`}
-              routeLabel={`Course: ${relatedCourse.title}`}
-              // Needed to appease the TypeScript gods and actually show the link
-              showPreviewOnly
-              length={1}
-              hideCount
-            />
-          </div>
+          <CardGridHeader
+            header="Prepare with a quick 2hats course for this assessment."
+            route={`${ROUTES.COURSE_REDIRECT}?id=${relatedCourse.id}`}
+            routeLabel={`Course: ${relatedCourse.title}`}
+            // Needed to appease the TypeScript gods and actually show the link
+            showPreviewOnly
+            length={1}
+            hideCount
+          />
         )}
 
       {/* Related jobs, if available */}

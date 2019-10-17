@@ -9,6 +9,7 @@ import {
   Slider,
   IconButton,
 } from '@material-ui/core';
+import { fade } from '@material-ui/core/styles';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -21,6 +22,9 @@ import {
   STEP,
   SLIDER_COLOR,
   SLIDER_LIGHT_COLOR,
+  incrementSlider,
+  decrementSlider,
+  useSliderHover,
 } from 'utilities/workCultureSliders';
 
 const useStyles = makeStyles(theme =>
@@ -28,7 +32,14 @@ const useStyles = makeStyles(theme =>
     root: {
       color: SLIDER_COLOR,
       marginTop: theme.spacing(2),
+      transition: theme.transitions.create('opacity'),
     },
+    disabled: {
+      opacity: 0.5,
+      userSelect: 'none',
+    },
+
+    labelWrapper: { overflow: 'hidden' },
 
     sliderWrapper: {
       margin: theme.spacing(0, -1.5),
@@ -40,6 +51,8 @@ const useStyles = makeStyles(theme =>
       height: 20,
       boxSizing: 'border-box',
       padding: '11px 0 9px',
+
+      '&$sliderDisabled': { color: 'inherit' },
     },
     sliderRail: { backgroundColor: 'currentColor', opacity: 1 },
     sliderMark: {
@@ -51,25 +64,31 @@ const useStyles = makeStyles(theme =>
       marginTop: -2,
     },
 
-    sliderThumb: {
-      color: theme.palette.primary.main,
-      width: 20,
-      height: 20,
-      marginTop: -9,
-      marginLeft: -10,
+    chevronButton: {
+      '&:hover': {
+        backgroundColor: fade(SLIDER_COLOR, theme.palette.action.hoverOpacity),
+      },
+    },
 
-      transition: theme.transitions.create(['box-shadow', 'left'], {
-        duration: theme.transitions.duration.shortest,
-      }),
-      // Hide arrows
-      '& > svg': { opacity: 0 },
+    sliderDisabled: {
+      '& $sliderThumb': { display: 'none' },
     },
-    // Show arrows when thumb in middle
-    sliderThumbMiddle: {
-      '$sliderThumb& > svg': { opacity: 1 },
-    },
+    sliderThumb: {},
   })
 );
+
+/**
+ * A context to pass down the current Slider:
+ * - `displayValue` to trigger whether to show the middle animation or not,
+ *   and where to display the thumb
+ * - `hoverValue` to move the thumb on hover
+ * - `showInitialThumbAnimation` from props
+ */
+export const SliderContext = React.createContext({
+  value: DEFAULT_VALUE,
+  hoverValue: -1,
+  showInitialThumbAnimation: false,
+});
 
 interface IWorkCultureSliderProps {
   /** Label for the "min value" — should be opposite of `sliderName` */
@@ -89,10 +108,15 @@ interface IWorkCultureSliderProps {
   value: number | undefined;
   /** Called by MUI Slider’s onChange callback */
   onChange: (value: number) => void;
+  /** Disable the slider if it’s not the next one for the user to input */
+  disabled?: boolean;
+  /** Whether or not to show the initial animation for `SliderThumb` */
+  showInitialThumbAnimation?: boolean;
 }
 
 /**
- * An individual slider, using a styled MUI Slider.
+ * An individual slider, using a styled MUI Slider. Has its own context
+ * to make `SliderThumb` work.
  */
 const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   minLabel,
@@ -100,8 +124,14 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   flipped = false,
   value,
   onChange,
+  disabled = true,
+  showInitialThumbAnimation = false,
 }) => {
   const classes = useStyles();
+
+  // Get the current hover value using this hook, which was broken out
+  // of this component’s main logic
+  const [sliderRef, hoverValue] = useSliderHover(disabled);
 
   // Show the DEFAULT_VALUE (in the middle) if value is initially undefined
   // Otherwise, show the flipped value or the original value
@@ -112,35 +142,50 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
   const getFlipCorrectedValue = (val: number) =>
     flipped ? MAX_VALUE - val : val;
 
+  // Move increment/decrement logic to utilities
   const increment = () =>
     onChange(
-      Math.min(
-        (value === undefined ? Math.floor(DEFAULT_VALUE) : value) + STEP,
-        MAX_VALUE
-      )
+      incrementSlider(value === undefined ? Math.floor(DEFAULT_VALUE) : value)
     );
   const decrement = () =>
     onChange(
-      Math.max(
-        (value === undefined ? Math.ceil(DEFAULT_VALUE) : value) - STEP,
-        MIN_VALUE
-      )
+      decrementSlider(value === undefined ? Math.ceil(DEFAULT_VALUE) : value)
     );
 
   return (
-    <div className={classes.root}>
-      <Grid
-        container
-        justify="space-between"
-        direction={flipped ? 'row-reverse' : 'row'}
+    <div className={clsx(classes.root, disabled && classes.disabled)}>
+      <div
+        className={classes.labelWrapper} // Wrapper to prevent horizontal scrolling on mobile
       >
-        <Typography variant="overline" color="inherit">
-          {minLabel}
-        </Typography>
-        <Typography variant="overline" color="inherit">
-          {maxLabel}
-        </Typography>
-      </Grid>
+        <Grid
+          container
+          spacing={7} // Add spacing for "Pick" text
+          alignItems="flex-end"
+          direction={flipped ? 'row-reverse' : 'row'}
+        >
+          <Grid item xs={6}>
+            <Typography
+              variant="overline"
+              color="inherit"
+              component="p"
+              align={flipped ? 'right' : 'left'}
+            >
+              {minLabel}
+            </Typography>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Typography
+              variant="overline"
+              color="inherit"
+              component="p"
+              align={flipped ? 'left' : 'right'}
+            >
+              {maxLabel}
+            </Typography>
+          </Grid>
+        </Grid>
+      </div>
 
       <Grid
         container
@@ -153,37 +198,46 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             color="inherit"
             onClick={flipped ? increment : decrement}
             size="small"
+            className={classes.chevronButton}
+            disabled={disabled || displayValue === MIN_VALUE}
           >
             <ChevronLeftIcon />
           </IconButton>
         </Grid>
 
         <Grid item xs>
-          <Slider
-            value={displayValue}
-            onChange={(e, v) => {
-              // Only call the onChange method if the values are not the same
-              if (v !== displayValue)
-                onChange(getFlipCorrectedValue(Array.isArray(v) ? v[0] : v));
+          <SliderContext.Provider
+            value={{
+              value: displayValue,
+              hoverValue,
+              showInitialThumbAnimation,
             }}
-            min={MIN_VALUE}
-            max={MAX_VALUE}
-            step={STEP}
-            valueLabelDisplay="off"
-            marks
-            classes={{
-              root: classes.sliderRoot,
-              rail: classes.sliderRail,
-              mark: classes.sliderMark,
-              markActive: classes.sliderMark,
-              thumb: clsx(
-                classes.sliderThumb,
-                (value === DEFAULT_VALUE || value === undefined) &&
-                  classes.sliderThumbMiddle
-              ),
-            }}
-            ThumbComponent={SliderThumb}
-          />
+          >
+            <Slider
+              value={displayValue}
+              onChange={(e, v) => {
+                // Only call the onChange method if the values are not the same
+                if (v !== displayValue)
+                  onChange(getFlipCorrectedValue(Array.isArray(v) ? v[0] : v));
+              }}
+              min={MIN_VALUE}
+              max={MAX_VALUE}
+              step={STEP}
+              valueLabelDisplay="off"
+              marks
+              classes={{
+                root: classes.sliderRoot,
+                rail: classes.sliderRail,
+                mark: classes.sliderMark,
+                markActive: classes.sliderMark,
+                disabled: classes.sliderDisabled,
+                thumb: classes.sliderThumb,
+              }}
+              ThumbComponent={disabled ? 'span' : SliderThumb}
+              disabled={disabled}
+              ref={sliderRef}
+            />
+          </SliderContext.Provider>
         </Grid>
 
         <Grid item>
@@ -191,6 +245,8 @@ const WorkCultureSlider: React.FunctionComponent<IWorkCultureSliderProps> = ({
             color="inherit"
             onClick={flipped ? decrement : increment}
             size="small"
+            className={classes.chevronButton}
+            disabled={disabled || displayValue === MAX_VALUE}
           >
             <ChevronRightIcon />
           </IconButton>

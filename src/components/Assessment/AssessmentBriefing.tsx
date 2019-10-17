@@ -13,12 +13,10 @@ import {
   UsersAssessmentsDoc,
 } from '@bit/twohats.common.db-types';
 
-import { RenderedHtmlStyles } from '@bit/twohats.common.styles';
+import { useRenderedHtmlStyles } from '@bit/twohats.common.styles';
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    ...RenderedHtmlStyles(theme),
-
     section: { marginBottom: theme.spacing(4) },
 
     maskedSection: {
@@ -113,7 +111,7 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
   assessmentData,
   previewInstructionsOnly = false,
 }) => {
-  const classes = useStyles();
+  const classes = { ...useRenderedHtmlStyles({}), ...useStyles() };
 
   const instructionsRef = useRef<HTMLElement>(null);
 

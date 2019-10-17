@@ -38,7 +38,7 @@ const ProtectedRoute = ({ render, location, ...rest }) => {
   let redirectRoute = SIGN_IN;
   if (location.pathname)
     redirectRoute += `?route=${encodeURIComponent(
-      location.pathname + location.search
+      location.pathname + location.search + location.hash
     )}`;
 
   if (!authUser)

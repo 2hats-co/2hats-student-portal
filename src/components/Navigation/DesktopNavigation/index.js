@@ -31,10 +31,13 @@ const useStyles = makeStyles(theme => ({
   nav: { height: '100%' },
 
   logoWrapper: {
-    padding: theme.spacing(2),
-    paddingBottom: theme.spacing(1),
-    justifyContent: 'flex-start',
-    lineHeight: 1,
+    height: 64,
+    paddingLeft: theme.spacing(1.5),
+    marginBottom: theme.spacing(-1.5),
+
+    display: 'flex',
+    alignItems: 'center',
+    flexShrink: 0,
   },
   logo: {
     width: 100,

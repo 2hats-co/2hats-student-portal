@@ -85,9 +85,9 @@ const SuggestedCourseDialog: React.FunctionComponent<
                       `${ROUTES.COURSE_REDIRECT}/?id=${relatedCourse.id}`
                     );
                 }}
+                endIcon={<GoIcon />}
               >
                 Go to Course
-                <GoIcon />
               </Button>
             </Grid>
             <Grid item xs={12} sm={6}>

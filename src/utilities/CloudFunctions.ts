@@ -2,7 +2,6 @@ import { functions } from '../firebase';
 
 export const CLOUD_FUNCTIONS = {
   TAG_TRACKER: 'callablesEventTracker',
-  RESUME_SCRAPER: 'callablesAlgoliaResumes',
   SPEEDY_SIGNUP: 'callablesAuthSpeedySignup',
   AUTHENTICATE_GOOGLE: 'callablesAuthGoogle',
   AUTHENTICATE_LINKEDIN: 'callablesAuthenticateLinkedIn', // not used
@@ -16,9 +15,7 @@ export const CLOUD_FUNCTIONS = {
   // DISABLE_SMART_LINK: 'callablesSmartLinkDisable', //From old code
   DISABLE_SMART_LINK: 'smartLinkDisable', //From new code
   LEARN_WORLD_SSO: 'callablesLearnWorldSignon',
-  CHARGE_STRIPE_TOKEN: 'callablesStripeChargeToken', //not used
   LW_SINGLE_SIGN_ON: 'callablesLearnWorldSignon',
-  WHATS_NEXT_AI: 'callablesWhatsNextAI',
   // CREATE_SMART_LINK: 'callablesSmartLinkCreate', //From old code
   CREATE_SMART_LINK: 'smartLinkCreate', //From new code
   CHECK_FREE_TIMESLOTS: 'callablesCalendarFreeTimeslots',

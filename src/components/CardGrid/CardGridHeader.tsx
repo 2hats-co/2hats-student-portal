@@ -4,50 +4,78 @@ import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core';
 import {
+  useMediaQuery,
   Grid,
   Typography,
   Button,
   IconButton,
   Chip,
-  useMediaQuery,
 } from '@material-ui/core';
+import Skeleton from '@material-ui/lab/Skeleton';
 import { fade } from '@material-ui/core/styles';
 import GoIcon from '@bit/twohats.common.icons.go';
 
-import { CARD_SPACING, CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
+import { CARD_COLS_MEDIA_QUERIES, CARD_SPACING } from 'constants/cards';
+import { IS_MOBILE_QUERY } from 'constants/layout';
 import { INITIAL_LIMIT } from 'hooks/useCollection';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    minHeight: 36, // Height of Show All button
-
-    // Align horizontally with card ends
-    paddingLeft: theme.spacing(CARD_SPACING / 8 / 2),
-    marginBottom: theme.spacing(0.5),
-
     userSelect: 'none',
+
+    [IS_MOBILE_QUERY]: {
+      position: 'sticky',
+      top: 0,
+      backgroundColor: fade(
+        theme.palette.background.default,
+        theme.palette.type === 'dark' ? 0.8 : 0.85
+      ),
+
+      backdropFilter: 'saturate(180%) blur(20px)',
+      zIndex: 1,
+
+      transition: theme.transitions.create('top', {
+        duration: theme.transitions.duration.short,
+      }),
+
+      'body.mobilenav-show &': {
+        // From MUI source code: https://github.com/mui-org/material-ui/blob/master/packages/material-ui/src/styles/createMixins.js
+        top: 56,
+        [`${theme.breakpoints.up('xs')} and (orientation: landscape)`]: {
+          top: 48,
+        },
+        [theme.breakpoints.up('sm')]: {
+          top: 64,
+        },
+      },
+    },
   },
 
   grid: {
+    ...theme.mixins.toolbar,
+
     textDecoration: 'none', // Fix for Link component
     color: theme.palette.text.primary, // Allows Typography to inherit color
   },
-  hideButtonLabel: {
-    marginBottom: theme.spacing(-0.75), // Optically align icon button & header
+
+  content: {
+    marginLeft: 'auto',
+    marginRight: 'auto',
+
+    // Align horizontally with card ends
+    paddingLeft: theme.spacing(CARD_SPACING / 8 / 2),
   },
 
   // Styles for Link
   link: {
-    '& a': {
-      color: theme.palette.text.primary,
-      textDecoration: 'none',
+    color: theme.palette.text.primary,
+    transition: theme.transitions.create('color', {
+      duration: theme.transitions.duration.short,
+    }),
 
-      transition: theme.transitions.create('color', {
-        duration: theme.transitions.duration.short,
-      }),
-    },
     '&:hover': {
-      '& a': { color: theme.palette.primary.main },
+      color: theme.palette.primary.main,
+
       // Show the same thing as button hover
       '& $button': {
         backgroundColor: fade(
@@ -63,23 +91,17 @@ const useStyles = makeStyles(theme => ({
     },
   },
 
-  button: {
-    'a&': {
-      color: theme.palette.primary.main,
-      transition: theme.transitions.create('background-color', {
-        duration: theme.transitions.duration.short,
-      }),
-    },
-  },
-
-  iconButton: { margin: '-3px 0' }, // Stop IconButton making header larger
-  iconButtonGo: { 'svg&': { marginLeft: '0 !important' } }, // Stop Go icon from adding left padding
+  button: {},
 
   header: { display: 'inline-block' },
   lengthChip: {
+    minWidth: 24,
+    height: 24,
     marginLeft: theme.spacing(1.5),
+
     verticalAlign: 'bottom',
     fontWeight: theme.typography.fontWeightMedium,
+
     cursor: 'inherit',
     backgroundColor: theme.palette.divider,
 
@@ -106,6 +128,8 @@ export interface ICardGridHeaderProps {
   hideCount?: boolean;
   /** Number at which the count will show + at the end */
   maxCount?: number;
+  /** Whether or not cards are loading */
+  loading?: boolean;
 }
 
 const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
@@ -117,78 +141,97 @@ const CardGridHeader: React.FunctionComponent<ICardGridHeaderProps> = ({
   length,
   hideCount,
   maxCount = INITIAL_LIMIT,
+  loading = false,
 }) => {
   const classes = useStyles();
 
   const showButtonLabel = useMediaQuery(CARD_COLS_MEDIA_QUERIES[2]);
+  const showLink = showPreviewOnly && length > 0;
 
-  if (description)
+  if (loading)
     return (
       <header className={classes.root}>
-        <Typography variant="h6" component="h1" color="inherit" gutterBottom>
-          {header}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" gutterBottom>
-          {description}
-        </Typography>
+        <Grid
+          container
+          alignItems="center"
+          className={clsx(
+            classes.grid,
+            classes.content,
+            'width-fixed-cards-cols'
+          )}
+        >
+          <Skeleton width={120} />
+        </Grid>
       </header>
     );
 
-  const showLink = showPreviewOnly && length > 0;
-
   return (
-    <header className={classes.root}>
-      <Grid
-        container
-        justify="space-between"
-        alignItems={showButtonLabel ? 'baseline' : 'center'}
-        className={clsx(
-          classes.grid,
-          !showButtonLabel && classes.hideButtonLabel,
-          showLink && classes.link
-        )}
-      >
-        <Grid item xs component={showLink ? Link : 'div'} to={route}>
-          <Typography
-            variant="h6"
-            component="h1"
-            color="inherit"
-            className={classes.header}
-          >
-            {header}
-          </Typography>
-          {length > 0 && !hideCount && (
-            <Chip
-              label={`${length}${length === maxCount ? '+' : ''}`}
-              size="small"
-              className={classes.lengthChip}
-            />
+    <>
+      <header className={classes.root}>
+        <Grid
+          container
+          justify="space-between"
+          alignItems="center"
+          className={clsx(
+            classes.grid,
+            classes.content,
+            'width-fixed-cards-cols',
+            showLink && classes.link
           )}
+          component={showLink ? Link : 'div'}
+          to={showLink ? route : undefined}
+        >
+          <Grid item xs>
+            <Typography
+              variant="h6"
+              component="h1"
+              color="inherit"
+              className={classes.header}
+            >
+              {header}
+            </Typography>
+
+            {length > 0 && !hideCount && !description && (
+              <Chip
+                label={`${length}${length === maxCount ? '+' : ''}`}
+                size="small"
+                className={classes.lengthChip}
+              />
+            )}
+          </Grid>
+
+          {showLink &&
+            (showButtonLabel ? (
+              <Button
+                color="primary"
+                className={classes.button}
+                endIcon={<GoIcon />}
+              >
+                {routeLabel || 'Show All'}
+              </Button>
+            ) : (
+              <IconButton
+                color="primary"
+                size="small"
+                className={classes.button}
+              >
+                <GoIcon compact={false} />
+              </IconButton>
+            ))}
         </Grid>
-        {showLink &&
-          (showButtonLabel ? (
-            <Button
-              color="primary"
-              component={Link}
-              to={route}
-              className={classes.button}
-            >
-              {routeLabel || 'Show All'}
-              <GoIcon />
-            </Button>
-          ) : (
-            <IconButton
-              color="primary"
-              component={Link}
-              to={route}
-              size="small"
-              className={clsx(classes.button, classes.iconButton)}
-            >
-              <GoIcon className={classes.iconButtonGo} />
-            </IconButton>
-          ))}
-      </Grid>
-    </header>
+      </header>
+
+      {description && (
+        <Typography
+          variant="body2"
+          color="textSecondary"
+          paragraph
+          className={clsx(classes.content, 'width-fixed-cards-cols')}
+        >
+          {description}
+        </Typography>
+      )}
+    </>
   );
 };
 

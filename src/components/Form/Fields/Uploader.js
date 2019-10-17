@@ -15,15 +15,12 @@ import FileIcon from '@material-ui/icons/AttachmentOutlined';
 import { uploader } from '../../../utilities/Uploader';
 import Dropzone from 'react-dropzone';
 
-import { STYLES } from '@bit/sidney2hats.2hats.global.common-constants';
-
 import isEmpty from 'ramda/es/isEmpty';
 
 const styles = theme => ({
   sectionTitle: {
     marginLeft: theme.spacing(1.5),
   },
-  ...STYLES.DROPZONE(theme),
 });
 
 const Uploader = props => {

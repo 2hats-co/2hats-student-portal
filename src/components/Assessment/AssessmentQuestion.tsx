@@ -21,14 +21,14 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import { DocWithId, UsersDoc } from '@bit/twohats.common.db-types';
-import { RenderedHtmlStyles, QuillStyles } from '@bit/twohats.common.styles';
+import {
+  useRenderedHtmlStyles,
+  useQuillStyles,
+} from '@bit/twohats.common.styles';
 import { copyToClipboard, sanitiseHtml } from '../../utilities';
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    ...RenderedHtmlStyles(theme),
-    ...QuillStyles(theme),
-
     root: { margin: theme.spacing(0, 0, 4) },
     section: { marginTop: theme.spacing(4) },
 
@@ -93,7 +93,11 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
   user,
   readOnly,
 }) => {
-  const classes = useStyles();
+  const classes = {
+    ...useRenderedHtmlStyles({}),
+    ...useQuillStyles({}),
+    ...useStyles(),
+  };
 
   const handleDrop: DropFilesEventHandler = (acceptedFiles, rejectedFiles) => {
     // Upload file
@@ -183,9 +187,9 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
                 copyToClipboard(mcEmail);
                 alert(`Copied to ${mcEmail} clipboard`);
               }}
+              endIcon={<CopyIcon />}
             >
               Copy
-              <CopyIcon />
             </Button>
           </Typography>
           <HeadingCaps className={classes.section}>Email preview</HeadingCaps>
@@ -211,7 +215,7 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
               Write your code using our <b>code editor</b>, where you can make
               changes in real time and submit with one click.
             </Typography>
-            <Typography variant="body1" gutterBottom>
+            <Typography variant="body1" paragraph>
               Note: You <b>must</b> submit in the code editor, not on this page.
             </Typography>
             <Button
@@ -226,9 +230,9 @@ const AssessmentQuestion: React.FunctionComponent<IAssessmentQuestionProps> = ({
               target="_blank"
               rel="noopener noreferrer"
               size="large"
+              endIcon={<LaunchIcon />}
             >
               Open in new tab
-              <LaunchIcon />
             </Button>
 
             <div className={classes.section}>

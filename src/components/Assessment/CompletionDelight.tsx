@@ -17,10 +17,7 @@ import SkillsPlantGraphic from 'assets/images/graphics/SkillsPlant.svg';
 import GoIcon from '@bit/twohats.common.icons.go';
 
 import { DASHBOARD } from 'constants/routes';
-import { getDoc } from 'utilities/firestore';
 import { useUser } from 'contexts/UserContext';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
-import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -46,14 +43,7 @@ const useStyles = makeStyles(theme =>
  */
 const CompletionDelight: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user } = useUser();
-
-  const [profile, setProfile] = useState<DocWithId<ProfilesDoc> | null>();
-
-  useEffect(() => {
-    if (profile === undefined)
-      getDoc(COLLECTIONS.profiles, user.id).then(result => setProfile(result));
-  }, [user]);
+  const { user, profile } = useUser();
 
   if (!profile)
     return (
@@ -90,7 +80,7 @@ const CompletionDelight: React.FunctionComponent = () => {
       {(!profile.resume || !profile.resume.name || !profile.resume.url) && (
         <section>
           <HeadingCaps>My Résumé</HeadingCaps>
-          <Typography variant="body1" color="textSecondary" gutterBottom>
+          <Typography variant="body1" color="textSecondary" paragraph>
             You’re on our radar! Uploading a résumé makes it easier for us to
             contact you about jobs and uni events such as hackathons and
             workshops.
@@ -108,9 +98,9 @@ const CompletionDelight: React.FunctionComponent = () => {
           size="large"
           component={Link}
           to={DASHBOARD}
+          endIcon={<GoIcon />}
         >
           Go to Dashboard
-          <GoIcon />
         </Button>
       </section>
     </div>

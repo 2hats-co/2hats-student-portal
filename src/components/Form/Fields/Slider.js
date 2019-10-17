@@ -2,7 +2,7 @@ import React from 'react';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import MUISlider from '@material-ui/lab/Slider';
+import MUISlider from '@material-ui/core/Slider';
 
 const styles = theme => ({
   sliderSectionWrapper: { margin: `${theme.spacing(1)}px 0` },

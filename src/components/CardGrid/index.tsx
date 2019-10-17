@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withRouter, Link, RouteComponentProps } from 'react-router-dom';
 import { CSSTransition } from 'react-transition-group';
 import InfiniteScroll from 'react-infinite-scroller';
@@ -39,14 +38,6 @@ const useStyles = makeStyles(theme =>
 
       margin: '0 auto', // Horizontally center
 
-      // Fix width to width of card columns
-      maxWidth: 'none',
-      [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
-      [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
-      [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
-      [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
-      [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
-
       // Add margin in between two adjacent CardGrids
       '& + &': {
         marginTop: theme.spacing(4),
@@ -77,8 +68,16 @@ const useStyles = makeStyles(theme =>
 
     cardGrid: {
       listStyleType: 'none',
-      margin: 0,
+      margin: '0 auto',
       padding: 0,
+
+      // Fix width to width of card columns
+      maxWidth: 'none',
+      [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
+      [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
+      [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
+      [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
+      [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
     },
 
     animatedCard: {
@@ -357,6 +356,7 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
           description={headerDescription}
           length={filteredCards.length}
           maxCount={maxCount}
+          loading={loading}
         />
         {cardGrid}
       </section>

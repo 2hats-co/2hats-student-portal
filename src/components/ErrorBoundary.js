@@ -88,9 +88,9 @@ class ErrorBoundary extends Component {
                 window.location.reload();
               }}
               className={classes.reloadButton}
+              endIcon={<ReloadIcon />}
             >
               Reload
-              <ReloadIcon />
             </Button>
 
             <Typography

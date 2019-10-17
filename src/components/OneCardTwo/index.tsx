@@ -84,7 +84,6 @@ const useStyles = makeStyles(theme =>
     },
     actionButton: {
       backgroundColor: 'transparent !important',
-      '& svg': { marginLeft: theme.spacing(0.25) },
     },
     // Optical adjustments for 320px width,
     // with "Closing Soon" next to "Learn More" causing button label to wrap
@@ -239,9 +238,9 @@ const OneCardTwo: React.FC<IOneCardTwoProps> = ({
               root: classes.actionButton,
               label: classes.actionButtonLabel,
             }}
+            endIcon={<GoIcon animated={animatedActionButton} />}
           >
             {action}
-            <GoIcon animated={animatedActionButton} />
           </Button>
         </CardActions>
       </CardActionArea>

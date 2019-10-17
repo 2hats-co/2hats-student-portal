@@ -115,7 +115,7 @@ export interface ResumeUploaderProps {
  * `UserContext`
  *
  * ## CloudFunctions
- * On upload, calls WhatsNextAI and Resume Scraper functions.
+ * On upload, calls Resume Scraper functions.
  */
 const ResumeUploader: React.FC<ResumeUploaderProps> = ({
   className,
@@ -124,18 +124,13 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
 }) => {
   const classes = useDropzoneStyles();
 
-  const { user } = useUser();
+  const { user, profile } = useUser();
   const uid = user.id;
 
   // If name exists, a file has been selected and is uploading
   // If url also exists, the file has been uploaded
   const [file, setFile] = useState<{ name?: string; url?: string }>({});
 
-  // Get user profile document to see if they already have a resume uploaded
-  const [profileState] = useDocument({
-    path: `${COLLECTIONS.profiles}/${uid}`,
-  });
-  const profile = profileState.doc;
   // Once the profile loads, set the resume file if it exists
   useEffect(() => {
     if (profile && profile.resume && profile.resume.name && profile.resume.url)
@@ -167,23 +162,10 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
     }
   };
 
-  // After the file has been uploaded, call WhatsNextAI and Resume Scraper
-  // Cloud Functions
+  // Updates the profiles doc to include the resume URL
   useEffect(() => {
     if (file.name && file.url) {
       updateDoc(COLLECTIONS.profiles, uid, { resume: file }).then(() => {
-        cloudFunction(
-          CLOUD_FUNCTIONS.WHATS_NEXT_AI,
-          {},
-          (o: any) => console.log('whatsNextAi', o),
-          (o: any) => console.error('whatsNextAi error', o)
-        );
-        cloudFunction(
-          CLOUD_FUNCTIONS.RESUME_SCRAPER,
-          { uid, url: file.url },
-          (o: any) => console.log('resume scraper cloud function', o),
-          (o: any) => console.error('resume scraper cloud function error', o)
-        );
         // Optionally reset file picker on upload
         if (resetOnUpload) setFile({});
         // Call the callback if it exists
@@ -204,7 +186,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
         // We have a URL, so the file has been uploaded
         if (file.url) icon = <CloudDoneIcon className={classes.uploadIcon} />;
         // If file is uploading or we’re waiting on profile to load
-        else if (file.name || profileState.loading)
+        else if (file.name || !profile)
           icon = (
             <CircularProgress className={classes.circularProgress} size={40} />
           );
@@ -215,7 +197,8 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
         let uploadText = null;
         if (isDragActive) uploadText = 'Drop your PDF here!';
         else if (file.name && file.url) uploadText = 'We’ve got it!';
-        else if (profileState.loading) uploadText = 'Loading…';
+        // Profile listener loading
+        else if (!profile) uploadText = 'Loading…';
         else if (file.name) uploadText = 'Uploading…';
         else uploadText = 'Drag and drop or click to upload your PDF résumé';
 

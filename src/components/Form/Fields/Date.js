@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import { MuiPickersUtilsProvider } from 'material-ui-pickers';
 import MomentUtils from '@date-io/moment';
 import { DatePicker } from 'material-ui-pickers';
-import { MOMENT_FORMATS } from '@bit/sidney2hats.2hats.global.common-constants';
+import { MOMENT_FORMATS } from '@bit/twohats.common.constants';
 import moment from 'moment';
 
 const styles = theme => ({

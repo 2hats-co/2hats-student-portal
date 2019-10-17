@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
+import ScrollableAnchor from 'react-scrollable-anchor';
 
 import {
   makeStyles,
@@ -8,7 +9,6 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import LoadingScreen from 'components/LoadingScreen';
 import HeadingTitle from '@bit/twohats.common.components.heading-title';
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import RightButtonLayout from 'components/Profile/RightButtonLayout';
@@ -20,11 +20,8 @@ import ProfileAssessments from 'components/Profile/ProfileAssessments';
 import ProfileCourses from 'components/Profile/ProfileCourses';
 
 import { useUser } from 'contexts/UserContext';
-import useDocument from 'hooks/useDocument';
-import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 import * as ROUTES from 'constants/routes';
-import useScrollIntoView from 'hooks/useScrollIntoView';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -43,41 +40,27 @@ const ProfileContainer: React.FunctionComponent<RouteComponentProps> = ({
 }) => {
   const classes = useStyles();
 
-  const { user } = useUser();
-  const [profileState] = useDocument({
-    path: `${COLLECTIONS.profiles}/${user.id}`,
-  });
-  const profileData = profileState.doc;
+  const { profile } = useUser();
 
   useEffect(() => {
     document.title = 'Profile – 2hats';
   }, []);
 
-  useScrollIntoView(ROUTES.PROFILE_PREFERRED_INDUSTRIES, location, [
-    profileState.loading,
-  ]);
-  useScrollIntoView(ROUTES.PROFILE_CURIOUS_THING, location, [
-    profileState.loading,
-  ]);
-
-  if (profileState.loading)
-    return <LoadingScreen message="Getting your data…" contained />;
-
-  if (!profileData) throw new Error(`Profile data for ${user.id} is empty`);
-
   return (
     <Container maxWidth="sm" component="main" className={classes.root}>
-      <ProfileHeader profileData={profileData} />
-      <ProfileForm profileData={profileData} />
+      <ProfileHeader profileData={profile} />
+      <ProfileForm profileData={profile} />
 
       <section>
-        <HeadingTitle id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>
-          My Application Profile
-        </HeadingTitle>
+        <ScrollableAnchor id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>
+          <span>
+            <HeadingTitle>My Application Profile</HeadingTitle>
+          </span>
+        </ScrollableAnchor>
 
         <section>
           <HeadingCaps>Areas of Interest</HeadingCaps>
-          <Typography variant="body1" color="textSecondary" gutterBottom>
+          <Typography variant="body1" color="textSecondary" paragraph>
             Which of these sound like your future workplace? Pick at least one
             of the fields to view the jobs and tasks that relate to you!
           </Typography>

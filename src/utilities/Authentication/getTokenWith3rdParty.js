@@ -2,7 +2,7 @@ import { auth } from '../../firebase';
 import { CLOUD_FUNCTIONS, cloudFunction } from '../CloudFunctions';
 
 import firebase from 'firebase/app';
-import { getDoc, updateDoc } from '../firestore';
+import { getDoc, updateDoc, createDoc } from '../firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 export const getTokenWithGoogle = async (user, callback) => {
@@ -30,6 +30,11 @@ export const getTokenWithGoogle = async (user, callback) => {
           userDocUpdates.homeReferrerId = user.homeReferrerId;
 
         updateDoc(COLLECTIONS.users, uid, userDocUpdates);
+
+        createDoc(`${COLLECTIONS.users}/${uid}/${COLLECTIONS.activityLog}`, {
+          type: 'user-signin',
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
 
         callback(result.data.route); // this route is NOT USED
       });

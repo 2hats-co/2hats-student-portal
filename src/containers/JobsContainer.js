@@ -2,8 +2,6 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
-
 import CardGrid from 'components/CardGrid';
 
 import { useUser } from 'contexts/UserContext';
@@ -12,13 +10,6 @@ import { generateJobCard, prioritiseJobListings } from 'utilities/cards';
 
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import * as ROUTES from 'constants/routes';
-
-const useStyles = makeStyles(() => ({
-  root: {
-    // Prevent scrollbar appearing during card animations in Firefox on Windows
-    overflow: 'hidden',
-  },
-}));
 
 const DISPATCH_PROPS = {
   NEW: () => ({
@@ -56,7 +47,6 @@ const DISPATCH_PROPS = {
 };
 
 const JobsContainer = ({ match, location }) => {
-  const classes = useStyles();
   const { user } = useUser();
 
   // Change tab title
@@ -168,7 +158,7 @@ const JobsContainer = ({ match, location }) => {
     if (!pastState.path) pastDispatch(DISPATCH_PROPS.PAST());
   }
 
-  return <main className={classes.root}>{contents}</main>;
+  return <main>{contents}</main>;
 };
 
 JobsContainer.propTypes = {

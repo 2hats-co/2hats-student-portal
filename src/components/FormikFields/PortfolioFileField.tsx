@@ -71,7 +71,7 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
           Additional Work (Portfolio)
         </HeadingCaps>
 
-        <Typography variant="body1" color="textSecondary" gutterBottom>
+        <Typography variant="body1" color="textSecondary" paragraph>
           Show us what you are proud of! If you have a portfolio, details of
           your work, or a cool school project, now is the time to show off.
         </Typography>

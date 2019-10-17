@@ -11,18 +11,19 @@ import LoadingScreen from '../LoadingScreen';
 import DesktopNavigation from './DesktopNavigation';
 import MobileNavigation from './MobileNavigation';
 import BackButton from './BackButton';
+import UserPrompts from './UserPrompts';
 
 import { useUser } from 'contexts/UserContext';
 import { setBackground } from 'utilities/styling';
 import { SIDEBAR_WIDTH, IS_MOBILE_QUERY } from 'constants/layout';
 
-const TRANSITION_DURATION = 200;
+const TRANSITION_DURATION = 250;
 
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     minHeight: '100%',
-    overflowX: 'hidden',
+    // overflowX: 'hidden',
   },
 
   navWrapper: {
@@ -35,15 +36,17 @@ const useStyles = makeStyles(theme => ({
 
   mainWrapper: {
     padding: theme.spacing(3, 0),
-    overflow: 'hidden',
+    // overflow: 'hidden',
   },
 
   mainWrapperAnimation: {
     '&-enter': {
-      transform: 'scale(0.97, 0.95)',
+      transform: 'scale(0.95)',
+      opacity: 0,
     },
     '&-enter-active': {
       transform: 'scale(1)',
+      opacity: 1,
 
       transition: theme.transitions.create(['opacity', 'transform'], {
         duration: TRANSITION_DURATION,
@@ -71,13 +74,14 @@ const Navigation = ({ location, children }) => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const { user } = useUser();
+  const { user, profile } = useUser();
 
   const isMobile = useMediaQuery(IS_MOBILE_QUERY);
 
-  // Can't assume user exists, since user did not necessarily sign
-  // in during this session
-  if (!user) return <LoadingScreen showNav message="Getting your data…" />;
+  // Can't assume we have listeners for user or profile,
+  // since user did not necessarily sign in during this session
+  if (!user || !profile)
+    return <LoadingScreen showNav message="Getting your data…" />;
 
   return (
     <Grid container className={classes.root} wrap="nowrap">
@@ -114,6 +118,8 @@ const Navigation = ({ location, children }) => {
       </TransitionGroup>
 
       {isMobile && <MobileNavigation />}
+
+      <UserPrompts />
     </Grid>
   );
 };
