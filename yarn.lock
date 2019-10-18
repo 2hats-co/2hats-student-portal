@@ -993,19 +993,19 @@
     clsx "^1.0.4"
     react-router-dom "^5.0.1"
 
-"@bit/twohats.common.constants@1.0.28", "@bit/twohats.common.constants@^1.0.28":
-  version "1.0.28"
-  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.28.tgz#cca157e104555c203896ad56e876a79fa6e916ec"
-  integrity sha1-zKFX4QRVXCA4lq1W6Hann6bpFuw=
+"@bit/twohats.common.constants@1.0.29", "@bit/twohats.common.constants@^1.0.29":
+  version "1.0.29"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.29.tgz#b9b05b8ba41514fb4c3c43d827e3f2fba9dee238"
+  integrity sha1-ubBbi6QVFPtMPEPYJ+Py+6ne4jg=
   dependencies:
     firebase "^6.2.4"
 
-"@bit/twohats.common.db-types@^0.0.62":
-  version "0.0.62"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.62.tgz#0b451f142f491dc21ecd3556576a5c750340f5b3"
-  integrity sha1-C0UfFC9JHcIezTVWV2pcdQNA9bM=
+"@bit/twohats.common.db-types@^0.0.65":
+  version "0.0.65"
+  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.65.tgz#c5fa6bc8845b3cba8b0375ffec4f87ef2d492599"
+  integrity sha1-xfpryIRbPLqLA3X/7E+H7y1JJZk=
   dependencies:
-    "@bit/twohats.common.constants" "1.0.28"
+    "@bit/twohats.common.constants" "1.0.29"
 
 "@bit/twohats.common.icons.go@1.0.9", "@bit/twohats.common.icons.go@^1.0.9":
   version "1.0.9"

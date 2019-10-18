@@ -6,6 +6,7 @@ import { fade } from '@material-ui/core/styles';
 import RightButtonLayout from '../RightButtonLayout';
 
 import { useUser } from 'contexts/UserContext';
+import { requestUserDelete } from 'utilities/profile';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -22,7 +23,7 @@ const useStyles = makeStyles(theme =>
 
 const SettingsPage: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user } = useUser();
+  const { UID } = useUser();
 
   useEffect(() => {
     document.title = 'Delete Your Account – 2hats';
@@ -37,6 +38,9 @@ const SettingsPage: React.FunctionComponent = () => {
           ButtonProps={{
             color: 'default',
             classes: { root: classes.deleteButton },
+            onClick: () => {
+              requestUserDelete(UID);
+            },
           }}
           description={
             <>

@@ -1,4 +1,4 @@
-import { updateDoc } from './firestore';
+import { updateDoc, createDocWithId } from './firestore';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 /**
@@ -27,3 +27,26 @@ export const saveDeprioritisedIndustries = (
   UID: string,
   deprioritisedIndustries: string[]
 ) => updateDoc(COLLECTIONS.users, UID, { deprioritisedIndustries });
+
+/**
+ * Requests the user be deleted from the database.
+ * Sets `deleteRequested: true` in the user document
+ * and creates a userDeleteRequests document with `status: 'pending'`.
+ * @param UID
+ */
+export const requestUserDelete = (UID: string) => {
+  const updateDocPromise = updateDoc(COLLECTIONS.users, UID, {
+    deleteRequested: true,
+  });
+  const createDocPromise = createDocWithId(
+    COLLECTIONS.userDeleteRequests,
+    UID,
+    {
+      UID,
+      status: 'pending',
+      requestedAt: new Date(),
+    }
+  );
+
+  return Promise.all([updateDocPromise, createDocPromise]);
+};
