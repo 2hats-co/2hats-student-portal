@@ -14,7 +14,10 @@ import GoIcon from '@bit/twohats.common.icons.go';
 
 const useStyles = makeStyles(theme =>
   createStyles({
-    button: { marginRight: theme.spacing(-1) },
+    button: {
+      marginTop: theme.spacing(-0.5),
+      marginRight: theme.spacing(-1),
+    },
   })
 );
 
@@ -40,22 +43,21 @@ const RightButtonLayout: React.FunctionComponent<IRightButtonLayoutProps> = ({
 
   return (
     <>
-      <Grid
-        container
-        justify="space-between"
-        alignItems="baseline"
-        className={className}
-      >
-        <HeadingCaps {...HeadingCapsProps}>{title}</HeadingCaps>
+      <Grid container alignItems="center" className={className} spacing={1}>
+        <Grid item xs>
+          <HeadingCaps {...HeadingCapsProps}>{title}</HeadingCaps>
+        </Grid>
 
-        <Button
-          color="primary"
-          className={classes.button}
-          endIcon={<GoIcon />}
-          {...ButtonProps}
-        >
-          {buttonLabel}
-        </Button>
+        <Grid item>
+          <Button
+            color="primary"
+            className={classes.button}
+            endIcon={<GoIcon />}
+            {...ButtonProps}
+          >
+            {buttonLabel}
+          </Button>
+        </Grid>
       </Grid>
 
       {description && (
