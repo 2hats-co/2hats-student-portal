@@ -33,7 +33,6 @@ import CoursesContainer from 'containers/CoursesContainer';
 import CourseRedirectContainer from 'containers/CourseRedirectContainer';
 import DetailedViewContainer from 'containers/DetailedViewContainer';
 import ProfileContainer from 'containers/ProfileContainer';
-import ProfileSettingsContainer from 'containers/ProfileSettingsContainer';
 
 const AuthenticationContainer = lazy(() =>
   import(
@@ -205,19 +204,10 @@ const App = () => {
 
                     <ProtectedRoute
                       exact
-                      path={ROUTES.PROFILE}
+                      path={[ROUTES.PROFILE, ROUTES.PROFILE + '/:subroute']}
                       render={props => (
                         <Navigation>
                           <ProfileContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.PROFILE_SETTINGS}
-                      render={props => (
-                        <Navigation>
-                          <ProfileSettingsContainer {...props} />
                         </Navigation>
                       )}
                     />
@@ -286,7 +276,7 @@ const App = () => {
                       render={props => <Landing {...props} />}
                     />
 
-                    <Route render={props => <FourOhFour />} />
+                    <Route render={props => <FourOhFour {...props} />} />
                   </Switch>
                 </Suspense>
               </div>

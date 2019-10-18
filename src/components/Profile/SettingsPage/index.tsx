@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { makeStyles, createStyles, Container } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  useTheme,
+  useMediaQuery,
+  Container,
+} from '@material-ui/core';
 import { fade } from '@material-ui/core/styles';
 
-import RightButtonLayout from 'components/Profile/RightButtonLayout';
-import ChangePasswordDialog from 'components/Profile/ChangePasswordDialog';
+import HeadingTitle from '@bit/twohats.common.components.heading-title';
+import RightButtonLayout from '../RightButtonLayout';
+import ChangePasswordDialog from './ChangePasswordDialog';
 
 import { useUser } from 'contexts/UserContext';
 import { cloudFn, CLOUD_FUNCTIONS } from 'utilities/CloudFunctions';
+import { PROFILE_DELETE_ACCOUNT } from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -22,9 +31,11 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const ProfileSettingsContainer: React.FunctionComponent = () => {
+const SettingsPage: React.FunctionComponent = () => {
   const classes = useStyles();
   const { user } = useUser();
+  const theme = useTheme();
+  const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
   useEffect(() => {
     document.title = 'Settings – 2hats';
@@ -52,6 +63,8 @@ const ProfileSettingsContainer: React.FunctionComponent = () => {
 
   return (
     <Container maxWidth="sm" component="main" className={classes.root}>
+      <HeadingTitle>Settings & Privacy</HeadingTitle>
+
       <section>
         <RightButtonLayout
           title="Terms & Conditions"
@@ -83,7 +96,7 @@ const ProfileSettingsContainer: React.FunctionComponent = () => {
       <section>
         <RightButtonLayout
           title="Your Password"
-          buttonLabel="Change Password"
+          buttonLabel={isXs ? 'Change' : 'Change Password'}
           ButtonProps={{
             onClick: handleChangePassword,
           }}
@@ -101,36 +114,18 @@ const ProfileSettingsContainer: React.FunctionComponent = () => {
       <section>
         <RightButtonLayout
           title="Delete Your Account"
-          buttonLabel="Delete Account"
+          buttonLabel={isXs ? 'Delete' : 'Delete Account'}
           ButtonProps={{
-            component: 'a',
-            href: `mailto:info@2hats.com.au?subject=Account%20deletion%20request&body=I%20request%20to%20delete%20my%20account%20from%20the%202hats%20database.%0A%0AUID%3A%20${
-              user.id
-            }%0AEmail%3A%20${user.email}`,
-            target: '_blank',
-            referrer: 'noopener noreferrer',
             color: 'default',
             classes: { root: classes.deleteButton },
+            component: Link,
+            to: PROFILE_DELETE_ACCOUNT,
           }}
-          description={
-            <>
-              You may choose to delete your account. However, it is impossible
-              to revert this decision. We will remove your personal information,
-              résumé, and portfolio information from our database. We will also
-              anonymise your assessment submissions and progress. You will no
-              longer be shortlisted by possible employers or receive emails from
-              us.
-              <br />
-              <br />
-              After you confirm with us that you want to delete your account,
-              there will be a 2-week grace period in which you can cancel this
-              request.
-            </>
-          }
+          description="You may choose to delete your account. However, it is impossible to revert this decision."
         />
       </section>
     </Container>
   );
 };
 
-export default ProfileSettingsContainer;
+export default SettingsPage;

@@ -9,7 +9,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Slide,
+  Grow,
   LinearProgress,
 } from '@material-ui/core';
 import { DialogProps } from '@material-ui/core/Dialog';
@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme =>
 
 const Transition = React.forwardRef<unknown, TransitionProps>(
   function Transition(props, ref) {
-    return <Slide direction="up" ref={ref} {...props} />;
+    return <Grow ref={ref} {...props} />;
   }
 );
 

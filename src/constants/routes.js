@@ -18,22 +18,25 @@ export const DASHBOARD = '/dashboard';
 export const PROFILE = '/profile';
 export const PROFILE_PREFERRED_INDUSTRIES = 'preferredIndustries';
 export const PROFILE_CURIOUS_THING = 'curiousThing';
-export const PROFILE_SETTINGS = '/profile/settings';
+
+export const PROFILE_SETTINGS = PROFILE + '/settings';
+export const PROFILE_DELETE_ACCOUNT = PROFILE + '/deleteAccount';
+export const ACCOUNT_DELETED = '/accountDeleted';
 
 export const JOBS = '/jobs';
-export const JOBS_NEW = '/jobs/new';
-export const JOBS_PAST = '/jobs/past';
-export const JOBS_YOURS = '/jobs/yours';
+export const JOBS_NEW = JOBS + '/new';
+export const JOBS_PAST = JOBS + '/past';
+export const JOBS_YOURS = JOBS + '/yours';
 
 export const ASSESSMENTS = '/assessments';
-export const ASSESSMENTS_ONGOING = '/assessments/ongoing';
-export const ASSESSMENTS_ALL = '/assessments/all';
-export const ASSESSMENTS_COMPLETED = '/assessments/completed';
+export const ASSESSMENTS_ONGOING = ASSESSMENTS + '/ongoing';
+export const ASSESSMENTS_ALL = ASSESSMENTS + '/all';
+export const ASSESSMENTS_COMPLETED = ASSESSMENTS + '/completed';
 
 export const COURSES = '/courses';
-export const COURSES_ONGOING = '/courses/ongoing';
-export const COURSES_ALL = '/courses/all';
-export const COURSES_COMPLETED = '/courses/completed';
+export const COURSES_ONGOING = COURSES + '/ongoing';
+export const COURSES_ALL = COURSES + '/all';
+export const COURSES_COMPLETED = COURSES + '/completed';
 
 export const JOB = '/job';
 export const JOB_APPLICATION = '/apply';

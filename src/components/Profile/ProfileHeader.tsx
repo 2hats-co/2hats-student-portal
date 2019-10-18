@@ -18,7 +18,12 @@ const ProfileHeader: React.FunctionComponent<IProfileHeaderProps> = props => {
         <AvatarUploader />
       </Grid>
       <Grid item xs>
-        <Typography variant="overline" component="p" gutterBottom>
+        <Typography
+          variant="overline"
+          color="textSecondary"
+          component="p"
+          gutterBottom
+        >
           Email (Username)
         </Typography>
         <Typography variant="body1" color="textSecondary">
