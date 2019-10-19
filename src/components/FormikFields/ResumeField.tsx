@@ -36,7 +36,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
 }) => {
   const classes = useStyles();
 
-  const { user } = useUser();
+  const { UID } = useUser();
 
   const setFile: IStyledDropzoneProps['setFile'] = val =>
     form.setFieldValue(field.name, val);
@@ -47,7 +47,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
       // Set file name for display
       setFile({ name: acceptedFiles[0].name || 'submission' });
       uploader(
-        `candidates/${user.id}/resumes/${new Date().getTime()}/${
+        `candidates/${UID!}/resumes/${new Date().getTime()}/${
           acceptedFiles[0].name
         }`,
         acceptedFiles[0],

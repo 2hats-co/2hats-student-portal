@@ -124,7 +124,7 @@ const NewSubmissionPrompt: React.FunctionComponent<
       <Button
         onClick={() => {
           setLoading(true);
-          copyAssessmentForResubmission(assessmentData, user, history);
+          copyAssessmentForResubmission(assessmentData, user!, history);
         }}
         variant="contained"
         color="primary"

@@ -29,7 +29,7 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   location,
   history,
 }) => {
-  const { user } = useUser();
+  const { UID } = useUser();
   const docType = location.pathname.split('/')[1];
 
   const [docState, docDispatch] = useDocument();
@@ -40,7 +40,7 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
   const isYours = parsedQuery.yours && parsedQuery.yours === 'true';
   // Get corresponding docPath from URL
   const docPath = isYours
-    ? `${COLLECTIONS.users}/${user.id}/${docType}s/${match.params.id}`
+    ? `${COLLECTIONS.users}/${UID!}/${docType}s/${match.params.id}`
     : `${docType}s/${match.params.id}`;
 
   // Show generic title on location change, before document loads
@@ -85,7 +85,7 @@ const DetailedViewContainer: React.FC<DetailedViewContainerProps> = ({
 
     // Get first ID of matching submissions from user subcollections
     getFirstIdOfQuery(
-      `users/${user.id}/${docType.toLowerCase()}s`,
+      `users/${UID!}/${docType.toLowerCase()}s`,
       [
         {
           field: `${docType.toLowerCase()}Id`,

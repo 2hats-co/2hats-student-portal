@@ -45,15 +45,15 @@ const RequiredSkills: React.FunctionComponent<IRequiredSkillsProps> = ({
   const { user } = useUser();
 
   // Calculate no. unattained skills
-  const unattainedSkills = skillsRequired.filter(
-    (x: any) => !user.skills || !user.skills.includes(x.id)
+  const unattainedSkills = skillsRequired.filter((x: any) =>
+    user!.skills ? !user!.skills.includes(x.id) : true
   );
   const numUnattainedSkills = unattainedSkills.length;
 
   // Sort skills to show unattained assessments first
   const sortedSkills: JobsDoc['skillsRequired'] = [...skillsRequired];
   sortedSkills.sort((a, b) =>
-    !user.skills || !user.skills.includes(b.id) ? 1 : -1
+    !user!.skills || !user!.skills.includes(b.id) ? 1 : -1
   );
 
   const [relatedAssessmentData] = useDocumentsOnce<DocWithId<AssessmentsDoc>>(
@@ -88,7 +88,7 @@ const RequiredSkills: React.FunctionComponent<IRequiredSkillsProps> = ({
             <SkillChip
               id={x.id}
               title={x.title}
-              user={user}
+              user={user!}
               clickable
               route={{ pathname: `${ASSESSMENT}/${x.id}`, state: routeState }}
             />
@@ -100,12 +100,12 @@ const RequiredSkills: React.FunctionComponent<IRequiredSkillsProps> = ({
               color="textSecondary"
               align="right"
               className={
-                user.skills && user.skills.includes(x.id)
+                user!.skills && user!.skills.includes(x.id)
                   ? classes.disabledText
                   : ''
               }
             >
-              {user.skills && user.skills.includes(x.id)
+              {user!.skills && user!.skills.includes(x.id)
                 ? 'Done'
                 : relatedAssessmentData[x.id]
                 ? relatedAssessmentData[x.id].duration

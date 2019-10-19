@@ -89,7 +89,7 @@ const CompletionDelight: React.FunctionComponent = () => {
         </section>
       )}
 
-      {!profile.mobileNumber && <MobileNumberField UID={user.id} />}
+      {!profile.mobileNumber && <MobileNumberField UID={user!.id} />}
 
       <section className={classes.buttonWrapper}>
         <Button

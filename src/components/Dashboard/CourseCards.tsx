@@ -41,11 +41,11 @@ const DISPATCH_PROPS = {
 const CourseCards: React.FunctionComponent = () => {
   const { user } = useUser();
 
-  const [ongoingState] = useCollection(DISPATCH_PROPS.ONGOING(user));
+  const [ongoingState] = useCollection(DISPATCH_PROPS.ONGOING(user!));
   const ongoingCards = ongoingState.documents;
 
   const [allState, allDispatch] = useCollection();
-  const allCards = getPrioritisedCards(allState.documents, user).sortedCards;
+  const allCards = getPrioritisedCards(allState.documents, user!).sortedCards;
 
   const [completedState, completedDispatch] = useCollection();
   const completedCards = completedState.documents;
@@ -60,7 +60,7 @@ const CourseCards: React.FunctionComponent = () => {
     if (!ongoingState.loading && !allState.path)
       allDispatch(DISPATCH_PROPS.ALL());
     else if (!allState.loading && !completedState.path) {
-      completedDispatch(DISPATCH_PROPS.COMPLETED(user));
+      completedDispatch(DISPATCH_PROPS.COMPLETED(user!));
       loading = completedState.loading;
     }
   }

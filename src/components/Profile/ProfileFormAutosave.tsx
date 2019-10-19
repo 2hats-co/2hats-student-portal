@@ -41,7 +41,7 @@ const ProfileFormAutosave: React.FunctionComponent<
 > = ({ profileData, ...propsToDebounce }) => {
   const classes = useStyles();
 
-  const { user, authUser } = useUser();
+  const { user, UID, authUser } = useUser();
   // Store a copy of values, errors that only updates every 1s (1000ms)
   const debouncedProps = useDebounce(JSON.stringify(propsToDebounce), 1000);
 
@@ -71,12 +71,14 @@ const ProfileFormAutosave: React.FunctionComponent<
     if (
       !!filteredValues.firstName &&
       !!filteredValues.lastName &&
+      user &&
+      authUser &&
       (user.firstName !== filteredValues.firstName ||
         user.lastName !== filteredValues.lastName ||
         authUser.displayName !==
           `${filteredValues.firstName} ${filteredValues.lastName}`)
     ) {
-      updateDoc(COLLECTIONS.users, user.id, {
+      updateDoc(COLLECTIONS.users, UID!, {
         firstName: filteredValues.firstName,
         lastName: filteredValues.lastName,
       }).then(() => console.log('Updated user first and last name'));
@@ -104,7 +106,7 @@ const ProfileFormAutosave: React.FunctionComponent<
     });
 
     if (Object.keys(filteredValues).length > 0)
-      updateDoc(COLLECTIONS.profiles, user.id, filteredValues).then(() => {
+      updateDoc(COLLECTIONS.profiles, UID!, filteredValues).then(() => {
         console.log('Updated user profile', filteredValues);
         // And show the snackbar
         setOpenSnackbar(true);

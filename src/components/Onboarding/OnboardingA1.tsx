@@ -24,8 +24,8 @@ const OnboardingA1: React.FC = () => {
     <>
       <Grid item className={classes.center}>
         <Typography variant="h6" component="h1" color="primary">
-          Let’s get started{user.firstName && ', '}
-          {user.firstName}!
+          Let’s get started{user!.firstName && ', '}
+          {user!.firstName}!
         </Typography>
       </Grid>
 

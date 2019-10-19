@@ -63,7 +63,7 @@ const AssessmentCards: React.FunctionComponent = () => {
   const { user } = useUser();
 
   const [unviewedFeedbackState] = useCollection(
-    DISPATCH_PROPS.UNVIEWED_FEEDBACK(user)
+    DISPATCH_PROPS.UNVIEWED_FEEDBACK(user!)
   );
   const unviewedFeedbackCards = unviewedFeedbackState.documents;
 
@@ -71,7 +71,7 @@ const AssessmentCards: React.FunctionComponent = () => {
   const ongoingCards = ongoingState.documents;
 
   const [allState, allDispatch] = useCollection();
-  const allCards = getPrioritisedCards(allState.documents, user).sortedCards;
+  const allCards = getPrioritisedCards(allState.documents, user!).sortedCards;
 
   const [completedState, completedDispatch] = useCollection();
   const completedCards = completedState.documents;
@@ -89,11 +89,11 @@ const AssessmentCards: React.FunctionComponent = () => {
   if (combinedCards.length < 5) {
     loading = true;
     if (!unviewedFeedbackState.loading && !ongoingState.path)
-      ongoingDispatch(DISPATCH_PROPS.ONGOING(user));
+      ongoingDispatch(DISPATCH_PROPS.ONGOING(user!));
     else if (!ongoingState.loading && !allState.path)
       allDispatch(DISPATCH_PROPS.ALL());
     else if (!allState.loading && !completedState.path) {
-      completedDispatch(DISPATCH_PROPS.COMPLETED(user));
+      completedDispatch(DISPATCH_PROPS.COMPLETED(user!));
       loading = completedState.loading;
     }
   }

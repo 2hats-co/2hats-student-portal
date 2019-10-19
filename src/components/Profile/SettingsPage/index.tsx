@@ -49,7 +49,9 @@ const SettingsPage: React.FunctionComponent = () => {
     setLoading(true);
     setOpenDialog(true);
 
-    cloudFn(CLOUD_FUNCTIONS.RESET_PASSWORD, { email: user.email.toLowerCase() })
+    cloudFn(CLOUD_FUNCTIONS.RESET_PASSWORD, {
+      email: user!.email.toLowerCase(),
+    })
       .then(result => {
         setLoading(false);
         console.log('Sent user reset password email', result);

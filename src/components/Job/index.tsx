@@ -26,20 +26,20 @@ interface IJobProps extends RouteComponentProps {
 }
 
 const Job: React.FunctionComponent<IJobProps> = ({ jobData, location }) => {
-  const { user } = useUser();
+  const { user, UID } = useUser();
 
   useEffect(() => {
     // Check if there is a referrer in the URL
     const parsedQuery = queryString.parse(location.search);
     if (parsedQuery.referrer)
       createDocWithId(
-        `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobReferrers}`,
+        `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.jobReferrers}`,
         jobData.id, // jobReferrers doc ID will have same ID as job doc
         { referrerId: parsedQuery.referrer }
       );
   }, [jobData]);
 
-  const canApply = getCanApply(user, jobData);
+  const canApply = getCanApply(user!, jobData);
   // If the user is on the /apply route, verify they can apply first
   // If not, redirect them
   if (!canApply && location.pathname.endsWith(JOB_APPLICATION))
@@ -53,7 +53,7 @@ const Job: React.FunctionComponent<IJobProps> = ({ jobData, location }) => {
     );
 
   // Show a user delight screen if they’ve applied
-  const hasApplied = getHasApplied(user, jobData);
+  const hasApplied = getHasApplied(user!, jobData);
   if (hasApplied)
     return (
       <main>

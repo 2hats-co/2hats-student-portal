@@ -44,17 +44,20 @@ const useStyles = makeStyles(theme =>
  */
 const ProfileAssessments: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user } = useUser();
+  const { user, UID } = useUser();
 
   const noSkills =
-    !user.skills || !Array.isArray(user.skills) || user.skills.length === 0;
+    !user ||
+    !user.skills ||
+    !Array.isArray(user.skills) ||
+    user.skills.length === 0;
 
   // useCollection call for user’s skills
   const [skillsState] = useCollection(
     noSkills
       ? {}
       : {
-          path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+          path: `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.assessments}`,
           filters: [
             { field: 'submitted', operator: '==', value: true },
             { field: 'screened', operator: '==', value: true },
@@ -101,7 +104,7 @@ const ProfileAssessments: React.FunctionComponent = () => {
       <section className={classes.root}>
         <RightButtonLayout
           title={`My Skills ${
-            Array.isArray(user.skills) && user.skills.length > 0
+            user && Array.isArray(user.skills) && user.skills.length > 0
               ? `(${user.skills.length})`
               : ''
           }`}
@@ -147,7 +150,7 @@ const ProfileAssessments: React.FunctionComponent = () => {
     <section className={classes.root}>
       <RightButtonLayout
         title={`My Skills ${
-          Array.isArray(user.skills) && user.skills.length > 0
+          user && Array.isArray(user.skills) && user.skills.length > 0
             ? `(${user.skills.length})`
             : ''
         }`}

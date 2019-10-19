@@ -44,11 +44,11 @@ const useStyles = makeStyles(theme =>
  */
 const ProfileCourses: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user } = useUser();
+  const { user, UID } = useUser();
 
   // useCollection call for user’s skills
   const [usersCoursesState] = useCollection({
-    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
+    path: `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.courses}`,
     filters: [{ field: 'completed', operator: '==', value: true }],
   });
   const usersCourses: DocWithId<UsersCoursesDoc>[] =

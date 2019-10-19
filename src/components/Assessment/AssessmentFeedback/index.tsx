@@ -46,7 +46,7 @@ const AssessmentFeedback: React.FunctionComponent<IAssessmentFeedbackProps> = ({
 
   // Query for all submissions for this assessment
   const [submissionsState] = useCollection({
-    path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
+    path: `${COLLECTIONS.users}/${user!.id}/${COLLECTIONS.assessments}`,
     filters: [
       {
         field: 'assessmentId',

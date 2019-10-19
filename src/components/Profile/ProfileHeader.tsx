@@ -27,7 +27,7 @@ const ProfileHeader: React.FunctionComponent<IProfileHeaderProps> = props => {
           Email (Username)
         </Typography>
         <Typography variant="body1" color="textSecondary">
-          {user.email}
+          {user!.email}
         </Typography>
       </Grid>
     </Grid>

@@ -123,7 +123,7 @@ const PopupContents: React.FunctionComponent<IPopupContentsProps> = ({
           resultData={{
             ...sampleData,
             reportUrl: '',
-            timestamp: user.createdAt, // Use this as sample firebase timestamp
+            timestamp: user!.createdAt, // Use this as sample firebase timestamp
           }}
         />
       </DialogContent>

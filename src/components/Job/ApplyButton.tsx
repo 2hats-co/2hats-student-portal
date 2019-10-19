@@ -48,8 +48,8 @@ const ApplyButton: React.FunctionComponent<IApplyButtonProps> = ({
   const classes = useStyles();
   const { user } = useUser();
 
-  const skillsNotAchieved = getSkillsNotAchieved(user, jobData.skillsRequired);
-  const canApply = getCanApply(user, jobData);
+  const skillsNotAchieved = getSkillsNotAchieved(user!, jobData.skillsRequired);
+  const canApply = getCanApply(user!, jobData);
 
   const { jobClosed } = getJobAvailability(jobData);
   if (jobClosed)

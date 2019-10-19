@@ -36,7 +36,7 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
 }) => {
   const classes = useStyles();
 
-  const { user } = useUser();
+  const { UID } = useUser();
 
   const setFile: IStyledDropzoneProps['setFile'] = val =>
     form.setFieldValue(field.name, val);
@@ -47,7 +47,7 @@ const PortfolioFileField: React.FunctionComponent<IPortfolioFileFieldProps> = ({
       // Set file name for display
       setFile({ name: acceptedFiles[0].name || 'submission' });
       uploader(
-        `candidates/${user.id}/portfolios/${new Date().getTime()}/${
+        `candidates/${UID!}/portfolios/${new Date().getTime()}/${
           acceptedFiles[0].name
         }`,
         acceptedFiles[0],

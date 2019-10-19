@@ -54,7 +54,7 @@ const CTDashboardButton: React.FunctionComponent<ICTDashboardButtonProps> = ({
 
   let buttonText = 'Discovery Interview';
   if (fullButton) buttonText = 'Start Discovery Interview';
-  if (!!profile.curiousThingResult) buttonText = 'View Results';
+  if (!!profile!.curiousThingResult) buttonText = 'View Results';
 
   return (
     <Button

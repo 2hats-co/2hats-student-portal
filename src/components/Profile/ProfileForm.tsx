@@ -64,8 +64,8 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
   const { user } = useUser();
 
   const initialValues = {
-    firstName: user.firstName,
-    lastName: user.lastName,
+    firstName: user!.firstName,
+    lastName: user!.lastName,
 
     currentUniversity: profileData.currentUniversity,
     currentDegree: profileData.currentDegree,

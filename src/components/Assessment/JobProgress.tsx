@@ -85,7 +85,7 @@ const JobProgress: React.FunctionComponent<IJobProgressProps> = ({
   const { skillsRequired, title: jobTitle, companyName } = location.state;
   // Calculate no. unattained skills
   const numUnattainedSkills = skillsRequired.filter(
-    (x: any) => !user.skills || !user.skills.includes(x.id)
+    (x: any) => !user!.skills || !user!.skills.includes(x.id)
   ).length;
 
   // Don't show if the user has all the skills

@@ -39,7 +39,7 @@ const SettingsPage: React.FunctionComponent = () => {
             color: 'default',
             classes: { root: classes.deleteButton },
             onClick: () => {
-              requestUserDelete(UID);
+              requestUserDelete(UID!);
             },
           }}
           description={

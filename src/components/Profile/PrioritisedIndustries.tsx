@@ -53,14 +53,14 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
   centred = false,
 }) => {
   const classes = useStyles();
-  const { user } = useUser();
+  const { user, UID } = useUser();
 
   const defaultPrioritised: { [industry: string]: boolean } = {};
   // Set everything to prioritised, by default
   Object.values(INDUSTRIES).map(x => (defaultPrioritised[x] = true));
   // Get deprioritised industries from user doc
-  if (user.deprioritisedIndustries)
-    user.deprioritisedIndustries.forEach(
+  if (user!.deprioritisedIndustries)
+    user!.deprioritisedIndustries.forEach(
       (x: string) => (defaultPrioritised[x] = false)
     );
 
@@ -80,8 +80,8 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
       debouncedPrioritised
     );
 
-    if (!equals(deprioritisedIndustries, user.deprioritisedIndustries))
-      saveDeprioritisedIndustries(user.id, deprioritisedIndustries)
+    if (!equals(deprioritisedIndustries, user!.deprioritisedIndustries))
+      saveDeprioritisedIndustries(UID!, deprioritisedIndustries)
         .then(() =>
           console.log(
             'Saved user deprioritised industries',

@@ -57,12 +57,12 @@ const Assessment: React.FunctionComponent<IAssessmentProps> = ({
   const [loading, setLoading] = useState(false);
   const handleNewSubmission = () => {
     setLoading(true);
-    copyAssessment(assessmentData, user, history);
+    copyAssessment(assessmentData, user!, history);
   };
 
   // Mark feedback as viewed if required
   useEffect(() => {
-    markViewedFeedback(assessmentData, user.id);
+    markViewedFeedback(assessmentData, user!.id);
   }, [assessmentData]);
 
   if (loading)

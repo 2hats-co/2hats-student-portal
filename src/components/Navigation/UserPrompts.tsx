@@ -26,7 +26,7 @@ const UserPrompts: React.FunctionComponent = () => {
 
   // Check for any unviewed feedback
   const [unviewedFeedbackState] = useCollection({
-    path: `${COLLECTIONS.users}/${UID}/${COLLECTIONS.assessments}`,
+    path: `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.assessments}`,
     filters: [
       { field: 'viewedFeedback', operator: '==', value: false },
       { field: 'screened', operator: '==', value: true },
@@ -72,7 +72,7 @@ const UserPrompts: React.FunctionComponent = () => {
   // state. In the meantime, display nothing and wait until state updates.
   if (lastFiveSignIns === null) {
     getDocsFromQuery(
-      `${COLLECTIONS.users}/${UID}/${COLLECTIONS.activityLog}`,
+      `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.activityLog}`,
       [{ field: 'type', operator: '==', value: 'user-signin' }],
       [{ field: 'createdAt', direction: 'desc' }],
       5
@@ -99,7 +99,7 @@ const UserPrompts: React.FunctionComponent = () => {
   // If they haven’t mark the current sign in as having been prompted
   if (!!lastFiveSignIns[0])
     updateDoc(
-      `${COLLECTIONS.users}/${UID}/${COLLECTIONS.activityLog}`,
+      `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.activityLog}`,
       lastFiveSignIns[0].id,
       { data: { promptedCompleteProfile: true } }
     );

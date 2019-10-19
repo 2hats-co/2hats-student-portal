@@ -124,8 +124,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
 }) => {
   const classes = useDropzoneStyles();
 
-  const { user, profile } = useUser();
-  const uid = user.id;
+  const { UID, profile } = useUser();
 
   // If name exists, a file has been selected and is uploading
   // If url also exists, the file has been uploaded
@@ -152,7 +151,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
       // Reset rejected file
       setRejectedFile('');
       uploader(
-        `candidates/${uid}/resumes/${new Date().getTime()}/${
+        `candidates/${UID!}/resumes/${new Date().getTime()}/${
           acceptedFiles[0].name
         }`,
         acceptedFiles[0],
@@ -165,7 +164,7 @@ const ResumeUploader: React.FC<ResumeUploaderProps> = ({
   // Updates the profiles doc to include the resume URL
   useEffect(() => {
     if (file.name && file.url) {
-      updateDoc(COLLECTIONS.profiles, uid, { resume: file }).then(() => {
+      updateDoc(COLLECTIONS.profiles, UID!, { resume: file }).then(() => {
         // Optionally reset file picker on upload
         if (resetOnUpload) setFile({});
         // Call the callback if it exists

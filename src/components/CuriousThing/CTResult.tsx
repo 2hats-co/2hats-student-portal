@@ -117,7 +117,7 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({
               <Switch
                 color="primary"
                 defaultChecked={resultData.shareWithEmployers}
-                onChange={updateCuriousThingSharing(UID, resultData)}
+                onChange={updateCuriousThingSharing(UID!, resultData)}
               />
             }
             label={
@@ -222,7 +222,7 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({
         <Typography variant="body2" color="textSecondary">
           {resultData.result
             .filter(x => x.topic === 'personality_analysis')[0]
-            .text.replace(/{{firstName}}/g, user.firstName)}
+            .text.replace(/{{firstName}}/g, user!.firstName)}
         </Typography>
       </section>
 
@@ -231,7 +231,7 @@ const CTResult: React.FunctionComponent<ICTResultProps> = ({
         <Typography variant="body2" color="textSecondary">
           {resultData.result
             .filter(x => x.topic === 'career_suggestion')[0]
-            .text.replace(/{{firstName}}/g, user.firstName)}
+            .text.replace(/{{firstName}}/g, user!.firstName)}
         </Typography>
       </section>
 

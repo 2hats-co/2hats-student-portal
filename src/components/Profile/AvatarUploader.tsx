@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme =>
  */
 const AvatarUploader: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user } = useUser();
+  const { user, UID } = useUser();
 
   const [loading, setLoading] = useState(false);
 
@@ -67,7 +67,7 @@ const AvatarUploader: React.FunctionComponent = () => {
     if (acceptedFiles.length >= 0 && !!acceptedFiles[0]) {
       setLoading(true);
       blobAvatarUploader(acceptedFiles[0], async (url: string) => {
-        await updateDoc(COLLECTIONS.users, user.id, { avatarURL: url });
+        await updateDoc(COLLECTIONS.users, UID!, { avatarURL: url });
         setLoading(false);
       });
     } else {
@@ -83,7 +83,7 @@ const AvatarUploader: React.FunctionComponent = () => {
           <input {...getInputProps()} />
           <IconButton className={classes.button}>
             <Avatar
-              src={loading ? undefined : user.avatarURL}
+              src={loading ? undefined : user!.avatarURL}
               className={classes.avatar}
             >
               <ProfileImageUploadIcon fontSize="large" />

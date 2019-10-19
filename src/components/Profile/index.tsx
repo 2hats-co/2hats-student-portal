@@ -42,8 +42,8 @@ const Profile: React.FunctionComponent = () => {
 
   return (
     <Container maxWidth="sm" component="main" className={classes.root}>
-      <ProfileHeader profileData={profile} />
-      <ProfileForm profileData={profile} />
+      <ProfileHeader profileData={profile!} />
+      <ProfileForm profileData={profile!} />
 
       <section>
         <ScrollableAnchor id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>

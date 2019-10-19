@@ -189,10 +189,10 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
   let deprioritisedStartIndex = -1;
   if (
     deprioritiseByIndustry &&
-    Array.isArray(user.deprioritisedIndustries) &&
-    user.deprioritisedIndustries.length > 0
+    Array.isArray(user!.deprioritisedIndustries) &&
+    user!.deprioritisedIndustries.length > 0
   ) {
-    const prioritisedCards = getPrioritisedCards(filteredCards, user);
+    const prioritisedCards = getPrioritisedCards(filteredCards, user!);
 
     filteredCards = prioritisedCards.sortedCards;
     deprioritisedStartIndex = prioritisedCards.deprioritisedStartIndex;
@@ -275,7 +275,12 @@ const CardGrid: React.FunctionComponent<ICardGridProps> = ({
   else if (deprioritisedStartIndex > -1 && !showPreviewOnly) {
     // Show For You in the header
     headerOverride = `For You: ${Object.values(INDUSTRIES)
-      .filter(x => !user.deprioritisedIndustries.includes(x))
+      .filter(
+        x =>
+          user!.deprioritisedIndustries // First, check it exists
+            ? !user!.deprioritisedIndustries.includes(x) // Don’t show if deprioritised
+            : true // If it doesn’t exist, show it
+      )
       .map(x => INDUSTRY_DISPLAY_NAMES[x])
       .join(', ')}`;
     // Explain this section

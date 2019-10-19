@@ -111,7 +111,7 @@ const AssessmentSubmission: React.FunctionComponent<
 
   // Verify the smartlink still works
   useEffect(() => {
-    if (assessmentData.assessmentId) checkSmartLink(assessmentData, user);
+    if (assessmentData.assessmentId) checkSmartLink(assessmentData, user!);
   }, []);
 
   // read-only if submitted
@@ -122,7 +122,7 @@ const AssessmentSubmission: React.FunctionComponent<
 
   // Handle save with .then
   const handleSave = () => {
-    saveAssessment(user.id, assessmentData.id, answers).then(() => {
+    saveAssessment(user!.id, assessmentData.id, answers).then(() => {
       console.log('Saved');
       setShowSnackbar(true);
     });
@@ -130,7 +130,7 @@ const AssessmentSubmission: React.FunctionComponent<
 
   // Handle submit with .then
   const handleSubmit = () => {
-    submitAssessment(user.id, assessmentData.id, answers).then(() => {
+    submitAssessment(user!.id, assessmentData.id, answers).then(() => {
       console.log('Submitted');
       ReactPixel.trackCustom('SubmitApplication');
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -150,7 +150,7 @@ const AssessmentSubmission: React.FunctionComponent<
             submissionType={assessmentData.submissionType}
             answer={answers[i]}
             setAnswer={updateAnswers(i)}
-            user={user}
+            user={user!}
             readOnly={readOnly}
           />
         ))
@@ -163,7 +163,7 @@ const AssessmentSubmission: React.FunctionComponent<
           submissionType={assessmentData.submissionType}
           answer={answers[0]}
           setAnswer={updateAnswers(0)}
-          user={user}
+          user={user!}
           readOnly={readOnly}
         />
       )}
