@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/styles';
-import { Grid, IconButton, Typography } from '@material-ui/core';
+import { makeStyles, Grid, IconButton, Typography } from '@material-ui/core';
 import BackIcon from '@material-ui/icons/ArrowBackOutlined';
 
 const useStyles = makeStyles(theme => ({

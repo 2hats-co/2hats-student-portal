@@ -22,7 +22,6 @@
     "@material-ui/icons": "^4.4.3",
     "@material-ui/lab": "^4.0.0-alpha.28",
     "@material-ui/pickers": "^3.2.2",
-    "@material-ui/styles": "^4.5.0",
     "@types/jest": "^24.0.15",
     "@types/node": "^12.6.1",
     "@types/ramda": "^0.26.15",

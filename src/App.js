@@ -7,9 +7,12 @@ import {
 } from 'react-router-dom';
 import { configureAnchors } from 'react-scrollable-anchor';
 
-import { ThemeProvider, makeStyles } from '@material-ui/styles';
 import { Theme, DarkTheme, useGlobalStyles } from './Theme';
-import { CssBaseline, useMediaQuery } from '@material-ui/core';
+import {
+  CssBaseline,
+  useMediaQuery,
+  MuiThemeProvider as ThemeProvider,
+} from '@material-ui/core';
 
 import useAuth from 'hooks/useAuth';
 import useDocument from 'hooks/useDocument';
