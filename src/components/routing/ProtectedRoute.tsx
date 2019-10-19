@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { RouteProps, Route, Redirect } from 'react-router-dom';
 
 import { useUser } from 'contexts/UserContext';
 import { SIGN_IN } from 'constants/routes';
@@ -32,8 +32,14 @@ import { SIGN_IN } from 'constants/routes';
  * [`SmartLinkContainer`](#smartlinkcontainer), it will cause it to call the
  * smartLink callable multiple times, which is undesirable.
  */
-const ProtectedRoute = ({ render, location, ...rest }) => {
+const ProtectedRoute: React.FunctionComponent<RouteProps> = ({
+  render,
+  location,
+  ...rest
+}) => {
   const { authUser } = useUser();
+
+  if (!location) throw new Error('ProtectedRoute location is undefined');
 
   let redirectRoute = SIGN_IN;
   if (location.pathname)
