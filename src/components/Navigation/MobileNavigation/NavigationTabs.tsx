@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 
-import { makeStyles, useTheme } from '@material-ui/styles';
 import {
+  makeStyles,
+  useTheme,
   AppBar,
   BottomNavigation,
   BottomNavigationAction,
@@ -66,12 +66,20 @@ const NAV_TABS = [
   { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES },
 ];
 
+interface INavigationTabsProps extends RouteComponentProps {
+  /** Hook value from `MobileNavigation` */
+  triggerHide: boolean;
+}
+
 /**
  * Can’t just set a `selected` class directly like before—have to use a
  * state and check with `useEffect` on `location.pathname` because of
  * Material UI `BottomNavigation`.
  */
-const NavigationTabs = ({ location, triggerHide }) => {
+const NavigationTabs: React.FunctionComponent<INavigationTabsProps> = ({
+  location,
+  triggerHide,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = useState(location.pathname);
@@ -118,13 +126,6 @@ const NavigationTabs = ({ location, triggerHide }) => {
       </AppBar>
     </Slide>
   );
-};
-
-NavigationTabs.propTypes = {
-  /** From `withRouter` */
-  location: PropTypes.object.isRequired,
-  /** Hook value from `MobileNavigation` */
-  triggerHide: PropTypes.bool.isRequired,
 };
 
 export default withRouter(NavigationTabs);

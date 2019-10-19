@@ -2,8 +2,15 @@ import React from 'react';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 
-import { makeStyles, useTheme } from '@material-ui/styles';
-import { Drawer, Grid, List, useMediaQuery } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  useTheme,
+  Drawer,
+  Grid,
+  List,
+  useMediaQuery,
+} from '@material-ui/core';
 
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import JobsIcon from '@material-ui/icons/BusinessCenter';
@@ -12,59 +19,68 @@ import CoursesIcon from '@material-ui/icons/School';
 import FaqIcon from '@material-ui/icons/HelpOutline';
 import LogOutIcon from '@material-ui/icons/ExitToApp';
 
-import SidebarItem from './SidebarItem';
+import SidebarItem, { ISidebarItemProps } from './SidebarItem';
 import SuperAvatar from 'components/SuperAvatar';
 import SidebarDivider from './SidebarDivider';
 
 import * as ROUTES from 'constants/routes';
 import { SIDEBAR_WIDTH } from 'constants/layout';
 
-const useStyles = makeStyles(theme => ({
-  drawerPaper: {
-    width: SIDEBAR_WIDTH,
-    borderRight: 'none',
-    zIndex: 'auto',
-    backgroundColor: theme.palette.background.default,
+const useStyles = makeStyles(theme =>
+  createStyles({
+    drawerPaper: {
+      width: SIDEBAR_WIDTH,
+      borderRight: 'none',
+      zIndex: 'auto',
+      backgroundColor: theme.palette.background.default,
 
-    '@media print': { display: 'none' },
-  },
-  nav: { height: '100%' },
+      '@media print': { display: 'none' },
+    },
+    nav: { height: '100%' },
 
-  logoWrapper: {
-    height: 64,
-    paddingLeft: theme.spacing(1.5),
-    marginBottom: theme.spacing(-1.5),
+    logoWrapper: {
+      height: 64,
+      paddingLeft: theme.spacing(1.5),
+      marginBottom: theme.spacing(-1.5),
 
-    display: 'flex',
-    alignItems: 'center',
-    flexShrink: 0,
-  },
-  logo: {
-    width: 100,
-    height: 36,
-    userSelect: 'none',
-    userDrag: 'none',
-  },
+      display: 'flex',
+      alignItems: 'center',
+      flexShrink: 0,
+    },
+    logo: {
+      width: 100,
+      height: 36,
+      userSelect: 'none',
+      userDrag: 'none',
+    },
 
-  listWrapper: { marginTop: theme.spacing(3) },
+    listWrapper: { marginTop: theme.spacing(3) },
 
-  avatar: {
-    marginLeft: theme.spacing(-0.5),
-    fontSize: '1rem',
-  },
-}));
+    avatar: {
+      marginLeft: theme.spacing(-0.5),
+      fontSize: '1rem',
+    },
+  })
+);
+
+interface IDesktopNavigationProps {
+  /** The `limited` prop passed down from [`Navigation`](#navigation) */
+  limited: boolean;
+}
 
 /**
  * Persistent sidebar for main navigation items. Largely the same as old
  * withNavigation sidebar.
  */
-const DesktopNavigation = () => {
+const DesktopNavigation: React.FunctionComponent<IDesktopNavigationProps> = ({
+  limited,
+}) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const showBottomDivider = useMediaQuery('(max-height: 524px)');
 
-  const MAIN_NAV_ITEMS = [
+  const MAIN_NAV_ITEMS: ISidebarItemProps[] = [
     {
       label: 'Profile',
       icon: (
@@ -86,7 +102,7 @@ const DesktopNavigation = () => {
     { label: 'Jobs', icon: <JobsIcon />, route: ROUTES.JOBS },
     { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES },
   ];
-  const BOTTOM_NAV_ITEMS = [
+  const BOTTOM_NAV_ITEMS: ISidebarItemProps[] = [
     {
       label: 'FAQ',
       icon: <FaqIcon />,
@@ -119,9 +135,9 @@ const DesktopNavigation = () => {
 
         <Grid item xs>
           <List disablePadding>
-            {MAIN_NAV_ITEMS.map((x, i) => (
+            {MAIN_NAV_ITEMS.map((itemProps, i) => (
               <li key={i}>
-                <SidebarItem data={x} />
+                <SidebarItem {...itemProps} />
               </li>
             ))}
           </List>
@@ -130,9 +146,9 @@ const DesktopNavigation = () => {
         <Grid item>
           <List disablePadding>
             {showBottomDivider && <SidebarDivider />}
-            {BOTTOM_NAV_ITEMS.map((x, i) => (
+            {BOTTOM_NAV_ITEMS.map((itemProps, i) => (
               <li key={i}>
-                <SidebarItem data={x} />
+                <SidebarItem {...itemProps} />
               </li>
             ))}
           </List>

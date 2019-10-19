@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 
 import {
   makeStyles,
@@ -8,6 +7,7 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
+import { ListItemIconProps } from '@material-ui/core/ListItemIcon';
 import { fade } from '@material-ui/core/styles';
 
 import SidebarDivider from './SidebarDivider';
@@ -41,67 +41,70 @@ const useStyles = makeStyles(theme => ({
   selected: {},
 }));
 
+export interface ISidebarItemProps {
+  /** Display either an internal route, external link, or divider */
+  type?: undefined | 'link' | 'divider';
+  /** External link, if `type` is `'link'` */
+  href?: string;
+  /** Internal route, if `type` is `undefined` */
+  route?: string;
+  /** Display label. Not required if `type` is `'divider` */
+  label?: string;
+  /** Icon displayed. Not required if `type` is `'divider` */
+  icon?: ListItemIconProps['children'];
+  /** Disable the route */
+  disabled?: boolean;
+}
+
 /**
  * Renders an MUI `ListItem` that either links internally (`component={Link}`)
  * or externally (`component="a"`) or a `SidebarDivider`, depending on props.
  */
-const SidebarItem = ({ location, data }) => {
+const SidebarItem: React.FunctionComponent<
+  ISidebarItemProps & RouteComponentProps
+> = ({ location, type, href, route, label, icon, disabled }) => {
   const classes = useStyles();
 
-  if (data.type === 'divider') return <SidebarDivider />;
+  if (type === 'divider') return <SidebarDivider />;
 
   let listItemProps = {};
 
-  if (data.type === 'link')
+  if (type === 'link')
     listItemProps = {
       component: 'a',
-      href: data.href,
+      href: href,
       target: '_blank',
       rel: 'noopener noreferrer',
     };
   else
     listItemProps = {
       component: Link,
-      to: data.route,
-      selected: getBaseRoute(location.pathname) === data.route,
+      to: route,
+      selected: getBaseRoute(location.pathname) === route,
     };
 
   return (
     <ListItem
       button
-      id={`sidebar-${data.label.replace(/ /g, '').toLowerCase()}`}
+      id={label ? `sidebar-${label.replace(/ /g, '').toLowerCase()}` : ''}
       {...listItemProps}
       classes={{ root: classes.listItemRoot, selected: classes.selected }}
-      disabled={data.disabled}
+      disabled={disabled}
     >
-      <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
-        {data.icon}
-      </ListItemIcon>
+      {icon && (
+        <ListItemIcon classes={{ root: classes.listItemIconRoot }}>
+          {icon}
+        </ListItemIcon>
+      )}
       <ListItemText
-        primary={data.label}
+        primary={label}
         primaryTypographyProps={{
           variant: 'button',
-          color: listItemProps.selected ? 'primary' : 'textSecondary',
+          //color: listItemProps.selected ? 'primary' : 'textSecondary',
         }}
       />
     </ListItem>
   );
-};
-
-SidebarItem.propTypes = {
-  /**
-   * | Key      | Type                |
-   * | -------- | ------------------- |
-   * | type     | 'link' or 'divider' |
-   * | href     | External URL        |
-   * | route    | Internal route      |
-   * | label    | string              |
-   * | disabled | bool                |
-   * | icon     | Node                |
-   */
-  data: PropTypes.object.isRequired,
-  /** From withRouter */
-  location: PropTypes.object.isRequired,
 };
 
 export default withRouter(SidebarItem);

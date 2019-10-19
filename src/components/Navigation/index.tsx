@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Div100vh from 'react-div-100vh';
 
-import { makeStyles, Grid, Toolbar, useMediaQuery } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  useMediaQuery,
+  Grid,
+  Toolbar,
+} from '@material-ui/core';
 
 import ErrorBoundary from '../ErrorBoundary';
 import LoadingScreen from '../LoadingScreen';
@@ -19,49 +24,69 @@ import { SIDEBAR_WIDTH, IS_MOBILE_QUERY } from 'constants/layout';
 
 const TRANSITION_DURATION = 250;
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: '100%',
-    minHeight: '100%',
-    // overflowX: 'hidden',
-  },
-
-  navWrapper: {
-    overflowY: 'auto',
-    '@media print': { display: 'none' },
-    width: SIDEBAR_WIDTH,
-    height: '100%',
-  },
-  mobileNavWrapper: { width: 0 },
-
-  mainWrapper: {
-    padding: theme.spacing(3, 0),
-    // overflow: 'hidden',
-  },
-
-  mainWrapperAnimation: {
-    '&-enter': {
-      transform: 'scale(0.95)',
-      opacity: 0,
-    },
-    '&-enter-active': {
-      transform: 'scale(1)',
-      opacity: 1,
-
-      transition: theme.transitions.create(['opacity', 'transform'], {
-        duration: TRANSITION_DURATION,
-        easing: theme.transitions.easing.easeOut,
-      }),
+const useStyles = makeStyles(theme =>
+  createStyles({
+    root: {
+      width: '100%',
+      minHeight: '100%',
+      // overflowX: 'hidden',
     },
 
-    '&-exit': { display: 'none' },
-  },
+    navWrapper: {
+      overflowY: 'auto',
+      '@media print': { display: 'none' },
+      width: SIDEBAR_WIDTH,
+      height: '100%',
+    },
+    mobileNavWrapper: { width: 0 },
 
-  topBarSpacer: { margin: theme.spacing(-3, 0, 2) },
-  bottomBarSpacer: { margin: theme.spacing(2, 0, -3) },
-}));
+    mainWrapper: {
+      padding: theme.spacing(3, 0),
+      // overflow: 'hidden',
+    },
 
-const Navigation = ({ location, children }) => {
+    mainWrapperAnimation: {
+      '&-enter': {
+        transform: 'scale(0.95)',
+        opacity: 0,
+      },
+      '&-enter-active': {
+        transform: 'scale(1)',
+        opacity: 1,
+
+        transition: theme.transitions.create(['opacity', 'transform'], {
+          duration: TRANSITION_DURATION,
+          easing: theme.transitions.easing.easeOut,
+        }),
+      },
+
+      '&-exit': { display: 'none' },
+    },
+
+    topBarSpacer: { margin: theme.spacing(-3, 0, 2) },
+    bottomBarSpacer: { margin: theme.spacing(2, 0, -3) },
+  })
+);
+
+interface INavigationProps extends RouteComponentProps {
+  /**
+   * Flag to show just logo, profile, and log out button.
+   * Used for accounts to be deleted
+   */
+  limited?: boolean;
+}
+
+/**
+ * The main wrapper component to show navigation. Handles showing different
+ * navigation types on desktop and mobile with a single media query.
+ *
+ * Also has a basic transition using `react-transition-group`
+ */
+const Navigation: React.FunctionComponent<INavigationProps> = ({
+  location,
+  children,
+  limited = false,
+}) => {
   const classes = useStyles();
 
   useEffect(() => {
@@ -80,14 +105,13 @@ const Navigation = ({ location, children }) => {
 
   // Can't assume we have listeners for user or profile,
   // since user did not necessarily sign in during this session
-  if (!user || !profile)
-    return <LoadingScreen showNav message="Getting your data…" />;
+  if (!user || !profile) return <LoadingScreen message="Getting your data…" />;
 
   return (
     <Grid container className={classes.root} wrap="nowrap">
       {!isMobile && (
         <Grid item className={classes.navWrapper}>
-          <DesktopNavigation />
+          <DesktopNavigation limited={limited} />
         </Grid>
       )}
 
@@ -111,22 +135,19 @@ const Navigation = ({ location, children }) => {
 
               {children}
 
-              {isMobile && <Toolbar className={classes.bottomBarSpacer} />}
+              {isMobile && !limited && (
+                <Toolbar className={classes.bottomBarSpacer} />
+              )}
             </ErrorBoundary>
           </Grid>
         </CSSTransition>
       </TransitionGroup>
 
-      {isMobile && <MobileNavigation />}
+      {isMobile && <MobileNavigation limited={limited} />}
 
       <UserPrompts />
     </Grid>
   );
-};
-
-Navigation.propTypes = {
-  location: PropTypes.object.isRequired,
-  children: PropTypes.node,
 };
 
 export default withRouter(Navigation);

@@ -5,6 +5,11 @@ import { useScrollTrigger } from '@material-ui/core';
 import MobileTopBar from './MobileTopBar';
 import NavigationTabs from './NavigationTabs';
 
+interface IMobileNavigationProps {
+  /** The `limited` prop passed down from [`Navigation`](#navigation) */
+  limited: boolean;
+}
+
 /**
  * Consists of two bars: `MobileTopBar` and `NavigationTabs`
  * (MUI `BottomNavigation`).
@@ -15,7 +20,9 @@ import NavigationTabs from './NavigationTabs';
  * - `triggerElevation` to show/hide shadow of `MobileTopBar` whenever scrolled
  *   down
  */
-const MobileNavigation = () => {
+const MobileNavigation: React.FunctionComponent<IMobileNavigationProps> = ({
+  limited,
+}) => {
   const triggerHide = useScrollTrigger();
   const triggerElevation = useScrollTrigger({
     disableHysteresis: true,
@@ -42,7 +49,7 @@ const MobileNavigation = () => {
         triggerHide={triggerHide}
         triggerElevation={triggerElevation}
       />
-      <NavigationTabs triggerHide={triggerHide} />
+      {!limited && <NavigationTabs triggerHide={triggerHide} />}
     </>
   );
 };

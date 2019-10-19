@@ -1,9 +1,7 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-import { makeStyles } from '@material-ui/styles';
-import { Button } from '@material-ui/core';
+import { makeStyles, createStyles, Button } from '@material-ui/core';
 import BackIcon from '@material-ui/icons/ArrowBackIos';
 
 import { HistoryContext } from 'contexts/HistoryContext';
@@ -13,12 +11,19 @@ import {
   hideBackButton,
 } from 'utilities/routing';
 
-const useStyles = makeStyles(theme => ({
-  desktop: { margin: theme.spacing(-1, 2, 2) },
-  mobile: { margin: 0 },
+const useStyles = makeStyles(theme =>
+  createStyles({
+    desktop: { margin: theme.spacing(-1, 2, 2) },
+    mobile: { margin: 0 },
 
-  backIcon: { margin: '0 !important' },
-}));
+    backIcon: { margin: '0 !important' },
+  })
+);
+
+interface IBackButtonProps extends RouteComponentProps {
+  /** Pass down the result of a media query here for performance optimisation */
+  isMobile: boolean;
+}
 
 /**
  * Back button displayed as part of [`Navigation`](#navigation) or
@@ -33,7 +38,11 @@ const useStyles = makeStyles(theme => ({
  * a button to go to the upper level (cards view). See `getBackButtonRoute` in
  * `utilities/routing` for details.
  */
-const BackButton = ({ history, location, isMobile }) => {
+const BackButton: React.FunctionComponent<IBackButtonProps> = ({
+  history,
+  location,
+  isMobile,
+}) => {
   const classes = useStyles();
 
   const historyStack = useContext(HistoryContext);
@@ -63,12 +72,6 @@ const BackButton = ({ history, location, isMobile }) => {
       )}
     </Button>
   );
-};
-
-BackButton.propTypes = {
-  history: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-  isMobile: PropTypes.bool.isRequired,
 };
 
 export default withRouter(BackButton);
