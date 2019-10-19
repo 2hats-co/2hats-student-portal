@@ -5,6 +5,7 @@ import ReactPixel from 'react-facebook-pixel';
 import reject from 'ramda/es/reject';
 import isNil from 'ramda/es/isNil';
 
+import { ApplicationFormValues } from 'components/Job/JobApplication/ApplicationForm';
 import { createDoc, updateDoc, getDoc } from './firestore';
 import {
   DocWithId,
@@ -91,7 +92,7 @@ export const getCanApply = (
  */
 export const submitJobApplication = async (
   user: DocWithId<UsersDoc>,
-  submissionContent: UsersJobsDoc['submissionContent'],
+  submissionContent: ApplicationFormValues,
   jobData: DocWithId<JobsDoc>
 ) => {
   const profileUpdates = reject(isNil, {

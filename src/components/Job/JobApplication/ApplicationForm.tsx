@@ -58,6 +58,17 @@ interface IApplicationFormProps extends RouteComponentProps {
 }
 
 /**
+ * The Formik Values type. Need to Omit jobAvailabilityStartDate and
+ * replace with JS Date object or null, since we don’t use Firebase Timestamp
+ * objects directly in the front end.
+ */
+export type ApplicationFormValues = Partial<
+  Omit<UsersJobsDoc['submissionContent'], 'jobAvailabilityStartDate'> & {
+    jobAvailabilityStartDate: Date | null;
+  }
+>;
+
+/**
  * The Formik-based application form for applying for jobs.
  *
  * When the component is mounted, it will get the user’s Profile document and
@@ -85,7 +96,7 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
     jobAvailabilityStartDate: profile.jobAvailabilityStartDate
       ? profile.jobAvailabilityStartDate.toDate()
       : null,
-    workRestriction: profile.workRestriction || '',
+    workRestriction: profile.workRestriction || undefined,
     coverLetter: '',
     pay: 100,
     workCultureSliders: profile.workCultureSliders,
@@ -97,10 +108,10 @@ const ApplicationForm: React.FunctionComponent<IApplicationFormProps> = ({
   return (
     <Formik
       initialValues={initialValues}
-      onSubmit={async (values, actions) => {
+      onSubmit={async (values: ApplicationFormValues, actions) => {
         console.log('FORM SUBMISSION', values);
         const jobApplicationId = await submitJobApplication(
-          user,
+          user!,
           values,
           jobData
         );

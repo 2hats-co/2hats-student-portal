@@ -41,7 +41,9 @@ const WorkRestrictionField: React.FunctionComponent<
     </FormLabel>
 
     <TextField
-      field={field}
+      // Pass down empty string when `field.value` is undefined to
+      // prevent MUI runtime error
+      field={{ ...field, value: field.value || '' }}
       form={form}
       variant="filled"
       fullWidth
