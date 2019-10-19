@@ -67,21 +67,20 @@ const SidebarItem: React.FunctionComponent<
 
   if (type === 'divider') return <SidebarDivider />;
 
-  let listItemProps = {};
-
-  if (type === 'link')
-    listItemProps = {
-      component: 'a',
-      href: href,
-      target: '_blank',
-      rel: 'noopener noreferrer',
-    };
-  else
-    listItemProps = {
-      component: Link,
-      to: route,
-      selected: getBaseRoute(location.pathname) === route,
-    };
+  // Had to convert to ternary operator for TS type checking
+  let listItemProps =
+    type === 'link'
+      ? {
+          component: 'a',
+          href: href,
+          target: '_blank',
+          rel: 'noopener noreferrer',
+        }
+      : {
+          component: Link,
+          to: route,
+          selected: getBaseRoute(location.pathname) === route,
+        };
 
   return (
     <ListItem
@@ -100,7 +99,7 @@ const SidebarItem: React.FunctionComponent<
         primary={label}
         primaryTypographyProps={{
           variant: 'button',
-          //color: listItemProps.selected ? 'primary' : 'textSecondary',
+          color: listItemProps.selected ? 'primary' : 'textSecondary',
         }}
       />
     </ListItem>
