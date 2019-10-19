@@ -7,9 +7,10 @@ import useCollection from 'hooks/useCollection';
 import { prioritiseJobListings, generateJobCard } from 'utilities/cards';
 import * as ROUTES from 'constants/routes';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
+import { DocWithId, UsersDoc } from '@bit/twohats.common.db-types';
 
 const DISPATCH_PROPS = {
-  ONGOING: user => ({
+  ONGOING: (user: DocWithId<UsersDoc>) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
     sort: { field: 'updatedAt', direction: 'desc' },
     filters: [{ field: 'outcome', operator: '==', value: 'pending' }],
@@ -20,7 +21,7 @@ const DISPATCH_PROPS = {
     sort: { field: 'closingDate', direction: 'desc' },
     filters: [{ field: 'published', operator: '==', value: true }],
   }),
-  COMPLETED: user => ({
+  COMPLETED: (user: DocWithId<UsersDoc>) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
     sort: [
       { field: 'outcome', direction: 'desc' },
@@ -41,7 +42,7 @@ const DISPATCH_PROPS = {
  *    (open jobs, ascending *then* closed jobs, descending)
  * 3. Completed job applications
  */
-const JobCards = () => {
+const JobCards: React.FunctionComponent = () => {
   const { user } = useUser();
 
   const [ongoingState] = useCollection(DISPATCH_PROPS.ONGOING(user));

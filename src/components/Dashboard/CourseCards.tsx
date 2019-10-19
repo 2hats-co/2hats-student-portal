@@ -7,9 +7,10 @@ import useCollection from 'hooks/useCollection';
 import { getPrioritisedCards, generateCourseCard } from 'utilities/cards';
 import * as ROUTES from 'constants/routes';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
+import { DocWithId, UsersDoc } from '@bit/twohats.common.db-types';
 
 const DISPATCH_PROPS = {
-  ONGOING: user => ({
+  ONGOING: (user: DocWithId<UsersDoc>) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
     sort: { field: 'updatedAt', direction: 'desc' },
     filters: [{ field: 'completed', operator: '==', value: false }],
@@ -20,7 +21,7 @@ const DISPATCH_PROPS = {
     sort: { field: 'createdAt', direction: 'desc' },
     filters: [{ field: 'published', operator: '==', value: true }],
   }),
-  COMPLETED: user => ({
+  COMPLETED: (user: DocWithId<UsersDoc>) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.courses}`,
     sort: { field: 'updatedAt', direction: 'desc' },
     filters: [{ field: 'completed', operator: '==', value: true }],
@@ -37,7 +38,7 @@ const DISPATCH_PROPS = {
  * 2. All other courses, prioritised by industry
  * 3. Completed courses
  */
-const CourseCards = () => {
+const CourseCards: React.FunctionComponent = () => {
   const { user } = useUser();
 
   const [ongoingState] = useCollection(DISPATCH_PROPS.ONGOING(user));
@@ -72,7 +73,7 @@ const CourseCards = () => {
       loading={loading}
       route={ROUTES.COURSES}
       cardProps={combinedCards}
-      cardGenerator={x => generateCourseCard(x, { user })}
+      cardGenerator={x => generateCourseCard(x)}
       LoadingCardProps={{ maxSkills: 1 }}
     />
   );

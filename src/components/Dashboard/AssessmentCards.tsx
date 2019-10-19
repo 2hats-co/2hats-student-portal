@@ -8,9 +8,10 @@ import useCollection from 'hooks/useCollection';
 import { getPrioritisedCards, generateAssessmentCard } from 'utilities/cards';
 import * as ROUTES from 'constants/routes';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
+import { DocWithId, UsersDoc } from '@bit/twohats.common.db-types';
 
 const DISPATCH_PROPS = {
-  UNVIEWED_FEEDBACK: user => ({
+  UNVIEWED_FEEDBACK: (user: DocWithId<UsersDoc>) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
     sort: { field: 'updatedAt', direction: 'desc' },
     filters: [
@@ -19,7 +20,7 @@ const DISPATCH_PROPS = {
     ],
     limit: 5,
   }),
-  ONGOING: user => ({
+  ONGOING: (user: DocWithId<UsersDoc>) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
     sort: { field: 'updatedAt', direction: 'desc' },
     filters: [{ field: 'submitted', operator: '==', value: false }],
@@ -33,7 +34,7 @@ const DISPATCH_PROPS = {
     // Cannot have limit here, otherwise deprioritisation by industry will not
     // work
   }),
-  COMPLETED: user => ({
+  COMPLETED: (user: DocWithId<UsersDoc>) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.assessments}`,
     sort: { field: 'updatedAt', direction: 'desc' },
     filters: [{ field: 'submitted', operator: '==', value: true }],
@@ -58,7 +59,7 @@ const DISPATCH_PROPS = {
  * have all five cards. So it will only add more queries when there aren’t
  * enough cards to display
  */
-const AssessmentCards = () => {
+const AssessmentCards: React.FunctionComponent = () => {
   const { user } = useUser();
 
   const [unviewedFeedbackState] = useCollection(
