@@ -1,5 +1,10 @@
 import React, { Suspense, lazy, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import { configureAnchors } from 'react-scrollable-anchor';
 
 import { ThemeProvider, makeStyles } from '@material-ui/styles';
@@ -52,6 +57,11 @@ const SmartLinkContainer = lazy(() =>
 const OnboardingContainer = lazy(() =>
   import(
     'containers/OnboardingContainer' /* webpackChunkName: "OnboardingContainer" */
+  )
+);
+const AccountDeletedContainer = lazy(() =>
+  import(
+    'containers/AccountDeletedContainer' /* webpackChunkName: "AccountDeletedContainer" */
   )
 );
 
@@ -185,6 +195,22 @@ const App = () => {
                       ]}
                       render={props => <SmartLinkContainer {...props} />}
                     />
+
+                    <ProtectedRoute
+                      exact
+                      path={ROUTES.ACCOUNT_DELETED}
+                      render={props => (
+                        <Navigation limited>
+                          <AccountDeletedContainer {...props} />
+                        </Navigation>
+                      )}
+                    />
+
+                    {userDocState.doc && userDocState.doc.deleteRequested && (
+                      <Route
+                        render={() => <Redirect to={ROUTES.ACCOUNT_DELETED} />}
+                      />
+                    )}
 
                     <ProtectedRoute
                       exact
