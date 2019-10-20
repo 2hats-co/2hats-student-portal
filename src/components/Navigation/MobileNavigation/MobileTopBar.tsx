@@ -83,12 +83,15 @@ interface IMobileTopBarProps extends RouteComponentProps {
   triggerHide: boolean;
   /** Hook value from `MobileNavigation` */
   triggerElevation: boolean;
+  /** The `limited` prop passed down from [`Navigation`](#navigation) */
+  limited: boolean;
 }
 
 const MobileTopBar: React.FunctionComponent<IMobileTopBarProps> = ({
   location,
   triggerHide,
   triggerElevation,
+  limited,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -117,7 +120,7 @@ const MobileTopBar: React.FunctionComponent<IMobileTopBarProps> = ({
               justify="space-between"
               alignItems="center"
             >
-              {showLogo ? (
+              {showLogo || limited ? (
                 <Grid
                   item
                   className={classes.logo}

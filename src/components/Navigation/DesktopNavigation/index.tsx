@@ -92,16 +92,21 @@ const DesktopNavigation: React.FunctionComponent<IDesktopNavigationProps> = ({
       ),
       route: ROUTES.PROFILE,
     },
-    { label: 'Dashboard', icon: <DashboardIcon />, route: ROUTES.DASHBOARD },
-    { type: 'divider' },
-    {
-      label: 'Assessments',
-      icon: <AssessmentsIcon />,
-      route: ROUTES.ASSESSMENTS,
-    },
-    { label: 'Jobs', icon: <JobsIcon />, route: ROUTES.JOBS },
-    { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES },
   ];
+
+  if (!limited)
+    MAIN_NAV_ITEMS.push(
+      { label: 'Dashboard', icon: <DashboardIcon />, route: ROUTES.DASHBOARD },
+      { type: 'divider' },
+      {
+        label: 'Assessments',
+        icon: <AssessmentsIcon />,
+        route: ROUTES.ASSESSMENTS,
+      },
+      { label: 'Jobs', icon: <JobsIcon />, route: ROUTES.JOBS },
+      { label: 'Courses', icon: <CoursesIcon />, route: ROUTES.COURSES }
+    );
+
   const BOTTOM_NAV_ITEMS: ISidebarItemProps[] = [
     {
       label: 'FAQ',

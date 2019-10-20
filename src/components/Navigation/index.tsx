@@ -131,7 +131,7 @@ const Navigation: React.FunctionComponent<INavigationProps> = ({
           >
             <ErrorBoundary>
               {isMobile && <Toolbar className={classes.topBarSpacer} />}
-              {!isMobile && <BackButton isMobile={false} />}
+              {!isMobile && !limited && <BackButton isMobile={false} />}
 
               {children}
 

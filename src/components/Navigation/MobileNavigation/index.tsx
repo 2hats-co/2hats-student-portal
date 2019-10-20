@@ -48,6 +48,7 @@ const MobileNavigation: React.FunctionComponent<IMobileNavigationProps> = ({
       <MobileTopBar
         triggerHide={triggerHide}
         triggerElevation={triggerElevation}
+        limited={limited}
       />
       {!limited && <NavigationTabs triggerHide={triggerHide} />}
     </>
