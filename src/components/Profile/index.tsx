@@ -20,7 +20,6 @@ import ProfileAssessments from './ProfileAssessments';
 import ProfileCourses from './ProfileCourses';
 
 import { useUser } from 'contexts/UserContext';
-import { DocWithId, ProfilesDoc } from '@bit/twohats.common.db-types';
 import * as ROUTES from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
