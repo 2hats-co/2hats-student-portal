@@ -9,6 +9,9 @@ import {
 
 import { MobileNumberFieldSchema } from 'components/FormikFields/MobileNumberField';
 
+/**
+ * The Yup schema for WorkCultureSlidersField
+ */
 export const WorkCultureSlidersSchema: { [key: string]: Yup.NumberSchema } = {};
 Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(
   x =>
@@ -18,6 +21,9 @@ Object.keys(WORK_CULTURE_SLIDER_LABELS).forEach(
       .required('Required'))
 );
 
+/**
+ * The Yup schema for the main profile form
+ */
 export const ProfileFormSchema = Yup.object().shape({
   firstName: Yup.string()
     .ensure()
