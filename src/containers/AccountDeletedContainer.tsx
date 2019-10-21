@@ -9,8 +9,14 @@ import {
 
 import RightButtonLayout from 'components/Profile/RightButtonLayout';
 import GoIcon from '@bit/twohats.common.icons.go';
+import Countdown from 'components/Profile/DeleteAccountPage/Countdown';
 
 import { IS_MOBILE_QUERY } from 'constants/layout';
+
+import { useUser } from 'contexts/UserContext';
+import useDocument from 'hooks/useDocument';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
+import { DocWithId, UserDeleteRequestsDoc } from '@bit/twohats.common.db-types';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -25,12 +31,20 @@ const useStyles = makeStyles(theme =>
   })
 );
 
+export interface AccountDeletedComponentProps {
+  userDeleteRequestDoc: DocWithId<UserDeleteRequestsDoc>;
+}
 
 const AccountDeletedContainer: React.FunctionComponent<RouteComponentProps> = ({
   history,
 }) => {
   const classes = useStyles();
 
+  const { UID } = useUser();
+  const [userDeleteRequestDocState] = useDocument({
+    path: COLLECTIONS.userDeleteRequests + '/' + UID!,
+  });
+  const userDeleteRequestDoc = userDeleteRequestDocState.doc;
 
   return (
     <Container maxWidth="sm" component="main" className={classes.root}>
