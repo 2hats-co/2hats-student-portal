@@ -5,11 +5,13 @@ import {
   makeStyles,
   createStyles,
   Container,
+  LinearProgress,
 } from '@material-ui/core';
 
 import RightButtonLayout from 'components/Profile/RightButtonLayout';
 import GoIcon from '@bit/twohats.common.icons.go';
 import Countdown from 'components/Profile/DeleteAccountPage/Countdown';
+import DeleteReason from 'components/Profile/DeleteAccountPage/DeleteReason';
 
 import { IS_MOBILE_QUERY } from 'constants/layout';
 
@@ -75,6 +77,12 @@ const AccountDeletedContainer: React.FunctionComponent<RouteComponentProps> = ({
           }
         />
       </section>
+
+      {userDeleteRequestDoc ? (
+        <DeleteReason userDeleteRequestDoc={userDeleteRequestDoc} />
+      ) : (
+        <LinearProgress />
+      )}
     </Container>
   );
 };
