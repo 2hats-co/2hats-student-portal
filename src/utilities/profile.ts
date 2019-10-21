@@ -50,3 +50,20 @@ export const requestUserDelete = (UID: string) => {
 
   return Promise.all([updateDocPromise, createDocPromise]);
 };
+
+/**
+ * Cancel the user’s delete request.
+ * Sets `deleteRequested: false` in the user document
+ * and updates the userDeleteRequests document with `status: 'cancelled'`.
+ * @param UID
+ */
+export const cancelUserDelete = (UID: string) => {
+  const updateDocPromise = updateDoc(COLLECTIONS.users, UID, {
+    deleteRequested: false,
+  });
+  const createDocPromise = updateDoc(COLLECTIONS.userDeleteRequests, UID, {
+    status: 'cancelled',
+  });
+
+  return Promise.all([updateDocPromise, createDocPromise]);
+};

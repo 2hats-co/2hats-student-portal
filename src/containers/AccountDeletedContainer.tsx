@@ -20,6 +20,9 @@ import useDocument from 'hooks/useDocument';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, UserDeleteRequestsDoc } from '@bit/twohats.common.db-types';
 
+import { LANDING } from 'constants/routes';
+import { cancelUserDelete } from 'utilities/profile';
+
 const useStyles = makeStyles(theme =>
   createStyles({
     root: {
@@ -48,6 +51,13 @@ const AccountDeletedContainer: React.FunctionComponent<RouteComponentProps> = ({
   });
   const userDeleteRequestDoc = userDeleteRequestDocState.doc;
 
+  // When Save My Account is clicked, update the database, then send user
+  // to the landing route (dashboard)
+  const handleCancelRequestClick = async () => {
+    await cancelUserDelete(UID!);
+    history.push(LANDING);
+  };
+
   return (
     <Container maxWidth="sm" component="main" className={classes.root}>
       <section>
@@ -60,6 +70,7 @@ const AccountDeletedContainer: React.FunctionComponent<RouteComponentProps> = ({
           buttonLabel="Save My Account"
           ButtonProps={{
             endIcon: <GoIcon animated />,
+            onClick: handleCancelRequestClick,
           }}
           description={
             <>
