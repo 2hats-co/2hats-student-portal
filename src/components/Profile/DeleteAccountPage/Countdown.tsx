@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 
+import { makeStyles, createStyles } from '@material-ui/core';
 import { AccountDeletedComponentProps } from 'containers/AccountDeletedContainer';
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      fontFeatureSettings: '"tnum" 1',
+    },
+  })
+);
 
 /**
  * A basic component to render the countdown. Every second, it calculates the
@@ -14,6 +23,7 @@ import { AccountDeletedComponentProps } from 'containers/AccountDeletedContainer
 const Countdown: React.FunctionComponent<AccountDeletedComponentProps> = ({
   userDeleteRequestDoc,
 }) => {
+  const classes = useStyles();
   const [duration, setDuration] = useState<moment.Duration>(moment.duration());
 
   useEffect(() => {
@@ -36,10 +46,10 @@ const Countdown: React.FunctionComponent<AccountDeletedComponentProps> = ({
   if (!userDeleteRequestDoc) return <>can still</>;
 
   return (
-    <>
+    <span className={classes.root}>
       have {duration.days()} days, {duration.hours()} hours,{' '}
       {duration.minutes()} minutes, and {duration.seconds()} seconds to
-    </>
+    </span>
   );
 };
 
