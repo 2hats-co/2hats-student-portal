@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme =>
     },
 
     titleGrid: {
-      height: 56,
+      minHeight: 56,
       marginBottom: theme.spacing(1),
     },
     title: { lineHeight: '24px' },
