@@ -69,7 +69,7 @@
   },
   "scripts": {
     "analyze": "source-map-explorer build/static/js/0.*",
-    "start": "PORT=3333 react-scripts start",
+    "start": "react-scripts start",
     "build": "node scripts/generate-build-id.js && react-scripts build",
     "test": "node test/index",
     "eject": "react-scripts eject",
