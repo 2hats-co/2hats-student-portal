@@ -112,6 +112,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
                   name="firstName"
                   component={StyledTextField}
                   label="First Name"
+                  inputProps={{ autocomplete: 'given-name' }}
                 />
               </Grid>
 
@@ -120,6 +121,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
                   name="lastName"
                   component={StyledTextField}
                   label="Last Name"
+                  inputProps={{ autocomplete: 'family-name' }}
                 />
               </Grid>
             </Grid>
