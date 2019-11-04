@@ -966,14 +966,12 @@
   resolved "https://node.bit.dev/twohats.common.components.naked-expansion-panel/-/twohats.common.components.naked-expansion-panel-1.0.23.tgz#a69a29477b9743f3fcf26292780a919a8cf00fc2"
   integrity sha1-ppopR3uXQ/P88mKSeAqRmozwD8I=
 
-"@bit/twohats.common.components.skill-chip@^1.0.51":
-  version "1.0.51"
-  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.51.tgz#4c13b1a3dfdd64e3b6f1bf1db16ed52c6fd545ba"
-  integrity sha1-TBOxo9/dZOO28b8dsW7VLG/VRbo=
+"@bit/twohats.common.components.skill-chip@^1.0.52":
+  version "1.0.52"
+  resolved "https://node.bit.dev/twohats.common.components.skill-chip/-/twohats.common.components.skill-chip-1.0.52.tgz#4fe99caf1ca8b186d123ae5deb82791b473cad6e"
+  integrity sha1-T+mcrxyosYbRI65d64J5G0c8rW4=
   dependencies:
     "@types/react-router-dom" "^4.3.4"
-    history "4.9.0"
-    react-router-dom "^5.0.1"
 
 "@bit/twohats.common.components.styled-dropzone@^1.0.6":
   version "1.0.6"
@@ -983,29 +981,28 @@
     clsx "^1.0.4"
     react-dropzone "^8.1.0"
 
-"@bit/twohats.common.components.text-with-graphic@^1.0.9":
-  version "1.0.9"
-  resolved "https://node.bit.dev/twohats.common.components.text-with-graphic/-/twohats.common.components.text-with-graphic-1.0.9.tgz#281df7fb6b116ceaf44c850c8776a27d6e773609"
-  integrity sha1-KB33+2sRbOr0TIUMh3aifW53Ngk=
+"@bit/twohats.common.components.text-with-graphic@^1.0.10":
+  version "1.0.10"
+  resolved "https://node.bit.dev/twohats.common.components.text-with-graphic/-/twohats.common.components.text-with-graphic-1.0.10.tgz#a6d072d3ecf9ef0193d62da7d9fbe30d35b0660f"
+  integrity sha1-ptBy0+z57wGT1i2n2fvjDTWwZg8=
   dependencies:
     "@bit/twohats.common.icons.go" "1.0.9"
     "@types/react-router-dom" "^4.3.4"
     clsx "^1.0.4"
-    react-router-dom "^5.0.1"
 
-"@bit/twohats.common.constants@1.0.29", "@bit/twohats.common.constants@^1.0.29":
-  version "1.0.29"
-  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.29.tgz#b9b05b8ba41514fb4c3c43d827e3f2fba9dee238"
-  integrity sha1-ubBbi6QVFPtMPEPYJ+Py+6ne4jg=
+"@bit/twohats.common.constants@1.0.31", "@bit/twohats.common.constants@^1.0.31":
+  version "1.0.31"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.31.tgz#d5457cb3ebaf00c92d8e29c814b1e965c3cef498"
+  integrity sha1-1UV8s+uvAMktjinIFLHpZcPO9Jg=
   dependencies:
     firebase "^6.2.4"
 
-"@bit/twohats.common.db-types@^0.0.65":
-  version "0.0.65"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.65.tgz#c5fa6bc8845b3cba8b0375ffec4f87ef2d492599"
-  integrity sha1-xfpryIRbPLqLA3X/7E+H7y1JJZk=
+"@bit/twohats.common.db-types@^0.0.71":
+  version "0.0.71"
+  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.71.tgz#363147710e0ae8e3793e78bc38ce36fd9fe037aa"
+  integrity sha1-NjFHcQ4K6ON5Pni8OM42/Z/gN6o=
   dependencies:
-    "@bit/twohats.common.constants" "1.0.29"
+    "@bit/twohats.common.constants" "1.0.31"
 
 "@bit/twohats.common.icons.go@1.0.9", "@bit/twohats.common.icons.go@^1.0.9":
   version "1.0.9"
@@ -6636,7 +6633,7 @@ hex-color-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/hex-color-regex/-/hex-color-regex-1.1.0.tgz#4c06fccb4602fe2602b3c93df82d7e7dbf1a8a8e"
   integrity sha512-l9sfDFsuqtOqKDsQdqrMRk0U85RZc0RtOR9yPI7mRVOa4FsR/BVnZ0shmQRM96Ji99kYZP/7hn1cedc1+ApsTQ==
 
-history@4.9.0, history@^4.7.2, history@^4.9.0:
+history@^4.7.2, history@^4.9.0:
   version "4.9.0"
   resolved "https://registry.yarnpkg.com/history/-/history-4.9.0.tgz#84587c2068039ead8af769e9d6a6860a14fa1bca"
   integrity sha512-H2DkjCjXf0Op9OAr6nJ56fcRkTSNrUiv41vNJ6IswJjif6wlpZK0BTfFbi7qK9dXLSYZxkq5lBsj3vUjlYBYZA==
