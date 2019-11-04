@@ -33,7 +33,7 @@ const PaySliderField: React.FunctionComponent<IPaySliderFieldProps> = ({
 }) => {
   const classes = useStyles();
 
-  const matchedNumber = jobData.payRate.match(/\d+/);
+  const matchedNumber = jobData.payRate.match(/[\d,.]*/);
   const minPayRate = Number(matchedNumber ? matchedNumber[0] : 0);
 
   const handleChange: SliderProps['onChange'] = (e, val) => {
