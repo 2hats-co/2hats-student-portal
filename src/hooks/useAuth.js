@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { auth } from '../firebase';
+import ReactGA from 'react-ga';
 
 /**
  * Authenticates user using Firebase Auth. For use in [App](#app) component.
@@ -16,6 +17,7 @@ const useAuth = () => {
       setAuthUser(authUser);
       if (authUser) {
         setSmartlookUser(authUser);
+        ReactGA.set({ userId: authUser.uid });
         console.log('Signed in', authUser.uid, authUser);
       }
     });

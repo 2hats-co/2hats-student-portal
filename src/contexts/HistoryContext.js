@@ -2,6 +2,7 @@
 import React, { useReducer, createContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import equals from 'ramda/es/equals';
 
 import { ROUTES_PREVENT_BACK } from 'constants/routes';
@@ -13,6 +14,8 @@ const historyReducer = (prevState, action) => {
     // Don't push if the same
     if (stack.length > 0 && stack[stack.length - 1].key === action.location.key)
       return stack;
+    // Record Google Analytics page view
+    ReactGA.pageview(action.location.pathname);
     // Don't push if auth route
     if (ROUTES_PREVENT_BACK.includes(action.location.pathname)) return stack;
     // Otherwise, push
@@ -67,7 +70,7 @@ export const HistoryProvider = withRouter(({ history, location, children }) => {
   const [stack, stackDispatch] = useReducer(historyReducer, []);
 
   useEffect(() => {
-    // push current location on mount
+    // Push current location on mount
     stackDispatch({ action: 'PUSH', location });
     history.listen((location, action) => stackDispatch({ action, location }));
   }, []);

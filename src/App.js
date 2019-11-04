@@ -2,7 +2,7 @@ import React, { Suspense, lazy, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { configureAnchors } from 'react-scrollable-anchor';
 
-import { ThemeProvider, makeStyles } from '@material-ui/styles';
+import { ThemeProvider } from '@material-ui/styles';
 import { Theme, DarkTheme, useGlobalStyles } from './Theme';
 import { CssBaseline, useMediaQuery } from '@material-ui/core';
 
