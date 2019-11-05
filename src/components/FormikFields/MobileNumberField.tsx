@@ -81,6 +81,7 @@ const MobileNumberField: React.FunctionComponent<
         fullWidth
         hiddenLabel
         margin="none"
+        placeholder="+61 123 456 789 or 0123 456 789"
         {...props}
         label=""
         inputProps={{
