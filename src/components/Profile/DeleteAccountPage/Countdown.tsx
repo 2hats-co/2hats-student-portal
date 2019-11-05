@@ -30,10 +30,20 @@ const Countdown: React.FunctionComponent<AccountDeletedComponentProps> = ({
     if (!userDeleteRequestDoc) return;
 
     const countdown = setInterval(() => {
-      const deleteDt = moment(userDeleteRequestDoc.requestedAt.toDate())
+      let deleteDt = moment(userDeleteRequestDoc.requestedAt.toDate())
         .startOf('day')
         .hours(12)
         .add(2, 'weeks');
+
+      // If we passed the originally scheduled delete date, set to delete
+      // at the next 12:00 (pm), in case of error
+      if (deleteDt < moment()) {
+        deleteDt = moment()
+          .startOf('day')
+          .hours(12);
+
+        if (deleteDt < moment()) deleteDt.add(1, 'day');
+      }
 
       setDuration(moment.duration(deleteDt.diff(moment())));
     }, 1000);
