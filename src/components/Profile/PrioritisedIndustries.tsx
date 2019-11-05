@@ -131,7 +131,7 @@ const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
       {isOneIndustryPrioritised && (
         <Typography
           variant="overline"
-          color="primary"
+          color="textSecondary"
           className={classes.onlyOneIndustryPrioritised}
         >
           You must pick at least one field of interest

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 
-import Graphic from 'assets/images/graphics/Rocket.svg';
+import Graphic from 'assets/images/graphics/OnboardingA1.svg';
 
 import PrioritisedIndustries from '../Profile/PrioritisedIndustries';
 import OnboardingCta from './OnboardingCta';
@@ -32,9 +32,9 @@ const OnboardingA1: React.FC = () => {
       <Grid item className={classes.center}>
         <img
           src={Graphic}
-          alt="Rocket"
-          width={120}
-          height={112}
+          alt="Skill plant graphic"
+          width={78}
+          height={144}
           className={classes.img}
         />
       </Grid>

@@ -30,9 +30,9 @@ const OnboardingA2: React.FC = () => {
       <Grid item className={classes.center}>
         <img
           src={Graphic}
-          alt="Rocket"
-          width={160}
-          height={141}
+          alt="Résumé graphic"
+          width={140}
+          height={140}
           className={classes.img}
         />
       </Grid>
@@ -46,7 +46,7 @@ const OnboardingA2: React.FC = () => {
           gutterBottom
         >
           We know… but this is just the tip of the iceberg. Your potential and
-          abilities count at 2hats — not your background. Your résumé will only
+          abilities count at 2hats—not your background. Your résumé will only
           make it easy for us to see your interests and reach out.
         </Typography>
 
