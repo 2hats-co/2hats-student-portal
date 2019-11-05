@@ -8,7 +8,7 @@ import { TextField, TextFieldProps } from 'formik-material-ui';
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 export const MobileNumberFieldSchema = Yup.string()
-  .matches(/^\+61\s\d{3}\s\d{3}\s\d{3}$/, {
+  .matches(/^\+61\s[1-9]\d{2}\s\d{3}\s\d{3}$/, {
     message: 'Please enter an Australian mobile number',
     excludeEmptyString: true,
   })
@@ -32,7 +32,7 @@ export const TextMaskCustom: React.FunctionComponent<ITextMaskCustomProps> = ({
       '6',
       '1',
       ' ',
-      /\d/,
+      /[1-9]/,
       /\d/,
       /\d/,
       ' ',
@@ -46,6 +46,7 @@ export const TextMaskCustom: React.FunctionComponent<ITextMaskCustomProps> = ({
     ]}
     placeholderChar={'\u2000'}
     showMask
+    guide={false}
   />
 );
 
@@ -85,6 +86,8 @@ const MobileNumberField: React.FunctionComponent<
         inputProps={{
           ...props.inputProps,
           id: `field-${field.name}`,
+          type: 'tel',
+          autocomplete: 'tel',
         }}
         InputProps={{
           ...props.InputProps,

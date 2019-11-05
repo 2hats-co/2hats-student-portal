@@ -1,5 +1,6 @@
 import React, { createContext, useReducer, useEffect } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import equals from 'ramda/es/equals';
 
 import { ROUTES_PREVENT_BACK } from 'constants/routes';
@@ -18,6 +19,8 @@ const historyReducer = (prevState: StackType, action: ActionType) => {
     // Don't push if the same
     if (stack.length > 0 && stack[stack.length - 1].key === action.location.key)
       return stack;
+    // Record Google Analytics page view
+    ReactGA.pageview(action.location.pathname);
     // Don't push if auth route
     if (ROUTES_PREVENT_BACK.includes(action.location.pathname)) return stack;
     // Otherwise, push

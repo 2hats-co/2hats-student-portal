@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme =>
     },
 
     titleGrid: {
-      height: 56,
+      minHeight: 56, // Allow for more than 3 lines, but makes card height vary
       marginBottom: theme.spacing(1),
     },
     title: { lineHeight: '24px' },

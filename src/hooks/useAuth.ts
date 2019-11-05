@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { auth } from '../firebase';
+import ReactGA from 'react-ga';
 
 /**
  * Add smartlook to window object to appease TypeScript compiler
@@ -27,6 +28,7 @@ const useAuth = () => {
       setAuthUser(authUser);
       if (authUser) {
         setSmartlookUser(authUser);
+        ReactGA.set({ userId: authUser.uid });
         console.log('Signed in', authUser.uid, authUser);
       }
     });

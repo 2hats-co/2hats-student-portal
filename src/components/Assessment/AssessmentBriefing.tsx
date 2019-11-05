@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme =>
           marginLeft: 0,
           '&:first-of-type': { marginTop: theme.spacing(2) },
 
-          '& > span': {
+          '& > $instructionListBodyText': {
             minHeight: 48,
             display: 'flex',
             alignItems: 'center',
@@ -94,6 +94,7 @@ const useStyles = makeStyles(theme =>
         },
       },
     },
+    instructionListBodyText: {},
   })
 );
 
@@ -149,8 +150,11 @@ const AssessmentBriefing: React.FunctionComponent<IAssessmentBriefingProps> = ({
       // Add instructionList class to the first <ol> tag
       .replace('<ol', `<ol class="${classes.instructionList}"`)
       // Wrap contents of <li> in span for the flexbox <li>
-      .replace(/<li>/gm, '<li><span>')
-      .replace(/<\/li>/gm, '</span></li>');
+      .replace(
+        /<li>/gm,
+        `<li><span class="${classes.instructionListBodyText}"><span>`
+      )
+      .replace(/<\/li>/gm, '</span></span></li>');
 
   return (
     <>
