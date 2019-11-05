@@ -145,7 +145,7 @@ const Navigation: React.FunctionComponent<INavigationProps> = ({
 
       {isMobile && <MobileNavigation limited={limited} />}
 
-      <UserPrompts />
+      {!limited && <UserPrompts />}
     </Grid>
   );
 };
