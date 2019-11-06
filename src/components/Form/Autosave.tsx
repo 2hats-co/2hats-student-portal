@@ -49,8 +49,10 @@ const Autosave: React.FunctionComponent<IAutosaveProps> = ({
       setOpen(false);
       setSnackbarContents(null);
       // Then display the correct snackbar
-      setSnackbarContents(result);
-      setOpen(true);
+      if (result !== null) {
+        setSnackbarContents(result);
+        setOpen(true);
+      }
     });
   }, [debouncedValue]);
 

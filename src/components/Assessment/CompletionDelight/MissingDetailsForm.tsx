@@ -33,9 +33,23 @@ const MissingDetailsForm: React.FunctionComponent = () => {
     const updates: { [key: string]: any } = {};
 
     // Only update if field is not blank and there are no errors
-    if (values.mobileNumber && !errors.mobileNumber)
+    // and if the value is different from the profile
+    if (
+      values.mobileNumber &&
+      !errors.mobileNumber &&
+      profile!.mobileNumber !== values.mobileNumber
+    )
       updates.mobileNumber = values.mobileNumber;
-    if (values.resume && !errors.resume) updates.resume = values.resume;
+
+    const isResumeDifferent =
+      !profile ||
+      !profile.resume ||
+      !profile.resume.name ||
+      !profile.resume.url ||
+      profile.resume.name !== values.resume.name ||
+      profile.resume.url !== values.resume.url;
+    if (values.resume && !errors.resume && isResumeDifferent)
+      updates.resume = values.resume;
 
     // Update document if there is something to update
     if (!isEmpty(updates)) {
