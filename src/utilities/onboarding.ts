@@ -3,7 +3,7 @@ import { Options as ReactLottieOptions } from 'react-lottie';
 
 import { LANDING, ONBOARDING } from 'constants/routes';
 
-export const ONBOARDING_STAGES = ['A1', 'A2', 'B1', 'B2'];
+export const ONBOARDING_STAGES = ['A1', 'A2', 'A3', 'B1', 'B2'];
 
 export const getOnboardingStageIndex = (stage: string) =>
   ONBOARDING_STAGES.indexOf(stage);

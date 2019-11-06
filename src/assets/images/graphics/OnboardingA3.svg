@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="123" height="152" viewBox="0 0 123 152">
+    <defs>
+        <linearGradient id="a" x1="31.463%" x2="83.265%" y1="0%" y2="88.781%">
+            <stop offset="0%" stop-color="#F4CE97"/>
+            <stop offset="100%" stop-color="#7DE3CF"/>
+        </linearGradient>
+        <linearGradient id="b" x1="-53.118%" x2="149.878%" y1="22.512%" y2="56.953%">
+            <stop offset="0%" stop-color="#F5F7FA"/>
+            <stop offset="100%" stop-color="#ADBBD1"/>
+        </linearGradient>
+        <linearGradient id="c" x1="-38.031%" x2="131.664%" y1="54.749%" y2="48%">
+            <stop offset="0%" stop-color="#727272"/>
+            <stop offset="100%" stop-color="#23679B"/>
+        </linearGradient>
+    </defs>
+    <g fill="none" fill-rule="evenodd">
+        <g transform="scale(-1 1) rotate(15 -343.048 -337.854)">
+            <g transform="translate(60.421)">
+                <circle cx="24.414" cy="6.533" r="6.533" fill="#A18FB6"/>
+                <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M.516 4.728v.86c0 6.647 5.388 12.035 12.035 12.035h.86c6.172 0 11.175-5.004 11.175-11.176"/>
+            </g>
+            <g transform="matrix(-1 0 0 1 31.537 0)">
+                <circle cx="24.414" cy="6.533" r="6.533" fill="#A18FB6"/>
+                <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M.516 4.728v.86c0 6.647 5.388 12.035 12.035 12.035h.86c6.172 0 11.175-5.004 11.175-11.176"/>
+            </g>
+            <circle cx="102.372" cy="24.414" r="6.533" fill="#A18FB6"/>
+            <circle cx="92.572" cy="42.295" r="6.533" fill="#A18FB6"/>
+            <circle cx="74.52" cy="50.118" r="6.533" fill="#A18FB6"/>
+        </g>
+        <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M45.647 96.501l1.78 6.643c1.843 6.88-2.24 13.95-9.118 15.793l-31.554 8.455"/>
+        <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M49.799 95.389l3.782 14.116c1.843 6.88-2.239 13.95-9.118 15.793l-16.607 4.45c-5.503 1.474-8.769 7.131-7.294 12.634"/>
+        <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M53.95 94.277l8.455 31.553c1.844 6.88-2.239 13.95-9.118 15.793l-13.285 3.56"/>
+        <g>
+            <g fill="#A18FB6" transform="rotate(-15 422.943 -255.752)">
+                <circle cx="34.386" cy="6.533" r="6.533"/>
+                <circle cx="24.586" cy="24.414" r="6.533"/>
+                <circle cx="6.533" cy="32.237" r="6.533"/>
+            </g>
+            <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M66.24 90.984l1.78 6.642c1.843 6.88 8.914 10.962 15.793 9.118l31.554-8.454"/>
+            <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M62.088 92.096l3.783 14.116c1.843 6.88 8.913 10.961 15.792 9.118l16.608-4.45c5.503-1.474 11.16 1.792 12.634 7.295"/>
+            <path stroke="#BFBCD0" stroke-linecap="round" stroke-width="3.439" d="M57.936 93.209l8.455 31.553c1.843 6.88 8.914 10.961 15.793 9.118l13.286-3.56"/>
+        </g>
+        <g transform="rotate(-15 37.604 4.894)">
+            <path fill="url(#a)" d="M32.237 0c17.804 0 32.237 14.192 32.237 31.7 0 12.164-6.968 22.728-17.193 28.043v11.178a4.298 4.298 0 0 1-4.298 4.299H21.49a4.298 4.298 0 0 1-4.298-4.299V59.743C6.968 54.428 0 43.864 0 31.7 0 14.192 14.433 0 32.237 0z"/>
+            <rect width="38.684" height="25.79" x="12.895" y="71.391" fill="url(#b)" rx="4.298"/>
+            <g fill="url(#c)" fill-opacity=".4" transform="translate(16.119 74.615)">
+                <path d="M2.144 2.006L30.093.143a2.01 2.01 0 0 1 2.144 2.006c0 1.21-.938 2.212-2.144 2.292L2.144 6.304A2.01 2.01 0 0 1 0 4.298c0-1.21.938-2.211 2.144-2.292zM2.144 8.454L30.093 6.59a2.01 2.01 0 0 1 2.144 2.007c0 1.209-.938 2.211-2.144 2.292L2.144 12.752A2.01 2.01 0 0 1 0 10.746c0-1.21.938-2.212 2.144-2.292zM2.144 14.901l27.949-1.863a2.01 2.01 0 0 1 2.144 2.006c0 1.21-.938 2.212-2.144 2.292L2.144 19.199A2.01 2.01 0 0 1 0 17.193c0-1.21.938-2.212 2.144-2.292z"/>
+            </g>
+        </g>
+    </g>
+</svg>

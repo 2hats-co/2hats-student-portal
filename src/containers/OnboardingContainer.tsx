@@ -8,6 +8,7 @@ import OnboardingCard, {
 
 import OnboardingA1 from 'components/Onboarding/OnboardingA1';
 import OnboardingA2 from 'components/Onboarding/OnboardingA2';
+import OnboardingA3 from 'components/Onboarding/OnboardingA3';
 import OnboardingB1 from 'components/Onboarding/OnboardingB1';
 import OnboardingB2 from 'components/Onboarding/OnboardingB2';
 
@@ -70,17 +71,22 @@ const OnboardingContainer: React.FC<OnboardingContainerProps> = props => {
   switch (match.params.stage) {
     case 'A1':
       passedProps.children = <OnboardingA1 />;
-      passedProps.progressValue = 25;
+      passedProps.progressValue = 20;
       break;
 
     case 'A2':
       passedProps.children = <OnboardingA2 />;
-      passedProps.progressValue = 50;
+      passedProps.progressValue = 40;
+      break;
+
+    case 'A3':
+      passedProps.children = <OnboardingA3 />;
+      passedProps.progressValue = 60;
       break;
 
     case 'B1':
       passedProps.children = <OnboardingB1 />;
-      passedProps.progressValue = 75;
+      passedProps.progressValue = 80;
       passedProps.fullScreen = true;
       break;
 
