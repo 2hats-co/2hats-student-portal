@@ -45,14 +45,21 @@ const Autosave: React.FunctionComponent<IAutosaveProps> = ({
 
   useEffect(() => {
     callback(debouncedValue).then(result => {
-      setSnackbar(null);
-      setSnackbar(result);
+      // Hide the current snackbar, if any...
+      setOpen(false);
+      setSnackbarContents(null);
+      // Then display the correct snackbar
+      setSnackbarContents(result);
+      setOpen(true);
     });
   }, [debouncedValue]);
 
   // Open/close snackbar when saved successfully
-  const [snackbar, setSnackbar] = useState<CallbackReturnType>(null);
-  const handleClose = () => setSnackbar(null);
+  const [open, setOpen] = useState(false);
+  const [snackbarContents, setSnackbarContents] = useState<CallbackReturnType>(
+    null
+  );
+  const handleClose = () => setOpen(false);
 
   return (
     <Snackbar
@@ -60,7 +67,7 @@ const Autosave: React.FunctionComponent<IAutosaveProps> = ({
         vertical: 'top',
         horizontal: 'right',
       }}
-      open={!!snackbar}
+      open={open}
       autoHideDuration={3000}
       onClose={handleClose}
       onClick={handleClose}
@@ -71,13 +78,13 @@ const Autosave: React.FunctionComponent<IAutosaveProps> = ({
       }}
       message={
         <>
-          {snackbar && !snackbar.success ? (
+          {snackbarContents && !snackbarContents.success ? (
             <ErrorIcon className={classes.icon} />
           ) : (
             <CheckCircleIcon className={classes.icon} />
           )}
           <span id="message-id">
-            {(snackbar && snackbar.message) || successMessage}
+            {(snackbarContents && snackbarContents.message) || successMessage}
           </span>
         </>
       }
