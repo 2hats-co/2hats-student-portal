@@ -14,7 +14,7 @@ import {
 import HelpIcon from '@material-ui/icons/HelpOutline';
 
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
-import Autosave from './Autosave';
+import Autosave from 'components/Form/Autosave';
 
 import { AccountDeletedComponentProps } from 'containers/AccountDeletedContainer';
 import { useUser } from 'contexts/UserContext';
