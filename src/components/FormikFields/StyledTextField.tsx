@@ -1,19 +1,19 @@
 import React from 'react';
 import { FieldProps } from 'formik';
 
-import { FormLabel } from '@material-ui/core';
+import { FormLabel, Typography } from '@material-ui/core';
 import { TextField, TextFieldProps } from 'formik-material-ui';
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
-interface IStyledTextFieldProps extends FieldProps, TextFieldProps {}
+export interface IStyledTextFieldProps extends FieldProps, TextFieldProps {}
 
 /**
  * A styled MUI TextField component
  */
 const StyledTextField: React.FunctionComponent<
-  IStyledTextFieldProps
+  IStyledTextFieldProps & { description?: React.ReactNode }
 > = props => {
-  const { form, field, label } = props;
+  const { form, field, label, description } = props;
 
   return (
     <div className="field-wrapper">
@@ -28,6 +28,12 @@ const StyledTextField: React.FunctionComponent<
         >
           {label}
         </HeadingCaps>
+
+        {description && (
+          <Typography variant="body1" color="textSecondary" paragraph>
+            {description}
+          </Typography>
+        )}
       </FormLabel>
 
       <TextField
