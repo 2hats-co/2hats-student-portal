@@ -58,6 +58,7 @@ const MobileNumberField: React.FunctionComponent<
   IStyledTextFieldProps
 > = props => (
   <StyledTextField
+    label="My Mobile Number"
     {...props}
     placeholder="+61 123 456 789 or 0123 456 789"
     inputProps={{

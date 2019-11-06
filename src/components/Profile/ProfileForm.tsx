@@ -177,11 +177,7 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
               }
             />
 
-            <Field
-              name="mobileNumber"
-              component={MobileNumberField}
-              label="Mobile Number"
-            />
+            <Field name="mobileNumber" component={MobileNumberField} />
           </section>
 
           <section>
