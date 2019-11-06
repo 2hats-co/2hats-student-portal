@@ -35,6 +35,8 @@ interface IProfileFormAutosaveProps {
  *
  * Will update the user’s Profile document and if they update their first
  * or last names, will also update their User document and Firebase Auth profile
+ *
+ * TODO: Remove this component and use `Form/Autosave` instead
  */
 const ProfileFormAutosave: React.FunctionComponent<
   IProfileFormAutosaveProps

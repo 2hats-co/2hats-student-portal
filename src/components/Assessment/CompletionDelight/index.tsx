@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import {
-  makeStyles,
-  createStyles,
-  Typography,
-  Button,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Button } from '@material-ui/core';
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import TextWithGraphic from '@bit/twohats.common.components.text-with-graphic';
-import ResumeUploader from 'components/Profile/ResumeUploader';
-import MobileNumberPrompt from './MobileNumberPrompt';
+import MissingDetailsForm from './MissingDetailsForm';
 import LoadingScreen from 'components/LoadingScreen';
 
 import SkillsPlantGraphic from 'assets/images/graphics/SkillsPlant.svg';
@@ -37,13 +31,10 @@ const useStyles = makeStyles(theme =>
 /**
  * Component that displays when the user has completed an assessment, but has
  * not received feedback for it yet.
- *
- * Will get the user’s profile document **once** to show the resume uploader and
- * ask for their mobile number if those details are not present.
  */
 const CompletionDelight: React.FunctionComponent = () => {
   const classes = useStyles();
-  const { user, profile } = useUser();
+  const { profile } = useUser();
 
   if (!profile)
     return (
@@ -77,23 +68,9 @@ const CompletionDelight: React.FunctionComponent = () => {
         />
       </section>
 
-      {(!profile.resume || !profile.resume.name || !profile.resume.url) && (
-        <section>
-          <HeadingCaps>My Résumé</HeadingCaps>
-          <Typography variant="body1" color="textSecondary" paragraph>
-            You’re on our radar! Uploading a résumé makes it easier for us to
-            contact you about jobs and uni events such as hackathons and
-            workshops.
-          </Typography>
-          <ResumeUploader />
-        </section>
-      )}
-
-      {!profile.mobileNumber && (
-        <section>
-          <MobileNumberPrompt />
-        </section>
-      )}
+      <section>
+        <MissingDetailsForm />
+      </section>
 
       <section className={classes.buttonWrapper}>
         <Button
