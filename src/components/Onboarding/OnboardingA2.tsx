@@ -1,23 +1,68 @@
 import React, { useState } from 'react';
+import { Formik, Field, Form } from 'formik';
 
-import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
+import {
+  makeStyles,
+  createStyles,
+  Grid,
+  Typography,
+  LinearProgress,
+} from '@material-ui/core';
 
+import Autosave from 'components/Form/Autosave';
+import ResumeField from 'components/FormikFields/ResumeField';
+import { DROPZONE_HEIGHT } from '@bit/twohats.common.components.styled-dropzone';
+import OnboardingCta from './OnboardingCta';
 import Graphic from 'assets/images/graphics/OnboardingA2.svg';
 
-import ResumeUploader from 'components/Profile/ResumeUploader';
-import OnboardingCta from './OnboardingCta';
+import { useUser } from 'contexts/UserContext';
+import { updateDoc } from 'utilities/firestore';
+import { COLLECTIONS } from '@bit/twohats.common.constants';
 
 const useStyles = makeStyles(theme =>
   createStyles({
     center: { textAlign: 'center' },
     img: { margin: theme.spacing(3, 0) },
-    resumeUploader: { marginTop: theme.spacing(3) },
+
+    loadingWrapper: {
+      height: DROPZONE_HEIGHT,
+      margin: theme.spacing(1, 0), // Optical adjustment
+    },
+    loadingBar: { width: '100%' },
   })
 );
 
 const OnboardingA2: React.FC = () => {
   const classes = useStyles();
   const [disableCta, setDisableCta] = useState(true);
+
+  const { UID, profile } = useUser();
+
+  const handleSave = async (debouncedValue: string) => {
+    const values = JSON.parse(debouncedValue);
+
+    const fileNotEmpty =
+      values.resume && values.resume.url && values.resume.name;
+
+    if (fileNotEmpty) setDisableCta(false);
+
+    const differentFile =
+      // No prior resume
+      !profile ||
+      !profile.resume ||
+      !profile.resume.url ||
+      !profile.resume.name ||
+      // File is different from prior resume
+      (profile.resume.url !== values.resume.url ||
+        profile.resume.name !== values.resume.name);
+
+    if (fileNotEmpty && differentFile) {
+      await updateDoc(COLLECTIONS.profiles, UID!, { resume: values.resume });
+      return { success: true };
+    }
+
+    return null;
+  };
 
   return (
     <>
@@ -50,10 +95,40 @@ const OnboardingA2: React.FC = () => {
           make it easy for us to see your interests and reach out.
         </Typography>
 
-        <ResumeUploader
-          className={classes.resumeUploader}
-          onUpload={() => setDisableCta(false)}
-        />
+        {profile ? (
+          <Formik
+            onSubmit={(values, actions) => {
+              // Does nothing, just sets submitting to false again
+              actions.setSubmitting(false);
+            }}
+            initialValues={{ resume: profile.resume }}
+            render={({ values }) => (
+              <Form>
+                <Autosave
+                  valueToDebounce={JSON.stringify(values)}
+                  callback={handleSave}
+                  delay={0}
+                />
+
+                <Field
+                  name="resume"
+                  component={ResumeField}
+                  label=""
+                  description=""
+                  disableBottomMargin
+                />
+              </Form>
+            )}
+          />
+        ) : (
+          <Grid
+            container
+            alignItems="center"
+            className={classes.loadingWrapper}
+          >
+            <LinearProgress className={classes.loadingBar} />
+          </Grid>
+        )}
       </Grid>
 
       <Grid item className={classes.center}>

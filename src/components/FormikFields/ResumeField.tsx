@@ -24,7 +24,14 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-interface IResumeFieldProps extends FieldProps {}
+interface IResumeFieldProps extends FieldProps {
+  /** Override the label for the field */
+  label: React.ReactNode;
+  /** Override the description for the field */
+  description: React.ReactNode;
+  /** Disable the bottom margin on the dropzone */
+  disableBottomMargin: boolean;
+}
 
 /**
  * This is a copy of PortfolioField. This should be generalised into an
@@ -33,6 +40,9 @@ interface IResumeFieldProps extends FieldProps {}
 const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
   field,
   form,
+  label = 'My Résumé',
+  description = 'Your potential and abilities count at 2hats – not your background. The résumé only makes it easy for us to see your interests and reach out.',
+  disableBottomMargin = false,
 }) => {
   const classes = useStyles();
 
@@ -68,13 +78,14 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
               : 'textSecondary'
           }
         >
-          My Résumé
+          {label}
         </HeadingCaps>
 
-        <Typography variant="body1" color="textSecondary" paragraph>
-          Your potential and abilities count at 2hats – not your background. The
-          résumé only makes it easy for us to see your interests and reach out.
-        </Typography>
+        {description && (
+          <Typography variant="body1" color="textSecondary" paragraph>
+            {description}
+          </Typography>
+        )}
       </FormLabel>
 
       <StyledDropzone
@@ -83,7 +94,7 @@ const ResumeField: React.FunctionComponent<IResumeFieldProps> = ({
         setFile={setFile}
         dropHandler={handleDrop}
         fileLabel="PDF résumé"
-        className={classes.dropzone}
+        className={!disableBottomMargin ? classes.dropzone : ''}
         id={`field-${field.name}`}
       />
 
