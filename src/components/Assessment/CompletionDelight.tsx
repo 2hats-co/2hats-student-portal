@@ -10,7 +10,7 @@ import {
 import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import TextWithGraphic from '@bit/twohats.common.components.text-with-graphic';
 import ResumeUploader from 'components/Profile/ResumeUploader';
-import MobileNumberField from './MobileNumberField';
+import MobileNumberPrompt from './MobileNumberPrompt';
 import LoadingScreen from 'components/LoadingScreen';
 
 import SkillsPlantGraphic from 'assets/images/graphics/SkillsPlant.svg';
@@ -89,7 +89,11 @@ const CompletionDelight: React.FunctionComponent = () => {
         </section>
       )}
 
-      {!profile.mobileNumber && <MobileNumberField UID={user!.id} />}
+      {!profile.mobileNumber && (
+        <section>
+          <MobileNumberPrompt />
+        </section>
+      )}
 
       <section className={classes.buttonWrapper}>
         <Button
