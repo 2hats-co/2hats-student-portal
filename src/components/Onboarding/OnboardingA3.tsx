@@ -1,16 +1,12 @@
 import React from 'react';
+import { Formik, Field, Form } from 'formik';
 
-import {
-  makeStyles,
-  createStyles,
-  Grid,
-  Typography,
-  TextField,
-  MenuItem,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
 
 import Graphic from 'assets/images/graphics/OnboardingA3.svg';
 
+import Autosave from 'components/Form/Autosave';
+import LocationField from 'components/FormikFields/LocationField';
 import OnboardingCta from './OnboardingCta';
 
 const useStyles = makeStyles(theme =>
@@ -21,17 +17,12 @@ const useStyles = makeStyles(theme =>
   })
 );
 
-const CITIES = [
-  { city: 'Sydney', country: 'AU' },
-  { city: 'Melbourne', country: 'AU' },
-];
-const CITIES_OPTIONS = CITIES.map(item => ({
-  value: [item.city, item.country],
-  label: item.city,
-}));
-
 const OnboardingA3: React.FC = () => {
   const classes = useStyles();
+
+  const handleSave = async (debouncedValue: string) => {
+    return null;
+  };
 
   return (
     <>
@@ -63,20 +54,38 @@ const OnboardingA3: React.FC = () => {
           the most relevant positions for your future.
         </Typography>
 
-        <TextField
-          select
-          label="I Want to Work In"
-          // value={values.currency}
-          // onChange={handleChange('currency')}
-          variant="filled"
-          fullWidth
-        >
-          {CITIES_OPTIONS.map(option => (
-            <MenuItem key={JSON.stringify(option.value)} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+        <Formik
+          onSubmit={(values, actions) => {
+            // Does nothing, just sets submitting to false again
+            actions.setSubmitting(false);
+          }}
+          // TODO: Hook this up to real profile
+          initialValues={{ locationWork: [], locationHome: '' }}
+          render={({ values }) => {
+            console.log(values);
+
+            return (
+              <Form>
+                <Autosave
+                  valueToDebounce={JSON.stringify(values)}
+                  callback={handleSave}
+                />
+
+                <Field
+                  name="locationWork"
+                  component={LocationField}
+                  label="I Want to Work In"
+                  multiple
+                />
+                <Field
+                  name="locationHome"
+                  component={LocationField}
+                  label="I’m Currently In"
+                />
+              </Form>
+            );
+          }}
+        />
       </Grid>
 
       <Grid item className={classes.center}>
