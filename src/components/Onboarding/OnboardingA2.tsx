@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 
 import {
@@ -38,13 +38,12 @@ const OnboardingA2: React.FC = () => {
 
   const { UID, profile } = useUser();
 
+  // Handle autosaving the user’s résumé
   const handleSave = async (debouncedValue: string) => {
     const values = JSON.parse(debouncedValue);
 
     const fileNotEmpty =
       values.resume && values.resume.url && values.resume.name;
-
-    if (fileNotEmpty) setDisableCta(false);
 
     const differentFile =
       // No prior resume
@@ -63,6 +62,17 @@ const OnboardingA2: React.FC = () => {
 
     return null;
   };
+
+  // Update `disableCta` state based on profile
+  useEffect(() => {
+    if (!profile) return;
+
+    // Calculate new state based on data stored in user profile
+    const newDisableCtaState =
+      !profile.resume || !profile.resume.url || !profile.resume.name;
+    // Update local state if needed—prevents unnecessary re-renders
+    if (disableCta !== newDisableCtaState) setDisableCta(newDisableCtaState);
+  }, [profile, disableCta]);
 
   return (
     <>
