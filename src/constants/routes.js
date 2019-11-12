@@ -16,8 +16,10 @@ export const SMART_LINK = '/smartLinks';
 export const DASHBOARD = '/dashboard';
 
 export const PROFILE = '/profile';
+// Profile sections
 export const PROFILE_PREFERRED_INDUSTRIES = 'preferredIndustries';
 export const PROFILE_CURIOUS_THING = 'curiousThing';
+export const PROFILE_LOCATION = 'location';
 
 export const PROFILE_SETTINGS = PROFILE + '/settings';
 export const PROFILE_DELETE_ACCOUNT = PROFILE + '/deleteAccount';

@@ -1,10 +1,22 @@
 import React from 'react';
+import * as Yup from 'yup';
 
 import { makeStyles, createStyles } from '@material-ui/core';
 
 import { IStyledTextFieldProps } from '../StyledTextField';
 import MultiLocationField from './MultiLocationField';
 import SingleLocationField from './SingleLocationField';
+
+export const SingleLocationFieldSchema = Yup.object()
+  .shape({
+    city: Yup.string().required('City is required'),
+    country: Yup.string().required('Country is required'),
+  })
+  .required('Location is required');
+
+export const MultiLocationFieldSchema = Yup.array().of(
+  SingleLocationFieldSchema
+);
 
 /**
  * Styles common to `SingleLocationField` and `MultiLocationField`

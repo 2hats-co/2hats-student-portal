@@ -1,21 +1,12 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ScrollableAnchor from 'react-scrollable-anchor';
 
-import {
-  makeStyles,
-  createStyles,
-  Container,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles, createStyles, Container } from '@material-ui/core';
 
-import HeadingTitle from '@bit/twohats.common.components.heading-title';
-import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 import RightButtonLayout from './RightButtonLayout';
 
 import ProfileHeader from './ProfileHeader';
 import ProfileForm from './ProfileForm';
-import PrioritisedIndustries from './PrioritisedIndustries';
 import ProfileAssessments from './ProfileAssessments';
 import ProfileCourses from './ProfileCourses';
 
@@ -45,36 +36,19 @@ const Profile: React.FunctionComponent = () => {
       <ProfileForm profileData={profile!} />
 
       <section>
-        <ScrollableAnchor id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>
-          <span>
-            <HeadingTitle>My Application Profile</HeadingTitle>
-          </span>
-        </ScrollableAnchor>
-
-        <section>
-          <HeadingCaps>Areas of Interest</HeadingCaps>
-          <Typography variant="body1" color="textSecondary" paragraph>
-            Which of these sound like your future workplace? Pick at least one
-            of the fields to view the jobs and tasks that relate to you!
-          </Typography>
-          <PrioritisedIndustries />
-        </section>
-
-        <section>
-          <ProfileAssessments />
-        </section>
-        <section>
-          <ProfileCourses />
-        </section>
-
-        <RightButtonLayout
-          title="Settings & Privacy"
-          buttonLabel="Manage"
-          ButtonProps={{ component: Link, to: ROUTES.PROFILE_SETTINGS }}
-          description="This section includes terms and conditions, including your privacy settings. You may change your password and remove your account."
-          // description="This section includes terms and conditions, including your privacy settings. You may change your password, remove your account, and set communication preferences."
-        />
+        <ProfileAssessments />
       </section>
+      <section>
+        <ProfileCourses />
+      </section>
+
+      <RightButtonLayout
+        title="Settings & Privacy"
+        buttonLabel="Manage"
+        ButtonProps={{ component: Link, to: ROUTES.PROFILE_SETTINGS }}
+        description="This section includes terms and conditions, including your privacy settings. You may change your password and remove your account."
+        // description="This section includes terms and conditions, including your privacy settings. You may change your password, remove your account, and set communication preferences."
+      />
     </Container>
   );
 };

@@ -8,6 +8,10 @@ import {
 } from '@bit/twohats.common.constants';
 
 import { MobileNumberFieldSchema } from 'components/FormikFields/MobileNumberField';
+import {
+  SingleLocationFieldSchema,
+  MultiLocationFieldSchema,
+} from 'components/FormikFields/LocationField';
 
 /**
  * The Yup schema for WorkCultureSlidersField
@@ -77,4 +81,7 @@ export const ProfileFormSchema = Yup.object().shape({
     url: Yup.string(),
   }),
   portfolioExternal: Yup.string().url('Must be a valid URL'),
+
+  locationWork: MultiLocationFieldSchema,
+  locationHome: SingleLocationFieldSchema,
 });

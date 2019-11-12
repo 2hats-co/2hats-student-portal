@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import { Formik, Field, FieldProps, Form } from 'formik';
+import ScrollableAnchor from 'react-scrollable-anchor';
 
 import {
   makeStyles,
@@ -18,16 +19,20 @@ import MobileNumberField from 'components/FormikFields/MobileNumberField';
 import WorkCultureSlidersField from 'components/FormikFields/WorkCultureSlidersField';
 import ResumeField from 'components/FormikFields/ResumeField';
 import PortfolioFileField from 'components/FormikFields/PortfolioFileField';
+import LocationField from 'components/FormikFields/LocationField';
 
 import CuriousThing from 'components/CuriousThing';
+import PrioritisedIndustries from './PrioritisedIndustries';
 
 import ProfileFormAutosave from './ProfileFormAutosave';
 import HeadingTitle from '@bit/twohats.common.components.heading-title';
+import HeadingCaps from '@bit/twohats.common.components.heading-caps';
 
 import { ProfileComponentProps } from 'containers/ProfileContainer';
 import { useUser } from 'contexts/UserContext';
 import { ProfileFormSchema } from 'constants/profile';
 import { UNIVERSITIES } from '@bit/twohats.common.constants';
+import * as ROUTES from 'constants/routes';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -56,12 +61,19 @@ interface IProfileFormProps
  *
  * Autosaving and updating the relevant documents is handled by
  * [`ProfileFormAutosave`](#profileformautosave)
+ *
+ * TODO: Remove this component & merge with [`Profile`](#profile)
+ * TODO: Remove `ProfileFormAutosave`
  */
 const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
   profileData,
 }) => {
   const classes = useStyles();
   const { user } = useUser();
+
+  // Temporarily cast profile while bit dbTypes are broken
+  // TODO: Remove this workaround
+  const _profile = profileData as { [key: string]: any };
 
   const initialValues = {
     firstName: user!.firstName,
@@ -85,6 +97,9 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
     resume: profileData.resume,
     portfolioFile: profileData.portfolioFile,
     portfolioExternal: profileData.portfolioExternal || '',
+
+    locationWork: _profile.locationWork || [],
+    locationHome: _profile.locationHome || '',
   };
 
   return (
@@ -209,6 +224,38 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
               label="Link to Your Work (Online Portfolio, GitHub, etc.)"
               placeholder="https://www."
             />
+          </section>
+
+          <section>
+            <HeadingTitle>My Application Profile</HeadingTitle>
+
+            <ScrollableAnchor id={ROUTES.PROFILE_PREFERRED_INDUSTRIES}>
+              <section>
+                <HeadingCaps>Areas of Interest</HeadingCaps>
+                <Typography variant="body1" color="textSecondary" paragraph>
+                  Which of these sound like your future workplace? Pick at least
+                  one of the fields to view the jobs and tasks that relate to
+                  you!
+                </Typography>
+                <PrioritisedIndustries />
+              </section>
+            </ScrollableAnchor>
+
+            <ScrollableAnchor id={ROUTES.PROFILE_LOCATION}>
+              <section>
+                <Field
+                  name="locationWork"
+                  component={LocationField}
+                  label="I Want to Work In"
+                  multiple
+                />
+                <Field
+                  name="locationHome"
+                  component={LocationField}
+                  label="I’m Currently In"
+                />
+              </section>
+            </ScrollableAnchor>
           </section>
         </Form>
       )}
