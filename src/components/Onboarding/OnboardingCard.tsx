@@ -126,23 +126,23 @@ const OnboardingCard: React.FC<OnboardingCardProps> = ({
 
       <Grid item className={classes.paperWrapper}>
         <Paper elevation={fullScreen ? 0 : 3} className={classes.paper}>
-          <Grid
-            container
-            direction="column"
-            wrap="nowrap"
-            component="main"
-            className={classes.contentWrapper}
-          >
-            <TransitionGroup component={null}>
-              <CSSTransition
-                timeout={TRANSITION_DURATION}
-                classNames={classes.slide}
-                key={location.key}
+          <TransitionGroup component={null}>
+            <CSSTransition
+              timeout={TRANSITION_DURATION}
+              classNames={classes.slide}
+              key={location.key}
+            >
+              <Grid
+                container
+                direction="column"
+                wrap="nowrap"
+                component="main"
+                className={classes.contentWrapper}
               >
-                <div>{children}</div>
-              </CSSTransition>
-            </TransitionGroup>
-          </Grid>
+                {children}
+              </Grid>
+            </CSSTransition>
+          </TransitionGroup>
         </Paper>
       </Grid>
 
