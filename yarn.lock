@@ -1004,10 +1004,10 @@
   dependencies:
     firebase "^6.2.4"
 
-"@bit/twohats.common.constants@^1.0.34":
-  version "1.0.34"
-  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.34.tgz#364e23f1f90fccbd87953257115470ccf869416f"
-  integrity sha1-Nk4j8fkPzL2HlTJXEVRwzPhpQW8=
+"@bit/twohats.common.constants@^1.0.35":
+  version "1.0.35"
+  resolved "https://node.bit.dev/twohats.common.constants/-/twohats.common.constants-1.0.35.tgz#a67142325647357817b26681e92bffda0a703ff2"
+  integrity sha1-pnFCMlZHNXgXsmaB6Sv/2gpwP/I=
   dependencies:
     firebase "^6.2.4"
 
