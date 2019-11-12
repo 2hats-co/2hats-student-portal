@@ -32,6 +32,9 @@ const useStyles = makeStyles(theme =>
   })
 );
 
+/**
+ * Gets the user to upload their résumé.
+ */
 const OnboardingA2: React.FC = () => {
   const classes = useStyles();
   const [disableCta, setDisableCta] = useState(true);

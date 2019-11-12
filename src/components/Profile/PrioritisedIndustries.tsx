@@ -48,6 +48,8 @@ export interface PrioritisedIndustriesProps {
 /**
  * Handles saving the user’s preferred/prioritised industries to their
  * profile document using MUI switches.
+ *
+ * TODO: Convert this to a Formik field component
  */
 const PrioritisedIndustries: React.FC<PrioritisedIndustriesProps> = ({
   centred = false,

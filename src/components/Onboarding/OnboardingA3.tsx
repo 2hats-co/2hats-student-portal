@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme =>
   })
 );
 
+/**
+ * Gets the user to state where they want to work and where they currently live.
+ */
 const OnboardingA3: React.FC = () => {
   const classes = useStyles();
   const [disableCta, setDisableCta] = useState(true);

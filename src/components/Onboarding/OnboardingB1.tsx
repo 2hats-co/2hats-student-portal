@@ -18,6 +18,9 @@ const useStyles = makeStyles(() =>
   })
 );
 
+/**
+ * Explains assessments
+ */
 const OnboardingB1: React.FC = () => {
   const classes = useStyles();
 

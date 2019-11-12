@@ -18,6 +18,9 @@ const useStyles = makeStyles(() =>
   })
 );
 
+/**
+ * Explains assessments are required for job applications
+ */
 const OnboardingB2: React.FC = () => {
   const classes = useStyles();
 

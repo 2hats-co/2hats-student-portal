@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme =>
       margin: theme.spacing(3, 1, 1),
       padding: theme.spacing(1.25, 4),
 
-      // Remvoe top padding for when the buttons are on top of each other
+      // Remove top padding for when the buttons are on top of each other
       '&+&': { marginTop: theme.spacing(0) },
       verticalAlign: 'baseline',
 

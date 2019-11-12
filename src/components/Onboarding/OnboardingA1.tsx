@@ -16,6 +16,11 @@ const useStyles = makeStyles(theme =>
   })
 );
 
+/**
+ * Gets the user’s preferred industries for suggesting jobs and assessments.
+ * Uses specialised [`PrioritisedIndustries`](#prioritisedindustries) component.
+ * TODO: Convert this to a Formik field component
+ */
 const OnboardingA1: React.FC = () => {
   const classes = useStyles();
   const { user } = useUser();
