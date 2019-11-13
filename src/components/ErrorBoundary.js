@@ -35,7 +35,7 @@ const styles = theme => ({
   },
 
   error: {
-    userSelect: 'auto',
+    userSelect: 'all',
   },
 });
 
