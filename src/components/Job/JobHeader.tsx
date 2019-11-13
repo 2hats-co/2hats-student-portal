@@ -52,6 +52,9 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
   // Get difference between today and closingDate
   const { jobClosed, diffDays } = getJobAvailability(jobData);
 
+  // TODO: Remove this workaround when bit dbTypes are fixed
+  const _jobData = jobData as { [key: string]: any };
+
   return (
     <>
       <Grid
@@ -83,7 +86,9 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
             />
             <Typography variant="overline" color="textSecondary">
               {getIndustry(jobData.industry)}&nbsp;•&nbsp;
-              {moment(jobData.closingDate.toDate()).format('D MMMM')}
+              {moment(jobData.closingDate.toDate()).format('D MMM')}
+              &nbsp;•&nbsp;
+              {_jobData.location && _jobData.location.city}
             </Typography>
           </Grid>
         </Grid>

@@ -227,7 +227,7 @@ export const generateJobCard = (
     title: data.title,
 
     industry: data.industry,
-    time: moment(data.closingDate.toDate()).format('D MMMM'),
+    time: moment(data.closingDate.toDate()).format('D MMM'),
 
     location: _data.location ? _data.location.city : '',
     description: data.companyDescription || '',
