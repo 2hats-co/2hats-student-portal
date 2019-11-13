@@ -112,6 +112,7 @@ const CardIcon: React.FC<CardIconProps> = ({
         colorDefault: classes.colorDefault,
         img: classes.img,
       }}
+      variant="rounded"
       src={icon}
       alt={alt}
       title={alt}
