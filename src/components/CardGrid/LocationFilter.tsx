@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { Formik, Field } from 'formik';
 
 import { makeStyles, createStyles, Grid, Typography } from '@material-ui/core';
@@ -23,14 +24,6 @@ const useStyles = makeStyles(theme =>
       margin: '0 auto',
       marginBottom: theme.spacing(1),
       paddingRight: theme.spacing(CARD_SPACING / 8 / 2),
-
-      // Fix width to width of card columns
-      maxWidth: 'none',
-      [CARD_COLS_MEDIA_QUERIES[1]]: { maxWidth: CARD_COLS_WIDTHS[1] },
-      [CARD_COLS_MEDIA_QUERIES[2]]: { maxWidth: CARD_COLS_WIDTHS[2] },
-      [CARD_COLS_MEDIA_QUERIES[3]]: { maxWidth: CARD_COLS_WIDTHS[3] },
-      [CARD_COLS_MEDIA_QUERIES[4]]: { maxWidth: CARD_COLS_WIDTHS[4] },
-      [CARD_COLS_MEDIA_QUERIES[5]]: { maxWidth: CARD_COLS_WIDTHS[5] },
 
       // Push up when back button is visible
       'body.back-button &': {
@@ -114,7 +107,7 @@ const LocationFilter: React.FunctionComponent = () => {
       container
       justify="flex-end"
       alignItems="center"
-      className={classes.root}
+      className={clsx(classes.root, 'width-fixed-cards-cols')}
     >
       <Grid item className={classes.label}>
         <Typography color="textSecondary">See jobs in</Typography>
