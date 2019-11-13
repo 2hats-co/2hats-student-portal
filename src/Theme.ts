@@ -344,8 +344,8 @@ export const useGlobalStyles = makeStyles(
       // Overrides <CSSBaseline />
       html: {
         // Use subpixel antialiasing
-        WebkitFontSmoothing: 'subpixel-antialiased',
-        MozOsxFontSmoothing: 'auto',
+        WebkitFontSmoothing: 'subpixel-antialiased !important',
+        MozOsxFontSmoothing: 'auto !important',
       },
 
       // Fix width to width of card columns
