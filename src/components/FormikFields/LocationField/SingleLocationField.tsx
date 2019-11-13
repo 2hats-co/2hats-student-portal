@@ -5,9 +5,15 @@ import { MenuItem, Divider } from '@material-ui/core';
 import { useLocationFieldStyles } from './index';
 import StyledTextField, { IStyledTextFieldProps } from '../StyledTextField';
 
-import { CITIES_OPTIONS, CITIES_OTHER_AU } from '@bit/twohats.common.constants';
+import {
+  CITIES_OPTIONS,
+  CITIES_ALL_AU,
+  CITIES_OTHER_AU,
+} from '@bit/twohats.common.constants';
 
 export interface ISingleLocationFieldProps extends IStyledTextFieldProps {
+  /** Display All cities in country option */
+  showAll?: boolean;
   /** Display Other city in country option */
   showOther?: boolean;
 }
@@ -22,6 +28,7 @@ const SingleLocationField: React.FunctionComponent<
 > = ({
   field,
   form,
+  showAll = false,
   showOther = true,
   placeholder = 'Select a city…',
   ...restProps
@@ -65,12 +72,14 @@ const SingleLocationField: React.FunctionComponent<
       {
         // MUI Menu component does not accept Fragment as child, so had to separate
       }
-      {showOther && <Divider className={classes.divider} />}
+      {(showAll || showOther) && <Divider className={classes.divider} />}
+
+      {showAll && (
+        <MenuItem value={CITIES_ALL_AU}>All cities in Australia</MenuItem>
+      )}
 
       {showOther && (
-        <MenuItem key={CITIES_OTHER_AU} value={CITIES_OTHER_AU}>
-          Other city in Australia
-        </MenuItem>
+        <MenuItem value={CITIES_OTHER_AU}>Other city in Australia</MenuItem>
       )}
     </StyledTextField>
   );

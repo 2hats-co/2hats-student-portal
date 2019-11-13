@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter, Redirect } from 'react-router-dom';
 
 import CardGrid from 'components/CardGrid';
+import LocationFilter from 'components/CardGrid/LocationFilter';
 
 import { useUser } from 'contexts/UserContext';
 import useCollection from 'hooks/useCollection';
@@ -10,9 +11,15 @@ import { generateJobCard, prioritiseJobListings } from 'utilities/cards';
 
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import * as ROUTES from 'constants/routes';
+import { CITIES_ALL } from '@bit/twohats.common.constants';
+
+const getLocationFilter = location => {
+  if (!location || !location.city || location.city === CITIES_ALL) return [];
+  return [{ field: 'location', operator: '==', value: location }];
+};
 
 const DISPATCH_PROPS = {
-  NEW: () => ({
+  NEW: location => ({
     path: COLLECTIONS.jobs,
     sort: { field: 'closingDate', direction: 'asc' },
     filters: [
@@ -26,14 +33,18 @@ const DISPATCH_PROPS = {
       //     .toDate(),
       // },
       { field: 'closingDate', operator: '>', value: new Date() },
+      ...getLocationFilter(location),
     ],
   }),
-  YOURS: user => ({
+  YOURS: (location, user) => ({
     path: `${COLLECTIONS.users}/${user.id}/${COLLECTIONS.jobs}`,
     sort: { field: 'updatedAt', direction: 'desc' },
-    //filters: [{ field: 'completed', operator: '==', value: false }],
+    filters: [
+      // { field: 'completed', operator: '==', value: false }
+      ...getLocationFilter(location),
+    ],
   }),
-  PAST: () => ({
+  PAST: location => ({
     path: COLLECTIONS.jobs,
     sort: [
       { field: 'closingDate', direction: 'desc' },
@@ -42,12 +53,17 @@ const DISPATCH_PROPS = {
     filters: [
       { field: 'published', operator: '==', value: true },
       { field: 'closingDate', operator: '<=', value: new Date() },
+      ...getLocationFilter(location),
     ],
   }),
 };
 
 const JobsContainer = ({ match, location }) => {
-  const { user } = useUser();
+  const { user, jobLocation, setJobLocation } = useUser();
+
+  useEffect(() => {
+    console.log('Remount');
+  }, []);
 
   // Change tab title
   useEffect(() => {
@@ -127,6 +143,39 @@ const JobsContainer = ({ match, location }) => {
     />
   );
 
+  // Update queries based on location the user selects
+  // TODO: Clean this up because it’s a copy-paste
+  useEffect(() => {
+    // Update queries for single CardGrid if we’re in a subpage
+    if (match.params && match.params.filter) {
+      switch (match.params.filter) {
+        case 'new':
+          newDispatch(DISPATCH_PROPS.NEW(jobLocation, user));
+          break;
+        case 'yours':
+          yoursDispatch(DISPATCH_PROPS.YOURS(jobLocation, user));
+          break;
+        case 'past':
+          pastDispatch(DISPATCH_PROPS.PAST(jobLocation));
+          break;
+        default:
+          break;
+      }
+    } else {
+      // Otherwise, update all queries
+      newDispatch(DISPATCH_PROPS.NEW(jobLocation, user));
+      yoursDispatch(DISPATCH_PROPS.YOURS(jobLocation, user));
+      pastDispatch(DISPATCH_PROPS.PAST(jobLocation));
+    }
+  }, [
+    jobLocation,
+    match.params,
+    newDispatch,
+    yoursDispatch,
+    pastDispatch,
+    user,
+  ]);
+
   // Show only one CardGrid if a match exists and don't query collections
   // not displayed, based on match
   let contents = null;
@@ -134,15 +183,16 @@ const JobsContainer = ({ match, location }) => {
     switch (match.params.filter) {
       case 'new':
         contents = newCardGrid;
-        if (!newState.path) newDispatch(DISPATCH_PROPS.NEW(user));
+        if (!newState.path) newDispatch(DISPATCH_PROPS.NEW(jobLocation, user));
         break;
       case 'yours':
         contents = yoursCardGrid;
-        if (!yoursState.path) yoursDispatch(DISPATCH_PROPS.YOURS(user));
+        if (!yoursState.path)
+          yoursDispatch(DISPATCH_PROPS.YOURS(jobLocation, user));
         break;
       case 'past':
         contents = pastCardGrid;
-        if (!pastState.path) pastDispatch(DISPATCH_PROPS.PAST());
+        if (!pastState.path) pastDispatch(DISPATCH_PROPS.PAST(jobLocation));
         break;
       // Otherwise, this category does not exist.
       // It might be an assessment ID, so try to redirect to there.
@@ -153,12 +203,18 @@ const JobsContainer = ({ match, location }) => {
     }
   } else {
     contents = [newCardGrid, yoursCardGrid, pastCardGrid];
-    if (!newState.path) newDispatch(DISPATCH_PROPS.NEW(user));
-    if (!yoursState.path) yoursDispatch(DISPATCH_PROPS.YOURS(user));
-    if (!pastState.path) pastDispatch(DISPATCH_PROPS.PAST());
+    if (!newState.path) newDispatch(DISPATCH_PROPS.NEW(jobLocation, user));
+    if (!yoursState.path)
+      yoursDispatch(DISPATCH_PROPS.YOURS(jobLocation, user));
+    if (!pastState.path) pastDispatch(DISPATCH_PROPS.PAST(jobLocation));
   }
 
-  return <main>{contents}</main>;
+  return (
+    <main>
+      <LocationFilter />
+      {contents}
+    </main>
+  );
 };
 
 JobsContainer.propTypes = {

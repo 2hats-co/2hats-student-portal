@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -75,6 +75,7 @@ const App = () => {
   const authUser = useAuth();
   const [userDocState, userDocDispatch] = useDocument({});
   const [profileDocState, profileDocDispatch] = useDocument({});
+  const [jobLocation, setJobLocation] = useState();
 
   useGlobalStyles();
 
@@ -106,6 +107,8 @@ const App = () => {
             UID: authUser ? authUser.uid : null,
             user: userDocState.doc,
             profile: profileDocState.doc,
+            jobLocation,
+            setJobLocation,
           }}
         >
           <Router>

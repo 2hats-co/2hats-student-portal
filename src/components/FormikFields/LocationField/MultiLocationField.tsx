@@ -16,7 +16,7 @@ import {
 } from '@bit/twohats.common.constants';
 
 export interface IMultiLocationFieldProps extends IStyledTextFieldProps {
-  /** Multiple field: display All cities in country option */
+  /** Display All cities in country option */
   showAll?: boolean;
   /** Display Other city in country option */
   showOther?: boolean;
@@ -96,17 +96,17 @@ const MultiLocationField: React.FunctionComponent<IMultiLocationFieldProps> = ({
         </MenuItem>
       ))}
 
-      {(showOther || showAll) && <Divider className={classes.divider} />}
+      {(showAll || showOther) && <Divider className={classes.divider} />}
 
       {showAll && (
-        <MenuItem key={CITIES_ALL_AU} value={CITIES_ALL_AU}>
+        <MenuItem value={CITIES_ALL_AU}>
           <ListItemCheckBox fieldValue={fieldValue} option={CITIES_ALL_AU} />
           All cities in Australia
         </MenuItem>
       )}
 
       {showOther && (
-        <MenuItem key={CITIES_OTHER_AU} value={CITIES_OTHER_AU}>
+        <MenuItem value={CITIES_OTHER_AU}>
           <ListItemCheckBox fieldValue={fieldValue} option={CITIES_OTHER_AU} />
           Other city in Australia
         </MenuItem>

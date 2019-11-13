@@ -24,10 +24,21 @@ import { DocWithId, UsersDoc, ProfilesDoc } from '@bit/twohats.common.db-types';
  * for more details.
  */
 type UserContextType = {
+  /** Firebase Authentication user data */
   authUser?: undefined | null | firebase.User;
+  /** UID from Firebase Auth */
   UID?: firebase.User['uid'] | null;
+  /** User document from listener */
   user?: DocWithId<UsersDoc>;
+  /** Profile document from listener */
   profile?: DocWithId<ProfilesDoc>;
+  /**
+   * Global location setting for viewing jobs. Set in `JobsContainer`.
+   * [See `LocationFilter` for more info.](#locationfilter)
+   */
+  jobLocation?: { city: string; country: string };
+  /** Global function to update global location setting */
+  setJobLocation?: (location: { city: string; country: string }) => void;
 };
 
 const UserContext = React.createContext<UserContextType>({});

@@ -31,6 +31,8 @@ interface IBackButtonProps extends RouteComponentProps {
  *
  * Uses `getBackButtonRoute` to get proper back button route.
  *
+ * Registers the `back-button` class to the document body when it’s shown.
+ *
  * ### Back vs. up
  *
  * Because of the [caveat in `HistoryProvider`](#caveat), this button can act
@@ -47,8 +49,12 @@ const BackButton: React.FunctionComponent<IBackButtonProps> = ({
 
   const historyStack = useContext(HistoryContext);
   const backButtonRoute = getBackButtonRoute(historyStack, location);
+  const backButtonHidden = hideBackButton(historyStack, location);
 
-  if (hideBackButton(historyStack, location)) return null;
+  // Register back button display state to document body
+  document.body.classList.toggle('back-button', !backButtonHidden);
+
+  if (backButtonHidden) return null;
 
   return (
     <Button

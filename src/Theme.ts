@@ -245,6 +245,14 @@ const themeCommons = {
       label: { padding: '8px 0 8px 8px' },
     },
 
+    // No margin for dense FormControl
+    MuiFormControl: {
+      marginDense: {
+        marginTop: 0,
+        marginBottom: 0,
+      },
+    },
+
     // Neutral slider background – same as FilledInput
     MuiSlider: {
       rail: {

@@ -59,18 +59,12 @@ export interface ILocationFieldProps extends IStyledTextFieldProps {
  */
 const LocationField: React.FunctionComponent<ILocationFieldProps> = ({
   multiple = false,
-  showAll,
-  showOther,
   ...restProps
 }) =>
   multiple ? (
-    <MultiLocationField
-      showAll={showAll}
-      showOther={showOther}
-      {...restProps}
-    />
+    <MultiLocationField {...restProps} />
   ) : (
-    <SingleLocationField showOther={showOther} {...restProps} />
+    <SingleLocationField {...restProps} />
   );
 
 export default LocationField;
