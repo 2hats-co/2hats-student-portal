@@ -80,6 +80,8 @@ const useStyles = makeStyles(theme =>
     },
     title: { lineHeight: '24px' },
 
+    location: { marginBottom: theme.spacing(1) },
+
     skillsList: { marginTop: theme.spacing(2) },
 
     cardActions: {
@@ -100,6 +102,8 @@ export interface ILoadingCardProps {
   hideMedia?: boolean;
   /** Number of rows for skillsList */
   maxSkills?: number;
+  /** Optionally, render a placeholder for location */
+  showLocation?: string;
 }
 
 /**
@@ -112,6 +116,7 @@ const LoadingCard: React.FunctionComponent<ILoadingCardProps> = ({
   style,
   hideMedia = false,
   maxSkills = 2,
+  showLocation = false,
 }) => {
   const classes = useStyles();
 
@@ -143,6 +148,19 @@ const LoadingCard: React.FunctionComponent<ILoadingCardProps> = ({
             &nbsp;
           </Typography>
         </div>
+
+        {/* Location */}
+        {showLocation && (
+          <Typography
+            variant="overline"
+            component="div"
+            gutterBottom
+            className={clsx(classes.location, classes.animated)}
+            style={{ width: '30%' }}
+          >
+            &nbsp;
+          </Typography>
+        )}
 
         {/* Description */}
         <div style={{ height: 80 }}>

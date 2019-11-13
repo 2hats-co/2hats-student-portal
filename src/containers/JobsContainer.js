@@ -87,7 +87,7 @@ const JobsContainer = ({ match, location }) => {
         newDispatch({ type: 'more' });
       }}
       hasMore={newState.documents.length === newState.limit}
-      LoadingCardProps={{ hideMedia: true }}
+      LoadingCardProps={{ hideMedia: true, showLocation: true }}
       hideIfEmpty
     />
   );
@@ -103,7 +103,7 @@ const JobsContainer = ({ match, location }) => {
         yoursDispatch({ type: 'more' });
       }}
       hasMore={yoursState.documents.length === yoursState.limit}
-      LoadingCardProps={{ hideMedia: true }}
+      LoadingCardProps={{ hideMedia: true, showLocation: true }}
       animationOffset={2}
       hideIfEmpty
     />
@@ -120,7 +120,7 @@ const JobsContainer = ({ match, location }) => {
         pastDispatch({ type: 'more' });
       }}
       hasMore={pastState.documents.length === pastState.limit}
-      LoadingCardProps={{ hideMedia: true }}
+      LoadingCardProps={{ hideMedia: true, showLocation: true }}
       animationOffset={1}
       filterIds={user.touchedJobs}
       deprioritiseByIndustry

@@ -219,6 +219,9 @@ export const generateJobCard = (
   else if (moment().diff(data.createdAt.toDate(), 'weeks') < 2)
     status = { label: 'New', variant: 'new' };
 
+  // TODO: Remove this workaround when bit dbTypes are fixed
+  const _data = data as { [key: string]: any };
+
   return {
     id: data.id,
     title: data.title,
@@ -226,6 +229,7 @@ export const generateJobCard = (
     industry: data.industry,
     time: moment(data.closingDate.toDate()).format('D MMMM'),
 
+    location: _data.location ? _data.location.city : '',
     description: data.companyDescription || '',
 
     skills: data.skillsRequired || [],

@@ -76,6 +76,11 @@ const useStyles = makeStyles(theme =>
     },
     title: { lineHeight: '24px' },
 
+    location: {
+      color: theme.palette.text.disabled,
+      marginBottom: theme.spacing(1),
+    },
+
     cardActions: {
       boxSizing: 'border-box',
       height: 50,
@@ -112,6 +117,8 @@ export interface IOneCardTwoProps {
   /** Used to display approximate duration or closing date */
   time: React.ReactNode;
 
+  /** City name. Used for jobs */
+  location?: React.ReactNode;
   /** Shows the description as plain text. Strips HTML tags */
   description: React.ReactNode;
 
@@ -148,6 +155,7 @@ const OneCardTwo: React.FC<IOneCardTwoProps> = ({
   title,
   industry,
   time,
+  location,
   description,
   skills,
   skillsHeader,
@@ -212,6 +220,17 @@ const OneCardTwo: React.FC<IOneCardTwoProps> = ({
               <CardIcon icon={icon} industry={industry} />
             </Grid>
           </Grid>
+
+          {/* Location */}
+          {location && (
+            <Typography
+              variant="overline"
+              className={classes.location}
+              paragraph
+            >
+              {location}
+            </Typography>
+          )}
 
           {/* Description */}
           <CardDescription description={description} />
