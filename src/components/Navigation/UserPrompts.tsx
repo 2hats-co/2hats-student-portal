@@ -8,7 +8,7 @@ import useCollection from 'hooks/useCollection';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { DocWithId, UsersActivityLogDoc } from '@bit/twohats.common.db-types';
 
-import { ASSESSMENT, PROFILE } from 'constants/routes';
+import { ASSESSMENT, PROFILE, PROFILE_LOCATION } from 'constants/routes';
 
 import { getDocsFromQuery, updateDoc } from 'utilities/firestore';
 
@@ -18,11 +18,17 @@ import { getDocsFromQuery, updateDoc } from 'utilities/firestore';
  * First, checks if they have any submissions with unviewed feedback.
  *
  * If not, checks if the user has finished completing their profile
- * (currently, if they have their mobile number and resume). Then, checks
- * if they have been prompted to do so within the last 5 sign ins.
+ * (currently, if they have their mobile number, résumé, and location).
+ * Then, checks if they have been prompted to do so within the last 5 sign ins.
+ *
+ * If they have been prompted to complete their profile **but** have not
+ * set their location, then prompt them to do that; but only if they have not
+ * been prompted to do so within the last 5 sign ins.
  */
 const UserPrompts: React.FunctionComponent = () => {
   const { UID, profile } = useUser();
+  // TODO: Remove this workaround when bit dbTypes is fixed
+  const _profile = profile as { [key: string]: any };
 
   // Check for any unviewed feedback
   const [unviewedFeedbackState] = useCollection({
@@ -59,12 +65,30 @@ const UserPrompts: React.FunctionComponent = () => {
   // Display nothing until we have the user’s profile
   if (!profile) return null;
 
-  // Display nothing if the user has completed their profile
+  // Display nothing if the user has completed their profile:
+  // Ensure résumé uploaded
+  const isResumeUploaded =
+    profile.resume && profile.resume.url && profile.resume.name;
+  // Ensure mobileNumber exists
+  const isMobileNumberSet =
+    profile.mobileNumber && profile.mobileNumber.length > 0;
+  // Ensure user’s home location exists
+  const isLocationHomeSet =
+    _profile.locationHome &&
+    _profile.locationHome.city &&
+    _profile.locationHome.country;
+  // Ensure user’s work location exists
+  const isLocationWorkSet =
+    _profile.locationWork &&
+    _profile.locationWork.length > 0 &&
+    _profile.locationWork[0].city &&
+    _profile.locationWork[0].country;
+
   if (
-    profile.resume &&
-    profile.resume.url &&
-    profile.mobileNumber &&
-    profile.mobileNumber.length > 0
+    isResumeUploaded &&
+    isMobileNumberSet &&
+    isLocationHomeSet &&
+    isLocationWorkSet
   )
     return null;
 
@@ -84,7 +108,7 @@ const UserPrompts: React.FunctionComponent = () => {
   }
 
   // Check if the user has been prompted within the last 5 sign ins
-  const hasBeenPromptedRecently = lastFiveSignIns.reduce(
+  const promptedCompleteProfile = lastFiveSignIns.reduce(
     (acc: boolean, cur: DocWithId<UsersActivityLogDoc>) => {
       if (acc) return true;
       if (cur.data && cur.data.promptedCompleteProfile) return true;
@@ -93,26 +117,60 @@ const UserPrompts: React.FunctionComponent = () => {
     false
   );
 
-  // If they have, display nothing
-  if (hasBeenPromptedRecently) return null;
+  // If they have not been prompted to complete their profile
+  if (!promptedCompleteProfile) {
+    // Mark the current sign in as having been prompted
+    if (!!lastFiveSignIns[0])
+      updateDoc(
+        `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.activityLog}`,
+        lastFiveSignIns[0].id,
+        { data: { promptedCompleteProfile: true } }
+      );
 
-  // If they haven’t mark the current sign in as having been prompted
-  if (!!lastFiveSignIns[0])
-    updateDoc(
-      `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.activityLog}`,
-      lastFiveSignIns[0].id,
-      { data: { promptedCompleteProfile: true } }
+    // Show the prompt to complete profile
+    return (
+      <Prompt
+        message="Your profile needs some love. Fill in some info and shine bright… like your future!"
+        route={PROFILE}
+        routeLabel="Let’s Do It!"
+        elementId="profile"
+      />
     );
+  }
 
-  // Show the prompt to complete profile
-  return (
-    <Prompt
-      message="Your profile needs some love. Fill in some info and shine bright… like your future!"
-      route={PROFILE}
-      routeLabel="Let’s Do It!"
-      elementId="profile"
-    />
+  // At this point, the user does not have their location set.
+  // Check if the user has been prompted to set location within the last 5 sign ins
+  const promptedSetLocation = lastFiveSignIns.reduce(
+    (acc: boolean, cur: DocWithId<UsersActivityLogDoc>) => {
+      if (acc) return true;
+      if (cur.data && cur.data.promptedSetLocation) return true;
+      return false;
+    },
+    false
   );
+
+  if (!promptedSetLocation && (!isLocationHomeSet || !isLocationWorkSet)) {
+    // Mark the current sign in as having been prompted to set location
+    if (!!lastFiveSignIns[0])
+      updateDoc(
+        `${COLLECTIONS.users}/${UID!}/${COLLECTIONS.activityLog}`,
+        lastFiveSignIns[0].id,
+        { data: { promptedSetLocation: true } }
+      );
+
+    // Show the prompt to set location
+    return (
+      <Prompt
+        message="You’re going places! Update your work location preferences to get more relevant results."
+        route={PROFILE + '#' + PROFILE_LOCATION}
+        routeLabel="Let’s Do It!"
+        elementId="profile"
+      />
+    );
+  }
+
+  // User has been prompted to set their location but the still have not
+  return null;
 };
 
 export default UserPrompts;
