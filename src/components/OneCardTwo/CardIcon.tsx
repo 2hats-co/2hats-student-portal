@@ -52,6 +52,8 @@ export interface CardIconProps {
   /** Supply `'industry'` to show industry icon or an image URL */
   icon?: 'industry' | string;
   industry?: INDUSTRIES | INDUSTRIES[];
+  /** Alt tag for img-based Avatars */
+  alt?: string;
 }
 
 /**
@@ -63,7 +65,12 @@ export interface CardIconProps {
  * If there are multiple industries, the primary industry (`industry[0]`)
  * overlaps the secondary.
  */
-const CardIcon: React.FC<CardIconProps> = ({ className, icon, industry }) => {
+const CardIcon: React.FC<CardIconProps> = ({
+  className,
+  icon,
+  industry,
+  alt,
+}) => {
   const classes = useStyles();
 
   // Show industry icon
@@ -106,6 +113,8 @@ const CardIcon: React.FC<CardIconProps> = ({ className, icon, industry }) => {
         img: classes.img,
       }}
       src={icon}
+      alt={alt}
+      title={alt}
     />
   );
 };

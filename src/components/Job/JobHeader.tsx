@@ -62,7 +62,11 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
       >
         {jobData.image && (
           <Grid item>
-            <CardIcon className={classes.jobLogo} icon={jobData.image.url} />
+            <CardIcon
+              className={classes.jobLogo}
+              icon={jobData.image.url}
+              alt={jobData.companyName}
+            />
           </Grid>
         )}
 
