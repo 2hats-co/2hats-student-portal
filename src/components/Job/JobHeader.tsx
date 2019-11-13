@@ -78,18 +78,26 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
             {jobData.title}
           </Typography>
 
-          <Grid container alignItems="center">
-            <CardIcon
-              className={classes.industryIcon}
-              industry={jobData.industry}
-              icon="industry"
-            />
-            <Typography variant="overline" color="textSecondary">
-              {getIndustry(jobData.industry)}&nbsp;•&nbsp;
-              {moment(jobData.closingDate.toDate()).format('D MMM')}
-              &nbsp;•&nbsp;
-              {_jobData.location && _jobData.location.city}
-            </Typography>
+          <Grid container alignItems="flex-start">
+            <Grid item>
+              <CardIcon
+                className={classes.industryIcon}
+                industry={jobData.industry}
+                icon="industry"
+              />
+            </Grid>
+
+            <Grid item xs>
+              <Typography variant="overline" color="textSecondary">
+                {getIndustry(jobData.industry)} •&nbsp;
+                {moment(jobData.closingDate.toDate())
+                  .format('D MMM')
+                  .replace(' ', '\xa0') // Prevent date wrapping across 2 lines
+                }{' '}
+                •&nbsp;
+                {_jobData.location && _jobData.location.city}
+              </Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>
