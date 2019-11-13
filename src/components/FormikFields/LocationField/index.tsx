@@ -8,15 +8,12 @@ import MultiLocationField from './MultiLocationField';
 import SingleLocationField from './SingleLocationField';
 
 export const SingleLocationFieldSchema = Yup.object()
-  .shape({
-    city: Yup.string().required('City is required'),
-    country: Yup.string().required('Country is required'),
-  })
-  .required('Location is required');
+  .shape({ city: Yup.string(), country: Yup.string() })
+  .noUnknown(true, 'Location is required');
 
-export const MultiLocationFieldSchema = Yup.array().of(
-  SingleLocationFieldSchema
-);
+export const MultiLocationFieldSchema = Yup.array()
+  .of(SingleLocationFieldSchema)
+  .min(1, 'Location is required');
 
 /**
  * Styles common to `SingleLocationField` and `MultiLocationField`
