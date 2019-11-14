@@ -1011,10 +1011,10 @@
   dependencies:
     firebase "^6.2.4"
 
-"@bit/twohats.common.db-types@0.0.74":
-  version "0.0.74"
-  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.74.tgz#402471b02dbf5b687ac681e3a184c9d28d0f85ae"
-  integrity sha1-QCRxsC2/W2h6xoHjoYTJ0o0Pha4=
+"@bit/twohats.common.db-types@^0.0.81":
+  version "0.0.81"
+  resolved "https://node.bit.dev/twohats.common.db-types/-/twohats.common.db-types-0.0.81.tgz#50ebe20393675fcf333a36f5cd3428198f478b65"
+  integrity sha1-UOviA5NnX88zOjb1zTQoGY9Hi2U=
   dependencies:
     "@bit/twohats.common.constants" "1.0.31"
 
