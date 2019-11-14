@@ -52,9 +52,6 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
   // Get difference between today and closingDate
   const { jobClosed, diffDays } = getJobAvailability(jobData);
 
-  // TODO: Remove this workaround when bit dbTypes are fixed
-  const _jobData = jobData as { [key: string]: any };
-
   return (
     <>
       <Grid
@@ -95,7 +92,7 @@ const JobHeader: React.FunctionComponent<IJobHeaderProps> = ({ jobData }) => {
                   .replace(' ', '\xa0') // Prevent date wrapping across 2 lines
                 }{' '}
                 •&nbsp;
-                {_jobData.location && _jobData.location.city}
+                {jobData.location && jobData.location.city}
               </Typography>
             </Grid>
           </Grid>

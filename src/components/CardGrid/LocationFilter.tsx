@@ -70,11 +70,10 @@ const LocationFilter: React.FunctionComponent = () => {
     setJobLocation,
   } = useUser();
 
-  // TODO: Remove this workaround when bit dbTypes is fixed
-  const _profile = profile as { [key: string]: any };
-
   // TODO: Fix the edge case where the user updates their location on the
   // profile page after they’ve gone
+
+  if (!profile) return null;
 
   // Get initial location from profile. Default to showing all
   let initialLocation: typeof CITIES[number] = JSON.parse(CITIES_ALL_AU);
@@ -82,18 +81,18 @@ const LocationFilter: React.FunctionComponent = () => {
   if (!!jobLocationFromContext) initialLocation = jobLocationFromContext;
   // Try using locationWork
   else if (
-    Array.isArray(_profile.locationWork) &&
-    _profile.locationWork.length > 0
+    Array.isArray(profile.locationWork) &&
+    profile.locationWork.length > 0
   ) {
     // If only one location, use that
-    if (_profile.locationWork.length === 1)
-      initialLocation = _profile.locationWork[0];
+    if (profile.locationWork.length === 1)
+      initialLocation = profile.locationWork[0];
     // Otherwise, show all
-    else if (_profile.locationWork.length > 1)
+    else if (profile.locationWork.length > 1)
       initialLocation = JSON.parse(CITIES_ALL_AU);
-  } else if (!!_profile.locationHome) {
+  } else if (!!profile.locationHome) {
     // Otherwise, use locationHome
-    initialLocation = _profile.locationHome;
+    initialLocation = profile.locationHome;
   }
 
   // On change, set location to global context and don’t show a snackbar

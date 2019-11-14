@@ -71,10 +71,6 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
   const classes = useStyles();
   const { user } = useUser();
 
-  // Temporarily cast profile while bit dbTypes are broken
-  // TODO: Remove this workaround
-  const _profile = profileData as { [key: string]: any };
-
   const initialValues = {
     firstName: user!.firstName,
     lastName: user!.lastName,
@@ -98,8 +94,8 @@ const ProfileForm: React.FunctionComponent<IProfileFormProps> = ({
     portfolioFile: profileData.portfolioFile,
     portfolioExternal: profileData.portfolioExternal || '',
 
-    locationWork: _profile.locationWork || [],
-    locationHome: _profile.locationHome || '',
+    locationWork: profileData.locationWork || [],
+    locationHome: profileData.locationHome || '',
   };
 
   return (

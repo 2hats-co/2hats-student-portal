@@ -41,10 +41,7 @@ const OnboardingA3: React.FC = () => {
   const classes = useStyles();
   const [disableCta, setDisableCta] = useState(true);
 
-  const { UID, profile: _profile } = useUser();
-  // Temporarily cast profile while bit dbTypes are broken
-  // TODO: Remove this workaround
-  const profile = _profile as { [key: string]: any };
+  const { UID, profile } = useUser();
 
   // Handle autosaving the user’s location
   const handleSave = async (debouncedValue: string) => {
@@ -52,6 +49,7 @@ const OnboardingA3: React.FC = () => {
 
     // Check if new values are different before writing to Firestore
     if (
+      !profile ||
       JSON.stringify(values.locationWork) !==
         JSON.stringify(profile.locationWork) ||
       JSON.stringify(values.locationHome) !==

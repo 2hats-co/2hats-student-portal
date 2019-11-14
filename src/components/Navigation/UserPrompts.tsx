@@ -27,8 +27,6 @@ import { getDocsFromQuery, updateDoc } from 'utilities/firestore';
  */
 const UserPrompts: React.FunctionComponent = () => {
   const { UID, profile } = useUser();
-  // TODO: Remove this workaround when bit dbTypes is fixed
-  const _profile = profile as { [key: string]: any };
 
   // Check for any unviewed feedback
   const [unviewedFeedbackState] = useCollection({
@@ -74,15 +72,15 @@ const UserPrompts: React.FunctionComponent = () => {
     profile.mobileNumber && profile.mobileNumber.length > 0;
   // Ensure user’s home location exists
   const isLocationHomeSet =
-    _profile.locationHome &&
-    _profile.locationHome.city &&
-    _profile.locationHome.country;
+    profile.locationHome &&
+    profile.locationHome.city &&
+    profile.locationHome.country;
   // Ensure user’s work location exists
   const isLocationWorkSet =
-    _profile.locationWork &&
-    _profile.locationWork.length > 0 &&
-    _profile.locationWork[0].city &&
-    _profile.locationWork[0].country;
+    profile.locationWork &&
+    profile.locationWork.length > 0 &&
+    profile.locationWork[0].city &&
+    profile.locationWork[0].country;
 
   if (
     isResumeUploaded &&
