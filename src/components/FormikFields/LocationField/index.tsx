@@ -9,7 +9,8 @@ import SingleLocationField from './SingleLocationField';
 
 export const SingleLocationFieldSchema = Yup.object()
   .shape({ city: Yup.string(), country: Yup.string() })
-  .noUnknown(true, 'Location is required');
+  .strict(true)
+  .required('Location is required');
 
 export const MultiLocationFieldSchema = Yup.array()
   .of(SingleLocationFieldSchema)
