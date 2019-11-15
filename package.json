@@ -94,7 +94,6 @@
   },
   "devDependencies": {
     "@material-ui/codemod": "^4.0.1",
-    "firebase-admin": "^8.0.0",
     "husky": "^2.3.0",
     "pixelmatch": "^4.0.2",
     "pngjs": "^3.4.0",
