@@ -3,9 +3,7 @@ import clsx from 'clsx';
 
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import { useUser } from 'contexts/UserContext';
-import { CARD_COLS_MEDIA_QUERIES } from 'constants/cards';
 
-import CTDashboardButton from 'components/CuriousThing/CTDashboardButton';
 import AssessmentCards from 'components/Dashboard/AssessmentCards';
 import JobCards from 'components/Dashboard/JobCards';
 import CourseCards from 'components/Dashboard/CourseCards';
@@ -22,16 +20,6 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(3),
 
     userSelect: 'none',
-  },
-  curiousThingButton: {
-    // Full width on single-column size
-    marginTop: theme.spacing(1),
-    width: '100%',
-    // Unset for 2+ columns
-    [CARD_COLS_MEDIA_QUERIES[2]]: {
-      marginTop: 0,
-      width: 'auto',
-    },
   },
 }));
 
@@ -54,8 +42,6 @@ const DashboardContainer = () => {
         <Typography variant="button" color="textSecondary" component="p">
           Hi {user.firstName}!
         </Typography>
-
-        <CTDashboardButton className={classes.curiousThingButton} />
       </Grid>
 
       <AssessmentCards />
