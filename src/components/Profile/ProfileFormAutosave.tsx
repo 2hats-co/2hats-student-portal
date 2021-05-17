@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import reject from 'ramda/es/reject';
 import isNil from 'ramda/es/isNil';
 import equals from 'ramda/es/equals';
@@ -11,6 +11,8 @@ import useDebounce from '@bit/twohats.common.use-debounce';
 import { useUser } from 'contexts/UserContext';
 import { COLLECTIONS } from '@bit/twohats.common.constants';
 import { updateDoc } from 'utilities/firestore';
+
+import { SnackContext } from '../../snackContext';
 
 const useStyles = makeStyles(theme =>
   createStyles({
@@ -42,6 +44,7 @@ const ProfileFormAutosave: React.FunctionComponent<
   IProfileFormAutosaveProps
 > = ({ profileData, ...propsToDebounce }) => {
   const classes = useStyles();
+  const snack = useContext(SnackContext);
 
   const { user, UID, authUser } = useUser();
   // Store a copy of values, errors that only updates every 1s (1000ms)
@@ -107,12 +110,14 @@ const ProfileFormAutosave: React.FunctionComponent<
         delete filteredValues[key];
     });
 
-    if (Object.keys(filteredValues).length > 0)
-      updateDoc(COLLECTIONS.profiles, UID!, filteredValues).then(() => {
-        console.log('Updated user profile', filteredValues);
-        // And show the snackbar
-        setOpenSnackbar(true);
-      });
+    if (Object.keys(filteredValues).length > 0) {
+      // updateDoc(COLLECTIONS.profiles, UID!, filteredValues).then(() =>
+      console.log('Updated user profile', filteredValues);
+      // And show the snackbar
+      setOpenSnackbar(true);
+      snack.open({ message: 'TEST' });
+    }
+    // );
   }, [debouncedProps]);
 
   // Open/close snackbar when saved successfully

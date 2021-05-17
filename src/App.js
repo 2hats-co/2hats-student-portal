@@ -42,6 +42,9 @@ import CourseRedirectContainer from 'containers/CourseRedirectContainer';
 import DetailedViewContainer from 'containers/DetailedViewContainer';
 import ProfileContainer from 'containers/ProfileContainer';
 
+import { SnackProvider } from './SnackProvider';
+import Snack from './Snack';
+
 const AuthenticationContainer = lazy(() =>
   import(
     'containers/AuthenticationContainer' /* webpackChunkName: "AuthenticationContainer" */
@@ -113,205 +116,213 @@ const App = () => {
         >
           <Router>
             <HistoryProvider>
-              <div className="app">
-                <TagTracker />
-                <CompletedRegistrationTracker />
-                <Suspense
-                  fallback={<LoadingScreen message="Reticulating splines…" />}
-                >
-                  <Switch>
-                    <Route
-                      exact
-                      path={[ROUTES.SIGN_UP, ROUTES.SIGN_IN]}
-                      render={props => (
-                        <AuthenticationContainer isPublic {...props} />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path={ROUTES.LOG_OUT}
-                      render={props => (
-                        <AuthenticationContainer
-                          isPublic
-                          view={AUTHENTICATION_CONTAINER.logout}
-                          {...props}
-                        />
-                      )}
-                    />
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.NO_PASSWORD}
-                      render={props => (
-                        <AuthenticationContainer
-                          isPublic
-                          view={AUTHENTICATION_CONTAINER.noPassword}
-                          {...props}
-                        />
-                      )}
-                    />
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.CREATE_PASSWORD}
-                      render={props => (
-                        <AuthenticationContainer
-                          isPublic
-                          view={AUTHENTICATION_CONTAINER.createPassword}
-                          {...props}
-                        />
-                      )}
-                    />
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.RESET_PASSWORD}
-                      render={props => (
-                        <AuthenticationContainer
-                          isPublic
-                          view={AUTHENTICATION_CONTAINER.resetPassword}
-                          {...props}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path={ROUTES.VALIDATE_EMAIL}
-                      render={props => (
-                        <AuthenticationContainer
-                          isPublic
-                          view={AUTHENTICATION_CONTAINER.validateEmail}
-                          {...props}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path={ROUTES.SPEEDY_SIGN_UP}
-                      render={props => (
-                        <SpeedySignupContainer
-                          isPublic
-                          authUser={authUser}
-                          {...props}
-                        />
-                      )}
-                    />
-                    <Route
-                      exact
-                      path={[
-                        ROUTES.SMART_LINK,
-                        ROUTES.SMART_LINK.toLowerCase(),
-                      ]}
-                      render={props => <SmartLinkContainer {...props} />}
-                    />
-
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.ACCOUNT_DELETED}
-                      render={props => (
-                        <Navigation limited>
-                          <AccountDeletedContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
-
-                    {userDocState.doc && userDocState.doc.deleteRequested && (
+              <SnackProvider>
+                <div className="app">
+                  <TagTracker />
+                  <CompletedRegistrationTracker />
+                  <Suspense
+                    fallback={<LoadingScreen message="Reticulating splines…" />}
+                  >
+                    <Switch>
                       <Route
-                        render={() => <Redirect to={ROUTES.ACCOUNT_DELETED} />}
+                        exact
+                        path={[ROUTES.SIGN_UP, ROUTES.SIGN_IN]}
+                        render={props => (
+                          <AuthenticationContainer isPublic {...props} />
+                        )}
                       />
-                    )}
+                      <Route
+                        exact
+                        path={ROUTES.LOG_OUT}
+                        render={props => (
+                          <AuthenticationContainer
+                            isPublic
+                            view={AUTHENTICATION_CONTAINER.logout}
+                            {...props}
+                          />
+                        )}
+                      />
+                      <ProtectedRoute
+                        exact
+                        path={ROUTES.NO_PASSWORD}
+                        render={props => (
+                          <AuthenticationContainer
+                            isPublic
+                            view={AUTHENTICATION_CONTAINER.noPassword}
+                            {...props}
+                          />
+                        )}
+                      />
+                      <ProtectedRoute
+                        exact
+                        path={ROUTES.CREATE_PASSWORD}
+                        render={props => (
+                          <AuthenticationContainer
+                            isPublic
+                            view={AUTHENTICATION_CONTAINER.createPassword}
+                            {...props}
+                          />
+                        )}
+                      />
+                      <ProtectedRoute
+                        exact
+                        path={ROUTES.RESET_PASSWORD}
+                        render={props => (
+                          <AuthenticationContainer
+                            isPublic
+                            view={AUTHENTICATION_CONTAINER.resetPassword}
+                            {...props}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path={ROUTES.VALIDATE_EMAIL}
+                        render={props => (
+                          <AuthenticationContainer
+                            isPublic
+                            view={AUTHENTICATION_CONTAINER.validateEmail}
+                            {...props}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path={ROUTES.SPEEDY_SIGN_UP}
+                        render={props => (
+                          <SpeedySignupContainer
+                            isPublic
+                            authUser={authUser}
+                            {...props}
+                          />
+                        )}
+                      />
+                      <Route
+                        exact
+                        path={[
+                          ROUTES.SMART_LINK,
+                          ROUTES.SMART_LINK.toLowerCase(),
+                        ]}
+                        render={props => <SmartLinkContainer {...props} />}
+                      />
 
-                    <ProtectedRoute
-                      exact
-                      path={[ROUTES.ONBOARDING, ROUTES.ONBOARDING + '/:stage']}
-                      render={props => <OnboardingContainer {...props} />}
-                    />
+                      <ProtectedRoute
+                        exact
+                        path={ROUTES.ACCOUNT_DELETED}
+                        render={props => (
+                          <Navigation limited>
+                            <AccountDeletedContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
 
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.DASHBOARD}
-                      render={props => (
-                        <Navigation>
-                          <DashboardContainer {...props} />
-                        </Navigation>
+                      {userDocState.doc && userDocState.doc.deleteRequested && (
+                        <Route
+                          render={() => (
+                            <Redirect to={ROUTES.ACCOUNT_DELETED} />
+                          )}
+                        />
                       )}
-                    />
 
-                    <ProtectedRoute
-                      exact
-                      path={[ROUTES.PROFILE, ROUTES.PROFILE + '/:subroute']}
-                      render={props => (
-                        <Navigation>
-                          <ProfileContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
+                      <ProtectedRoute
+                        exact
+                        path={[
+                          ROUTES.ONBOARDING,
+                          ROUTES.ONBOARDING + '/:stage',
+                        ]}
+                        render={props => <OnboardingContainer {...props} />}
+                      />
 
-                    <ProtectedRoute
-                      exact
-                      path={[ROUTES.JOBS, ROUTES.JOBS + '/:filter']}
-                      render={props => (
-                        <Navigation>
-                          <JobsContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
+                      <ProtectedRoute
+                        exact
+                        path={ROUTES.DASHBOARD}
+                        render={props => (
+                          <Navigation>
+                            <DashboardContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
 
-                    <ProtectedRoute
-                      exact
-                      path={[
-                        ROUTES.ASSESSMENTS,
-                        ROUTES.ASSESSMENTS + '/:filter',
-                      ]}
-                      render={props => (
-                        <Navigation>
-                          <AssessmentsContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
-                    <ProtectedRoute
-                      exact
-                      path={[
-                        ROUTES.ASSESSMENT,
-                        ROUTES.ASSESSMENT + '/:id',
-                        ROUTES.JOB,
-                        ROUTES.JOB + '/:id',
-                        ROUTES.JOB + '/:id' + ROUTES.JOB_APPLICATION,
-                      ]}
-                      render={props => (
-                        <Navigation>
-                          <DetailedViewContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
+                      <ProtectedRoute
+                        exact
+                        path={[ROUTES.PROFILE, ROUTES.PROFILE + '/:subroute']}
+                        render={props => (
+                          <Navigation>
+                            <ProfileContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
 
-                    <ProtectedRoute
-                      exact
-                      path={[ROUTES.COURSES, ROUTES.COURSES + '/:filter']}
-                      render={props => (
-                        <Navigation>
-                          <CoursesContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
+                      <ProtectedRoute
+                        exact
+                        path={[ROUTES.JOBS, ROUTES.JOBS + '/:filter']}
+                        render={props => (
+                          <Navigation>
+                            <JobsContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
 
-                    <ProtectedRoute
-                      exact
-                      path={ROUTES.COURSE_REDIRECT}
-                      render={props => (
-                        <Navigation>
-                          <CourseRedirectContainer {...props} />
-                        </Navigation>
-                      )}
-                    />
+                      <ProtectedRoute
+                        exact
+                        path={[
+                          ROUTES.ASSESSMENTS,
+                          ROUTES.ASSESSMENTS + '/:filter',
+                        ]}
+                        render={props => (
+                          <Navigation>
+                            <AssessmentsContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
+                      <ProtectedRoute
+                        exact
+                        path={[
+                          ROUTES.ASSESSMENT,
+                          ROUTES.ASSESSMENT + '/:id',
+                          ROUTES.JOB,
+                          ROUTES.JOB + '/:id',
+                          ROUTES.JOB + '/:id' + ROUTES.JOB_APPLICATION,
+                        ]}
+                        render={props => (
+                          <Navigation>
+                            <DetailedViewContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
 
-                    <Route
-                      exact
-                      path={'/'}
-                      render={props => <Landing {...props} />}
-                    />
+                      <ProtectedRoute
+                        exact
+                        path={[ROUTES.COURSES, ROUTES.COURSES + '/:filter']}
+                        render={props => (
+                          <Navigation>
+                            <CoursesContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
 
-                    <Route render={props => <FourOhFour {...props} />} />
-                  </Switch>
-                </Suspense>
-              </div>
+                      <ProtectedRoute
+                        exact
+                        path={ROUTES.COURSE_REDIRECT}
+                        render={props => (
+                          <Navigation>
+                            <CourseRedirectContainer {...props} />
+                          </Navigation>
+                        )}
+                      />
+
+                      <Route
+                        exact
+                        path={'/'}
+                        render={props => <Landing {...props} />}
+                      />
+
+                      <Route render={props => <FourOhFour {...props} />} />
+                    </Switch>
+                  </Suspense>
+                </div>
+                <Snack />
+              </SnackProvider>
             </HistoryProvider>
           </Router>
         </UserContext.Provider>
